@@ -1,8 +1,8 @@
 .DEFAULT_GOAL := help
 
 # Paths for Docker named volumes
-AM_PIPELINE_DATA ?= $(HOME)/.am/am-pipeline-data
-SS_LOCATION_DATA ?= $(HOME)/.am/ss-location-data
+AM_PIPELINE_DATA ?= $(HOME)/.a3m/am-pipeline-data
+SS_LOCATION_DATA ?= $(HOME)/.a3m/ss-location-data
 
 
 define compose_amauat
