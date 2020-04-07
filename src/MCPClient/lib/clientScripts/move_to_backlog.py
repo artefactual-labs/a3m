@@ -2,9 +2,8 @@
 
 """Index transfer, create BagIt and send to backlog.
 
-The transfer is indexed in Elasticsearch and converted into a BagIt. Finally,
-we request to Storage Service to copy the transfer in the backlog location.
-The local copy is removed.
+The transfer is converted into a BagIt and copied to backlog by Storage
+Service.
 
 PREMIS events are created after this job runs as part of the workflow.
 """
@@ -26,7 +25,6 @@ from django.db.models import Q
 from archivematicaFunctions import get_setting
 from custom_handlers import get_script_logger
 from databaseFunctions import insertIntoEvents
-import elasticSearchFunctions
 from main.models import Agent, File, UnitVariable
 import storageService as storage_service
 
@@ -69,18 +67,6 @@ def _create_file(
             'Object returned by Storage Service has status "FAIL"'
         )
     return new_file
-
-
-def _index_transfer(job, transfer_id, transfer_path):
-    """Index the transfer and its files in Elasticsearch."""
-    if "transfers" not in mcpclient_settings.SEARCH_ENABLED:
-        logger.info("Skipping indexing:" " Transfers indexing is currently disabled.")
-        return
-    elasticSearchFunctions.setup_reading_from_conf(mcpclient_settings)
-    client = elasticSearchFunctions.get_client()
-    elasticSearchFunctions.index_transfer_and_files(
-        client, transfer_id, transfer_path, printfn=job.pyprint
-    )
 
 
 def _create_bag(transfer_id, transfer_path):
@@ -186,9 +172,6 @@ def main(job, transfer_id, transfer_path, created_at):
 
     logger.info("Creating bag...")
     _create_bag(transfer_id, transfer_path)
-
-    logger.info("Indexing the transfer...")
-    _index_transfer(job, transfer_id, transfer_path)
 
     logger.info("Calculating size...")
     size = 0

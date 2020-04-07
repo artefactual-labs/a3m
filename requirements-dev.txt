@@ -24,7 +24,6 @@ django-autoslug==1.9.3    # via -r requirements.txt
 django-extensions==1.1.1  # via -r requirements.txt
 django-model-utils==1.3.1  # via -r requirements.txt
 django==1.8.19            # via -r requirements.txt
-elasticsearch==6.8.1      # via -r requirements.txt
 enum34==1.1.6 ; python_version < "3.4"  # via -r requirements.txt
 filelock==3.0.12          # via tox, virtualenv
 funcsigs==1.0.2           # via mock, pytest
@@ -66,7 +65,7 @@ toml==0.10.0              # via tox
 tox==3.14.6               # via -r requirements-dev.in
 typing==3.7.4.1           # via importlib-resources
 unidecode==0.04.19        # via -r requirements.txt
-urllib3==1.25.8           # via -r requirements.txt, amclient, elasticsearch, requests
+urllib3==1.25.8           # via -r requirements.txt, amclient, requests
 vcrpy==1.13.0             # via -r requirements-dev.in
 virtualenv==20.0.16       # via tox
 wcwidth==0.1.9            # via pytest

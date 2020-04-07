@@ -98,50 +98,6 @@ class Config(object):
         raise ImproperlyConfigured(self.UNDEFINED_ATTR_MSG % attr)
 
 
-def process_search_enabled(config, section):
-    """
-    The 'search_enabled' attribute accepts four options and its value
-    may be a boolean or a string containing a list of enabled parts
-    separated by comma after it's obtained from the ConfigParser.
-    This function normalizes and verifies the value to always return a list
-    with the enabled parts. It may raise ImproperlyConfigured if the
-    string value is empty or it contains an unrecognized search part.
-    """
-    ALLOWED_SEARCH_PARTS = set(["aips", "transfers"])
-    options = [
-        {
-            "section": section,
-            "option": "disableElasticsearchIndexing",
-            "type": "iboolean",
-        },
-        {"section": section, "option": "disable_search_indexing", "type": "iboolean"},
-        {"section": section, "option": "search_enabled", "type": "boolean"},
-        {"section": section, "option": "search_enabled", "type": "string"},
-    ]
-    value = config.get_from_opts_list("search_enabled", options)
-    if isinstance(value, bool):
-        if value:
-            return ALLOWED_SEARCH_PARTS
-        else:
-            return set()
-    value = value.strip()
-    if len(value) == 0:
-        raise ImproperlyConfigured(config.UNDEFINED_ATTR_MSG % "search_enabled")
-    enabled_parts = []
-    for item in value.split(","):
-        item = item.strip()
-        if len(item) == 0:
-            continue
-        if item in ALLOWED_SEARCH_PARTS:
-            enabled_parts.append(item)
-        else:
-            raise ImproperlyConfigured(
-                '"%s" is not a recognized value for the search_enabled '
-                'attribute. Only "aips" and/or "transfers" are allowed.' % item
-            )
-    return set(enabled_parts)
-
-
 def process_watched_directory_interval(config, section):
     """Backward compatible lookup of watch_directory_interval.
     """

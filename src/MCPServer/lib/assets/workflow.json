@@ -2572,7 +2572,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "48703fad-dc44-4c8e-8f47-933df3ef6179"
+                    "link_id": "b7cf0d9a-504f-4f4e-9930-befa817d67ff"
                 }
             },
             "fallback_job_status": "Failed",
@@ -4430,45 +4430,6 @@
                 "fr": "Traiter la documentation de soumission",
                 "pt_BR": "Processar documentação de submissão",
                 "sv": "Bearbeta leveransdokumentation"
-            }
-        },
-        "48703fad-dc44-4c8e-8f47-933df3ef6179": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPName%\" \"%SIPDirectory%\" \"%SIPType%\"",
-                "execute": "indexAIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Index AIP",
-                "es": "Indexar AIP",
-                "fr": "Indexer l'AIP",
-                "pt_BR": "Índice AIP",
-                "sv": "Indexera AIP"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "b7cf0d9a-504f-4f4e-9930-befa817d67ff"
-                },
-                "179": {
-                    "job_status": "Failed",
-                    "link_id": "b7cf0d9a-504f-4f4e-9930-befa817d67ff"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
             }
         },
         "498f7a6d-1b8c-431a-aa5d-83f14f3c5e65": {

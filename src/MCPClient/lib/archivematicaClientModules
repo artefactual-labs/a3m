@@ -99,7 +99,6 @@ haspackages_v0.0 = has_packages
 failedtransfercleanup = failed_transfer_cleanup
 filetofolder_v1.0 = file_to_folder
 getaipstoragelocations_v0.0 = get_aip_storage_locations
-indexaip_v0.0 = index_aip
 createtransfermetadata_v0.0 = create_transfer_metadata
 extractcontents_v0.0 = extract_contents
 extractmaildirattachments_v0.0 = extract_maildir_attachments

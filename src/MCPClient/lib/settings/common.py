@@ -21,7 +21,7 @@ import logging
 import logging.config
 import os
 
-from appconfig import Config, process_search_enabled
+from appconfig import Config
 
 CONFIG_MAPPING = {
     # [MCPClient]
@@ -64,25 +64,6 @@ CONFIG_MAPPING = {
         "section": "MCPClient",
         "option": "archivematicaClientModules",
         "type": "string",
-    },
-    "elasticsearch_server": {
-        "section": "MCPClient",
-        "option": "elasticsearchServer",
-        "type": "string",
-    },
-    "elasticsearch_timeout": {
-        "section": "MCPClient",
-        "option": "elasticsearchTimeout",
-        "type": "float",
-    },
-    "search_enabled": {
-        "section": "MCPClient",
-        "process_function": process_search_enabled,
-    },
-    "index_aip_continue_on_error": {
-        "section": "MCPClient",
-        "option": "index_aip_continue_on_error",
-        "type": "boolean",
     },
     "capture_client_script_output": {
         "section": "MCPClient",
@@ -176,10 +157,6 @@ rejectedDirectory = %%sharedPath%%rejected/
 archivematicaClientModules = /usr/lib/archivematica/MCPClient/archivematicaClientModules
 clientScriptsDirectory = /usr/lib/archivematica/MCPClient/clientScripts/
 clientAssetsDirectory = /usr/lib/archivematica/MCPClient/assets/
-elasticsearchServer = localhost:9200
-elasticsearchTimeout = 10
-search_enabled = true
-index_aip_continue_on_error = false
 capture_client_script_output = true
 temp_dir = /var/archivematica/sharedDirectory/tmp
 removableFiles = Thumbs.db, Icon, Icon\r, .DS_Store
@@ -295,8 +272,6 @@ GEARMAN_SERVER = config.get("gearman_server")
 CLIENT_MODULES_FILE = config.get("client_modules_file")
 REMOVABLE_FILES = config.get("removable_files")
 TEMP_DIRECTORY = config.get("temp_directory")
-ELASTICSEARCH_SERVER = config.get("elasticsearch_server")
-ELASTICSEARCH_TIMEOUT = config.get("elasticsearch_timeout")
 CLAMAV_SERVER = config.get("clamav_server")
 CLAMAV_PASS_BY_STREAM = config.get("clamav_pass_by_stream")
 CLAMAV_CLIENT_TIMEOUT = config.get("clamav_client_timeout")
@@ -308,8 +283,6 @@ STORAGE_SERVICE_CLIENT_QUICK_TIMEOUT = config.get(
     "storage_service_client_quick_timeout"
 )
 AGENTARCHIVES_CLIENT_TIMEOUT = config.get("agentarchives_client_timeout")
-SEARCH_ENABLED = config.get("search_enabled")
-INDEX_AIP_CONTINUE_ON_ERROR = config.get("index_aip_continue_on_error")
 CAPTURE_CLIENT_SCRIPT_OUTPUT = config.get("capture_client_script_output")
 DEFAULT_CHECKSUM_ALGORITHM = "sha256"
 PROMETHEUS_BIND_ADDRESS = config.get("prometheus_bind_address")

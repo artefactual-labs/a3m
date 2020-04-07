@@ -14,9 +14,6 @@ django-autoslug==1.9.3
 django-model-utils==1.3.1
 pytz
 
-# This is going to be gone pretty soon
-elasticsearch>=6.0.0,<7.0.0
-
 # Basics
 six==1.14.0
 pathlib2==2.3.4 ; python_version < "3"

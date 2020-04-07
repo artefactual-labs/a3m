@@ -15,7 +15,6 @@ from server.db import auto_close_old_connections
 from server.jobs.base import Job
 from server.processing_config import load_preconfigured_choice, load_processing_xml
 from server.translation import TranslationLabel
-from server.workflow_abilities import choice_is_available
 
 from main import models
 
@@ -110,8 +109,7 @@ class NextChainDecisionJob(DecisionJob):
                 chain = self.workflow.get_chain(chain_id)
             except KeyError:
                 continue
-            if choice_is_available(self.link, chain):
-                choices[chain_id] = chain["description"]
+            choices[chain_id] = chain["description"]
 
         return choices
 

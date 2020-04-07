@@ -16,10 +16,10 @@ from collections import OrderedDict
 from django.conf import settings
 from lxml import etree
 
-from server.workflow_abilities import choice_is_available
-
 
 logger = logging.getLogger("archivematica.mcp.server.processing_config")
+
+PROCESSING_XML_FILE = "processingMCP.xml"
 
 
 # Types of processing fields:
@@ -189,8 +189,6 @@ def _get_options_for_chain_choice(link, workflow, ignored_choices):
         label = chain.get_label("description")
         if label in ignored_choices:
             continue
-        if not choice_is_available(link, chain):
-            continue
         ret.append((chain_id, label))
     return ret
 
@@ -276,7 +274,7 @@ def copy_processing_config(processing_config, destination_path):
 
 
 def load_processing_xml(package_path):
-    processing_file_path = os.path.join(package_path, settings.PROCESSING_XML_FILE)
+    processing_file_path = os.path.join(package_path, PROCESSING_XML_FILE)
 
     if not os.path.isfile(processing_file_path):
         return None

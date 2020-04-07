@@ -24,18 +24,13 @@ import math
 import multiprocessing
 import os
 
-from appconfig import Config, process_search_enabled, process_watched_directory_interval
+from appconfig import Config, process_watched_directory_interval
 
 CONFIG_MAPPING = {
     # [MCPServer]
     "shared_directory": {
         "section": "MCPServer",
         "option": "sharedDirectory",
-        "type": "string",
-    },
-    "processing_xml_file": {
-        "section": "MCPServer",
-        "option": "processingXMLFile",
         "type": "string",
     },
     "gearman_server": {
@@ -76,10 +71,6 @@ CONFIG_MAPPING = {
         "section": "MCPServer",
         "option": "django_secret_key",
         "type": "string",
-    },
-    "search_enabled": {
-        "section": "MCPServer",
-        "process_function": process_search_enabled,
     },
     "batch_size": {"section": "MCPServer", "option": "batch_size", "type": "int"},
     "concurrent_packages": {
@@ -132,9 +123,7 @@ processingDirectory = /var/archivematica/sharedDirectory/currentlyProcessing/
 rejectedDirectory = %%sharedPath%%rejected/
 watch_directory_method = poll
 watch_directory_interval = 1
-processingXMLFile = processingMCP.xml
 waitOnAutoApprove = 0
-search_enabled = true
 batch_size = 128
 rpc_threads = 4
 storage_service_client_timeout = 86400
@@ -241,12 +230,10 @@ SHARED_DIRECTORY = config.get("shared_directory")
 WATCH_DIRECTORY = config.get("watch_directory")
 REJECTED_DIRECTORY = config.get("rejected_directory")
 PROCESSING_DIRECTORY = config.get("processing_directory")
-PROCESSING_XML_FILE = config.get("processing_xml_file")
 GEARMAN_SERVER = config.get("gearman_server")
 WAIT_ON_AUTO_APPROVE = config.get("wait_on_auto_approve")
 WATCH_DIRECTORY_METHOD = config.get("watch_directory_method")
 WATCH_DIRECTORY_INTERVAL = config.get("watch_directory_interval")
-SEARCH_ENABLED = config.get("search_enabled")
 BATCH_SIZE = config.get("batch_size")
 CONCURRENT_PACKAGES = config.get(
     "concurrent_packages", default=concurrent_packages_default()

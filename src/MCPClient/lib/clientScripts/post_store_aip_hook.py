@@ -7,7 +7,6 @@ import requests
 import django
 
 django.setup()
-from django.conf import settings as mcpclient_settings
 from django.db import transaction
 
 # dashboard
@@ -15,7 +14,6 @@ from main import models
 
 # archivematicaCommon
 from custom_handlers import get_script_logger
-import elasticSearchFunctions
 import storageService as storage_service
 
 logger = get_script_logger("archivematica.mcp.client.post_store_aip_hook")
@@ -25,97 +23,10 @@ NO_ACTION = 1
 ERROR = 2
 
 
-def dspace_handle_to_archivesspace(job, sip_uuid):
-    """Fetch the DSpace handle from the Storage Service and send to ArchivesSpace."""
-    # Get association to ArchivesSpace if it exists
-    try:
-        digital_object = models.ArchivesSpaceDigitalObject.objects.get(sip_id=sip_uuid)
-    except models.ArchivesSpaceDigitalObject.DoesNotExist:
-        job.pyprint("SIP", sip_uuid, "not associated with an ArchivesSpace component")
-        return NO_ACTION
-    job.pyprint(
-        "Digital Object",
-        digital_object.remoteid,
-        "for SIP",
-        digital_object.sip_id,
-        "found",
-    )
-    logger.info(
-        "Digital Object %s for SIP %s found",
-        digital_object.remoteid,
-        digital_object.sip_id,
-    )
-
-    # Get dspace handle from SS
-    file_info = storage_service.get_file_info(uuid=sip_uuid)[0]
-    try:
-        handle = file_info["misc_attributes"]["handle"]
-    except KeyError:
-        job.pyprint("AIP has no DSpace handle stored")
-        return NO_ACTION
-    job.pyprint("DSpace handle:", handle)
-    logger.info("DSpace handle: %s", handle)
-
-    # POST Dspace handle to ArchivesSpace
-    # Get ArchivesSpace config
-    config = models.DashboardSetting.objects.get_dict("upload-archivesspace_v0.0")
-    archivesspace_url = config["base_url"]
-
-    # Log in
-    url = archivesspace_url + "/users/" + config["user"] + "/login"
-    params = {"password": config["passwd"]}
-    logger.debug("Log in to ArchivesSpace URL: %s", url)
-    response = requests.post(
-        url, params=params, timeout=mcpclient_settings.AGENTARCHIVES_CLIENT_TIMEOUT
-    )
-    logger.debug("Response: %s %s", response, response.content)
-    session_id = response.json()["session"]
-    headers = {"X-ArchivesSpace-Session": session_id}
-
-    # Get Digital Object from ArchivesSpace
-    url = archivesspace_url + digital_object.remoteid
-    logger.debug("Get Digital Object info URL: %s", url)
-    response = requests.get(
-        url, headers=headers, timeout=mcpclient_settings.AGENTARCHIVES_CLIENT_TIMEOUT
-    )
-    logger.debug("Response: %s %s", response, response.content)
-    body = response.json()
-
-    # Update
-    url = archivesspace_url + digital_object.remoteid
-    file_version = {
-        "file_uri": handle,
-        "use_statement": config["use_statement"],
-        "xlink_show_attribute": config["xlink_show"],
-        "xlink_actuate_attribute": config["xlink_actuate"],
-    }
-    body["file_versions"].append(file_version)
-    logger.debug("Modified Digital Object: %s", body)
-    response = requests.post(
-        url,
-        headers=headers,
-        json=body,
-        timeout=mcpclient_settings.AGENTARCHIVES_CLIENT_TIMEOUT,
-    )
-    job.pyprint("Update response:", response, response.content)
-    logger.debug("Response: %s %s", response, response.content)
-    if response.status_code != 200:
-        job.pyprint("Error updating", digital_object.remoteid)
-        return ERROR
-    return COMPLETED
-
-
 def post_store_hook(job, sip_uuid):
     """
     Hook for doing any work after an AIP is stored successfully.
     """
-    update_es = "transfers" in mcpclient_settings.SEARCH_ENABLED
-    if update_es:
-        elasticSearchFunctions.setup_reading_from_conf(mcpclient_settings)
-        client = elasticSearchFunctions.get_client()
-    else:
-        logger.info("Skipping indexing: Transfers indexing is currently disabled.")
-
     # SIP ARRANGEMENT
 
     # Mark files in this SIP as in an AIP (aip_created)
@@ -155,11 +66,6 @@ def post_store_hook(job, sip_uuid):
                 user_email="archivematica system",
                 reason_for_deletion="All files in Transfer are now in AIPs.",
             )
-            if update_es:
-                elasticSearchFunctions.remove_sip_transfer_files(client, transfer_uuid)
-
-    # DSPACE HANDLE TO ARCHIVESSPACE
-    dspace_handle_to_archivesspace(job, sip_uuid)
 
     # POST-STORE CALLBACK
     storage_service.post_store_aip_callback(sip_uuid)
