@@ -799,7 +799,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare AIP",
                 "es": "Preparar AIP",
@@ -1065,7 +1065,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Create SIP from Transfer",
                 "es": "Crear SIP a partir de la transferencia",
@@ -1186,7 +1186,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process submission documentation",
                 "fr": "Traiter la documentation de soumission",
@@ -1269,7 +1269,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -1378,7 +1378,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -1448,7 +1448,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare AIC",
                 "es": "Preparar AIC",
@@ -1509,7 +1509,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Include default Transfer processingMCP.xml",
                 "pt_BR": "Incluir transferência padrão processingMCP.xml",
@@ -1575,7 +1575,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -1642,7 +1642,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -1675,7 +1675,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -1780,7 +1780,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process submission documentation",
                 "fr": "Traiter la documentation de soumission",
@@ -1815,7 +1815,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare DIP",
                 "es": "Preparar DIP",
@@ -1850,7 +1850,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare AIC",
                 "es": "Preparar AIC",
@@ -1937,7 +1937,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Approve transfer",
                 "es": "Aprobar transferencia",
@@ -2026,7 +2026,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -2061,7 +2061,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Create SIP from Transfer",
                 "es": "Crear SIP a partir de la transferencia",
@@ -2097,7 +2097,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process submission documentation",
                 "fr": "Traiter la documentation de soumission",
@@ -2174,7 +2174,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Generate AIP METS",
                 "fr": "Générer un AIP METS",
@@ -2203,7 +2203,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Examine contents",
                 "es": "Examinar contenidos",
@@ -2274,7 +2274,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Characterize and extract metadata",
                 "es": "Caracterizar y extraer metadatos",
@@ -2343,7 +2343,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -2375,7 +2375,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process submission documentation",
                 "fr": "Traiter la documentation de soumission",
@@ -2409,7 +2409,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Scan for viruses",
                 "fr": "Lancer l’antivirus",
@@ -2444,7 +2444,7 @@
                 }
             },
             "fallback_job_status": "Completed successfully",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Extract packages",
                 "es": "Extraer paquetes",
@@ -2544,7 +2544,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -2576,7 +2576,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Store AIP",
                 "fr": "Stocker l’AIP",
@@ -2644,7 +2644,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Include default Transfer processingMCP.xml",
                 "pt_BR": "Incluir transferência padrão processingMCP.xml",
@@ -2669,7 +2669,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -2701,7 +2701,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -2734,7 +2734,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Scan for viruses",
                 "fr": "Lancer l’antivirus",
@@ -2794,7 +2794,7 @@
             },
             "exit_codes": {},
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Approve Dataverse transfer",
                 "pt_BR": "Aprovar transferência do Dataverse"
@@ -2825,7 +2825,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -2891,7 +2891,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Change transfer filenames",
                 "es": "Limpiar nombres",
@@ -2960,7 +2960,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Assign file UUIDs and checksums",
                 "es": "Asignar UUIDs y sumas de verificación a los ficheros",
@@ -3033,7 +3033,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Approve transfer",
                 "es": "Aprobar transferencia",
@@ -3070,7 +3070,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Assign file UUIDs and checksums",
                 "es": "Asignar UUIDs y sumas de verificación a los ficheros",
@@ -3125,7 +3125,7 @@
             },
             "exit_codes": {},
             "fallback_job_status": "Completed successfully",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -3286,7 +3286,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Failed transfer compliance",
                 "fr": "Échec de la mise en conformité du transfert",
@@ -3318,7 +3318,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Identify DSpace files",
                 "fr": "Identifier les fichiers DSpace",
@@ -3390,7 +3390,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Generate METS.xml document",
                 "es": "Generar METS.xml",
@@ -3459,7 +3459,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Reingest AIP",
                 "fr": "Réacquistion de l’AIP",
@@ -3498,7 +3498,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Approve transfer",
                 "es": "Aprobar transferencia",
@@ -3567,7 +3567,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Reingest AIP",
                 "fr": "Réacquistion de l’AIP",
@@ -3727,7 +3727,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -3760,7 +3760,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Approve SIP creation",
                 "es": "Aprobar creación de SIP",
@@ -3797,7 +3797,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Assign file UUIDs and checksums",
                 "es": "Asignar UUIDs y sumas de verificación a los ficheros",
@@ -3869,7 +3869,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare DIP",
                 "es": "Preparar DIP",
@@ -3914,41 +3914,6 @@
                 "sv": "Skapa SIP från överföringspaket"
             },
             "end": true
-        },
-        "3a70bc05-fa82-4067-a069-a56b6006be0a": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "--uuid \"%SIPUUID%\"",
-                "execute": "normalizeReport_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalization report",
-                "es": "Informe de normalización",
-                "fr": "Rapport de normalisation",
-                "pt_BR": "Relatório de normalização",
-                "sv": "Normaliseringsrapport"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "c2e6600d-cd26-42ed-bed5-95d41c06e37b"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "c2e6600d-cd26-42ed-bed5-95d41c06e37b",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser ",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
         },
         "3bbfbd27-ba41-4e36-8b7f-b4f02676bda3": {
             "config": {
@@ -4014,7 +3979,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Approve transfer",
                 "es": "Aprobar transferencia",
@@ -4049,7 +4014,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare AIP",
                 "es": "Preparar AIP",
@@ -4084,7 +4049,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Store AIP",
                 "fr": "Stocker l’AIP",
@@ -4152,7 +4117,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -4221,7 +4186,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare DIP",
                 "es": "Preparar DIP",
@@ -4387,7 +4352,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Approve transfer",
                 "es": "Aprobar transferencia",
@@ -4459,7 +4424,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process submission documentation",
                 "fr": "Traiter la documentation de soumission",
@@ -4497,7 +4462,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Store AIP",
                 "fr": "Stocker l’AIP",
@@ -4658,7 +4623,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process submission documentation",
                 "fr": "Traiter la documentation de soumission",
@@ -4759,7 +4724,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Assign file UUIDs and checksums",
                 "es": "Asignar UUIDs y sumas de verificación a los ficheros",
@@ -4829,7 +4794,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Generate AIP METS",
                 "fr": "Générer un AIP METS",
@@ -4898,7 +4863,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Approve transfer",
                 "es": "Aprobar transferencia",
@@ -4932,7 +4897,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Add final metadata",
                 "es": "Añadir metadatos finales",
@@ -4966,7 +4931,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Generate transfer structure report",
                 "fr": "Générer un rapport de structure de transfert ",
@@ -5062,7 +5027,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare DIP",
                 "es": "Preparar DIP",
@@ -5094,7 +5059,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process submission documentation",
                 "fr": "Traiter la documentation de soumission",
@@ -5235,7 +5200,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Failed transfer compliance",
                 "fr": "Échec de la mise en conformité du transfert",
@@ -5329,7 +5294,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer checksum",
                 "fr": "Vérifier la somme de contrôle du transfert",
@@ -5423,7 +5388,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare AIP",
                 "es": "Preparar AIP",
@@ -5456,7 +5421,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Reingest AIP",
                 "fr": "Réacquistion de l’AIP",
@@ -5492,7 +5457,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare DIP",
                 "es": "Preparar DIP",
@@ -5526,42 +5491,6 @@
                 "sv": "Inkludera standadard överförings processing.xml"
             },
             "end": true
-        },
-        "61c316a6-0a50-4f65-8767-1f44b1eeb6dd": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "--unitType \"%unitType%\" --unitIdentifier \"%SIPUUID%\" --unitName \"%SIPName%\"",
-                "execute": "emailFailReport_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Email fail report",
-                "es": "Correo electrónico con reporte de fallos",
-                "fr": "Envoyer le rapport d'échec par courriel",
-                "pt_BR": "Relatório de falha de e-mail",
-                "sv": "Mail misslyckanderapport"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "377f8ebb-7989-4a68-9361-658079ff8138",
-            "group": {
-                "en": "Failed transfer",
-                "es": "Transferencia fallida",
-                "fr": "Échec du transfert",
-                "ja": "転送に失敗",
-                "pt_BR": "Falha na transferência",
-                "sv": "Överföring misslyckad"
-            }
         },
         "62e0adc0-87f6-4162-acfa-f560c93d181d": {
             "config": {
@@ -5615,7 +5544,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -5675,7 +5604,7 @@
             },
             "exit_codes": {},
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Approve AIC",
                 "es": "Aprobar AIC",
@@ -5788,7 +5717,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Upload DIP",
                 "es": "Subir DIP",
@@ -5858,7 +5787,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Assign file UUIDs and checksums",
                 "es": "Asignar UUIDs y sumas de verificación a los ficheros",
@@ -5932,7 +5861,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -5965,7 +5894,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -6034,7 +5963,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Include default Transfer processingMCP.xml",
                 "pt_BR": "Incluir transferência padrão processingMCP.xml",
@@ -6125,7 +6054,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Generate transfer structure report",
                 "fr": "Générer un rapport de structure de transfert ",
@@ -6158,7 +6087,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Verify SIP compliance",
                 "fr": "Vérifier la conformité du SIP",
@@ -6191,7 +6120,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -6246,7 +6175,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -6410,7 +6339,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process manually normalized files",
                 "es": "Procesar manualmente ficheros normalizados",
@@ -6598,7 +6527,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer checksums",
                 "fr": "Vérifier les sommes de contrôle  du transfert",
@@ -6631,7 +6560,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Rename with transfer UUID",
                 "fr": "Renommer avec l'UUID du transfert",
@@ -6699,7 +6628,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Extract packages",
                 "es": "Extraer paquetes",
@@ -6707,42 +6636,6 @@
                 "ja": "パッケージの抽出",
                 "pt_BR": "Extrair pacotes",
                 "sv": "Extrahera paket"
-            }
-        },
-        "7d728c39-395f-4892-8193-92f086c0546f": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "--unitType \"%unitType%\" --unitIdentifier \"%SIPUUID%\" --unitName \"%SIPName%\"",
-                "execute": "emailFailReport_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Email fail report",
-                "es": "Correo electrónico con reporte de fallos",
-                "fr": "Envoyer le rapport d'échec par courriel",
-                "pt_BR": "Relatório de falha de e-mail",
-                "sv": "Mail misslyckanderapport"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Failed SIP",
-                "es": "SIP fallido",
-                "fr": "Échec SIP",
-                "ja": "SIPに失敗",
-                "pt_BR": "SIP falhou",
-                "sv": "SIP misslyckades"
             }
         },
         "7e6330c6-0280-4b25-8bf8-4b8143b69bde": {
@@ -6828,7 +6721,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Rename SIP directory with SIP UUID",
                 "fr": "Renommer le SIP avec l'UUID du SIP",
@@ -6940,7 +6833,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Reingest AIP",
                 "fr": "Réacquistion de l’AIP",
@@ -7129,7 +7022,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -7264,7 +7157,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process metadata directory",
                 "es": "Procesar directorio de metadatos",
@@ -7324,7 +7217,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Reformat metadata files",
                 "es": "Formatear de nuevo ficheros de metadatos",
@@ -7560,7 +7453,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Create SIP from Transfer",
                 "es": "Crear SIP a partir de la transferencia",
@@ -7594,7 +7487,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process manually normalized files",
                 "es": "Procesar manualmente ficheros normalizados",
@@ -7632,7 +7525,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare AIP",
                 "es": "Preparar AIP",
@@ -7792,7 +7685,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Change SIP filenames",
                 "es": "Limpiar nombres",
@@ -7885,7 +7778,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare AIC",
                 "es": "Preparar AIC",
@@ -7919,7 +7812,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process manually normalized files",
                 "es": "Procesar manualmente ficheros normalizados",
@@ -7949,7 +7842,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -8011,7 +7904,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process manually normalized files",
                 "es": "Procesar manualmente ficheros normalizados",
@@ -8043,7 +7936,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -8101,7 +7994,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Change transfer filenames",
                 "es": "Limpiar nombres",
@@ -8134,7 +8027,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Change SIP filenames",
                 "es": "Limpiar nombres",
@@ -8235,7 +8128,7 @@
             },
             "exit_codes": {},
             "fallback_job_status": "Completed successfully",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Failed transfer compliance",
                 "fr": "Échec de la mise en conformité du transfert",
@@ -8368,7 +8261,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Create SIP from Transfer",
                 "es": "Crear SIP a partir de la transferencia",
@@ -8435,7 +8328,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare DIP",
                 "es": "Preparar DIP",
@@ -8500,7 +8393,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Create SIP from Transfer",
                 "es": "Crear SIP a partir de la transferencia",
@@ -8629,7 +8522,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -8662,7 +8555,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process metadata directory",
                 "es": "Procesar directorio de metadatos",
@@ -8869,7 +8762,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Rename SIP directory with SIP UUID",
                 "fr": "Renommer le SIP avec l'UUID du SIP",
@@ -8901,7 +8794,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -9184,7 +9077,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Extract packages",
                 "es": "Extraer paquetes",
@@ -9281,7 +9174,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -9376,7 +9269,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Reingest AIP",
                 "fr": "Réacquistion de l’AIP",
@@ -9439,7 +9332,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Identify file format",
                 "es": "Identificar formato de fichero",
@@ -9537,7 +9430,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Approve transfer",
                 "es": "Aprobar transferencia",
@@ -9571,7 +9464,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Change transfer filenames",
                 "es": "Limpiar nombres",
@@ -9605,7 +9498,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -9669,7 +9562,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Extract packages",
                 "es": "Extraer paquetes",
@@ -9706,7 +9599,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Generate AIP METS",
                 "fr": "Générer un AIP METS",
@@ -9741,7 +9634,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Upload DIP",
                 "es": "Subir DIP",
@@ -9775,7 +9668,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -9809,7 +9702,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Upload DIP",
                 "es": "Subir DIP",
@@ -9933,7 +9826,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Identify file format",
                 "es": "Identificar formato de fichero",
@@ -9969,7 +9862,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -10066,7 +9959,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Rename with transfer UUID",
                 "fr": "Renommer avec l'UUID du transfert",
@@ -10101,7 +9994,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare AIP",
                 "es": "Preparar AIP",
@@ -10281,7 +10174,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Examine contents",
                 "es": "Examinar contenidos",
@@ -10315,7 +10208,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -10380,11 +10273,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "3a70bc05-fa82-4067-a069-a56b6006be0a"
+                    "link_id": "c2e6600d-cd26-42ed-bed5-95d41c06e37b"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -10420,7 +10313,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Assign file UUIDs and checksums",
                 "es": "Asignar UUIDs y sumas de verificación a los ficheros",
@@ -10457,7 +10350,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process metadata directory",
                 "es": "Procesar directorio de metadatos",
@@ -10547,7 +10440,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Include default SIP processingMCP.xml",
                 "pt_BR": "Incluir padrão SIP processingMCP.xml",
@@ -10661,7 +10554,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -10694,7 +10587,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -10726,7 +10619,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Rename SIP directory with SIP UUID",
                 "fr": "Renommer le SIP avec l'UUID du SIP",
@@ -10759,7 +10652,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process metadata directory",
                 "es": "Procesar directorio de metadatos",
@@ -10796,7 +10689,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Reingest AIP",
                 "fr": "Réacquistion de l’AIP",
@@ -10832,7 +10725,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -10900,7 +10793,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Process manually normalized files",
                 "es": "Procesar manualmente ficheros normalizados",
@@ -11039,7 +10932,7 @@
                 }
             },
             "fallback_job_status": "Completed successfully",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Parse external files"
             }
@@ -11131,7 +11024,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Rename with transfer UUID",
                 "fr": "Renommer avec l'UUID du transfert",
@@ -11206,7 +11099,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare AIC",
                 "es": "Preparar AIC",
@@ -11290,7 +11183,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Identify file format",
                 "es": "Identificar formato de fichero",
@@ -11323,7 +11216,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Approve transfer",
                 "es": "Aprobar transferencia",
@@ -11450,7 +11343,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer checksums",
                 "fr": "Vérifier les sommes de contrôle  du transfert",
@@ -11488,7 +11381,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Prepare AIP",
                 "es": "Preparar AIP",
@@ -11516,7 +11409,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -11791,7 +11684,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
@@ -11822,7 +11715,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Include default Transfer processingMCP.xml",
                 "pt_BR": "Incluir transferência padrão processingMCP.xml",
@@ -11889,7 +11782,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Characterize and extract metadata",
                 "es": "Caracterizar y extraer metadatos",
@@ -11954,7 +11847,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Parse external files"
             }
@@ -11983,7 +11876,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -12050,7 +11943,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
             "group": {
                 "en": "Reingest AIP",
                 "fr": "Réacquistion de l’AIP",
