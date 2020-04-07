@@ -135,15 +135,6 @@ def cmd_line_arg_to_unicode(cmd_line_arg):
         return cmd_line_arg
 
 
-def getTagged(root, tag):
-    """Return the XML elements with the given tag argument."""
-    ret = []
-    for element in root:
-        if element.tag == tag:
-            ret.append(element)
-    return ret
-
-
 def escapeForCommand(string):
     """Escape special characters in a given string."""
     ret = string

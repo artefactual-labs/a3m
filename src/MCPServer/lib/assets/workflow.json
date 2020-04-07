@@ -1756,38 +1756,6 @@
                 "sv": "Undersök innehåll"
             }
         },
-        "10c40e41-fb10-48b5-9d01-336cd958afe8": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%SIPLogsDirectory%fileMeta/%fileUUID%.xml\" \"%date%\" \"%taskUUID%\" \"%fileUUID%\" \"%fileGrpUse%\"",
-                "execute": "FITS_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/manualNormalization/preservation",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Run FITS on manual normalized preservation files",
-                "pt_BR": "Executar o FITS em arquivos de preservação normalizados manuaimente",
-                "sv": "Kör FITS på manuellt normaliserade bevarandefiler"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "91ca6f1f-feb5-485d-99d2-25eed195e330"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "7d728c39-395f-4892-8193-92f086c0546f",
-            "group": {
-                "en": "Process manually normalized files",
-                "es": "Procesar manualmente ficheros normalizados",
-                "pt_BR": "Processar arquivos normalizados manualmente",
-                "sv": "Bearbeta manuellt normaliserade filer"
-            }
-        },
         "11033dbd-e4d4-4dd6-8bcf-48c424e222e3": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -2797,11 +2765,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "bd382151-afd0-41bf-bb7a-b39aef728a32"
+                    "link_id": "1b1a4565-b501-407b-b40f-2f20889423f1"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "bd382151-afd0-41bf-bb7a-b39aef728a32",
+            "fallback_link_id": "1b1a4565-b501-407b-b40f-2f20889423f1",
             "group": {
                 "en": "Extract packages",
                 "es": "Extraer paquetes",
@@ -7756,7 +7724,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "bd382151-afd0-41bf-bb7a-b39aef728a32",
+            "fallback_link_id": "1b1a4565-b501-407b-b40f-2f20889423f1",
             "group": {
                 "en": "Extract packages",
                 "es": "Extraer paquetes",
@@ -9184,43 +9152,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "bd382151-afd0-41bf-bb7a-b39aef728a32": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%SIPLogsDirectory%fileMeta/%fileUUID%.xml\" \"%date%\" \"%taskUUID%\" \"%fileUUID%\" \"%fileGrpUse%\"",
-                "execute": "FITS_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/attachments",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Characterize and extract metadata for attachments",
-                "es": "Caracterizar y extraer los metadatos de los adjuntos",
-                "fr": "Caractériser et extraire les métadonnées pour mettre en pièces jointes",
-                "ja": "添付ファイルのメタデータの特徴付けと抽出",
-                "pt_BR": "Caracterizar e extrair metadados para anexos",
-                "sv": "Karaktärisera och extrahera metadata för bilagor"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "1b1a4565-b501-407b-b40f-2f20889423f1"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "61c316a6-0a50-4f65-8767-1f44b1eeb6dd",
-            "group": {
-                "en": "Characterize and extract metadata",
-                "es": "Caracterizar y extraer metadatos",
-                "fr": "Caractériser et extraire les métadonnées",
-                "ja": "メタデータの特徴付けと抽出",
-                "pt_BR": "Caracterizar e extrair metadados",
-                "sv": "Karaktärisera och extrahera metadata"
             }
         },
         "bd792750-a55b-42e9-903a-8c898bb77df1": {
@@ -10965,7 +10896,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "10c40e41-fb10-48b5-9d01-336cd958afe8"
+                    "link_id": "91ca6f1f-feb5-485d-99d2-25eed195e330"
                 }
             },
             "fallback_job_status": "Failed",

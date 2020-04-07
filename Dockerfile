@@ -47,7 +47,6 @@ RUN set -ex \
 		ghostscript \
 		coreutils \
 		libavcodec-extra \
-		fits \
 		imagemagick \
 		inkscape \
 		jhove \

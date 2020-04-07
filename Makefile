@@ -93,9 +93,11 @@ bootstrap-a3m-db:  ## Bootstrap a3m (new database).
 					--ss-api-key="test" \
 					--site-url="http://archivematica-dashboard:8000"
 
-restart-am-services:  ## Restart Archivematica services: MCPServer, MCPClient and Storage Service.
+restart:
 	docker-compose restart archivematica-mcp-server
 	docker-compose restart archivematica-mcp-client
+
+restart-all: restart  ## Restart Archivematica services: MCPServer, MCPClient and Storage Service.
 	docker-compose restart archivematica-storage-service
 
 compile-requirements:  ## Run pip-compile
