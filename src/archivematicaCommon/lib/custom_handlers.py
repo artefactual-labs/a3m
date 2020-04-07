@@ -8,16 +8,6 @@ import os
 import sys
 
 
-class GroupWriteRotatingFileHandler(logging.handlers.RotatingFileHandler):
-    def _open(self):
-        prevumask = os.umask(0o002)
-        try:
-            rtv = logging.handlers.RotatingFileHandler._open(self)
-            return rtv
-        finally:
-            os.umask(prevumask)
-
-
 class CallbackHandler(logging.Handler):
     def __init__(self, callback, module_name=None):
         logging.Handler.__init__(self)
