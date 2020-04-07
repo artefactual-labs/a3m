@@ -25,7 +25,6 @@ import multiprocessing
 import os
 
 from appconfig import Config, process_search_enabled, process_watched_directory_interval
-import email_settings
 
 CONFIG_MAPPING = {
     # [MCPServer]
@@ -125,8 +124,6 @@ CONFIG_MAPPING = {
 }
 
 
-CONFIG_MAPPING.update(email_settings.CONFIG_MAPPING)
-
 CONFIG_DEFAULTS = """[MCPServer]
 MCPArchivematicaServer = localhost:4730
 watchDirectoryPath = /var/archivematica/sharedDirectory/watchedDirectories/
@@ -153,22 +150,6 @@ host = localhost
 database = MCP
 port = 3306
 engine = django.db.backends.mysql
-
-[email]
-backend = django.core.mail.backends.console.EmailBackend
-host = smtp.gmail.com
-host_password =
-host_user = your_email@example.com
-port = 587
-ssl_certfile =
-ssl_keyfile =
-use_ssl = False
-use_tls = True
-file_path =
-default_from_email = webmaster@example.com
-subject_prefix = [Archivematica]
-timeout = 300
-#server_email =
 """
 
 
@@ -284,6 +265,3 @@ except ValueError:
     PROMETHEUS_ENABLED = False
 else:
     PROMETHEUS_ENABLED = True
-
-# Apply email settings
-globals().update(email_settings.get_settings(config))
