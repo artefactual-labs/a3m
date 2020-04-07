@@ -120,7 +120,7 @@ COPY . /archivematica
 FROM base AS archivematica-dashboard
 
 ENV DJANGO_SETTINGS_MODULE settings.production
-ENV PYTHONPATH /archivematica/src/dashboard/src/:/archivematica/src/archivematicaCommon/lib/
+ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/dashboard/src/:/archivematica/src/archivematicaCommon/lib/
 ENV AM_GUNICORN_BIND 0.0.0.0:8000
 ENV AM_GUNICORN_CHDIR /archivematica/src/dashboard/src
 ENV FORWARDED_ALLOW_IPS *
@@ -155,7 +155,7 @@ ENTRYPOINT ["/usr/local/bin/gunicorn", "--config=/etc/archivematica/dashboard.gu
 FROM base as archivematica-mcp-server
 
 ENV DJANGO_SETTINGS_MODULE settings.common
-ENV PYTHONPATH /archivematica/src/MCPServer/lib/:/archivematica/src/archivematicaCommon/lib/:/archivematica/src/dashboard/src/
+ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPServer/lib/:/archivematica/src/archivematicaCommon/lib/:/archivematica/src/dashboard/src/
 
 COPY --from=sources /archivematica /archivematica
 
@@ -175,7 +175,7 @@ ENTRYPOINT ["/archivematica/src/MCPServer/lib/archivematicaMCP.py"]
 FROM base as archivematica-mcp-client
 
 ENV DJANGO_SETTINGS_MODULE settings.common
-ENV PYTHONPATH /archivematica/src/MCPClient/lib/:/archivematica/src/archivematicaCommon/lib/:/archivematica/src/dashboard/src/
+ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPClient/lib/:/archivematica/src/archivematicaCommon/lib/:/archivematica/src/dashboard/src/
 ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_ARCHIVEMATICACLIENTMODULES /archivematica/src/MCPClient/lib/archivematicaClientModules
 ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_CLIENTASSETSDIRECTORY /archivematica/src/MCPClient/lib/assets/
 ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_CLIENTSCRIPTSDIRECTORY /archivematica/src/MCPClient/lib/clientScripts/
