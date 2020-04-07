@@ -27,7 +27,6 @@ import uuid
 import django
 
 django.setup()
-# archivematicaCommon
 from databaseFunctions import insertIntoEvents
 from django.db import transaction
 

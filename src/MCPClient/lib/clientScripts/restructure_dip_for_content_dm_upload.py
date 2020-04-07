@@ -29,7 +29,6 @@ import os
 import re
 import sys
 
-# archivematicaCommon
 import archivematicaFunctions
 import namespaces as ns
 

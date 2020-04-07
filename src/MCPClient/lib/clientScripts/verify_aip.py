@@ -10,7 +10,6 @@ django.setup()
 from django.conf import settings as mcpclient_settings
 from django.db import transaction
 
-# archivematicaCommon
 from archivematicaFunctions import get_setting
 import databaseFunctions
 from executeOrRunSubProcess import executeOrRun

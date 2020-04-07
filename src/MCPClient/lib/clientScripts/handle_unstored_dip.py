@@ -32,7 +32,6 @@ import django
 django.setup()
 from django.db import transaction
 
-# archivematicaCommon
 from custom_handlers import get_script_logger
 
 

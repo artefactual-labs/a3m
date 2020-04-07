@@ -12,7 +12,6 @@ from fpr.models import IDCommand, IDRule, FormatVersion
 from main.models import FileFormatVersion, File, FileID, UnitVariable
 from django.db import transaction
 
-# archivematicaCommon
 from executeOrRunSubProcess import executeOrRun
 from databaseFunctions import getUTCDate, insertIntoEvents
 

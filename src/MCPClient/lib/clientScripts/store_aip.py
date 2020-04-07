@@ -37,7 +37,6 @@ from metsrw.plugins import premisrw
 
 from main.models import UnitVariable, Event, Agent, DublinCore
 
-# archivematicaCommon
 from custom_handlers import get_script_logger
 import storageService as storage_service
 from archivematicaFunctions import escape

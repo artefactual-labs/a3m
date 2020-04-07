@@ -8,7 +8,6 @@ import django
 django.setup()
 from django.db import transaction
 
-# archivematicaCommon
 import storageService as storage_service
 
 from main.models import File, Transfer

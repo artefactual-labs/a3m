@@ -28,7 +28,6 @@ import sys
 import tempfile
 import time
 
-# archivematicaCommon
 from custom_handlers import get_script_logger
 
 # externals

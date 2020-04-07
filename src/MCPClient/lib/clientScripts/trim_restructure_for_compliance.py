@@ -29,7 +29,6 @@ import django
 django.setup()
 from django.db import transaction
 
-# archivematicaCommon
 import archivematicaFunctions
 from archivematicaFunctions import REQUIRED_DIRECTORIES
 import fileOperations

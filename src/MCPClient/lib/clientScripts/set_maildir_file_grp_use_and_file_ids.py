@@ -23,7 +23,6 @@
 
 import os
 
-# archivematicaCommon
 from custom_handlers import get_script_logger
 
 import django

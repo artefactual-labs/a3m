@@ -43,7 +43,6 @@ django.setup()
 # dashboard
 from main.models import File, Transfer
 
-# archivematicaCommon
 from custom_handlers import get_script_logger
 from fileOperations import addFileToTransfer
 from fileOperations import addFileToSIP

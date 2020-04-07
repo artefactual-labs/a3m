@@ -7,7 +7,6 @@ import os
 from main.models import ArchivesSpaceDIPObjectResourcePairing, File
 from fpr.models import FormatVersion
 
-# archivematicaCommon
 from xml2obj import mets_file
 
 # Third party dependencies, alphabetical by import source

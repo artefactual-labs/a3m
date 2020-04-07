@@ -125,17 +125,11 @@ flush-test-dbs:
 
 test-all: test-mcp-server test-mcp-client test-storage-service  ## Run all tests.
 
-test-mcp-server:  ## Run MCPServer tests.
-	docker-compose run --workdir /archivematica/src/MCPServer --rm --entrypoint=py.test archivematica-mcp-server -p no:cacheprovider --reuse-db -v
-
-test-mcp-client:  ## Run MCPClient tests.
-	docker-compose run --workdir /archivematica/src/MCPClient --rm --entrypoint=py.test archivematica-mcp-client -p no:cacheprovider --reuse-db -v
+test-a3m:  ## Run a3m tests.
+	echo "TODO"
 
 test-storage-service:  ## Run Storage Service tests.
 	docker-compose run --workdir /src --rm --no-deps --entrypoint py.test -e "DJANGO_SETTINGS_MODULE=storage_service.settings.test" archivematica-storage-service -p no:cacheprovider --reuse-db -v
-
-test-archivematica-common:  ## Run Archivematica Common tests.
-	docker-compose run --workdir /archivematica/src/archivematicaCommon --rm --entrypoint py.test archivematica-mcp-client -p no:cacheprovider -p no:warnings --reuse-db -v
 
 help:  ## Print this help message.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

@@ -17,7 +17,6 @@ from main.models import UnitVariable
 
 import create_mets_v2
 
-# archivematicaCommon
 import databaseFunctions
 import fileOperations
 import namespaces as ns

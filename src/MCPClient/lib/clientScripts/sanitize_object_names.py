@@ -33,7 +33,6 @@ from django.db import transaction
 # dashboard
 from main.models import Event, File, Directory, Transfer, SIP
 
-# archivematicaCommon
 from custom_handlers import get_script_logger
 import sanitize_names
 

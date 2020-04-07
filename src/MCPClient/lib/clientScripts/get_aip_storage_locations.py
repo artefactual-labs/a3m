@@ -7,7 +7,6 @@ import django
 
 django.setup()
 
-# archivematicaCommon
 import storageService as storage_service
 
 from custom_handlers import get_script_logger

@@ -45,7 +45,6 @@ from main.models import (
     RightsStatementRightsGrantedRestriction,
 )
 
-# archivematicaCommon
 from fileOperations import getFileUUIDLike
 
 while False:

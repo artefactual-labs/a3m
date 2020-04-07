@@ -56,7 +56,6 @@ from lxml import etree
 # dashboard
 from main.models import DashboardSetting, Directory, SIP
 
-# archivematicaCommon
 from archivematicaFunctions import str2bool
 from bindpid import (
     bind_pid,

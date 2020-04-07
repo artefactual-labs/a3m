@@ -20,7 +20,6 @@ from django.conf import settings as mcpclient_settings
 from main.models import FPCommandOutput
 from fpr.models import FPRule, FormatVersion
 
-# archivematicaCommon
 from executeOrRunSubProcess import executeOrRun
 from databaseFunctions import insertIntoFPCommandOutput
 from dicts import replace_string_values, ReplacementDict

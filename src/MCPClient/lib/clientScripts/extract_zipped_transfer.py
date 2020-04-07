@@ -33,7 +33,6 @@ from django.db import transaction
 # dashboard
 from main.models import Transfer
 
-# archivematicaCommon
 from executeOrRunSubProcess import executeOrRun
 from fileOperations import get_extract_dir_name
 

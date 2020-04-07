@@ -11,7 +11,6 @@ django.setup()
 # dashboard
 from main.models import SIP
 
-# archivematicaCommon
 import databaseFunctions
 from executeOrRunSubProcess import executeOrRun
 

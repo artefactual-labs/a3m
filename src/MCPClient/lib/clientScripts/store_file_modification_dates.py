@@ -28,7 +28,6 @@ from django.db import transaction
 # dashboard
 from main import models
 
-# archivematicaCommon
 from custom_handlers import get_script_logger
 
 

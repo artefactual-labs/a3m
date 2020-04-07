@@ -15,7 +15,6 @@ import django
 from django.db import transaction
 
 django.setup()
-# archivematicaCommon
 from databaseFunctions import fileWasRemoved
 
 from django.conf import settings as mcpclient_settings

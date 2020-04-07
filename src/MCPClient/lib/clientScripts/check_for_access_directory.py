@@ -34,7 +34,6 @@ django.setup()
 from main.models import File
 
 
-# archivematicaCommon
 from fileOperations import updateFileLocation
 from fileOperations import rename
 

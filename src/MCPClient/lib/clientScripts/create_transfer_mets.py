@@ -34,7 +34,6 @@ from django.db.models import Prefetch
 django.setup()
 import metsrw
 
-# archivematicaCommon
 from archivematicaFunctions import get_dashboard_uuid, escape
 from countryCodes import getCodeForCountry
 

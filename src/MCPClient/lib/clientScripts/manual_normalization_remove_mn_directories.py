@@ -14,7 +14,6 @@ from django.db import transaction
 # dashboard
 from main.models import File
 
-# archivematicaCommon
 import databaseFunctions
 
 

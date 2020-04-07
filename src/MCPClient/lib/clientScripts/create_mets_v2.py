@@ -64,7 +64,6 @@ from archivematicaCreateMETSTrim import getTrimFileDmdSec
 from archivematicaCreateMETSTrim import getTrimAmdSec
 from archivematicaCreateMETSTrim import getTrimFileAmdSec
 
-# archivematicaCommon
 from archivematicaFunctions import escape
 from archivematicaFunctions import normalizeNonDcElementName
 from archivematicaFunctions import strToUnicode

@@ -30,7 +30,6 @@ import lxml.etree as etree
 # dashboard
 from main.models import RightsStatement
 
-# archivematicaCommon
 from countryCodes import getCodeForCountry
 import namespaces as ns
 

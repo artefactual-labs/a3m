@@ -29,7 +29,6 @@ django.setup()
 # dashboard
 from main.models import File
 
-# archivematicaCommon
 import fileOperations
 
 # --sipUUID "%SIPUUID%" --sipDirectory "%SIPDirectory%" --filePath "%relativeLocation%"

@@ -52,7 +52,6 @@ django.setup()
 # dashboard
 from main.models import DashboardSetting, File
 
-# archivematicaCommon
 import bindpid
 from custom_handlers import get_script_logger
 from archivematicaFunctions import str2bool

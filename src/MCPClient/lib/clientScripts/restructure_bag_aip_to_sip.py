@@ -25,7 +25,6 @@ import os
 import shutil
 
 
-# archivematicaCommon
 from custom_handlers import get_script_logger
 import archivematicaFunctions
 

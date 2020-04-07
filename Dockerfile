@@ -112,7 +112,7 @@ COPY . /archivematica
 FROM base as archivematica-mcp-server
 
 ENV DJANGO_SETTINGS_MODULE settings.common
-ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPServer/lib/:/archivematica/src/archivematicaCommon/lib/
+ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPServer/lib/
 
 RUN set -ex \
 	&& mkdir -p /var/archivematica/sharedDirectory \
@@ -130,13 +130,13 @@ ENTRYPOINT ["/archivematica/src/MCPServer/lib/archivematicaMCP.py"]
 FROM base as archivematica-mcp-client
 
 ENV DJANGO_SETTINGS_MODULE settings.common
-ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPClient/lib/:/archivematica/src/archivematicaCommon/lib/
+ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPClient/lib/
 ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_ARCHIVEMATICACLIENTMODULES /archivematica/src/MCPClient/lib/archivematicaClientModules
 ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_CLIENTASSETSDIRECTORY /archivematica/src/MCPClient/lib/assets/
 ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_CLIENTSCRIPTSDIRECTORY /archivematica/src/MCPClient/lib/clientScripts/
 
-COPY ./src/archivematicaCommon/lib/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
-COPY ./src/archivematicaCommon/lib/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
+COPY ./src/a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
+COPY ./src/a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
 
 USER archivematica
 

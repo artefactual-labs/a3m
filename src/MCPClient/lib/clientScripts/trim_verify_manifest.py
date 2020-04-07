@@ -31,7 +31,6 @@ import django
 django.setup()
 from django.db import transaction
 
-# archivematicaCommon
 from fileOperations import getFileUUIDLike
 import databaseFunctions
 

@@ -21,7 +21,6 @@ from fpr.models import FPRule
 from main.models import Derivation, FileFormatVersion, File, FileID
 from django.db import transaction
 
-# archivematicaCommon
 import databaseFunctions
 import fileOperations
 from dicts import ReplacementDict

@@ -26,7 +26,6 @@ import django
 from django.db import transaction
 
 django.setup()
-# archivematicaCommon
 from fileOperations import updateFileGrpUse
 
 

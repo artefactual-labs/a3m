@@ -30,7 +30,6 @@ from django.db import transaction
 # dashboard
 from main.models import Transfer
 
-# archivematicaCommon
 from fileOperations import rename
 
 

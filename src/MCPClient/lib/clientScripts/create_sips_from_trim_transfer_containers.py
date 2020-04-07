@@ -33,7 +33,6 @@ django.setup()
 # dashboard
 from main.models import File
 
-# archivematicaCommon
 import archivematicaFunctions
 import databaseFunctions
 

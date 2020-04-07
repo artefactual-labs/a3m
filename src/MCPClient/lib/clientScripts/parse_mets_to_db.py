@@ -14,7 +14,6 @@ django.setup()
 from main import models
 from fpr import models as fpr_models
 
-# archivematicaCommon
 import namespaces as ns
 import fileOperations
 import databaseFunctions

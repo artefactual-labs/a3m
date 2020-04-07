@@ -19,7 +19,6 @@
 # @package Archivematica
 # @subpackage archivematicaClient
 
-# archivematicaCommon
 from executeOrRunSubProcess import executeOrRun
 
 # dashboard

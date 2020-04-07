@@ -37,7 +37,6 @@ from django.utils import six
 # dashboard
 from main.models import File
 
-# archivematicaCommon
 from externals.extractMaildirAttachments import parse
 from fileOperations import addFileToTransfer, updateSizeAndChecksum
 from archivematicaFunctions import unicodeToStr

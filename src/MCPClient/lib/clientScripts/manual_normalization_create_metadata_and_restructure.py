@@ -23,7 +23,6 @@ from django.db.models import Q
 # dashboard
 from main.models import Event, File
 
-# archivematicaCommon
 import databaseFunctions
 import fileOperations
 

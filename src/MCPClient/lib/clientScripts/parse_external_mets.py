@@ -4,7 +4,6 @@ import argparse
 from lxml import etree
 import os
 
-# archivematicaCommon
 from custom_handlers import get_script_logger
 
 from assign_file_uuids import find_mets_file

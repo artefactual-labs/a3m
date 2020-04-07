@@ -29,7 +29,6 @@ import csv
 import sys
 import traceback
 
-# archivematicaCommon
 import archivematicaFunctions
 
 

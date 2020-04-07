@@ -16,7 +16,6 @@ import django
 django.setup()
 from django.utils import timezone
 
-# archivematicaCommon
 from archivematicaFunctions import get_file_checksum
 from custom_handlers import get_script_logger
 import databaseFunctions

@@ -33,7 +33,6 @@ from django.db import transaction
 # dashboard
 from main.models import File, Directory, SIP, Transfer, UnitVariable, Agent
 
-# archivematicaCommon
 import archivematicaFunctions
 import databaseFunctions
 

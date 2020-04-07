@@ -13,7 +13,6 @@ from django.utils import timezone
 from main.models import Derivation, File, FileFormatVersion
 from fpr.models import FPRule
 
-# archivematicaCommon
 from dicts import ReplacementDict
 from executeOrRunSubProcess import executeOrRun
 import databaseFunctions
