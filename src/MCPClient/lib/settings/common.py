@@ -259,15 +259,14 @@ SECRET_KEY = config.get(
 USE_TZ = True
 TIME_ZONE = config.get("time_zone")
 
+MIDDLEWARE_CLASSES = ()
+
 INSTALLED_APPS = (
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "components.accounts",
     "main",
-    "components.mcp",
-    "components.administration",
     "fpr",
 )
 

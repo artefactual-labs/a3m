@@ -151,7 +151,7 @@ def get_pipeline(uuid):
             )
         response.raise_for_status()
     except requests.exceptions.RequestException:
-        LOGGER.warning("Error fetching pipeline", exc_info=True)
+        LOGGER.warning("Error fetching pipeline", exc_info=False)
         raise
 
     pipeline = response.json()

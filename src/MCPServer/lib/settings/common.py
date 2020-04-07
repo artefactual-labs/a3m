@@ -194,13 +194,16 @@ DATABASES = {
     }
 }
 
+MIDDLEWARE_CLASSES = ()
+
 # These are all the apps that we need so we can use the models in the
 # Dashboard.
 INSTALLED_APPS = (
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
     "main",
-    "components.administration",
     "fpr",
 )
 

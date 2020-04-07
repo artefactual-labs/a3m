@@ -5,8 +5,4 @@ __pycache__
 *.pyc
 *.pyo
 
-src/archivematica-acceptance-tests
-src/archivematica-sampledata
-src/archivematica-storage-service
-src/dashboard/frontend/node_modules
-src/dashboard/src/media/js/build
+hack

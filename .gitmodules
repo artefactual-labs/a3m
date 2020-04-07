@@ -6,7 +6,3 @@
 	path = hack/modules/archivematica-sampledata
 	url = https://github.com/artefactual/archivematica-sampledata
 	branch = master
-[submodule "archivematica-acceptance-tests"]
-	path = hack/modules/archivematica-acceptance-tests
-	url = https://github.com/artefactual-labs/archivematica-acceptance-tests
-	branch = master

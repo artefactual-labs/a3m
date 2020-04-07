@@ -1,13 +1,15 @@
+ARG TARGET=mcp-server
+
+
 #
 # Base
 #
-
-ARG TARGET=mcp-server
 
 FROM ubuntu:18.04 AS base
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV PYTHONUNBUFFERED 1
+ENV FOO BAR
 
 ARG REQUIREMENTS=/archivematica/requirements-dev.txt
 
@@ -17,13 +19,10 @@ RUN set -ex \
 		apt-transport-https \
 		curl \
 		git \
-		gettext \
 		gpg-agent \
 		locales \
 		locales-all \
 		software-properties-common \
-		libldap2-dev \
-		libsasl2-dev \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Set the locale
@@ -103,49 +102,8 @@ COPY ./requirements.txt /archivematica/requirements.txt
 COPY ./requirements-dev.txt /archivematica/requirements-dev.txt
 RUN pip install -r ${REQUIREMENTS}
 
-
-#
-# Sources
-#
-
-FROM scratch AS sources
-
+# Copy sources
 COPY . /archivematica
-
-
-#
-# Dashboard
-#
-
-FROM base AS archivematica-dashboard
-
-ENV DJANGO_SETTINGS_MODULE settings.production
-ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/dashboard/src/:/archivematica/src/archivematicaCommon/lib/
-ENV AM_GUNICORN_BIND 0.0.0.0:8000
-ENV AM_GUNICORN_CHDIR /archivematica/src/dashboard/src
-ENV FORWARDED_ALLOW_IPS *
-
-COPY --from=sources /archivematica /archivematica
-
-RUN set -ex \
-	&& internalDirs=' \
-		/archivematica/src/dashboard/src/static \
-		/archivematica/src/dashboard/src/media \
-	' \
-	&& mkdir -p $internalDirs \
-	&& chown -R archivematica:archivematica $internalDirs \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& chown -R archivematica:archivematica /archivematica/src/dashboard/frontend
-
-COPY ./src/dashboard/install/dashboard.gunicorn-config.py /etc/archivematica/dashboard.gunicorn-config.py
-
-USER archivematica
-
-RUN cd /archivematica/src/dashboard/frontend && npm install
-
-RUN env DJANGO_SETTINGS_MODULE=settings.local /archivematica/src/dashboard/src/manage.py collectstatic --noinput --clear
-
-ENTRYPOINT ["/usr/local/bin/gunicorn", "--config=/etc/archivematica/dashboard.gunicorn-config.py", "wsgi:application"]
 
 
 #
@@ -155,9 +113,7 @@ ENTRYPOINT ["/usr/local/bin/gunicorn", "--config=/etc/archivematica/dashboard.gu
 FROM base as archivematica-mcp-server
 
 ENV DJANGO_SETTINGS_MODULE settings.common
-ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPServer/lib/:/archivematica/src/archivematicaCommon/lib/:/archivematica/src/dashboard/src/
-
-COPY --from=sources /archivematica /archivematica
+ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPServer/lib/:/archivematica/src/archivematicaCommon/lib/
 
 RUN set -ex \
 	&& mkdir -p /var/archivematica/sharedDirectory \
@@ -175,14 +131,13 @@ ENTRYPOINT ["/archivematica/src/MCPServer/lib/archivematicaMCP.py"]
 FROM base as archivematica-mcp-client
 
 ENV DJANGO_SETTINGS_MODULE settings.common
-ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPClient/lib/:/archivematica/src/archivematicaCommon/lib/:/archivematica/src/dashboard/src/
+ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPClient/lib/:/archivematica/src/archivematicaCommon/lib/
 ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_ARCHIVEMATICACLIENTMODULES /archivematica/src/MCPClient/lib/archivematicaClientModules
 ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_CLIENTASSETSDIRECTORY /archivematica/src/MCPClient/lib/assets/
 ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_CLIENTSCRIPTSDIRECTORY /archivematica/src/MCPClient/lib/clientScripts/
 
-COPY --from=sources /archivematica /archivematica
-COPY --from=sources /archivematica/src/archivematicaCommon/lib/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
-COPY --from=sources /archivematica/src/archivematicaCommon/lib/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
+COPY ./src/archivematicaCommon/lib/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
+COPY ./src/archivematicaCommon/lib/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
 
 USER archivematica
 
