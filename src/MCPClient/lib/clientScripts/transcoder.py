@@ -26,13 +26,6 @@ from django.db.models import F
 from django.utils import six
 
 
-def toStrFromUnicode(inputString, encoding="utf-8"):
-    """Converts to str, if it's unicode input type."""
-    if isinstance(inputString, six.string_types):
-        inputString = inputString.encode(encoding)
-    return inputString
-
-
 class Command(object):
     def __init__(self, job, command, replacement_dict, on_success=None, opts=None):
         self.fpcommand = command
@@ -128,8 +121,8 @@ class Command(object):
 
 
 class CommandLinker(object):
-    def __init__(self, job, fprule, command, replacement_dict, opts, on_success):
-        self.fprule = fprule
+    """TODO: useless?"""
+    def __init__(self, job, command, replacement_dict, opts, on_success):
         self.command = command
         self.replacement_dict = replacement_dict
         self.opts = opts
@@ -139,21 +132,8 @@ class CommandLinker(object):
         )
 
     def __str__(self):
-        return "[Command Linker] FPRule: {fprule} Command: {co}".format(
-            fprule=self.fprule.uuid, co=self.commandObject
-        )
+        return "[Command Linker] Command: {co}".format(co=self.commandObject)
 
     def execute(self):
-        """ Execute the command, and track the success statistics.
-
-        Returns 0 on success, non-0 on failure. """
-        # Track success/failure rates of FP Rules
-        # Use Django's F() to prevent race condition updating the counts
-        self.fprule.count_attempts = F("count_attempts") + 1
-        ret = self.commandObject.execute()
-        if ret:
-            self.fprule.count_not_okay = F("count_not_okay") + 1
-        else:
-            self.fprule.count_okay = F("count_okay") + 1
-        self.fprule.save()
-        return ret
+        """Execute the command."""
+        return self.commandObject.execute()

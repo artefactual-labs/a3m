@@ -5,7 +5,6 @@ import logging
 import os
 
 from main.models import ArchivesSpaceDIPObjectResourcePairing, File
-from fpr.models import FormatVersion
 
 from xml2obj import mets_file
 
@@ -166,12 +165,7 @@ def upload_to_archivesspace(
 
         original_name = ""
         # Get file & format info
-        try:
-            fv = FormatVersion.objects.get(fileformatversion__file_uuid=uuid)
-            format_version = fv.description
-            format_name = fv.format.description
-        except FormatVersion.DoesNotExist:
-            format_name = format_version = None
+        format_name = format_version = None # Nahhh
 
         # Client wants access copy info
         try:
