@@ -59,7 +59,7 @@ services:
         TARGET: "mcp-server"
     environment:
       DJANGO_SECRET_KEY: "12345"
-      DJANGO_SETTINGS_MODULE: "settings.common"
+      DJANGO_SETTINGS_MODULE: "server.settings.common"
       ARCHIVEMATICA_MCPSERVER_CLIENT_USER: "archivematica"
       ARCHIVEMATICA_MCPSERVER_CLIENT_PASSWORD: "demo"
       ARCHIVEMATICA_MCPSERVER_CLIENT_HOST: "mysql"
@@ -82,7 +82,7 @@ services:
         TARGET: "mcp-client"
     environment:
       DJANGO_SECRET_KEY: "12345"
-      DJANGO_SETTINGS_MODULE: "settings.common"
+      DJANGO_SETTINGS_MODULE: "client.settings.common"
       ARCHIVEMATICA_MCPCLIENT_CLIENT_USER: "archivematica"
       ARCHIVEMATICA_MCPCLIENT_CLIENT_PASSWORD: "demo"
       ARCHIVEMATICA_MCPCLIENT_CLIENT_HOST: "mysql"
@@ -117,7 +117,7 @@ services:
       SS_PROMETHEUS_ENABLED: "true"
     volumes:
       - "./hack/modules/archivematica-storage-service/:/src/"
-      - "./src/archivematica-sampledata/:/home/archivematica/archivematica-sampledata/:ro"
+      - "./hack/modules/archivematica-sampledata/:/home/archivematica/archivematica-sampledata/:ro"
       - "archivematica_pipeline_data:/var/archivematica/sharedDirectory:rw"
       - "archivematica_storage_service_staging_data:/var/archivematica/storage_service:rw"
       - "archivematica_storage_service_location_data:/home:rw"

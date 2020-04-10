@@ -111,8 +111,7 @@ COPY . /archivematica
 
 FROM base as archivematica-mcp-server
 
-ENV DJANGO_SETTINGS_MODULE settings.common
-ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPServer/lib/
+ENV DJANGO_SETTINGS_MODULE server.settings.common
 
 RUN set -ex \
 	&& mkdir -p /var/archivematica/sharedDirectory \
@@ -120,7 +119,7 @@ RUN set -ex \
 
 USER archivematica
 
-ENTRYPOINT ["/archivematica/src/MCPServer/lib/archivematicaMCP.py"]
+ENTRYPOINT ["python2", "/archivematica/src/a3m", "server"]
 
 
 #
@@ -129,18 +128,18 @@ ENTRYPOINT ["/archivematica/src/MCPServer/lib/archivematicaMCP.py"]
 
 FROM base as archivematica-mcp-client
 
-ENV DJANGO_SETTINGS_MODULE settings.common
-ENV PYTHONPATH /archivematica/src/a3m:/archivematica/src/MCPClient/lib/
-ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_ARCHIVEMATICACLIENTMODULES /archivematica/src/MCPClient/lib/archivematicaClientModules
-ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_CLIENTASSETSDIRECTORY /archivematica/src/MCPClient/lib/assets/
-ENV ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_CLIENTSCRIPTSDIRECTORY /archivematica/src/MCPClient/lib/clientScripts/
+ENV DJANGO_SETTINGS_MODULE client.settings.common
+
+ENV ARCHIVEMATICA_MCPCLIENT_ARCHIVEMATICACLIENTMODULES /archivematica/src/a3m/client/assets/modules.ini
+ENV ARCHIVEMATICA_MCPCLIENT_CLIENTASSETSDIRECTORY /archivematica/src/a3m/client/assets/
+ENV ARCHIVEMATICA_MCPCLIENT_CLIENTSCRIPTSDIRECTORY /archivematica/src/a3m/client/clientScripts/
 
 COPY ./src/a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
 COPY ./src/a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
 
 USER archivematica
 
-ENTRYPOINT ["/archivematica/src/MCPClient/lib/archivematicaClient.py"]
+ENTRYPOINT ["python2", "/archivematica/src/a3m", "client"]
 
 
 #
