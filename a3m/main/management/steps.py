@@ -23,7 +23,7 @@ import uuid
 from django.conf import settings as django_settings
 from django.contrib.auth import get_user_model
 
-from a3m.main.models import Agent, DashboardSetting, User
+from a3m.main.models import Agent, DashboardSetting
 from a3m.helpers import get_setting, set_setting
 import a3m.storageService as storage_service
 from a3m.version import get_version
@@ -36,10 +36,10 @@ def create_super_user(username, email, password, key):
     UserModel = get_user_model()
     # Create the new super user if it doesn't already exist
     try:
-        user = UserModel._default_manager.get(**{UserModel.USERNAME_FIELD: username})
+        UserModel._default_manager.get(**{UserModel.USERNAME_FIELD: username})
     except UserModel.DoesNotExist:
         # User doesn't exist, create it
-        user = UserModel._default_manager.db_manager("default").create_superuser(
+        UserModel._default_manager.db_manager("default").create_superuser(
             username, email, password
         )
 

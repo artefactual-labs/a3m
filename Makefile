@@ -11,7 +11,8 @@ endef
 
 
 build:
-	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --force-recreate --build
+	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build  # --progress plain --parallel
+	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d
 
 create-volumes:  ## Create external data volumes.
 	mkdir -p ${AM_PIPELINE_DATA}
@@ -56,7 +57,7 @@ bootstrap-storage-service:  ## Boostrap Storage Service (new database).
 manage-a3m:  ## Run Django /manage.py on a3m, suppling <command> [options] as value to ARG, e.g., `make manage-a3m ARG=shell`
 	docker-compose run \
 		--rm \
-		--entrypoint /archivematica/src/a3m/manage.py \
+		--entrypoint /a3m/manage.py \
 			archivematica-mcp-server \
 				$(ARG)
 
@@ -74,12 +75,12 @@ bootstrap-a3m-db:  ## Bootstrap a3m (new database).
 		GRANT ALL ON MCP.* TO 'archivematica'@'%' IDENTIFIED BY 'demo';"
 	docker-compose run \
 		--rm \
-		--entrypoint /archivematica/src/a3m/manage.py \
+		--entrypoint /a3m/manage.py \
 			archivematica-mcp-server \
 				migrate --noinput
 	docker-compose run \
 		--rm \
-		--entrypoint /archivematica/src/a3m/manage.py \
+		--entrypoint /a3m/manage.py \
 			archivematica-mcp-server \
 				install \
 					--username="test" \

@@ -56,10 +56,10 @@ services:
       context: "."
       target: "archivematica-mcp-server"
       args:
-        TARGET: "mcp-server"
+        TARGET: "archivematica-mcp-server"
     environment:
       DJANGO_SECRET_KEY: "12345"
-      DJANGO_SETTINGS_MODULE: "server.settings.common"
+      DJANGO_SETTINGS_MODULE: "a3m.server.settings.common"
       ARCHIVEMATICA_MCPSERVER_CLIENT_USER: "archivematica"
       ARCHIVEMATICA_MCPSERVER_CLIENT_PASSWORD: "demo"
       ARCHIVEMATICA_MCPSERVER_CLIENT_HOST: "mysql"
@@ -68,7 +68,7 @@ services:
       ARCHIVEMATICA_MCPSERVER_MCPSERVER_PROMETHEUS_BIND_PORT: "7999"
       ARCHIVEMATICA_MCPSERVER_MCPSERVER_PROMETHEUS_BIND_ADDRESS: "0.0.0.0"
     volumes:
-      - ".:/archivematica"
+      - ".:/a3m"
       - "archivematica_pipeline_data:/var/archivematica/sharedDirectory:rw"
     links:
       - "mysql"
@@ -79,10 +79,10 @@ services:
       context: "."
       target: "archivematica-mcp-client"
       args:
-        TARGET: "mcp-client"
+        TARGET: "archivematica-mcp-client"
     environment:
       DJANGO_SECRET_KEY: "12345"
-      DJANGO_SETTINGS_MODULE: "client.settings.common"
+      DJANGO_SETTINGS_MODULE: "a3m.client.settings.common"
       ARCHIVEMATICA_MCPCLIENT_CLIENT_USER: "archivematica"
       ARCHIVEMATICA_MCPCLIENT_CLIENT_PASSWORD: "demo"
       ARCHIVEMATICA_MCPCLIENT_CLIENT_HOST: "mysql"
@@ -96,7 +96,7 @@ services:
       ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_PROMETHEUS_BIND_PORT: "7999"
       ARCHIVEMATICA_MCPCLIENT_MCPCLIENT_PROMETHEUS_BIND_ADDRESS: "0.0.0.0"
     volumes:
-      - ".:/archivematica"
+      - ".:/a3m"
       - "archivematica_pipeline_data:/var/archivematica/sharedDirectory:rw"
     links:
       - "mysql"

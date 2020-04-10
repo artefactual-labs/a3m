@@ -1,17 +1,14 @@
-ARG TARGET=mcp-server
-
+ARG SYSTEM_IMAGE=ubuntu:18.04
+ARG TARGET=archivematica
 
 #
 # Base
 #
 
-FROM ubuntu:18.04 AS base
+FROM ${SYSTEM_IMAGE} AS base
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV PYTHONUNBUFFERED 1
-ENV FOO BAR
-
-ARG REQUIREMENTS=/archivematica/requirements-dev.txt
 
 RUN set -ex \
 	&& apt-get update \
@@ -72,12 +69,26 @@ RUN set -ex \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Download ClamAV virus signatures
-RUN freshclam --quiet
+# ############################## RUN freshclam --quiet
 
-# Build dependencies
+# Create Archivematica user
+RUN set -ex \
+	&& groupadd --gid 333 --system archivematica \
+	&& useradd --uid 333 --gid 333 --create-home --system archivematica \
+	&& mkdir -p /var/archivematica/sharedDirectory \
+	&& chown -R archivematica:archivematica /var/archivematica
+
+
+#
+# Archivematica
+#
+
+FROM base AS archivematica
+
+ARG REQUIREMENTS=/a3m/requirements-dev.txt
+
 RUN set -ex \
 	&& curl -s https://bootstrap.pypa.io/get-pip.py | python \
-	&& curl -sL https://deb.nodesource.com/setup_12.x | bash -E - \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		build-essential \
@@ -88,62 +99,52 @@ RUN set -ex \
 		libssl-dev \
 		libxml2-dev \
 		libxslt-dev \
-		nodejs \
 	&& rm -rf /var/lib/apt/lists/*
 
-# Create Archivematica user
-RUN set -ex \
-	&& groupadd --gid 333 --system archivematica \
-	&& useradd --uid 333 --gid 333 --create-home --system archivematica
-
-# Install requirements
-COPY ./requirements.txt /archivematica/requirements.txt
-COPY ./requirements-dev.txt /archivematica/requirements-dev.txt
+COPY ./requirements.txt /a3m/requirements.txt
+COPY ./requirements-dev.txt /a3m/requirements-dev.txt
 RUN pip install -r ${REQUIREMENTS}
 
-# Copy sources
-COPY . /archivematica
+COPY . /a3m
+WORKDIR /a3m
+
+USER archivematica
+
+ENV DJANGO_SETTINGS_MODULE a3m.settings
+
+ENTRYPOINT ["python", "-m", "a3m"]
 
 
 #
 # MCPServer
 #
 
-FROM base as archivematica-mcp-server
+FROM archivematica as archivematica-mcp-server
 
-ENV DJANGO_SETTINGS_MODULE server.settings.common
+ENV DJANGO_SETTINGS_MODULE a3m.server.settings.common
 
-RUN set -ex \
-	&& mkdir -p /var/archivematica/sharedDirectory \
-	&& chown -R archivematica:archivematica /var/archivematica
-
-USER archivematica
-
-ENTRYPOINT ["python2", "/archivematica/src/a3m", "server"]
+ENTRYPOINT ["python", "-m", "a3m", "server"]
 
 
 #
 # MCPClient
 #
 
-FROM base as archivematica-mcp-client
+FROM archivematica as archivematica-mcp-client
 
-ENV DJANGO_SETTINGS_MODULE client.settings.common
+COPY ./a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
+COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
 
-ENV ARCHIVEMATICA_MCPCLIENT_ARCHIVEMATICACLIENTMODULES /archivematica/src/a3m/client/assets/modules.ini
-ENV ARCHIVEMATICA_MCPCLIENT_CLIENTASSETSDIRECTORY /archivematica/src/a3m/client/assets/
-ENV ARCHIVEMATICA_MCPCLIENT_CLIENTSCRIPTSDIRECTORY /archivematica/src/a3m/client/clientScripts/
+ENV DJANGO_SETTINGS_MODULE a3m.client.settings.common
+ENV ARCHIVEMATICA_MCPCLIENT_ARCHIVEMATICACLIENTMODULES /a3m/a3m/client/assets/modules.ini
+ENV ARCHIVEMATICA_MCPCLIENT_CLIENTASSETSDIRECTORY /a3m/a3m/client/assets/
+ENV ARCHIVEMATICA_MCPCLIENT_CLIENTSCRIPTSDIRECTORY /a3m/a3m/client/clientScripts/
 
-COPY ./src/a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
-COPY ./src/a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
-
-USER archivematica
-
-ENTRYPOINT ["python2", "/archivematica/src/a3m", "client"]
+ENTRYPOINT ["python", "-m", "a3m", "client"]
 
 
 #
 # Target
 #
 
-FROM archivematica-${TARGET}
+FROM ${TARGET}
