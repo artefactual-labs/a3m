@@ -110,7 +110,7 @@ WORKDIR /a3m
 
 USER archivematica
 
-ENV DJANGO_SETTINGS_MODULE a3m.settings
+ENV DJANGO_SETTINGS_MODULE a3m.settings.common
 
 ENTRYPOINT ["python", "-m", "a3m"]
 
@@ -120,8 +120,6 @@ ENTRYPOINT ["python", "-m", "a3m"]
 #
 
 FROM archivematica as archivematica-mcp-server
-
-ENV DJANGO_SETTINGS_MODULE a3m.server.settings.common
 
 ENTRYPOINT ["python", "-m", "a3m", "server"]
 
@@ -135,10 +133,9 @@ FROM archivematica as archivematica-mcp-client
 COPY ./a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
 COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
 
-ENV DJANGO_SETTINGS_MODULE a3m.client.settings.common
-ENV ARCHIVEMATICA_MCPCLIENT_ARCHIVEMATICACLIENTMODULES /a3m/a3m/client/assets/modules.ini
-ENV ARCHIVEMATICA_MCPCLIENT_CLIENTASSETSDIRECTORY /a3m/a3m/client/assets/
-ENV ARCHIVEMATICA_MCPCLIENT_CLIENTSCRIPTSDIRECTORY /a3m/a3m/client/clientScripts/
+ENV A3M_CLIENT_MODULES /a3m/a3m/client/assets/modules.ini
+ENV A3M_CLIENT_ASSETS_DIRECTORY /a3m/a3m/client/assets/
+ENV A3M_CLIENT_SCRIPTS_DIRECTORY /a3m/a3m/client/clientScripts/
 
 ENTRYPOINT ["python", "-m", "a3m", "client"]
 

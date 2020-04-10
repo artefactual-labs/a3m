@@ -11,8 +11,8 @@ endef
 
 
 build:
-	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build  # --progress plain --parallel
-	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d
+	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
+	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --force-recreate
 
 create-volumes:  ## Create external data volumes.
 	mkdir -p ${AM_PIPELINE_DATA}
