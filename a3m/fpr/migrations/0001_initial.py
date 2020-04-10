@@ -1,734 +1,184 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
+from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 import autoslug.fields
 import django_extensions.db.fields
 
 
 class Migration(migrations.Migration):
 
-    dependencies = []
+    dependencies = [
+    ]
 
     operations = [
         migrations.CreateModel(
-            name="Agent",
+            name='Format',
             fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36,
-                        serialize=False,
-                        primary_key=True,
-                        db_column="uuid",
-                    ),
-                ),
-                ("agentIdentifierType", models.CharField(max_length=100)),
-                ("agentIdentifierValue", models.CharField(max_length=100)),
-                ("agentName", models.CharField(max_length=100)),
-                ("agentType", models.CharField(max_length=100)),
-                ("clientIP", models.CharField(max_length=100)),
-            ],
-            options={"db_table": "Agent"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="Command",
-            fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36, serialize=False, primary_key=True, db_column="pk"
-                    ),
-                ),
-                ("commandUsage", models.CharField(max_length=15)),
-                ("commandType", models.CharField(max_length=36)),
-                ("verificationCommand", models.CharField(max_length=36, null=True)),
-                ("eventDetailCommand", models.CharField(max_length=36, null=True)),
-                (
-                    "supportedBy",
-                    models.CharField(max_length=36, null=True, db_column="supportedBy"),
-                ),
-                ("command", models.TextField(db_column="command")),
-                (
-                    "outputLocation",
-                    models.TextField(null=True, db_column="outputLocation"),
-                ),
-                ("description", models.TextField(db_column="description")),
-                (
-                    "outputFileFormat",
-                    models.TextField(null=True, db_column="outputFileFormat"),
-                ),
-                (
-                    "replaces",
-                    models.CharField(max_length=36, null=True, db_column="replaces"),
-                ),
-                (
-                    "lastmodified",
-                    models.DateTimeField(null=True, db_column="lastModified"),
-                ),
-                (
-                    "enabled",
-                    models.IntegerField(default=1, null=True, db_column="enabled"),
-                ),
-            ],
-            options={"db_table": "Command"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="CommandClassification",
-            fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36, serialize=False, primary_key=True, db_column="pk"
-                    ),
-                ),
-                (
-                    "classification",
-                    models.TextField(null=True, db_column="classification"),
-                ),
-                (
-                    "replaces",
-                    models.CharField(max_length=36, null=True, db_column="replaces"),
-                ),
-                ("lastmodified", models.DateTimeField(db_column="lastModified")),
-                (
-                    "enabled",
-                    models.IntegerField(default=1, null=True, db_column="enabled"),
-                ),
-            ],
-            options={"db_table": "CommandClassification"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="CommandRelationship",
-            fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36, serialize=False, primary_key=True, db_column="pk"
-                    ),
-                ),
-                ("commandClassification", models.CharField(max_length=36)),
-                ("command", models.CharField(max_length=36, null=True)),
-                ("fileID", models.CharField(max_length=36, null=True)),
-                ("replaces", models.CharField(max_length=36, null=True)),
-                ("lastmodified", models.DateTimeField(db_column="lastModified")),
-                (
-                    "enabled",
-                    models.IntegerField(default=1, null=True, db_column="enabled"),
-                ),
-            ],
-            options={"db_table": "CommandRelationship"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="CommandsSupportedBy",
-            fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36, serialize=False, primary_key=True, db_column="pk"
-                    ),
-                ),
-                ("description", models.TextField(null=True, db_column="description")),
-                (
-                    "replaces",
-                    models.CharField(max_length=36, null=True, db_column="replaces"),
-                ),
-                ("lastmodified", models.DateTimeField(db_column="lastModified")),
-                (
-                    "enabled",
-                    models.IntegerField(default=1, null=True, db_column="enabled"),
-                ),
-            ],
-            options={"db_table": "CommandsSupportedBy"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="CommandType",
-            fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36, serialize=False, primary_key=True, db_column="pk"
-                    ),
-                ),
-                (
-                    "replaces",
-                    models.CharField(max_length=36, null=True, db_column="replaces"),
-                ),
-                ("type", models.TextField(db_column="type")),
-                ("lastmodified", models.DateTimeField(db_column="lastModified")),
-                (
-                    "enabled",
-                    models.IntegerField(default=1, null=True, db_column="enabled"),
-                ),
-            ],
-            options={"db_table": "CommandType"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="FileID",
-            fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36, serialize=False, primary_key=True, db_column="pk"
-                    ),
-                ),
-                ("description", models.TextField(db_column="description")),
-                (
-                    "validpreservationformat",
-                    models.IntegerField(
-                        default=0, null=True, db_column="validPreservationFormat"
-                    ),
-                ),
-                (
-                    "validaccessformat",
-                    models.IntegerField(
-                        default=0, null=True, db_column="validAccessFormat"
-                    ),
-                ),
-                (
-                    "fileidtype",
-                    models.CharField(
-                        max_length=36, null=True, db_column="fileidtype_id"
-                    ),
-                ),
-                (
-                    "replaces",
-                    models.CharField(max_length=36, null=True, db_column="replaces"),
-                ),
-                ("lastmodified", models.DateTimeField(db_column="lastModified")),
-                (
-                    "enabled",
-                    models.IntegerField(default=1, null=True, db_column="enabled"),
-                ),
-            ],
-            options={"db_table": "FileID"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="FileIDsBySingleID",
-            fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36, serialize=False, primary_key=True, db_column="pk"
-                    ),
-                ),
-                ("fileID", models.CharField(max_length=36, null=True)),
-                ("id", models.TextField(db_column="id")),
-                ("tool", models.TextField(db_column="tool")),
-                ("toolVersion", models.TextField(null=True, db_column="toolVersion")),
-                (
-                    "replaces",
-                    models.CharField(max_length=36, null=True, db_column="replaces"),
-                ),
-                ("lastmodified", models.DateTimeField(db_column="lastModified")),
-                (
-                    "enabled",
-                    models.IntegerField(default=1, null=True, db_column="enabled"),
-                ),
-            ],
-            options={"db_table": "FileIDsBySingleID"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="FileIDType",
-            fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36, serialize=False, primary_key=True, db_column="pk"
-                    ),
-                ),
-                ("description", models.TextField(null=True, db_column="description")),
-                (
-                    "replaces",
-                    models.CharField(max_length=36, null=True, db_column="replaces"),
-                ),
-                ("lastmodified", models.DateTimeField(db_column="lastModified")),
-                (
-                    "enabled",
-                    models.IntegerField(default=1, null=True, db_column="enabled"),
-                ),
-            ],
-            options={"db_table": "FileIDType"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="Format",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                (
-                    "uuid",
-                    django_extensions.db.fields.UUIDField(
-                        help_text="Unique identifier",
-                        unique=True,
-                        max_length=36,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "description",
-                    models.CharField(help_text="Common name of format", max_length=128),
-                ),
-                ("slug", autoslug.fields.AutoSlugField(editable=False)),
-            ],
-            options={"ordering": ["group", "description"], "verbose_name": "Format"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="FormatGroup",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                (
-                    "uuid",
-                    django_extensions.db.fields.UUIDField(
-                        help_text="Unique identifier",
-                        unique=True,
-                        max_length=36,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "description",
-                    models.CharField(max_length=128, verbose_name="Format Group"),
-                ),
-                ("slug", autoslug.fields.AutoSlugField(editable=False)),
-            ],
-            options={"ordering": ["description"], "verbose_name": "Format Group"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="FormatVersion",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                ("enabled", models.BooleanField(default=True)),
-                ("lastmodified", models.DateTimeField(auto_now_add=True)),
-                (
-                    "uuid",
-                    django_extensions.db.fields.UUIDField(
-                        help_text="Unique identifier",
-                        unique=True,
-                        max_length=36,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                ("version", models.CharField(max_length=10, null=True, blank=True)),
-                ("pronom_id", models.CharField(max_length=32, null=True, blank=True)),
-                (
-                    "description",
-                    models.CharField(
-                        help_text="Formal name to go in the METS file.",
-                        max_length=128,
-                        null=True,
-                        blank=True,
-                    ),
-                ),
-                ("access_format", models.BooleanField(default=False)),
-                ("preservation_format", models.BooleanField(default=False)),
-                ("slug", autoslug.fields.AutoSlugField(editable=False)),
-                (
-                    "format",
-                    models.ForeignKey(
-                        related_name="version_set",
-                        to_field="uuid",
-                        to="fpr.Format",
-                        null=True,
-                    ),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        to_field="uuid", blank=True, to="fpr.FormatVersion", null=True
-                    ),
-                ),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('uuid', django_extensions.db.fields.UUIDField(help_text='Unique identifier', unique=True, max_length=36, editable=False, blank=True)),
+                ('description', models.CharField(help_text='Common name of format', max_length=128, verbose_name='description')),
+                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from=b'description', unique=True, verbose_name='slug')),
             ],
             options={
-                "ordering": ["format", "description"],
-                "verbose_name": "Format Version",
+                'ordering': ['group', 'description'],
+                'verbose_name': 'Format',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="FPCommand",
+            name='FormatGroup',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                ("enabled", models.BooleanField(default=True)),
-                ("lastmodified", models.DateTimeField(auto_now_add=True)),
-                (
-                    "uuid",
-                    django_extensions.db.fields.UUIDField(
-                        help_text="Unique identifier",
-                        unique=True,
-                        max_length=36,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                ("description", models.CharField(max_length=256)),
-                ("command", models.TextField()),
-                (
-                    "script_type",
-                    models.CharField(
-                        max_length=16,
-                        choices=[
-                            ("bashScript", "Bash Script"),
-                            ("pythonScript", "Python Script"),
-                            ("command", "Command Line"),
-                            ("as_is", "No shebang (#!/path/to/interpreter) needed"),
-                        ],
-                    ),
-                ),
-                ("output_location", models.TextField(null=True, blank=True)),
-                (
-                    "command_usage",
-                    models.CharField(
-                        max_length=16,
-                        choices=[
-                            ("characterization", "Characterization"),
-                            ("event_detail", "Event Detail"),
-                            ("extraction", "Extraction"),
-                            ("normalization", "Normalization"),
-                            ("transcription", "Transcription"),
-                            ("validation", "Validation"),
-                            ("verification", "Verification"),
-                        ],
-                    ),
-                ),
-                (
-                    "event_detail_command",
-                    models.ForeignKey(
-                        related_name="+",
-                        to_field="uuid",
-                        blank=True,
-                        to="fpr.FPCommand",
-                        null=True,
-                    ),
-                ),
-                (
-                    "output_format",
-                    models.ForeignKey(
-                        to_field="uuid", blank=True, to="fpr.FormatVersion", null=True
-                    ),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        to_field="uuid", blank=True, to="fpr.FPCommand", null=True
-                    ),
-                ),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('uuid', django_extensions.db.fields.UUIDField(help_text='Unique identifier', unique=True, max_length=36, editable=False, blank=True)),
+                ('description', models.CharField(max_length=128, verbose_name='description')),
+                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from=b'description', unique=True, verbose_name='slug')),
             ],
             options={
-                "ordering": ["description"],
-                "verbose_name": "Format Policy Command",
+                'ordering': ['description'],
+                'verbose_name': 'Format group',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="FPRule",
+            name='FormatVersion',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                ("enabled", models.BooleanField(default=True)),
-                ("lastmodified", models.DateTimeField(auto_now_add=True)),
-                (
-                    "uuid",
-                    django_extensions.db.fields.UUIDField(
-                        help_text="Unique identifier",
-                        unique=True,
-                        max_length=36,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "purpose",
-                    models.CharField(
-                        max_length=32,
-                        choices=[
-                            ("access", "Access"),
-                            ("characterization", "Characterization"),
-                            ("extract", "Extract"),
-                            ("preservation", "Preservation"),
-                            ("thumbnail", "Thumbnail"),
-                            ("transcription", "Transcription"),
-                            ("validation", "Validation"),
-                            ("default_access", "Default Access"),
-                            ("default_characterization", "Default Characterization"),
-                            ("default_thumbnail", "Default Thumbnail"),
-                        ],
-                    ),
-                ),
-                ("count_attempts", models.IntegerField(default=0)),
-                ("count_okay", models.IntegerField(default=0)),
-                ("count_not_okay", models.IntegerField(default=0)),
-                ("command", models.ForeignKey(to="fpr.FPCommand", to_field="uuid")),
-                ("format", models.ForeignKey(to="fpr.FormatVersion", to_field="uuid")),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        to_field="uuid", blank=True, to="fpr.FPRule", null=True
-                    ),
-                ),
-            ],
-            options={"verbose_name": "Format Policy Rule"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="FPTool",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                (
-                    "uuid",
-                    django_extensions.db.fields.UUIDField(
-                        help_text="Unique identifier",
-                        unique=True,
-                        max_length=36,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "description",
-                    models.CharField(help_text="Name of tool", max_length=256),
-                ),
-                ("version", models.CharField(max_length=64)),
-                ("enabled", models.BooleanField(default=True)),
-                ("slug", autoslug.fields.AutoSlugField(editable=False)),
-            ],
-            options={"verbose_name": "Normalization Tool"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="IDCommand",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                ("enabled", models.BooleanField(default=True)),
-                ("lastmodified", models.DateTimeField(auto_now_add=True)),
-                (
-                    "uuid",
-                    django_extensions.db.fields.UUIDField(
-                        help_text="Unique identifier",
-                        unique=True,
-                        max_length=36,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "description",
-                    models.CharField(
-                        help_text="Name to identify script",
-                        max_length=256,
-                        verbose_name="Identifier",
-                    ),
-                ),
-                (
-                    "config",
-                    models.CharField(
-                        max_length=4,
-                        choices=[
-                            ("PUID", "PUID"),
-                            ("MIME", "mime-type"),
-                            ("ext", "file extension"),
-                        ],
-                    ),
-                ),
-                ("script", models.TextField(help_text="Script to be executed.")),
-                (
-                    "script_type",
-                    models.CharField(
-                        max_length=16,
-                        choices=[
-                            ("bashScript", "Bash Script"),
-                            ("pythonScript", "Python Script"),
-                            ("command", "Command Line"),
-                            ("as_is", "No shebang (#!/path/to/interpreter) needed"),
-                        ],
-                    ),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        to_field="uuid", blank=True, to="fpr.IDCommand", null=True
-                    ),
-                ),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('enabled', models.BooleanField(default=True, verbose_name='enabled')),
+                ('lastmodified', models.DateTimeField(auto_now_add=True, verbose_name='last modified')),
+                ('uuid', django_extensions.db.fields.UUIDField(help_text='Unique identifier', unique=True, max_length=36, editable=False, blank=True)),
+                ('version', models.CharField(max_length=10, null=True, verbose_name='version', blank=True)),
+                ('pronom_id', models.CharField(max_length=32, null=True, verbose_name='pronom id', blank=True)),
+                ('description', models.CharField(help_text='Formal name to go in the METS file.', max_length=128, null=True, verbose_name='description', blank=True)),
+                ('access_format', models.BooleanField(default=False, verbose_name='access format')),
+                ('preservation_format', models.BooleanField(default=False, verbose_name='preservation format')),
+                ('slug', autoslug.fields.AutoSlugField(always_update=True, populate_from=b'description', unique_with=(b'format',), editable=False)),
+                ('format', models.ForeignKey(related_name='version_set', verbose_name='the related format', to_field=b'uuid', to='fpr.Format', null=True)),
+                ('replaces', models.ForeignKey(verbose_name='the related model', to_field=b'uuid', blank=True, to='fpr.FormatVersion', null=True)),
             ],
             options={
-                "ordering": ["description"],
-                "verbose_name": "Format Identification Command",
+                'ordering': ['format', 'description'],
+                'verbose_name': 'Format version',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="IDRule",
+            name='FPCommand',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                ("enabled", models.BooleanField(default=True)),
-                ("lastmodified", models.DateTimeField(auto_now_add=True)),
-                (
-                    "uuid",
-                    django_extensions.db.fields.UUIDField(
-                        help_text="Unique identifier",
-                        unique=True,
-                        max_length=36,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                ("command_output", models.TextField()),
-                ("command", models.ForeignKey(to="fpr.IDCommand", to_field="uuid")),
-                ("format", models.ForeignKey(to="fpr.FormatVersion", to_field="uuid")),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        to_field="uuid", blank=True, to="fpr.IDRule", null=True
-                    ),
-                ),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('enabled', models.BooleanField(default=True, verbose_name='enabled')),
+                ('lastmodified', models.DateTimeField(auto_now_add=True, verbose_name='last modified')),
+                ('uuid', django_extensions.db.fields.UUIDField(help_text='Unique identifier', unique=True, max_length=36, editable=False, blank=True)),
+                ('description', models.CharField(max_length=256, verbose_name='description')),
+                ('command', models.TextField(verbose_name='command')),
+                ('script_type', models.CharField(max_length=16, verbose_name='script type', choices=[(b'bashScript', 'Bash script'), (b'pythonScript', 'Python script'), (b'command', 'Command line'), (b'as_is', 'No shebang needed')])),
+                ('output_location', models.TextField(null=True, verbose_name='output location', blank=True)),
+                ('command_usage', models.CharField(max_length=16, verbose_name='command usage', choices=[(b'characterization', 'Characterization'), (b'event_detail', 'Event Detail'), (b'extraction', 'Extraction'), (b'normalization', 'Normalization'), (b'transcription', 'Transcription'), (b'validation', 'Validation'), (b'verification', 'Verification')])),
+                ('event_detail_command', models.ForeignKey(related_name='+', verbose_name='the related event detail command', to_field=b'uuid', blank=True, to='fpr.FPCommand', null=True)),
+                ('output_format', models.ForeignKey(verbose_name='the related output format', to_field=b'uuid', blank=True, to='fpr.FormatVersion', null=True)),
+                ('replaces', models.ForeignKey(verbose_name='the related model', to_field=b'uuid', blank=True, to='fpr.FPCommand', null=True)),
             ],
-            options={"verbose_name": "Format Identification Rule"},
-            bases=(models.Model,),
+            options={
+                'ordering': ['description'],
+                'verbose_name': 'Format policy command',
+            },
         ),
         migrations.CreateModel(
-            name="IDTool",
+            name='FPRule',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                (
-                    "uuid",
-                    django_extensions.db.fields.UUIDField(
-                        help_text="Unique identifier",
-                        unique=True,
-                        max_length=36,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "description",
-                    models.CharField(help_text="Name of tool", max_length=256),
-                ),
-                ("version", models.CharField(max_length=64)),
-                ("enabled", models.BooleanField(default=True)),
-                ("slug", autoslug.fields.AutoSlugField(editable=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('enabled', models.BooleanField(default=True, verbose_name='enabled')),
+                ('lastmodified', models.DateTimeField(auto_now_add=True, verbose_name='last modified')),
+                ('uuid', django_extensions.db.fields.UUIDField(help_text='Unique identifier', unique=True, max_length=36, editable=False, blank=True)),
+                ('purpose', models.CharField(max_length=32, verbose_name='purpose', choices=[(b'access', 'Access'), (b'characterization', 'Characterization'), (b'extract', 'Extract'), (b'preservation', 'Preservation'), (b'thumbnail', 'Thumbnail'), (b'transcription', 'Transcription'), (b'validation', 'Validation'), (b'policy_check', 'Validation against a policy'), (b'default_access', 'Default access'), (b'default_characterization', 'Default characterization'), (b'default_thumbnail', 'Default thumbnail')])),
+                ('count_attempts', models.IntegerField(default=0, verbose_name='count attempts')),
+                ('count_okay', models.IntegerField(default=0, verbose_name='count okay')),
+                ('count_not_okay', models.IntegerField(default=0, verbose_name='count not okay')),
+                ('command', models.ForeignKey(to='fpr.FPCommand', to_field=b'uuid', verbose_name='the related command')),
+                ('format', models.ForeignKey(to='fpr.FormatVersion', to_field=b'uuid', verbose_name='the related format')),
+                ('replaces', models.ForeignKey(verbose_name='the related model', to_field=b'uuid', blank=True, to='fpr.FPRule', null=True)),
             ],
-            options={"verbose_name": "Format Identification Tool"},
-            bases=(models.Model,),
+            options={
+                'verbose_name': 'Format policy rule',
+            },
+        ),
+        migrations.CreateModel(
+            name='FPTool',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('uuid', django_extensions.db.fields.UUIDField(help_text='Unique identifier', unique=True, max_length=36, editable=False, blank=True)),
+                ('description', models.CharField(help_text='Name of tool', max_length=256, verbose_name='description')),
+                ('version', models.CharField(max_length=64, verbose_name='version')),
+                ('enabled', models.BooleanField(default=True, verbose_name='enabled')),
+                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from=b'_slug', unique=True, verbose_name='slug')),
+            ],
+            options={
+                'verbose_name': 'Normalization tool',
+            },
+        ),
+        migrations.CreateModel(
+            name='IDCommand',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('enabled', models.BooleanField(default=True, verbose_name='enabled')),
+                ('lastmodified', models.DateTimeField(auto_now_add=True, verbose_name='last modified')),
+                ('uuid', django_extensions.db.fields.UUIDField(help_text='Unique identifier', unique=True, max_length=36, editable=False, blank=True)),
+                ('description', models.CharField(help_text='Name to identify script', max_length=256, verbose_name='description')),
+                ('config', models.CharField(max_length=4, verbose_name='configuration', choices=[(b'PUID', 'PUID'), (b'MIME', 'MIME type'), (b'ext', 'File extension')])),
+                ('script', models.TextField(help_text='Script to be executed.', verbose_name='script')),
+                ('script_type', models.CharField(max_length=16, verbose_name='script type', choices=[(b'bashScript', 'Bash script'), (b'pythonScript', 'Python script'), (b'command', 'Command line'), (b'as_is', 'No shebang needed')])),
+                ('replaces', models.ForeignKey(verbose_name='the related model', to_field=b'uuid', blank=True, to='fpr.IDCommand', null=True)),
+            ],
+            options={
+                'ordering': ['description'],
+                'verbose_name': 'Format identification command',
+            },
+        ),
+        migrations.CreateModel(
+            name='IDRule',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('enabled', models.BooleanField(default=True, verbose_name='enabled')),
+                ('lastmodified', models.DateTimeField(auto_now_add=True, verbose_name='last modified')),
+                ('uuid', django_extensions.db.fields.UUIDField(help_text='Unique identifier', unique=True, max_length=36, editable=False, blank=True)),
+                ('command_output', models.TextField(verbose_name='command output')),
+                ('command', models.ForeignKey(to='fpr.IDCommand', to_field=b'uuid', verbose_name='the related command')),
+                ('format', models.ForeignKey(to='fpr.FormatVersion', to_field=b'uuid', verbose_name='the related format')),
+                ('replaces', models.ForeignKey(verbose_name='the related model', to_field=b'uuid', blank=True, to='fpr.IDRule', null=True)),
+            ],
+            options={
+                'verbose_name': 'Format identification rule',
+            },
+        ),
+        migrations.CreateModel(
+            name='IDTool',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('uuid', django_extensions.db.fields.UUIDField(help_text='Unique identifier', unique=True, max_length=36, editable=False, blank=True)),
+                ('description', models.CharField(help_text='Name of tool', max_length=256, verbose_name='description')),
+                ('version', models.CharField(max_length=64, verbose_name='version')),
+                ('enabled', models.BooleanField(default=True, verbose_name='enabled')),
+                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from=b'_slug', always_update=True, unique=True, verbose_name='slug')),
+            ],
+            options={
+                'verbose_name': 'Format identification tool',
+            },
         ),
         migrations.AddField(
-            model_name="idcommand",
-            name="tool",
-            field=models.ForeignKey(
-                to_field="uuid", blank=True, to="fpr.IDTool", null=True
-            ),
-            preserve_default=True,
+            model_name='idcommand',
+            name='tool',
+            field=models.ForeignKey(verbose_name='the related tool', to_field=b'uuid', to='fpr.IDTool', null=True),
         ),
         migrations.AddField(
-            model_name="fpcommand",
-            name="tool",
-            field=models.ForeignKey(to="fpr.FPTool", to_field="uuid", null=True),
-            preserve_default=True,
+            model_name='fpcommand',
+            name='tool',
+            field=models.ForeignKey(verbose_name='the related tool', to_field=b'uuid', to='fpr.FPTool', null=True),
         ),
         migrations.AddField(
-            model_name="fpcommand",
-            name="verification_command",
-            field=models.ForeignKey(
-                related_name="+",
-                to_field="uuid",
-                blank=True,
-                to="fpr.FPCommand",
-                null=True,
-            ),
-            preserve_default=True,
+            model_name='fpcommand',
+            name='verification_command',
+            field=models.ForeignKey(related_name='+', verbose_name='the related verification command', to_field=b'uuid', blank=True, to='fpr.FPCommand', null=True),
         ),
         migrations.AddField(
-            model_name="format",
-            name="group",
-            field=models.ForeignKey(to="fpr.FormatGroup", to_field="uuid", null=True),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name="fileid",
-            name="format",
-            field=models.ForeignKey(to="fpr.FormatVersion", to_field="uuid", null=True),
-            preserve_default=True,
+            model_name='format',
+            name='group',
+            field=models.ForeignKey(verbose_name='the related group', to_field=b'uuid', to='fpr.FormatGroup', null=True),
         ),
     ]
