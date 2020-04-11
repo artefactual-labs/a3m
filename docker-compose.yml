@@ -35,21 +35,12 @@ services:
     ports:
       - "127.0.0.1:62001:3306"
 
-  redis:
-    image: "redis:3.2-alpine"
-    command: '--save "" --appendonly no'  # Persistency disabled
-    user: "redis"
-    ports:
-      - "127.0.0.1:62003:6379"
-
   gearmand:
     image: "artefactual/gearmand:1.1.17-alpine"
-    command: "--queue-type=redis --redis-server=redis --redis-port=6379"
+    command: "--queue-type=builtin"
     user: "gearman"
     ports:
       - "127.0.0.1:62004:4730"
-    links:
-      - "redis"
 
   archivematica-mcp-server:
     build:
