@@ -266,14 +266,6 @@ def other_rights(db, basic_rights_statement):
     return basic_rights_statement
 
 
-@pytest.fixture()
-def dashboard_uuid(db):
-    setting, _ = DashboardSetting.objects.get_or_create(
-        name="dashboard_uuid", defaults={"value": str(uuid.uuid4())}
-    )
-    return setting.value
-
-
 @pytest.mark.django_db
 def test_transfer_mets_structmap_format(
     tmp_path, transfer, file_obj, subdir_path, empty_subdir_path, file_path
@@ -366,7 +358,8 @@ def test_transfer_mets_accession_id(tmp_path, transfer):
 
 
 @pytest.mark.django_db
-def test_transfer_mets_header(tmp_path, transfer, file_obj, dashboard_uuid):
+def test_transfer_mets_header(tmp_path, transfer, file_obj, settings):
+    settings.INSTANCE_ID = "12345"
     mets_path = tmp_path / "METS.xml"
     write_mets(str(mets_path), str(tmp_path), "transferDirectory", transfer.uuid)
     mets_doc = metsrw.METSDocument.fromfile(str(mets_path))
@@ -380,7 +373,7 @@ def test_transfer_mets_header(tmp_path, transfer, file_obj, dashboard_uuid):
     assert agent.get("ROLE") == "CREATOR"
     assert agent.get("TYPE") == "OTHER"
     assert agent.get("OTHERTYPE") == "SOFTWARE"
-    assert agent_name.text == dashboard_uuid
+    assert agent_name.text == "12345"
     assert agent_note.text == "Archivematica dashboard UUID"
 
 

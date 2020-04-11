@@ -7,7 +7,6 @@ volumes:
   # These are not accessible outside of the docker host and are maintained by
   # Docker.
   mysql_data:
-  archivematica_storage_service_staging_data:
 
   # External named volumes.
   # These are intended to be accessible beyond the docker host (e.g. via NFS).
@@ -17,10 +16,6 @@ volumes:
   archivematica_pipeline_data:
     external:
       name: "am-pipeline-data"
-  archivematica_storage_service_location_data:
-    external:
-      name: "ss-location-data"
-
 
 services:
 
@@ -33,14 +28,14 @@ services:
     volumes:
       - "mysql_data:/var/lib/mysql"
     ports:
-      - "127.0.0.1:62001:3306"
+      - "127.0.0.1:52001:3306"
 
   gearmand:
     image: "artefactual/gearmand:1.1.17-alpine"
     command: "--queue-type=builtin"
     user: "gearman"
     ports:
-      - "127.0.0.1:62004:4730"
+      - "127.0.0.1:52002:4730"
 
   archivematica-mcp-server:
     build:
@@ -62,6 +57,8 @@ services:
     links:
       - "mysql"
       - "gearmand"
+    ports:
+      - "127.0.0.1:52000:8000"
 
   archivematica-mcp-client:
     build:
@@ -87,25 +84,3 @@ services:
     links:
       - "mysql"
       - "gearmand"
-      - "archivematica-storage-service"
-
-  archivematica-storage-service:
-    build:
-      context: "./hack/modules/archivematica-storage-service"
-    environment:
-      FORWARDED_ALLOW_IPS: "*"
-      SS_GUNICORN_ACCESSLOG: "/dev/null"
-      SS_GUNICORN_RELOAD: "true"
-      SS_GUNICORN_RELOAD_ENGINE: "auto"
-      DJANGO_SETTINGS_MODULE: "storage_service.settings.local"
-      SS_DB_URL: "mysql://archivematica:demo@mysql/SS"
-      SS_GNUPG_HOME_PATH: "/var/archivematica/storage_service/.gnupg"
-      SS_PROMETHEUS_ENABLED: "true"
-    volumes:
-      - "./hack/modules/archivematica-storage-service/:/src/"
-      - "./hack/modules/archivematica-sampledata/:/home/archivematica/archivematica-sampledata/:ro"
-      - "archivematica_pipeline_data:/var/archivematica/sharedDirectory:rw"
-      - "archivematica_storage_service_staging_data:/var/archivematica/storage_service:rw"
-      - "archivematica_storage_service_location_data:/home:rw"
-    links:
-      - "mysql"

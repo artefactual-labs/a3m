@@ -25,7 +25,6 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import concurrent.futures
 import functools
-import getpass
 import logging
 import os
 import signal
@@ -74,8 +73,8 @@ def watched_dir_handler(package_queue, path, watched_dir):
 
 
 def main(shutdown_event=None):
-    logger.info("This PID: %s", os.getpid())
-    logger.info("User: %s", getpass.getuser())
+    logger.info("PID: %s", os.getpid())
+    logger.info("UID: %s", os.getuid())
 
     # Tracks whether a sigterm has been received or not
     if shutdown_event is None:

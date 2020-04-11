@@ -28,11 +28,12 @@ import django
 import scandir
 from lxml import etree
 from django.db.models import Prefetch
+from django.conf import settings as django_settings
 
 django.setup()
 import metsrw
 
-from a3m.archivematicaFunctions import get_dashboard_uuid, escape
+from a3m.archivematicaFunctions import escape
 from a3m.countryCodes import getCodeForCountry
 
 from a3m.main.models import (
@@ -74,12 +75,12 @@ def write_mets(mets_path, transfer_dir_path, base_path_placeholder, transfer_uui
     mets = metsrw.METSDocument()
     mets.objid = str(transfer_uuid)
 
-    dashboard_uuid = get_dashboard_uuid()
-    if dashboard_uuid:
+    instance_id = django_settings.INSTANCE_ID
+    if instance_id:
         agent = metsrw.Agent(
             "CREATOR",
             type="SOFTWARE",
-            name=str(dashboard_uuid),
+            name=str(instance_id),
             notes=["Archivematica dashboard UUID"],
         )
         mets.agents.append(agent)

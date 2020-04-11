@@ -297,12 +297,14 @@ DATABASES = {
     }
 }
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': '/var/archivematica/db',
     }
 }
+"""
 
 MIDDLEWARE_CLASSES = ()
 
@@ -400,3 +402,5 @@ except ValueError:
     PROMETHEUS_ENABLED = False
 else:
     PROMETHEUS_ENABLED = True
+
+INSTANCE_ID = "fec7bcf7-45db-4a22-8ceb-e94377db3476"

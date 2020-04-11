@@ -14,7 +14,6 @@ from django.utils import six
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs.base import Job
 from a3m.server.processing_config import load_preconfigured_choice, load_processing_xml
-from a3m.server.translation import TranslationLabel
 
 from a3m.main import models
 
@@ -128,44 +127,6 @@ class NextChainDecisionJob(DecisionJob):
 
         job_chain = JobChain(self.package, chain, self.workflow)
         return next(job_chain, None)
-
-
-class OutputDecisionJob(DecisionJob):
-    """A job that handles a workflow decision point, with choices based on script output.
-    """
-
-    def get_preconfigured_choice(self):
-        desired_choice = load_preconfigured_choice(
-            self.package.current_path, self.link.id
-        )
-        if desired_choice and self.job_chain.generated_choices:
-            for key, data in self.job_chain.generated_choices.items():
-                if data["uri"] == desired_choice:
-                    return data["uri"]
-
-        return None
-
-    def get_choices(self):
-        choices = OrderedDict()
-
-        if self.job_chain.generated_choices:
-            for _, value in self.job_chain.generated_choices.items():
-                choices[value["uri"]] = TranslationLabel(value["description"])
-
-        return choices
-
-    @auto_close_old_connections()
-    def decide(self, choice):
-        if choice not in self.get_choices():
-            raise ValueError("{} is not one of the available choices".format(choice))
-
-        # Pass the choice to the next job. This case is only used to select
-        # an AIP store URI, and the value of execute (script_name here) is a
-        # replacement string (e.g. %AIPsStore%)
-        self.job_chain.context[self.link.config["execute"]] = choice
-        self.mark_complete()
-
-        return next(self.job_chain, None)
 
 
 class UpdateContextDecisionJob(DecisionJob):

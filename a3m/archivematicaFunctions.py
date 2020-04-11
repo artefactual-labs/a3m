@@ -33,6 +33,7 @@ from uuid import uuid4
 
 import six
 from lxml import etree
+from django.conf import settings as django_settings
 
 from a3m.main.models import DashboardSetting
 from a3m.namespaces import NSMAP
@@ -60,11 +61,6 @@ def get_setting(setting, default=""):
         return DashboardSetting.objects.get(name=setting).value
     except DashboardSetting.DoesNotExist:
         return default
-
-
-def get_dashboard_uuid():
-    """Get Dashboard uuid via the Dashboard database mode."""
-    return get_setting("dashboard_uuid", default=None)
 
 
 class OrderedListsDict(collections.OrderedDict):

@@ -249,29 +249,3 @@ class FilesClientScriptJob(ClientScriptJob):
         else:
             # Nothing to do; set exit code to success
             self.exit_code = 0
-
-
-class OutputClientScriptJob(ClientScriptJob):
-    """Retrieves output (e.g. a set of choices) from mcp client, for use in a decision.
-
-    Output is returned via stderr, and parsed via eval. It is stored for access by the
-    next job on the `generated_choices` attribute of the job chain, which is used for
-    only this purpose.
-
-    TODO: Remove from workflow if possible.
-    """
-
-    # We always need output for this type of job
-    capture_task_output = True
-
-    def task_completed_callback(self, task):
-        logger.debug("stdout emitted by client: %s", task.stdout)
-
-        try:
-            choices = ast.literal_eval(task.stdout)
-        except (ValueError, SyntaxError):
-            logger.exception("Unable to parse output %s", task.stdout)
-            choices = {}
-
-        # Store on chain for next job
-        self.job_chain.generated_choices = choices

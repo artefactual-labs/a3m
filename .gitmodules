@@ -1,7 +1,3 @@
-[submodule "archivematica-storage-service"]
-	path = hack/modules/archivematica-storage-service
-	url = https://github.com/artefactual/archivematica-storage-service
-	branch = qa/0.x
 [submodule "archivematica-sampledata"]
 	path = hack/modules/archivematica-sampledata
 	url = https://github.com/artefactual/archivematica-sampledata

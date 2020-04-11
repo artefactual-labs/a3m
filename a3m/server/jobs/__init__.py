@@ -21,12 +21,10 @@ from a3m.server.jobs.client import (
     ClientScriptJob,
     DirectoryClientScriptJob,
     FilesClientScriptJob,
-    OutputClientScriptJob,
 )
 from a3m.server.jobs.decisions import (
     DecisionJob,
     NextChainDecisionJob,
-    OutputDecisionJob,
     UpdateContextDecisionJob,
 )
 from a3m.server.jobs.local import GetUnitVarLinkJob, LocalJob, SetUnitVarLinkJob
@@ -41,8 +39,6 @@ __all__ = (
     "JobChain",
     "LocalJob",
     "NextChainDecisionJob",
-    "OutputClientScriptJob",
-    "OutputDecisionJob",
     "SetUnitVarLinkJob",
     "UpdateContextDecisionJob",
 )

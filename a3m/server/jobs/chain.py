@@ -20,11 +20,9 @@ from a3m.server.jobs.client import (
     ClientScriptJob,
     DirectoryClientScriptJob,
     FilesClientScriptJob,
-    OutputClientScriptJob,
 )
 from a3m.server.jobs.decisions import (
     NextChainDecisionJob,
-    OutputDecisionJob,
     UpdateContextDecisionJob,
 )
 from a3m.server.jobs.local import GetUnitVarLinkJob, SetUnitVarLinkJob
@@ -44,12 +42,8 @@ def get_job_class_for_link(link):
         job_class = DirectoryClientScriptJob
     elif manager_name == "linkTaskManagerFiles":
         job_class = FilesClientScriptJob
-    elif manager_name == "linkTaskManagerGetMicroserviceGeneratedListInStdOut":
-        job_class = OutputClientScriptJob
     elif manager_name == "linkTaskManagerChoice":
         job_class = NextChainDecisionJob
-    elif manager_name == "linkTaskManagerGetUserChoiceFromMicroserviceGeneratedList":
-        job_class = OutputDecisionJob
     elif manager_name == "linkTaskManagerReplacementDicFromChoice":
         job_class = UpdateContextDecisionJob
     elif manager_name == "linkTaskManagerSetUnitVariable":
@@ -71,8 +65,6 @@ class JobChain(object):
 
     Job chains are used for passing information between jobs, via:
         * context, a dict of replacement variables for tasks
-        * generated_choices, a place to store choices available from script
-          output (e.g. available storage service locations)
         * next_link, a workflow link that can be set to redirect the job chain
     """
 
@@ -90,9 +82,6 @@ class JobChain(object):
         self.current_job = None
         # TODO: package context hits the db, make that clearer
         self.context = self.package.context.copy()
-
-        # TODO: store generated choices in context
-        self.generated_choices = None
 
         logger.debug(
             "Creating JobChain %s for package %s (initial link %s)",

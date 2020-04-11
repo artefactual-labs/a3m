@@ -16,8 +16,6 @@ from a3m.server.jobs import (
     GetUnitVarLinkJob,
     JobChain,
     NextChainDecisionJob,
-    OutputClientScriptJob,
-    OutputDecisionJob,
     SetUnitVarLinkJob,
     UpdateContextDecisionJob,
 )
@@ -29,7 +27,6 @@ from a3m.server.workflow import load as load_workflow
 
 FIXTURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
 INTEGRATION_TEST_PATH = os.path.join(FIXTURES_DIR, "workflow-integration-test.json")
-DEFAULT_STORAGE_LOCATION = "/api/v2/location/default/"
 TEST_PROCESSING_CONFIG = etree.parse(
     six.moves.StringIO(
         """<processingMCP>
@@ -168,30 +165,23 @@ def test_workflow_integration(
     assert package_queue.job_queue.qsize() == 1
     job = future.result()
 
-    # Process the third job (OutputClientScriptJob)
+    # Process the third job (DirectoryClientScriptJob)
     future = package_queue.process_one_job(timeout=1.0)
     concurrent.futures.wait([future], timeout=1.0)
 
-    assert isinstance(job, OutputClientScriptJob)
+    assert isinstance(job, DirectoryClientScriptJob)
     assert job.exit_code == 0
-    assert job.job_chain.generated_choices == {
-        "default": {"description": "Default Location", "uri": DEFAULT_STORAGE_LOCATION}
-    }
 
     # Next job in chain should be queued
     assert package_queue.job_queue.qsize() == 1
     job = future.result()
 
-    # Setup preconfigured choice for next job
-    mock_load_preconfigured_choice.return_value = DEFAULT_STORAGE_LOCATION
-
     # Process the fourth job (OutputDecisionJob)
     future = package_queue.process_one_job(timeout=1.0)
     concurrent.futures.wait([future], timeout=1.0)
 
-    assert isinstance(job, OutputDecisionJob)
+    assert isinstance(job, DirectoryClientScriptJob)
     assert job.exit_code == 0
-    assert job.job_chain.context[r"%AIPsStore%"] == DEFAULT_STORAGE_LOCATION
 
     # Next job in chain should be queued
     assert package_queue.job_queue.qsize() == 1
