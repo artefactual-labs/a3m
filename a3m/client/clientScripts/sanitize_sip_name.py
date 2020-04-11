@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import sys
 
@@ -28,8 +25,7 @@ import django
 django.setup()
 from django.db import transaction
 
-# dashboard
-from main.models import SIP, Transfer
+from a3m.main.models import SIP, Transfer
 
 from sanitize_names import sanitize_path
 

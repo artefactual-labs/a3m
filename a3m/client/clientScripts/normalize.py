@@ -16,14 +16,12 @@ import django
 import scandir
 
 django.setup()
-# dashboard
-from fpr.models import FPRule
-from main.models import Derivation, FileFormatVersion, File, FileID
+from a3m.fpr.models import FPRule
+from a3m.main.models import Derivation, FileFormatVersion, File, FileID
 from django.db import transaction
 
-import databaseFunctions
-import fileOperations
-from dicts import ReplacementDict
+from a3m import databaseFunctions, fileOperations
+from a3m.dicts import ReplacementDict
 
 from django.conf import settings as mcpclient_settings
 from .lib import setup_dicts

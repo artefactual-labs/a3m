@@ -35,19 +35,18 @@ from django.core.management import call_command
 
 import pytest
 
-from main.models import File, Event
-
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
-
-from job import Job
-from verify_checksum import (
+from a3m.main.models import File, Event
+from a3m.client.job import Job
+from a3m.client.clientScripts.verify_checksum import (
     Hashsum,
     NoHashCommandAvailable,
     write_premis_event_per_file,
     get_file_queryset,
     PREMISFailure,
 )
+
+
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class TestHashsum(object):
@@ -67,10 +66,7 @@ class TestHashsum(object):
         """Test that we don't return a Hashsum object if there isn't a tool
         configured to work with the file path provided.
         """
-        with pytest.raises(
-            NoHashCommandAvailable,
-            message="Expecting NoHashCommandAvailable for invalid checksum type",
-        ):
+        with pytest.raises(NoHashCommandAvailable):
             Hashsum("checksum.invalid_hash")
 
     @pytest.mark.parametrize(
@@ -95,10 +91,7 @@ class TestHashsum(object):
                 Hashsum(fixture[0]), Hashsum
             ), "Hashsum object not instantiated correctly"
         else:
-            with pytest.raises(
-                NoHashCommandAvailable,
-                message="Expecting NoHashCommandAvailable for a filename we shouldn't be able to handle",
-            ):
+            with pytest.raises(NoHashCommandAvailable):
                 Hashsum(fixture[0])
 
     def test_provenance_string(self, mocker):
@@ -395,10 +388,5 @@ class TestHashsum(object):
         package_uuid = "e95ab50f-9c84-45d5-a3ca-1b0b3f58d9b6"
         assert get_file_queryset(package_uuid)
         invalid_package_uuid = "badf00d1-9c84-45d5-a3ca-1b0b3f58d9b6"
-        with pytest.raises(
-            PREMISFailure,
-            message="Unable to find the transfer objects for the SIP: '{}' in the database".format(
-                invalid_package_uuid
-            ),
-        ):
+        with pytest.raises(PREMISFailure):
             get_file_queryset(invalid_package_uuid)

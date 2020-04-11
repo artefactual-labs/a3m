@@ -28,7 +28,7 @@ import sys
 import tempfile
 import time
 
-from custom_handlers import get_script_logger
+from a3m.custom_handlers import get_script_logger
 
 # externals
 import requests
@@ -39,8 +39,7 @@ django.setup()
 from django.conf import settings as mcpclient_settings
 from django.db import transaction
 
-# dashboard
-import main.models as models
+import a3m.main.models as models
 
 # moved after django.setup()
 logger = get_script_logger("archivematica.upload.qubit")

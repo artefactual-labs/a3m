@@ -9,11 +9,10 @@ import django
 django.setup()
 from django.db import transaction
 
-# dashboard
-from main import models
+from a3m.main import models
 
-from custom_handlers import get_script_logger
-import storageService as storage_service
+from a3m.custom_handlers import get_script_logger
+from a3m import storageService as storage_service
 
 logger = get_script_logger("archivematica.mcp.client.post_store_aip_hook")
 

@@ -8,7 +8,7 @@ import shutil
 
 import scandir
 
-from custom_handlers import get_script_logger
+from a3m.custom_handlers import get_script_logger
 
 logger = get_script_logger("archivematica.mcp.client.move_or_merge")
 

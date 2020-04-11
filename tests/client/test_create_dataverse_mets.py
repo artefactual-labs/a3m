@@ -8,15 +8,15 @@ from collections import namedtuple
 import os
 import sys
 
+import metsrw
 import pytest
 
-import metsrw
-from job import Job
+from a3m.client.clientScripts import convert_dataverse_structure
+from a3m.client.job import Job
+
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
 
-import convert_dataverse_structure
 
 # List of Dataverse metadata fixtures. We use a named-tuple to provide some
 # structure to this index so that we can keep track of information regarding

@@ -9,10 +9,10 @@ import unittest
 from django.core.management import call_command
 from django.test import TestCase
 
-from main import models
-
-from job import Job
-from namespaces import NSMAP, nsmap_for_premis2
+from a3m.main import models
+from a3m.client.job import Job
+from a3m.namespaces import NSMAP, nsmap_for_premis2
+from a3m.client.clientScripts import archivematicaCreateMETSReingest
 
 import metsrw
 
@@ -23,8 +23,6 @@ except ImportError:
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 FIXTURES_DIR = os.path.join(THIS_DIR, "fixtures")
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
-import archivematicaCreateMETSReingest
 
 REMOVE_BLANK_PARSER = etree.XMLParser(remove_blank_text=True)
 

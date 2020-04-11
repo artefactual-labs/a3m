@@ -8,11 +8,9 @@ import django
 django.setup()
 from django.db import transaction
 
-import storageService as storage_service
-
-from main.models import File, Transfer
-
-import metrics
+from a3m import storageService as storage_service
+from a3m.main.models import File, Transfer
+from a3m.client import metrics
 
 
 REJECTED = "reject"

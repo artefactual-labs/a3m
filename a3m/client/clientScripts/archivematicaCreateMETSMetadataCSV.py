@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 # @version svn: $Id$
 
 # /src/dashboard/src/main/models.py
@@ -29,7 +26,7 @@ import csv
 import sys
 import traceback
 
-import archivematicaFunctions
+from a3m import archivematicaFunctions
 
 
 def parseMetadata(job, SIPPath, state):

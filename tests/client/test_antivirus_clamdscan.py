@@ -2,9 +2,9 @@
 
 from __future__ import print_function
 
+from collections import namedtuple
 import errno
 
-from collections import namedtuple
 from clamd import (
     ClamdNetworkSocket,
     ClamdUnixSocket,

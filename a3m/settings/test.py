@@ -24,15 +24,9 @@ from __future__ import absolute_import
 from .common import *
 
 
-# IN-MEMORY TEST DATABASE
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "archivematica-test.db",
-        "TEST": {"NAME": "archivematica-test.db"},
-        "USER": "",
-        "PASSWORD": "",
-        "HOST": "",
-        "PORT": "",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/var/archivematica/db-test',
     }
 }

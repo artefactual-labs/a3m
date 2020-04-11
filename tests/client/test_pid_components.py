@@ -14,29 +14,22 @@ import sys
 
 from django.core.management import call_command
 
-from job import Job
-from main.models import Directory, File, SIP, DashboardSetting
+from a3m import namespaces as ns
+from a3m.client.job import Job
+from a3m.client.clientScripts import bind_pid, bind_pids, create_mets_v2
+from a3m.client.clientScripts.pid_declaration import DeclarePIDs, DeclarePIDsException
+from a3m.main.models import Directory, File, SIP, DashboardSetting
 
 import pytest
 import vcr
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
-sys.path.append(
-    os.path.abspath(os.path.join(THIS_DIR, "../../archivematicaCommon/lib"))
-)
 
 vcr_cassettes = vcr.VCR(
     cassette_library_dir=os.path.join(THIS_DIR, "fixtures", "vcr_cassettes"),
     path_transformer=vcr.VCR.ensure_suffix(".yaml"),
 )
-
-import bind_pid
-import bind_pids
-import create_mets_v2
-import namespaces as ns
-from pid_declaration import DeclarePIDs, DeclarePIDsException
 
 
 class TestPIDComponents(object):

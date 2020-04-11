@@ -38,11 +38,10 @@ import django
 import scandir
 
 django.setup()
-# dashboard
-from main.models import Transfer, Directory
 
-from custom_handlers import get_script_logger
-from archivematicaFunctions import get_dir_uuids, format_subdir_path, str2bool
+from a3m.main.models import Transfer, Directory
+from a3m.custom_handlers import get_script_logger
+from a3m.archivematicaFunctions import get_dir_uuids, format_subdir_path, str2bool
 
 from django.db import transaction
 

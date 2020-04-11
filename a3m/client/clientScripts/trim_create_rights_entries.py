@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 import os
 from lxml import etree as etree
 import sys
@@ -35,8 +32,7 @@ import django
 django.setup()
 from django.db import transaction
 
-# dashboard
-from main.models import (
+from a3m.main.models import (
     RightsStatement,
     RightsStatementOtherRightsInformation,
     RightsStatementOtherRightsDocumentationIdentifier,
@@ -45,7 +41,7 @@ from main.models import (
     RightsStatementRightsGrantedRestriction,
 )
 
-from fileOperations import getFileUUIDLike
+from a3m.fileOperations import getFileUUIDLike
 
 while False:
     import time

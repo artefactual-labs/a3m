@@ -17,23 +17,17 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 import os
 import sys
 
 import django
 from django.db import transaction
-
 django.setup()
-# dashboard
-from main.models import File
 
-from archivematicaFunctions import REQUIRED_DIRECTORIES, OPTIONAL_FILES
-import bag
-import fileOperations
-from databaseFunctions import insertIntoEvents
+from a3m.main.models import File
+from a3m.archivematicaFunctions import REQUIRED_DIRECTORIES, OPTIONAL_FILES
+from a3m import bag, fileOperations
+from a3m.databaseFunctions import insertIntoEvents
 
 from move_or_merge import move_or_merge
 

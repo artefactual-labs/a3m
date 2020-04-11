@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 from optparse import OptionParser
 import uuid
 
@@ -27,8 +24,9 @@ import uuid
 import django
 
 django.setup()
-from databaseFunctions import insertIntoEvents
 from django.db import transaction
+
+from a3m.databaseFunctions import insertIntoEvents
 
 
 def call(jobs):

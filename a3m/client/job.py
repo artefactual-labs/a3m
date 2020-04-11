@@ -9,7 +9,7 @@ import traceback
 import sys
 import logging
 
-from a3m.contextlib import contextmanager
+from contextlib import contextmanager
 from a3m.custom_handlers import CallbackHandler
 
 LOGGER = logging.getLogger("archivematica.mcp.client.job")

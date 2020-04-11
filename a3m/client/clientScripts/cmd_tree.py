@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 
-from executeOrRunSubProcess import executeOrRun
+from a3m.executeOrRunSubProcess import executeOrRun
 
 
 def call(jobs):

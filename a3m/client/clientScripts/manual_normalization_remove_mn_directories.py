@@ -1,6 +1,3 @@
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import os
 import sys
@@ -11,10 +8,8 @@ import scandir
 django.setup()
 from django.db import transaction
 
-# dashboard
-from main.models import File
-
-import databaseFunctions
+from a3m.main.models import File
+from a3m import databaseFunctions
 
 
 def recursivelyRemoveEmptyDirectories(job, dir):

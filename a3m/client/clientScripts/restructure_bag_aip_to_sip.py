@@ -17,16 +17,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import os
 import shutil
 
-
-from custom_handlers import get_script_logger
-import archivematicaFunctions
+from a3m.custom_handlers import get_script_logger
+from a3m import archivematicaFunctions
 
 
 logger = get_script_logger("archivematica.mcp.client.restructureBagAIPToSIP")

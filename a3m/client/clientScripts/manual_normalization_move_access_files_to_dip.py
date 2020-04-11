@@ -17,22 +17,18 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
+from optparse import OptionParser
 import os
 
 import django
 from django.db import transaction
 
 django.setup()
-# dashboard
-from main.models import File
 
-import fileOperations
+from a3m.main.models import File
+from a3m import fileOperations
 
 # --sipUUID "%SIPUUID%" --sipDirectory "%SIPDirectory%" --filePath "%relativeLocation%"
-from optparse import OptionParser
 
 
 def main(job):

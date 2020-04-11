@@ -8,8 +8,7 @@ import django
 django.setup()
 from django.db import transaction
 
-# dashboard
-from main.models import Transfer
+from a3m.main.models import Transfer
 
 
 def main(job, transfer_path, transfer_uuid, shared_path):

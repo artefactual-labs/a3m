@@ -47,14 +47,12 @@ from functools import wraps
 
 from django.db import transaction
 import django
-
 django.setup()
-# dashboard
-from main.models import DashboardSetting, File
 
-import bindpid
-from custom_handlers import get_script_logger
-from archivematicaFunctions import str2bool
+from a3m.main.models import DashboardSetting, File
+from a3m import bindpid
+from a3m.custom_handlers import get_script_logger
+from a3m.archivematicaFunctions import str2bool
 
 
 logger = get_script_logger("archivematica.mcp.client.bind_pid")

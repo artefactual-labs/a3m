@@ -11,9 +11,8 @@ import scandir
 django.setup()
 from django.db import transaction
 
-import archivematicaFunctions
-from archivematicaFunctions import REQUIRED_DIRECTORIES, OPTIONAL_FILES
-import fileOperations
+from a3m import fileOperations
+from a3m import archivematicaFunctions import REQUIRED_DIRECTORIES, OPTIONAL_FILES, create_directories
 
 
 def restructureForComplianceFileUUIDsAssigned(
@@ -24,7 +23,7 @@ def restructureForComplianceFileUUIDsAssigned(
     unit_path_replacement="%SIPDirectory%",
 ):
     # Create required directories
-    archivematicaFunctions.create_directories(
+    create_directories(
         REQUIRED_DIRECTORIES, unit_path, printing=True, printfn=job.pyprint
     )
     unit_path = os.path.join(unit_path, "")  # Ensure both end with /

@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Mark Jordan <mark2jordan@gmail.com>
 
 import argparse
 import collections
@@ -29,8 +26,8 @@ import os
 import re
 import sys
 
-import archivematicaFunctions
-import namespaces as ns
+from a3m import archivematicaFunctions
+from a3m import namespaces as ns
 
 
 def parseDmdSec(dmdSec, label="[Placeholder title]"):

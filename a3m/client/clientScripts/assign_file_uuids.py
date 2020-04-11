@@ -40,15 +40,14 @@ from django.db import transaction
 import django
 
 django.setup()
-# dashboard
-from main.models import File, Transfer
 
-from custom_handlers import get_script_logger
-from fileOperations import addFileToTransfer
-from fileOperations import addFileToSIP
+from a3m.main.models import File, Transfer
+from a3m.custom_handlers import get_script_logger
+from a3m.fileOperations import addFileToTransfer
+from a3m.fileOperations import addFileToSIP
+from a3m import namespaces as ns
 
 import metsrw
-import namespaces as ns
 
 logger = get_script_logger("archivematica.mcp.client.assignFileUUID")
 

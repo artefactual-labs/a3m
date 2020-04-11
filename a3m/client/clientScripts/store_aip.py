@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import argparse
 import os
@@ -35,13 +32,11 @@ django.setup()
 from django.db import transaction
 from metsrw.plugins import premisrw
 
-from main.models import UnitVariable, Event, Agent, DublinCore
-
-from custom_handlers import get_script_logger
-import storageService as storage_service
-from archivematicaFunctions import escape
-
-import metrics
+from a3m.main.models import UnitVariable, Event, Agent, DublinCore
+from a3m.custom_handlers import get_script_logger
+from a3m import storageService as storage_service
+from a3m.archivematicaFunctions import escape
+from a3m.client import metrics
 
 
 logger = get_script_logger("archivematica.mcp.client.storeAIP")

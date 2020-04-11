@@ -22,11 +22,11 @@ from django.conf import settings as mcpclient_settings
 from django.db import transaction
 from django.db.models import Q
 
-from archivematicaFunctions import get_setting
-from custom_handlers import get_script_logger
-from databaseFunctions import insertIntoEvents
-from main.models import Agent, File, UnitVariable
-import storageService as storage_service
+from a3m.archivematicaFunctions import get_setting
+from a3m.custom_handlers import get_script_logger
+from a3m.databaseFunctions import insertIntoEvents
+from a3m.main.models import Agent, File, UnitVariable
+from a3m import storageService as storage_service
 
 from bagit import make_bag
 import metsrw
@@ -185,7 +185,6 @@ def main(job, transfer_id, transfer_path, created_at):
     relative_transfer_path = transfer_path.replace(shared_path, "")
 
     # TODO this should use the same value as
-    # dashboard/src/components/filesystem_ajax/views.py DEFAULT_BACKLOG_PATH
     transfer_name = os.path.basename(transfer_path.rstrip("/"))
     backlog_path = os.path.join("originals", transfer_name)
 

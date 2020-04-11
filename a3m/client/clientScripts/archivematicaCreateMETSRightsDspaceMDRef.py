@@ -17,18 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import os
 import sys
 import lxml.etree as etree
 
-# dashboard
-from main.models import File
-
-import namespaces as ns
+from a3m.main.models import File
+from a3m import namespaces as ns
 
 
 def createMDRefDMDSec(LABEL, itemdirectoryPath, directoryPathSTR):

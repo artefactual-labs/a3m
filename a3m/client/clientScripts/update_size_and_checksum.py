@@ -28,11 +28,10 @@ from django.db import transaction
 
 django.setup()
 
-from main.models import File, FileFormatVersion
-
-from custom_handlers import get_script_logger
-from databaseFunctions import insertIntoDerivations
-from fileOperations import updateSizeAndChecksum
+from a3m.main.models import File, FileFormatVersion
+from a3m.custom_handlers import get_script_logger
+from a3m.databaseFunctions import insertIntoDerivations
+from a3m.fileOperations import updateSizeAndChecksum
 
 import metsrw
 

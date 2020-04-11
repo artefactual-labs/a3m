@@ -11,16 +11,14 @@ import django
 from django.db import transaction
 
 django.setup()
-# dashboard
 from django.utils import timezone
-from main.models import UnitVariable
 
 import create_mets_v2
 
-import databaseFunctions
-import fileOperations
-import namespaces as ns
-import storageService as storage_service
+from a3m.main.models import UnitVariable
+from a3m import databaseFunctions, fileOperations
+from a3m import namespaces as ns
+from a3m import storageService as storage_service
 
 
 def get_aip_info(aic_dir, job):

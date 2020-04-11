@@ -16,15 +16,13 @@ django.setup()
 from django.db import transaction
 from django.conf import settings as mcpclient_settings
 
-# dashboard
-from main.models import FPCommandOutput
-from fpr.models import FPRule, FormatVersion
+from a3m.main.models import FPCommandOutput
+from a3m.fpr.models import FPRule, FormatVersion
+from a3m.executeOrRunSubProcess import executeOrRun
+from a3m.databaseFunctions import insertIntoFPCommandOutput
+from a3m.dicts import replace_string_values, ReplacementDict
 
-from executeOrRunSubProcess import executeOrRun
-from databaseFunctions import insertIntoFPCommandOutput
-from dicts import replace_string_values, ReplacementDict
-
-from lib import setup_dicts
+from .lib import setup_dicts
 
 
 def concurrent_instances():

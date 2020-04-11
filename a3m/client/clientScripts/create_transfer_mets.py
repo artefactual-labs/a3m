@@ -17,8 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
 from __future__ import unicode_literals
 
 import argparse
@@ -34,11 +32,10 @@ from django.db.models import Prefetch
 django.setup()
 import metsrw
 
-from archivematicaFunctions import get_dashboard_uuid, escape
-from countryCodes import getCodeForCountry
+from a3m.archivematicaFunctions import get_dashboard_uuid, escape
+from a3m.countryCodes import getCodeForCountry
 
-# dashboard
-from main.models import (
+from a3m.main.models import (
     Derivation,
     Directory,
     File,

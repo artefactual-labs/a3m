@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Mike Cantelon <mike@artefactual.com>
 
 import csv
 import os
@@ -29,8 +26,7 @@ import django
 django.setup()
 from django.db import transaction
 
-# dashboard
-from main import models
+from a3m.main import models
 
 
 class RightsRowException(Exception):

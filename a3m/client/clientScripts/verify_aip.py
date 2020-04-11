@@ -10,11 +10,10 @@ django.setup()
 from django.conf import settings as mcpclient_settings
 from django.db import transaction
 
-from archivematicaFunctions import get_setting
-import databaseFunctions
-from executeOrRunSubProcess import executeOrRun
-
-from main.models import File, SIP
+from a3m.archivematicaFunctions import get_setting
+from a3m.databaseFunctions
+from a3m.executeOrRunSubProcess import executeOrRun
+from a3m.main.models import File, SIP
 
 from bagit import Bag, BagError
 

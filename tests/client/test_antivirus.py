@@ -3,9 +3,10 @@
 from collections import OrderedDict, namedtuple
 
 import pytest
-import test_antivirus_clamdscan
 
 from a3m.client.clientScripts import archivematica_clamscan
+
+import test_antivirus_clamdscan
 
 
 def test_get_scanner(settings):
@@ -86,16 +87,16 @@ def setup_test_scan_file_mocks(
 ):
     deps = namedtuple("deps", ["file_already_scanned", "file_get", "scanner"])(
         file_already_scanned=mocker.patch(
-            "archivematica_clamscan.file_already_scanned",
+            "a3m.client.clientScripts.archivematica_clamscan.file_already_scanned",
             return_value=file_already_scanned,
         ),
         file_get=mocker.patch(
-            "main.models.File.objects.get", return_value=FileMock(size=file_size)
+            "a3m.main.models.File.objects.get", return_value=FileMock(size=file_size)
         ),
         scanner=ScannerMock(should_except=scanner_should_except, passed=scanner_passed),
     )
 
-    mocker.patch("archivematica_clamscan.get_scanner", return_value=deps.scanner)
+    mocker.patch("a3m.client.clientScripts.archivematica_clamscan.get_scanner", return_value=deps.scanner)
 
     return deps
 

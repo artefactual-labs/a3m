@@ -6,19 +6,16 @@ import uuid
 from lxml import etree
 import pytest
 
-from main.models import Agent
-from main.models import Event
-from main.models import File
-from main.models import Transfer
+from a3m.main.models import Agent, Event, File, Transfer
+from a3m.client.clientScripts import load_premis_events_from_xml
+
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
-import load_premis_events_from_xml
 
 
 @pytest.fixture()
 def xsd_path():
-    return os.path.abspath(os.path.join(THIS_DIR, "../lib/assets/premis/premis.xsd"))
+    return os.path.abspath(os.path.join(THIS_DIR, "../../a3m/client/assets/premis/premis.xsd"))
 
 
 @pytest.fixture()
@@ -235,9 +232,9 @@ def test_file_element_factory(mocker, params):
         identifier_type="f", identifier_value="1", original_name=params["original_name"]
     )
     mocker.patch("metsrw.plugins.premisrw.premis_to_data")
-    mocker.patch("load_premis_events_from_xml.PREMISFile", return_value=premis_element)
+    mocker.patch("a3m.client.clientScripts.load_premis_events_from_xml.PREMISFile", return_value=premis_element)
     mocker.patch(
-        "load_premis_events_from_xml.get_premis_element_children_identifiers",
+        "a3m.client.clientScripts.load_premis_events_from_xml.get_premis_element_children_identifiers",
         return_value=set(),
     )
     result = load_premis_events_from_xml.file_element_factory(None)
@@ -257,7 +254,7 @@ def test_agent_element_factory(mocker):
     mocker.patch("metsrw.plugins.premisrw.premis_to_data")
     mocker.patch("metsrw.plugins.premisrw.PREMISAgent", return_value=premis_element)
     mocker.patch(
-        "load_premis_events_from_xml.get_premis_element_children_identifiers",
+        "a3m.client.clientScripts.load_premis_events_from_xml.get_premis_element_children_identifiers",
         return_value=set(),
     )
     result = load_premis_events_from_xml.agent_element_factory(None)
@@ -303,7 +300,7 @@ def test_event_element_factory(mocker, params):
     mocker.patch("metsrw.plugins.premisrw.premis_to_data")
     mocker.patch("metsrw.plugins.premisrw.PREMISEvent", return_value=premis_element)
     mocker.patch(
-        "load_premis_events_from_xml.get_premis_element_children_identifiers",
+        "a3m.client.clientScripts.load_premis_events_from_xml.get_premis_element_children_identifiers",
         return_value=set(),
     )
     result = load_premis_events_from_xml.event_element_factory(None)
@@ -345,7 +342,7 @@ def test_event_element_factory_prints_datetime_error(mocker):
     mocker.patch("metsrw.plugins.premisrw.premis_to_data")
     mocker.patch("metsrw.plugins.premisrw.PREMISEvent", return_value=premis_element)
     mocker.patch(
-        "load_premis_events_from_xml.get_premis_element_children_identifiers",
+        "a3m.client.clientScripts.load_premis_events_from_xml.get_premis_element_children_identifiers",
         return_value=set(),
     )
     load_premis_events_from_xml.event_element_factory(None, printfn)
@@ -414,7 +411,7 @@ def test_get_or_create_agents(mocker):
     mock_agent_model = mocker.Mock(
         **{"objects.get_or_create.return_value": (None, None)}
     )
-    mocker.patch("load_premis_events_from_xml.Agent", mock_agent_model)
+    mocker.patch("a3m.client.clientScripts.load_premis_events_from_xml.Agent", mock_agent_model)
     agents = [{"identifier": ("type", "value"), "name": "agent1", "type": "agenttype"}]
     load_premis_events_from_xml.get_or_create_agents(agents)
     mock_agent_model.objects.get_or_create.assert_called_once_with(

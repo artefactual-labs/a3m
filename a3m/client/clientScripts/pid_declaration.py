@@ -18,7 +18,7 @@ import django
 
 django.setup()
 
-from main.models import Directory, File, SIP
+from a3m.main.models import Directory, File, SIP
 
 from sanitize_names import sanitize_name
 

@@ -11,8 +11,9 @@ from lxml import etree
 import metsrw
 from metsrw.plugins.premisrw import PREMIS_3_0_NAMESPACES
 
-from fpr.models import FPRule
-from main.models import (
+from a3m.client.clientScripts.create_transfer_mets import write_mets
+from a3m.fpr.models import FPRule, FPCommand, FPTool, Format, FormatGroup, FormatVersion
+from a3m.main.models import (
     Agent,
     DashboardSetting,
     Directory,
@@ -23,9 +24,6 @@ from main.models import (
     Transfer,
 )
 
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
-from create_transfer_mets import write_mets
 
 PREMIS_NAMESPACES = PREMIS_3_0_NAMESPACES
 
@@ -141,9 +139,12 @@ def event(request, db, file_obj):
 
 @pytest.fixture()
 def fpcommand_output(db, file_obj):
-    # This rule is assumed to be present in fixtures.
-    # TODO: create the required data
-    rule = FPRule.objects.filter(purpose="characterization").first()
+    tool = FPTool.objects.create(slug="tool")
+    command = FPCommand.objects.create(tool=tool)
+    grp = FormatGroup.objects.create(description="grp")
+    fmt = Format.objects.create(group=grp)
+    fmtver = FormatVersion.objects.create(format=fmt, version="1")
+    rule = FPRule.objects.create(purpose="characterization", command=command, format=fmtver)
 
     return FPCommandOutput.objects.create(
         file=file_obj,

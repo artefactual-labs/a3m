@@ -2,12 +2,11 @@
 import argparse
 import csv
 
-# dashboard
 from django.db.models import Q
-from main import models
 
-from custom_handlers import get_script_logger
-import archivematicaFunctions
+from a3m.main import models
+from a3m.custom_handlers import get_script_logger
+from a3m import archivematicaFunctions
 
 # Third party dependencies, alphabetical by import source
 from agentarchives import archivesspace

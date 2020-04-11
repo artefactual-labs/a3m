@@ -1,16 +1,14 @@
 #!/usr/bin/env python2
 
 import argparse
-import logging
 import os
 
-from main.models import ArchivesSpaceDIPObjectResourcePairing, File
-
-from xml2obj import mets_file
+from a3m.main.models import ArchivesSpaceDIPObjectResourcePairing, File
+from a3m.xml2obj import mets_file
+from a3m.custom_handlers import get_script_logger
 
 # Third party dependencies, alphabetical by import source
-from agentarchives.archivesspace import ArchivesSpaceClient
-from agentarchives.archivesspace import ArchivesSpaceError
+from agentarchives.archivesspace import ArchivesSpaceClient, ArchivesSpaceError
 
 # initialize Django (required for Django 1.7)
 import django
@@ -19,10 +17,8 @@ import scandir
 django.setup()
 from django.db import transaction
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.NullHandler())
-logger.addHandler(logging.FileHandler("/tmp/as_upload.log", mode="a"))
+
+logger = get_script_logger("archivematica.mcp.client.upload_as")
 
 
 def recursive_file_gen(mydir):

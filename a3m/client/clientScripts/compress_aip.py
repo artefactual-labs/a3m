@@ -6,13 +6,11 @@ import sys
 
 import django
 from django.db import transaction
-
 django.setup()
-# dashboard
-from main.models import SIP
 
-import databaseFunctions
-from executeOrRunSubProcess import executeOrRun
+from a3m.main.models import SIP
+from a3m import databaseFunctions
+from a3m.executeOrRunSubProcess import executeOrRun
 
 
 def update_unit(sip_uuid, compressed_location):

@@ -11,9 +11,7 @@ from lxml import etree
 import metsrw
 import six
 
-from main.models import Agent
-from main.models import Event
-from main.models import File
+from a3m.main.models import Agent, Event, File
 
 logger = logging.getLogger(__name__)
 FAILURE = 1

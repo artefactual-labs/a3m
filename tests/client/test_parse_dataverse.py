@@ -9,13 +9,12 @@ import sys
 from django.test import TestCase
 import metsrw
 
-from job import Job
-from main import models
+from a3m.client.job import Job
+from a3m.main import models
+from a3m.client.clientScripts import parse_dataverse_mets as parse_dataverse
+
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
-
-import parse_dataverse_mets as parse_dataverse
 
 
 class TestParseDataverse(TestCase):

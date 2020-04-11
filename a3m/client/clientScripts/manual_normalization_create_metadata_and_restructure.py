@@ -20,11 +20,8 @@ from django.db import transaction
 django.setup()
 from django.db.models import Q
 
-# dashboard
-from main.models import Event, File
-
-import databaseFunctions
-import fileOperations
+from a3m.main.models import Event, File
+from a3m import databaseFunctions, fileOperations
 
 
 def main(job):

@@ -15,7 +15,7 @@ import django
 from django.db import transaction
 
 django.setup()
-from databaseFunctions import fileWasRemoved
+from a3m.databaseFunctions import fileWasRemoved
 
 from django.conf import settings as mcpclient_settings
 

@@ -9,18 +9,16 @@ import scandir
 from django.db import transaction
 
 django.setup()
-# dashboard
-from fpr.models import FPCommand
-from main.models import Directory, FileFormatVersion, File, Transfer
 
-from custom_handlers import get_script_logger
-from executeOrRunSubProcess import executeOrRun
-from databaseFunctions import fileWasRemoved
-from fileOperations import addFileToTransfer, updateSizeAndChecksum
-from archivematicaFunctions import get_dir_uuids, format_subdir_path
+from a3m.fpr.models import FPCommand
+from a3m.main.models import Directory, FileFormatVersion, File, Transfer
+from a3m.custom_handlers import get_script_logger
+from a3m.executeOrRunSubProcess import executeOrRun
+from a3m.databaseFunctions import fileWasRemoved
+from a3m.fileOperations import addFileToTransfer, updateSizeAndChecksum
+from a3m.archivematicaFunctions import get_dir_uuids, format_subdir_path
 
-# clientScripts
-from has_packages import already_extracted
+from .has_packages import already_extracted
 
 logger = get_script_logger("archivematica.mcp.client.extractContents")
 

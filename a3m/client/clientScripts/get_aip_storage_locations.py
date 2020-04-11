@@ -7,9 +7,8 @@ import django
 
 django.setup()
 
-import storageService as storage_service
-
-from custom_handlers import get_script_logger
+from a3m import storageService as storage_service
+from a3m.custom_handlers import get_script_logger
 
 logger = get_script_logger("archivematica.mcp.client.get_aip_storage_locations")
 

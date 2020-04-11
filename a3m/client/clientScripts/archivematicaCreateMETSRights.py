@@ -17,21 +17,14 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
-
-# /src/dashboard/src/main/models.py
 
 import sys
 import uuid
 import lxml.etree as etree
 
-# dashboard
-from main.models import RightsStatement
-
-from countryCodes import getCodeForCountry
-import namespaces as ns
+from a3m.main.models import RightsStatement
+from a3m.countryCodes import getCodeForCountry
+from a3m import namespaces as ns
 
 RIGHTS_BASIS_OTHER = ["Policy", "Donor"]
 

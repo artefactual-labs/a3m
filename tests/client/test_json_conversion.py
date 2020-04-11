@@ -2,10 +2,8 @@ import json
 import os
 import sys
 
-THIS_DIR = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
-from job import Job
-import json_metadata_to_csv
+from a3m.client.job import Job
+from a3m.client.clientScripts import json_metadata_to_csv
 
 
 JSON = '[{"dc.title": "This is a test item", "filename": "objects/test.txt"}]'

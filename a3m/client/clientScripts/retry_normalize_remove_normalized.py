@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import os
 import sys
@@ -30,10 +27,9 @@ from optparse import OptionParser
 import django
 
 django.setup()
-# dashboard
 from django.db import transaction
 from django.utils import timezone
-from main.models import Derivation, Event, File
+from a3m.main.models import Derivation, Event, File
 
 
 def removeDIP(job, SIPDirectory, SIPUUID):

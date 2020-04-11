@@ -16,10 +16,10 @@ import django
 django.setup()
 from django.utils import timezone
 
-from archivematicaFunctions import get_file_checksum
-from custom_handlers import get_script_logger
-import databaseFunctions
-from main.models import Agent, File
+from a3m.archivematicaFunctions import get_file_checksum
+from a3m.custom_handlers import get_script_logger
+from a3m import databaseFunctions
+from a3m.main.models import Agent, File
 import metsrw
 
 logger = get_script_logger("archivematica.mcp.client.parse_dataverse_mets")

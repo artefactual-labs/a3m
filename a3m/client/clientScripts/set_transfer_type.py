@@ -17,20 +17,16 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import django
 
 django.setup()
-# dashboard
-from main.models import Transfer
+from a3m.main.models import Transfer
 
-from custom_handlers import get_script_logger
+from a3m.custom_handlers import get_script_logger
 from django.db import transaction
 
-import metrics
+from a3m.client import metrics
 
 
 logger = get_script_logger("archivematica.mcp.client.setTransferType")

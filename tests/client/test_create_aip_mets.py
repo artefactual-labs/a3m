@@ -11,29 +11,25 @@ import unittest
 
 import scandir
 from django.test import TestCase
-
 from lxml import etree
 
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
-sys.path.append(
-    os.path.abspath(os.path.join(THIS_DIR, "../../archivematicaCommon/lib"))
-)
 
-from job import Job
-import create_mets_v2
-import archivematicaCreateMETSMetadataCSV
-import archivematicaCreateMETSRights
+from a3m import namespaces as ns
+from a3m.client.job import Job
+from a3m.client.clientScripts import create_mets_v2, archivematicaCreateMETSMetadataCSV, archivematicaCreateMETSRights
+from a3m.main.models import RightsStatement
 
-from main.models import RightsStatement
 from . import TempDirMixin
 
-import namespaces as ns
 
 try:
     from pathlib import Path
 except ImportError:
     from pathlib2 import Path
+
+
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 # XXX we can probably replace this given the am common import...
 NSMAP = {
@@ -765,7 +761,7 @@ class TestCustomStructMap(TempDirMixin, TestCase):
     ]
     fixtures = [os.path.join(THIS_DIR, "fixtures", p) for p in fixture_files]
     mets_xsd_path = os.path.abspath(
-        os.path.join(THIS_DIR, "../lib/assets/mets/mets.xsd")
+        os.path.join(THIS_DIR, "../../a3m/client/assets/mets/mets.xsd")
     )
 
     @staticmethod

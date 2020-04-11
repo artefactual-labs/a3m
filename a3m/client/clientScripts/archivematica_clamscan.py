@@ -38,9 +38,9 @@ from clamd import (
     BufferTooLongError,
     ConnectionError,
 )
-from custom_handlers import get_script_logger
-from databaseFunctions import insertIntoEvents
-from main.models import Event, File
+from a3m.custom_handlers import get_script_logger
+from a3m.databaseFunctions import insertIntoEvents
+from a3m.main.models import Event, File
 
 logger = get_script_logger("archivematica.mcp.client.clamscan")
 

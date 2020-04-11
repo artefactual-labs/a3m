@@ -11,7 +11,7 @@ from __future__ import unicode_literals
 from lxml import etree
 import os
 
-from archivematicaFunctions import strToUnicode
+from a3m.archivematicaFunctions import strToUnicode
 
 
 class VerifyMETSException(Exception):

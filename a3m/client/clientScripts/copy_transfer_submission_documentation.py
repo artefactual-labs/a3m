@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 from __future__ import absolute_import
 import os
 import re
@@ -29,10 +26,9 @@ import django
 
 django.setup()
 
-from bag import is_bag
-from main.models import File, SIP
-
-from archivematicaFunctions import find_transfer_path_from_ingest
+from a3m.bag import is_bag
+from a3m.main.models import File, SIP
+from a3m.archivematicaFunctions import find_transfer_path_from_ingest
 
 
 def call(jobs):

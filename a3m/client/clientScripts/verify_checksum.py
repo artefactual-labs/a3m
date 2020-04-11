@@ -43,10 +43,9 @@ import scandir
 from django.db import transaction
 
 django.setup()
-from archivematicaFunctions import strToUnicode
-from main.models import Event, File, Transfer
-
-from custom_handlers import get_script_logger
+from a3m.archivematicaFunctions import strToUnicode
+from a3m.main.models import Event, File, Transfer
+from a3m.custom_handlers import get_script_logger
 
 
 logger = get_script_logger("archivematica.mcp.client.verify_checksum")

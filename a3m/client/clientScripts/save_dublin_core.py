@@ -8,8 +8,7 @@ import django
 django.setup()
 from django.db import transaction
 
-# dashboard
-from main import models
+from a3m.main import models
 
 FIELDS = (
     "title",

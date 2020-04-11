@@ -170,8 +170,8 @@ aip_original_file_timestamps_histogram = Histogram(
     + [float("inf")],
 )
 
-archivematica_info = Info("archivematica_version", "Archivematica version info")
-environment_info = Info("environment_variables", "Environment Variables")
+archivematica_info = Info("archivematica_client_version", "Archivematica version info")
+environment_info = Info("archivematica_client_environment_variables", "Environment Variables")
 
 
 # There's no central place to pull these constants from currently

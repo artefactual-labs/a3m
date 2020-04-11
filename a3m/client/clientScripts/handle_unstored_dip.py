@@ -32,7 +32,7 @@ import django
 django.setup()
 from django.db import transaction
 
-from custom_handlers import get_script_logger
+from a3m.custom_handlers import get_script_logger
 
 
 logger = get_script_logger("archivematica.mcp.client.handleUnstoredDIP")

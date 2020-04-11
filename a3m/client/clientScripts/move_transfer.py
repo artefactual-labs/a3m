@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 import os
 
 import django
@@ -27,10 +24,9 @@ import django
 django.setup()
 from django.db import transaction
 
-# dashboard
-from main.models import Transfer
+from a3m.main.models import Transfer
 
-from fileOperations import rename
+from a3m.fileOperations import rename
 
 
 def updateDB(dst, transferUUID):

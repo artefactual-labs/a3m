@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import os
 
@@ -29,9 +26,8 @@ import django
 django.setup()
 from django.db import transaction
 
-import archivematicaFunctions
-from archivematicaFunctions import REQUIRED_DIRECTORIES
-import fileOperations
+from a3m import fileOperations
+from a3m.archivematicaFunctions import REQUIRED_DIRECTORIES, create_directories
 
 
 def restructureTRIMForComplianceFileUUIDsAssigned(
@@ -42,7 +38,7 @@ def restructureTRIMForComplianceFileUUIDsAssigned(
     unitPathReplaceWith="%transferDirectory%",
 ):
     # Create required directories
-    archivematicaFunctions.create_directories(REQUIRED_DIRECTORIES, unitPath)
+    create_directories(REQUIRED_DIRECTORIES, unitPath)
 
     # The types returned by os.listdir() depends on the type of the argument
     # passed to it. In this case, we want all of the returned names to be

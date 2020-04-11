@@ -8,18 +8,15 @@ import django
 from django.db import transaction
 
 django.setup()
-# dashboard
 from django.utils import timezone
-from main.models import Derivation, File, FileFormatVersion
-from fpr.models import FPRule
-
-from dicts import ReplacementDict
-from executeOrRunSubProcess import executeOrRun
-import databaseFunctions
-import fileOperations
-
 from django.conf import settings as mcpclient_settings
-from lib import setup_dicts
+
+from a3m.main.models import Derivation, File, FileFormatVersion
+from a3m.fpr.models import FPRule
+from a3m.dicts import ReplacementDict
+from a3m.executeOrRunSubProcess import executeOrRun
+from a3m import databaseFunctions, fileOperations
+from .lib import setup_dicts
 
 
 def concurrent_instances():

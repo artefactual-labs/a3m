@@ -24,8 +24,8 @@
 from __future__ import print_function
 import sys
 
-import archivematicaFunctions
-from custom_handlers import get_script_logger
+from a3m import archivematicaFunctions
+from a3m.custom_handlers import get_script_logger
 
 import metsrw
 

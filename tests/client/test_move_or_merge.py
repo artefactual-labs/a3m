@@ -2,7 +2,7 @@
 
 import pytest
 
-from move_or_merge import move_or_merge
+from a3m.client.clientScripts.move_or_merge import move_or_merge
 
 
 @pytest.fixture

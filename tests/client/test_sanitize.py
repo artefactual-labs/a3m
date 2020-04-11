@@ -11,16 +11,15 @@ import six
 from django.core.management import call_command
 from django.test import TestCase
 
-from job import Job
-from main.models import Directory, Event, File, Transfer, SIP
+from a3m.client.job import Job
+from a3m.main.models import Directory, Event, File, Transfer, SIP
 
 from . import TempDirMixin
 
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
+from a3m.client.clientScripts import sanitize_names, sanitize_object_names
 
-import sanitize_names
-import sanitize_object_names
+
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 @pytest.fixture()

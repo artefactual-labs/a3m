@@ -53,18 +53,16 @@ django.setup()
 from django.db import transaction
 from lxml import etree
 
-# dashboard
-from main.models import DashboardSetting, Directory, SIP
-
-from archivematicaFunctions import str2bool
-from bindpid import (
+from a3m.main.models import DashboardSetting, Directory, SIP
+from a3m.archivematicaFunctions import str2bool
+from a3m.bindpid import (
     bind_pid,
     BindPIDException,
     _validate_handle_server_config,
     _validate_entity_type_required_params,
 )
-from custom_handlers import get_script_logger
-import namespaces as ns
+from a3m.custom_handlers import get_script_logger
+from a3m import namespaces as ns
 
 
 logger = get_script_logger("archivematica.mcp.client.bind_pids")

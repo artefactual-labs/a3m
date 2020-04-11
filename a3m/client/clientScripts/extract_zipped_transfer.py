@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 import argparse
 import shutil
 import os
@@ -30,11 +27,9 @@ import django
 django.setup()
 from django.db import transaction
 
-# dashboard
-from main.models import Transfer
-
-from executeOrRunSubProcess import executeOrRun
-from fileOperations import get_extract_dir_name
+from a3m.main.models import Transfer
+from a3m.executeOrRunSubProcess import executeOrRun
+from a3m.fileOperations import get_extract_dir_name
 
 
 def extract(job, target, destinationDirectory):

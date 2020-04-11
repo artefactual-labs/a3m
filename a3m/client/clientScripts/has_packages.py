@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
 import django
-
 django.setup()
-# dashboard
-from fpr.models import FPRule
-from main.models import FileFormatVersion, Transfer, File, Event
+
+from a3m.fpr.models import FPRule
+from a3m.main.models import FileFormatVersion, Transfer, File, Event
 
 
 def is_extractable(f):

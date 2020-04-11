@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 from lxml import etree
 import mailbox
@@ -34,12 +31,10 @@ django.setup()
 from django.db import transaction
 from django.utils import six
 
-# dashboard
-from main.models import File
-
-from externals.extractMaildirAttachments import parse
-from fileOperations import addFileToTransfer, updateSizeAndChecksum
-from archivematicaFunctions import unicodeToStr
+from a3m.main.models import File
+from a3m.externals.extractMaildirAttachments import parse
+from a3m.fileOperations import addFileToTransfer, updateSizeAndChecksum
+from a3m.archivematicaFunctions import unicodeToStr
 
 
 class State(object):

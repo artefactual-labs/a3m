@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import argparse
 import os
@@ -27,7 +24,7 @@ import os
 import django
 
 django.setup()
-from main.models import File
+from a3m.main.models import File
 
 
 def verifyFileUUID(job, fileUUID, filePath, sipDirectory):

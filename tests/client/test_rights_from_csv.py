@@ -6,13 +6,12 @@ import sys
 
 from django.test import TestCase
 
+from a3m.client.job import Job
+from a3m.client.clientScripts import rights_from_csv
+from a3m.main import models
+
+
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(THIS_DIR, "../lib/clientScripts")))
-
-from main import models
-
-from job import Job
-import rights_from_csv
 
 
 class TestRightsImportFromCsvBase(TestCase):

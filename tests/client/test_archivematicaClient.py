@@ -4,16 +4,16 @@ from __future__ import unicode_literals
 
 import pytest
 
-from archivematicaClient import handle_batch_task
+from a3m.client.mcp import handle_batch_task
 
 
 @pytest.mark.django_db
 def test_handle_batch_task_replaces_non_ascii_arguments(mocker):
     # We are only interested in verifying the string replacement logic
     # for task arguments and mock the remaining functionality
-    mocker.patch("archivematicaClient.Job")
-    mocker.patch("archivematicaClient.Task")
-    mocker.patch("archivematicaClient.retryOnFailure")
+    mocker.patch("a3m.client.mcp.Job")
+    mocker.patch("a3m.client.mcp.Task")
+    mocker.patch("a3m.client.mcp.retryOnFailure")
     mocker.patch(
         "cPickle.loads",
         return_value={
@@ -34,7 +34,7 @@ def test_handle_batch_task_replaces_non_ascii_arguments(mocker):
     )
 
     # This is the only function that uses the arguments after the replacements
-    _parse_command_line = mocker.patch("archivematicaClient._parse_command_line")
+    _parse_command_line = mocker.patch("a3m.client.mcp._parse_command_line")
 
     # Mock the two parameters sent to handle_batch_task
     gearman_job_mock = mocker.Mock()

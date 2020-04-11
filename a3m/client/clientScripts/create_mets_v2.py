@@ -18,9 +18,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import collections
 import copy
@@ -38,9 +35,12 @@ import django
 import scandir
 
 django.setup()
-# dashboard
 from django.utils import timezone
-from main.models import (
+
+from a3m.custom_handlers import get_script_logger
+from a3m import namespaces as ns
+from a3m.archivematicaFunctions import escape, normalizeNonDcElementName, strToUnicode, unicodeToStr
+from a3m.main.models import (
     Agent,
     Derivation,
     Directory,
@@ -59,21 +59,12 @@ from archivematicaCreateMETSRights import archivematicaGetRights
 from archivematicaCreateMETSRightsDspaceMDRef import (
     archivematicaCreateMETSRightsDspaceMDRef,
 )
-from archivematicaCreateMETSTrim import getTrimDmdSec
-from archivematicaCreateMETSTrim import getTrimFileDmdSec
-from archivematicaCreateMETSTrim import getTrimAmdSec
-from archivematicaCreateMETSTrim import getTrimFileAmdSec
+from archivematicaCreateMETSTrim import getTrimDmdSec, getTrimFileDmdSec, getTrimAmdSec, getTrimFileAmdSec
 
-from archivematicaFunctions import escape
-from archivematicaFunctions import normalizeNonDcElementName
-from archivematicaFunctions import strToUnicode
-from archivematicaFunctions import unicodeToStr
 from create_mets_dataverse_v2 import (
     create_dataverse_sip_dmdsec,
     create_dataverse_tabfile_dmdsec,
 )
-from custom_handlers import get_script_logger
-import namespaces as ns
 from sanitize_names import sanitize_name
 
 from bagit import Bag, BagError

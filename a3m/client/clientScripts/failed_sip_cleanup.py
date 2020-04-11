@@ -6,12 +6,10 @@ import django
 from django.db import transaction
 
 django.setup()
-# dashboard
-from main import models
 
-import storageService as storage_service
-
-import metrics
+from a3m.main import models
+from a3m import storageService as storage_service
+from a3m.client import metrics
 
 
 REJECTED = "reject"

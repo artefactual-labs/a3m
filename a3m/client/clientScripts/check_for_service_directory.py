@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 
 import os
 from optparse import OptionParser
@@ -28,10 +25,9 @@ import re
 import django
 import scandir
 from django.db import transaction
-
 django.setup()
-# dashboard
-from main.models import File
+
+from a3m.main.models import File
 
 
 def something(job, SIPDirectory, serviceDirectory, objectsDirectory, SIPUUID, date):

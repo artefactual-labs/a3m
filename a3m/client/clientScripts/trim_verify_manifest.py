@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 
-# @package Archivematica
-# @subpackage archivematicaClientScript
-# @author Joseph Perry <joseph@artefactual.com>
 import re
 import os
 import sys
@@ -31,8 +28,8 @@ import django
 django.setup()
 from django.db import transaction
 
-from fileOperations import getFileUUIDLike
-import databaseFunctions
+from a3m.fileOperations import getFileUUIDLike
+from a3m import databaseFunctions
 
 
 def call(jobs):

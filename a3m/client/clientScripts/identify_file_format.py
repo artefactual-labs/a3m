@@ -7,13 +7,12 @@ import uuid
 import django
 
 django.setup()
-# dashboard
-from fpr.models import IDCommand, IDRule, FormatVersion
-from main.models import FileFormatVersion, File, FileID, UnitVariable
 from django.db import transaction
 
-from executeOrRunSubProcess import executeOrRun
-from databaseFunctions import getUTCDate, insertIntoEvents
+from a3m.fpr.models import IDCommand, IDRule, FormatVersion
+from a3m.main.models import FileFormatVersion, File, FileID, UnitVariable
+from a3m.executeOrRunSubProcess import executeOrRun
+from a3m.databaseFunctions import getUTCDate, insertIntoEvents
 
 
 def concurrent_instances():
