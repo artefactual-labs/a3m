@@ -72,21 +72,6 @@ CONFIG_MAPPING = {
         "type": "string",
     },
     "secret_key": {"section": "a3m", "option": "secret_key", "type": "string"},
-    "storage_service_client_timeout": {
-        "section": "a3m",
-        "option": "storage_service_client_timeout",
-        "type": "float",
-    },
-    "storage_service_client_quick_timeout": {
-        "section": "a3m",
-        "option": "storage_service_client_quick_timeout",
-        "type": "float",
-    },
-    "agentarchives_client_timeout": {
-        "section": "a3m",
-        "option": "agentarchives_client_timeout",
-        "type": "float",
-    },
     "prometheus_bind_address": {
         "section": "a3m",
         "option": "prometheus_bind_address",
@@ -149,19 +134,11 @@ watch_directory_method = poll
 watch_directory_interval = 1
 batch_size = 128
 rpc_threads = 4
-storage_service_client_timeout = 86400
-storage_service_client_quick_timeout = 5
 prometheus_bind_address =
 prometheus_bind_port =
 time_zone = UTC
 capture_client_script_output = true
 removable_files = Thumbs.db, Icon, Icon\r, .DS_Store
-storage_service_client_timeout = 86400
-storage_service_client_quick_timeout = 5
-agentarchives_client_timeout = 300
-prometheus_bind_address =
-prometheus_bind_port =
-time_zone = UTC
 clamav_server = /var/run/clamav/clamd.ctl
 clamav_pass_by_stream = True
 clamav_client_timeout = 86400
@@ -288,13 +265,8 @@ CLAMAV_CLIENT_TIMEOUT = config.get("clamav_client_timeout")
 CLAMAV_CLIENT_BACKEND = config.get("clamav_client_backend")
 CLAMAV_CLIENT_MAX_FILE_SIZE = config.get("clamav_client_max_file_size")
 CLAMAV_CLIENT_MAX_SCAN_SIZE = config.get("clamav_client_max_scan_size")
-AGENTARCHIVES_CLIENT_TIMEOUT = config.get("agentarchives_client_timeout")
 CAPTURE_CLIENT_SCRIPT_OUTPUT = config.get("capture_client_script_output")
 DEFAULT_CHECKSUM_ALGORITHM = "sha256"
-STORAGE_SERVICE_CLIENT_TIMEOUT = config.get("storage_service_client_timeout")
-STORAGE_SERVICE_CLIENT_QUICK_TIMEOUT = config.get(
-    "storage_service_client_quick_timeout"
-)
 
 
 # Prometheus
@@ -306,5 +278,6 @@ except ValueError:
     PROMETHEUS_ENABLED = False
 else:
     PROMETHEUS_ENABLED = True
+
 
 INSTANCE_ID = "fec7bcf7-45db-4a22-8ceb-e94377db3476"

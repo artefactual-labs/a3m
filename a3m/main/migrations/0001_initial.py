@@ -16,23 +16,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Access',
-            fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
-                ('sipuuid', models.CharField(max_length=36, db_column=b'SIPUUID', blank=True)),
-                ('resource', models.TextField(db_column=b'resource', blank=True)),
-                ('target', models.TextField(db_column=b'target', blank=True)),
-                ('status', models.TextField(db_column=b'status', blank=True)),
-                ('statuscode', models.PositiveSmallIntegerField(null=True, db_column=b'statusCode', blank=True)),
-                ('exitcode', models.PositiveSmallIntegerField(null=True, db_column=b'exitCode', blank=True)),
-                ('createdtime', models.DateTimeField(auto_now_add=True, db_column=b'createdTime')),
-                ('updatedtime', models.DateTimeField(auto_now=True, db_column=b'updatedTime')),
-            ],
-            options={
-                'db_table': 'Accesses',
-            },
-        ),
-        migrations.CreateModel(
             name='Agent',
             fields=[
                 ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
@@ -43,30 +26,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'Agents',
-            },
-        ),
-        migrations.CreateModel(
-            name='ArchivesSpaceDigitalObject',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('resourceid', models.CharField(max_length=150)),
-                ('label', models.CharField(max_length=255, blank=True)),
-                ('title', models.TextField(blank=True)),
-                ('started', models.BooleanField(default=False, help_text='Whether or not a SIP has been started using files in this digital object.')),
-                ('remoteid', models.CharField(help_text='ID in the remote ArchivesSpace system, after digital object has been created.', max_length=150, blank=True)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='ArchivesSpaceDIPObjectResourcePairing',
-            fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
-                ('dipuuid', models.CharField(max_length=50, db_column=b'dipUUID')),
-                ('fileuuid', models.CharField(max_length=50, db_column=b'fileUUID')),
-                ('resourceid', models.CharField(max_length=150, db_column=b'resourceId')),
-            ],
-            options={
-                'db_table': 'ArchivesSpaceDIPObjectResourcePairing',
-                'verbose_name': 'ASDIPObjectResourcePairing',
             },
         ),
         migrations.CreateModel(
@@ -705,11 +664,6 @@ class Migration(migrations.Migration):
             model_name='derivation',
             name='source_file',
             field=models.ForeignKey(related_name='derived_file_set', db_column=b'sourceFileUUID', to='main.File'),
-        ),
-        migrations.AddField(
-            model_name='archivesspacedigitalobject',
-            name='sip',
-            field=models.ForeignKey(to='main.SIP', null=True),
         ),
         migrations.AlterIndexTogether(
             name='file',

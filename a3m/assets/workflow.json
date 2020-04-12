@@ -50,13 +50,6 @@
             },
             "link_id": "7a024896-c4f7-4808-a240-44c87c762bc5"
         },
-        "0fe9842f-9519-4067-a691-8a363132ae24": {
-            "description": {
-                "en": "Upload DIP to AtoM/Binder",
-                "pt_BR": "Carregar DIP no AtoM/Binder"
-            },
-            "link_id": "7f975ba6-2185-434c-b507-2911f3c77213"
-        },
         "10c00bc8-8fc2-419f-b593-cf5518695186": {
             "description": {
                 "en": "Approve Dataverse transfer",
@@ -151,13 +144,13 @@
         },
         "28a4322d-b8a5-4bae-b2dd-71cc9ff99e73": {
             "description": {
-                "en": "uploadDIP",
+                "en": "Upload DIP",
                 "es": "Subir DIP",
                 "fr": "télécharger le DIP",
                 "pt_BR": "carregarDIP",
                 "sv": "Ladda upp DIP"
             },
-            "link_id": "92879a29-45bf-4f0b-ac43-e64474f0f2f9"
+            "link_id": "f8ee488b-5667-4417-ae15-bed9e42ee97d"
         },
         "29881c21-3548-454a-9637-ebc5fd46aee0": {
             "description": {
@@ -189,16 +182,6 @@
                 "sv": "Ja"
             },
             "link_id": "2900f6d8-b64c-4f2a-8f7f-bb60a57394f6"
-        },
-        "3572f844-5e69-4000-a24b-4e32d3487f82": {
-            "description": {
-                "en": "Upload DIP to ArchivesSpace",
-                "fr": "Télécharger le DIP dans ArchivesSpace",
-                "ja": "アーカイブスペースにDIPをアップロード",
-                "pt_BR": "Carregar DIP para ArchivesSpace",
-                "sv": "Ladda upp DIP till ArchivesSpace"
-            },
-            "link_id": "a0db8294-f02a-4f49-a557-b1310a715ffc"
         },
         "35a26b59-dcf3-45ec-b963-ba7bfaa8304f": {
             "description": {
@@ -244,17 +227,6 @@
             },
             "link_id": "998044bb-6260-452f-a742-cfb19e80125b"
         },
-        "433f4e6b-1ef4-49f8-b1e4-49693791a806": {
-            "description": {
-                "en": "Reject AIP",
-                "es": "Rechazar AIP",
-                "fr": "Rejeter l'AIP",
-                "ja": "AIPを拒否",
-                "pt_BR": "Rejeitar AIP",
-                "sv": "Förkasta AIP"
-            },
-            "link_id": "f2e784a0-356b-4b92-9a5a-11887aa3cf48"
-        },
         "44a7c397-8187-4fd2-b8f7-c61737c4df49": {
             "description": {
                 "en": "No",
@@ -263,16 +235,6 @@
                 "sv": "Nej"
             },
             "link_id": "d0dfa5fc-e3c2-4638-9eda-f96eea1070e0"
-        },
-        "4500f34e-f004-4ccf-8720-5c38d0be2254": {
-            "description": {
-                "en": "Do not store",
-                "es": "No almacenar",
-                "fr": "Ne pas stocker",
-                "pt_BR": "Não armazene",
-                "sv": "Lagra inte"
-            },
-            "link_id": "f8ee488b-5667-4417-ae15-bed9e42ee97d"
         },
         "498795c7-06f2-4f3f-95bf-57f1b35964ad": {
             "description": {
@@ -283,16 +245,6 @@
                 "sv": "Sök igenom överföringsmapp efter objekt"
             },
             "link_id": "032cdc54-0b9b-4caf-86e8-10d63efbaec0"
-        },
-        "526eded3-2280-4f10-ac86-eff6c464cc81": {
-            "description": {
-                "en": "Upload DIP to CONTENTdm",
-                "es": "Subir DIP a CONTENTdm",
-                "fr": "Charger le DIP dans CONTENTdm",
-                "pt_BR": "Carregar DIP para o CONTENTdm",
-                "sv": "Ladda upp DIP till CONTENTdm"
-            },
-            "link_id": "f12ece2c-fb7e-44de-ba87-7e3c5b6feb74"
         },
         "55fa7084-3b64-48ca-be64-08949227f85d": {
             "description": {
@@ -356,16 +308,6 @@
             },
             "link_id": "b4567e89-9fea-4256-99f5-a88987026488"
         },
-        "6eb8ebe7-fab3-4e4c-b9d7-14de17625baa": {
-            "description": {
-                "en": "Do not upload DIP",
-                "fr": "Ne pas télécharger le DIP",
-                "ja": "DIPをアップロードしない",
-                "pt_BR": "Não carregar o DIP",
-                "sv": "Ladda inte upp DIP"
-            },
-            "link_id": "5e58066d-e113-4383-b20b-f301ed4d751c"
-        },
         "6f0f35fb-6831-4842-9512-4a263700a29b": {
             "description": {
                 "en": "storeAIP",
@@ -373,7 +315,7 @@
                 "pt_BR": "armazenarSIP",
                 "sv": "Lagra AIP"
             },
-            "link_id": "2d32235c-02d4-4686-88a6-96f4d6c7b1c3"
+            "link_id": "5f213529-ced4-49b0-9e30-be4e0c9b81d5"
         },
         "7065d256-2f47-4b7d-baec-2c4699626121": {
             "description": {
@@ -428,17 +370,6 @@
             },
             "link_id": "0b92a510-a290-44a8-86d8-6b7139be29df"
         },
-        "8d29eb3d-a8a8-4347-806e-3d8227ed44a1": {
-            "description": {
-                "en": "Store DIP",
-                "es": "Almacenar DIP",
-                "fr": "Stocker le DIP",
-                "ja": "DIPを蓄える",
-                "pt_BR": "Armazenar DIP",
-                "sv": "Lagra DIP"
-            },
-            "link_id": "d026e5a4-96cf-4e4c-938d-a74b0d211da0"
-        },
         "8f9dceb5-b978-43e0-a364-8b317a3ac43b": {
             "description": {
                 "en": "Yes",
@@ -478,16 +409,6 @@
                 "sv": "AIP återingest godkänningsled"
             },
             "link_id": "9520386f-bb6d-4fb9-a6b6-5845ef39375f"
-        },
-        "9efab23c-31dc-4cbd-a39d-bb1665460cbe": {
-            "description": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
-            },
-            "link_id": "49cbcc4d-067b-4cd5-b52e-faf50857b35a"
         },
         "a2e19764-b373-4093-b0dd-11d61580f180": {
             "description": {
@@ -1459,41 +1380,6 @@
                 "sv": "Inkludera standadard överförings processing.xml"
             }
         },
-        "0d7f5dc2-b9af-43bf-b698-10fdcc5b014d": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%rejectedDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to the rejected directory",
-                "pt_BR": "Mover para o diretório rejeitado",
-                "sv": "Flytta dill den avslagna mappen"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Reject AIP",
-                "es": "Rechazar AIP",
-                "fr": "Rejeter l'AIP",
-                "ja": "AIPを拒否",
-                "pt_BR": "Rejeitar AIP",
-                "sv": "Förkasta AIP"
-            },
-            "end": true
-        },
         "0e1a8a6b-abcc-4ed6-b4fb-cbccfdc23ef5": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -2459,40 +2345,6 @@
                 "pt_BR": "Transferência do TRIM "
             }
         },
-        "20515483-25ed-4133-b23e-5bb14cab8e22": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%AIPsStore%\" \"%SIPDirectory%%AIPFilename%\" \"%SIPUUID%\" \"%SIPName%\" \"%SIPType%\"",
-                "execute": "storeAIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Store the AIP",
-                "fr": "Stocker l'AIP",
-                "pt_BR": "Armazenar o AIP?",
-                "sv": "Lagra AIP:n"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "b7cf0d9a-504f-4f4e-9930-befa817d67ff"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
-            }
-        },
         "208d441b-6938-44f9-b54a-bd73f05bc764": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -3076,33 +2928,6 @@
                 "sv": "Bearbeta leveransdokumentation"
             }
         },
-        "2d32235c-02d4-4686-88a6-96f4d6c7b1c3": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "9efab23c-31dc-4cbd-a39d-bb1665460cbe",
-                    "433f4e6b-1ef4-49f8-b1e4-49693791a806"
-                ]
-            },
-            "description": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
-            }
-        },
         "2dd53959-8106-457d-a385-fee57fc93aa9": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -3136,40 +2961,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "2e31580d-1678-474b-83e5-a53d97d150f6": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%watchDirectoryPath%uploadedDIPs/.\" -R",
-                "execute": "copy_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to the uploadedDIPs directory",
-                "pt_BR": "Mover para o diretório uploadedDIPs",
-                "sv": "Flytta till uploadedDIPs katalog"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5e58066d-e113-4383-b20b-f301ed4d751c"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
             }
         },
         "2e7f83f9-495a-44b3-b0cf-bff66f021a4d": {
@@ -3953,7 +3744,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "20515483-25ed-4133-b23e-5bb14cab8e22"
+                    "link_id": "d5a2ef60-a757-483c-a71a-ccbffe6b80da"
                 }
             },
             "fallback_job_status": "Failed",
@@ -4090,7 +3881,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "5749c11f-ed08-4965-8d8e-1473b1016073"
+                    "link_id": "61a8de9c-7b25-4f0f-b218-ad4dde261eed"
                 }
             },
             "fallback_job_status": "Failed",
@@ -4401,40 +4192,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "49cbcc4d-067b-4cd5-b52e-faf50857b35a": {
-            "config": {
-                "@manager": "linkTaskManagerGetMicroserviceGeneratedListInStdOut",
-                "@model": "StandardTaskConfig",
-                "arguments": "",
-                "execute": "getAipStorageLocations_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Retrieve AIP Storage Locations",
-                "fr": "Récupérer les emplacements de stockage d'AIP",
-                "pt_BR": "Recuperar locais de armazenamento do AIP",
-                "sv": "Hämta AIP-lagringsplatser"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "b320ce81-9982-408a-9502-097d0daa48fa"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "2d32235c-02d4-4686-88a6-96f4d6c7b1c3",
-            "group": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
             }
         },
         "4ca2c28a-8962-412b-9ec3-37c105cc47d9": {
@@ -4835,39 +4592,6 @@
                 "sv": "Generera överföringsstruktursrapport"
             }
         },
-        "5749c11f-ed08-4965-8d8e-1473b1016073": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "--sipUUID \"%SIPUUID%\" --sipPath \"%SIPDirectory%\"",
-                "execute": "dipGenerationHelper",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Pre-processing for DIP generation",
-                "fr": "Pré-traitement pour la génération du DIP",
-                "pt_BR": "Pré-processamento para geração de DIP",
-                "sv": "Förbehandling för DIP generering"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "61a8de9c-7b25-4f0f-b218-ad4dde261eed"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare DIP",
-                "es": "Preparar DIP",
-                "fr": "Préparer le DIP",
-                "sv": "Förbered DIP"
-            }
-        },
         "576f1f43-a130-4c15-abeb-c272ec458d33": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -5133,34 +4857,6 @@
                 "fr": "Vérifier la somme de contrôle du transfert",
                 "pt_BR": "Verificar a soma de verificação de transferência",
                 "sv": "Kontrollera transferns checksum"
-            }
-        },
-        "5e58066d-e113-4383-b20b-f301ed4d751c": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "8d29eb3d-a8a8-4347-806e-3d8227ed44a1",
-                    "4500f34e-f004-4ccf-8720-5c38d0be2254"
-                ]
-            },
-            "description": {
-                "en": "Store DIP?",
-                "es": "¿Almacenar DIP?",
-                "fr": "Stocker le DIP?",
-                "pt_BR": "Armazenar DIP?",
-                "sv": "Lagra DIP?"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
             }
         },
         "5f213529-ced4-49b0-9e30-be4e0c9b81d5": {
@@ -5456,81 +5152,6 @@
                 "pt_BR": "Atribuir arquivos UUIDs e somas de verificação",
                 "sv": "Tilldela UUID:er och checksummor"
             }
-        },
-        "651236d2-d77f-4ca7-bfe9-6332e96608ff": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "--url=\"%url%\" --email=\"%email%\" --password=\"%password%\" --uuid=\"%SIPUUID%\" --debug=\"%debug%\" --version=\"%version%\" --rsync-command=\"%rsync_command%\" --rsync-target=\"%rsync_target%\"",
-                "execute": "upload-qubit_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "2e31580d-1678-474b-83e5-a53d97d150f6"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "2e31580d-1678-474b-83e5-a53d97d150f6",
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
-            }
-        },
-        "653b134f-4a37-4578-a286-7f2072e89f9e": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%DIPsStore%\" \"%watchDirectoryPath%uploadedDIPs/%SIPName%-%SIPUUID%\" \"%SIPUUID%\" \"%SIPName%\" \"DIP\"",
-                "execute": "storeAIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Store DIP",
-                "es": "Almacenar DIP",
-                "fr": "Stocker le DIP",
-                "ja": "DIPを蓄える",
-                "pt_BR": "Armazenar DIP",
-                "sv": "Lagra DIP"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
-            },
-            "end": true
         },
         "d51a7ed8-9cf4-424b-9671-85fd8b5b95aa": {
             "config": {
@@ -6477,33 +6098,6 @@
                 "sv": "Skapa SIP från överföringspaket"
             }
         },
-        "7f975ba6-2185-434c-b507-2911f3c77213": {
-            "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": []
-            },
-            "description": {
-                "en": "Choose config for AtoM/Binder DIP upload",
-                "pt_BR": "Escolher configuração para carregar DIP no AtoM/Binder"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "651236d2-d77f-4ca7-bfe9-6332e96608ff"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "651236d2-d77f-4ca7-bfe9-6332e96608ff",
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
-            }
-        },
         "823b0d76-9f3c-410d-83ab-f3c2cdd9ab22": {
             "config": {
                 "@manager": "linkTaskManagerSetUnitVariable",
@@ -7337,37 +6931,6 @@
                 "sv": "Förbered AIP"
             }
         },
-        "92879a29-45bf-4f0b-ac43-e64474f0f2f9": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "0fe9842f-9519-4067-a691-8a363132ae24",
-                    "3572f844-5e69-4000-a24b-4e32d3487f82",
-                    "526eded3-2280-4f10-ac86-eff6c464cc81",
-                    "6eb8ebe7-fab3-4e4c-b9d7-14de17625baa"
-                ]
-            },
-            "description": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
-            }
-        },
         "9520386f-bb6d-4fb9-a6b6-5845ef39375f": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
@@ -7618,35 +7181,6 @@
                 "fr": "Vérifier la conformité du transfert",
                 "pt_BR": "Verificar a conformidade da transferência",
                 "sv": "Kontrollera överförings följsamhet"
-            }
-        },
-        "a0db8294-f02a-4f49-a557-b1310a715ffc": {
-            "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": []
-            },
-            "description": {
-                "en": "Choose Config for ArchivesSpace DIP Upload",
-                "es": "Elegir configuración de ArchivesSpace",
-                "pt_BR": "Escolha Configuração para envio do ArchivesSpace DIP ",
-                "sv": "Välja Config för ArchivesSpace DIP uppladdning"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "ff89a530-0540-4625-8884-5a2198dea05a"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "ff89a530-0540-4625-8884-5a2198dea05a",
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
             }
         },
         "a1b65fe3-9358-479b-93b9-68f2b5e71b2b": {
@@ -8439,41 +7973,6 @@
                 "sv": "SIP misslyckades"
             }
         },
-        "b320ce81-9982-408a-9502-097d0daa48fa": {
-            "config": {
-                "@manager": "linkTaskManagerGetUserChoiceFromMicroserviceGeneratedList",
-                "@model": "StandardTaskConfig",
-                "arguments": null,
-                "execute": "%AIPsStore%",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Store AIP location",
-                "fr": "Stocker l'emplacement de l'AIP",
-                "ja": "AIPの場所を蓄える",
-                "pt_BR": "Local de armazenamento do AIP",
-                "sv": "Plats för lagring av AIP"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5f213529-ced4-49b0-9e30-be4e0c9b81d5"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
-            }
-        },
         "b33c9544-145c-4525-8a80-d686b4d1c3fa": {
             "config": {
                 "@manager": "linkTaskManagerSetUnitVariable",
@@ -8605,41 +8104,6 @@
                 "es": "Procesar directorio de metadatos",
                 "pt_BR": "Processar diretório de metadados",
                 "sv": "Bearbeta metadatamapp"
-            }
-        },
-        "b7cf0d9a-504f-4f4e-9930-befa817d67ff": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\"",
-                "execute": "postStoreAIPHook_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Clean up after storing AIP",
-                "es": "Limpiar después de almacenar el AIP",
-                "fr": "Nettoyer après avoir stocké l'AIP",
-                "pt_BR": "Limpe após armazenar AIP",
-                "sv": "Rensa efter lagring av AIP"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "d5a2ef60-a757-483c-a71a-ccbffe6b80da"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "d5a2ef60-a757-483c-a71a-ccbffe6b80da",
-            "group": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
             }
         },
         "b944ec7f-7f99-491f-986d-58914c9bb4fa": {
@@ -9378,42 +8842,6 @@
                 "sv": "Genrerera AIP METS"
             }
         },
-        "cd844b6e-ab3c-4bc6-b34f-7103f88715de": {
-            "config": {
-                "@manager": "linkTaskManagerGetUserChoiceFromMicroserviceGeneratedList",
-                "@model": "StandardTaskConfig",
-                "arguments": null,
-                "execute": "%DIPsStore%",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Store DIP location",
-                "fr": "Stocker l'emplacement du DIP",
-                "ja": "DIPの場所を蓄える",
-                "pt_BR": "Armazene o local do DIP",
-                "sv": "Lagra DIP plats"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "653b134f-4a37-4578-a286-7f2072e89f9e"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
-            }
-        },
         "cddde867-4cf9-4248-ac31-f7052fae053f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -9445,41 +8873,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "d026e5a4-96cf-4e4c-938d-a74b0d211da0": {
-            "config": {
-                "@manager": "linkTaskManagerGetMicroserviceGeneratedListInStdOut",
-                "@model": "StandardTaskConfig",
-                "arguments": "DS",
-                "execute": "getAipStorageLocations_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Retrieve DIP Storage Locations",
-                "fr": "Récupérer les emplacements de stockage du DIP",
-                "pt_BR": "Recuperar locais de armazenamento do DIP",
-                "sv": "Hämta DIP-lagringsplatser"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "cd844b6e-ab3c-4bc6-b34f-7103f88715de"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
             }
         },
         "d0c463c2-da4c-4a70-accb-c4ce96ac5194": {
@@ -10932,40 +10325,6 @@
                 "sv": "Godkänn överföring"
             }
         },
-        "f12ece2c-fb7e-44de-ba87-7e3c5b6feb74": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "--uuid=\"%SIPUUID%\" --dipDir \"%SIPDirectory%\"",
-                "execute": "restructureDIPForContentDMUpload_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Restructure DIP for CONTENTdm upload",
-                "pt_BR": "Reestruturar o DIP para o upload do CONTENTdm",
-                "sv": "Restrukturera DIP för CONTENTdm uppladdning"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "2e31580d-1678-474b-83e5-a53d97d150f6"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "2e31580d-1678-474b-83e5-a53d97d150f6",
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
-            }
-        },
         "f19926dd-8fb5-4c79-8ade-c83f61f55b40": {
             "config": {
                 "@manager": "linkTaskManagerReplacementDicFromChoice",
@@ -11121,43 +10480,6 @@
                 "fr": "Vérifier la conformité du transfert",
                 "pt_BR": "Verificar a conformidade da transferência",
                 "sv": "Kontrollera överförings följsamhet"
-            }
-        },
-        "f2e784a0-356b-4b92-9a5a-11887aa3cf48": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"reject\" \"%SIPUUID%\"",
-                "execute": "failedSIPCleanup_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Cleanup rejected SIP",
-                "es": "Eliminar SIP rechazado",
-                "fr": "Nettoyer les SIP qui ont été rejetés",
-                "ja": "拒否されたSIPをクリーン",
-                "pt_BR": "SIP limpeza rejeitada ",
-                "sv": "Rensa underkända SIP:er"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "0d7f5dc2-b9af-43bf-b698-10fdcc5b014d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "0d7f5dc2-b9af-43bf-b698-10fdcc5b014d",
-            "group": {
-                "en": "Reject AIP",
-                "es": "Rechazar AIP",
-                "fr": "Rejeter l'AIP",
-                "ja": "AIPを拒否",
-                "pt_BR": "Rejeitar AIP",
-                "sv": "Förkasta AIP"
             }
         },
         "f378ec85-adcc-4ee6-ada2-bc90cfe20efb": {
@@ -11656,43 +10978,6 @@
                 "ja": "AIPの再インジェスト",
                 "pt_BR": "Readmitir AIP",
                 "sv": "Återingestera AIP"
-            }
-        },
-        "ff89a530-0540-4625-8884-5a2198dea05a": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "--base-url \"%base_url%\" --user \"%user%\" --passwd \"%passwd%\" --dip_location \"%SIPDirectory%\" --dip_name \"%SIPName%\" --dip_uuid \"%SIPUUID%\" --restrictions \"%restrictions%\" --object_type \"%object_type%\" --xlink_actuate \"%xlink_actuate%\" --xlink_show \"%xlink_show%\" --use_statement \"%use_statement%\" --uri_prefix \"%uri_prefix%\" --access_conditions \"%access_conditions%\" --use_conditions \"%use_conditions%\" --inherit_notes \"%inherit_notes%\"",
-                "execute": "upload-archivesspace_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Upload to ArchivesSpace",
-                "es": "Subir ArchivesSpace",
-                "fr": "Télécharger dans ArchivesSpace",
-                "ja": "アーカイブスペースにアップロード",
-                "pt_BR": "Carregar para o ArchivesSpace",
-                "sv": "Ladda upp till ArchivesSpace"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "2e31580d-1678-474b-83e5-a53d97d150f6"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "2e31580d-1678-474b-83e5-a53d97d150f6",
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
             }
         }
     },

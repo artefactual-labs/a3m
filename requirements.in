@@ -2,7 +2,6 @@
 -e git+https://github.com/artefactual-labs/ammcpc@v0.1.1#egg=ammcpc
 amclient==1.1.1
 metsrw==0.3.14
-agentarchives==0.5.0
 bagit==1.7.0
 opf-fido==1.4.1
 clamd==1.0.2

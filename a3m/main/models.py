@@ -155,49 +155,6 @@ class DashboardSetting(models.Model):
         )
 
 
-class Access(models.Model):
-    """ Information about an upload to AtoM for a SIP. """
-
-    id = models.AutoField(primary_key=True, db_column="pk")
-    sipuuid = models.CharField(max_length=36, db_column="SIPUUID", blank=True)
-    # Qubit ID (slug) generated or preexisting if a new description was not created
-    resource = models.TextField(db_column="resource", blank=True)
-    # Before the UploadDIP micro-service is executed, a dialog shows up and ask the user
-    # the target archival description when the DIP will be deposited via SWORD
-    # This column is mandatory, the user won't be able to submit the form if this field is empty
-    target = models.TextField(db_column="target", blank=True)
-    # Human readable status of an upload (rsync progress percentage, etc)
-    status = models.TextField(db_column="status", blank=True)
-    # Machine readable status code of an upload
-    # 10 = Rsync is working
-    # 11 = Rsync finished successfully
-    # 12 = Rsync failed (then see self.exitcode to get rsync exit code)
-    # 13 = SWORD deposit will be executed
-    # 14 = Deposit done, Qubit returned code 200 (HTTP Created)
-    #      - The deposited was created synchronously
-    #      - At this point self.resource should contains the created Qubit resource
-    # 15 = Deposit done, Qubit returned code 201 (HTTP Accepted)
-    #      - The deposited will be created asynchronously (Qubit has a job queue)
-    #      - At this point self.resource should contains the created Qubit resource
-    #      - ^ this resource could be under progres, ask to Qubit for the status
-    statuscode = models.PositiveSmallIntegerField(
-        db_column="statusCode", null=True, blank=True
-    )  # Actually a unsigned tinyint
-    # Rsync exit code
-    exitcode = models.PositiveSmallIntegerField(
-        db_column="exitCode", null=True, blank=True
-    )  # Actually a unsigned tinyint
-    # Timestamps
-    createdtime = models.DateTimeField(db_column="createdTime", auto_now_add=True)
-    updatedtime = models.DateTimeField(db_column="updatedTime", auto_now=True)
-
-    class Meta:
-        db_table = u"Accesses"
-
-    def get_title(self):
-        return Job.objects.filter(sipuuid=self.sipuuid).get_directory_name()
-
-
 class DublinCore(models.Model):
     """ DublinCore metadata associated with a SIP or Transfer. """
 
@@ -1370,52 +1327,6 @@ class UnitVariable(models.Model):
         db_table = u"UnitVariables"
         # Fields indexed via raw migration (as they are blobs):
         # ("unituuid", "unittype", "variable")
-
-
-class ArchivesSpaceDIPObjectResourcePairing(models.Model):
-    id = models.AutoField(primary_key=True, db_column="pk")
-    # TODO these should be foreign keys?
-    dipuuid = models.CharField(max_length=50, db_column="dipUUID")
-    fileuuid = models.CharField(max_length=50, db_column="fileUUID")
-    # This field holds URL fragments, for instance:
-    # /repositories/2/archival_objects/1
-    resourceid = models.CharField(max_length=150, db_column="resourceId")
-
-    def __str__(self):
-        return "ArchivesSpace Pairing<dipuuid: {s.dipuuid}, resourceid: {s.resourceid}>".format(
-            s=self
-        )
-
-    class Meta:
-        db_table = u"ArchivesSpaceDIPObjectResourcePairing"
-        # Table name length is fine, but if the verbose name is too
-        # long it can result in confusing errors when trying to
-        # set up permissions: https://code.djangoproject.com/ticket/18866
-        verbose_name = _("ASDIPObjectResourcePairing")
-
-
-class ArchivesSpaceDigitalObject(models.Model):
-    """
-    Represents a digital object to be created in ArchivesSpace at the time an AIP is stored by Archivematica.
-    """
-
-    sip = models.ForeignKey("SIP", to_field="uuid", null=True)
-    resourceid = models.CharField(max_length=150)
-    label = models.CharField(max_length=255, blank=True)
-    title = models.TextField(blank=True)
-    started = models.BooleanField(
-        default=False,
-        help_text=_(
-            "Whether or not a SIP has been started using files in this digital object."
-        ),
-    )
-    remoteid = models.CharField(
-        max_length=150,
-        blank=True,
-        help_text=_(
-            "ID in the remote ArchivesSpace system, after digital object has been created."
-        ),
-    )
 
 
 class TransferMetadataSet(models.Model):
