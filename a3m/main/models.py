@@ -29,7 +29,6 @@ import re
 
 # Core Django, alphabetical by import source
 from django.contrib.auth.models import User
-from django.db import IntegrityError
 from django.db import models, transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -75,30 +74,6 @@ class BlobTextField(models.TextField):
 
     def db_type(self, connection):
         return "longblob"
-
-
-# SIGNALS
-
-
-@receiver(post_save, sender=User)
-def create_user_agent(sender, instance, **kwargs):
-    LOGGER.debug("Caught post_save signal from %s with instance %r", sender, instance)
-    agent, created = Agent.objects.update_or_create(
-        userprofile__user=instance,
-        defaults={
-            "identifiertype": "Archivematica user pk",
-            "identifiervalue": str(instance.id),
-            "name": 'username="{}", first_name="{}", last_name="{}"'.format(
-                instance.username.encode("utf8"),
-                instance.first_name.encode("utf8"),
-                instance.last_name.encode("utf8"),
-            ),
-            "agenttype": "Archivematica user",
-        },
-    )
-    LOGGER.debug("Agent: %s; created: %s", agent, created)
-    if created:
-        UserProfile.objects.update_or_create(user=instance, defaults={"agent": agent})
 
 
 # MODELS
