@@ -280,7 +280,6 @@ def create():
         "watchedDirectories/system",
         "watchedDirectories/system/autoProcessSIP",
         "watchedDirectories/system/autoRestructureForCompliance",
-        "watchedDirectories/system/createAIC",
         "watchedDirectories/system/reingestAIP",
         "watchedDirectories/uploadDIP",
         "watchedDirectories/uploadedDIPs",

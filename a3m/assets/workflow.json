@@ -22,17 +22,6 @@
             },
             "link_id": "100a75f4-9d2a-41bf-8dd0-aec811ae1077"
         },
-        "0766af55-a950-44d0-a79b-9f2bb65f92c8": {
-            "description": {
-                "en": "Create AIC",
-                "es": "Crear AIC",
-                "fr": "Créer une AIC",
-                "ja": "AICを作成する",
-                "pt_BR": "Criar AIC",
-                "sv": "Skapa AIC"
-            },
-            "link_id": "6404ce13-8619-48ba-b12f-aa7a034153ac"
-        },
         "082fa7d6-68e1-431c-9216-899aec92cfa7": {
             "description": {
                 "en": "Attempt restructure for compliance",
@@ -326,17 +315,6 @@
                 "sv": "Fortsätt"
             },
             "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
-        },
-        "5f34245e-5864-4199-aafc-bc0ada01d4cd": {
-            "description": {
-                "en": "Approve AIC",
-                "es": "Aprobar AIC",
-                "fr": "Approuver l'AIC",
-                "ja": "AICを承認",
-                "pt_BR": "Confirmar AIC",
-                "sv": "Godkänn AIC"
-            },
-            "link_id": "efd15406-fd6c-425b-8772-d460e1e79009"
         },
         "612e3609-ce9a-4df6-a9a3-63d634d2d934": {
             "description": {
@@ -1421,41 +1399,6 @@
                 "sv": "Normalisera"
             }
         },
-        "0c2c9c9a-25b2-4a2d-a790-103da79f9604": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%SIPUUID%\"",
-                "execute": "restructureForCompliance_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Attempt restructure for compliance",
-                "es": "Intento de reestructuración para cumplimiento ",
-                "fr": "Tentative de réorganisation pour conformité",
-                "ja": "コンプライアンスのための再構成を試みる",
-                "pt_BR": "Tentativa de reestruturação para conformidade",
-                "sv": "Försök omstrukturera för följsamhet"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "d29105f0-161d-449d-9c34-5a5ea3263f8e"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare AIC",
-                "es": "Preparar AIC",
-                "fr": "Préparer l'AIC",
-                "sv": "Förbered AIC"
-            }
-        },
         "0c94e6b5-4714-4bec-82c8-e187e0c04d77": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
@@ -1821,41 +1764,6 @@
                 "es": "Preparar DIP",
                 "fr": "Préparer le DIP",
                 "sv": "Förbered DIP"
-            }
-        },
-        "142d0a36-2b88-4b98-8a33-d809f667ecef": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPDirectory%\"",
-                "execute": "createAIC_METS_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create AIC METS file",
-                "es": "Crear el fichero METS del AIC",
-                "fr": "Créer un fichier AIC METS",
-                "ja": "AIC METSファイルを作成する",
-                "pt_BR": "Criar arquivo AIC METS",
-                "sv": "Skapa AIC METS-fil"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "9e810686-d747-4da1-9908-876fb89ac78e"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare AIC",
-                "es": "Preparar AIC",
-                "fr": "Préparer l'AIC",
-                "sv": "Förbered AIC"
             }
         },
         "153c5f41-3cfb-47ba-9150-2dd44ebc27df": {
@@ -4728,42 +4636,6 @@
                 "sv": "Lägg till README-fil"
             }
         },
-        "53e14112-21bb-46f0-aed3-4e8c2de6678f": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "--baseDirectoryPath \"%SIPDirectory%\" --baseDirectoryPathString \"SIPDirectory\" --fileGroupIdentifier \"%SIPUUID%\" --fileGroupType \"sip_id\" --xmlFile \"%SIPDirectory%METS.%SIPUUID%.xml\"",
-                "execute": "createMETS_v2.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Generate METS.xml document",
-                "es": "Generar METS.xml",
-                "fr": "Générer un document METS.xml",
-                "ja": "METS.xml文書 を生成",
-                "pt_BR": "Gerar documentos METS.xml",
-                "sv": "Skapa METS.xml dokument"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "3e25bda6-5314-4bb4-aa1e-90900dce887d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Generate AIP METS",
-                "fr": "Générer un AIP METS",
-                "ja": "AIP METSを生成",
-                "pt_BR": "Gerar AIP METS",
-                "sv": "Genrerera AIP METS"
-            }
-        },
         "5415c813-3637-49ab-afec-9b435c2e4d2c": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -5544,35 +5416,6 @@
                 "es": "Preparar AIP",
                 "fr": "Préparer l'AIP",
                 "sv": "Förbered AIP"
-            }
-        },
-        "6404ce13-8619-48ba-b12f-aa7a034153ac": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "5f34245e-5864-4199-aafc-bc0ada01d4cd",
-                    "169a5448-c756-4705-a920-737de6b8d595"
-                ]
-            },
-            "description": {
-                "en": "Approve AIC",
-                "es": "Aprobar AIC",
-                "fr": "Approuver l'AIC",
-                "ja": "AICを承認",
-                "pt_BR": "Confirmar AIC",
-                "sv": "Godkänn AIC"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Approve AIC",
-                "es": "Aprobar AIC",
-                "fr": "Approuver l'AIC",
-                "ja": "AICを承認",
-                "pt_BR": "Confirmar AIC",
-                "sv": "Godkänn AIC"
             }
         },
         "6441980c-b64b-447e-abc7-9351a2547f6a": {
@@ -7713,40 +7556,6 @@
                 "sv": "Normalisera"
             }
         },
-        "9e810686-d747-4da1-9908-876fb89ac78e": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%thumbnails/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create thumbnails directory",
-                "es": "Crear directorio de miniaturas",
-                "fr": "Créer un répertoire de vignettes",
-                "pt_BR": "Crie o diretório thumbnails",
-                "sv": "Skapa miniatyrmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "53e14112-21bb-46f0-aed3-4e8c2de6678f"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare AIC",
-                "es": "Preparar AIC",
-                "fr": "Préparer l'AIC",
-                "sv": "Förbered AIC"
-            }
-        },
         "9e9b522a-77ab-4c17-ab08-5a4256f49d59": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -9864,38 +9673,6 @@
                 "sv": "Slutför överföring"
             }
         },
-        "d29105f0-161d-449d-9c34-5a5ea3263f8e": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%sharedMicroServiceTasksConfigs/processingMCPConfigs/defaultProcessingMCP.xml\" \"%SIPDirectory%processingMCP.xml\" -n",
-                "execute": "copy_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Include default SIP processingMCP.xml",
-                "pt_BR": "Incluir padrão SIP processingMCP.xml",
-                "sv": "Inkludera standard SIP processingMCP.xml"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "142d0a36-2b88-4b98-8a33-d809f667ecef"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "142d0a36-2b88-4b98-8a33-d809f667ecef",
-            "group": {
-                "en": "Prepare AIC",
-                "es": "Preparar AIC",
-                "fr": "Préparer l'AIC",
-                "sv": "Förbered AIC"
-            }
-        },
         "d3c75c96-f8c7-4674-af46-5bcce7b05f87": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -11036,38 +10813,6 @@
                 "sv": "Normalisera"
             }
         },
-        "efd15406-fd6c-425b-8772-d460e1e79009": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "0c2c9c9a-25b2-4a2d-a790-103da79f9604"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare AIC",
-                "es": "Preparar AIC",
-                "fr": "Préparer l'AIC",
-                "sv": "Förbered AIC"
-            }
-        },
         "f025f58c-d48c-4ba1-8904-a56d2a67b42f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -12047,12 +11792,6 @@
             "only_dirs": false,
             "path": "/activeTransfers/zippedDirectory",
             "unit_type": "Transfer"
-        },
-        {
-            "chain_id": "0766af55-a950-44d0-a79b-9f2bb65f92c8",
-            "only_dirs": true,
-            "path": "/system/createAIC/",
-            "unit_type": "SIP"
         },
         {
             "chain_id": "816f28cd-6af1-4d26-97f3-e61645eb881b",

@@ -1,14 +1,12 @@
 #!/usr/bin/env python2
 
 import argparse
-import os
 
 import django
 
 django.setup()
 from django.db import transaction
 
-from a3m import storageService as storage_service
 from a3m.main.models import File, Transfer
 from a3m.client import metrics
 

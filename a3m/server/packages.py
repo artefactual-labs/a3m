@@ -15,9 +15,7 @@ import scandir
 from django.conf import settings
 from django.utils import six
 
-import a3m.storageService as storage_service
-from a3m.archivematicaFunctions import strToUnicode
-from a3m.archivematicaFunctions import unicodeToStr
+from a3m.archivematicaFunctions import strToUnicode, unicodeToStr
 from a3m.main import models
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs import JobChain
@@ -192,19 +190,6 @@ def _check_filepath_exists(filepath):
     return None
 
 
-_default_location_uuid = None
-
-
-@auto_close_old_connections()
-def _default_transfer_source_location_uuid():
-    global _default_location_uuid
-    if _default_location_uuid is not None:
-        return _default_location_uuid
-    location = storage_service.get_default_location("TS")
-    _default_location_uuid = location["uuid"]
-    return _default_location_uuid
-
-
 @auto_close_old_connections()
 def _copy_from_transfer_sources(paths, relative_destination):
     """Copy files from source locations to the currently processing location.
@@ -216,55 +201,7 @@ def _copy_from_transfer_sources(paths, relative_destination):
     :param str relative_destination: Path relative to the currently processing
                                      space to move the files to.
     """
-    processing_location = storage_service.get_location(purpose="CP")[0]
-    transfer_sources = storage_service.get_location(purpose="TS")
-    files = {l["uuid"]: {"location": l, "files": []} for l in transfer_sources}
-
-    for item in paths:
-        location, path = LocationPath(item).parts()
-        if location is None:
-            location = _default_transfer_source_location_uuid()
-        if location not in files:
-            raise Exception(
-                "Location %(location)s is not associated"
-                " with this pipeline" % {"location": location}
-            )
-
-        # ``path`` will be a UTF-8 bytestring but the replacement pattern path
-        # from ``files`` will be a Unicode object. Therefore, the latter must
-        # be UTF-8 encoded prior. Same reasoning applies to ``destination``
-        # below. This allows transfers to be started on UTF-8-encoded directory
-        # names.
-        source = path.replace(
-            files[location]["location"]["path"].encode("utf8"), "", 1
-        ).lstrip("/")
-        # Use the last segment of the path for the destination - basename for a
-        # file, or the last folder if not. Keep the trailing / for folders.
-        last_segment = (
-            os.path.basename(source.rstrip("/")) + "/"
-            if source.endswith("/")
-            else os.path.basename(source)
-        )
-        destination = os.path.join(
-            processing_location["path"].encode("utf8"),
-            relative_destination,
-            last_segment,
-        ).replace("%sharedPath%", "")
-        files[location]["files"].append({"source": source, "destination": destination})
-        logger.debug("source: %s, destination: %s", source, destination)
-
-    message = []
-    for item in files.values():
-        reply, error = storage_service.copy_files(
-            item["location"], processing_location, item["files"]
-        )
-        if reply is None:
-            message.append(str(error))
-    if message:
-        raise Exception(
-            "The following errors occurred: %(message)s"
-            % {"message": ", ".join(message)}
-        )
+    raise NotImplementedError("bye SS!")
 
 
 @auto_close_old_connections()
