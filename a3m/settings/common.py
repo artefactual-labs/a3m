@@ -174,14 +174,12 @@ DATABASES = {
     }
 }
 
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/var/archivematica/db',
+        'NAME': 'db',
     }
 }
-"""
 
 MIDDLEWARE_CLASSES = ()
 

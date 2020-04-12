@@ -133,29 +133,6 @@ processing_fields["01c651cb-c174-4ba4-b985-1d87a44d6754"] = {
     "type": "replace_dict",
     "name": "compression_level",
 }
-processing_fields["2d32235c-02d4-4686-88a6-96f4d6c7b1c3"] = {
-    "type": "boolean",
-    "name": "store_aip",
-    "yes_option": "9efab23c-31dc-4cbd-a39d-bb1665460cbe",
-}
-processing_fields["b320ce81-9982-408a-9502-097d0daa48fa"] = {
-    "type": "storage_service",
-    "name": "store_aip_location",
-    "purpose": "AS",
-}
-processing_fields["92879a29-45bf-4f0b-ac43-e64474f0f2f9"] = {
-    "type": "chain_choice",
-    "name": "upload_dip",
-}
-processing_fields["5e58066d-e113-4383-b20b-f301ed4d751c"] = {
-    "type": "chain_choice",
-    "name": "store_dip",
-}
-processing_fields["cd844b6e-ab3c-4bc6-b34f-7103f88715de"] = {
-    "type": "storage_service",
-    "name": "store_dip_location",
-    "purpose": "DS",
-}
 
 
 def get_processing_fields(workflow):

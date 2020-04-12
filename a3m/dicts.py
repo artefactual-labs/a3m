@@ -26,7 +26,6 @@ from django.conf import settings as django_settings
 import six
 
 from a3m.archivematicaFunctions import unicodeToStr
-
 from a3m.main import models
 
 

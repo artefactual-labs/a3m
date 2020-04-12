@@ -7,7 +7,7 @@ import pytest
 import six
 
 from a3m.dicts import ReplacementDict, ChoicesDict
-from a3m.dicts import setup as setup_dicts
+from a3m.dicts import setup_dicts
 from a3m.main import models
 
 TRANSFER = models.Transfer(
@@ -33,14 +33,13 @@ FILE = models.File(
 )
 
 
-@pytest.fixture(scope="module", autouse=True)
-def with_dicts():
-    setup_dicts(
-        shared_directory="/shared/",
-        processing_directory="/processing/",
-        watch_directory="/watch/",
-        rejected_directory="/rejected/",
-    )
+@pytest.fixture(autouse=True)
+def with_dicts(settings):
+    settings.SHARED_DIRECTORY = "/shared/"
+    settings.PROCESSING_DIRECTORY = "/processing/"
+    settings.WATCH_DIRECTORY = "/watch/"
+    settings.REJECTED_DIRECTORY = "/rejected/"
+    setup_dicts()
 
 
 def test_alternate_replacementdict_constructor():
