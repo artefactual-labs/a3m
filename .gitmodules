@@ -1,4 +1,0 @@
-[submodule "archivematica-sampledata"]
-	path = hack/modules/archivematica-sampledata
-	url = https://github.com/artefactual/archivematica-sampledata
-	branch = master
