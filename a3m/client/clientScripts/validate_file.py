@@ -21,18 +21,15 @@ from pprint import pformat
 import sys
 
 import django
-from django.db import transaction
-
 django.setup()
-from django.conf import settings as mcpclient_settings
+from django.db import transaction
 
 from a3m.fpr.models import FPRule, FormatVersion
 from a3m.main.models import Derivation, File, SIP
 from a3m.custom_handlers import get_script_logger
 from a3m import databaseFunctions
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.dicts import replace_string_values
-from .lib import setup_dicts
+from a3m.dicts import replace_string_values, setup_dicts
 
 
 SUCCESS_CODE = 0
@@ -43,7 +40,7 @@ DERIVATIVE_TYPES = ("preservation", "access")
 
 
 def main(job, file_path, file_uuid, sip_uuid, shared_path, file_type):
-    setup_dicts(mcpclient_settings)
+    setup_dicts()
 
     validator = Validator(job, file_path, file_uuid, sip_uuid, shared_path, file_type)
     return validator.validate()

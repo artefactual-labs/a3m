@@ -11,18 +11,14 @@ from lxml import etree
 import multiprocessing
 
 import django
-
 django.setup()
 from django.db import transaction
-from django.conf import settings as mcpclient_settings
 
 from a3m.main.models import FPCommandOutput
 from a3m.fpr.models import FPRule, FormatVersion
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.databaseFunctions import insertIntoFPCommandOutput
-from a3m.dicts import replace_string_values, ReplacementDict
-
-from .lib import setup_dicts
+from a3m.dicts import replace_string_values, ReplacementDict, setup_dicts
 
 
 def concurrent_instances():
@@ -30,7 +26,7 @@ def concurrent_instances():
 
 
 def main(job, file_path, file_uuid, sip_uuid):
-    setup_dicts(mcpclient_settings)
+    setup_dicts()
 
     failed = False
 

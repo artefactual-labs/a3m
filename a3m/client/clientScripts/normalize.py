@@ -7,24 +7,20 @@ import os
 import shutil
 import traceback
 import uuid
-
-from django.utils import timezone
+import scandir
 
 from . import transcoder
 
 import django
-import scandir
-
 django.setup()
+from django.db import transaction
+from django.conf import settings as mcpclient_settings
+from django.utils import timezone
+
 from a3m.fpr.models import FPRule
 from a3m.main.models import Derivation, FileFormatVersion, File, FileID
-from django.db import transaction
-
 from a3m import databaseFunctions, fileOperations
-from a3m.dicts import ReplacementDict
-
-from django.conf import settings as mcpclient_settings
-from .lib import setup_dicts
+from a3m.dicts import ReplacementDict, setup_dicts
 
 
 # Return codes
@@ -334,7 +330,7 @@ def main(job, opts):
     """ Find and execute normalization commands on input file. """
     # TODO fix for maildir working only on attachments
 
-    setup_dicts(mcpclient_settings)
+    setup_dicts()
 
     # Find the file and it's FormatVersion (file identification)
     try:

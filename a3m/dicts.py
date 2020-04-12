@@ -22,6 +22,7 @@ import ast
 import os
 import re
 
+from django.conf import settings as django_settings
 import six
 
 from a3m.archivematicaFunctions import unicodeToStr
@@ -32,11 +33,11 @@ from a3m.main import models
 config = {}
 
 
-def setup(shared_directory, processing_directory, watch_directory, rejected_directory):
-    config["shared_directory"] = shared_directory
-    config["processing_directory"] = processing_directory
-    config["watch_directory"] = watch_directory
-    config["rejected_directory"] = rejected_directory
+def setup_dicts():
+    config["shared_directory"] = django_settings.SHARED_DIRECTORY
+    config["processing_directory"] = django_settings.PROCESSING_DIRECTORY
+    config["watch_directory"] = django_settings.WATCH_DIRECTORY
+    config["rejected_directory"] = django_settings.REJECTED_DIRECTORY
 
 
 def replace_string_values(string, **kwargs):

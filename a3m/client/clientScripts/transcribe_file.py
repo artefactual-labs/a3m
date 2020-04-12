@@ -6,17 +6,14 @@ from uuid import uuid4
 
 import django
 from django.db import transaction
-
-django.setup()
 from django.utils import timezone
-from django.conf import settings as mcpclient_settings
+django.setup()
 
 from a3m.main.models import Derivation, File, FileFormatVersion
 from a3m.fpr.models import FPRule
-from a3m.dicts import ReplacementDict
+from a3m.dicts import ReplacementDict, setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m import databaseFunctions, fileOperations
-from .lib import setup_dicts
 
 
 def concurrent_instances():
@@ -97,7 +94,7 @@ def fetch_rules_for_derivatives(file_):
 
 
 def main(job, task_uuid, file_uuid):
-    setup_dicts(mcpclient_settings)
+    setup_dicts()
 
     succeeded = True
 
