@@ -55,7 +55,6 @@ from a3m.main.models import (
     FileID,
     FPCommandOutput,
     SIP,
-    SIPArrange,
 )
 
 import archivematicaCreateMETSReingest
@@ -1301,11 +1300,7 @@ def build_arranged_structmap(job, original_structmap, sip_uuid):
     :param etree.Element original_structmap: the structMap on which the arranged structMap should be based.
     :param str sip_uuid: the SIP's UUID
     """
-    tag_dict = dict(
-        SIPArrange.objects.filter(sip_id=sip_uuid).values_list(
-            "arrange_path", "level_of_description"
-        )
-    )
+    tag_dict = dict()  # Removed SIPArrange lookup
     if not tag_dict:
         return
 

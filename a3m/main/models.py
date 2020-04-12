@@ -513,62 +513,6 @@ class Transfer(models.Model):
         return result or "default"
 
 
-class SIPArrange(models.Model):
-    """ Information about arranged files: original and arranged location, current status. """
-
-    original_path = BlobTextField(null=True, blank=True, default=None)
-    arrange_path = BlobTextField()
-    file_uuid = UUIDField(auto=False, null=True, blank=True, default=None, unique=True)
-    transfer_uuid = UUIDField(auto=False, null=True, blank=True, default=None)
-    sip = models.ForeignKey(SIP, to_field="uuid", null=True, blank=True, default=None)
-    level_of_description = models.CharField(max_length=2014)
-    sip_created = models.BooleanField(default=False)
-    aip_created = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name = _("Arranged SIPs")
-
-    def __unicode__(self):
-        return six.text_type(
-            _("%(original)s -> %(arrange)s")
-            % {"original": self.original_path, "arrange": self.arrange_path}
-        )
-
-    @classmethod
-    def create_many(cls, arranges):
-        """Bulk create a list of SIPArrange model instances.
-
-        If some of the SIPArrange instances already exist, bulk creation
-        will fail and this will revert back to saving each instance
-        individually ignoring the existing ones.
-        """
-        try:
-            cls.objects.bulk_create(arranges, BULK_CREATE_BATCH_SIZE)
-        except IntegrityError:
-            for arrange in arranges:
-                try:
-                    arrange.save()
-                except IntegrityError:
-                    continue
-
-
-class SIPArrangeAccessMapping(models.Model):
-    """ Maps directories within SIPArrange to descriptive objects in a remote archival management system. """
-
-    ARCHIVESSPACE = "archivesspace"
-    ATOM = "atom"
-    SYSTEMS = ((ARCHIVESSPACE, "ArchivesSpace"), (ATOM, "AtoM"))
-
-    arrange_path = models.CharField(max_length=255)
-    system = models.CharField(choices=SYSTEMS, default=ATOM, max_length=255)
-    identifier = models.CharField(max_length=255)
-
-    def __str__(self):
-        return "arrange_path={s.arrange_path}, system={s.system}, identifier={s.identifier}".format(
-            s=self
-        )
-
-
 class Identifier(models.Model):
     """Identifiers used by File, Directory SIP models. Used for Handle System
     handles/PIDs and maybe for other types of identifier in the future.

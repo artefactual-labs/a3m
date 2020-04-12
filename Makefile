@@ -36,6 +36,9 @@ manage:  ## Run Django /manage.py on a3m, suppling <command> [options] as value 
 			archivematica-mcp-server \
 				$(ARG)
 
+migrations:
+	docker-compose run --rm --user=1000 --entrypoint=/a3m/manage.py archivematica-mcp-server makemigrations main
+
 restart:  # Restart services
 	docker-compose restart archivematica-mcp-server
 	docker-compose restart archivematica-mcp-client
