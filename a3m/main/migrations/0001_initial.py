@@ -1,2359 +1,744 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
+from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
+from django.conf import settings
 import django_extensions.db.fields
-
 import a3m.main.models
 
 
 class Migration(migrations.Migration):
 
-    dependencies = [("fpr", "__first__")]
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('fpr', '0002_initial_data'),
+    ]
 
     operations = [
         migrations.CreateModel(
-            name="Access",
+            name='Access',
             fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                (
-                    "sipuuid",
-                    models.CharField(max_length=36, db_column="SIPUUID", blank=True),
-                ),
-                ("resource", models.TextField(db_column="resource", blank=True)),
-                ("target", models.TextField(db_column="target", blank=True)),
-                ("status", models.TextField(db_column="status", blank=True)),
-                (
-                    "statuscode",
-                    models.PositiveSmallIntegerField(
-                        null=True, db_column="statusCode", blank=True
-                    ),
-                ),
-                (
-                    "exitcode",
-                    models.PositiveSmallIntegerField(
-                        null=True, db_column="exitCode", blank=True
-                    ),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(auto_now_add=True, db_column="createdTime"),
-                ),
-                (
-                    "updatedtime",
-                    models.DateTimeField(auto_now=True, db_column="updatedTime"),
-                ),
-            ],
-            options={"db_table": "Accesses"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="Agent",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                ("identifiertype", models.TextField(db_column="agentIdentifierType")),
-                ("identifiervalue", models.TextField(db_column="agentIdentifierValue")),
-                ("name", models.TextField(db_column="agentName")),
-                ("agenttype", models.TextField(db_column="agentType")),
-            ],
-            options={"db_table": "Agents"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="AtkDIPObjectResourcePairing",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                ("dipuuid", models.CharField(max_length=50, db_column="dipUUID")),
-                ("fileuuid", models.CharField(max_length=50, db_column="fileUUID")),
-                ("resourceid", models.IntegerField(db_column="resourceId")),
-                (
-                    "resourcecomponentid",
-                    models.IntegerField(db_column="resourceComponentId"),
-                ),
-            ],
-            options={"db_table": "AtkDIPObjectResourcePairing"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="DashboardSetting",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                ("name", models.CharField(max_length=255, db_column="name")),
-                ("value", models.TextField(db_column="value", blank=True)),
-                (
-                    "lastmodified",
-                    models.DateTimeField(auto_now=True, db_column="lastModified"),
-                ),
-            ],
-            options={"db_table": "DashboardSettings"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="Derivation",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                )
-            ],
-            options={"db_table": "Derivations"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="DublinCore",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                (
-                    "metadataappliestoidentifier",
-                    models.CharField(
-                        max_length=36, db_column="metadataAppliesToidentifier"
-                    ),
-                ),
-                ("title", models.TextField(db_column="title", blank=True)),
-                (
-                    "is_part_of",
-                    models.TextField(
-                        help_text="Optional: leave blank if unsure",
-                        verbose_name="Part of AIC",
-                        db_column="isPartOf",
-                        blank=True,
-                    ),
-                ),
-                ("creator", models.TextField(db_column="creator", blank=True)),
-                ("subject", models.TextField(db_column="subject", blank=True)),
-                ("description", models.TextField(db_column="description", blank=True)),
-                ("publisher", models.TextField(db_column="publisher", blank=True)),
-                ("contributor", models.TextField(db_column="contributor", blank=True)),
-                (
-                    "date",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD or YYYY-MM-DD/YYYY-MM-DD)",
-                        db_column="date",
-                        blank=True,
-                    ),
-                ),
-                ("type", models.TextField(db_column="type", blank=True)),
-                ("format", models.TextField(db_column="format", blank=True)),
-                ("identifier", models.TextField(db_column="identifier", blank=True)),
-                ("source", models.TextField(db_column="source", blank=True)),
-                ("relation", models.TextField(db_column="relation", blank=True)),
-                (
-                    "language",
-                    models.TextField(
-                        help_text="Use ISO 639", db_column="language", blank=True
-                    ),
-                ),
-                ("coverage", models.TextField(db_column="coverage", blank=True)),
-                ("rights", models.TextField(db_column="rights", blank=True)),
-            ],
-            options={"db_table": "Dublincore"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="Event",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "event_id",
-                    django_extensions.db.fields.UUIDField(
-                        null=True,
-                        db_column="eventIdentifierUUID",
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                        unique=True,
-                    ),
-                ),
-                ("event_type", models.TextField(db_column="eventType", blank=True)),
-                (
-                    "event_datetime",
-                    models.DateTimeField(auto_now=True, db_column="eventDateTime"),
-                ),
-                ("event_detail", models.TextField(db_column="eventDetail", blank=True)),
-                (
-                    "event_outcome",
-                    models.TextField(db_column="eventOutcome", blank=True),
-                ),
-                (
-                    "event_outcome_detail",
-                    models.TextField(db_column="eventOutcomeDetailNote", blank=True),
-                ),
-                (
-                    "linking_agent",
-                    models.IntegerField(null=True, db_column="linkingAgentIdentifier"),
-                ),
-            ],
-            options={"db_table": "Events"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="File",
-            fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36,
-                        serialize=False,
-                        primary_key=True,
-                        db_column="fileUUID",
-                    ),
-                ),
-                ("originallocation", models.TextField(db_column="originalLocation")),
-                ("currentlocation", models.TextField(db_column="currentLocation")),
-                (
-                    "filegrpuse",
-                    models.CharField(
-                        default="Original", max_length=50, db_column="fileGrpUse"
-                    ),
-                ),
-                (
-                    "filegrpuuid",
-                    models.CharField(
-                        max_length=36, db_column="fileGrpUUID", blank=True
-                    ),
-                ),
-                (
-                    "checksum",
-                    models.CharField(max_length=100, db_column="checksum", blank=True),
-                ),
-                (
-                    "size",
-                    models.BigIntegerField(null=True, db_column="fileSize", blank=True),
-                ),
-                ("label", models.TextField(blank=True)),
-                (
-                    "enteredsystem",
-                    models.DateTimeField(auto_now_add=True, db_column="enteredSystem"),
-                ),
-                (
-                    "removedtime",
-                    models.DateTimeField(
-                        default=None, null=True, db_column="removedTime"
-                    ),
-                ),
-            ],
-            options={"db_table": "Files"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="FileFormatVersion",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                ("file_uuid", models.ForeignKey(to="main.File", db_column="fileUUID")),
-                (
-                    "format_version",
-                    models.ForeignKey(
-                        to="fpr.FormatVersion", db_column="fileID", to_field="uuid"
-                    ),
-                ),
-            ],
-            options={"db_table": "FilesIdentifiedIDs"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="FileID",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                ("format_name", models.TextField(db_column="formatName", blank=True)),
-                (
-                    "format_version",
-                    models.TextField(db_column="formatVersion", blank=True),
-                ),
-                (
-                    "format_registry_name",
-                    models.TextField(db_column="formatRegistryName", blank=True),
-                ),
-                (
-                    "format_registry_key",
-                    models.TextField(db_column="formatRegistryKey", blank=True),
-                ),
-                (
-                    "file",
-                    models.ForeignKey(
-                        db_column="fileUUID", blank=True, to="main.File", null=True
-                    ),
-                ),
-            ],
-            options={"db_table": "FilesIDs"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="FPCommandOutput",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                ("content", models.TextField(null=True)),
-                ("file", models.ForeignKey(to="main.File", db_column="fileUUID")),
-                (
-                    "rule",
-                    models.ForeignKey(
-                        to="fpr.FPRule", db_column="ruleUUID", to_field="uuid"
-                    ),
-                ),
-            ],
-            options={},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="Job",
-            fields=[
-                (
-                    "jobuuid",
-                    django_extensions.db.fields.UUIDField(
-                        primary_key=True,
-                        db_column="jobUUID",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "jobtype",
-                    models.CharField(max_length=250, db_column="jobType", blank=True),
-                ),
-                ("createdtime", models.DateTimeField(db_column="createdTime")),
-                (
-                    "createdtimedec",
-                    models.DecimalField(
-                        default=0.0,
-                        decimal_places=10,
-                        max_digits=26,
-                        db_column="createdTimeDec",
-                    ),
-                ),
-                ("directory", models.TextField(blank=True)),
-                ("sipuuid", models.CharField(max_length=36, db_column="SIPUUID")),
-                (
-                    "unittype",
-                    models.CharField(max_length=50, db_column="unitType", blank=True),
-                ),
-                (
-                    "currentstep",
-                    models.CharField(
-                        max_length=50, db_column="currentStep", blank=True
-                    ),
-                ),
-                (
-                    "microservicegroup",
-                    models.CharField(
-                        max_length=50, db_column="microserviceGroup", blank=True
-                    ),
-                ),
-                ("hidden", models.BooleanField(default=False)),
-                (
-                    "subjobof",
-                    models.CharField(max_length=36, db_column="subJobOf", blank=True),
-                ),
-            ],
-            options={"db_table": "Jobs"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="MetadataAppliesToType",
-            fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "description",
-                    models.CharField(max_length=50, db_column="description"),
-                ),
-                (
-                    "replaces",
-                    models.CharField(
-                        max_length=36, null=True, db_column="replaces", blank=True
-                    ),
-                ),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-            ],
-            options={"db_table": "MetadataAppliesToTypes"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="MicroServiceChain",
-            fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                ("description", models.TextField(db_column="description")),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        related_name="replaced_by",
-                        db_column="replaces",
-                        to="main.MicroServiceChain",
-                        null=True,
-                    ),
-                ),
-            ],
-            options={"db_table": "MicroServiceChains"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="MicroServiceChainChoice",
-            fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-                (
-                    "chainavailable",
-                    models.ForeignKey(
-                        to="main.MicroServiceChain", db_column="chainAvailable"
-                    ),
-                ),
-            ],
-            options={"db_table": "MicroServiceChainChoice"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="MicroServiceChainLink",
-            fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "microservicegroup",
-                    models.CharField(max_length=50, db_column="microserviceGroup"),
-                ),
-                (
-                    "reloadfilelist",
-                    models.BooleanField(default=True, db_column="reloadFileList"),
-                ),
-                (
-                    "defaultexitmessage",
-                    models.CharField(
-                        default="Failed", max_length=36, db_column="defaultExitMessage"
-                    ),
-                ),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-            ],
-            options={"db_table": "MicroServiceChainLinks"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="MicroServiceChainLinkExitCode",
-            fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                ("exitcode", models.IntegerField(default=0, db_column="exitCode")),
-                (
-                    "exitmessage",
-                    models.CharField(
-                        default="Completed successfully",
-                        max_length=50,
-                        db_column="exitMessage",
-                    ),
-                ),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-                (
-                    "microservicechainlink",
-                    models.ForeignKey(
-                        related_name="exit_codes",
-                        db_column="microServiceChainLink",
-                        to="main.MicroServiceChainLink",
-                    ),
-                ),
-                (
-                    "nextmicroservicechainlink",
-                    models.ForeignKey(
-                        related_name="parent_exit_codes+",
-                        db_column="nextMicroServiceChainLink",
-                        blank=True,
-                        to="main.MicroServiceChainLink",
-                        null=True,
-                    ),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        related_name="replaced_by",
-                        db_column="replaces",
-                        blank=True,
-                        to="main.MicroServiceChainLinkExitCode",
-                        null=True,
-                    ),
-                ),
-            ],
-            options={"db_table": "MicroServiceChainLinksExitCodes"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="MicroServiceChoiceReplacementDic",
-            fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "description",
-                    models.TextField(
-                        verbose_name="Description", db_column="description"
-                    ),
-                ),
-                (
-                    "replacementdic",
-                    models.TextField(
-                        verbose_name="Configuration", db_column="replacementDic"
-                    ),
-                ),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-                (
-                    "choiceavailableatlink",
-                    models.ForeignKey(
-                        to="main.MicroServiceChainLink",
-                        db_column="choiceAvailableAtLink",
-                    ),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        related_name="replaced_by",
-                        db_column="replaces",
-                        blank=True,
-                        to="main.MicroServiceChoiceReplacementDic",
-                        null=True,
-                    ),
-                ),
-            ],
-            options={"db_table": "MicroServiceChoiceReplacementDic"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="Report",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                ("unittype", models.CharField(max_length=50, db_column="unitType")),
-                ("unitname", models.CharField(max_length=50, db_column="unitName")),
-                (
-                    "unitidentifier",
-                    models.CharField(max_length=36, db_column="unitIdentifier"),
-                ),
-                ("content", models.TextField(db_column="content")),
-                (
-                    "created",
-                    models.DateTimeField(auto_now_add=True, db_column="created"),
-                ),
-            ],
-            options={"db_table": "Reports"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="RightsStatement",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                (
-                    "metadataappliestoidentifier",
-                    models.CharField(
-                        max_length=50, db_column="metadataAppliesToidentifier"
-                    ),
-                ),
-                (
-                    "rightsstatementidentifiertype",
-                    models.TextField(
-                        verbose_name="Type",
-                        db_column="rightsStatementIdentifierType",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "rightsstatementidentifiervalue",
-                    models.TextField(
-                        verbose_name="Value",
-                        db_column="rightsStatementIdentifierValue",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "rightsholder",
-                    models.IntegerField(
-                        default=0, verbose_name="Rights holder", db_column="fkAgent"
-                    ),
-                ),
-                (
-                    "rightsbasis",
-                    models.TextField(verbose_name="Basis", db_column="rightsBasis"),
-                ),
-                (
-                    "metadataappliestotype",
-                    models.ForeignKey(
-                        to="main.MetadataAppliesToType",
-                        db_column="metadataAppliesToType",
-                    ),
-                ),
-            ],
-            options={"db_table": "RightsStatement", "verbose_name": "Rights Statement"},
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name="RightsStatementCopyright",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "copyrightstatus",
-                    models.TextField(
-                        verbose_name="Copyright status",
-                        db_column="copyrightStatus",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "copyrightjurisdiction",
-                    models.TextField(
-                        verbose_name="Copyright jurisdiction",
-                        db_column="copyrightJurisdiction",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "copyrightstatusdeterminationdate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="Copyright determination date",
-                        db_column="copyrightStatusDeterminationDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "copyrightapplicablestartdate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="Copyright start date",
-                        db_column="copyrightApplicableStartDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "copyrightapplicableenddate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="Copyright end date",
-                        db_column="copyrightApplicableEndDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "copyrightenddateopen",
-                    models.BooleanField(
-                        help_text="Indicate end date is open",
-                        verbose_name="Open End Date",
-                        db_column="copyrightApplicableEndDateOpen",
-                    ),
-                ),
-                (
-                    "rightsstatement",
-                    models.ForeignKey(
-                        to="main.RightsStatement", db_column="fkRightsStatement"
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('sipuuid', models.CharField(max_length=36, db_column=b'SIPUUID', blank=True)),
+                ('resource', models.TextField(db_column=b'resource', blank=True)),
+                ('target', models.TextField(db_column=b'target', blank=True)),
+                ('status', models.TextField(db_column=b'status', blank=True)),
+                ('statuscode', models.PositiveSmallIntegerField(null=True, db_column=b'statusCode', blank=True)),
+                ('exitcode', models.PositiveSmallIntegerField(null=True, db_column=b'exitCode', blank=True)),
+                ('createdtime', models.DateTimeField(auto_now_add=True, db_column=b'createdTime')),
+                ('updatedtime', models.DateTimeField(auto_now=True, db_column=b'updatedTime')),
             ],
             options={
-                "db_table": "RightsStatementCopyright",
-                "verbose_name": "Rights: Copyright",
+                'db_table': 'Accesses',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementCopyrightDocumentationIdentifier",
+            name='Agent',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "copyrightdocumentationidentifiertype",
-                    models.TextField(
-                        verbose_name="Copyright document identification type",
-                        db_column="copyrightDocumentationIdentifierType",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "copyrightdocumentationidentifiervalue",
-                    models.TextField(
-                        verbose_name="Copyright document identification value",
-                        db_column="copyrightDocumentationIdentifierValue",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "copyrightdocumentationidentifierrole",
-                    models.TextField(
-                        verbose_name="Copyright document identification role",
-                        db_column="copyrightDocumentationIdentifierRole",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "rightscopyright",
-                    models.ForeignKey(
-                        to="main.RightsStatementCopyright",
-                        db_column="fkRightsStatementCopyrightInformation",
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('identifiertype', models.TextField(null=True, verbose_name='Agent Identifier Type', db_column=b'agentIdentifierType')),
+                ('identifiervalue', models.TextField(help_text='Used for premis:agentIdentifierValue and premis:linkingAgentIdentifierValue in the METS file.', null=True, verbose_name='Agent Identifier Value', db_column=b'agentIdentifierValue')),
+                ('name', models.TextField(help_text='Used for premis:agentName in the METS file.', null=True, verbose_name='Agent Name', db_column=b'agentName')),
+                ('agenttype', models.TextField(default=b'organization', help_text='Used for premis:agentType in the METS file.', verbose_name='Agent Type', db_column=b'agentType')),
             ],
             options={
-                "db_table": "RightsStatementCopyrightDocumentationIdentifier",
-                "verbose_name": "Rights: Copyright: Docs ID",
+                'db_table': 'Agents',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementCopyrightNote",
+            name='ArchivesSpaceDigitalObject',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "copyrightnote",
-                    models.TextField(
-                        verbose_name="Copyright note",
-                        db_column="copyrightNote",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "rightscopyright",
-                    models.ForeignKey(
-                        to="main.RightsStatementCopyright",
-                        db_column="fkRightsStatementCopyrightInformation",
-                    ),
-                ),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('resourceid', models.CharField(max_length=150)),
+                ('label', models.CharField(max_length=255, blank=True)),
+                ('title', models.TextField(blank=True)),
+                ('started', models.BooleanField(default=False, help_text='Whether or not a SIP has been started using files in this digital object.')),
+                ('remoteid', models.CharField(help_text='ID in the remote ArchivesSpace system, after digital object has been created.', max_length=150, blank=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='ArchivesSpaceDIPObjectResourcePairing',
+            fields=[
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('dipuuid', models.CharField(max_length=50, db_column=b'dipUUID')),
+                ('fileuuid', models.CharField(max_length=50, db_column=b'fileUUID')),
+                ('resourceid', models.CharField(max_length=150, db_column=b'resourceId')),
             ],
             options={
-                "db_table": "RightsStatementCopyrightNote",
-                "verbose_name": "Rights: Copyright: Note",
+                'db_table': 'ArchivesSpaceDIPObjectResourcePairing',
+                'verbose_name': 'ASDIPObjectResourcePairing',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementLicense",
+            name='DashboardSetting',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "licenseterms",
-                    models.TextField(
-                        verbose_name="License terms",
-                        db_column="licenseTerms",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "licenseapplicablestartdate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="License start date",
-                        db_column="licenseApplicableStartDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "licenseapplicableenddate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="License end date",
-                        db_column="licenseApplicableEndDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "licenseenddateopen",
-                    models.BooleanField(
-                        help_text="Indicate end date is open",
-                        verbose_name="Open End Date",
-                        db_column="licenseApplicableEndDateOpen",
-                    ),
-                ),
-                (
-                    "rightsstatement",
-                    models.ForeignKey(
-                        to="main.RightsStatement", db_column="fkRightsStatement"
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('scope', models.CharField(max_length=255, blank=True)),
+                ('name', models.CharField(max_length=255, db_column=b'name')),
+                ('value', models.TextField(db_column=b'value', blank=True)),
+                ('lastmodified', models.DateTimeField(auto_now=True, db_column=b'lastModified')),
             ],
             options={
-                "db_table": "RightsStatementLicense",
-                "verbose_name": "Rights: License",
+                'db_table': 'DashboardSettings',
             },
-            bases=(models.Model,),
+            managers=[
+                ('objects', a3m.main.models.DashboardSettingManager()),
+            ],
         ),
         migrations.CreateModel(
-            name="RightsStatementLicenseDocumentationIdentifier",
+            name='Derivation',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "licensedocumentationidentifiertype",
-                    models.TextField(
-                        verbose_name="License documentation identification type",
-                        db_column="licenseDocumentationIdentifierType",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "licensedocumentationidentifiervalue",
-                    models.TextField(
-                        verbose_name="License documentation identification value",
-                        db_column="licenseDocumentationIdentifierValue",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "licensedocumentationidentifierrole",
-                    models.TextField(
-                        verbose_name="License document identification role",
-                        db_column="licenseDocumentationIdentifierRole",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "rightsstatementlicense",
-                    models.ForeignKey(
-                        to="main.RightsStatementLicense",
-                        db_column="fkRightsStatementLicense",
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
             ],
             options={
-                "db_table": "RightsStatementLicenseDocumentationIdentifier",
-                "verbose_name": "Rights: License: Docs ID",
+                'db_table': 'Derivations',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementLicenseNote",
+            name='Directory',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "licensenote",
-                    models.TextField(
-                        verbose_name="License note", db_column="licenseNote", blank=True
-                    ),
-                ),
-                (
-                    "rightsstatementlicense",
-                    models.ForeignKey(
-                        to="main.RightsStatementLicense",
-                        db_column="fkRightsStatementLicense",
-                    ),
-                ),
+                ('uuid', models.CharField(max_length=36, serialize=False, primary_key=True, db_column=b'directoryUUID')),
+                ('originallocation', a3m.main.models.BlobTextField(db_column=b'originalLocation')),
+                ('currentlocation', a3m.main.models.BlobTextField(null=True, db_column=b'currentLocation')),
+                ('enteredsystem', models.DateTimeField(auto_now_add=True, db_column=b'enteredSystem')),
             ],
             options={
-                "db_table": "RightsStatementLicenseNote",
-                "verbose_name": "Rights: License: Note",
+                'db_table': 'Directories',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementLinkingAgentIdentifier",
+            name='DublinCore',
             fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                (
-                    "linkingagentidentifiertype",
-                    models.TextField(
-                        verbose_name="Linking Agent",
-                        db_column="linkingAgentIdentifierType",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "linkingagentidentifiervalue",
-                    models.TextField(
-                        verbose_name="Linking Agent Value",
-                        db_column="linkingAgentIdentifierValue",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "rightsstatement",
-                    models.ForeignKey(
-                        to="main.RightsStatement", db_column="fkRightsStatement"
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('metadataappliestoidentifier', models.CharField(default=None, max_length=36, null=True, db_column=b'metadataAppliesToidentifier', blank=True)),
+                ('title', models.TextField(db_column=b'title', blank=True)),
+                ('is_part_of', models.TextField(help_text='Optional: leave blank if unsure', verbose_name='Part of AIC', db_column=b'isPartOf', blank=True)),
+                ('creator', models.TextField(db_column=b'creator', blank=True)),
+                ('subject', models.TextField(db_column=b'subject', blank=True)),
+                ('description', models.TextField(db_column=b'description', blank=True)),
+                ('publisher', models.TextField(db_column=b'publisher', blank=True)),
+                ('contributor', models.TextField(db_column=b'contributor', blank=True)),
+                ('date', models.TextField(help_text='Use ISO 8601 (YYYY-MM-DD or YYYY-MM-DD/YYYY-MM-DD)', db_column=b'date', blank=True)),
+                ('type', models.TextField(db_column=b'type', blank=True)),
+                ('format', models.TextField(db_column=b'format', blank=True)),
+                ('identifier', models.TextField(db_column=b'identifier', blank=True)),
+                ('source', models.TextField(db_column=b'source', blank=True)),
+                ('relation', models.TextField(db_column=b'relation', blank=True)),
+                ('language', models.TextField(help_text='Use ISO 639', db_column=b'language', blank=True)),
+                ('coverage', models.TextField(db_column=b'coverage', blank=True)),
+                ('rights', models.TextField(db_column=b'rights', blank=True)),
+                ('status', models.CharField(default=b'ORIGINAL', max_length=8, db_column=b'status', choices=[(b'ORIGINAL', b'original'), (b'REINGEST', b'parsed from reingest'), (b'UPDATED', b'updated')])),
             ],
             options={
-                "db_table": "RightsStatementLinkingAgentIdentifier",
-                "verbose_name": "Rights: Agent",
+                'db_table': 'Dublincore',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementOtherRightsDocumentationIdentifier",
+            name='Event',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "otherrightsdocumentationidentifiertype",
-                    models.TextField(
-                        verbose_name="Other rights document identification type",
-                        db_column="otherRightsDocumentationIdentifierType",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "otherrightsdocumentationidentifiervalue",
-                    models.TextField(
-                        verbose_name="Other right document identification value",
-                        db_column="otherRightsDocumentationIdentifierValue",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "otherrightsdocumentationidentifierrole",
-                    models.TextField(
-                        verbose_name="Other rights document identification role",
-                        db_column="otherRightsDocumentationIdentifierRole",
-                        blank=True,
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('event_id', django_extensions.db.fields.UUIDField(null=True, db_column=b'eventIdentifierUUID', editable=False, max_length=36, blank=True, unique=True)),
+                ('event_type', models.TextField(db_column=b'eventType', blank=True)),
+                ('event_datetime', models.DateTimeField(auto_now=True, db_column=b'eventDateTime')),
+                ('event_detail', models.TextField(db_column=b'eventDetail', blank=True)),
+                ('event_outcome', models.TextField(db_column=b'eventOutcome', blank=True)),
+                ('event_outcome_detail', models.TextField(db_column=b'eventOutcomeDetailNote', blank=True)),
+                ('agents', models.ManyToManyField(to='main.Agent')),
             ],
             options={
-                "db_table": "RightsStatementOtherRightsDocumentationIdentifier",
-                "verbose_name": "Rights: Other: Docs ID",
+                'db_table': 'Events',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementOtherRightsInformation",
+            name='File',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "otherrightsbasis",
-                    models.TextField(
-                        verbose_name="Other rights basis",
-                        db_column="otherRightsBasis",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "otherrightsapplicablestartdate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="Other rights start date",
-                        db_column="otherRightsApplicableStartDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "otherrightsapplicableenddate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="Other rights end date",
-                        db_column="otherRightsApplicableEndDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "otherrightsenddateopen",
-                    models.BooleanField(
-                        help_text="Indicate end date is open",
-                        verbose_name="Open End Date",
-                        db_column="otherRightsApplicableEndDateOpen",
-                    ),
-                ),
-                (
-                    "rightsstatement",
-                    models.ForeignKey(
-                        to="main.RightsStatement", db_column="fkRightsStatement"
-                    ),
-                ),
+                ('uuid', models.CharField(max_length=36, serialize=False, primary_key=True, db_column=b'fileUUID')),
+                ('originallocation', a3m.main.models.BlobTextField(db_column=b'originalLocation')),
+                ('currentlocation', a3m.main.models.BlobTextField(null=True, db_column=b'currentLocation')),
+                ('filegrpuse', models.CharField(default=b'Original', max_length=50, db_column=b'fileGrpUse')),
+                ('filegrpuuid', models.CharField(max_length=36, db_column=b'fileGrpUUID', blank=True)),
+                ('checksum', models.CharField(max_length=128, db_column=b'checksum', blank=True)),
+                ('checksumtype', models.CharField(max_length=36, db_column=b'checksumType', blank=True)),
+                ('size', models.BigIntegerField(null=True, db_column=b'fileSize', blank=True)),
+                ('label', models.TextField(blank=True)),
+                ('modificationtime', models.DateTimeField(auto_now_add=True, null=True, db_column=b'modificationTime')),
+                ('enteredsystem', models.DateTimeField(auto_now_add=True, db_column=b'enteredSystem')),
+                ('removedtime', models.DateTimeField(default=None, null=True, db_column=b'removedTime')),
             ],
             options={
-                "db_table": "RightsStatementOtherRightsInformation",
-                "verbose_name": "Rights: Other",
+                'db_table': 'Files',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementOtherRightsInformationNote",
+            name='FileFormatVersion',
             fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                (
-                    "otherrightsnote",
-                    models.TextField(
-                        verbose_name="Other rights note",
-                        db_column="otherRightsNote",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "rightsstatementotherrights",
-                    models.ForeignKey(
-                        to="main.RightsStatementOtherRightsInformation",
-                        db_column="fkRightsStatementOtherRightsInformation",
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('file_uuid', models.ForeignKey(to='main.File', db_column=b'fileUUID')),
+                ('format_version', models.ForeignKey(to='fpr.FormatVersion', db_column=b'fileID', to_field=b'uuid')),
             ],
             options={
-                "db_table": "RightsStatementOtherRightsNote",
-                "verbose_name": "Rights: Other: Note",
+                'db_table': 'FilesIdentifiedIDs',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementRightsGranted",
+            name='FileID',
             fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                ("act", models.TextField(db_column="act", blank=True)),
-                (
-                    "startdate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="Start",
-                        db_column="startDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "enddate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="End",
-                        db_column="endDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "enddateopen",
-                    models.BooleanField(
-                        help_text="Indicate end date is open",
-                        verbose_name="Open End Date",
-                        db_column="endDateOpen",
-                    ),
-                ),
-                (
-                    "rightsstatement",
-                    models.ForeignKey(
-                        to="main.RightsStatement", db_column="fkRightsStatement"
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('format_name', models.TextField(db_column=b'formatName', blank=True)),
+                ('format_version', models.TextField(db_column=b'formatVersion', blank=True)),
+                ('format_registry_name', models.TextField(db_column=b'formatRegistryName', blank=True)),
+                ('format_registry_key', models.TextField(db_column=b'formatRegistryKey', blank=True)),
+                ('file', models.ForeignKey(db_column=b'fileUUID', blank=True, to='main.File', null=True)),
             ],
             options={
-                "db_table": "RightsStatementRightsGranted",
-                "verbose_name": "Rights: Granted",
+                'db_table': 'FilesIDs',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementRightsGrantedNote",
+            name='FPCommandOutput',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "rightsgrantednote",
-                    models.TextField(
-                        verbose_name="Rights note",
-                        db_column="rightsGrantedNote",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "rightsgranted",
-                    models.ForeignKey(
-                        to="main.RightsStatementRightsGranted",
-                        db_column="fkRightsStatementRightsGranted",
-                    ),
-                ),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('content', models.TextField(null=True)),
+                ('file', models.ForeignKey(to='main.File', db_column=b'fileUUID')),
+                ('rule', models.ForeignKey(to='fpr.FPRule', db_column=b'ruleUUID', to_field=b'uuid')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Identifier',
+            fields=[
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('type', models.TextField(null=True, verbose_name='Identifier Type')),
+                ('value', models.TextField(help_text='Used for premis:objectIdentifierType and premis:objectIdentifierValue in the METS file.', null=True, verbose_name='Identifier Value')),
             ],
             options={
-                "db_table": "RightsStatementRightsGrantedNote",
-                "verbose_name": "Rights: Granted: Note",
+                'db_table': 'Identifiers',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementRightsGrantedRestriction",
+            name='Job',
             fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                ("restriction", models.TextField(db_column="restriction", blank=True)),
-                (
-                    "rightsgranted",
-                    models.ForeignKey(
-                        to="main.RightsStatementRightsGranted",
-                        db_column="fkRightsStatementRightsGranted",
-                    ),
-                ),
+                ('jobuuid', django_extensions.db.fields.UUIDField(primary_key=True, db_column=b'jobUUID', serialize=False, editable=False, max_length=36, blank=True)),
+                ('jobtype', models.CharField(max_length=250, db_column=b'jobType', blank=True)),
+                ('createdtime', models.DateTimeField(db_column=b'createdTime')),
+                ('createdtimedec', models.DecimalField(default=0.0, decimal_places=10, max_digits=26, db_column=b'createdTimeDec')),
+                ('directory', models.TextField(blank=True)),
+                ('sipuuid', models.CharField(max_length=36, db_column=b'SIPUUID', db_index=True)),
+                ('unittype', models.CharField(max_length=50, db_column=b'unitType', blank=True)),
+                ('currentstep', models.IntegerField(default=0, db_column=b'currentStep', choices=[(0, 'Unknown'), (1, 'Awaiting decision'), (2, 'Completed successfully'), (3, 'Executing command(s)'), (4, 'Failed')])),
+                ('microservicegroup', models.CharField(max_length=50, db_column=b'microserviceGroup', blank=True)),
+                ('hidden', models.BooleanField(default=False)),
+                ('microservicechainlink', django_extensions.db.fields.UUIDField(max_length=36, null=True, editable=False, db_column=b'MicroServiceChainLinksPK', blank=True)),
+                ('subjobof', models.CharField(max_length=36, db_column=b'subJobOf', blank=True)),
             ],
             options={
-                "db_table": "RightsStatementRightsGrantedRestriction",
-                "verbose_name": "Rights: Granted: Restriction",
+                'db_table': 'Jobs',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementStatuteDocumentationIdentifier",
+            name='MetadataAppliesToType',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        serialize=False,
-                        editable=False,
-                        primary_key=True,
-                        db_column="pk",
-                    ),
-                ),
-                (
-                    "statutedocumentationidentifiertype",
-                    models.TextField(
-                        verbose_name="Statute document identification type",
-                        db_column="statuteDocumentationIdentifierType",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "statutedocumentationidentifiervalue",
-                    models.TextField(
-                        verbose_name="Statute document identification value",
-                        db_column="statuteDocumentationIdentifierValue",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "statutedocumentationidentifierrole",
-                    models.TextField(
-                        verbose_name="Statute document identification role",
-                        db_column="statuteDocumentationIdentifierRole",
-                        blank=True,
-                    ),
-                ),
+                ('id', a3m.main.models.UUIDPkField(primary_key=True, db_column=b'pk', serialize=False, editable=False, max_length=36, blank=True)),
+                ('description', models.CharField(max_length=50, db_column=b'description')),
+                ('replaces', models.CharField(max_length=36, null=True, db_column=b'replaces', blank=True)),
+                ('lastmodified', models.DateTimeField(auto_now=True, db_column=b'lastModified')),
             ],
             options={
-                "db_table": "RightsStatementStatuteDocumentationIdentifier",
-                "verbose_name": "Rights: Statute: Docs ID",
+                'db_table': 'MetadataAppliesToTypes',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementStatuteInformation",
+            name='RightsStatement',
             fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                (
-                    "statutejurisdiction",
-                    models.TextField(
-                        verbose_name="Statute jurisdiction",
-                        db_column="statuteJurisdiction",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "statutecitation",
-                    models.TextField(
-                        verbose_name="Statute citation",
-                        db_column="statuteCitation",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "statutedeterminationdate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="Statute determination date",
-                        db_column="statuteInformationDeterminationDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "statuteapplicablestartdate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="Statute start date",
-                        db_column="statuteApplicableStartDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "statuteapplicableenddate",
-                    models.TextField(
-                        help_text="Use ISO 8061 (YYYY-MM-DD)",
-                        verbose_name="Statute end date",
-                        db_column="statuteApplicableEndDate",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "statuteenddateopen",
-                    models.BooleanField(
-                        help_text="Indicate end date is open",
-                        verbose_name="Open End Date",
-                        db_column="statuteApplicableEndDateOpen",
-                    ),
-                ),
-                (
-                    "rightsstatement",
-                    models.ForeignKey(
-                        to="main.RightsStatement", db_column="fkRightsStatement"
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('metadataappliestoidentifier', models.CharField(max_length=36, db_column=b'metadataAppliesToidentifier', blank=True)),
+                ('rightsstatementidentifiertype', models.TextField(verbose_name='Type', db_column=b'rightsStatementIdentifierType', blank=True)),
+                ('rightsstatementidentifiervalue', models.TextField(verbose_name='Value', db_column=b'rightsStatementIdentifierValue', blank=True)),
+                ('rightsholder', models.IntegerField(default=0, verbose_name='Rights holder', db_column=b'fkAgent')),
+                ('rightsbasis', models.CharField(default=b'Copyright', max_length=64, verbose_name='Basis', db_column=b'rightsBasis', choices=[(b'Copyright', 'Copyright'), (b'Statute', 'Statute'), (b'License', 'License'), (b'Donor', 'Donor'), (b'Policy', 'Policy'), (b'Other', 'Other')])),
+                ('status', models.CharField(default=b'ORIGINAL', max_length=8, db_column=b'status', choices=[(b'ORIGINAL', b'original'), (b'REINGEST', b'parsed from reingest'), (b'UPDATED', b'updated')])),
+                ('metadataappliestotype', models.ForeignKey(to='main.MetadataAppliesToType', db_column=b'metadataAppliesToType')),
             ],
             options={
-                "db_table": "RightsStatementStatuteInformation",
-                "verbose_name": "Rights: Statute",
+                'db_table': 'RightsStatement',
+                'verbose_name': 'Rights Statement',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="RightsStatementStatuteInformationNote",
+            name='RightsStatementCopyright',
             fields=[
-                (
-                    "id",
-                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
-                ),
-                (
-                    "statutenote",
-                    models.TextField(
-                        verbose_name="Statute note", db_column="statuteNote", blank=True
-                    ),
-                ),
-                (
-                    "rightsstatementstatute",
-                    models.ForeignKey(
-                        to="main.RightsStatementStatuteInformation",
-                        db_column="fkRightsStatementStatuteInformation",
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('copyrightstatus', models.TextField(default=b'unknown', verbose_name='Copyright status', db_column=b'copyrightStatus', choices=[(b'copyrighted', 'copyrighted'), (b'public domain', 'public domain'), (b'unknown', 'unknown')])),
+                ('copyrightjurisdiction', models.TextField(verbose_name='Copyright jurisdiction', db_column=b'copyrightJurisdiction')),
+                ('copyrightstatusdeterminationdate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='Copyright determination date', db_column=b'copyrightStatusDeterminationDate', blank=True)),
+                ('copyrightapplicablestartdate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='Copyright start date', db_column=b'copyrightApplicableStartDate', blank=True)),
+                ('copyrightapplicableenddate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='Copyright end date', db_column=b'copyrightApplicableEndDate', blank=True)),
+                ('copyrightenddateopen', models.BooleanField(default=False, help_text='Indicate end date is open', verbose_name='Open End Date', db_column=b'copyrightApplicableEndDateOpen')),
+                ('rightsstatement', models.ForeignKey(to='main.RightsStatement', db_column=b'fkRightsStatement')),
             ],
             options={
-                "db_table": "RightsStatementStatuteInformationNote",
-                "verbose_name": "Rights: Statute: Note",
+                'db_table': 'RightsStatementCopyright',
+                'verbose_name': 'Rights: Copyright',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name="SIP",
+            name='RightsStatementCopyrightDocumentationIdentifier',
             fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36,
-                        serialize=False,
-                        primary_key=True,
-                        db_column="sipUUID",
-                    ),
-                ),
-                ("createdtime", models.DateTimeField(db_column="createdTime")),
-                (
-                    "currentpath",
-                    models.TextField(null=True, db_column="currentPath", blank=True),
-                ),
-                ("hidden", models.BooleanField(default=False)),
-                (
-                    "aip_filename",
-                    models.TextField(null=True, db_column="aipFilename", blank=True),
-                ),
-                (
-                    "sip_type",
-                    models.CharField(
-                        default="SIP",
-                        max_length=8,
-                        db_column="sipType",
-                        choices=[("SIP", "SIP"), ("AIC", "AIC")],
-                    ),
-                ),
-                (
-                    "magiclinkexitmessage",
-                    models.CharField(
-                        max_length=50,
-                        null=True,
-                        db_column="magicLinkExitMessage",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "magiclink",
-                    models.ForeignKey(
-                        db_column="magicLink",
-                        blank=True,
-                        to="main.MicroServiceChainLink",
-                        null=True,
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('copyrightdocumentationidentifiertype', models.TextField(verbose_name='Copyright document identification type', db_column=b'copyrightDocumentationIdentifierType')),
+                ('copyrightdocumentationidentifiervalue', models.TextField(verbose_name='Copyright document identification value', db_column=b'copyrightDocumentationIdentifierValue')),
+                ('copyrightdocumentationidentifierrole', models.TextField(null=True, verbose_name='Copyright document identification role', db_column=b'copyrightDocumentationIdentifierRole', blank=True)),
+                ('rightscopyright', models.ForeignKey(to='main.RightsStatementCopyright', db_column=b'fkRightsStatementCopyrightInformation')),
             ],
-            options={"db_table": "SIPs"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementCopyrightDocumentationIdentifier',
+                'verbose_name': 'Rights: Copyright: Docs ID',
+            },
         ),
         migrations.CreateModel(
-            name="SIPArrange",
+            name='RightsStatementCopyrightNote',
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
-                        auto_created=True,
-                        primary_key=True,
-                    ),
-                ),
-                (
-                    "original_path",
-                    models.CharField(
-                        default=None, max_length=255, unique=True, null=True, blank=True
-                    ),
-                ),
-                ("arrange_path", models.CharField(max_length=255)),
-                (
-                    "file_uuid",
-                    django_extensions.db.fields.UUIDField(
-                        default=None,
-                        max_length=36,
-                        null=True,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "transfer_uuid",
-                    django_extensions.db.fields.UUIDField(
-                        default=None,
-                        max_length=36,
-                        null=True,
-                        editable=False,
-                        blank=True,
-                    ),
-                ),
-                ("sip_created", models.BooleanField(default=False)),
-                ("aip_created", models.BooleanField(default=False)),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('copyrightnote', models.TextField(verbose_name='Copyright note', db_column=b'copyrightNote')),
+                ('rightscopyright', models.ForeignKey(to='main.RightsStatementCopyright', db_column=b'fkRightsStatementCopyrightInformation')),
             ],
-            options={"verbose_name": "Arranged SIPs"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementCopyrightNote',
+                'verbose_name': 'Rights: Copyright: Note',
+            },
         ),
         migrations.CreateModel(
-            name="StandardTaskConfig",
+            name='RightsStatementLicense',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "execute",
-                    models.CharField(max_length=250, null=True, db_column="execute"),
-                ),
-                ("arguments", models.TextField(null=True, db_column="arguments")),
-                (
-                    "filter_subdir",
-                    models.CharField(
-                        max_length=50, null=True, db_column="filterSubDir", blank=True
-                    ),
-                ),
-                (
-                    "filter_file_start",
-                    models.CharField(
-                        max_length=50,
-                        null=True,
-                        db_column="filterFileStart",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "filter_file_end",
-                    models.CharField(
-                        max_length=50, null=True, db_column="filterFileEnd", blank=True
-                    ),
-                ),
-                (
-                    "requires_output_lock",
-                    models.BooleanField(default=False, db_column="requiresOutputLock"),
-                ),
-                (
-                    "stdout_file",
-                    models.CharField(
-                        max_length=250,
-                        null=True,
-                        db_column="standardOutputFile",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "stderr_file",
-                    models.CharField(
-                        max_length=250,
-                        null=True,
-                        db_column="standardErrorFile",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        related_name="replaced_by",
-                        db_column="replaces",
-                        blank=True,
-                        to="main.StandardTaskConfig",
-                        null=True,
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('licenseterms', models.TextField(null=True, verbose_name='License terms', db_column=b'licenseTerms', blank=True)),
+                ('licenseapplicablestartdate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='License start date', db_column=b'licenseApplicableStartDate', blank=True)),
+                ('licenseapplicableenddate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='License end date', db_column=b'licenseApplicableEndDate', blank=True)),
+                ('licenseenddateopen', models.BooleanField(default=False, help_text='Indicate end date is open', verbose_name='Open End Date', db_column=b'licenseApplicableEndDateOpen')),
+                ('rightsstatement', models.ForeignKey(to='main.RightsStatement', db_column=b'fkRightsStatement')),
             ],
-            options={"db_table": "StandardTasksConfigs"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementLicense',
+                'verbose_name': 'Rights: License',
+            },
         ),
         migrations.CreateModel(
-            name="Task",
+            name='RightsStatementLicenseDocumentationIdentifier',
             fields=[
-                (
-                    "taskuuid",
-                    models.CharField(
-                        max_length=36,
-                        serialize=False,
-                        primary_key=True,
-                        db_column="taskUUID",
-                    ),
-                ),
-                ("createdtime", models.DateTimeField(db_column="createdTime")),
-                (
-                    "fileuuid",
-                    models.CharField(
-                        max_length=36, null=True, db_column="fileUUID", blank=True
-                    ),
-                ),
-                ("filename", models.TextField(db_column="fileName", blank=True)),
-                (
-                    "execution",
-                    models.CharField(max_length=250, db_column="exec", blank=True),
-                ),
-                ("arguments", models.CharField(max_length=1000, blank=True)),
-                (
-                    "starttime",
-                    models.DateTimeField(
-                        default=None, null=True, db_column="startTime"
-                    ),
-                ),
-                (
-                    "endtime",
-                    models.DateTimeField(default=None, null=True, db_column="endTime"),
-                ),
-                ("client", models.CharField(max_length=50, blank=True)),
-                ("stdout", models.TextField(db_column="stdOut", blank=True)),
-                ("stderror", models.TextField(db_column="stdError", blank=True)),
-                (
-                    "exitcode",
-                    models.BigIntegerField(null=True, db_column="exitCode", blank=True),
-                ),
-                ("job", models.ForeignKey(to="main.Job", db_column="jobuuid")),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('licensedocumentationidentifiertype', models.TextField(verbose_name='License documentation identification type', db_column=b'licenseDocumentationIdentifierType')),
+                ('licensedocumentationidentifiervalue', models.TextField(verbose_name='License documentation identification value', db_column=b'licenseDocumentationIdentifierValue')),
+                ('licensedocumentationidentifierrole', models.TextField(null=True, verbose_name='License document identification role', db_column=b'licenseDocumentationIdentifierRole', blank=True)),
+                ('rightsstatementlicense', models.ForeignKey(to='main.RightsStatementLicense', db_column=b'fkRightsStatementLicense')),
             ],
-            options={"db_table": "Tasks"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementLicenseDocumentationIdentifier',
+                'verbose_name': 'Rights: License: Docs ID',
+            },
         ),
         migrations.CreateModel(
-            name="TaskConfig",
+            name='RightsStatementLicenseNote',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "tasktypepkreference",
-                    models.CharField(
-                        default=None,
-                        max_length=36,
-                        null=True,
-                        db_column="taskTypePKReference",
-                        blank=True,
-                    ),
-                ),
-                ("description", models.TextField(db_column="description")),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        related_name="replaced_by",
-                        db_column="replaces",
-                        blank=True,
-                        to="main.TaskConfig",
-                        null=True,
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('licensenote', models.TextField(verbose_name='License note', db_column=b'licenseNote')),
+                ('rightsstatementlicense', models.ForeignKey(to='main.RightsStatementLicense', db_column=b'fkRightsStatementLicense')),
             ],
-            options={"db_table": "TasksConfigs"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementLicenseNote',
+                'verbose_name': 'Rights: License: Note',
+            },
         ),
         migrations.CreateModel(
-            name="TaskConfigAssignMagicLink",
+            name='RightsStatementLinkingAgentIdentifier',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-                (
-                    "execute",
-                    models.ForeignKey(
-                        db_column="execute",
-                        blank=True,
-                        to="main.MicroServiceChainLink",
-                        null=True,
-                    ),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        related_name="replaced_by",
-                        db_column="replaces",
-                        blank=True,
-                        to="main.TaskConfigAssignMagicLink",
-                        null=True,
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('linkingagentidentifiertype', models.TextField(verbose_name='Linking Agent', db_column=b'linkingAgentIdentifierType', blank=True)),
+                ('linkingagentidentifiervalue', models.TextField(verbose_name='Linking Agent Value', db_column=b'linkingAgentIdentifierValue', blank=True)),
+                ('rightsstatement', models.ForeignKey(to='main.RightsStatement', db_column=b'fkRightsStatement')),
             ],
-            options={"db_table": "TasksConfigsAssignMagicLink"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementLinkingAgentIdentifier',
+                'verbose_name': 'Rights: Agent',
+            },
         ),
         migrations.CreateModel(
-            name="TaskConfigSetUnitVariable",
+            name='RightsStatementOtherRightsDocumentationIdentifier',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                ("variable", models.TextField(blank=True)),
-                (
-                    "variablevalue",
-                    models.TextField(null=True, db_column="variableValue", blank=True),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(auto_now_add=True, db_column="createdTime"),
-                ),
-                (
-                    "updatedtime",
-                    models.DateTimeField(
-                        auto_now=True, null=True, db_column="updatedTime"
-                    ),
-                ),
-                (
-                    "microservicechainlink",
-                    models.ForeignKey(
-                        db_column="microServiceChainLink",
-                        to="main.MicroServiceChainLink",
-                        null=True,
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('otherrightsdocumentationidentifiertype', models.TextField(verbose_name='Other rights document identification type', db_column=b'otherRightsDocumentationIdentifierType')),
+                ('otherrightsdocumentationidentifiervalue', models.TextField(verbose_name='Other right document identification value', db_column=b'otherRightsDocumentationIdentifierValue')),
+                ('otherrightsdocumentationidentifierrole', models.TextField(null=True, verbose_name='Other rights document identification role', db_column=b'otherRightsDocumentationIdentifierRole', blank=True)),
             ],
-            options={"db_table": "TasksConfigsSetUnitVariable"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementOtherRightsDocumentationIdentifier',
+                'verbose_name': 'Rights: Other: Docs ID',
+            },
         ),
         migrations.CreateModel(
-            name="TaskConfigUnitVariableLinkPull",
+            name='RightsStatementOtherRightsInformation',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                ("variable", models.TextField(blank=True)),
-                (
-                    "variablevalue",
-                    models.TextField(null=True, db_column="variableValue", blank=True),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(auto_now_add=True, db_column="createdTime"),
-                ),
-                (
-                    "updatedtime",
-                    models.DateTimeField(
-                        auto_now=True, null=True, db_column="updatedTime"
-                    ),
-                ),
-                (
-                    "defaultmicroservicechainlink",
-                    models.ForeignKey(
-                        db_column="defaultMicroServiceChainLink",
-                        to="main.MicroServiceChainLink",
-                        null=True,
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('otherrightsbasis', models.TextField(default=b'Other', verbose_name='Other rights basis', db_column=b'otherRightsBasis')),
+                ('otherrightsapplicablestartdate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='Other rights start date', db_column=b'otherRightsApplicableStartDate', blank=True)),
+                ('otherrightsapplicableenddate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='Other rights end date', db_column=b'otherRightsApplicableEndDate', blank=True)),
+                ('otherrightsenddateopen', models.BooleanField(default=False, help_text='Indicate end date is open', verbose_name='Open End Date', db_column=b'otherRightsApplicableEndDateOpen')),
+                ('rightsstatement', models.ForeignKey(to='main.RightsStatement', db_column=b'fkRightsStatement')),
             ],
-            options={"db_table": "TasksConfigsUnitVariableLinkPull"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementOtherRightsInformation',
+                'verbose_name': 'Rights: Other',
+            },
         ),
         migrations.CreateModel(
-            name="TaskType",
+            name='RightsStatementOtherRightsInformationNote',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                ("description", models.TextField(blank=True)),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        related_name="replaced_by",
-                        db_column="replaces",
-                        blank=True,
-                        to="main.TaskType",
-                        null=True,
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('otherrightsnote', models.TextField(verbose_name='Other rights note', db_column=b'otherRightsNote')),
+                ('rightsstatementotherrights', models.ForeignKey(to='main.RightsStatementOtherRightsInformation', db_column=b'fkRightsStatementOtherRightsInformation')),
             ],
-            options={"db_table": "TaskTypes"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementOtherRightsNote',
+                'verbose_name': 'Rights: Other: Note',
+            },
         ),
         migrations.CreateModel(
-            name="Taxonomy",
+            name='RightsStatementRightsGranted',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(
-                        auto_now_add=True, null=True, db_column="createdTime"
-                    ),
-                ),
-                (
-                    "name",
-                    models.CharField(max_length=255, db_column="name", blank=True),
-                ),
-                ("type", models.CharField(default="open", max_length=50)),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('act', models.TextField(db_column=b'act')),
+                ('startdate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='Start', db_column=b'startDate', blank=True)),
+                ('enddate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='End', db_column=b'endDate', blank=True)),
+                ('enddateopen', models.BooleanField(default=False, help_text='Indicate end date is open', verbose_name='Open End Date', db_column=b'endDateOpen')),
+                ('rightsstatement', models.ForeignKey(to='main.RightsStatement', db_column=b'fkRightsStatement')),
             ],
-            options={"db_table": "Taxonomies"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementRightsGranted',
+                'verbose_name': 'Rights: Granted',
+            },
         ),
         migrations.CreateModel(
-            name="TaxonomyTerm",
+            name='RightsStatementRightsGrantedNote',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(
-                        auto_now_add=True, null=True, db_column="createdTime"
-                    ),
-                ),
-                ("term", models.CharField(max_length=255, db_column="term")),
-                (
-                    "taxonomy",
-                    models.ForeignKey(to="main.Taxonomy", db_column="taxonomyUUID"),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('rightsgrantednote', models.TextField(verbose_name='Rights note', db_column=b'rightsGrantedNote')),
+                ('rightsgranted', models.ForeignKey(related_name='notes', db_column=b'fkRightsStatementRightsGranted', to='main.RightsStatementRightsGranted')),
             ],
-            options={"db_table": "TaxonomyTerms"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementRightsGrantedNote',
+                'verbose_name': 'Rights: Granted: Note',
+            },
         ),
         migrations.CreateModel(
-            name="Transfer",
+            name='RightsStatementRightsGrantedRestriction',
             fields=[
-                (
-                    "uuid",
-                    models.CharField(
-                        max_length=36,
-                        serialize=False,
-                        primary_key=True,
-                        db_column="transferUUID",
-                    ),
-                ),
-                ("currentlocation", models.TextField(db_column="currentLocation")),
-                ("type", models.CharField(max_length=50, db_column="type")),
-                ("accessionid", models.TextField(db_column="accessionID")),
-                (
-                    "sourceofacquisition",
-                    models.TextField(db_column="sourceOfAcquisition", blank=True),
-                ),
-                (
-                    "typeoftransfer",
-                    models.TextField(db_column="typeOfTransfer", blank=True),
-                ),
-                ("description", models.TextField(blank=True)),
-                ("notes", models.TextField(blank=True)),
-                ("hidden", models.BooleanField(default=False)),
-                (
-                    "magiclinkexitmessage",
-                    models.CharField(
-                        max_length=50,
-                        null=True,
-                        db_column="magicLinkExitMessage",
-                        blank=True,
-                    ),
-                ),
-                (
-                    "magiclink",
-                    models.ForeignKey(
-                        db_column="magicLink",
-                        blank=True,
-                        to="main.MicroServiceChainLink",
-                        null=True,
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('restriction', models.TextField(db_column=b'restriction')),
+                ('rightsgranted', models.ForeignKey(related_name='restrictions', db_column=b'fkRightsStatementRightsGranted', to='main.RightsStatementRightsGranted')),
             ],
-            options={"db_table": "Transfers"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementRightsGrantedRestriction',
+                'verbose_name': 'Rights: Granted: Restriction',
+            },
         ),
         migrations.CreateModel(
-            name="TransferMetadataField",
+            name='RightsStatementStatuteDocumentationIdentifier',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(
-                        auto_now_add=True, null=True, db_column="createdTime"
-                    ),
-                ),
-                (
-                    "fieldlabel",
-                    models.CharField(max_length=50, db_column="fieldLabel", blank=True),
-                ),
-                ("fieldname", models.CharField(max_length=50, db_column="fieldName")),
-                ("fieldtype", models.CharField(max_length=50, db_column="fieldType")),
-                ("sortorder", models.IntegerField(default=0, db_column="sortOrder")),
-                (
-                    "optiontaxonomy",
-                    models.ForeignKey(
-                        db_column="optionTaxonomyUUID", to="main.Taxonomy", null=True
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, editable=False, primary_key=True, db_column=b'pk')),
+                ('statutedocumentationidentifiertype', models.TextField(verbose_name='Statute document identification type', db_column=b'statuteDocumentationIdentifierType')),
+                ('statutedocumentationidentifiervalue', models.TextField(verbose_name='Statute document identification value', db_column=b'statuteDocumentationIdentifierValue')),
+                ('statutedocumentationidentifierrole', models.TextField(null=True, verbose_name='Statute document identification role', db_column=b'statuteDocumentationIdentifierRole', blank=True)),
             ],
-            options={"db_table": "TransferMetadataFields"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementStatuteDocumentationIdentifier',
+                'verbose_name': 'Rights: Statute: Docs ID',
+            },
         ),
         migrations.CreateModel(
-            name="TransferMetadataFieldValue",
+            name='RightsStatementStatuteInformation',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(auto_now_add=True, db_column="createdTime"),
-                ),
-                ("fieldvalue", models.TextField(db_column="fieldValue", blank=True)),
-                (
-                    "field",
-                    models.ForeignKey(
-                        to="main.TransferMetadataField", db_column="fieldUUID"
-                    ),
-                ),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('statutejurisdiction', models.TextField(verbose_name='Statute jurisdiction', db_column=b'statuteJurisdiction')),
+                ('statutecitation', models.TextField(verbose_name='Statute citation', db_column=b'statuteCitation')),
+                ('statutedeterminationdate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='Statute determination date', db_column=b'statuteInformationDeterminationDate', blank=True)),
+                ('statuteapplicablestartdate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='Statute start date', db_column=b'statuteApplicableStartDate', blank=True)),
+                ('statuteapplicableenddate', models.TextField(help_text='Use ISO 8061 (YYYY-MM-DD)', null=True, verbose_name='Statute end date', db_column=b'statuteApplicableEndDate', blank=True)),
+                ('statuteenddateopen', models.BooleanField(default=False, help_text='Indicate end date is open', verbose_name='Open End Date', db_column=b'statuteApplicableEndDateOpen')),
+                ('rightsstatement', models.ForeignKey(to='main.RightsStatement', db_column=b'fkRightsStatement')),
             ],
-            options={"db_table": "TransferMetadataFieldValues"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementStatuteInformation',
+                'verbose_name': 'Rights: Statute',
+            },
         ),
         migrations.CreateModel(
-            name="TransferMetadataSet",
+            name='RightsStatementStatuteInformationNote',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(auto_now_add=True, db_column="createdTime"),
-                ),
-                ("createdbyuserid", models.IntegerField(db_column="createdByUserID")),
+                ('id', models.AutoField(serialize=False, primary_key=True, db_column=b'pk')),
+                ('statutenote', models.TextField(verbose_name='Statute note', db_column=b'statuteNote')),
+                ('rightsstatementstatute', models.ForeignKey(to='main.RightsStatementStatuteInformation', db_column=b'fkRightsStatementStatuteInformation')),
             ],
-            options={"db_table": "TransferMetadataSets"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'RightsStatementStatuteInformationNote',
+                'verbose_name': 'Rights: Statute: Note',
+            },
         ),
         migrations.CreateModel(
-            name="UnitVariable",
+            name='SIP',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "unittype",
-                    models.CharField(
-                        max_length=50, null=True, db_column="unitType", blank=True
-                    ),
-                ),
-                (
-                    "unituuid",
-                    models.CharField(
-                        help_text="Semantically a foreign key to SIP or Transfer",
-                        max_length=36,
-                        null=True,
-                        db_column="unitUUID",
-                    ),
-                ),
-                ("variable", models.TextField(null=True, db_column="variable")),
-                (
-                    "variablevalue",
-                    models.TextField(null=True, db_column="variableValue"),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(auto_now_add=True, db_column="createdTime"),
-                ),
-                (
-                    "updatedtime",
-                    models.DateTimeField(auto_now=True, db_column="updatedTime"),
-                ),
-                (
-                    "microservicechainlink",
-                    models.ForeignKey(
-                        db_column="microServiceChainLink",
-                        blank=True,
-                        to="main.MicroServiceChainLink",
-                        help_text="UUID of the MicroServiceChainLink if used in task type linkTaskManagerUnitVariableLinkPull",
-                        null=True,
-                    ),
-                ),
+                ('uuid', models.CharField(max_length=36, serialize=False, primary_key=True, db_column=b'sipUUID')),
+                ('createdtime', models.DateTimeField(auto_now_add=True, db_column=b'createdTime')),
+                ('currentpath', models.TextField(null=True, db_column=b'currentPath', blank=True)),
+                ('hidden', models.BooleanField(default=False)),
+                ('aip_filename', models.TextField(null=True, db_column=b'aipFilename', blank=True)),
+                ('sip_type', models.CharField(default=b'SIP', max_length=8, db_column=b'sipType', choices=[(b'SIP', 'SIP'), (b'AIC', 'AIC'), (b'AIP-REIN', 'Reingested AIP'), (b'AIC-REIN', 'Reingested AIC')])),
+                ('diruuids', models.BooleanField(default=False, db_column=b'dirUUIDs')),
+                ('identifiers', models.ManyToManyField(to='main.Identifier')),
             ],
-            options={"db_table": "UnitVariables"},
-            bases=(models.Model,),
+            options={
+                'db_table': 'SIPs',
+            },
         ),
         migrations.CreateModel(
-            name="WatchedDirectory",
+            name='SIPArrange',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                (
-                    "watched_directory_path",
-                    models.TextField(
-                        null=True, db_column="watchedDirectoryPath", blank=True
-                    ),
-                ),
-                (
-                    "only_act_on_directories",
-                    models.BooleanField(default=True, db_column="onlyActOnDirectories"),
-                ),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-                (
-                    "chain",
-                    models.ForeignKey(
-                        db_column="chain", to="main.MicroServiceChain", null=True
-                    ),
-                ),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('original_path', a3m.main.models.BlobTextField(default=None, null=True, blank=True)),
+                ('arrange_path', a3m.main.models.BlobTextField()),
+                ('file_uuid', django_extensions.db.fields.UUIDField(null=True, default=None, editable=False, max_length=36, blank=True, unique=True)),
+                ('transfer_uuid', django_extensions.db.fields.UUIDField(default=None, max_length=36, null=True, editable=False, blank=True)),
+                ('level_of_description', models.CharField(max_length=2014)),
+                ('sip_created', models.BooleanField(default=False)),
+                ('aip_created', models.BooleanField(default=False)),
+                ('sip', models.ForeignKey(default=None, blank=True, to='main.SIP', null=True)),
             ],
-            options={"db_table": "WatchedDirectories"},
-            bases=(models.Model,),
+            options={
+                'verbose_name': 'Arranged SIPs',
+            },
         ),
         migrations.CreateModel(
-            name="WatchedDirectoryExpectedType",
+            name='SIPArrangeAccessMapping',
             fields=[
-                (
-                    "id",
-                    a3m.main.models.UUIDPkField(
-                        primary_key=True,
-                        db_column="pk",
-                        serialize=False,
-                        editable=False,
-                        max_length=36,
-                        blank=True,
-                    ),
-                ),
-                ("description", models.TextField(null=True)),
-                (
-                    "lastmodified",
-                    models.DateTimeField(db_column="lastModified", auto_now=True),
-                ),
-                (
-                    "replaces",
-                    models.ForeignKey(
-                        db_column="replaces",
-                        to="main.WatchedDirectoryExpectedType",
-                        null=True,
-                    ),
-                ),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('arrange_path', models.CharField(max_length=255)),
+                ('system', models.CharField(default=b'atom', max_length=255, choices=[(b'archivesspace', b'ArchivesSpace'), (b'atom', b'AtoM')])),
+                ('identifier', models.CharField(max_length=255)),
             ],
-            options={"db_table": "WatchedDirectoriesExpectedTypes"},
-            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Task',
+            fields=[
+                ('taskuuid', models.CharField(max_length=36, serialize=False, primary_key=True, db_column=b'taskUUID')),
+                ('createdtime', models.DateTimeField(db_column=b'createdTime')),
+                ('fileuuid', models.CharField(max_length=36, null=True, db_column=b'fileUUID', blank=True)),
+                ('filename', models.TextField(db_column=b'fileName', blank=True)),
+                ('execution', models.CharField(max_length=250, db_column=b'exec', blank=True)),
+                ('arguments', models.CharField(max_length=1000, blank=True)),
+                ('starttime', models.DateTimeField(default=None, null=True, db_column=b'startTime')),
+                ('endtime', models.DateTimeField(default=None, null=True, db_column=b'endTime')),
+                ('client', models.CharField(max_length=50, blank=True)),
+                ('stdout', models.TextField(db_column=b'stdOut', blank=True)),
+                ('stderror', models.TextField(db_column=b'stdError', blank=True)),
+                ('exitcode', models.BigIntegerField(null=True, db_column=b'exitCode', blank=True)),
+                ('job', models.ForeignKey(to='main.Job', db_column=b'jobuuid')),
+            ],
+            options={
+                'db_table': 'Tasks',
+            },
+        ),
+        migrations.CreateModel(
+            name='Taxonomy',
+            fields=[
+                ('id', a3m.main.models.UUIDPkField(primary_key=True, db_column=b'pk', serialize=False, editable=False, max_length=36, blank=True)),
+                ('createdtime', models.DateTimeField(auto_now_add=True, null=True, db_column=b'createdTime')),
+                ('name', models.CharField(max_length=255, db_column=b'name', blank=True)),
+                ('type', models.CharField(default=b'open', max_length=50)),
+            ],
+            options={
+                'db_table': 'Taxonomies',
+            },
+        ),
+        migrations.CreateModel(
+            name='TaxonomyTerm',
+            fields=[
+                ('id', a3m.main.models.UUIDPkField(primary_key=True, db_column=b'pk', serialize=False, editable=False, max_length=36, blank=True)),
+                ('createdtime', models.DateTimeField(auto_now_add=True, null=True, db_column=b'createdTime')),
+                ('term', models.CharField(max_length=255, db_column=b'term')),
+                ('taxonomy', models.ForeignKey(to='main.Taxonomy', db_column=b'taxonomyUUID')),
+            ],
+            options={
+                'db_table': 'TaxonomyTerms',
+            },
+        ),
+        migrations.CreateModel(
+            name='Transfer',
+            fields=[
+                ('uuid', models.CharField(max_length=36, serialize=False, primary_key=True, db_column=b'transferUUID')),
+                ('currentlocation', models.TextField(db_column=b'currentLocation')),
+                ('type', models.CharField(max_length=50, db_column=b'type')),
+                ('accessionid', models.TextField(db_column=b'accessionID')),
+                ('sourceofacquisition', models.TextField(db_column=b'sourceOfAcquisition', blank=True)),
+                ('typeoftransfer', models.TextField(db_column=b'typeOfTransfer', blank=True)),
+                ('description', models.TextField(blank=True)),
+                ('notes', models.TextField(blank=True)),
+                ('access_system_id', models.TextField(db_column=b'access_system_id')),
+                ('hidden', models.BooleanField(default=False)),
+                ('diruuids', models.BooleanField(default=False, db_column=b'dirUUIDs')),
+            ],
+            options={
+                'db_table': 'Transfers',
+            },
+        ),
+        migrations.CreateModel(
+            name='TransferMetadataField',
+            fields=[
+                ('id', a3m.main.models.UUIDPkField(primary_key=True, db_column=b'pk', serialize=False, editable=False, max_length=36, blank=True)),
+                ('createdtime', models.DateTimeField(auto_now_add=True, null=True, db_column=b'createdTime')),
+                ('fieldlabel', models.CharField(max_length=50, db_column=b'fieldLabel', blank=True)),
+                ('fieldname', models.CharField(max_length=50, db_column=b'fieldName')),
+                ('fieldtype', models.CharField(max_length=50, db_column=b'fieldType')),
+                ('sortorder', models.IntegerField(default=0, db_column=b'sortOrder')),
+                ('optiontaxonomy', models.ForeignKey(db_column=b'optionTaxonomyUUID', to='main.Taxonomy', null=True)),
+            ],
+            options={
+                'db_table': 'TransferMetadataFields',
+            },
+        ),
+        migrations.CreateModel(
+            name='TransferMetadataFieldValue',
+            fields=[
+                ('id', a3m.main.models.UUIDPkField(primary_key=True, db_column=b'pk', serialize=False, editable=False, max_length=36, blank=True)),
+                ('createdtime', models.DateTimeField(auto_now_add=True, db_column=b'createdTime')),
+                ('fieldvalue', models.TextField(db_column=b'fieldValue', blank=True)),
+                ('field', models.ForeignKey(to='main.TransferMetadataField', db_column=b'fieldUUID')),
+            ],
+            options={
+                'db_table': 'TransferMetadataFieldValues',
+            },
+        ),
+        migrations.CreateModel(
+            name='TransferMetadataSet',
+            fields=[
+                ('id', a3m.main.models.UUIDPkField(primary_key=True, db_column=b'pk', serialize=False, editable=False, max_length=36, blank=True)),
+                ('createdtime', models.DateTimeField(auto_now_add=True, db_column=b'createdTime')),
+                ('createdbyuserid', models.IntegerField(db_column=b'createdByUserID')),
+            ],
+            options={
+                'db_table': 'TransferMetadataSets',
+            },
+        ),
+        migrations.CreateModel(
+            name='UnitVariable',
+            fields=[
+                ('id', a3m.main.models.UUIDPkField(primary_key=True, db_column=b'pk', serialize=False, editable=False, max_length=36, blank=True)),
+                ('unittype', models.CharField(max_length=50, null=True, db_column=b'unitType', blank=True)),
+                ('unituuid', models.CharField(help_text='Semantically a foreign key to SIP or Transfer', max_length=36, null=True, db_column=b'unitUUID')),
+                ('variable', models.TextField(null=True, db_column=b'variable')),
+                ('variablevalue', models.TextField(null=True, db_column=b'variableValue')),
+                ('microservicechainlink', django_extensions.db.fields.UUIDField(max_length=36, null=True, editable=False, db_column=b'microServiceChainLink', blank=True)),
+                ('createdtime', models.DateTimeField(auto_now_add=True, db_column=b'createdTime')),
+                ('updatedtime', models.DateTimeField(auto_now=True, db_column=b'updatedTime')),
+            ],
+            options={
+                'db_table': 'UnitVariables',
+            },
+        ),
+        migrations.CreateModel(
+            name='UserProfile',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('system_emails', models.BooleanField(default=True, help_text='If checked, this user will receive system emails, such as Transfer Fail and Normalization Reports.', verbose_name='Send system emails?')),
+                ('agent', models.OneToOneField(to='main.Agent')),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'db_table': 'main_userprofile',
+            },
         ),
         migrations.AddField(
-            model_name="watcheddirectory",
-            name="expected_type",
-            field=models.ForeignKey(
-                db_column="expectedType",
-                to="main.WatchedDirectoryExpectedType",
-                null=True,
-            ),
-            preserve_default=True,
+            model_name='transfermetadatafieldvalue',
+            name='set',
+            field=models.ForeignKey(to='main.TransferMetadataSet', db_column=b'setUUID'),
         ),
         migrations.AddField(
-            model_name="watcheddirectory",
-            name="replaces",
-            field=models.ForeignKey(
-                db_column="replaces", to="main.WatchedDirectory", null=True
-            ),
-            preserve_default=True,
+            model_name='transfer',
+            name='transfermetadatasetrow',
+            field=models.ForeignKey(db_column=b'transferMetadataSetRowUUID', blank=True, to='main.TransferMetadataSet', null=True),
         ),
         migrations.AddField(
-            model_name="transfermetadatafieldvalue",
-            name="set",
-            field=models.ForeignKey(to="main.TransferMetadataSet", db_column="setUUID"),
-            preserve_default=True,
+            model_name='rightsstatementstatutedocumentationidentifier',
+            name='rightsstatementstatute',
+            field=models.ForeignKey(to='main.RightsStatementStatuteInformation', db_column=b'fkRightsStatementStatuteInformation'),
         ),
         migrations.AddField(
-            model_name="transfer",
-            name="transfermetadatasetrow",
-            field=models.ForeignKey(
-                db_column="transferMetadataSetRowUUID",
-                blank=True,
-                to="main.TransferMetadataSet",
-                null=True,
-            ),
-            preserve_default=True,
+            model_name='rightsstatementotherrightsdocumentationidentifier',
+            name='rightsstatementotherrights',
+            field=models.ForeignKey(to='main.RightsStatementOtherRightsInformation', db_column=b'fkRightsStatementOtherRightsInformation'),
+        ),
+        migrations.AlterIndexTogether(
+            name='job',
+            index_together=set([('sipuuid', 'createdtime', 'createdtimedec'), ('sipuuid', 'currentstep', 'microservicegroup', 'microservicechainlink'), ('sipuuid', 'jobtype', 'createdtime', 'createdtimedec'), ('jobtype', 'currentstep')]),
         ),
         migrations.AddField(
-            model_name="taskconfig",
-            name="tasktype",
-            field=models.ForeignKey(to="main.TaskType", db_column="taskType"),
-            preserve_default=True,
+            model_name='file',
+            name='identifiers',
+            field=models.ManyToManyField(to='main.Identifier'),
         ),
         migrations.AddField(
-            model_name="rightsstatementstatutedocumentationidentifier",
-            name="rightsstatementstatute",
-            field=models.ForeignKey(
-                to="main.RightsStatementStatuteInformation",
-                db_column="fkRightsStatementStatuteInformation",
-            ),
-            preserve_default=True,
+            model_name='file',
+            name='sip',
+            field=models.ForeignKey(db_column=b'sipUUID', blank=True, to='main.SIP', null=True),
         ),
         migrations.AddField(
-            model_name="rightsstatementotherrightsdocumentationidentifier",
-            name="rightsstatementotherrights",
-            field=models.ForeignKey(
-                to="main.RightsStatementOtherRightsInformation",
-                db_column="fkRightsStatementOtherRightsInformation",
-            ),
-            preserve_default=True,
+            model_name='file',
+            name='transfer',
+            field=models.ForeignKey(db_column=b'transferUUID', blank=True, to='main.Transfer', null=True),
         ),
         migrations.AddField(
-            model_name="microservicechainlink",
-            name="currenttask",
-            field=models.ForeignKey(to="main.TaskConfig", db_column="currentTask"),
-            preserve_default=True,
+            model_name='event',
+            name='file_uuid',
+            field=models.ForeignKey(db_column=b'fileUUID', blank=True, to='main.File', null=True),
         ),
         migrations.AddField(
-            model_name="microservicechainlink",
-            name="defaultnextchainlink",
-            field=models.ForeignKey(
-                to="main.MicroServiceChainLink",
-                null=True,
-                db_column="defaultNextChainLink",
-            ),
-            preserve_default=True,
+            model_name='dublincore',
+            name='metadataappliestotype',
+            field=models.ForeignKey(to='main.MetadataAppliesToType', db_column=b'metadataAppliesToType'),
         ),
         migrations.AddField(
-            model_name="microservicechainlink",
-            name="replaces",
-            field=models.ForeignKey(
-                related_name="replaced_by",
-                db_column="replaces",
-                to="main.MicroServiceChainLink",
-                null=True,
-                blank=True,
-            ),
-            preserve_default=True,
+            model_name='directory',
+            name='identifiers',
+            field=models.ManyToManyField(to='main.Identifier'),
         ),
         migrations.AddField(
-            model_name="microservicechainchoice",
-            name="choiceavailableatlink",
-            field=models.ForeignKey(
-                to="main.MicroServiceChainLink", db_column="choiceAvailableAtLink"
-            ),
-            preserve_default=True,
+            model_name='directory',
+            name='sip',
+            field=models.ForeignKey(db_column=b'sipUUID', blank=True, to='main.SIP', null=True),
         ),
         migrations.AddField(
-            model_name="microservicechainchoice",
-            name="replaces",
-            field=models.ForeignKey(
-                related_name="replaced_by",
-                db_column="replaces",
-                blank=True,
-                to="main.MicroServiceChainChoice",
-                null=True,
-            ),
-            preserve_default=True,
+            model_name='directory',
+            name='transfer',
+            field=models.ForeignKey(db_column=b'transferUUID', blank=True, to='main.Transfer', null=True),
         ),
         migrations.AddField(
-            model_name="microservicechain",
-            name="startinglink",
-            field=models.ForeignKey(
-                to="main.MicroServiceChainLink", db_column="startingLink"
-            ),
-            preserve_default=True,
+            model_name='derivation',
+            name='derived_file',
+            field=models.ForeignKey(related_name='original_file_set', db_column=b'derivedFileUUID', to='main.File'),
         ),
         migrations.AddField(
-            model_name="job",
-            name="microservicechainlink",
-            field=models.ForeignKey(
-                db_column="MicroServiceChainLinksPK",
-                blank=True,
-                to="main.MicroServiceChainLink",
-                null=True,
-            ),
-            preserve_default=True,
+            model_name='derivation',
+            name='event',
+            field=models.ForeignKey(db_column=b'relatedEventUUID', to_field=b'event_id', blank=True, to='main.Event', null=True),
         ),
         migrations.AddField(
-            model_name="file",
-            name="sip",
-            field=models.ForeignKey(
-                db_column="sipUUID", blank=True, to="main.SIP", null=True
-            ),
-            preserve_default=True,
+            model_name='derivation',
+            name='source_file',
+            field=models.ForeignKey(related_name='derived_file_set', db_column=b'sourceFileUUID', to='main.File'),
         ),
         migrations.AddField(
-            model_name="file",
-            name="transfer",
-            field=models.ForeignKey(
-                db_column="transferUUID", blank=True, to="main.Transfer", null=True
-            ),
-            preserve_default=True,
+            model_name='archivesspacedigitalobject',
+            name='sip',
+            field=models.ForeignKey(to='main.SIP', null=True),
         ),
-        migrations.AddField(
-            model_name="event",
-            name="file_uuid",
-            field=models.ForeignKey(
-                db_column="fileUUID", blank=True, to="main.File", null=True
-            ),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name="dublincore",
-            name="metadataappliestotype",
-            field=models.ForeignKey(
-                to="main.MetadataAppliesToType", db_column="metadataAppliesToType"
-            ),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name="derivation",
-            name="derived_file",
-            field=models.ForeignKey(
-                related_name="original_file_set",
-                db_column="derivedFileUUID",
-                to="main.File",
-            ),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name="derivation",
-            name="event",
-            field=models.ForeignKey(
-                db_column="relatedEventUUID",
-                to_field="event_id",
-                blank=True,
-                to="main.Event",
-                null=True,
-            ),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name="derivation",
-            name="source_file",
-            field=models.ForeignKey(
-                related_name="derived_file_set",
-                db_column="sourceFileUUID",
-                to="main.File",
-            ),
-            preserve_default=True,
+        migrations.AlterIndexTogether(
+            name='file',
+            index_together=set([('sip', 'filegrpuse')]),
         ),
     ]

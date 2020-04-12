@@ -931,22 +931,6 @@ class UserProfile(models.Model):
         db_table = u"main_userprofile"
 
 
-class Report(models.Model):
-    """ Reports of failures to display. """
-
-    id = models.AutoField(primary_key=True, db_column="pk")
-    unittype = models.CharField(max_length=50, db_column="unitType")
-    unitname = models.CharField(max_length=50, db_column="unitName")
-    unitidentifier = models.CharField(
-        max_length=36, db_column="unitIdentifier"
-    )  # Foreign key to SIP or Transfer
-    content = models.TextField(db_column="content")
-    created = models.DateTimeField(db_column="created", auto_now_add=True)
-
-    class Meta:
-        db_table = u"Reports"
-
-
 class RightsStatement(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk")
     metadataappliestotype = models.ForeignKey(
@@ -1602,16 +1586,3 @@ class FileID(models.Model):
 
     class Meta:
         db_table = "FilesIDs"
-
-
-class LevelOfDescription(models.Model):
-    id = UUIDPkField()
-    name = models.CharField(max_length="1024")  # seems long, but AtoM allows this much
-    # sortorder should be unique, but is not defined so here to enable swapping
-    sortorder = models.IntegerField(default=0, db_column="sortOrder")
-
-    def __unicode__(self):
-        return six.text_type(
-            _("%(sortorder)s: %(name)s")
-            % {"sortorder": self.sortorder, "name": self.name}
-        )
