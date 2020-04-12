@@ -13,7 +13,11 @@ from a3m.server import translation, workflow
 
 
 ASSETS_DIR = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir)))), "a3m", "assets"
+    os.path.dirname(
+        os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir)))
+    ),
+    "a3m",
+    "assets",
 )
 
 FIXTURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")

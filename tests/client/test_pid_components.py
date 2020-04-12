@@ -10,7 +10,6 @@ also limited unit testing in create_mets_v2 (AIP METS generation).
 from __future__ import unicode_literals
 from itertools import chain
 import os
-import sys
 
 from django.core.management import call_command
 

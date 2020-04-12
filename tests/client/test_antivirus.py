@@ -96,7 +96,10 @@ def setup_test_scan_file_mocks(
         scanner=ScannerMock(should_except=scanner_should_except, passed=scanner_passed),
     )
 
-    mocker.patch("a3m.client.clientScripts.archivematica_clamscan.get_scanner", return_value=deps.scanner)
+    mocker.patch(
+        "a3m.client.clientScripts.archivematica_clamscan.get_scanner",
+        return_value=deps.scanner,
+    )
 
     return deps
 

@@ -1,7 +1,6 @@
 # -*- coding: utf8
 from lxml import etree
 import os
-import sys
 
 from django.test import TestCase
 

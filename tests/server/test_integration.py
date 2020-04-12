@@ -119,7 +119,9 @@ def test_workflow_integration(
     mock_load_preconfigured_choice = mocker.patch(
         "a3m.server.jobs.decisions.load_preconfigured_choice"
     )
-    mock_load_processing_xml = mocker.patch("a3m.server.jobs.decisions.load_processing_xml")
+    mock_load_processing_xml = mocker.patch(
+        "a3m.server.jobs.decisions.load_processing_xml"
+    )
     mocker.patch.object(transfer, "files", return_value=dummy_file_replacements)
 
     # Schedule the first job

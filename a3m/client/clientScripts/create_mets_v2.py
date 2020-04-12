@@ -39,7 +39,12 @@ from django.utils import timezone
 
 from a3m.custom_handlers import get_script_logger
 from a3m import namespaces as ns
-from a3m.archivematicaFunctions import escape, normalizeNonDcElementName, strToUnicode, unicodeToStr
+from a3m.archivematicaFunctions import (
+    escape,
+    normalizeNonDcElementName,
+    strToUnicode,
+    unicodeToStr,
+)
 from a3m.main.models import (
     Agent,
     Derivation,
@@ -59,7 +64,12 @@ from archivematicaCreateMETSRights import archivematicaGetRights
 from archivematicaCreateMETSRightsDspaceMDRef import (
     archivematicaCreateMETSRightsDspaceMDRef,
 )
-from archivematicaCreateMETSTrim import getTrimDmdSec, getTrimFileDmdSec, getTrimAmdSec, getTrimFileAmdSec
+from archivematicaCreateMETSTrim import (
+    getTrimDmdSec,
+    getTrimFileDmdSec,
+    getTrimAmdSec,
+    getTrimFileAmdSec,
+)
 
 from create_mets_dataverse_v2 import (
     create_dataverse_sip_dmdsec,

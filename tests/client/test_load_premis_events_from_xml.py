@@ -15,7 +15,9 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @pytest.fixture()
 def xsd_path():
-    return os.path.abspath(os.path.join(THIS_DIR, "../../a3m/client/assets/premis/premis.xsd"))
+    return os.path.abspath(
+        os.path.join(THIS_DIR, "../../a3m/client/assets/premis/premis.xsd")
+    )
 
 
 @pytest.fixture()
@@ -232,7 +234,10 @@ def test_file_element_factory(mocker, params):
         identifier_type="f", identifier_value="1", original_name=params["original_name"]
     )
     mocker.patch("metsrw.plugins.premisrw.premis_to_data")
-    mocker.patch("a3m.client.clientScripts.load_premis_events_from_xml.PREMISFile", return_value=premis_element)
+    mocker.patch(
+        "a3m.client.clientScripts.load_premis_events_from_xml.PREMISFile",
+        return_value=premis_element,
+    )
     mocker.patch(
         "a3m.client.clientScripts.load_premis_events_from_xml.get_premis_element_children_identifiers",
         return_value=set(),
@@ -411,7 +416,9 @@ def test_get_or_create_agents(mocker):
     mock_agent_model = mocker.Mock(
         **{"objects.get_or_create.return_value": (None, None)}
     )
-    mocker.patch("a3m.client.clientScripts.load_premis_events_from_xml.Agent", mock_agent_model)
+    mocker.patch(
+        "a3m.client.clientScripts.load_premis_events_from_xml.Agent", mock_agent_model
+    )
     agents = [{"identifier": ("type", "value"), "name": "agent1", "type": "agenttype"}]
     load_premis_events_from_xml.get_or_create_agents(agents)
     mock_agent_model.objects.get_or_create.assert_called_once_with(

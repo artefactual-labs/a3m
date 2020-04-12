@@ -28,7 +28,6 @@ debugging their preservation workflow.
 from __future__ import unicode_literals
 import os
 import subprocess
-import sys
 from uuid import UUID
 
 from django.core.management import call_command

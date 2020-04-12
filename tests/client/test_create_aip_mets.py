@@ -5,7 +5,6 @@ import csv
 import os
 import random
 import shutil
-import sys
 import tempfile
 import unittest
 
@@ -16,7 +15,11 @@ from lxml import etree
 
 from a3m import namespaces as ns
 from a3m.client.job import Job
-from a3m.client.clientScripts import create_mets_v2, archivematicaCreateMETSMetadataCSV, archivematicaCreateMETSRights
+from a3m.client.clientScripts import (
+    create_mets_v2,
+    archivematicaCreateMETSMetadataCSV,
+    archivematicaCreateMETSRights,
+)
 from a3m.main.models import RightsStatement
 
 from . import TempDirMixin

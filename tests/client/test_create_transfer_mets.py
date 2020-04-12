@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 import os
-import sys
 import uuid
 
 import pytest
@@ -15,7 +14,6 @@ from a3m.client.clientScripts.create_transfer_mets import write_mets
 from a3m.fpr.models import FPRule, FPCommand, FPTool, Format, FormatGroup, FormatVersion
 from a3m.main.models import (
     Agent,
-    DashboardSetting,
     Directory,
     Event,
     File,
@@ -144,7 +142,9 @@ def fpcommand_output(db, file_obj):
     grp = FormatGroup.objects.create(description="grp")
     fmt = Format.objects.create(group=grp)
     fmtver = FormatVersion.objects.create(format=fmt, version="1")
-    rule = FPRule.objects.create(purpose="characterization", command=command, format=fmtver)
+    rule = FPRule.objects.create(
+        purpose="characterization", command=command, format=fmtver
+    )
 
     return FPCommandOutput.objects.create(
         file=file_obj,

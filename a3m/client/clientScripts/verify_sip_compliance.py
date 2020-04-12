@@ -23,7 +23,7 @@ import sys
 
 import scandir
 
-import a3m.client import metrics
+from a3m.client import metrics
 
 
 REQUIRED_DIRECTORIES = (

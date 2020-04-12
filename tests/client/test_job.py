@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
-import sys
 from uuid import uuid4
 
 from django.utils import six

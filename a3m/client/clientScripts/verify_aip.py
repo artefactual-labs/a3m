@@ -11,7 +11,7 @@ from django.conf import settings as mcpclient_settings
 from django.db import transaction
 
 from a3m.archivematicaFunctions import get_setting
-from a3m.databaseFunctions
+from a3m import databaseFunctions
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.main.models import File, SIP
 

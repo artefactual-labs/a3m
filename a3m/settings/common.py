@@ -11,222 +11,126 @@ import os
 from a3m.appconfig import Config, process_watched_directory_interval
 
 CONFIG_MAPPING = {
-
     "watch_directory_method": {
         "section": "a3m",
         "option": "watch_directory_method",
         "type": "string",
     },
-
     "watch_directory_interval": {
         "section": "a3m",
         "process_function": process_watched_directory_interval,
     },
-
-    "batch_size": {
-        "section": "a3m",
-        "option": "batch_size",
-        "type": "int"
-    },
-
+    "batch_size": {"section": "a3m", "option": "batch_size", "type": "int"},
     "concurrent_packages": {
         "section": "a3m",
         "option": "concurrent_packages",
         "type": "int",
     },
-
-    "rpc_threads": {
-        "section": "a3m",
-        "option": "rpc_threads",
-        "type": "int"
-    },
-
-    "worker_threads": {
-        "section": "a3m",
-        "option": "worker_threads",
-        "type": "int",
-    },
-
+    "rpc_threads": {"section": "a3m", "option": "rpc_threads", "type": "int"},
+    "worker_threads": {"section": "a3m", "option": "worker_threads", "type": "int"},
     "shared_directory": {
         "section": "a3m",
         "option": "shared_directory",
         "type": "string",
     },
-
-    "temp_directory": {
-        "section": "a3m",
-        "option": "temp_dir",
-        "type": "string"
-    },
-
+    "temp_directory": {"section": "a3m", "option": "temp_dir", "type": "string"},
     "processing_directory": {
         "section": "a3m",
         "option": "processing_directory",
         "type": "string",
     },
-
     "rejected_directory": {
         "section": "a3m",
         "option": "rejected_directory",
         "type": "string",
     },
-
     "watch_directory": {
         "section": "a3m",
         "option": "watch_directory",
         "type": "string",
     },
-
     "client_scripts_directory": {
         "section": "a3m",
         "option": "client_scripts_directory",
         "type": "string",
     },
-
     "client_assets_directory": {
         "section": "a3m",
         "option": "client_assets_directory",
         "type": "string",
     },
-
-    "gearman_server": {
-        "section": "a3m",
-        "option": "gearman_server",
-        "type": "string",
-    },
-
-    "client_modules": {
-        "section": "a3m",
-        "option": "client_modules",
-        "type": "string",
-    },
-
+    "gearman_server": {"section": "a3m", "option": "gearman_server", "type": "string"},
+    "client_modules": {"section": "a3m", "option": "client_modules", "type": "string"},
     "capture_client_script_output": {
         "section": "a3m",
         "option": "capture_client_script_output",
         "type": "boolean",
     },
-
     "removable_files": {
         "section": "a3m",
         "option": "removable_files",
         "type": "string",
     },
-
-    "secret_key": {
-        "section": "a3m",
-        "option": "secret_key",
-        "type": "string",
-    },
-
+    "secret_key": {"section": "a3m", "option": "secret_key", "type": "string"},
     "storage_service_client_timeout": {
         "section": "a3m",
         "option": "storage_service_client_timeout",
         "type": "float",
     },
-
     "storage_service_client_quick_timeout": {
         "section": "a3m",
         "option": "storage_service_client_quick_timeout",
         "type": "float",
     },
-
     "agentarchives_client_timeout": {
         "section": "a3m",
         "option": "agentarchives_client_timeout",
         "type": "float",
     },
-
     "prometheus_bind_address": {
         "section": "a3m",
         "option": "prometheus_bind_address",
         "type": "string",
     },
-
     "prometheus_bind_port": {
         "section": "a3m",
         "option": "prometheus_bind_port",
         "type": "string",
     },
-
-    "time_zone": {
-        "section": "a3m",
-        "option": "time_zone",
-        "type": "string"
-    },
-
-    "clamav_server": {
-        "section": "a3m",
-        "option": "clamav_server",
-        "type": "string",
-    },
-
+    "time_zone": {"section": "a3m", "option": "time_zone", "type": "string"},
+    "clamav_server": {"section": "a3m", "option": "clamav_server", "type": "string"},
     "clamav_pass_by_stream": {
         "section": "a3m",
         "option": "clamav_pass_by_stream",
         "type": "boolean",
     },
-
     "clamav_client_timeout": {
         "section": "a3m",
         "option": "clamav_client_timeout",
         "type": "float",
     },
-
     "clamav_client_backend": {
         "section": "a3m",
         "option": "clamav_client_backend",
         "type": "string",
     },
-
     # float for megabytes to preserve fractions on in-code operations on bytes
     "clamav_client_max_file_size": {
         "section": "a3m",
         "option": "clamav_client_max_file_size",
         "type": "float",
     },
-
     "clamav_client_max_scan_size": {
         "section": "a3m",
         "option": "clamav_client_max_scan_size",
         "type": "float",
     },
-
-    "db_engine": {
-        "section": "a3m",
-        "option": "db_engine",
-        "type": "string"
-    },
-
-    "db_name": {
-        "section": "a3m",
-        "option": "db_name",
-        "type": "string"
-    },
-
-    "db_user": {
-        "section": "a3m",
-        "option": "db_user",
-        "type": "string"
-    },
-
-    "db_password": {
-        "section": "a3m",
-        "option": "db_password",
-        "type": "string"
-    },
-
-    "db_host": {
-        "section": "a3m",
-        "option": "db_host",
-        "type": "string"
-    },
-
-    "db_port": {
-        "section": "a3m",
-        "option": "db_port",
-        "type": "string"
-    },
+    "db_engine": {"section": "a3m", "option": "db_engine", "type": "string"},
+    "db_name": {"section": "a3m", "option": "db_name", "type": "string"},
+    "db_user": {"section": "a3m", "option": "db_user", "type": "string"},
+    "db_password": {"section": "a3m", "option": "db_password", "type": "string"},
+    "db_host": {"section": "a3m", "option": "db_host", "type": "string"},
+    "db_port": {"section": "a3m", "option": "db_port", "type": "string"},
 }
 
 
@@ -276,11 +180,7 @@ secret_key = 12345
 
 config = Config(env_prefix="A3M", attrs=CONFIG_MAPPING)
 config.read_defaults(StringIO.StringIO(CONFIG_DEFAULTS))
-config.read_files(
-    [
-        "/etc/a3m/a3m.cfg",
-    ]
-)
+config.read_files(["/etc/a3m/a3m.cfg"])
 
 
 # Django
@@ -373,7 +273,9 @@ GEARMAN_SERVER = config.get("gearman_server")
 WATCH_DIRECTORY_METHOD = config.get("watch_directory_method")
 WATCH_DIRECTORY_INTERVAL = config.get("watch_directory_interval")
 BATCH_SIZE = config.get("batch_size")
-CONCURRENT_PACKAGES = config.get("concurrent_packages", default=concurrent_packages_default())
+CONCURRENT_PACKAGES = config.get(
+    "concurrent_packages", default=concurrent_packages_default()
+)
 RPC_THREADS = config.get("rpc_threads")
 WORKER_THREADS = config.get("worker_threads", default=multiprocessing.cpu_count() + 1)
 CLIENT_SCRIPTS_DIRECTORY = config.get("client_scripts_directory")
@@ -390,7 +292,9 @@ AGENTARCHIVES_CLIENT_TIMEOUT = config.get("agentarchives_client_timeout")
 CAPTURE_CLIENT_SCRIPT_OUTPUT = config.get("capture_client_script_output")
 DEFAULT_CHECKSUM_ALGORITHM = "sha256"
 STORAGE_SERVICE_CLIENT_TIMEOUT = config.get("storage_service_client_timeout")
-STORAGE_SERVICE_CLIENT_QUICK_TIMEOUT = config.get("storage_service_client_quick_timeout")
+STORAGE_SERVICE_CLIENT_QUICK_TIMEOUT = config.get(
+    "storage_service_client_quick_timeout"
+)
 
 
 # Prometheus

@@ -4,7 +4,6 @@
 """Tests for the parse Dataverse functionality in Archivematica."""
 
 import os
-import sys
 
 from django.test import TestCase
 import metsrw

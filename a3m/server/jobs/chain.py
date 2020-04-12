@@ -21,10 +21,7 @@ from a3m.server.jobs.client import (
     DirectoryClientScriptJob,
     FilesClientScriptJob,
 )
-from a3m.server.jobs.decisions import (
-    NextChainDecisionJob,
-    UpdateContextDecisionJob,
-)
+from a3m.server.jobs.decisions import NextChainDecisionJob, UpdateContextDecisionJob
 from a3m.server.jobs.local import GetUnitVarLinkJob, SetUnitVarLinkJob
 
 

@@ -161,7 +161,7 @@ def upload_to_archivesspace(
 
         original_name = ""
         # Get file & format info
-        format_name = format_version = None # Nahhh
+        format_name = format_version = None  # Nahhh
 
         # Client wants access copy info
         try:

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import django
+
 django.setup()
 
 from a3m.fpr.models import FPRule

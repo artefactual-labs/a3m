@@ -1,7 +1,6 @@
 # -*- coding: utf8
 import os
 import shutil
-import sys
 import tempfile
 
 from django.test import TestCase

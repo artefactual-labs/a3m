@@ -25,6 +25,7 @@ import sys
 
 import django
 from django.db import transaction
+
 django.setup()
 
 from a3m.main.models import File

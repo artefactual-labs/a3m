@@ -4,6 +4,7 @@ from argparse import ArgumentParser
 from lxml import etree
 
 import django
+
 django.setup()
 
 from a3m.main.models import Transfer

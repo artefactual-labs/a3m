@@ -47,6 +47,7 @@ from functools import wraps
 
 from django.db import transaction
 import django
+
 django.setup()
 
 from a3m.main.models import DashboardSetting, File

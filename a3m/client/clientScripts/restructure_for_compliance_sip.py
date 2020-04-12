@@ -12,7 +12,11 @@ django.setup()
 from django.db import transaction
 
 from a3m import fileOperations
-from a3m import archivematicaFunctions import REQUIRED_DIRECTORIES, OPTIONAL_FILES, create_directories
+from a3m.archivematicaFunctions import (
+    REQUIRED_DIRECTORIES,
+    OPTIONAL_FILES,
+    create_directories,
+)
 
 
 def restructureForComplianceFileUUIDsAssigned(

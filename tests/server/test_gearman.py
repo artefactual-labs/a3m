@@ -66,7 +66,9 @@ def test_gearman_task_submission(simple_job, simple_task, mocker):
     # Mock to avoid db writes
     mocker.patch("a3m.server.tasks.backends.gearman_backend.Task.bulk_log")
     mocker.patch.object(GearmanTaskBackend, "TASK_BATCH_SIZE", 1)
-    mock_client = mocker.patch("a3m.server.tasks.backends.gearman_backend.MCPGearmanClient")
+    mock_client = mocker.patch(
+        "a3m.server.tasks.backends.gearman_backend.MCPGearmanClient"
+    )
 
     backend = GearmanTaskBackend()
     backend.submit_task(simple_job, simple_task)
@@ -91,7 +93,9 @@ def test_gearman_task_result_success(simple_job, simple_task, mocker):
     # Mock to avoid db writes
     mocker.patch("a3m.server.tasks.backends.gearman_backend.Task.bulk_log")
 
-    mock_client = mocker.patch("a3m.server.tasks.backends.gearman_backend.MCPGearmanClient")
+    mock_client = mocker.patch(
+        "a3m.server.tasks.backends.gearman_backend.MCPGearmanClient"
+    )
     backend = GearmanTaskBackend()
 
     mock_gearman_job = mocker.Mock()
@@ -140,7 +144,9 @@ def test_gearman_task_result_error(simple_job, simple_task, mocker):
     # Mock to avoid db writes
     mocker.patch("a3m.server.tasks.backends.gearman_backend.Task.bulk_log")
 
-    mock_client = mocker.patch("a3m.server.tasks.backends.gearman_backend.MCPGearmanClient")
+    mock_client = mocker.patch(
+        "a3m.server.tasks.backends.gearman_backend.MCPGearmanClient"
+    )
     backend = GearmanTaskBackend()
 
     mock_gearman_job = mocker.Mock()
@@ -181,7 +187,9 @@ def test_gearman_multiple_batches(
     # Mock to avoid db writes
     mocker.patch("a3m.server.tasks.backends.gearman_backend.Task.bulk_log")
     mocker.patch.object(GearmanTaskBackend, "TASK_BATCH_SIZE", 2)
-    mock_client = mocker.patch("a3m.server.tasks.backends.gearman_backend.MCPGearmanClient")
+    mock_client = mocker.patch(
+        "a3m.server.tasks.backends.gearman_backend.MCPGearmanClient"
+    )
 
     tasks = []
     for i in range(5):

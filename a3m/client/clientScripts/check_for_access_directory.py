@@ -25,6 +25,7 @@ from optparse import OptionParser
 import django
 import scandir
 from django.db import transaction
+
 django.setup()
 
 from a3m.main.models import File

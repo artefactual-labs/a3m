@@ -19,9 +19,6 @@
 
 from a3m.executeOrRunSubProcess import executeOrRun
 
-from django.db.models import F
-from django.utils import six
-
 
 class Command(object):
     def __init__(self, job, command, replacement_dict, on_success=None, opts=None):
@@ -119,6 +116,7 @@ class Command(object):
 
 class CommandLinker(object):
     """TODO: useless?"""
+
     def __init__(self, job, command, replacement_dict, opts, on_success):
         self.command = command
         self.replacement_dict = replacement_dict

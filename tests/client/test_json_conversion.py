@@ -1,6 +1,5 @@
 import json
 import os
-import sys
 
 from a3m.client.job import Job
 from a3m.client.clientScripts import json_metadata_to_csv

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import os
-import sys
+
 
 from a3m.client.clientScripts.create_mets_v2 import createDMDIDsFromCSVMetadata
 
 
 def test_createDMDIDsFromCSVMetadata_finds_non_ascii_paths(mocker):
     dmd_secs_creator_mock = mocker.patch(
-        "a3m.client.clientScripts.create_mets_v2.createDmdSecsFromCSVParsedMetadata", return_value=[]
+        "a3m.client.clientScripts.create_mets_v2.createDmdSecsFromCSVParsedMetadata",
+        return_value=[],
     )
     state_mock = mocker.Mock(
         **{
