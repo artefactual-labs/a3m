@@ -22,7 +22,6 @@ coverage==4.2             # via -r requirements-dev.in, pytest-cov
 distlib==0.3.0            # via virtualenv
 django-autoslug==1.9.3    # via -r requirements.txt
 django-extensions==1.1.1  # via -r requirements.txt
-django-model-utils==1.3.1  # via -r requirements.txt
 django==1.8.19            # via -r requirements.txt
 enum34==1.1.6 ; python_version < "3.4"  # via -r requirements.txt
 filelock==3.0.12          # via tox, virtualenv
