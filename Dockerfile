@@ -133,10 +133,6 @@ FROM archivematica as archivematica-mcp-client
 COPY ./a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
 COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
 
-ENV A3M_CLIENT_MODULES /a3m/a3m/client/assets/modules.ini
-ENV A3M_CLIENT_ASSETS_DIRECTORY /a3m/a3m/client/assets/
-ENV A3M_CLIENT_SCRIPTS_DIRECTORY /a3m/a3m/client/clientScripts/
-
 ENTRYPOINT ["python", "-m", "a3m", "client"]
 
 

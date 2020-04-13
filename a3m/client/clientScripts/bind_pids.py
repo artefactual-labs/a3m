@@ -50,10 +50,11 @@ import sys
 import django
 
 django.setup()
+from django.conf import settings as django_settings
 from django.db import transaction
 from lxml import etree
 
-from a3m.main.models import DashboardSetting, Directory, SIP
+from a3m.main.models import Directory, SIP
 from a3m.archivematicaFunctions import str2bool
 from a3m.bindpid import (
     bind_pid,
@@ -208,7 +209,7 @@ def main(job, sip_uuid, shared_path):
     configuration in the dashboard, Do this only if ``bind_pids_switch`` is
     ``True``.
     """
-    handle_config = DashboardSetting.objects.get_dict("handle")
+    handle_config = django_settings.BIND_PID_HANDLE
     handle_config["pid_request_verify_certs"] = str2bool(
         handle_config.get("pid_request_verify_certs", "True")
     )

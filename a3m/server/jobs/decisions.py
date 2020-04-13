@@ -172,14 +172,6 @@ class UpdateContextDecisionJob(DecisionJob):
         self.package.reload()
         self.save_to_db()
 
-        # TODO: split this out? Workflow items with no replacements configured
-        # seems like a different case.
-        dashboard_settings = self._get_dashboard_setting_choice()
-        if dashboard_settings and not self.link.config["replacements"]:
-            self.job_chain.context.update(dashboard_settings)
-            self.mark_complete()
-            return next(self.job_chain, None)
-
         preconfigured_context = self.load_preconfigured_context()
         if preconfigured_context:
             logger.debug(
@@ -191,23 +183,6 @@ class UpdateContextDecisionJob(DecisionJob):
         else:
             self.mark_awaiting_decision()
             return self
-
-    @auto_close_old_connections()
-    def _get_dashboard_setting_choice(self):
-        """Load settings associated to this task into dictionary.
-
-        The model used (``DashboardSetting``) is a shared model.
-        """
-        try:
-            link = self.workflow.get_link(self.link["fallback_link_id"])
-        except KeyError:
-            return None
-
-        execute = link.config["execute"]
-        if not execute:
-            return None
-
-        return self._format_items(models.DashboardSetting.objects.get_dict(execute))
 
     def _format_items(self, items):
         """Wrap replacement items with the ``%`` wildcard character."""

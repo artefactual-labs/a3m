@@ -34,7 +34,6 @@ from uuid import uuid4
 import six
 from lxml import etree
 
-from a3m.main.models import DashboardSetting
 from a3m.namespaces import NSMAP
 
 
@@ -52,14 +51,6 @@ MANUAL_NORMALIZATION_DIRECTORIES = [
     "objects/manualNormalization/access",
     "objects/manualNormalization/preservation",
 ]
-
-
-def get_setting(setting, default=""):
-    """Get Dashboard setting from database model."""
-    try:
-        return DashboardSetting.objects.get(name=setting).value
-    except DashboardSetting.DoesNotExist:
-        return default
 
 
 class OrderedListsDict(collections.OrderedDict):

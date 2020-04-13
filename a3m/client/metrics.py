@@ -13,9 +13,9 @@ from django.db.models import Sum
 from django.utils import timezone
 from prometheus_client import Counter, Gauge, Histogram, Info, start_http_server
 
+from a3m.client import MODULES_FILE
 from a3m.fpr.models import FormatVersion
 from a3m.main.models import File, FileFormatVersion, Transfer
-
 from a3m.common_metrics import (
     PACKAGE_FILE_COUNT_BUCKETS,
     PACKAGE_SIZE_BUCKETS,
@@ -196,7 +196,7 @@ def init_counter_labels():
     # Zero our counters to start, by intializing all labels. Non-zero starting points
     # cause problems when measuring rates.
     modules_config = ConfigParser.RawConfigParser()
-    modules_config.read(settings.CLIENT_MODULES_FILE)
+    modules_config.read(MODULES_FILE)
     for script_name, _ in modules_config.items("supportedBatchCommands"):
         job_counter.labels(script_name=script_name)
         job_processed_timestamp.labels(script_name=script_name)

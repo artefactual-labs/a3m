@@ -1,16 +1,6 @@
 [
     {
         "fields": {
-            "scope": "",
-            "name": "checksum_type",
-            "value": "sha256",
-            "lastmodified": "2020-04-12T12:49:47.596Z"
-        },
-        "model": "main.dashboardsetting",
-        "pk": 5
-    },
-    {
-        "fields": {
             "lastmodified": "2012-10-02T00:25:05Z",
             "replaces": null,
             "description": "SIP"

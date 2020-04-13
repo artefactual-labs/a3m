@@ -14,6 +14,7 @@ import json
 import os
 
 import django
+
 django.setup()
 from django.db import transaction
 

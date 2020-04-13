@@ -17,7 +17,7 @@ from a3m import namespaces as ns
 from a3m.client.job import Job
 from a3m.client.clientScripts import bind_pid, bind_pids, create_mets_v2
 from a3m.client.clientScripts.pid_declaration import DeclarePIDs, DeclarePIDsException
-from a3m.main.models import Directory, File, SIP, DashboardSetting
+from a3m.main.models import Directory, File, SIP
 
 import pytest
 import vcr
@@ -73,7 +73,6 @@ class TestPIDComponents(object):
         pid_dir = "pid_binding"
         fixture_files = [
             "sip.json",
-            "dashboard_settings.json",
             "transfer.json",
             "files.json",
             "directories.json",
@@ -86,7 +85,7 @@ class TestPIDComponents(object):
                 call_command("loaddata", fixture)
 
     @pytest.mark.django_db
-    def test_bind_pids_no_config(self, caplog):
+    def test_bind_pids_no_config(self, caplog, settings):
         """Test the output of the code without any args.
 
         In this instance, we want bind_pids to think that there is some
@@ -95,7 +94,7 @@ class TestPIDComponents(object):
         An example scenario might be when the user has bind PIDs on in their
         processing configuration but no handle server information configured.
         """
-        DashboardSetting.objects.filter(scope="handle").delete()
+        settings.BIND_PID_HANDLE = {}
         assert (
             bind_pids.main(self.job, None, None) == 1
         ), "Incorrect return value for bind_pids with incomplete configuration."
@@ -169,14 +168,14 @@ class TestPIDComponents(object):
             assert bound_uri in identifiers_dict.values()
 
     @pytest.mark.django_db
-    def test_bind_pid_no_config(self, caplog):
+    def test_bind_pid_no_config(self, caplog, settings):
         """Test the output of the code when bind_pids is set to True but there
         are no handle settings in the Dashboard. Conceivably then the dashboard
         settings could be in-between two states, complete and not-complete,
         here we test for the two opposites on the assumption they'll be the
         most visible errors to the user.
         """
-        DashboardSetting.objects.filter(scope="handle").delete()
+        settings.BIND_PID_HANDLE = {}
         assert bind_pid.main(self.job, self.package_uuid) == 1
         assert caplog.records[0].message.startswith(self.incomplete_configuration_msg)
 
@@ -226,7 +225,7 @@ class TestPIDComponents(object):
             assert bound_uri in identifiers_dict.values()
 
     @pytest.mark.django_db
-    def test_bind_pid_no_settings(self, caplog):
+    def test_bind_pid_no_settings(self, caplog, settings):
         """Test the output of the code when bind_pids is set to True but there
         are no handle settings in the Dashboard. Conceivably then the dashboard
         settings could be in-between two states, complete and not-complete,
@@ -234,7 +233,7 @@ class TestPIDComponents(object):
         most visible errors to the user.
         """
         file_count = 5
-        DashboardSetting.objects.filter(scope="handle").delete()
+        settings.BIND_PID_HANDLE = {}
         files = File.objects.filter(sip=self.package_uuid).all()
         assert (
             files is not None

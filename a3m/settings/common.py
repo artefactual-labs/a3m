@@ -49,18 +49,7 @@ CONFIG_MAPPING = {
         "option": "watch_directory",
         "type": "string",
     },
-    "client_scripts_directory": {
-        "section": "a3m",
-        "option": "client_scripts_directory",
-        "type": "string",
-    },
-    "client_assets_directory": {
-        "section": "a3m",
-        "option": "client_assets_directory",
-        "type": "string",
-    },
     "gearman_server": {"section": "a3m", "option": "gearman_server", "type": "string"},
-    "client_modules": {"section": "a3m", "option": "client_modules", "type": "string"},
     "capture_client_script_output": {
         "section": "a3m",
         "option": "capture_client_script_output",
@@ -127,9 +116,6 @@ shared_directory = /var/archivematica/sharedDirectory/
 temp_dir = /var/archivematica/sharedDirectory/tmp
 processing_directory = /var/archivematica/sharedDirectory/currentlyProcessing/
 rejected_directory = %%sharedPath%%rejected/
-client_modules = /usr/lib/archivematica/MCPClient/assets/modules.ini
-client_scripts_directory = /usr/lib/archivematica/MCPClient/clientScripts/
-client_assets_directory = /usr/lib/archivematica/MCPClient/assets/
 watch_directory_method = poll
 watch_directory_interval = 1
 batch_size = 128
@@ -171,13 +157,6 @@ DATABASES = {
         "HOST": config.get("db_host"),
         "PORT": config.get("db_port"),
         "CONN_MAX_AGE": 3600,
-    }
-}
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db',
     }
 }
 
@@ -253,9 +232,6 @@ CONCURRENT_PACKAGES = config.get(
 )
 RPC_THREADS = config.get("rpc_threads")
 WORKER_THREADS = config.get("worker_threads", default=multiprocessing.cpu_count() + 1)
-CLIENT_SCRIPTS_DIRECTORY = config.get("client_scripts_directory")
-CLIENT_ASSETS_DIRECTORY = config.get("client_assets_directory")
-CLIENT_MODULES = config.get("client_modules")
 REMOVABLE_FILES = config.get("removable_files")
 CLAMAV_SERVER = config.get("clamav_server")
 CLAMAV_PASS_BY_STREAM = config.get("clamav_pass_by_stream")
@@ -276,6 +252,9 @@ except ValueError:
     PROMETHEUS_ENABLED = False
 else:
     PROMETHEUS_ENABLED = True
+
+
+BIND_PID_HANDLE = {}
 
 
 INSTANCE_ID = "fec7bcf7-45db-4a22-8ceb-e94377db3476"

@@ -28,7 +28,6 @@ import scandir
 django.setup()
 from django.conf import settings as mcpclient_settings
 
-from a3m.archivematicaFunctions import get_setting
 from a3m.bagit import make_bag
 
 
@@ -93,9 +92,7 @@ def call(jobs):
     parser.add_argument("sip_directory")
     parser.add_argument("sip_uuid")
 
-    algorithm = get_setting(
-        "checksum_type", mcpclient_settings.DEFAULT_CHECKSUM_ALGORITHM
-    )
+    algorithm = mcpclient_settings.DEFAULT_CHECKSUM_ALGORITHM
 
     for job in jobs:
         with job.JobContext():

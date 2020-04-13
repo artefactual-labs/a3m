@@ -10,7 +10,6 @@ django.setup()
 from django.conf import settings as mcpclient_settings
 from django.db import transaction
 
-from a3m.archivematicaFunctions import get_setting
 from a3m import databaseFunctions
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.main.models import File, SIP
@@ -135,9 +134,7 @@ def verify_checksums(job, bag, sip_uuid):
     (bagit_v0.0).
     """
     is_reingest = "REIN" in SIP.objects.get(uuid=sip_uuid).sip_type
-    checksum_type = get_setting(
-        "checksum_type", mcpclient_settings.DEFAULT_CHECKSUM_ALGORITHM
-    )
+    checksum_type = mcpclient_settings.DEFAULT_CHECKSUM_ALGORITHM
     removableFiles = [e.strip() for e in mcpclient_settings.REMOVABLE_FILES.split(",")]
     try:
         verification_count = 0

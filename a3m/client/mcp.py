@@ -56,32 +56,29 @@ import os
 from socket import gethostname
 import time
 
-import django
-
-django.setup()
-from django.conf import settings as django_settings
 import gearman
-
-from a3m.main.models import Task
-from a3m.archivematicaFunctions import unicodeToStr
-from a3m.databaseFunctions import getUTCDate, retryOnFailure
-
+import django
+from django.conf import settings as django_settings
 from django.db import transaction
 from django.utils import six
+
+django.setup()
+
+from a3m.main.models import Task
+from a3m.client import fork_runner, metrics, ASSETS_DIR, MODULES_FILE
+from a3m.client.job import Job
+from a3m.archivematicaFunctions import unicodeToStr
+from a3m.databaseFunctions import getUTCDate, retryOnFailure, auto_close_db
+
 import shlex
 import importlib
 
-from a3m.databaseFunctions import auto_close_db
-from a3m.client import fork_runner
-from a3m.client import metrics
-from a3m.client.job import Job
 
 logger = logging.getLogger("archivematica.mcp.client")
 
 replacement_dict = {
     r"%sharedPath%": django_settings.SHARED_DIRECTORY,
-    r"%clientScriptsDirectory%": django_settings.CLIENT_SCRIPTS_DIRECTORY,
-    r"%clientAssetsDirectory%": django_settings.CLIENT_ASSETS_DIRECTORY,
+    r"%clientAssetsDirectory%": ASSETS_DIR,
 }
 
 
@@ -311,7 +308,7 @@ def main():
     metrics.start_prometheus_server()
 
     try:
-        start_gearman_worker(get_supported_modules(django_settings.CLIENT_MODULES_FILE))
+        start_gearman_worker(get_supported_modules((MODULES_FILE)))
     except (KeyboardInterrupt, SystemExit):
         logger.info("Received keyboard interrupt, quitting.")
 

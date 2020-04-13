@@ -21,6 +21,7 @@ from pprint import pformat
 import sys
 
 import django
+
 django.setup()
 from django.db import transaction
 

@@ -17,7 +17,7 @@ click==7.1.1              # via pip-tools
 configparser==4.0.2       # via importlib-metadata
 contextdecorator==0.10.0 ; python_version < "3.2"  # via -r requirements.txt
 contextlib2==0.6.0.post1  # via importlib-metadata, importlib-resources, vcrpy, virtualenv, zipp
-coverage==4.2             # via -r requirements-dev.in, pytest-cov
+coverage==5.1             # via -r requirements-dev.in, pytest-cov
 distlib==0.3.0            # via virtualenv
 django-autoslug==1.9.3    # via -r requirements.txt
 django-extensions==1.1.1  # via -r requirements.txt
@@ -48,7 +48,7 @@ pluggy==0.13.1            # via pytest, tox
 prometheus_client==0.7.1  # via -r requirements.txt
 py==1.8.1                 # via pytest, tox
 pyparsing==2.4.6          # via packaging
-pytest-cov==2.4.0         # via -r requirements-dev.in
+pytest-cov==2.8.1         # via -r requirements-dev.in
 pytest-django==3.9.0      # via -r requirements-dev.in
 pytest-mock==1.13.0       # via -r requirements-dev.in
 pytest==4.6.9             # via -r requirements-dev.in, pytest-cov, pytest-django, pytest-mock

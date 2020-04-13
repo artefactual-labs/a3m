@@ -7,6 +7,7 @@ from uuid import uuid4
 import django
 from django.db import transaction
 from django.utils import timezone
+
 django.setup()
 
 from a3m.main.models import Derivation, File, FileFormatVersion

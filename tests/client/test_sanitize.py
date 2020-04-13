@@ -333,7 +333,6 @@ class TestSanitize(TempDirMixin, TestCase):
         ("helloworld", "helloworld"),
         ("a\x80b", "ab"),
         ("Smörgåsbord.txt", "Smorgasbord.txt"),
-
         # TODO
         # RuntimeWarning: Surrogate character u'\ud83d' will be ignored.
         # You might be using a narrow Python build.

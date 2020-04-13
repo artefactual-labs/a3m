@@ -1,10 +1,12 @@
 #!/usr/bin/env python2
 
+import os
 import sys
 
 
-subcommand = None
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "a3m.settings.common")
 
+subcommand = None
 try:
     subcommand = sys.argv[1]
 except IndexError:

@@ -12,6 +12,7 @@ import scandir
 from . import transcoder
 
 import django
+
 django.setup()
 from django.db import transaction
 from django.conf import settings as mcpclient_settings

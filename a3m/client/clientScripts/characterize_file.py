@@ -11,6 +11,7 @@ from lxml import etree
 import multiprocessing
 
 import django
+
 django.setup()
 from django.db import transaction
 

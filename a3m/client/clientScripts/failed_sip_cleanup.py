@@ -4,6 +4,7 @@ import argparse
 
 import django
 from django.db import transaction
+
 django.setup()
 
 from a3m.client import metrics

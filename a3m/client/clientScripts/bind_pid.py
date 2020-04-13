@@ -45,12 +45,13 @@ is something other than 'Yes', the script will exit without doing anything.
 import argparse
 from functools import wraps
 
+from django.conf import settings as django_settings
 from django.db import transaction
 import django
 
 django.setup()
 
-from a3m.main.models import DashboardSetting, File
+from a3m.main.models import File
 from a3m import bindpid
 from a3m.custom_handlers import get_script_logger
 from a3m.archivematicaFunctions import str2bool
@@ -83,7 +84,7 @@ def exit_on_known_exception(func):
 def _get_bind_pid_config(file_uuid):
     """Return dict to pass to ``bindpid`` function as keyword arguments."""
     _args = {"entity_type": "file", "desired_pid": file_uuid}
-    _args.update(DashboardSetting.objects.get_dict("handle"))
+    _args.update(django_settings.BIND_PID_HANDLE)
     bindpid._validate(_args)
     _args["pid_request_verify_certs"] = str2bool(
         _args.get("pid_request_verify_certs", "True")

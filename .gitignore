@@ -12,6 +12,9 @@
 *.sw[po]
 *~
 
+# SQLite databases
+.sqlite
+
 # coverage data file
 .coverage
 

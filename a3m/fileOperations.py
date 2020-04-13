@@ -29,12 +29,13 @@ try:
 except ImportError:
     from pathlib2 import Path
 
+from django.conf import settings as django_settings
+import MySQLdb
+
 from a3m.databaseFunctions import insertIntoFiles
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.databaseFunctions import insertIntoEvents
-import MySQLdb
-from a3m.archivematicaFunctions import unicodeToStr, get_setting, get_file_checksum
-
+from a3m.archivematicaFunctions import unicodeToStr, get_file_checksum
 from a3m.main.models import File, Transfer
 
 
@@ -58,7 +59,7 @@ def updateSizeAndChecksum(
     if not fileSize:
         fileSize = os.path.getsize(filePath)
     if not checksumType:
-        checksumType = get_setting("checksum_type", "sha256")
+        checksumType = django_settings.DEFAULT_CHECKSUM_ALGORITHM
     if not checksum:
         checksum = get_file_checksum(filePath, checksumType)
 
