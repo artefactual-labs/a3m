@@ -317,15 +317,6 @@
             },
             "link_id": "5f213529-ced4-49b0-9e30-be4e0c9b81d5"
         },
-        "7065d256-2f47-4b7d-baec-2c4699626121": {
-            "description": {
-                "en": "Send to backlog",
-                "fr": "Envoyer au backlog",
-                "pt_BR": "Enviar para o backlog",
-                "sv": "Skicka till backlogg"
-            },
-            "link_id": "7e6330c6-0280-4b25-8bf8-4b8143b69bde"
-        },
         "76befd52-14c3-44f9-838f-15a4e01624b0": {
             "description": {
                 "en": "No",
@@ -6063,41 +6054,6 @@
                 "sv": "Extrahera paket"
             }
         },
-        "7e6330c6-0280-4b25-8bf8-4b8143b69bde": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%clientAssetsDirectory%README/TRANSFER_README.html\" \"%SIPDirectory%README.html\"",
-                "execute": "copy_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Add README file",
-                "ja": "READMEファイルを追加",
-                "pt_BR": "Adicionar arquivo README",
-                "sv": "Lägg till README-fil"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "e6e553cf-85f5-4e2f-abf4-d276acd66f5a"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e6e553cf-85f5-4e2f-abf4-d276acd66f5a",
-            "group": {
-                "en": "Create SIP from Transfer",
-                "es": "Crear SIP a partir de la transferencia",
-                "fr": "Créer un SIP à partir du Transfert",
-                "ja": "転送からSIPを作成する",
-                "pt_BR": "Crie SIP a partir da transferência",
-                "sv": "Skapa SIP från överföringspaket"
-            }
-        },
         "823b0d76-9f3c-410d-83ab-f3c2cdd9ab22": {
             "config": {
                 "@manager": "linkTaskManagerSetUnitVariable",
@@ -7540,42 +7496,6 @@
                 "sv": "Godkänn skapande av SIP"
             }
         },
-        "abd6d60c-d50f-4660-a189-ac1b34fafe85": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPDirectory%\" \"%jobCreatedDate%\"",
-                "execute": "moveToBacklog_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move transfer to backlog",
-                "es": "Mover transferencia a la cola",
-                "pt_BR": "Mover a transferência para o backlog",
-                "sv": "Flytta överföring till backlogg"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Create SIP from Transfer",
-                "es": "Crear SIP a partir de la transferencia",
-                "fr": "Créer un SIP à partir du Transfert",
-                "ja": "転送からSIPを作成する",
-                "pt_BR": "Crie SIP a partir da transferência",
-                "sv": "Skapa SIP från överföringspaket"
-            },
-            "end": true
-        },
         "accea2bf-ba74-4a3a-bb97-614775c74459": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
@@ -8181,7 +8101,6 @@
                 "@model": "MicroServiceChainChoice",
                 "chain_choices": [
                     "61cfa825-120e-4b17-83e6-51a42b67d969",
-                    "7065d256-2f47-4b7d-baec-2c4699626121",
                     "1b04ec43-055c-43b7-9543-bd03c6a778ba"
                 ]
             },
@@ -9861,40 +9780,6 @@
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
                 "pt_BR": "Transferência do TRIM "
-            }
-        },
-        "e6e553cf-85f5-4e2f-abf4-d276acd66f5a": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%relativeLocation%metadata/dc.json\"",
-                "execute": "saveDublinCore_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Serialize Dublin Core metadata to disk",
-                "pt_BR": "Seriar os metadados Dublin Core para o disco",
-                "sv": "Sänd Dublin Core metadata till disk som serie"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "abd6d60c-d50f-4660-a189-ac1b34fafe85"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "abd6d60c-d50f-4660-a189-ac1b34fafe85",
-            "group": {
-                "en": "Create SIP from Transfer",
-                "es": "Crear SIP a partir de la transferencia",
-                "fr": "Créer un SIP à partir du Transfert",
-                "ja": "転送からSIPを作成する",
-                "pt_BR": "Crie SIP a partir da transferência",
-                "sv": "Skapa SIP från överföringspaket"
             }
         },
         "e76aec15-5dfa-4b14-9405-735863e3a6fa": {
