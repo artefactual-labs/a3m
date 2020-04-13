@@ -84,6 +84,23 @@ class TestPIDComponents(object):
             for fixture in fixtures:
                 call_command("loaddata", fixture)
 
+    def _get_settings(self):
+        return {
+            "resolve_url_template_file_access": "https://access.iisg.nl/access/{{ naming_authority }}/{{ pid }}",
+            "resolve_url_template_file_preservation": "https://access.iisg.nl/preservation/{{ naming_authority }}/{{ pid }}",
+            "handle_resolver_url": "http://195.169.88.240:8017/",
+            "resolve_url_template_file": "https://access.iisg.nl/access/{{ naming_authority }}/{{ pid }}",
+            "pid_request_verify_certs": "False",
+            "resolve_url_template_archive": "https://access.iisg.nl/dip/{{ naming_authority }}/{{ pid }}",
+            "resolve_url_template_mets": "https://access.iisg.nl/mets/{{ naming_authority }}/{{ pid }}",
+            "pid_web_service_key": "84214c59-8694-48d5-89b5-d40a88cd7768",
+            "handle_archive_pid_source": "accession_no",
+            "pid_web_service_endpoint": "https://pid.socialhistoryservices.org/secure",
+            "resolve_url_template_file_original": "https://access.iisg.nl/original/{{ naming_authority }}/{{ pid }}",
+            "naming_authority": "12345",
+            "pid_request_body_template": "<?xml version='1.0' encoding='UTF-8'?>\r\n        <soapenv:Envelope\r\n            xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'\r\n            xmlns:pid='http://pid.socialhistoryservices.org/'>\r\n            <soapenv:Body>\r\n                <pid:UpsertPidRequest>\r\n                    <pid:na>{{ naming_authority }}</pid:na>\r\n                    <pid:handle>\r\n                        <pid:pid>{{ naming_authority }}/{{ pid }}</pid:pid>\r\n                        <pid:locAtt>\r\n                            <pid:location weight='1' href='{{ base_resolve_url }}'/>\r\n                            {% for qrurl in qualified_resolve_urls %}\r\n                                <pid:location\r\n                                    weight='0'\r\n                                    href='{{ qrurl.url }}'\r\n                                    view='{{ qrurl.qualifier }}'/>\r\n                            {% endfor %}\r\n                        </pid:locAtt>\r\n                    </pid:handle>\r\n                </pid:UpsertPidRequest>\r\n            </soapenv:Body>\r\n        </soapenv:Envelope>"
+        }
+
     @pytest.mark.django_db
     def test_bind_pids_no_config(self, caplog, settings):
         """Test the output of the code without any args.
@@ -101,13 +118,14 @@ class TestPIDComponents(object):
         assert caplog.records[0].message.startswith(self.incomplete_configuration_msg)
 
     @pytest.mark.django_db
-    def test_bind_pids(self, mocker):
+    def test_bind_pids(self, mocker, settings):
         """Test the bind_pids function end-to-end and ensure that the
         result is that which is anticipated.
 
         The bind_pids module is responsible for binding persistent identifiers
         to the SIP and the SIP's directories so we only test that here.
         """
+        settings.BIND_PID_HANDLE = self._get_settings()
         # We might want to return a unique accession number, but we can also
         # test here using the package UUID, the function's fallback position.
         mocker.patch.object(
@@ -180,13 +198,14 @@ class TestPIDComponents(object):
         assert caplog.records[0].message.startswith(self.incomplete_configuration_msg)
 
     @pytest.mark.django_db
-    def test_bind_pid(self):
+    def test_bind_pid(self, settings):
         """Test the bind_pid function end-to-end and ensure that the
         result is that which is anticipated.
 
         The bind_pid module is responsible for binding persistent identifiers
         to the SIP's files and so we test for that here.
         """
+        settings.BIND_PID_HANDLE = self._get_settings()
         files = File.objects.filter(sip=self.package_uuid).all()
         assert len(files) is len(
             self.package_files
@@ -246,10 +265,11 @@ class TestPIDComponents(object):
             )
 
     @pytest.mark.django_db
-    def test_pid_declaration(self, mocker):
+    def test_pid_declaration(self, mocker, settings):
         """Test that the overall functionality of the PID declaration functions
         work as expected.
         """
+        settings.BIND_PID_HANDLE = self._get_settings()
         job = self.job
         files_no = 2
         dirs_no = 2
