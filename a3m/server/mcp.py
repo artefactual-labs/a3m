@@ -110,15 +110,12 @@ def main(shutdown_event=None):
 
     package_queue = PackageQueue(executor, shutdown_event, debug=settings.DEBUG)
 
-    rpc_threads = []
-    for x in range(settings.RPC_THREADS):
-        rpc_thread = threading.Thread(
-            target=rpc_server.start,
-            args=(workflow, shutdown_event, package_queue, executor),
-            name="RPCServer-{}".format(x),
-        )
-        rpc_thread.start()
-        rpc_threads.append(rpc_thread)
+    rpc_thread = threading.Thread(
+        target=rpc_server.start,
+        args=(workflow, shutdown_event, package_queue, executor),
+        name="gRPC server",
+    )
+    rpc_thread.start()
 
     watched_dir_callback = functools.partial(watched_dir_handler, package_queue)
     watch_dir_thread = threading.Thread(
@@ -133,11 +130,10 @@ def main(shutdown_event=None):
 
     # We got a shutdown signal, so cleanup threads
     watch_dir_thread.join(1.0)
-    for thread in rpc_threads:
-        thread.join(0.1)
-    logger.debug("RPC threads stopped.")
+    rpc_thread.join(0.1)
+    logger.debug("RPC server stopped.")
 
-    logger.info("MCP server shut down complete.")
+    logger.info("MCPServer shut down complete.")
 
 
 if __name__ == "__main__":

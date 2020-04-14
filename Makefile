@@ -17,6 +17,8 @@ create-volumes:  ## Create external data volumes.
 		--opt device=$(A3M_PIPELINE_DATA) \
 			a3m-pipeline-data
 
+migrate: bootstrap  ## Same as make bootstrap.
+
 bootstrap:  ## Bootstrap a3m (new database).
 	docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m-server migrate --noinput
 
@@ -47,6 +49,9 @@ flush-shared-dir:  ## Delete contents of the shared directory data volume.
 
 amflow:  # See workflow.
 	amflow edit --file=a3m/assets/workflow.json
+
+protoc:  # Generate gRPC code.
+	python -m grpc_tools.protoc -Ia3m/server/rpc --python_out=a3m/server/rpc --grpc_python_out=a3m/server/rpc a3m/server/rpc/a3m.proto
 
 help:  ## Print this help message.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

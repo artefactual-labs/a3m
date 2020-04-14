@@ -14,7 +14,7 @@ services:
     command: "--queue-type=builtin"
     user: "gearman"
     ports:
-      - "127.0.0.1:52001:4730"
+      - "52001:4730"
 
   a3m-server:
     build:
@@ -32,7 +32,7 @@ services:
     links:
       - "gearmand"
     ports:
-      - "127.0.0.1:52000:8000"
+      - "52000:8000"
 
   a3m-client:
     build:
@@ -44,12 +44,9 @@ services:
       A3M_GEARMAN_SERVER: "gearmand:4730"
       A3M_PROMETHEUS_BIND_PORT: "7999"
       A3M_PROMETHEUS_BIND_ADDRESS: "0.0.0.0"
-      A3M_CLAMAV_CLIENT_MAX_FILE_SIZE: "42"
-      A3M_CLAMAV_CLIENT_MAX_SCAN_SIZE: "42"
-      A3M_CLAMAV_CLIENT_MAX_STREAM_LENGTH: "100"
-      A3M_CLAMAV_CLIENT_BACKEND: "clamscan" # Option: clamdscanner or clamscan;
     volumes:
       - ".:/a3m"
       - "a3m-pipeline-data:/var/archivematica/sharedDirectory:rw"
     links:
+      - "a3m-server"
       - "gearmand"

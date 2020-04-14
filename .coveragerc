@@ -1,14 +1,14 @@
 [run]
 
 omit =
-	src/a3m/externals/
+	a3m/externals/
+	a3m/server/rpc/
 	**/migrations/*
 	**/settings/*
-	**/wsgi.py
-	**/tests/*
-	**/manage.py
+	tests/
+	manage.py
 
 source =
-	src/
+	a3m/
 
 branch = True

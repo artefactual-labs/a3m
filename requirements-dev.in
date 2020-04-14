@@ -9,3 +9,4 @@ pytest-cov==2.8.1
 coverage==5.1
 pip-tools==4.5.1
 tox
+grpcio-tools

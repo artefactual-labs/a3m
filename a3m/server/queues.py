@@ -9,6 +9,7 @@ import functools
 import logging
 import Queue
 import threading
+import uuid
 
 from django.conf import settings
 from django.utils import six
@@ -300,6 +301,17 @@ class PackageQueue(object):
                     "Package %s was deactivated, but was not marked active",
                     package.uuid,
                 )
+
+    def is_package_active(self, package_uuid):
+        """Determine whether a package is still active.
+        """
+        if not isinstance(package_uuid, uuid.UUID):
+            package_uuid = uuid.UUID(package_uuid)
+        # TODO: use timeout or rwlock
+        with self.active_package_lock:
+            if package_uuid in self.active_packages:
+                return True
+        return False
 
     def queue_next_job(self):
         """Load another job into the active job queue.

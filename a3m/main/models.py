@@ -271,9 +271,6 @@ class SIP(models.Model):
     def __unicode__(self):
         return six.text_type(_("SIP: {path}") % {"path": self.currentpath})
 
-    def update_active_agent(self, user_id):
-        UnitVariable.objects.update_active_agent("SIP", self.uuid, user_id)
-
     def add_custom_identifier(self, scheme, value):
         """Allow callers to add custom identifiers to the model's instance."""
         self.identifiers.create(type=scheme, value=value)
@@ -329,9 +326,6 @@ class Transfer(models.Model):
 
     class Meta:
         db_table = u"Transfers"
-
-    def update_active_agent(self, user_id):
-        UnitVariable.objects.update_active_agent("Transfer", self.uuid, user_id)
 
     @property
     def agents(self):
@@ -1207,15 +1201,6 @@ class UnitVariableManager(models.Manager):
         return self.get_queryset().update_or_create(
             unittype=unit_type, unituuid=unit_uuid, variable=variable, defaults=defaults
         )
-
-    def update_active_agent(self, unit_type, unit_id, user_id):
-        """Persist active agent given the user ID."""
-        agent_id = (
-            User.objects.select_related("userprofile")
-            .get(id=user_id)
-            .userprofile.agent_id
-        )
-        return self.update_variable(unit_type, unit_id, "activeAgent", agent_id)
 
     def update_processing_configuration(
         self, unit_type, unit_uuid, processing_configuration

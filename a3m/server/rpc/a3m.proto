@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package a3m;
+
+service Transfer {
+	rpc Submit (SubmitRequest) returns (SubmitReply) {}
+	rpc Status (StatusRequest) returns (StatusReply) {}
+}
+
+message SubmitRequest {
+	string name = 1;
+	string url = 2;
+}
+
+message SubmitReply {
+	string id = 1;
+}
+
+message StatusRequest {
+	string id = 1;
+}
+
+message StatusReply {
+	PackageStatus status = 1;
+}
+
+enum PackageStatus {
+	FAILED = 0;
+	REJECTED = 1;
+	COMPLETE = 2;
+	PROCESSING = 3;
+	AWAITING_DECISION = 4;
+}

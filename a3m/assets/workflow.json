@@ -8149,7 +8149,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": null,
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Failed transfer compliance",
                 "fr": "Échec de la mise en conformité du transfert",
@@ -10115,7 +10115,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": null,
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Failed compliance",
                 "fr": "Échec de la mise en conformité",

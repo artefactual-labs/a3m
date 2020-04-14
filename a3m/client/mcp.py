@@ -269,7 +269,6 @@ def start_gearman_worker(supported_modules):
     gm_worker.set_client_id(host_id)
     task_handler = partial(execute_command, supported_modules)
     for client_script in supported_modules:
-        logger.info("Registering: %s", client_script)
         gm_worker.register_task(client_script, task_handler)
     fail_max_sleep = 30
     fail_sleep = 1

@@ -8,24 +8,17 @@ import ast
 import collections
 import logging
 import os
-from tempfile import mkdtemp
 from uuid import UUID, uuid4
 
 import scandir
 from django.conf import settings
 from django.utils import six
 
-from a3m.archivematicaFunctions import strToUnicode, unicodeToStr
+from a3m.archivematicaFunctions import strToUnicode
 from a3m.main import models
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs import JobChain
-from a3m.server.processing_config import processing_configuration_file_exists
 from a3m.server.utils import uuid_from_path
-
-try:
-    from pathlib import Path
-except ImportError:
-    from pathlib2 import Path
 
 
 logger = logging.getLogger("archivematica.mcp.server.packages")
@@ -121,261 +114,28 @@ BASE_REPLACEMENTS = {
 }
 
 
-def get_approve_transfer_chain_id(transfer_type):
-    """Return chain ID to approve a transfer given its type."""
-    try:
-        item = PACKAGE_TYPE_STARTING_POINTS[transfer_type]
-    except KeyError:
-        raise ValueError("Unknown transfer type")
-    return item.chain
-
-
-def _file_is_an_archive(filepath):
-    filepath = filepath.lower()
-    return (
-        filepath.endswith(".zip")
-        or filepath.endswith(".tgz")
-        or filepath.endswith(".tar.gz")
-    )
-
-
-def _pad_destination_filepath_if_it_already_exists(filepath, original=None, attempt=0):
-    """
-    Return a version of the filepath that does not yet exist, padding with numbers
-    as necessary and reattempting until a non-existent filepath is found
-
-    :param filepath: `Path` or string of the desired destination filepath
-    :param original: `Path` or string of the original filepath (before padding attempts)
-    :param attempt: Number
-
-    :returns: `Path` object, padded as necessary
-    """
-    if original is None:
-        original = filepath
-    filepath = Path(filepath)
-    original = Path(original)
-
-    attempt = attempt + 1
-    if not filepath.exists():
-        return filepath
-    if filepath.is_dir():
-        return _pad_destination_filepath_if_it_already_exists(
-            "{}_{}".format(strToUnicode(original.as_posix()), attempt),
-            original,
-            attempt,
-        )
-
-    # need to work out basename
-    basedirectory = original.parent
-    basename = original.name
-
-    # do more complex padding to preserve file extension
-    period_position = basename.index(".")
-    non_extension = basename[0:period_position]
-    extension = basename[period_position:]
-    new_basename = "{}_{}{}".format(non_extension, attempt, extension)
-    new_filepath = basedirectory / new_basename
-    return _pad_destination_filepath_if_it_already_exists(
-        new_filepath, original, attempt
-    )
-
-
-def _check_filepath_exists(filepath):
-    if filepath == "":
-        return "No filepath provided."
-    if not os.path.exists(filepath):
-        return "Filepath {} does not exist.".format(filepath)
-    if ".." in filepath:  # check for trickery
-        return "Illegal path."
-    return None
-
-
 @auto_close_old_connections()
-def _copy_from_transfer_sources(paths, relative_destination):
-    """Copy files from source locations to the currently processing location.
-
-    Any files in locations not associated with this pipeline will be ignored.
-
-    :param list paths: List of paths. Each path should be formatted
-                       <uuid of location>:<full path in location>
-    :param str relative_destination: Path relative to the currently processing
-                                     space to move the files to.
-    """
-    raise NotImplementedError("bye SS!")
-
-
-@auto_close_old_connections()
-def _move_to_internal_shared_dir(filepath, dest, transfer):
-    """Move package to an internal Archivematica directory.
-
-    The side effect of this function is to update the transfer object with the
-    final location. This is important so other components can continue the
-    processing. When relying on watched directories to start a transfer (see
-    _start_package_transfer), this also matters because Transfer is going
-    to look up the object in the database based on the location.
-    """
-    error = _check_filepath_exists(filepath)
-    if error:
-        raise Exception(error)
-
-    filepath = Path(filepath)
-    dest = Path(dest)
-
-    # Confine destination to subdir of originals.
-    basename = filepath.name
-    dest = _pad_destination_filepath_if_it_already_exists(dest / basename)
-
-    try:
-        filepath.rename(dest)
-    except OSError as e:
-        raise Exception("Error moving from %s to %s (%s)", filepath, dest, e)
-    else:
-        transfer.currentlocation = strToUnicode(dest.as_posix()).replace(
-            _get_setting("SHARED_DIRECTORY"), r"%sharedPath%", 1
-        )
-        transfer.save()
-
-
-@auto_close_old_connections()
-def create_package(
-    package_queue,
-    executor,
-    name,
-    type_,
-    accession,
-    access_system_id,
-    path,
-    metadata_set_id,
-    user_id,
-    workflow,
-    auto_approve=True,
-    processing_config=None,
-):
-    """Launch transfer and return its object immediately.
-
-    ``auto_approve`` changes significantly the way that the transfer is
-    initiated. See ``_start_package_transfer_with_auto_approval`` and
-    ``_start_package_transfer`` for more details.
-    """
+def create_package(package_queue, executor, workflow, name, url):
+    """Launch transfer and return its object immediately."""
     if not name:
         raise ValueError("No transfer name provided.")
-    if type_ is None or type_ == "disk image":
-        type_ = "standard"
-    if type_ not in PACKAGE_TYPE_STARTING_POINTS:
-        raise ValueError("Unexpected type of package provided '{}'".format(type_))
-    if not path:
-        raise ValueError("No path provided.")
-    if isinstance(auto_approve, bool) is False:
-        raise ValueError("Unexpected value in auto_approve parameter")
-    try:
-        int(user_id)
-    except (TypeError, ValueError):
-        raise ValueError("Unexpected value in user_id parameter")
+    if not url:
+        raise ValueError("No url provided.")
 
-    # Create Transfer object.
-    kwargs = {"uuid": str(uuid4())}
-    if accession is not None:
-        kwargs["accessionid"] = unicodeToStr(accession)
-    if access_system_id is not None:
-        kwargs["access_system_id"] = unicodeToStr(access_system_id)
-    if metadata_set_id is not None:
-        try:
-            kwargs["transfermetadatasetrow"] = models.TransferMetadataSet.objects.get(
-                id=metadata_set_id
-            )
-        except models.TransferMetadataSet.DoesNotExist:
-            pass
-    transfer = models.Transfer.objects.create(**kwargs)
-    if not processing_configuration_file_exists(processing_config):
-        processing_config = "default"
-    transfer.set_processing_configuration(processing_config)
-    transfer.update_active_agent(user_id)
+    transfer = models.Transfer.objects.create(uuid=uuid4())
+    transfer.set_processing_configuration("automated")
     logger.debug("Transfer object created: %s", transfer.pk)
 
-    # TODO: use tempfile.TemporaryDirectory as a context manager in Py3.
-    tmpdir = mkdtemp(dir=os.path.join(_get_setting("SHARED_DIRECTORY"), "tmp"))
-    starting_point = PACKAGE_TYPE_STARTING_POINTS.get(type_)
-    logger.debug(
-        "Package %s: starting transfer (%s)", transfer.pk, (name, type_, path, tmpdir)
-    )
-    params = (transfer, name, path, tmpdir, starting_point)
-    if auto_approve:
-        params = params + (workflow, package_queue)
-        result = executor.submit(_start_package_transfer_with_auto_approval, *params)
-    else:
-        result = executor.submit(_start_package_transfer, *params)
-
-    result.add_done_callback(lambda f: os.chmod(tmpdir, 0o770))
+    params = (transfer, name, url, workflow, package_queue)
+    executor.submit(_trigger_worflow, *params)
 
     return transfer
 
 
-def _capture_transfer_failure(fn):
-    """Silence errors during transfer/ingest."""
-
-    def wrap(*args, **kwargs):
-        try:
-            return fn(*args, **kwargs)
-        except Exception as err:
-            # The main purpose of this decorator is to update the Transfer with
-            # the new state (fail). If the Transfer does not exist we give up.
-            if isinstance(err, models.Transfer.DoesNotExist):
-                raise
-            else:
-                logger.exception("Exception occurred during transfer processing")
-
-    return wrap
-
-
-def _determine_transfer_paths(name, path, tmpdir):
-    if _file_is_an_archive(path):
-        transfer_dir = tmpdir
-        p = LocationPath(path).path
-        filepath = os.path.join(tmpdir, os.path.basename(p))
-    else:
-        path = os.path.join(path, ".")  # Copy contents of dir but not dir
-        transfer_dir = filepath = os.path.join(tmpdir, name)
-    return (
-        transfer_dir.replace(_get_setting("SHARED_DIRECTORY"), "", 1),
-        filepath,
-        path,
-    )
-
-
-@_capture_transfer_failure
-def _start_package_transfer_with_auto_approval(
-    transfer, name, path, tmpdir, starting_point, workflow, package_queue
-):
-    """Start a new transfer the new way.
-
-    This method does not rely on the activeTransfer watched directory. It
-    blocks until the process completes. It does not prompt the user to accept
-    the transfer because we go directly into the next chain link.
-    """
-    transfer_rel, filepath, path = _determine_transfer_paths(name, path, tmpdir)
-    logger.debug(
-        "Package %s: determined vars" " transfer_rel=%s, filepath=%s, path=%s",
-        transfer.pk,
-        transfer_rel,
-        filepath,
-        path,
-    )
-
-    logger.debug(
-        "Package %s: copying chosen contents from transfer sources" " (from=%s, to=%s)",
-        transfer.pk,
-        path,
-        transfer_rel,
-    )
-    _copy_from_transfer_sources([path], transfer_rel)
-
-    logger.debug("Package %s: moving package to processing directory", transfer.pk)
-    _move_to_internal_shared_dir(
-        filepath, _get_setting("PROCESSING_DIRECTORY"), transfer
-    )
-
+def _trigger_worflow(transfer, name, url, workflow, package_queue):
     logger.debug("Package %s: starting workflow processing", transfer.pk)
-    unit = Transfer(path, transfer.pk)
+    starting_point = PACKAGE_TYPE_STARTING_POINTS["standard"]
+    unit = Transfer(url, transfer.pk)
     job_chain = JobChain(
         unit,
         workflow.get_chain(starting_point.chain),
@@ -383,67 +143,6 @@ def _start_package_transfer_with_auto_approval(
         starting_link=workflow.get_link(starting_point.link),
     )
     package_queue.schedule_job(next(job_chain))
-
-
-@_capture_transfer_failure
-def _start_package_transfer(transfer, name, path, tmpdir, starting_point):
-    """Start a new transfer the old way.
-
-    This means copying the transfer into one of the standard watched dirs.
-    MCPServer will continue the processing and prompt the user once the
-    contents in the watched directory are detected by the watched directory
-    observer.
-    """
-    transfer_rel, filepath, path = _determine_transfer_paths(name, path, tmpdir)
-    logger.debug(
-        "Package %s: determined vars" " transfer_rel=%s, filepath=%s, path=%s",
-        transfer.pk,
-        transfer_rel,
-        filepath,
-        path,
-    )
-
-    logger.debug(
-        "Package %s: copying chosen contents from transfer sources" " (from=%s, to=%s)",
-        transfer.pk,
-        path,
-        transfer_rel,
-    )
-    _copy_from_transfer_sources([path], transfer_rel)
-
-    logger.debug(
-        "Package %s: moving package to activeTransfers dir (from=%s," " to=%s)",
-        transfer.pk,
-        filepath,
-        starting_point.watched_dir,
-    )
-    _move_to_internal_shared_dir(filepath, starting_point.watched_dir, transfer)
-
-
-class LocationPath(object):
-    """Path wraps a path that is a pair of two values: UUID and path."""
-
-    uuid, path = None, None
-
-    def __init__(self, path, sep=":"):
-        self.sep = sep
-        parts = path.partition(self.sep)
-        if parts[1] != self.sep:
-            self.path = parts[0]
-        else:
-            self.uuid = parts[0]
-            self.path = parts[2]
-
-    def __repr__(self):
-        return "%s (uuid=%r, sep=%r, path=%r)" % (
-            self.__class__,
-            self.uuid,
-            self.sep,
-            self.path,
-        )
-
-    def parts(self):
-        return self.uuid, self.path
 
 
 def get_file_replacement_mapping(file_obj, unit_directory):

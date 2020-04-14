@@ -105,7 +105,11 @@ CONFIG_MAPPING = {
     "db_password": {"section": "a3m", "option": "db_password", "type": "string"},
     "db_host": {"section": "a3m", "option": "db_host", "type": "string"},
     "db_port": {"section": "a3m", "option": "db_port", "type": "string"},
-    "rpc_bind_address": {"section": "a3m", "option": "rpc_bind_address", "type": "string"},
+    "rpc_bind_address": {
+        "section": "a3m",
+        "option": "rpc_bind_address",
+        "type": "string",
+    },
 }
 
 
@@ -129,7 +133,7 @@ removable_files = Thumbs.db, Icon, Icon\r, .DS_Store
 clamav_server = /var/run/clamav/clamd.ctl
 clamav_pass_by_stream = True
 clamav_client_timeout = 86400
-clamav_client_backend = clamdscanner    ; Options: clamdscanner or clamscanner
+clamav_client_backend = clamscanner     ; Options: clamdscanner or clamscanner
 clamav_client_max_file_size = 42        ; MB
 clamav_client_max_scan_size = 42        ; MB
 db_engine = django.db.backends.sqlite3
@@ -139,7 +143,7 @@ db_password =
 db_host =
 db_port =
 secret_key = 12345
-rpc_bind_address = 127.0.0.1:8000
+rpc_bind_address = 0.0.0.0:8000
 """
 
 
@@ -259,5 +263,6 @@ else:
 
 BIND_PID_HANDLE = {}
 
-
 INSTANCE_ID = "fec7bcf7-45db-4a22-8ceb-e94377db3476"
+
+DEBUG = False
