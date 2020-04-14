@@ -1,5 +1,5 @@
 ARG SYSTEM_IMAGE=ubuntu:18.04
-ARG TARGET=archivematica
+ARG TARGET=a3m
 
 #
 # Base
@@ -83,7 +83,7 @@ RUN set -ex \
 # Archivematica
 #
 
-FROM base AS archivematica
+FROM base AS a3m
 
 ARG REQUIREMENTS=/a3m/requirements-dev.txt
 
@@ -119,7 +119,7 @@ ENTRYPOINT ["python", "-m", "a3m"]
 # MCPServer
 #
 
-FROM archivematica as archivematica-mcp-server
+FROM a3m as a3m-server
 
 ENTRYPOINT ["python", "-m", "a3m", "server"]
 
@@ -128,7 +128,7 @@ ENTRYPOINT ["python", "-m", "a3m", "server"]
 # MCPClient
 #
 
-FROM archivematica as archivematica-mcp-client
+FROM a3m as a3m-client
 
 COPY ./a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
 COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/

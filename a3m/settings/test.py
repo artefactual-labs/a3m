@@ -27,7 +27,7 @@ from .common import *
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "a3m-test.sqlite",
-        "TEST": {"NAME": "a3m-test.sqlite"},
+        "NAME": "/var/archivematica/sharedDirectory/a3m-test.sqlite",
+        "TEST": {"NAME": "/var/archivematica/sharedDirectory/a3m-test.sqlite"},
     }
 }

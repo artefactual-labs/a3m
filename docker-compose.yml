@@ -3,74 +3,44 @@ version: "2.4"
 
 volumes:
 
-  # Internal named volumes.
-  # These are not accessible outside of the docker host and are maintained by
-  # Docker.
-  mysql_data:
-
-  # External named volumes.
-  # These are intended to be accessible beyond the docker host (e.g. via NFS).
-  # They use bind mounts to mount a specific "local" directory on the docker
-  # host - the expectation being that these directories are actually mounted
-  # filesystems from elsewhere.
-  archivematica_pipeline_data:
+  a3m-pipeline-data:
     external:
-      name: "am-pipeline-data"
+      name: "a3m-pipeline-data"
 
 services:
-
-  mysql:
-    image: "percona:5.6"
-    user: "mysql"
-    command: "--character-set-server=utf8 --collation-server=utf8_general_ci"
-    environment:
-      MYSQL_ROOT_PASSWORD: "12345"
-    volumes:
-      - "mysql_data:/var/lib/mysql"
-    ports:
-      - "127.0.0.1:52001:3306"
 
   gearmand:
     image: "artefactual/gearmand:1.1.17-alpine"
     command: "--queue-type=builtin"
     user: "gearman"
     ports:
-      - "127.0.0.1:52002:4730"
+      - "127.0.0.1:52001:4730"
 
-  archivematica-mcp-server:
+  a3m-server:
     build:
       context: "."
-      target: "archivematica-mcp-server"
+      target: "a3m-server"
       args:
-        TARGET: "archivematica-mcp-server"
+        TARGET: "a3m-server"
     environment:
-      A3M_DB_USER: "archivematica"
-      A3M_DB_PASSWORD: "demo"
-      A3M_DB_HOST: "mysql"
-      A3M_DB_DATABASE: "MCP"
       A3M_GEARMAN_SERVER: "gearmand:4730"
       A3M_PROMETHEUS_BIND_PORT: "7999"
       A3M_PROMETHEUS_BIND_ADDRESS: "0.0.0.0"
     volumes:
       - ".:/a3m"
-      - "archivematica_pipeline_data:/var/archivematica/sharedDirectory:rw"
+      - "a3m-pipeline-data:/var/archivematica/sharedDirectory:rw"
     links:
-      - "mysql"
       - "gearmand"
     ports:
       - "127.0.0.1:52000:8000"
 
-  archivematica-mcp-client:
+  a3m-client:
     build:
       context: "."
-      target: "archivematica-mcp-client"
+      target: "a3m-client"
       args:
-        TARGET: "archivematica-mcp-client"
+        TARGET: "a3m-client"
     environment:
-      A3M_DB_USER: "archivematica"
-      A3M_DB_PASSWORD: "demo"
-      A3M_DB_HOST: "mysql"
-      A3M_DB_DATABASE: "MCP"
       A3M_GEARMAN_SERVER: "gearmand:4730"
       A3M_PROMETHEUS_BIND_PORT: "7999"
       A3M_PROMETHEUS_BIND_ADDRESS: "0.0.0.0"
@@ -80,7 +50,6 @@ services:
       A3M_CLAMAV_CLIENT_BACKEND: "clamscan" # Option: clamdscanner or clamscan;
     volumes:
       - ".:/a3m"
-      - "archivematica_pipeline_data:/var/archivematica/sharedDirectory:rw"
+      - "a3m-pipeline-data:/var/archivematica/sharedDirectory:rw"
     links:
-      - "mysql"
       - "gearmand"

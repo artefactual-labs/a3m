@@ -105,6 +105,7 @@ CONFIG_MAPPING = {
     "db_password": {"section": "a3m", "option": "db_password", "type": "string"},
     "db_host": {"section": "a3m", "option": "db_host", "type": "string"},
     "db_port": {"section": "a3m", "option": "db_port", "type": "string"},
+    "rpc_bind_address": {"section": "a3m", "option": "rpc_bind_address", "type": "string"},
 }
 
 
@@ -131,13 +132,14 @@ clamav_client_timeout = 86400
 clamav_client_backend = clamdscanner    ; Options: clamdscanner or clamscanner
 clamav_client_max_file_size = 42        ; MB
 clamav_client_max_scan_size = 42        ; MB
-db_user = archivematica
-db_password = demo
-db_host = localhost
-db_name = MCP
-db_port = 3306
-db_engine = django.db.backends.mysql
+db_engine = django.db.backends.sqlite3
+db_name = /var/archivematica/sharedDirectory/a3m.sqlite
+db_user =
+db_password =
+db_host =
+db_port =
 secret_key = 12345
+rpc_bind_address = 127.0.0.1:8000
 """
 
 
@@ -241,6 +243,7 @@ CLAMAV_CLIENT_MAX_FILE_SIZE = config.get("clamav_client_max_file_size")
 CLAMAV_CLIENT_MAX_SCAN_SIZE = config.get("clamav_client_max_scan_size")
 CAPTURE_CLIENT_SCRIPT_OUTPUT = config.get("capture_client_script_output")
 DEFAULT_CHECKSUM_ALGORITHM = "sha256"
+RPC_BIND_ADDRESS = config.get("rpc_bind_address")
 
 
 # Prometheus
