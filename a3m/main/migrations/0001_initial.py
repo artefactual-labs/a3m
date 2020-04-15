@@ -463,10 +463,6 @@ class Migration(migrations.Migration):
                         blank=True,
                     ),
                 ),
-                (
-                    "subjobof",
-                    models.CharField(max_length=36, db_column=b"subJobOf", blank=True),
-                ),
             ],
             options={"db_table": "Jobs"},
         ),
