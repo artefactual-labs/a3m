@@ -86,6 +86,8 @@ RUN set -ex \
 FROM base AS a3m
 
 ARG REQUIREMENTS=/a3m/requirements-dev.txt
+ARG DJANGO_SETTINGS_MODULE=a3m.settings.common
+ENV DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
 
 RUN set -ex \
 	&& curl -s https://bootstrap.pypa.io/get-pip.py | python \
@@ -109,8 +111,6 @@ COPY . /a3m
 WORKDIR /a3m
 
 USER archivematica
-
-ENV DJANGO_SETTINGS_MODULE a3m.settings.common
 
 ENTRYPOINT ["python", "-m", "a3m"]
 
