@@ -35,80 +35,6 @@ def _get_setting(name):
     return strToUnicode(getattr(settings, name))
 
 
-# Each package type has its corresponding watched directory and its
-# associated chain, e.g. a "standard" transfer triggers the chain with UUID
-# "fffd5342-2337-463f-857a-b2c8c3778c6d". This is stored in the
-# WatchedDirectory model. These starting chains all have in common that they
-# prompt the user to Accept/Reject the transfer.
-#
-# In this module we don't want to prompt the user. Instead we want to jump
-# directly into action, this is whatever happens when the transfer is
-# accepted. The following dictionary points to the chains and links where
-# this is happening. Presumably this could be written in a generic way querying
-# the workflow data but in the first iteration we've decided to do it this way.
-# There is also the hope that the watched directories can be deprecated in the
-# near future.
-PACKAGE_TYPE_STARTING_POINTS = {
-    "standard": StartingPoint(
-        watched_dir=os.path.join(
-            _get_setting("WATCH_DIRECTORY"), "activeTransfers/standardTransfer"
-        ),
-        chain="6953950b-c101-4f4c-a0c3-0cd0684afe5e",
-        link="045c43ae-d6cf-44f7-97d6-c8a602748565",
-    ),
-    "zipfile": StartingPoint(
-        watched_dir=os.path.join(
-            settings.WATCH_DIRECTORY, "activeTransfers/zippedDirectory"
-        ),
-        chain="f3caceff-5ad5-4bad-b98c-e73f8cd03450",
-        link="541f5994-73b0-45bb-9cb5-367c06a21be7",
-    ),
-    "unzipped bag": StartingPoint(
-        watched_dir=os.path.join(
-            _get_setting("WATCH_DIRECTORY"), "activeTransfers/baggitDirectory"
-        ),
-        chain="c75ef451-2040-4511-95ac-3baa0f019b48",
-        link="154dd501-a344-45a9-97e3-b30093da35f5",
-    ),
-    "zipped bag": StartingPoint(
-        watched_dir=os.path.join(
-            _get_setting("WATCH_DIRECTORY"), "activeTransfers/baggitZippedDirectory"
-        ),
-        chain="167dc382-4ab1-4051-8e22-e7f1c1bf3e6f",
-        link="3229e01f-adf3-4294-85f7-4acb01b3fbcf",
-    ),
-    "dspace": StartingPoint(
-        watched_dir=os.path.join(
-            _get_setting("WATCH_DIRECTORY"), "activeTransfers/Dspace"
-        ),
-        chain="1cb2ef0e-afe8-45b5-8d8f-a1e120f06605",
-        link="bda96b35-48c7-44fc-9c9e-d7c5a05016c1",
-    ),
-    "maildir": StartingPoint(
-        watched_dir=os.path.join(
-            _get_setting("WATCH_DIRECTORY"), "activeTransfers/maildir"
-        ),
-        chain="d381cf76-9313-415f-98a1-55c91e4d78e0",
-        link="da2d650e-8ce3-4b9a-ac97-8ca4744b019f",
-    ),
-    "TRIM": StartingPoint(
-        watched_dir=os.path.join(
-            _get_setting("WATCH_DIRECTORY"), "activeTransfers/TRIM"
-        ),
-        chain="e4a59e3e-3dba-4eb5-9cf1-c1fb3ae61fa9",
-        link="2483c25a-ade8-4566-a259-c6c37350d0d6",
-    ),
-    "dataverse": StartingPoint(
-        watched_dir=os.path.join(
-            _get_setting("WATCH_DIRECTORY"), "activeTransfers/dataverseTransfer"
-        ),
-        # Approve Dataverse Transfer Chain
-        chain="10c00bc8-8fc2-419f-b593-cf5518695186",
-        # Chain link setting transfer-type: Dataverse
-        link="0af6b163-5455-4a76-978b-e35cc9ee445f",
-    ),
-}
-
 BASE_REPLACEMENTS = {
     r"%tmpDirectory%": os.path.join(_get_setting("SHARED_DIRECTORY"), "tmp", ""),
     r"%processingDirectory%": _get_setting("PROCESSING_DIRECTORY"),
@@ -137,14 +63,23 @@ def create_package(package_queue, executor, workflow, name, url):
 
 def _trigger_worflow(transfer, name, url, workflow, package_queue):
     logger.debug("Package %s: starting workflow processing", transfer.pk)
-    starting_point = PACKAGE_TYPE_STARTING_POINTS["standard"]
+    standard_workflow_chain = "6953950b-c101-4f4c-a0c3-0cd0684afe5e",
+    standard_workflow_link ="045c43ae-d6cf-44f7-97d6-c8a602748565",
     unit = Transfer(url, transfer.pk)
     job_chain = JobChain(
         unit,
-        workflow.get_chain(starting_point.chain),
+        workflow.get_chain(standard_workflow_chain),
         workflow,
-        starting_link=workflow.get_link(starting_point.link),
+        starting_link=workflow.get_link(standard_workflow_link),
     )
+
+    # TODO: changes in workflow
+    # - new chain with a link that
+    #   - 1. downloads the file/direcotry
+    #   - 2. performs identification
+    #   - 3. decide new chain dynamically: standard / zippedDirectory / baggitDirectory / baggitZippedDirectory
+    # - remove tranfser types maildir, dspace, trim
+
     package_queue.schedule_job(next(job_chain))
 
 

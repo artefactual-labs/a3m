@@ -6710,7 +6710,7 @@
             },
             "exit_codes": {},
             "fallback_job_status": "Failed",
-            "fallback_link_id": "f7488721-c936-42af-a767-2f0b39564a86",
+            "fallback_link_id": null,
             "group": {
                 "en": "TRIM transfer",
                 "fr": "Transfert TRIM",
