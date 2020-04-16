@@ -4,12 +4,11 @@ performed--corresponding to a Task on the MCP Server side.  Jobs are run in
 batches by clientScript modules and populated with an exit code, standard out
 and standard error information.
 """
-
-import traceback
-import sys
 import logging
-
+import sys
+import traceback
 from contextlib import contextmanager
+
 from a3m.custom_handlers import CallbackHandler
 
 LOGGER = logging.getLogger("archivematica.mcp.client.job")

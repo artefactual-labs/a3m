@@ -1,6 +1,5 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-
 """Convert Dataverse Structure
 
 Given a transfer type Dataverse, read the metadata submission object
@@ -23,16 +22,14 @@ Archivematica documentation:
 
 https://wiki.archivematica.org/Dataverse
 """
-
 import json
 import os
 import sys
 import uuid
 
-from lxml import etree
-
-# Database functions requires Django to be set up.
 import django
+from lxml import etree
+# Database functions requires Django to be set up.
 
 django.setup()
 

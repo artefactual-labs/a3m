@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
-
 """Package management."""
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import abc
 import ast
 import collections
 import logging
 import os
-from uuid import UUID, uuid4
+from uuid import UUID
+from uuid import uuid4
 
 import scandir
 from django.conf import settings

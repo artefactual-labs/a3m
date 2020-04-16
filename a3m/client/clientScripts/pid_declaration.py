@@ -1,6 +1,5 @@
 #!/usr/bin/env python2
 # -*- coding: utf8
-
 """pid_declaration.py
 
 Given an identifiers.json file, supplying third-party persistent identifiers
@@ -9,10 +8,11 @@ with the objects in the transfer, so be translated to PREMIS objects in the
 AIP METS.
 """
 from __future__ import unicode_literals
-from functools import wraps
+
 import json
 import os
 import sys
+from functools import wraps
 
 import django
 

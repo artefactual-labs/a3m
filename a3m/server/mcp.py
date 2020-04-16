@@ -20,8 +20,10 @@ Start and run MCPServer via the `main` function.
     watched dirs as set in the workflow.
 10. The `PackageQueue.work` processing loop is started on the main thread.
 """
-
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import concurrent.futures
 import functools

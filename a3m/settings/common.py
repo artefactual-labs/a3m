@@ -1,14 +1,15 @@
 from __future__ import division
 
-import StringIO
 import json
-import logging
 import logging.config
 import math
 import multiprocessing
 import os
 
-from a3m.appconfig import Config, process_watched_directory_interval
+import StringIO
+
+from a3m.appconfig import Config
+from a3m.appconfig import process_watched_directory_interval
 
 CONFIG_MAPPING = {
     "watch_directory_method": {

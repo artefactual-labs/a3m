@@ -1,15 +1,19 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
-import cPickle
 import math
 import uuid
 
+import cPickle
 import gearman
 import pytest
 from django.utils import six
 
 from a3m.server.jobs import Job
-from a3m.server.tasks import GearmanTaskBackend, Task
+from a3m.server.tasks import GearmanTaskBackend
+from a3m.server.tasks import Task
 
 
 class MockJob(Job):

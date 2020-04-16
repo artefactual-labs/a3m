@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """Unit tests against the Convert Dataverse Structure MCP Client script."""
-
 from __future__ import print_function
-from collections import namedtuple
+
 import os
+from collections import namedtuple
 
 import metsrw
 import pytest

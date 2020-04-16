@@ -1,5 +1,4 @@
 """Tests for the archivematica_clamscan.py client script."""
-
 from __future__ import print_function
 
 import subprocess

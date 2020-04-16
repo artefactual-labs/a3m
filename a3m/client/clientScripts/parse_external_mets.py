@@ -1,13 +1,12 @@
 #!/usr/bin/env python2
-
 import argparse
-from lxml import etree
 import os
 
-from a3m.custom_handlers import get_script_logger
-
-from assign_file_uuids import find_mets_file
 import parse_mets_to_db
+from assign_file_uuids import find_mets_file
+from lxml import etree
+
+from a3m.custom_handlers import get_script_logger
 
 logger = get_script_logger("archivematica.mcp.client.parse_external_mets")
 

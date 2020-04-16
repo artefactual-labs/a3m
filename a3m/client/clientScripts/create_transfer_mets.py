@@ -16,7 +16,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
-
 from __future__ import unicode_literals
 
 import argparse
@@ -26,9 +25,9 @@ import uuid
 
 import django
 import scandir
-from lxml import etree
-from django.db.models import Prefetch
 from django.conf import settings as django_settings
+from django.db.models import Prefetch
+from lxml import etree
 
 django.setup()
 import metsrw

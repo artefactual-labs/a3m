@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """Unit tests for the various components associated with PID (persistent
 identifier binding and declaration in Archivematica.
 
@@ -8,19 +7,24 @@ The tests in this module cover both the two bind_pid(s) microservice jobs but
 also limited unit testing in create_mets_v2 (AIP METS generation).
 """
 from __future__ import unicode_literals
-from itertools import chain
+
 import os
-
-from django.core.management import call_command
-
-from a3m import namespaces as ns
-from a3m.client.job import Job
-from a3m.client.clientScripts import bind_pid, bind_pids, create_mets_v2
-from a3m.client.clientScripts.pid_declaration import DeclarePIDs, DeclarePIDsException
-from a3m.main.models import Directory, File, SIP
+from itertools import chain
 
 import pytest
 import vcr
+from django.core.management import call_command
+
+from a3m import namespaces as ns
+from a3m.client.clientScripts import bind_pid
+from a3m.client.clientScripts import bind_pids
+from a3m.client.clientScripts import create_mets_v2
+from a3m.client.clientScripts.pid_declaration import DeclarePIDs
+from a3m.client.clientScripts.pid_declaration import DeclarePIDsException
+from a3m.client.job import Job
+from a3m.main.models import Directory
+from a3m.main.models import File
+from a3m.main.models import SIP
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -98,7 +102,7 @@ class TestPIDComponents(object):
             "pid_web_service_endpoint": "https://pid.socialhistoryservices.org/secure",
             "resolve_url_template_file_original": "https://access.iisg.nl/original/{{ naming_authority }}/{{ pid }}",
             "naming_authority": "12345",
-            "pid_request_body_template": "<?xml version='1.0' encoding='UTF-8'?>\r\n        <soapenv:Envelope\r\n            xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'\r\n            xmlns:pid='http://pid.socialhistoryservices.org/'>\r\n            <soapenv:Body>\r\n                <pid:UpsertPidRequest>\r\n                    <pid:na>{{ naming_authority }}</pid:na>\r\n                    <pid:handle>\r\n                        <pid:pid>{{ naming_authority }}/{{ pid }}</pid:pid>\r\n                        <pid:locAtt>\r\n                            <pid:location weight='1' href='{{ base_resolve_url }}'/>\r\n                            {% for qrurl in qualified_resolve_urls %}\r\n                                <pid:location\r\n                                    weight='0'\r\n                                    href='{{ qrurl.url }}'\r\n                                    view='{{ qrurl.qualifier }}'/>\r\n                            {% endfor %}\r\n                        </pid:locAtt>\r\n                    </pid:handle>\r\n                </pid:UpsertPidRequest>\r\n            </soapenv:Body>\r\n        </soapenv:Envelope>"
+            "pid_request_body_template": "<?xml version='1.0' encoding='UTF-8'?>\r\n        <soapenv:Envelope\r\n            xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'\r\n            xmlns:pid='http://pid.socialhistoryservices.org/'>\r\n            <soapenv:Body>\r\n                <pid:UpsertPidRequest>\r\n                    <pid:na>{{ naming_authority }}</pid:na>\r\n                    <pid:handle>\r\n                        <pid:pid>{{ naming_authority }}/{{ pid }}</pid:pid>\r\n                        <pid:locAtt>\r\n                            <pid:location weight='1' href='{{ base_resolve_url }}'/>\r\n                            {% for qrurl in qualified_resolve_urls %}\r\n                                <pid:location\r\n                                    weight='0'\r\n                                    href='{{ qrurl.url }}'\r\n                                    view='{{ qrurl.qualifier }}'/>\r\n                            {% endfor %}\r\n                        </pid:locAtt>\r\n                    </pid:handle>\r\n                </pid:UpsertPidRequest>\r\n            </soapenv:Body>\r\n        </soapenv:Envelope>",
         }
 
     @pytest.mark.django_db

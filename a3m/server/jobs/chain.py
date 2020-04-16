@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
 Job chain logic.
 
@@ -10,19 +9,22 @@ provided by previous jobs in the same chain (e.g. choices for a decision).
 This module knows about all `Job` subclasses, and will instantiate the correct
 one by looking at the workflow.
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import logging
 
 from django.utils import timezone
 
-from a3m.server.jobs.client import (
-    ClientScriptJob,
-    DirectoryClientScriptJob,
-    FilesClientScriptJob,
-)
-from a3m.server.jobs.decisions import NextChainDecisionJob, UpdateContextDecisionJob
-from a3m.server.jobs.local import GetUnitVarLinkJob, SetUnitVarLinkJob
+from a3m.server.jobs.client import ClientScriptJob
+from a3m.server.jobs.client import DirectoryClientScriptJob
+from a3m.server.jobs.client import FilesClientScriptJob
+from a3m.server.jobs.decisions import NextChainDecisionJob
+from a3m.server.jobs.decisions import UpdateContextDecisionJob
+from a3m.server.jobs.local import GetUnitVarLinkJob
+from a3m.server.jobs.local import SetUnitVarLinkJob
 
 
 logger = logging.getLogger("archivematica.mcp.server.jobs.chain")

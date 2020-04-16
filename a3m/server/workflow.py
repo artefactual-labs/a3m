@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """Workflow decoder and validator.
 
 The main function to start working with this module is ``load``. It decodes the
@@ -15,18 +14,23 @@ MCPServer to read workflow links that can be instances of three different
 classes ``Chain``, ``Link`` and ``WatchedDir``. They have different method
 sets.
 """
-
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import json
 import os
 
-from django.utils.six import text_type, python_2_unicode_compatible
-from jsonschema import validate, FormatChecker
+from django.utils.six import python_2_unicode_compatible
+from django.utils.six import text_type
+from jsonschema import FormatChecker
+from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 from a3m.server.jobs import Job
-from a3m.server.translation import FALLBACK_LANG, TranslationLabel
+from a3m.server.translation import FALLBACK_LANG
+from a3m.server.translation import TranslationLabel
 
 
 _LATEST_SCHEMA = "workflow-schema-v1.json"

@@ -1,5 +1,4 @@
 # -*- encoding: utf-8
-
 import pytest
 
 from a3m.client.clientScripts.move_or_merge import move_or_merge

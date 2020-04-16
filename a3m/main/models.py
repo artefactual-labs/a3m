@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -16,27 +15,25 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-
 # This Django model module was auto-generated and then updated manually
 # Needs some cleanups, make sure each model has its primary_key=True
 # Feel free to rename the models, but don't rename db_table values or field names.
-
 # stdlib, alphabetical by import source
 from __future__ import absolute_import
 
 import logging
 import re
 
-# Core Django, alphabetical by import source
+import six
 from django.contrib.auth.models import User
-from django.db import models, transaction
+from django.db import models
+from django.db import transaction
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
-import six
-
-# Third party dependencies, alphabetical by import source
 from django_extensions.db.fields import UUIDField
+# Core Django, alphabetical by import source
+# Third party dependencies, alphabetical by import source
 
 LOGGER = logging.getLogger("archivematica.dashboard")
 

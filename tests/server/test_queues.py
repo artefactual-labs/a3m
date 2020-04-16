@@ -1,12 +1,14 @@
 import concurrent.futures
-import Queue
 import threading
 import uuid
 
 import pytest
+import Queue
 
-from a3m.server.jobs import DecisionJob, Job
-from a3m.server.packages import Transfer, SIP
+from a3m.server.jobs import DecisionJob
+from a3m.server.jobs import Job
+from a3m.server.packages import SIP
+from a3m.server.packages import Transfer
 from a3m.server.queues import PackageQueue
 from a3m.server.workflow import Link
 

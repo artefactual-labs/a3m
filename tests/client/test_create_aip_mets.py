@@ -1,5 +1,6 @@
 # -*- coding: utf8
 from __future__ import unicode_literals
+
 import collections
 import csv
 import os
@@ -12,17 +13,13 @@ import scandir
 from django.test import TestCase
 from lxml import etree
 
-
-from a3m import namespaces as ns
-from a3m.client.job import Job
-from a3m.client.clientScripts import (
-    create_mets_v2,
-    archivematicaCreateMETSMetadataCSV,
-    archivematicaCreateMETSRights,
-)
-from a3m.main.models import RightsStatement
-
 from . import TempDirMixin
+from a3m import namespaces as ns
+from a3m.client.clientScripts import archivematicaCreateMETSMetadataCSV
+from a3m.client.clientScripts import archivematicaCreateMETSRights
+from a3m.client.clientScripts import create_mets_v2
+from a3m.client.job import Job
+from a3m.main.models import RightsStatement
 
 
 try:

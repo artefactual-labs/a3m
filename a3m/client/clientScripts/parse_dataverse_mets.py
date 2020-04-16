@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """Parse the transfer METS file created as part of a Dataverse transfer and
 validate against the objects expected to be part of the SIP generated during
 transfer.
 """
-
 import json
 import os
 import uuid
 
-# databaseFunctions requires Django to be set up
 import django
+# databaseFunctions requires Django to be set up
 
 django.setup()
 from django.utils import timezone

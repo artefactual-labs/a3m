@@ -1,27 +1,32 @@
 """
 Exposes various metrics via Prometheus.
 """
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import
+from __future__ import unicode_literals
 
-import ConfigParser
 import datetime
 import functools
 import os
 
+import ConfigParser
 from django.conf import settings
 from django.db.models import Sum
 from django.utils import timezone
-from prometheus_client import Counter, Gauge, Histogram, Info, start_http_server
+from prometheus_client import Counter
+from prometheus_client import Gauge
+from prometheus_client import Histogram
+from prometheus_client import Info
+from prometheus_client import start_http_server
 
 from a3m.client import MODULES_FILE
+from a3m.common_metrics import PACKAGE_FILE_COUNT_BUCKETS
+from a3m.common_metrics import PACKAGE_SIZE_BUCKETS
+from a3m.common_metrics import PROCESSING_TIME_BUCKETS
+from a3m.common_metrics import TASK_DURATION_BUCKETS
 from a3m.fpr.models import FormatVersion
-from a3m.main.models import File, FileFormatVersion, Transfer
-from a3m.common_metrics import (
-    PACKAGE_FILE_COUNT_BUCKETS,
-    PACKAGE_SIZE_BUCKETS,
-    PROCESSING_TIME_BUCKETS,
-    TASK_DURATION_BUCKETS,
-)
+from a3m.main.models import File
+from a3m.main.models import FileFormatVersion
+from a3m.main.models import Transfer
 from a3m.version import get_full_version
 
 

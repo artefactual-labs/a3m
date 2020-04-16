@@ -10,7 +10,6 @@ Add a derivative link.
 :param fileUUID: UUID of the preservation file.
 :param filePath: Path on disk of the preservation file.
 """
-
 import os
 import uuid
 

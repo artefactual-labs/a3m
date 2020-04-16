@@ -1,17 +1,21 @@
 from __future__ import print_function
+
 import datetime
 import logging
 import os
 import sys
 import uuid
 
-from django.db import transaction
-from django.utils import dateparse, timezone
-from lxml import etree
 import metsrw
 import six
+from django.db import transaction
+from django.utils import dateparse
+from django.utils import timezone
+from lxml import etree
 
-from a3m.main.models import Agent, Event, File
+from a3m.main.models import Agent
+from a3m.main.models import Event
+from a3m.main.models import File
 
 logger = logging.getLogger(__name__)
 FAILURE = 1

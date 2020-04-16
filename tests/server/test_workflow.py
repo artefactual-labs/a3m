@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import unicode_literals
 
 import os
 
-from django.utils.six.moves import StringIO
-from django.utils.six import next, itervalues
-from django.utils.translation import ugettext_lazy
 import pytest
+from django.utils.six import itervalues
+from django.utils.six import next
+from django.utils.six.moves import StringIO
+from django.utils.translation import ugettext_lazy
 
-from a3m.server import translation, workflow
+from a3m.server import translation
+from a3m.server import workflow
 
 
 ASSETS_DIR = os.path.join(

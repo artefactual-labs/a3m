@@ -1,5 +1,6 @@
 # -*- coding: utf8
-from __future__ import print_function, unicode_literals
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import os
 import shutil
@@ -10,12 +11,15 @@ import six
 from django.core.management import call_command
 from django.test import TestCase
 
-from a3m.client.job import Job
-from a3m.main.models import Directory, Event, File, Transfer, SIP
-
 from . import TempDirMixin
-
-from a3m.client.clientScripts import sanitize_names, sanitize_object_names
+from a3m.client.clientScripts import sanitize_names
+from a3m.client.clientScripts import sanitize_object_names
+from a3m.client.job import Job
+from a3m.main.models import Directory
+from a3m.main.models import Event
+from a3m.main.models import File
+from a3m.main.models import SIP
+from a3m.main.models import Transfer
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

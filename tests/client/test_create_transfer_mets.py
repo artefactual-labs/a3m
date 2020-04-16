@@ -4,23 +4,25 @@ from __future__ import unicode_literals
 import os
 import uuid
 
+import metsrw
 import pytest
 from lxml import etree
-
-import metsrw
 from metsrw.plugins.premisrw import PREMIS_3_0_NAMESPACES
 
 from a3m.client.clientScripts.create_transfer_mets import write_mets
-from a3m.fpr.models import FPRule, FPCommand, FPTool, Format, FormatGroup, FormatVersion
-from a3m.main.models import (
-    Agent,
-    Directory,
-    Event,
-    File,
-    FPCommandOutput,
-    RightsStatement,
-    Transfer,
-)
+from a3m.fpr.models import Format
+from a3m.fpr.models import FormatGroup
+from a3m.fpr.models import FormatVersion
+from a3m.fpr.models import FPCommand
+from a3m.fpr.models import FPRule
+from a3m.fpr.models import FPTool
+from a3m.main.models import Agent
+from a3m.main.models import Directory
+from a3m.main.models import Event
+from a3m.main.models import File
+from a3m.main.models import FPCommandOutput
+from a3m.main.models import RightsStatement
+from a3m.main.models import Transfer
 
 
 PREMIS_NAMESPACES = PREMIS_3_0_NAMESPACES

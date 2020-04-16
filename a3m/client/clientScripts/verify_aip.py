@@ -1,8 +1,8 @@
 #!/usr/bin/env python2
 import os
-from pprint import pformat
 import shutil
 import sys
+from pprint import pformat
 
 import django
 

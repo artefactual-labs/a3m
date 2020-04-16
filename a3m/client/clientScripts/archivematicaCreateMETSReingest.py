@@ -1,15 +1,14 @@
 #!/usr/bin/env python2
 import copy
-from lxml import etree
 import os
 
+import archivematicaCreateMETSMetadataCSV as createmetscsv
+import archivematicaCreateMETSRights as createmetsrights
+import create_mets_v2 as createmets2
 import metsrw
 import scandir
 from django.utils import six
-
-import create_mets_v2 as createmets2
-import archivematicaCreateMETSRights as createmetsrights
-import archivematicaCreateMETSMetadataCSV as createmetscsv
+from lxml import etree
 
 from a3m import namespaces as ns
 from a3m.main import models

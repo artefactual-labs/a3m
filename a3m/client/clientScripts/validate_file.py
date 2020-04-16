@@ -14,11 +14,10 @@ Arguments:
     [FILE_PATH] [FILE_UUID] [SIP_UUID] [SHARED_PATH] [FILE_TYPE]
 
 """
-
 import ast
 import os
-from pprint import pformat
 import sys
+from pprint import pformat
 
 import django
 

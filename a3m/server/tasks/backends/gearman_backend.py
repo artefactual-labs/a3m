@@ -2,7 +2,10 @@
 Gearman task backend. Submits `Task` objects to gearman for processing,
 and returns results.
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import logging
 import uuid
@@ -11,11 +14,13 @@ from django.conf import settings
 from django.utils import six
 from django.utils.six.moves import cPickle
 from gearman import GearmanClient
-from gearman.constants import JOB_COMPLETE, JOB_FAILED, JOB_UNKNOWN
+from gearman.constants import JOB_COMPLETE
+from gearman.constants import JOB_FAILED
+from gearman.constants import JOB_UNKNOWN
 
 from a3m.server import metrics
-from a3m.server.tasks.task import Task
 from a3m.server.tasks.backends.base import TaskBackend
+from a3m.server.tasks.task import Task
 
 
 logger = logging.getLogger("archivematica.mcp.server.jobs.tasks")

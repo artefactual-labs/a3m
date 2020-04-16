@@ -2,21 +2,24 @@
 """
 The PackageQueue class handles job queueing, as it relates to packages.
 """
-
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import functools
 import logging
-import Queue
 import threading
 import uuid
 
+import Queue
 from django.conf import settings
 from django.utils import six
 
 from a3m.server import metrics
 from a3m.server.jobs import DecisionJob
-from a3m.server.packages import DIP, SIP
+from a3m.server.packages import DIP
+from a3m.server.packages import SIP
 
 
 logger = logging.getLogger("archivematica.mcp.server.queues")

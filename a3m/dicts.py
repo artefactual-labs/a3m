@@ -15,15 +15,14 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-
 from __future__ import absolute_import
 
 import ast
 import os
 import re
 
-from django.conf import settings as django_settings
 import six
+from django.conf import settings as django_settings
 
 from a3m.archivematicaFunctions import unicodeToStr
 from a3m.main import models

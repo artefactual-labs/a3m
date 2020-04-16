@@ -3,10 +3,10 @@ from __future__ import absolute_import
 
 import os
 
-from django.test import TestCase
 import pytest
-from six import StringIO
 import six.moves.configparser as ConfigParser
+from django.test import TestCase
+from six import StringIO
 
 from a3m.appconfig import EnvConfigParser
 

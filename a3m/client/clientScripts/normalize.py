@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-
 import argparse
 import csv
 import errno
@@ -7,11 +6,11 @@ import os
 import shutil
 import traceback
 import uuid
+
+import django
 import scandir
 
 from . import transcoder
-
-import django
 
 django.setup()
 from django.db import transaction

@@ -2,13 +2,11 @@ import os
 
 import pytest
 
-from a3m.server.processing_config import (
-    _get_options_for_chain_choice,
-    _populate_duplicates_chain_choice,
-    get_processing_fields,
-    processing_configuration_file_exists,
-    processing_fields,
-)
+from a3m.server.processing_config import _get_options_for_chain_choice
+from a3m.server.processing_config import _populate_duplicates_chain_choice
+from a3m.server.processing_config import get_processing_fields
+from a3m.server.processing_config import processing_configuration_file_exists
+from a3m.server.processing_config import processing_fields
 from a3m.server.workflow import load
 
 

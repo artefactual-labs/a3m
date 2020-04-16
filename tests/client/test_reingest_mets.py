@@ -1,19 +1,19 @@
 # -*- coding: utf8
-from lxml import etree
 import os
 import shutil
 import tempfile
 import unittest
 
+import metsrw
 from django.core.management import call_command
 from django.test import TestCase
+from lxml import etree
 
-from a3m.main import models
-from a3m.client.job import Job
-from a3m.namespaces import NSMAP, nsmap_for_premis2
 from a3m.client.clientScripts import archivematicaCreateMETSReingest
-
-import metsrw
+from a3m.client.job import Job
+from a3m.main import models
+from a3m.namespaces import NSMAP
+from a3m.namespaces import nsmap_for_premis2
 
 try:
     from pathlib import Path

@@ -5,8 +5,8 @@ import os
 
 from django.test import TestCase
 
-from a3m.client.job import Job
 from a3m.client.clientScripts import rights_from_csv
+from a3m.client.job import Job
 from a3m.main import models
 
 
@@ -15,15 +15,9 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class TestRightsImportFromCsvBase(TestCase):
 
-    transfer_uuid = (
-        "e95ab50f-9c84-45d5-a3ca-1b0b3f58d9b6"
-    )  # UUID of transfer created by transfer.json
-    file_1_uuid = (
-        "47813453-6872-442b-9d65-6515be3c5aa1"
-    )  # UUID of first file created by files-transfer.json fixture
-    file_2_uuid = (
-        "60e5c61b-14ef-4e92-89ec-9b9201e68adb"
-    )  # UUID of second file created by files-transfer.json fixture
+    transfer_uuid = "e95ab50f-9c84-45d5-a3ca-1b0b3f58d9b6"  # UUID of transfer created by transfer.json
+    file_1_uuid = "47813453-6872-442b-9d65-6515be3c5aa1"  # UUID of first file created by files-transfer.json fixture
+    file_2_uuid = "60e5c61b-14ef-4e92-89ec-9b9201e68adb"  # UUID of second file created by files-transfer.json fixture
 
     def get_metadata_applies_to_type_for_file(self):
         """ Get MetadataAppliesToType instance that allies to files. """

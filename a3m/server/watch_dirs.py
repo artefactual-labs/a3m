@@ -8,17 +8,21 @@ want to remove in future; however, currently they are used extensively in all
 workflows, as many chains start the next chain by moving a transfer or SIP t
 the appropriate watched directory.
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import logging
 import os
-import scandir
 import sys
 import time
 import warnings
 
+import scandir
 from django.conf import settings
-from inotify_simple import INotify, flags
+from inotify_simple import flags
+from inotify_simple import INotify
 
 
 IS_LINUX = sys.platform.startswith("linux")

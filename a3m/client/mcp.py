@@ -29,7 +29,6 @@ back to the database.  The exit code of each job is returned to Gearman and
 communicated back to the MCP Server (where it is ultimately used to decide which
 task to run next).
 """
-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -46,18 +45,16 @@ task to run next).
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-
+import logging
+import os
+import time
+from functools import partial
+from socket import gethostname
 
 import ConfigParser
 import cPickle
-from functools import partial
-import logging
-import os
-from socket import gethostname
-import time
-
-import gearman
 import django
+import gearman
 from django.conf import settings as django_settings
 from django.db import transaction
 from django.utils import six

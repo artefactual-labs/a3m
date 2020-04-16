@@ -3,11 +3,12 @@ from __future__ import absolute_import
 
 import os
 
-import a3m.databaseFunctions as databaseFunctions
-from a3m.main.models import Event, File
-
-from django.test import TestCase
 import pytest
+from django.test import TestCase
+
+import a3m.databaseFunctions as databaseFunctions
+from a3m.main.models import Event
+from a3m.main.models import File
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 

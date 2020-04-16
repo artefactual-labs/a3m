@@ -15,12 +15,11 @@ current appconfig Config object and the section.
 """
 from __future__ import absolute_import
 
-import os
 import functools
-
-from django.core.exceptions import ImproperlyConfigured
+import os
 
 import six.moves.configparser as ConfigParser
+from django.core.exceptions import ImproperlyConfigured
 
 
 def fallback_option(fn):

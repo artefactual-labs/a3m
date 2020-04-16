@@ -9,14 +9,13 @@ from __future__ import absolute_import
 
 import logging
 
-from django.db import connection, models
-from django.utils.translation import ugettext_lazy as _
-
 from autoslug import AutoSlugField
-from django_extensions.db.fields import UUIDField
-
-from django.core.validators import ValidationError
 from django.core.exceptions import NON_FIELD_ERRORS
+from django.core.validators import ValidationError
+from django.db import connection
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from django_extensions.db.fields import UUIDField
 
 logger = logging.getLogger(__name__)
 
@@ -58,8 +57,8 @@ class VersionedModel(models.Model):
             self.uuid = None
             self.pk = None
             self.enabled = (
-                True
-            )  # in case the version was created using an older version
+                True  # in case the version was created using an older version
+            )
             replacing.enabled = False
             replacing.save()
         super(VersionedModel, self).save(*args, **kwargs)

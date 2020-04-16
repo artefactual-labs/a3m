@@ -1,8 +1,8 @@
 import json
 import os
 
-from a3m.client.job import Job
 from a3m.client.clientScripts import json_metadata_to_csv
+from a3m.client.job import Job
 
 
 JSON = '[{"dc.title": "This is a test item", "filename": "objects/test.txt"}]'

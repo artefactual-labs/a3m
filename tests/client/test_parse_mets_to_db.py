@@ -1,12 +1,12 @@
 # -*- coding: utf8
-from lxml import etree
 import os
 
 from django.test import TestCase
+from lxml import etree
 
+from a3m import fpr
 from a3m.client.clientScripts import parse_mets_to_db
 from a3m.client.job import Job
-from a3m import fpr
 from a3m.main import models
 
 

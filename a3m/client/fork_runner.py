@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-
 """
 Execute the .call(jobs) function of a clientScripts module from multiple
 processes.
@@ -11,9 +10,6 @@ them to the MCP Client.
 This is invoked when a clientScripts module provides a `concurrent_instances`
 function (indicating that it supports being run as a subprocess).
 """
-
-
-import cPickle
 import importlib
 import logging
 import multiprocessing
@@ -21,6 +17,8 @@ import os
 import sys
 import tempfile
 import traceback
+
+import cPickle
 
 from a3m.databaseFunctions import auto_close_db
 from a3m.executeOrRunSubProcess import launchSubProcess

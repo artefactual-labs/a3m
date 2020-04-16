@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import unicode_literals
 
-from a3m.server.translation import UNKNOWN_TRANSLATION_LABEL, TranslationLabel
+from a3m.server.translation import TranslationLabel
+from a3m.server.translation import UNKNOWN_TRANSLATION_LABEL
 
 
 def test_translation_label(mocker):

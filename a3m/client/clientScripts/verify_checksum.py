@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -16,7 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-
 """Verify Checksum Job
 
 Archivematica wraps the hashsum utility to verify checksums provided to the
@@ -29,8 +27,8 @@ us to easily call each of the tools packaged against its different algorithms:
     * SHA256
     * SHA512
 """
-
-from __future__ import print_function, unicode_literals
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import datetime
 import os

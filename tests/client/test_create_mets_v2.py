@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-
 from a3m.client.clientScripts.create_mets_v2 import createDMDIDsFromCSVMetadata
 
 

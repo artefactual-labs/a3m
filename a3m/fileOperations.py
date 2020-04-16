@@ -15,14 +15,14 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-
-from __future__ import absolute_import, print_function
+from __future__ import absolute_import
+from __future__ import print_function
 
 import csv
 import os
-import uuid
-import sys
 import shutil
+import sys
+import uuid
 
 try:
     from pathlib import Path

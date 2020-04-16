@@ -1,13 +1,17 @@
 from __future__ import unicode_literals
+
 import os
 import sys
 import uuid
 
-from lxml import etree
 import pytest
+from lxml import etree
 
-from a3m.main.models import Agent, Event, File, Transfer
 from a3m.client.clientScripts import load_premis_events_from_xml
+from a3m.main.models import Agent
+from a3m.main.models import Event
+from a3m.main.models import File
+from a3m.main.models import Transfer
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

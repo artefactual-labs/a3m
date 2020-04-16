@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -16,7 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-
 """Test Verify Checksum Job in Archivematica.
 
 Tests for the verify checksum Job in Archivematica which makes calls out to the
@@ -24,25 +22,23 @@ hashsum checksum utilities. We need to ensure that the output of the tool is
 mapped consistently to something that can be understood by users when
 debugging their preservation workflow.
 """
-
 from __future__ import unicode_literals
+
 import os
 import subprocess
 from uuid import UUID
 
+import pytest
 from django.core.management import call_command
 
-import pytest
-
-from a3m.main.models import File, Event
+from a3m.client.clientScripts.verify_checksum import get_file_queryset
+from a3m.client.clientScripts.verify_checksum import Hashsum
+from a3m.client.clientScripts.verify_checksum import NoHashCommandAvailable
+from a3m.client.clientScripts.verify_checksum import PREMISFailure
+from a3m.client.clientScripts.verify_checksum import write_premis_event_per_file
 from a3m.client.job import Job
-from a3m.client.clientScripts.verify_checksum import (
-    Hashsum,
-    NoHashCommandAvailable,
-    write_premis_event_per_file,
-    get_file_queryset,
-    PREMISFailure,
-)
+from a3m.main.models import Event
+from a3m.main.models import File
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

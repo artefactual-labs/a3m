@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf8
-
 """Tests for the parse Dataverse functionality in Archivematica."""
-
 import os
 
-from django.test import TestCase
 import metsrw
+from django.test import TestCase
 
+from a3m.client.clientScripts import parse_dataverse_mets as parse_dataverse
 from a3m.client.job import Job
 from a3m.main import models
-from a3m.client.clientScripts import parse_dataverse_mets as parse_dataverse
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

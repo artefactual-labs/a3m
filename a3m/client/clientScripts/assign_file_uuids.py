@@ -1,6 +1,5 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -17,7 +16,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-
 """Assign a UUID to the passed-in file.
 
 This client script assigns a UUID to a file by generating a new UUID and
@@ -30,14 +28,13 @@ Salient parameters are the UUID of the containing unit (Transfer or SIP) and
 the path to the file.
 
 """
-
 import argparse
 import os
 import re
 import uuid
 
-from django.db import transaction
 import django
+from django.db import transaction
 
 django.setup()
 

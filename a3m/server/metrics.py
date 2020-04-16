@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
-
 """
 Exposes various metrics via Prometheus.
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import functools
 import os
 
 from django.conf import settings
-from prometheus_client import Counter, Gauge, Histogram, Info, start_http_server
+from prometheus_client import Counter
+from prometheus_client import Gauge
+from prometheus_client import Histogram
+from prometheus_client import Info
+from prometheus_client import start_http_server
 
 from a3m.common_metrics import TASK_DURATION_BUCKETS
 from a3m.version import get_full_version

@@ -2,11 +2,12 @@
 from __future__ import absolute_import
 
 import os
-import pytest
 
+import pytest
 import six
 
-from a3m.dicts import ReplacementDict, ChoicesDict
+from a3m.dicts import ChoicesDict
+from a3m.dicts import ReplacementDict
 from a3m.dicts import setup_dicts
 from a3m.main import models
 

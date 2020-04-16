@@ -2,11 +2,15 @@
 """
 i18n handling.
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import pprint
 
-from django.utils.six import text_type, python_2_unicode_compatible
+from django.utils.six import python_2_unicode_compatible
+from django.utils.six import text_type
 
 FALLBACK_LANG = "en"
 UNKNOWN_TRANSLATION_LABEL = "<unknown>"

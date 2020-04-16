@@ -12,22 +12,22 @@ concrete types of jobs, handled by subclasses:
     * `DecisionJob`, handling workflow decision points
     * `LocalJob`, handling work done directly on MCPServer
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
-
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 from a3m.server.jobs.base import Job
 from a3m.server.jobs.chain import JobChain
-from a3m.server.jobs.client import (
-    ClientScriptJob,
-    DirectoryClientScriptJob,
-    FilesClientScriptJob,
-)
-from a3m.server.jobs.decisions import (
-    DecisionJob,
-    NextChainDecisionJob,
-    UpdateContextDecisionJob,
-)
-from a3m.server.jobs.local import GetUnitVarLinkJob, LocalJob, SetUnitVarLinkJob
+from a3m.server.jobs.client import ClientScriptJob
+from a3m.server.jobs.client import DirectoryClientScriptJob
+from a3m.server.jobs.client import FilesClientScriptJob
+from a3m.server.jobs.decisions import DecisionJob
+from a3m.server.jobs.decisions import NextChainDecisionJob
+from a3m.server.jobs.decisions import UpdateContextDecisionJob
+from a3m.server.jobs.local import GetUnitVarLinkJob
+from a3m.server.jobs.local import LocalJob
+from a3m.server.jobs.local import SetUnitVarLinkJob
 
 __all__ = (
     "ClientScriptJob",

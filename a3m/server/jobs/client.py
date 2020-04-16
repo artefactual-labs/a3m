@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-
 """
 Jobs remotely executed by on MCP client.
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import abc
 import ast
@@ -16,7 +18,8 @@ from a3m.main import models
 from a3m.server import metrics
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs.base import Job
-from a3m.server.tasks import Task, get_task_backend
+from a3m.server.tasks import get_task_backend
+from a3m.server.tasks import Task
 
 
 logger = logging.getLogger("archivematica.mcp.server.jobs.client")

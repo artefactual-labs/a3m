@@ -17,21 +17,19 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
-
-
 import collections
 import copy
-from glob import glob
-from itertools import chain
-import lxml.etree as etree
 import os
 import pprint
 import re
 import sys
 import traceback
+from glob import glob
+from itertools import chain
 from uuid import uuid4
 
 import django
+import lxml.etree as etree
 import scandir
 
 django.setup()
@@ -326,7 +324,7 @@ def createDmdSecsFromCSVParsedMetadata(job, metadata, state):
                 elem_namespace = ns.dctermsBNS
             match = re.match(refinement_regex, key)
             if match:
-                key, = match.groups()
+                (key,) = match.groups()
             for v in value:
                 try:
                     etree.SubElement(dc, elem_namespace + key).text = v.decode("utf-8")

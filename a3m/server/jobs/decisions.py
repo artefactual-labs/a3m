@@ -2,20 +2,23 @@
 """
 Jobs relating to user decisions.
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
-from collections import OrderedDict
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import abc
 import logging
 import threading
+from collections import OrderedDict
 
 from django.utils import six
 
+from a3m.main import models
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs.base import Job
-from a3m.server.processing_config import load_preconfigured_choice, load_processing_xml
-
-from a3m.main import models
+from a3m.server.processing_config import load_preconfigured_choice
+from a3m.server.processing_config import load_processing_xml
 
 
 logger = logging.getLogger("archivematica.mcp.server.jobs.decisions")

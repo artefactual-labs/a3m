@@ -6,12 +6,14 @@ pronom-ident.py - Identify a bitstream against PRONOM; uses fido
 # https://github.com/anarchivist/fiwalk-dgi/blob/master/python/pronom_ident.py
 # Author  anarchivist
 """
-from __future__ import print_function, absolute_import
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
 import time
 from optparse import OptionParser
+
 from fido import fido
 
 

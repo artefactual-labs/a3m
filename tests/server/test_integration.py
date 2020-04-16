@@ -1,4 +1,7 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import concurrent.futures
 import os
@@ -6,19 +9,18 @@ import threading
 import uuid
 
 import pytest
-from django.utils import six, timezone
+from django.utils import six
+from django.utils import timezone
 from lxml import etree
 
 from a3m.main import models
-from a3m.server.jobs import (
-    DirectoryClientScriptJob,
-    FilesClientScriptJob,
-    GetUnitVarLinkJob,
-    JobChain,
-    NextChainDecisionJob,
-    SetUnitVarLinkJob,
-    UpdateContextDecisionJob,
-)
+from a3m.server.jobs import DirectoryClientScriptJob
+from a3m.server.jobs import FilesClientScriptJob
+from a3m.server.jobs import GetUnitVarLinkJob
+from a3m.server.jobs import JobChain
+from a3m.server.jobs import NextChainDecisionJob
+from a3m.server.jobs import SetUnitVarLinkJob
+from a3m.server.jobs import UpdateContextDecisionJob
 from a3m.server.packages import Transfer
 from a3m.server.queues import PackageQueue
 from a3m.server.tasks import TaskBackend

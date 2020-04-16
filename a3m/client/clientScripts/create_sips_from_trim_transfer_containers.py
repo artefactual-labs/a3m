@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -16,12 +15,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-
-
-import uuid
-import shutil
 import os
+import shutil
 import sys
+import uuid
 
 import django
 from django.db import transaction

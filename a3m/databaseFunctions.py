@@ -15,25 +15,29 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
+from __future__ import print_function
 
-from __future__ import absolute_import, print_function
-
-from functools import wraps
 import logging
+import random
 import string
 import sys
-import random
 import time
 import uuid
-
-from django.db import close_old_connections
-from django.utils import timezone
-from a3m.main.models import Agent, Derivation, Event, File, FPCommandOutput, SIP
+from functools import wraps
 
 import six
+from django.db import close_old_connections
+from django.utils import timezone
 from six.moves import range
 
 from a3m.common_metrics import db_retry_timer
+from a3m.main.models import Agent
+from a3m.main.models import Derivation
+from a3m.main.models import Event
+from a3m.main.models import File
+from a3m.main.models import FPCommandOutput
+from a3m.main.models import SIP
 
 LOGGER = logging.getLogger("archivematica.common")
 
