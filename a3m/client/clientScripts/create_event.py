@@ -19,6 +19,7 @@ import uuid
 from optparse import OptionParser
 
 import django
+
 # databaseFunctions requires Django to be set up
 
 django.setup()

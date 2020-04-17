@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 import abc
 
+from django.conf import settings
 from django.utils import six
 
 
@@ -14,6 +15,14 @@ class TaskBackend(object):
 
     Currently we only have one backend, `GearmanTaskBackend`.
     """
+
+    # The number of files we'll pack into each MCP Client job.  Chosen somewhat
+    # arbitrarily, but benchmarking with larger values (like 512) didn't make
+    # much difference to throughput.
+    #
+    # Setting this too large will use more memory; setting it too small will
+    # hurt throughput.  So the trick is to set it juuuust right.
+    TASK_BATCH_SIZE = settings.BATCH_SIZE
 
     @abc.abstractmethod
     def submit_task(self, job, task):

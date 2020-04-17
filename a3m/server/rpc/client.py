@@ -8,7 +8,7 @@ from . import a3m_pb2
 from . import a3m_pb2_grpc
 
 
-DEFAULT_SERVER_ADDR = "localhost:52000"
+DEFAULT_SERVER_ADDR = "localhost:7000"
 
 
 def _get_server_address():
@@ -33,7 +33,7 @@ def _submit(stub):
 
     while True:
         try:
-            resp = stub.Status(a3m_pb2.StatusRequest(id=package_id), timeout=1,)
+            resp = stub.Status(a3m_pb2.StatusRequest(id=package_id), timeout=1)
         except grpc.RpcError as err:
             print("RPC failed ({} - {})".format(err.code(), err.details()))
             return
@@ -64,4 +64,6 @@ def run():
 
 
 if __name__ == "__main__":
+    # TODO: this could actually be pretty much the example of
+    # the a3m cli as long as you can also start up the MCPServer.
     run()

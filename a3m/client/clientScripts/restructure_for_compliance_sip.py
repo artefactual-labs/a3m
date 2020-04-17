@@ -5,6 +5,7 @@ import shutil
 
 import django
 import scandir
+
 # fileOperations requires Django to be set up
 
 django.setup()

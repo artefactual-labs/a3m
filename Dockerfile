@@ -1,5 +1,4 @@
 ARG SYSTEM_IMAGE=ubuntu:18.04
-ARG TARGET=a3m
 
 #
 # Base
@@ -69,7 +68,7 @@ RUN set -ex \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Download ClamAV virus signatures
-# ############################## RUN freshclam --quiet
+RUN freshclam --quiet
 
 # Create Archivematica user
 RUN set -ex \
@@ -88,6 +87,9 @@ FROM base AS a3m
 ARG REQUIREMENTS=/a3m/requirements-dev.txt
 ARG DJANGO_SETTINGS_MODULE=a3m.settings.common
 ENV DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+
+COPY ./a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
+COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
 
 RUN set -ex \
 	&& curl -s https://bootstrap.pypa.io/get-pip.py | python \
@@ -113,31 +115,3 @@ WORKDIR /a3m
 USER archivematica
 
 ENTRYPOINT ["python", "-m", "a3m"]
-
-
-#
-# MCPServer
-#
-
-FROM a3m as a3m-server
-
-ENTRYPOINT ["python", "-m", "a3m", "server"]
-
-
-#
-# MCPClient
-#
-
-FROM a3m as a3m-client
-
-COPY ./a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
-COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
-
-ENTRYPOINT ["python", "-m", "a3m", "client"]
-
-
-#
-# Target
-#
-
-FROM ${TARGET}

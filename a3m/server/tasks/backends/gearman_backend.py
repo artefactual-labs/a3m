@@ -18,6 +18,7 @@ from gearman.constants import JOB_COMPLETE
 from gearman.constants import JOB_FAILED
 from gearman.constants import JOB_UNKNOWN
 
+from a3m.client.mcp import execute_command
 from a3m.server import metrics
 from a3m.server.tasks.backends.base import TaskBackend
 from a3m.server.tasks.task import Task
@@ -66,14 +67,6 @@ class GearmanTaskBackend(TaskBackend):
     Tasks are batched into BATCH_SIZE groups (default 128), pickled and sent to
     MCPClient. This adds some complexity but saves a lot of overhead.
     """
-
-    # The number of files we'll pack into each MCP Client job.  Chosen somewhat
-    # arbitrarily, but benchmarking with larger values (like 512) didn't make much
-    # difference to throughput.
-    #
-    # Setting this too large will use more memory; setting it too small will hurt
-    # throughput.  So the trick is to set it juuuust right.
-    TASK_BATCH_SIZE = settings.BATCH_SIZE
 
     def __init__(self):
         self.client = MCPGearmanClient([settings.GEARMAN_SERVER])

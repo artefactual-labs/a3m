@@ -14,6 +14,7 @@ from grpc import server
 from grpc_reflection.v1alpha import reflection
 
 from a3m.main.models import Transfer
+from a3m.server.db import auto_close_old_connections
 from a3m.server.packages import create_package
 from a3m.server.rpc import a3m_pb2
 from a3m.server.rpc import a3m_pb2_grpc
@@ -42,6 +43,7 @@ class TransferService(a3m_pb2_grpc.TransferServicer):
             context.abort(code_pb2.INTERNAL, "Submission error")
         return a3m_pb2.SubmitReply(id=str(transfer.pk))
 
+    @auto_close_old_connections()
     def Status(self, request, context):
         try:
             Transfer.objects.get(pk=request.id)
@@ -76,7 +78,6 @@ def start(workflow, shutdown_event, package_queue, executor):
     grpc_server.add_insecure_port(settings.RPC_BIND_ADDRESS)
 
     grpc_server.start()
-    logger.debug("RPC server started, listening on %s", settings.RPC_BIND_ADDRESS)
 
     shutdown_event.wait()
     grpc_server.stop(None)

@@ -32,6 +32,7 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import UUIDField
+
 # Core Django, alphabetical by import source
 # Third party dependencies, alphabetical by import source
 

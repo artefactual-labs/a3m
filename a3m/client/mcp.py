@@ -79,13 +79,13 @@ replacement_dict = {
 }
 
 
-def get_supported_modules(file_):
+def get_supported_modules():
     """Create and return the ``supported_modules`` dict by parsing the MCPClient
     modules config file (typically MCPClient/lib/archivematicaClientModules).
     """
     supported_modules = {}
     supported_modules_config = ConfigParser.RawConfigParser()
-    supported_modules_config.read(file_)
+    supported_modules_config.read(MODULES_FILE)
     for client_script, module_name in supported_modules_config.items(
         "supportedBatchCommands"
     ):
@@ -135,12 +135,12 @@ def handle_batch_task(gearman_job, supported_modules):
 
     retryOnFailure("Set task start times", set_start_times)
 
-    module = importlib.import_module("clientScripts." + module_name)
+    module = importlib.import_module("a3m.client.clientScripts." + module_name)
 
     # Our module can indicate that it should be run concurrently...
     if hasattr(module, "concurrent_instances"):
         fork_runner.call(
-            "clientScripts." + module_name,
+            "a3m.client.clientScripts." + module_name,
             jobs,
             task_count=module.concurrent_instances(),
         )
@@ -259,11 +259,12 @@ def execute_command(supported_modules, gearman_worker, gearman_job):
             return fail_all_tasks(gearman_job, e)
 
 
-def start_gearman_worker(supported_modules):
+def start_gearman_worker():
     """Setup a gearman client, for the thread."""
     gm_worker = gearman.GearmanWorker([django_settings.GEARMAN_SERVER])
     host_id = "{}_{}".format(gethostname(), os.getpid())
     gm_worker.set_client_id(host_id)
+    supported_modules = get_supported_modules()
     task_handler = partial(execute_command, supported_modules)
     for client_script in supported_modules:
         gm_worker.register_task(client_script, task_handler)
@@ -304,7 +305,7 @@ def main():
     metrics.start_prometheus_server()
 
     try:
-        start_gearman_worker(get_supported_modules((MODULES_FILE)))
+        start_gearman_worker()
     except (KeyboardInterrupt, SystemExit):
         logger.info("Received keyboard interrupt, quitting.")
 

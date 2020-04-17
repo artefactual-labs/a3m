@@ -36,19 +36,7 @@ def _escape_for_command_line(value):
 
 @six.add_metaclass(abc.ABCMeta)
 class ClientScriptJob(Job):
-    """A job with one or more Tasks, executed via mcp client script.
-
-    Tasks are batched into groups of TASK_BATCH_SIZE, sent to mcp client via gearman.
-    For task details, see the `Task` and `GearmanTaskBackend` classes.
-    """
-
-    # The number of files we'll pack into each MCP Client job.  Chosen somewhat
-    # arbitrarily, but benchmarking with larger values (like 512) didn't make much
-    # difference to throughput.
-    #
-    # Setting this too large will use more memory; setting it too small will hurt
-    # throughput.  So the trick is to set it juuuust right.
-    TASK_BATCH_SIZE = settings.BATCH_SIZE
+    """A job with one or more Tasks."""
 
     # If True, request stdout/stderr be returned by mcp client in task results
     capture_task_output = False

@@ -44,12 +44,25 @@ def watch_directories_poll(
     # paths that have already appeared in watch directories
     known_paths = set()
 
+    # Expand path attribute.
+    #
+    # TODO: also revoving non-existent entries, but those should just go from
+    # workflow.json which I haven't done yet because I don't want to mess with
+    # the graph yet.
+    active_watched_dirs = []
+    for watched_dir in watched_dirs:
+        original_path = watched_dir.path
+        watched_dir.path = os.path.join(WATCHED_BASE_DIR, watched_dir.path.lstrip("/"))
+        if not os.path.exists(watched_dir.path):
+            logger.warning("Watched directory %s not created", original_path)
+            continue
+        active_watched_dirs.append(watched_dir)
+
     while not shutdown_event.is_set():
         current_paths = set()
 
-        for watched_dir in watched_dirs:
-            path = os.path.join(WATCHED_BASE_DIR, watched_dir.path.lstrip("/"))
-            for item in scandir.scandir(path):
+        for watched_dir in active_watched_dirs:
+            for item in scandir.scandir(watched_dir.path):
                 if watched_dir.only_dirs and not item.is_dir():
                     continue
                 elif item.path in known_paths:

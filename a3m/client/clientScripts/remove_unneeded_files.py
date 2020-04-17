@@ -11,6 +11,7 @@ import shutil
 
 import django
 from django.db import transaction
+
 # databaseFunctions requires Django to be set up
 
 django.setup()

@@ -9,44 +9,14 @@ volumes:
 
 services:
 
-  gearmand:
-    image: "artefactual/gearmand:1.1.17-alpine"
-    command: "--queue-type=builtin"
-    user: "gearman"
-    ports:
-      - "52001:4730"
-
-  a3m-server:
+  a3m:
     build:
       context: "."
-      target: "a3m-server"
-      args:
-        TARGET: "a3m-server"
     environment:
-      A3M_GEARMAN_SERVER: "gearmand:4730"
       A3M_PROMETHEUS_BIND_PORT: "7999"
       A3M_PROMETHEUS_BIND_ADDRESS: "0.0.0.0"
     volumes:
       - ".:/a3m"
       - "a3m-pipeline-data:/var/archivematica/sharedDirectory:rw"
-    links:
-      - "gearmand"
     ports:
       - "52000:8000"
-
-  a3m-client:
-    build:
-      context: "."
-      target: "a3m-client"
-      args:
-        TARGET: "a3m-client"
-    environment:
-      A3M_GEARMAN_SERVER: "gearmand:4730"
-      A3M_PROMETHEUS_BIND_PORT: "7999"
-      A3M_PROMETHEUS_BIND_ADDRESS: "0.0.0.0"
-    volumes:
-      - ".:/a3m"
-      - "a3m-pipeline-data:/var/archivematica/sharedDirectory:rw"
-    links:
-      - "a3m-server"
-      - "gearmand"

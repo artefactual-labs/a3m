@@ -9,6 +9,7 @@ import os
 import uuid
 
 import django
+
 # databaseFunctions requires Django to be set up
 
 django.setup()

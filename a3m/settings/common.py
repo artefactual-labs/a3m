@@ -144,7 +144,7 @@ db_password =
 db_host =
 db_port =
 secret_key = 12345
-rpc_bind_address = 0.0.0.0:8000
+rpc_bind_address = 0.0.0.0:7000
 """
 
 

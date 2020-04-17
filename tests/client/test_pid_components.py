@@ -75,12 +75,7 @@ class TestPIDComponents(object):
     def django_db_setup(django_db_blocker):
         """Load the various database fixtures required for our tests."""
         pid_dir = "pid_binding"
-        fixture_files = [
-            "sip.json",
-            "transfer.json",
-            "files.json",
-            "directories.json",
-        ]
+        fixture_files = ["sip.json", "transfer.json", "files.json", "directories.json"]
         fixtures = []
         for fixture in fixture_files:
             fixtures.append(os.path.join(THIS_DIR, "fixtures", pid_dir, fixture))

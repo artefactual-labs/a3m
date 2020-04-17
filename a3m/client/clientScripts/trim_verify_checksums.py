@@ -21,6 +21,7 @@ import uuid
 
 import django
 from lxml import etree as etree
+
 # fileOperations, databaseFunctions requires Django to be set up
 
 django.setup()
