@@ -30,7 +30,6 @@ except ImportError:
     from pathlib2 import Path
 
 from django.conf import settings as django_settings
-import MySQLdb
 
 from a3m.databaseFunctions import insertIntoFiles
 from a3m.executeOrRunSubProcess import executeOrRun
@@ -113,7 +112,7 @@ def addFileToTransfer(
 def addAccessionEvent(fileUUID, transferUUID, date):
     transfer = Transfer.objects.get(uuid=transferUUID)
     if transfer.accessionid:
-        eventOutcomeDetailNote = "accession#" + MySQLdb.escape_string(
+        eventOutcomeDetailNote = "accession#{}".format(
             transfer.accessionid
         )
         insertIntoEvents(

@@ -95,10 +95,7 @@ def removePreservationFiles(job, SIPDirectory, SIPUUID):
 
 def call(jobs):
     parser = OptionParser()
-    # mysql> UPDATE StandardTasksConfigs SET arguments = '--SIPDirectory "%SIPDirectory%" --SIPUUID "%SIPUUID%" --preservation --thumbnails' WHERE PK = '352fc88d-4228-4bc8-9c15-508683dabc58';
-    # mysql> UPDATE StandardTasksConfigs SET arguments = '--SIPDirectory "%SIPDirectory%" --SIPUUID "%SIPUUID%" --preservation --thumbnails --access' WHERE PK = 'c15de53e-a5b2-41a1-9eee-1a7b4dd5447a';
 
-    # '--SIPDirectory "%SIPDirectory%" --accessDirectory "objects/access/" --objectsDirectory "objects" --DIPDirectory "DIP" -c'
     parser.add_option(
         "-s", "--SIPDirectory", action="store", dest="SIPDirectory", default=""
     )

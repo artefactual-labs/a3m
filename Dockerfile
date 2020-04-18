@@ -97,7 +97,6 @@ RUN set -ex \
 	&& apt-get install -y --no-install-recommends \
 		build-essential \
 		python-dev \
-		libmysqlclient-dev \
 		libffi-dev \
 		libyaml-dev \
 		libssl-dev \
