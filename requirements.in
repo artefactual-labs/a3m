@@ -13,7 +13,6 @@ django-autoslug==1.9.3
 pytz
 
 # Basics
-python-dateutil==2.6.0
 lxml==3.5.0
 unidecode==0.04.19
 

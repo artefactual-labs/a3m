@@ -24,7 +24,6 @@ from datetime import datetime
 from datetime import timedelta
 
 import django
-from dateutil.relativedelta import relativedelta
 from lxml import etree as etree
 
 django.setup()
@@ -41,10 +40,9 @@ from a3m.main.models import (
 
 from a3m.fileOperations import getFileUUIDLike
 
-while False:
-    import time
 
-    time.sleep(10)
+def relativedelta():
+    raise NotImplementedError
 
 
 def callWithException(exception):
