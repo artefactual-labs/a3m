@@ -66,7 +66,7 @@ six==1.14.0               # via -r requirements.txt, amclient, django-extensions
 toml==0.10.0              # via tox
 tox==3.14.6               # via -r requirements-dev.in
 typing==3.7.4.1           # via importlib-resources
-unidecode==0.04.19        # via -r requirements.txt
+unidecode==1.1.1          # via -r requirements.txt
 urllib3==1.25.8           # via -r requirements.txt, amclient, requests
 vcrpy==1.13.0             # via -r requirements-dev.in
 virtualenv==20.0.16       # via tox
