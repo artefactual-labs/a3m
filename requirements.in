@@ -13,9 +13,6 @@ django-autoslug==1.9.3
 pytz
 
 # Basics
-six==1.14.0
-pathlib2==2.3.4 ; python_version < "3"
-scandir==1.10.0 ; python_version < "3.5"
 python-dateutil==2.6.0
 lxml==3.5.0
 unidecode==0.04.19
@@ -27,13 +24,15 @@ requests==2.23.0
 
 # MCPServer
 jsonschema==2.6.0
-inotify_simple==1.1.8
+inotify_simple==1.3.3
 grpcio==1.28.1
 grpcio-reflection==1.28.1
 grpcio-status==1.28.1
 googleapis-common-protos==1.51.0
 
 # Because we're not in Python3 just yet
-enum34==1.1.6 ; python_version < "3.4"
 futures==3.3.0 ; python_version < "3.2"
 contextdecorator==0.10.0 ; python_version < "3.2"
+pathlib2==2.3.5 ; python_version < "3"
+scandir==1.10.0 ; python_version < "3.5"
+six==1.14.0
