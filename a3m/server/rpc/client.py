@@ -13,6 +13,8 @@ from . import a3m_pb2_grpc
 
 DEFAULT_SERVER_ADDR = "localhost:7000"
 
+DEFAULT_URL = "https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedBag.zip"
+
 
 def _get_server_address():
     try:
@@ -24,8 +26,7 @@ def _get_server_address():
 def _submit(stub):
     try:
         resp = stub.Submit(
-            a3m_pb2.SubmitRequest(name=str(time.time()), url="file:///tmp/MARBLES.TGA"),
-            timeout=1,
+            a3m_pb2.SubmitRequest(name=str(time.time()), url=DEFAULT_URL), timeout=1,
         )
     except grpc.RpcError as err:
         print("RPC failed ({} - {})".format(err.code(), err.details()))

@@ -7,17 +7,17 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import concurrent.futures
+import concurrent
 import logging
 import uuid
 
 import six
-from django.conf import settings
 from six.moves import cPickle
 
 from a3m.client.mcp import execute_command
 from a3m.client.mcp import get_supported_modules
 from a3m.server import metrics
+from a3m.server.db import auto_close_old_connections
 from a3m.server.tasks.backends.base import TaskBackend
 from a3m.server.tasks.task import Task
 
@@ -31,18 +31,18 @@ class PoolTaskBackend(TaskBackend):
     Tasks are batched into BATCH_SIZE groups (default 128), pickled and sent to
     MCPClient. This adds some complexity but saves a lot of overhead.
 
-    TODO: should use a ProcessPoolExecutor?
     TODO: factor out code shared with GearmanTaskBackend.
     """
 
     def __init__(self):
-        self.executor = concurrent.futures.ThreadPoolExecutor(
-            max_workers=settings.WORKER_THREADS
-        )
+        # Having multiple threads would be equivalent to deploying multiple
+        # MCPClient instances in Archivematica which is known to be problematic.
+        # Let's stick to one for now.
+        self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
         self.supported_modules = get_supported_modules()
 
         self.current_task_batches = {}  # job_uuid: PoolTaskBatch
-        self.pending_gearman_jobs = {}  # job_uuid: List[PoolTaskBatch]
+        self.pending_jobs = {}  # job_uuid: List[PoolTaskBatch]
 
     def submit_task(self, job, task):
         current_task_batch = self._get_current_task_batch(job.uuid)
@@ -62,7 +62,7 @@ class PoolTaskBackend(TaskBackend):
             self._submit_batch(job, current_task_batch)
 
         try:
-            pending_batches = self.pending_gearman_jobs[job.uuid]
+            pending_batches = self.pending_jobs[job.uuid]
         except KeyError:
             # No batches submitted
             return
@@ -76,7 +76,7 @@ class PoolTaskBackend(TaskBackend):
             metrics.gearman_active_jobs_gauge.dec()
 
         # Once we've gotten results for all job tasks, clear the batches
-        del self.pending_gearman_jobs[job.uuid]
+        del self.pending_jobs[job.uuid]
 
     def _get_current_task_batch(self, job_uuid):
         try:
@@ -94,13 +94,16 @@ class PoolTaskBackend(TaskBackend):
         metrics.gearman_active_jobs_gauge.inc()
         metrics.gearman_pending_jobs_gauge.dec()
 
-        if job.uuid not in self.pending_gearman_jobs:
-            self.pending_gearman_jobs[job.uuid] = []
-        self.pending_gearman_jobs[job.uuid].append(task_batch)
+        if job.uuid not in self.pending_jobs:
+            self.pending_jobs[job.uuid] = []
+        self.pending_jobs[job.uuid].append(task_batch)
 
         # Clear the current task batch
         if self.current_task_batches[job.uuid] is task_batch:
             del self.current_task_batches[job.uuid]
+
+    def shutdown(self, wait=True):
+        self.executor.shutdown(wait)
 
 
 class PoolTaskBatch(object):
@@ -123,6 +126,7 @@ class PoolTaskBatch(object):
     def add_task(self, task):
         self.tasks.append(task)
 
+    @auto_close_old_connections()
     def run(self, supported_modules, job_name, payload):
         gearman_job = FakeGearmanJob(job_name, payload)
         result = execute_command(supported_modules, None, gearman_job)
@@ -143,7 +147,7 @@ class PoolTaskBatch(object):
             self.run, supported_modules, six.binary_type(job.name), pickled_data
         )
 
-        logger.debug("Submitted gearman job %s (%s)", self.uuid, job.name)
+        logger.debug("Submitted pool job %s (%s)", self.uuid, job.name)
 
     def update_task_results(self, results):
         result = cPickle.loads(results)["task_results"]

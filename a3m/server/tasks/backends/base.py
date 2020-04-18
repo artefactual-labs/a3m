@@ -40,3 +40,6 @@ class TaskBackend(object):
         Note that task objects are not necessarily returned in the order
         they were submitted.
         """
+
+    def shutdown(self, wait=True):
+        """Shut down the backend."""

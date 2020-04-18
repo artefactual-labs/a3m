@@ -1,5 +1,11 @@
 {
     "chains": {
+        "2671aef1-653a-49bf-bc74-82572b64ace9": {
+            "description": {
+                "en": "a3m - Start"
+            },
+            "link_id": "8e3e2bf8-a543-43f9-bb2a-c3df01f112df"
+        },
         "01d80b27-4ad1-4bd1-8f8d-f819f18bf685": {
             "description": {
                 "en": "Yes",
@@ -665,6 +671,52 @@
         }
     },
     "links": {
+        "8e3e2bf8-a543-43f9-bb2a-c3df01f112df": {
+            "config": {
+                "@manager": "linkTaskManagerDirectories",
+                "@model": "StandardTaskConfig",
+                "arguments": "\"%SIPUUID%\" \"%URL%\"",
+                "execute": "a3mDownloadTransfer_v0.0",
+                "filter_file_end": null,
+                "filter_file_start": null,
+                "filter_subdir": null,
+                "stderr_file": null,
+                "stdout_file": null
+            },
+            "description": {
+                "en": "a3m - Fetch contents"
+            },
+            "exit_codes": {
+                "0": {
+                    "job_status": "Completed successfully",
+                    "link_id": "aaebd7d4-5dc5-4579-893e-60650506d1cd"
+                }
+            },
+            "fallback_job_status": "Failed",
+            "fallback_link_id": null,
+            "group": {
+                "en": "a3m"
+            },
+            "end": true
+        },
+        "aaebd7d4-5dc5-4579-893e-60650506d1cd": {
+            "config": {
+                "@manager": "linkTaskManagerUnitVariableLinkPull",
+                "@model": "TaskConfigUnitVariableLinkPull",
+                "chain_id": null,
+                "variable": "startingLinkID"
+            },
+            "description": {
+                "en": "Start processing"
+            },
+            "exit_codes": {},
+            "fallback_job_status": "Completed successfully",
+            "fallback_link_id": null,
+            "group": {
+                "en": "a3m"
+            },
+            "end": true
+        },
         "002716a1-ae29-4f36-98ab-0d97192669c4": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -3164,11 +3216,6 @@
                 "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\" \"%SIPUUID%\" \"%processingDirectory%\" \"%sharedPath%\" --bag",
                 "execute": "extractZippedTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null,
                 "filter_file_end": null,
                 "filter_file_start": null,
                 "filter_subdir": null,

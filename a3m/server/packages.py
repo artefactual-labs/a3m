@@ -71,22 +71,17 @@ def _trigger_workflow_done_callback(future):
 
 def _trigger_workflow(transfer, name, url, workflow, package_queue):
     logger.debug("Package %s: starting workflow processing", transfer.pk)
-    standard_workflow_chain = "6953950b-c101-4f4c-a0c3-0cd0684afe5e"
-    standard_workflow_link = "045c43ae-d6cf-44f7-97d6-c8a602748565"
-    unit = Transfer(url, transfer.pk)
+    chain_id = "2671aef1-653a-49bf-bc74-82572b64ace9"
+    link_id = "8e3e2bf8-a543-43f9-bb2a-c3df01f112df"
+
+    unit = Transfer("", transfer.pk, url)
+
     job_chain = JobChain(
         unit,
-        workflow.get_chain(standard_workflow_chain),
+        workflow.get_chain(chain_id),
         workflow,
-        starting_link=workflow.get_link(standard_workflow_link),
+        starting_link=workflow.get_link(link_id),
     )
-
-    # TODO: changes in workflow
-    # - new chain with a link that
-    #   - 1. downloads the file/direcotry
-    #   - 2. performs identification
-    #   - 3. decide new chain dynamically: standard / zippedDirectory / baggitDirectory / baggitZippedDirectory
-    # - remove tranfser types maildir, dspace, trim
 
     package_queue.schedule_job(next(job_chain))
 
@@ -357,6 +352,10 @@ class Transfer(Package):
     UNIT_VARIABLE_TYPE = "Transfer"
     JOB_UNIT_TYPE = "unitTransfer"
 
+    def __init__(self, current_path, uuid, url):
+        super(Transfer, self).__init__(current_path, uuid)
+        self.url = url
+
     @classmethod
     @auto_close_old_connections()
     def get_or_create_from_db_by_path(cls, path):
@@ -412,6 +411,7 @@ class Transfer(Package):
                 self.REPLACEMENT_PATH_STRING: self.current_path,
                 r"%unitType%": "Transfer",
                 r"%processingConfiguration%": self.processing_configuration,
+                r"%URL%": self.url,
             }
         )
 

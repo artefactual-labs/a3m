@@ -45,6 +45,7 @@ from a3m.server.queues import PackageQueue
 from a3m.server.tasks import Task
 from a3m.server.watch_dirs import watch_directories
 from a3m.server.workflow import load_default_workflow
+from a3m.server.tasks.backends import get_task_backend
 
 
 logger = logging.getLogger("archivematica.mcp.server")
@@ -134,6 +135,9 @@ def main(shutdown_event=None):
     watch_dir_thread.join(1.0)
     rpc_thread.join(0.1)
     logger.debug("RPC server stopped.")
+
+    # Shut down task backend.
+    get_task_backend().shutdown(wait=False)
 
     logger.info("MCPServer shut down complete.")
 

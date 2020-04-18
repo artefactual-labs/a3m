@@ -163,6 +163,9 @@ class GearmanTaskBackend(TaskBackend):
         if self.current_task_batches[job.uuid] is task_batch:
             del self.current_task_batches[job.uuid]
 
+    def shutdown(self, wait=True):
+        pass
+
 
 class GearmanTaskBatch(object):
     """A collection of `Task` objects, to be submitted as one gearman job.
