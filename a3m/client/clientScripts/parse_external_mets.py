@@ -16,6 +16,8 @@ logger = get_script_logger("archivematica.mcp.client.parse_external_mets")
 def parse_reingest_mets(job, transfer_uuid, transfer_path):
     # Parse METS to extract information needed by later microservices
     mets_path = find_mets_file(transfer_path)
+    if mets_path is None:
+        return
     try:
         root = etree.parse(mets_path)
     except Exception:
