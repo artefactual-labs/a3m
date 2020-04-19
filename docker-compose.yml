@@ -19,4 +19,4 @@ services:
       - ".:/a3m"
       - "a3m-pipeline-data:/var/archivematica/sharedDirectory:rw"
     ports:
-      - "52000:8000"
+      - "52000:7000"
