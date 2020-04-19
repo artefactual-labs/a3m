@@ -112,9 +112,7 @@ def addFileToTransfer(
 def addAccessionEvent(fileUUID, transferUUID, date):
     transfer = Transfer.objects.get(uuid=transferUUID)
     if transfer.accessionid:
-        eventOutcomeDetailNote = "accession#{}".format(
-            transfer.accessionid
-        )
+        eventOutcomeDetailNote = "accession#{}".format(transfer.accessionid)
         insertIntoEvents(
             fileUUID=fileUUID,
             eventType="registration",

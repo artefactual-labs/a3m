@@ -1,4 +1,5 @@
 # -*- coding: utf8
+from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
 
@@ -10,6 +11,7 @@ import pytest
 import six
 from django.core.management import call_command
 from django.test import TestCase
+from six.moves import range
 
 from . import TempDirMixin
 from a3m.client.clientScripts import sanitize_names

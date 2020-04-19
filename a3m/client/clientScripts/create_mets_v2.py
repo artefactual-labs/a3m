@@ -17,6 +17,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
+
 import collections
 import copy
 import os
@@ -55,24 +57,23 @@ from a3m.main.models import (
     SIP,
 )
 
-import archivematicaCreateMETSReingest
-from archivematicaCreateMETSMetadataCSV import parseMetadata
-from archivematicaCreateMETSRights import archivematicaGetRights
-from archivematicaCreateMETSRightsDspaceMDRef import (
+from .archivematicaCreateMETSMetadataCSV import parseMetadata
+from .archivematicaCreateMETSRights import archivematicaGetRights
+from .archivematicaCreateMETSRightsDspaceMDRef import (
     archivematicaCreateMETSRightsDspaceMDRef,
 )
-from archivematicaCreateMETSTrim import (
+from .archivematicaCreateMETSTrim import (
     getTrimDmdSec,
     getTrimFileDmdSec,
     getTrimAmdSec,
     getTrimFileAmdSec,
 )
 
-from create_mets_dataverse_v2 import (
+from .create_mets_dataverse_v2 import (
     create_dataverse_sip_dmdsec,
     create_dataverse_tabfile_dmdsec,
 )
-from sanitize_names import sanitize_name
+from .sanitize_names import sanitize_name
 
 from bagit import Bag, BagError
 
@@ -1221,8 +1222,8 @@ def createFileSec(
                     job, label, itemdirectoryPath, directoryPathSTR, state
                 )
                 if dspace_dmdsecs:
-                    state.dmdSecs.extend(dspace_dmdsecs.values())
-                    ids = " ".join(dspace_dmdsecs.keys())
+                    state.dmdSecs.extend(list(dspace_dmdsecs.values()))
+                    ids = " ".join(list(dspace_dmdsecs.keys()))
                     if admidApplyTo is not None:
                         admidApplyTo.set("DMDID", ids)
                     else:
@@ -1663,6 +1664,10 @@ def call(jobs):
 
                 # If reingesting, do not create a new METS, just modify existing one
                 if "REIN" in SIP_TYPE:
+                    # Circular import: archivematicaCreateMETSReingest
+                    # calls functions on this module
+                    from . import archivematicaCreateMETSReingest
+
                     job.pyprint("Updating METS during reingest")
                     # fileGroupIdentifier is SIPUUID, baseDirectoryPath is SIP dir,
                     # don't keep existing normative structmap if creating one

@@ -4,6 +4,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import pytest
+from six.moves import range
 
 from a3m.server.jobs import Job
 from a3m.server.tasks import PoolTaskBackend

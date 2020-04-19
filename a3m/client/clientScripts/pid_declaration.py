@@ -7,6 +7,7 @@ Given an identifiers.json file, supplying third-party persistent identifiers
 with the objects in the transfer, so be translated to PREMIS objects in the
 AIP METS.
 """
+from __future__ import absolute_import
 from __future__ import unicode_literals
 
 import json
@@ -20,7 +21,7 @@ django.setup()
 
 from a3m.main.models import Directory, File, SIP
 
-from sanitize_names import sanitize_name
+from .sanitize_names import sanitize_name
 
 
 class DeclarePIDsException(Exception):

@@ -27,6 +27,7 @@ us to easily call each of the tools packaged against its different algorithms:
     * SHA256
     * SHA512
 """
+from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
 

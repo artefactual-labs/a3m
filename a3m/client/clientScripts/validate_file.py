@@ -14,6 +14,8 @@ Arguments:
     [FILE_PATH] [FILE_UUID] [SIP_UUID] [SHARED_PATH] [FILE_TYPE]
 
 """
+from __future__ import absolute_import
+
 import ast
 import os
 import sys

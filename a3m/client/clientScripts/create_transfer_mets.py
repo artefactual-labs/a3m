@@ -16,6 +16,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
 from __future__ import unicode_literals
 
 import argparse
@@ -25,6 +26,7 @@ import uuid
 
 import django
 import scandir
+import six
 from django.conf import settings as django_settings
 from django.db.models import Prefetch
 from lxml import etree
@@ -255,11 +257,11 @@ class FSEntriesTree(object):
         )
 
         for rights in transfer_rights:
-            for path, fsentry in self.file_index.iteritems():
+            for path, fsentry in six.iteritems(self.file_index):
                 premis_rights = rights_to_premis(rights, fsentry.file_uuid)
                 fsentry.add_premis_rights(premis_rights)
 
-        for path, fsentry in self.file_index.iteritems():
+        for path, fsentry in six.iteritems(self.file_index):
             file_rights = self.rights_queryset.filter(
                 metadataappliestoidentifier=fsentry.file_uuid,
                 metadataappliestotype_id=self.FILE_RIGHTS_LOOKUP_UUID,
@@ -288,7 +290,7 @@ class FSEntriesTree(object):
 
     def check_for_missing_file_uuids(self):
         missing = []
-        for path, fsentry in self.file_index.iteritems():
+        for path, fsentry in six.iteritems(self.file_index):
             if fsentry.file_uuid is None:
                 logger.info("No record in database for file: %s", path)
                 missing.append(path)

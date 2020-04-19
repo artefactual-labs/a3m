@@ -16,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
+
 import os
 import unicodedata
 import uuid
@@ -29,7 +31,7 @@ from django.db import transaction
 from a3m.main.models import Event, File, Directory, Transfer, SIP
 
 from a3m.custom_handlers import get_script_logger
-import sanitize_names
+from . import sanitize_names
 
 logger = get_script_logger("archivematica.mcp.client.sanitizeObjectNames")
 

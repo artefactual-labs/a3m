@@ -12,6 +12,8 @@ import pytest
 from django.utils import six
 from django.utils import timezone
 from lxml import etree
+from six.moves import range
+from six.moves import zip
 
 from a3m.main import models
 from a3m.server.jobs import DirectoryClientScriptJob

@@ -15,10 +15,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
+
 import csv
 import os
 
 import django
+import six
 
 django.setup()
 from django.db import transaction
@@ -209,7 +212,7 @@ class RightCsvReader(object):
         self, model_instance, attribute_to_column_map
     ):
         """Using a dict that maps model attributes to column names, set a model instance's attributes."""
-        for attribute, column_name in attribute_to_column_map.iteritems():
+        for attribute, column_name in six.iteritems(attribute_to_column_map):
             self.set_model_instance_attribute_to_row_column_if_set(
                 model_instance, attribute, column_name
             )

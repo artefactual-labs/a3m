@@ -65,7 +65,7 @@ def create_package(package_queue, executor, workflow, name, url):
 def _trigger_workflow_done_callback(future):
     try:
         future.result()
-    except Exception, err:
+    except Exception as err:
         logger.warning("Exception detected: %s", err, exc_info=True)
 
 
@@ -462,7 +462,7 @@ class PackageContext(object):
             self._data[key] = value
 
     def __repr__(self):
-        return "PackageContext({!r})".format(dict(self._data.items()))
+        return "PackageContext({!r})".format(dict(list(self._data.items())))
 
     def __iter__(self):
         for key, value in six.iteritems(self._data):

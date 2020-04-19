@@ -15,6 +15,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
+
 import sys
 
 import django
@@ -24,7 +26,7 @@ from django.db import transaction
 
 from a3m.main.models import SIP, Transfer
 
-from sanitize_names import sanitize_path
+from .sanitize_names import sanitize_path
 
 
 def call(jobs):

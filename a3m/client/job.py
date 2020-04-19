@@ -4,6 +4,8 @@ performed--corresponding to a Task on the MCP Server side.  Jobs are run in
 batches by clientScript modules and populated with an exit code, standard out
 and standard error information.
 """
+from __future__ import absolute_import
+
 import logging
 import sys
 import traceback

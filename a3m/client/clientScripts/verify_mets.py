@@ -6,6 +6,7 @@ Verify METS documents provided to the script. Its first, and primary use so
 far is to verify the validity of custom structmaps included with transfers and
 supplied on ingest after appraisal.
 """
+from __future__ import absolute_import
 from __future__ import unicode_literals
 
 import os
@@ -31,7 +32,7 @@ def call(jobs):
                 job.pyprint("Custom structmap not supplied with package")
                 return
             if not os.path.isfile(mets_xsd):
-                raise (VerifyMETSException("METS asset is unavailable"))
+                raise VerifyMETSException
             xmlschema = etree.XMLSchema(etree.parse(mets_xsd))
             # Raise an exception if not valid, e.g. etree.DocumentInvalid
             # otherwise, the document validates correctly and returns.

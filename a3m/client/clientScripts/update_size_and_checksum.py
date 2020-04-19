@@ -15,6 +15,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
+
 import argparse
 import os
 import re
@@ -34,7 +36,7 @@ from a3m.fileOperations import updateSizeAndChecksum
 
 import metsrw
 
-import parse_mets_to_db
+from . import parse_mets_to_db
 
 logger = get_script_logger("archivematica.mcp.client.updateSizeAndChecksum")
 

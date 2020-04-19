@@ -15,6 +15,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
+
 import os
 import sys
 
@@ -28,7 +30,7 @@ from a3m.archivematicaFunctions import REQUIRED_DIRECTORIES, OPTIONAL_FILES
 from a3m import bag, fileOperations
 from a3m.databaseFunctions import insertIntoEvents
 
-from move_or_merge import move_or_merge
+from .move_or_merge import move_or_merge
 
 
 def restructureBagForComplianceFileUUIDsAssigned(

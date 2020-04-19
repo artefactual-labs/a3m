@@ -8,7 +8,7 @@ import datetime
 import functools
 import os
 
-import ConfigParser
+import six.moves.configparser
 from django.conf import settings
 from django.db.models import Sum
 from django.utils import timezone
@@ -17,6 +17,7 @@ from prometheus_client import Gauge
 from prometheus_client import Histogram
 from prometheus_client import Info
 from prometheus_client import start_http_server
+from six.moves import range
 
 from a3m.client import MODULES_FILE
 from a3m.common_metrics import PACKAGE_FILE_COUNT_BUCKETS
@@ -171,7 +172,7 @@ aip_original_file_timestamps_histogram = Histogram(
     "mcpclient_aip_original_file_timestamps",
     "Histogram of modification times for files stored in AIPs, bucketed by year",
     buckets=[1970, 1980, 1990, 2005, 2010]
-    + range(2015, datetime.date.today().year + 2)
+    + list(range(2015, datetime.date.today().year + 2))
     + [float("inf")],
 )
 
@@ -200,7 +201,7 @@ def skip_if_prometheus_disabled(func):
 def init_counter_labels():
     # Zero our counters to start, by intializing all labels. Non-zero starting points
     # cause problems when measuring rates.
-    modules_config = ConfigParser.RawConfigParser()
+    modules_config = six.moves.configparser.RawConfigParser()
     modules_config.read(MODULES_FILE)
     for script_name, _ in modules_config.items("supportedBatchCommands"):
         job_counter.labels(script_name=script_name)

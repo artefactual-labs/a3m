@@ -1,15 +1,17 @@
 #!/usr/bin/env python2
+from __future__ import absolute_import
+
 import copy
 import os
 
-import archivematicaCreateMETSMetadataCSV as createmetscsv
-import archivematicaCreateMETSRights as createmetsrights
-import create_mets_v2 as createmets2
 import metsrw
 import scandir
 from django.utils import six
 from lxml import etree
 
+from . import archivematicaCreateMETSMetadataCSV as createmetscsv
+from . import archivematicaCreateMETSRights as createmetsrights
+from . import create_mets_v2 as createmets2
 from a3m import namespaces as ns
 from a3m.main import models
 

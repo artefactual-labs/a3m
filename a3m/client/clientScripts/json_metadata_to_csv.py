@@ -1,9 +1,12 @@
 #!/usr/bin/env python2
+from __future__ import absolute_import
+
 import csv
 import json
 import os
 
 from django.utils import six
+from six.moves import range
 
 
 def fetch_keys(objects):
