@@ -20,32 +20,28 @@ create-volumes:  ## Create external data volumes.
 migrate: bootstrap  ## Same as make bootstrap.
 
 bootstrap:  ## Bootstrap a3m (new database).
-	docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m-server migrate --noinput
+	docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m migrate --noinput
 
 manage:  ## Run Django /manage.py on a3m, suppling <command> [options] as value to ARG, e.g., `make manage-a3m ARG=shell`
-	docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m-server $(ARG)
+	docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m $(ARG)
 
 migrations:  # Make Django migrations.
-	docker-compose run --rm --user=$(CURRENT_UID) --entrypoint=/a3m/manage.py a3m-server makemigrations
+	docker-compose run --rm --user=$(CURRENT_UID) --entrypoint=/a3m/manage.py a3m makemigrations
 
 logs:
 	docker-compose logs -f
 
 restart:  # Restart services
-	docker-compose restart a3m-server
-	docker-compose restart a3m-client
+	docker-compose restart a3m
 
 compile-requirements:  ## Run pip-compile
 	pip-compile --output-file requirements.txt requirements.in
 	pip-compile --output-file requirements-dev.txt requirements-dev.in
 
-flush: flush-db flush-shared-dir bootstrap restart  ## Delete ALL user data.
+flush: flush-shared-dir bootstrap restart  # Delete ALL user data.
 
-flush-db:
-	docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m-server flush --noinput
-
-flush-shared-dir:  ## Delete contents of the shared directory data volume.
-	rm -rf ${A3M_PIPELINE_DATA}/*
+flush-shared-dir:  # Flush shared directory including the database.
+	docker-compose run --rm --no-deps --entrypoint sh a3m -c "rm -rf /var/archivematica/sharedDirectory/*"
 
 amflow:  # See workflow.
 	amflow edit --file=a3m/assets/workflow.json
