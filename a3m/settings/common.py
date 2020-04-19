@@ -13,6 +13,7 @@ from a3m.appconfig import Config
 from a3m.appconfig import process_watched_directory_interval
 
 CONFIG_MAPPING = {
+    "debug": {"section": "a3m", "option": "debug", "type": "boolean"},
     "watch_directory_method": {
         "section": "a3m",
         "option": "watch_directory_method",
@@ -117,6 +118,7 @@ CONFIG_MAPPING = {
 
 CONFIG_DEFAULTS = """[a3m]
 
+debug = False
 gearman_server = localhost:4730
 watch_directory = /var/archivematica/sharedDirectory/watchedDirectories/
 shared_directory = /var/archivematica/sharedDirectory/
@@ -267,4 +269,4 @@ BIND_PID_HANDLE = {}
 
 INSTANCE_ID = "fec7bcf7-45db-4a22-8ceb-e94377db3476"
 
-DEBUG = False
+DEBUG = config.get("debug")
