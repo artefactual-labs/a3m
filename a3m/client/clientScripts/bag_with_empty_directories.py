@@ -26,9 +26,8 @@ import django
 import scandir
 
 django.setup()
+from bagit import make_bag
 from django.conf import settings as mcpclient_settings
-
-from a3m.bagit import make_bag
 
 
 def get_sip_directories(job, sip_dir):
