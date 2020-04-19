@@ -36,6 +36,7 @@ def _submit(stub):
     print("Transfer created: {}".format(package_id))
 
     while True:
+        time.sleep(2)
         try:
             resp = stub.Status(a3m_pb2.StatusRequest(id=package_id), timeout=1)
         except grpc.RpcError as err:
@@ -50,7 +51,6 @@ def _submit(stub):
                     a3m_pb2.PackageStatus.Name(resp.status)
                 )
             )
-        time.sleep(1)
 
 
 def run():

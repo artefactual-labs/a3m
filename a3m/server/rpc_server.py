@@ -13,9 +13,10 @@ from google.rpc import code_pb2
 from grpc import server
 from grpc_reflection.v1alpha import reflection
 
-from a3m.main.models import Transfer
+from a3m.main import models
 from a3m.server.db import auto_close_old_connections
 from a3m.server.packages import create_package
+from a3m.server.packages import get_unit_status
 from a3m.server.rpc import a3m_pb2
 from a3m.server.rpc import a3m_pb2_grpc
 
@@ -46,22 +47,16 @@ class TransferService(a3m_pb2_grpc.TransferServicer):
     @auto_close_old_connections()
     def Status(self, request, context):
         try:
-            Transfer.objects.get(pk=request.id)
-        except Transfer.DoesNotExist:
+            models.Transfer.objects.get(pk=request.id)
+        except models.Transfer.DoesNotExist:
             context.abort(code_pb2.NOT_FOUND, "Transfer not found")
         except Exception as err:
             logger.warning("Error loading transfer: %s", err)
             context.abort(code_pb2.INTERNAL, "Unhandled error")
 
-        active = self.package_queue.is_package_active(request.id)
-        if active:
-            return a3m_pb2.StatusReply(status=a3m_pb2.PROCESSING)
-
-        # FAILED, REJECTED, COMPLETE, PROCESSING, AWAITING_DECISION
-        status = a3m_pb2.COMPLETE
-
-        # TODO: do what's in https://git.io/JfvX4
-        # TODO: deal with transition from Transfer to SIP
+        # A3M-TODO: it may raise if the transfer was just submitted and there
+        # are zero jobs recorded.
+        status, _ = get_unit_status(request.id, "unitTransfer")
 
         return a3m_pb2.StatusReply(status=status)
 

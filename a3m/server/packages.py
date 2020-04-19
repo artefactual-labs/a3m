@@ -21,6 +21,7 @@ from a3m.archivematicaFunctions import strToUnicode
 from a3m.main import models
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs import JobChain
+from a3m.server.rpc import a3m_pb2
 from a3m.server.utils import uuid_from_path
 
 
@@ -519,3 +520,75 @@ class PackageContext(object):
     def update(self, mapping):
         for key, value in mapping.items():
             self._data[key] = value
+
+
+def get_unit_status(unit_uuid, unit_type):
+    """Get status for a SIP or Transfer.
+
+    Returns a dict with status info. Keys will always include 'status' and
+    'microservice', and may include 'sip_uuid'.
+
+    SIP UUID is populated only if the unit_type was unitTransfer and status is
+    COMPLETE. Otherwise, it is None.
+
+    :param str unit_uuid: UUID of the SIP or Transfer
+    :param str unit_type: unitSIP or unitTransfer
+    :return: Dict with status info.
+    """
+    status = None
+    ret = {}
+
+    # Get jobs for the current unit ordered by created time.
+    unit_jobs = (
+        models.Job.objects.filter(sipuuid=unit_uuid)
+        .filter(unittype=unit_type)
+        .order_by("-createdtime", "-createdtimedec")
+    )
+
+    # Tentatively choose the job with the latest created time to be the
+    # current/last for the unit.
+    job = unit_jobs[0]
+
+    ret["microservice"] = job.jobtype
+
+    if job.currentstep == models.Job.STATUS_AWAITING_DECISION:
+        status = a3m_pb2.AWAITING_DECISION
+    elif "failed" in job.microservicegroup.lower():
+        status = a3m_pb2.FAILED
+    elif "reject" in job.microservicegroup.lower():
+        status = a3m_pb2.REJECTED
+    elif job.jobtype == "Verify AIP":
+        status = a3m_pb2.COMPLETE
+    elif unit_type == "unitTransfer" and (
+        models.Job.objects.filter(sipuuid=unit_uuid)
+        .filter(jobtype="Create SIP from transfer objects")
+        .exists()
+    ):
+        # Get SIP UUID
+        sips = (
+            models.File.objects.filter(transfer_id=unit_uuid, sip__isnull=False)
+            .values("sip")
+            .distinct()
+        )
+        if not sips:
+            raise Exception("SIP not found")
+        #  A3M-TODO: we're returning the status of the SIP but instead we
+        # could try to hide the transfer from the user.
+        return get_unit_status(sips[0]["sip"], "unitSIP")
+    else:
+        status = a3m_pb2.PROCESSING
+
+    # The job with the latest created time is not always the last/current
+    # (Ref. https://github.com/archivematica/Issues/issues/262)
+    # As a workaround for SIPs, in case the job with latest created time
+    # is not the one that closes the chain, check if there could be a job
+    # that does so
+    # (a better fix would be to try to use microchain links related tables
+    # to obtain the actual last/current job, but this adds too much complexity)
+    if unit_type == "unitSIP" and status == a3m_pb2.PROCESSING:
+        for x in unit_jobs:
+            if x.jobtype == "Verify AIP":
+                status = a3m_pb2.COMPLETE
+                break
+
+    return status, ret
