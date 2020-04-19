@@ -3782,7 +3782,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "d5a2ef60-a757-483c-a71a-ccbffe6b80da"
+                    "link_id": null
                 }
             },
             "fallback_job_status": "Failed",
@@ -9098,40 +9098,6 @@
                 "fr": "Préparer l'AIP",
                 "sv": "Förbered AIP"
             }
-        },
-        "d5a2ef60-a757-483c-a71a-ccbffe6b80da": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\"",
-                "execute": "removeDirectories_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Remove the processing directory",
-                "pt_BR": "Remova o diretório de processamento",
-                "sv": "Radera bearbetningsmappen"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
-            },
-            "end": true
         },
         "d6f6f5db-4cc2-4652-9283-9ec6a6d181e5": {
             "config": {
