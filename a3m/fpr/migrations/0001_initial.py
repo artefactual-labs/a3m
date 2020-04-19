@@ -43,11 +43,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "slug",
-                    models.SlugField(
-                        editable=False,
-                        unique=True,
-                        verbose_name="slug",
-                    ),
+                    models.SlugField(editable=False, unique=True, verbose_name="slug",),
                 ),
             ],
             options={"ordering": ["group", "description"], "verbose_name": "Format"},
@@ -80,11 +76,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "slug",
-                    models.SlugField(
-                        editable=False,
-                        unique=True,
-                        verbose_name="slug",
-                    ),
+                    models.SlugField(editable=False, unique=True, verbose_name="slug",),
                 ),
             ],
             options={"ordering": ["description"], "verbose_name": "Format group"},
@@ -150,12 +142,7 @@ class Migration(migrations.Migration):
                         default=False, verbose_name="preservation format"
                     ),
                 ),
-                (
-                    "slug",
-                    models.SlugField(
-                        editable=False,
-                    ),
-                ),
+                ("slug", models.SlugField(editable=False,),),
                 (
                     "format",
                     models.ForeignKey(
@@ -420,11 +407,7 @@ class Migration(migrations.Migration):
                 ("enabled", models.BooleanField(default=True, verbose_name="enabled")),
                 (
                     "slug",
-                    models.SlugField(
-                        editable=False,
-                        unique=True,
-                        verbose_name="slug",
-                    ),
+                    models.SlugField(editable=False, unique=True, verbose_name="slug",),
                 ),
             ],
             options={"verbose_name": "Normalization tool"},
@@ -610,11 +593,7 @@ class Migration(migrations.Migration):
                 ("enabled", models.BooleanField(default=True, verbose_name="enabled")),
                 (
                     "slug",
-                    models.SlugField(
-                        editable=False,
-                        unique=True,
-                        verbose_name="slug",
-                    ),
+                    models.SlugField(editable=False, unique=True, verbose_name="slug",),
                 ),
             ],
             options={"verbose_name": "Format identification tool"},

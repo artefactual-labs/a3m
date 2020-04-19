@@ -581,7 +581,9 @@ class JobQuerySet(models.QuerySet):
 
 
 class Job(models.Model):
-    jobuuid = models.UUIDField(db_column="jobUUID", primary_key=True, default=uuid.uuid4)
+    jobuuid = models.UUIDField(
+        db_column="jobUUID", primary_key=True, default=uuid.uuid4
+    )
     jobtype = models.CharField(max_length=250, db_column="jobType", blank=True)
     createdtime = models.DateTimeField(db_column="createdTime")
     createdtimedec = models.DecimalField(

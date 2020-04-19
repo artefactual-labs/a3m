@@ -123,19 +123,31 @@ class TestDatabaseFunctions(TestCase):
     # insertIntoEvents
 
     def test_insert_into_events(self):
-        assert Event.objects.filter(event_id="6a671050-81ec-11ea-b337-8f27e380aa54").count() == 0
+        assert (
+            Event.objects.filter(
+                event_id="6a671050-81ec-11ea-b337-8f27e380aa54"
+            ).count()
+            == 0
+        )
         databaseFunctions.insertIntoEvents(
             fileUUID="88c8f115-80bc-4da4-a1e6-0158f5df13b9",
             eventIdentifierUUID="6a671050-81ec-11ea-b337-8f27e380aa54",
         )
-        assert Event.objects.filter(event_id="6a671050-81ec-11ea-b337-8f27e380aa54").count() == 1
+        assert (
+            Event.objects.filter(
+                event_id="6a671050-81ec-11ea-b337-8f27e380aa54"
+            ).count()
+            == 1
+        )
 
     def test_insert_into_event_fetches_correct_agent_from_file(self):
         databaseFunctions.insertIntoEvents(
             fileUUID="88c8f115-80bc-4da4-a1e6-0158f5df13b9",
             eventIdentifierUUID="00e46dbc-81ec-11ea-bf23-eb8a0da7ab13",
         )
-        agents = Event.objects.get(event_id="00e46dbc-81ec-11ea-bf23-eb8a0da7ab13").agents
+        agents = Event.objects.get(
+            event_id="00e46dbc-81ec-11ea-bf23-eb8a0da7ab13"
+        ).agents
         assert agents.count() == 3
         assert agents.get(id=1)
         assert agents.get(id=2)

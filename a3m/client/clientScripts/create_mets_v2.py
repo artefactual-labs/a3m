@@ -736,9 +736,9 @@ def createEvent(event_record):
     etree.SubElement(
         eventIdentifier, ns.premisBNS + "eventIdentifierType"
     ).text = "UUID"
-    etree.SubElement(
-        eventIdentifier, ns.premisBNS + "eventIdentifierValue"
-    ).text = str(event_record.event_id)
+    etree.SubElement(eventIdentifier, ns.premisBNS + "eventIdentifierValue").text = str(
+        event_record.event_id
+    )
 
     etree.SubElement(event, ns.premisBNS + "eventType").text = event_record.event_type
     etree.SubElement(
