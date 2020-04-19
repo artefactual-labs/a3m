@@ -11,7 +11,6 @@ certifi==2020.4.5.1       # via requests
 chardet==3.0.4            # via requests
 clamd==1.0.2              # via -r requirements.in
 contextdecorator==0.10.0 ; python_version < "3.2"  # via -r requirements.in
-django-autoslug==1.9.3    # via -r requirements.in
 django==1.8.19            # via -r requirements.in
 enum34==1.1.6             # via grpcio, inotify-simple
 functools32==3.2.3.post2  # via jsonschema

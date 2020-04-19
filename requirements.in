@@ -10,7 +10,6 @@ unidecode==1.1.1
 
 # Django and its ORM!
 Django>=1.8,<1.9
-django-autoslug==1.9.3
 pytz
 
 # Infra

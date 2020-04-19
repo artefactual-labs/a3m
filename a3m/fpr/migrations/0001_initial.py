@@ -2,7 +2,6 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-import autoslug.fields
 from django.db import migrations
 from django.db import models
 
@@ -44,9 +43,8 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "slug",
-                    autoslug.fields.AutoSlugField(
+                    models.SlugField(
                         editable=False,
-                        populate_from="description",
                         unique=True,
                         verbose_name="slug",
                     ),
@@ -82,9 +80,8 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "slug",
-                    autoslug.fields.AutoSlugField(
+                    models.SlugField(
                         editable=False,
-                        populate_from="description",
                         unique=True,
                         verbose_name="slug",
                     ),
@@ -155,10 +152,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "slug",
-                    autoslug.fields.AutoSlugField(
-                        always_update=True,
-                        populate_from="description",
-                        unique_with=("format",),
+                    models.SlugField(
                         editable=False,
                     ),
                 ),
@@ -426,9 +420,8 @@ class Migration(migrations.Migration):
                 ("enabled", models.BooleanField(default=True, verbose_name="enabled")),
                 (
                     "slug",
-                    autoslug.fields.AutoSlugField(
+                    models.SlugField(
                         editable=False,
-                        populate_from="_slug",
                         unique=True,
                         verbose_name="slug",
                     ),
@@ -617,10 +610,8 @@ class Migration(migrations.Migration):
                 ("enabled", models.BooleanField(default=True, verbose_name="enabled")),
                 (
                     "slug",
-                    autoslug.fields.AutoSlugField(
+                    models.SlugField(
                         editable=False,
-                        populate_from="_slug",
-                        always_update=True,
                         unique=True,
                         verbose_name="slug",
                     ),

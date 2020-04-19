@@ -10,7 +10,6 @@ from __future__ import absolute_import
 import uuid
 import logging
 
-from autoslug import AutoSlugField
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.core.validators import ValidationError
 from django.db import connection
@@ -150,7 +149,7 @@ class Format(models.Model):
         verbose_name=_("the related group"),
         on_delete=models.CASCADE,
     )
-    slug = AutoSlugField(_("slug"), populate_from="description", unique=True)
+    slug = models.SlugField(_("slug"), unique=True)
 
     objects = FormatManager()
 
@@ -169,7 +168,7 @@ class FormatGroup(models.Model):
         editable=False, unique=True, default=uuid.uuid4, help_text=_("Unique identifier")
     )
     description = models.CharField(_("description"), max_length=128)
-    slug = AutoSlugField(_("slug"), populate_from="description", unique=True)
+    slug = models.SlugField(_("slug"), unique=True)
 
     class Meta:
         verbose_name = _("Format group")
@@ -205,8 +204,7 @@ class FormatVersion(VersionedModel, models.Model):
     access_format = models.BooleanField(_("access format"), default=False)
     preservation_format = models.BooleanField(_("preservation format"), default=False)
 
-    slug = AutoSlugField(
-        populate_from="description", unique_with="format", always_update=True
+    slug = models.SlugField(
     )
 
     class Meta:
@@ -375,8 +373,8 @@ class IDTool(models.Model):
     )
     version = models.CharField(_("version"), max_length=64)
     enabled = models.BooleanField(_("enabled"), default=True)
-    slug = AutoSlugField(
-        _("slug"), populate_from="_slug", always_update=True, unique=True
+    slug = models.SlugField(
+        _("slug"), unique=True
     )
 
     class Meta:
@@ -583,7 +581,7 @@ class FPTool(models.Model):
     )
     version = models.CharField(_("version"), max_length=64)
     enabled = models.BooleanField(_("enabled"), default=True)
-    slug = AutoSlugField(_("slug"), populate_from="_slug", unique=True)
+    slug = models.SlugField(_("slug"), unique=True)
     # Many to many field is on FPCommand
 
     class Meta:
