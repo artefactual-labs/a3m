@@ -140,7 +140,7 @@ def handle_batch_task(gearman_job, supported_modules):
     module = importlib.import_module("a3m.client.clientScripts." + module_name)
 
     # Our module can indicate that it should be run concurrently...
-    if hasattr(module, "concurrent_instances"):
+    if False and hasattr(module, "concurrent_instances"):
         fork_runner.call(
             "a3m.client.clientScripts." + module_name,
             jobs,
