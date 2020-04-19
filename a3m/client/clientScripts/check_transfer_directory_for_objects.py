@@ -19,8 +19,6 @@ from __future__ import absolute_import
 
 import os
 
-import scandir
-
 
 def call(jobs):
     """
@@ -32,7 +30,7 @@ def call(jobs):
         with job.JobContext():
             objects_dir = job.args[1]
             os.path.isdir(objects_dir)
-            for _, _, files in scandir.walk(objects_dir):
+            for _, _, files in os.walk(objects_dir):
                 if files:
                     return
             job.set_status(1)

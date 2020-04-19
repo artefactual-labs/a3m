@@ -27,6 +27,7 @@ def simple_job(request, mocker):
 
 @pytest.mark.django_db(transaction=True)
 def test_pool(simple_job, settings, mocker):
+    mocker.patch("a3m.server.tasks.Task.bulk_log")
     backend = PoolTaskBackend()
     backend.TASK_BATCH_SIZE = 1
 

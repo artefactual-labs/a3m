@@ -13,8 +13,8 @@ def test_createDMDIDsFromCSVMetadata_finds_non_ascii_paths(mocker):
     state_mock = mocker.Mock(
         **{
             "CSV_METADATA": {
-                "montréal".encode("utf8"): "montreal metadata",
-                "dvořák".encode("utf8"): "dvorak metadata",
+                "montréal": "montreal metadata",
+                "dvořák": "dvorak metadata",
             }
         }
     )

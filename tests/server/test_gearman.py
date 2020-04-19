@@ -48,7 +48,7 @@ def format_gearman_request(tasks):
         task_uuid = six.text_type(task.uuid)
         request["tasks"][task_uuid] = {
             "uuid": task_uuid,
-            "createdDate": task.start_timestamp.isoformat(b" "),
+            "createdDate": task.start_timestamp.isoformat(" "),
             "arguments": task.arguments,
             "wants_output": task.wants_output,
         }
@@ -82,13 +82,13 @@ def test_gearman_task_submission(simple_job, simple_task, mocker):
 
     submit_job_kwargs = mock_client.return_value.submit_job.call_args[1]
 
-    assert submit_job_kwargs["task"] == six.binary_type(simple_job.name)
+    assert submit_job_kwargs["task"] == simple_job.name.encode("utf8")
     # Comparing pickled strings is fragile, so compare the python version
     assert six.moves.cPickle.loads(
         submit_job_kwargs["data"]
     ) == six.moves.cPickle.loads(task_data)
     try:
-        uuid.UUID(submit_job_kwargs["unique"])
+        uuid.UUID(submit_job_kwargs["unique"].decode("utf8"))
     except ValueError:
         pytest.fail("Expected unique to be a valid UUID.")
     assert submit_job_kwargs["wait_until_complete"] is False

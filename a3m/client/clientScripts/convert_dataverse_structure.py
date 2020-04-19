@@ -479,7 +479,7 @@ def write_mets_to_file(sip, unit_path, output_md_path, output_md_name):
                 pretty_print=True,
                 encoding="utf-8",
                 xml_declaration=True,
-            )
+            ).decode("utf8")
         )
 
 

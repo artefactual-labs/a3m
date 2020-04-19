@@ -15,7 +15,7 @@ def test_handle_batch_task_replaces_non_ascii_arguments(mocker):
     mocker.patch("a3m.client.mcp.Task")
     mocker.patch("a3m.client.mcp.retryOnFailure")
     mocker.patch(
-        "cPickle.loads",
+        "pickle.loads",
         return_value={
             "tasks": {
                 "some_task_uuid": {
@@ -43,5 +43,5 @@ def test_handle_batch_task_replaces_non_ascii_arguments(mocker):
 
     # Check that string replacement were successful
     _parse_command_line.assert_called_once_with(
-        "montréal some_task_uuid some montréal datetime".encode("utf8")
+        "montréal some_task_uuid some montréal datetime"
     )

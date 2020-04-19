@@ -171,8 +171,8 @@ def test_scan_file(mocker, setup_kwargs, exit_code, queue_event_params, settings
     # scan size are being tested. The scan size is offset so as to enable the
     # test to fall through correctly and eventually return None for
     # not-scanned.
-    settings.CLAMAV_CLIENT_MAX_FILE_SIZE = "42"
-    settings.CLAMAV_CLIENT_MAX_SCAN_SIZE = "84"
+    settings.CLAMAV_CLIENT_MAX_FILE_SIZE = 42
+    settings.CLAMAV_CLIENT_MAX_SCAN_SIZE = 84
 
     event_queue = []
 

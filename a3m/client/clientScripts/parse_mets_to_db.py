@@ -215,7 +215,7 @@ def parse_dc(job, sip_uuid, root):
             "isPartOf": "is_part_of",
         }
         # Want most recently updated
-        dmds = sorted(dmds, key=lambda e: e.get("CREATED"))
+        dmds = sorted(dmds, key=lambda e: e.get("CREATED") or "")
         # Only want SIP DC, not file DC
         div = root.find(
             'mets:structMap/mets:div/mets:div[@TYPE="Directory"][@LABEL="objects"]',

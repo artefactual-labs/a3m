@@ -71,9 +71,9 @@ def encode_item(item):
     if not item:  # Handle case where json contains null.
         return
     elif isinstance(item, six.string_types):
-        return item.encode("utf-8")
+        return item
     elif isinstance(item, (list, tuple)):
-        return [i.encode("utf-8") if i else "" for i in item]
+        return [i if i else "" for i in item]
     else:
         return item
 
@@ -84,7 +84,7 @@ def fix_encoding(row):
     keys or values passed to writerow(). This encodes them all to
     UTF-8 bytestrings.
     """
-    return {key.encode("utf-8"): encode_item(value) for key, value in row.items()}
+    return {key: encode_item(value) for key, value in row.items()}
 
 
 def object_to_row(row, headers):

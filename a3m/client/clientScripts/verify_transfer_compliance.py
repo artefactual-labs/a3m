@@ -20,8 +20,6 @@ from __future__ import absolute_import
 import os
 import sys
 
-import scandir
-
 from .verify_sip_compliance import checkDirectory
 
 REQUIRED_DIRECTORIES = (
@@ -59,7 +57,7 @@ def verifyNothingElseAtTopLevel(job, SIPDir, ret=0):
 
 def verifyThereAreFiles(job, SIPDir, ret=0):
     """Make sure there are files in the transfer."""
-    if not any(files for (_, _, files) in scandir.walk(SIPDir)):
+    if not any(files for (_, _, files) in os.walk(SIPDir)):
         job.pyprint("Error, no files found", file=sys.stderr)
         ret += 1
     return ret

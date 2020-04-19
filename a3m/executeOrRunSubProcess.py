@@ -121,8 +121,8 @@ def launchSubProcess(
             stdError = ""
         # append the output to stderror and stdout
         if printing:
-            print(stdOut)
-            print(stdError, file=sys.stderr)
+            print(six.ensure_text(stdOut, "utf8"))
+            print(six.ensure_text(stdError, "utf8"), file=sys.stderr)
     except OSError as ose:
         print("Execution failed:", ose, file=sys.stderr)
         return -1, "Config Error!", ose.__str__()
@@ -131,7 +131,7 @@ def launchSubProcess(
         print(type(inst), file=sys.stderr)  # the exception instance
         print(inst.args, file=sys.stderr)
         return -1, "Execution failed:", command
-    return retcode, stdOut, stdError
+    return retcode, six.ensure_text(stdOut, "utf8"), six.ensure_text(stdError, "utf8")
 
 
 def createAndRunScript(

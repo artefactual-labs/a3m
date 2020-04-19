@@ -10,7 +10,6 @@ import shutil
 import tempfile
 import unittest
 
-import scandir
 from django.test import TestCase
 from lxml import etree
 from six.moves import range
@@ -200,7 +199,7 @@ class TestDublinCore(TestCase):
                 ("dc.subject", ["Glaives"]),
                 ("dc.description", ["Glaives are cool"]),
                 ("dc.publisher", ["Tortall Press"]),
-                ("dc.contributor", ["雪 ユキ".encode("utf8")]),
+                ("dc.contributor", ["雪 ユキ"]),
                 ("dc.date", ["2015"]),
                 ("dc.type", ["Archival Information Package"]),
                 ("dc.format", ["parchement"]),
@@ -269,7 +268,7 @@ class TestDublinCore(TestCase):
         data = collections.OrderedDict(
             [
                 ("Title", ["Yamani Weapons"]),
-                ("Contributor", ["雪 ユキ".encode("utf8")]),
+                ("Contributor", ["雪 ユキ"]),
                 (
                     "Long Description",
                     ["This is about how glaives are used in the Yamani Islands"],
@@ -312,10 +311,10 @@ class TestDublinCore(TestCase):
         data = collections.OrderedDict(
             [
                 ("dc.title", ["Yamani Weapons"]),
-                ("dc.contributor", ["雪 ユキ".encode("utf8")]),
+                ("dc.contributor", ["雪 ユキ"]),
                 ("dcterms.isPartOf", ["AIC#42"]),
                 ("Title", ["Yamani Weapons"]),
-                ("Contributor", ["雪 ユキ".encode("utf8")]),
+                ("Contributor", ["雪 ユキ"]),
                 (
                     "Long Description",
                     ["This is about how glaives are used in the Yamani Islands"],
@@ -388,10 +387,7 @@ class TestDublinCore(TestCase):
     def test_dmdsec_from_csv_parsed_metadata_repeats(self):
         """It should create multiple elements for repeated input."""
         data = collections.OrderedDict(
-            [
-                ("dc.contributor", ["Yuki", "雪 ユキ".encode("utf8")]),
-                ("Contributor", ["Yuki", "雪 ユキ".encode("utf8")]),
-            ]
+            [("dc.contributor", ["Yuki", "雪 ユキ"]), ("Contributor", ["Yuki", "雪 ユキ"])]
         )
         # Test
         state = create_mets_v2.MetsState()
@@ -454,7 +450,7 @@ class TestCSVMetadata(TempDirMixin, TestCase):
             ["objects/foo.jpg", "Foo", "2000", "Taken on a sunny day"],
             ["objects/bar/", "Bar", "2000", "All taken on a rainy day"],
         ]
-        with self.metadata_file.open("wb") as f:
+        with self.metadata_file.open("w") as f:
             writer = csv.writer(f)
             for row in data:
                 writer.writerow(row)
@@ -498,7 +494,7 @@ class TestCSVMetadata(TempDirMixin, TestCase):
             ["Filename", "dc.title", "dc.type", "dc.type", "dc.type"],
             ["objects/foo.jpg", "Foo", "Photograph", "Still image", "Picture"],
         ]
-        with self.metadata_file.open("wb") as f:
+        with self.metadata_file.open("w") as f:
             writer = csv.writer(f)
             for row in data:
                 writer.writerow(row)
@@ -523,8 +519,8 @@ class TestCSVMetadata(TempDirMixin, TestCase):
     def test_parse_metadata_csv_non_ascii(self):
         """It should parse unicode."""
         # Create metadata.csv
-        data = [["Filename", "dc.title"], ["objects/foo.jpg", "元気です".encode("utf8")]]
-        with self.metadata_file.open("wb") as f:
+        data = [["Filename", "dc.title"], ["objects/foo.jpg", "元気です"]]
+        with self.metadata_file.open("w") as f:
             writer = csv.writer(f)
             for row in data:
                 writer.writerow(row)
@@ -537,7 +533,7 @@ class TestCSVMetadata(TempDirMixin, TestCase):
         assert dc
         assert "objects/foo.jpg" in dc
         assert "dc.title" in dc["objects/foo.jpg"]
-        assert dc["objects/foo.jpg"]["dc.title"] == ["元気です".encode("utf8")]
+        assert dc["objects/foo.jpg"]["dc.title"] == ["元気です"]
 
     def test_parse_metadata_csv_blank_rows(self):
         """It should skip blank rows."""
@@ -547,7 +543,7 @@ class TestCSVMetadata(TempDirMixin, TestCase):
             ["objects/foo.jpg", "Foo", "Photograph", "Still image", "Picture"],
             [],
         ]
-        with self.metadata_file.open("wb") as f:
+        with self.metadata_file.open("w") as f:
             writer = csv.writer(f)
             for row in data:
                 writer.writerow(row)
@@ -769,7 +765,7 @@ class TestCustomStructMap(TempDirMixin, TestCase):
     @staticmethod
     def count_dir_objects(path):
         """Count all objects on a given path tree."""
-        return sum([len(files) for _, dir_, files in scandir.walk(path)])
+        return sum([len(files) for _, dir_, files in os.walk(path)])
 
     @staticmethod
     def validate_mets(mets_xsd, mets_structmap):

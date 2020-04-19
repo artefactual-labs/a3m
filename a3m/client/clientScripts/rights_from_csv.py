@@ -80,7 +80,7 @@ class RightCsvReader(object):
         ).first()
 
         # Use universal newline mode to support unusual newlines, like \r
-        with open(self.rights_csv_filepath, "rbU") as f:
+        with open(self.rights_csv_filepath, "rU") as f:
             reader = csv.DictReader(f)
             for row in reader:
                 self.parse_row(row)

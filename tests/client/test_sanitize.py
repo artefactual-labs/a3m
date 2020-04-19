@@ -56,7 +56,7 @@ def transfer_dir_obj(db, transfer, tmp_path, subdir_path):
     dir_obj_path = "".join(
         [
             transfer.currentlocation,
-            six.text_type(subdir_path.relative_to(tmp_path).as_posix(), "utf-8"),
+            six.ensure_text(subdir_path.relative_to(tmp_path).as_posix(), "utf-8"),
             os.path.sep,
         ]
     )
@@ -75,7 +75,7 @@ def sip_dir_obj(db, sip, tmp_path, subdir_path):
     dir_obj_path = "".join(
         [
             sip.currentpath,
-            six.text_type(subdir_path.relative_to(tmp_path).as_posix(), "utf-8"),
+            six.ensure_text(subdir_path.relative_to(tmp_path).as_posix(), "utf-8"),
             os.path.sep,
         ]
     )
@@ -96,7 +96,7 @@ def sip_file_obj(db, sip, tmp_path, subdir_path):
     relative_path = "".join(
         [
             sip.currentpath,
-            six.text_type(file_path.relative_to(tmp_path).as_posix(), "utf-8"),
+            six.ensure_text(file_path.relative_to(tmp_path).as_posix(), "utf-8"),
         ]
     )
 
@@ -127,7 +127,7 @@ def multiple_transfer_file_objs(db, transfer, tmp_path, multiple_file_paths):
         "".join(
             [
                 transfer.currentlocation,
-                six.text_type(path.relative_to(tmp_path).as_posix(), "utf-8"),
+                six.ensure_text(path.relative_to(tmp_path).as_posix(), "utf-8"),
             ]
         )
         for path in multiple_file_paths
@@ -213,7 +213,7 @@ class TestSanitize(TempDirMixin, TestCase):
 
     @staticmethod
     @pytest.fixture(scope="class")
-    def django_db_setup(self, django_db_blocker):
+    def django_db_setup(self, django_db_setup, django_db_blocker):
         """Load the various database fixtures required for our tests."""
         agents_fixtures_dir = "microservice_agents"
         agents = os.path.join(agents_fixtures_dir, "microservice_agents.json")
@@ -250,7 +250,7 @@ class TestSanitize(TempDirMixin, TestCase):
             if not os.path.exists(dirname):
                 os.makedirs(dirname)
             with open(path, "w") as f:
-                f.write(path.encode("utf8"))
+                f.write(path)
 
         try:
             # Sanitize
@@ -378,7 +378,7 @@ def test_sanitize_transfer_with_multiple_files(
 
         assert file_obj.currentlocation != original_location
         assert (
-            six.text_type(subdir_path.as_posix(), "utf-8")
+            six.ensure_text(subdir_path.as_posix(), "utf-8")
             not in file_obj.currentlocation
         )
         assert "bulk-file" in file_obj.currentlocation
@@ -407,7 +407,7 @@ def test_sanitize_transfer_with_directory_uuids(
 
     assert transfer_dir_obj.currentlocation != original_location
     assert (
-        six.text_type(subdir_path.as_posix(), "utf-8")
+        six.ensure_text(subdir_path.as_posix(), "utf-8")
         not in transfer_dir_obj.currentlocation
     )
 
@@ -430,7 +430,7 @@ def test_sanitize_sip(tmp_path, sip, subdir_path, sip_dir_obj, sip_file_obj):
 
     assert sip_dir_obj.currentlocation != original_dir_location
     assert (
-        six.text_type(subdir_path.as_posix(), "utf-8")
+        six.ensure_text(subdir_path.as_posix(), "utf-8")
         not in sip_dir_obj.currentlocation
     )
 
@@ -439,7 +439,7 @@ def test_sanitize_sip(tmp_path, sip, subdir_path, sip_dir_obj, sip_file_obj):
 
     assert sip_file_obj.currentlocation != original_file_location
     assert (
-        six.text_type(subdir_path.as_posix(), "utf-8")
+        six.ensure_text(subdir_path.as_posix(), "utf-8")
         not in sip_file_obj.currentlocation
     )
     assert "file" in sip_file_obj.currentlocation

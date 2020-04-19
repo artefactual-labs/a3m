@@ -96,10 +96,10 @@ class Job:
         return self.int_code
 
     def get_stdout(self):
-        return self.output.decode("utf-8")
+        return self.output
 
     def get_stderr(self):
-        return self.error.decode("utf-8")
+        return self.error
 
     @contextmanager
     def JobContext(self, logger=None):

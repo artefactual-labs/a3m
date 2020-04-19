@@ -10,13 +10,9 @@ bagit==1.7.0              # via -r requirements.in
 certifi==2020.4.5.1       # via requests
 chardet==3.0.4            # via requests
 clamd==1.0.2              # via -r requirements.in
-contextdecorator==0.10.0 ; python_version < "3.2"  # via -r requirements.in
-django==1.8.19            # via -r requirements.in
-enum34==1.1.6             # via grpcio, inotify-simple
-functools32==3.2.3.post2  # via jsonschema
+django==2.2.12            # via -r requirements.in
 future==0.18.2            # via metsrw
-futures==3.3.0 ; python_version < "3.2"  # via -r requirements.in, grpcio
-gearman==2.0.2            # via -r requirements.in
+gearman3==0.2.0           # via -r requirements.in
 googleapis-common-protos==1.51.0  # via -r requirements.in, grpcio-status
 grpcio-reflection==1.28.1  # via -r requirements.in
 grpcio-status==1.28.1     # via -r requirements.in
@@ -28,13 +24,12 @@ lxml==3.5.0               # via -r requirements.in, ammcpc, metsrw
 metsrw==0.3.15            # via -r requirements.in
 olefile==0.46             # via opf-fido
 opf-fido==1.4.1           # via -r requirements.in
-pathlib2==2.3.5 ; python_version < "3"  # via -r requirements.in
 prometheus_client==0.7.1  # via -r requirements.in
 protobuf==3.11.3          # via googleapis-common-protos, grpcio-reflection, grpcio-status
-pytz==2019.3              # via -r requirements.in
+pytz==2019.3              # via -r requirements.in, django
 requests==2.23.0          # via -r requirements.in, amclient
-scandir==1.10.0 ; python_version < "3.5"  # via -r requirements.in, pathlib2
-six==1.14.0               # via -r requirements.in, amclient, grpcio, metsrw, opf-fido, pathlib2, protobuf
+six==1.14.0               # via -r requirements.in, amclient, grpcio, metsrw, opf-fido, protobuf
+sqlparse==0.3.1           # via django
 unidecode==1.1.1          # via -r requirements.in
 urllib3==1.25.8           # via amclient, requests
 

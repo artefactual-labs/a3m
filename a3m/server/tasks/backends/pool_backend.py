@@ -118,7 +118,7 @@ class PoolTaskBatch(object):
     def serialize_task(self, task):
         return {
             "uuid": six.text_type(task.uuid),
-            "createdDate": task.start_timestamp.isoformat(b" "),
+            "createdDate": task.start_timestamp.isoformat(" "),
             "arguments": task.arguments,
             "wants_output": task.wants_output,
         }
@@ -144,7 +144,7 @@ class PoolTaskBatch(object):
         pickled_data = cPickle.dumps(data)
 
         self.future = executor.submit(
-            self.run, supported_modules, six.binary_type(job.name), pickled_data
+            self.run, supported_modules, job.name.encode("utf8"), pickled_data
         )
 
         logger.debug("Submitted pool job %s (%s)", self.uuid, job.name)

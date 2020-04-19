@@ -13,7 +13,6 @@ import os
 from uuid import UUID
 from uuid import uuid4
 
-import scandir
 from django.conf import settings
 from django.utils import six
 
@@ -234,7 +233,7 @@ class Package(object):
                     files_returned_already.add(file_obj_mapped.get("%inputFile%"))
                     yield file_obj_mapped
 
-            for basedir, subdirs, files in scandir.walk(start_path):
+            for basedir, subdirs, files in os.walk(start_path):
                 for file_name in files:
                     if (
                         filter_filename_start

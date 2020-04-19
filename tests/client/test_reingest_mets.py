@@ -41,9 +41,7 @@ class TestUpdateObject(TestCase):
     def load_fixture(self, fixture_paths):
         try:
             call_command(
-                "loaddata",
-                *fixture_paths,
-                **{"verbosity": 0, "commit": False, "skip_checks": True}
+                "loaddata", *fixture_paths, **{"verbosity": 0, "skip_checks": True}
             )
         except Exception:
             self._fixture_teardown()

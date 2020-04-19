@@ -49,7 +49,7 @@ class TestStoreFileModification(TestCase):
             if not os.path.exists(dirname):
                 os.makedirs(dirname)
             with open(path, "w") as f:
-                f.write(path.encode("utf8"))
+                f.write(path)
             os.utime(path, (1339485682, 1339485682))
 
         # Store file modification dates

@@ -42,7 +42,7 @@ def call(jobs):
                     continue
 
                 # use universal newline mode to support unusual newlines, like \r
-                with open(fileLabels, "rbU") as f:
+                with open(fileLabels, "rU") as f:
                     reader = csv.reader(f)
                     for row in reader:
                         if labelFirst:

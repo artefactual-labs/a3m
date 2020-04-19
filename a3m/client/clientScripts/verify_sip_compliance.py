@@ -20,8 +20,6 @@ from __future__ import absolute_import
 import os
 import sys
 
-import scandir
-
 from a3m.client import metrics
 
 
@@ -37,7 +35,7 @@ ALLOWABLE_FILES = ("processingMCP.xml",)
 
 def checkDirectory(job, directory, ret=0):
     try:
-        for directory, subDirectories, files in scandir.walk(directory):
+        for directory, subDirectories, files in os.walk(directory):
             for file in files:
                 os.path.join(directory, file)
     except Exception as inst:

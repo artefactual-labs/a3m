@@ -4,7 +4,6 @@ import os
 import sys
 
 import django
-import scandir
 
 django.setup()
 from django.db import transaction
@@ -15,7 +14,7 @@ from a3m import databaseFunctions
 
 def recursivelyRemoveEmptyDirectories(job, dir):
     error_count = 0
-    for root, dirs, files in scandir.walk(dir, topdown=False):
+    for root, dirs, files in os.walk(dir, topdown=False):
         for directory in dirs:
             try:
                 os.rmdir(os.path.join(root, directory))

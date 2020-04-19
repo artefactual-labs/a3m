@@ -25,7 +25,6 @@ import os
 import uuid
 
 import django
-import scandir
 import six
 from django.conf import settings as django_settings
 from django.db.models import Prefetch
@@ -193,7 +192,7 @@ class FSEntriesTree(object):
         return os.path.relpath(path, start=self.root_path)
 
     def build_tree(self, path, parent=None):
-        dir_entries = sorted(scandir.scandir(path), key=lambda d: d.name)
+        dir_entries = sorted(os.scandir(path), key=lambda d: d.name)
         for dir_entry in dir_entries:
             entry_relative_path = os.path.relpath(dir_entry.path, start=self.root_path)
             if dir_entry.is_dir():
@@ -685,7 +684,7 @@ def event_to_premis(event):
             ("event_identifier_value", str(event.event_id)),
         ),
         ("event_type", event.event_type),
-        ("event_date_time", event.event_datetime),
+        ("event_date_time", str(event.event_datetime)),
         ("event_detail_information", ("event_detail", event.event_detail)),
         (
             "event_outcome_information",

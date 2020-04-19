@@ -10,7 +10,6 @@ import traceback
 import uuid
 
 import django
-import scandir
 
 from . import transcoder
 
@@ -96,7 +95,7 @@ def check_manual_normalization(job, opts):
     if os.path.isfile(normalization_csv):
         found = False
         # use universal newline mode to support unusual newlines, like \r
-        with open(normalization_csv, "rbU") as csv_file:
+        with open(normalization_csv, "rU") as csv_file:
             reader = csv.reader(csv_file)
             # Search the file for an original filename that matches the one provided
             try:
@@ -204,7 +203,7 @@ def once_normalized(job, command, opts, replacement_dict):
     if os.path.isfile(command.output_location):
         transcoded_files.append(command.output_location)
     elif os.path.isdir(command.output_location):
-        for w in scandir.walk(command.output_location):
+        for w in os.walk(command.output_location):
             path, _, files = w
             for p in files:
                 p = os.path.join(path, p)

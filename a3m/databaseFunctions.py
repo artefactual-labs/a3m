@@ -36,7 +36,6 @@ from a3m.main.models import Agent
 from a3m.main.models import Derivation
 from a3m.main.models import Event
 from a3m.main.models import File
-from a3m.main.models import FPCommandOutput
 from a3m.main.models import SIP
 
 LOGGER = logging.getLogger("archivematica.common")

@@ -22,7 +22,6 @@ import os
 import re
 import shutil
 
-from scandir import scandir
 from unidecode import unidecode
 
 from a3m.archivematicaFunctions import strToUnicode
@@ -85,7 +84,7 @@ def sanitize_tree(start_path, old_start_path):
     """
     start_path = os.path.abspath(start_path)
 
-    for dir_entry in scandir(start_path):
+    for dir_entry in os.scandir(start_path):
         is_dir = dir_entry.is_dir()  # cache is_dir before rename
 
         sanitized_name = sanitize_path(dir_entry.path)

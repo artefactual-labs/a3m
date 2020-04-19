@@ -207,7 +207,7 @@ def install_builtin_config(name):
     """
     Install the original version of a builtin processing configuration
     """
-    config = BUILTIN_CONFIGS[name].encode("utf-8")
+    config = BUILTIN_CONFIGS[name]
     path = os.path.join(
         settings.SHARED_DIRECTORY,
         "sharedMicroServiceTasksConfigs/processingMCPConfigs",

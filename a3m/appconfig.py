@@ -63,7 +63,9 @@ class EnvConfigParser(ConfigParser.SafeConfigParser):
     def __init__(self, defaults=None, env=None, prefix=""):
         self._environ = env or os.environ
         self._prefix = prefix.rstrip("_")
-        ConfigParser.SafeConfigParser.__init__(self, defaults)
+        ConfigParser.SafeConfigParser.__init__(
+            self, defaults, inline_comment_prefixes=(";",)
+        )
 
     def _get_envvar(self, section, option):
         for key in (

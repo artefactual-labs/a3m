@@ -6,8 +6,7 @@ import logging.config
 import math
 import multiprocessing
 import os
-
-import StringIO
+from io import StringIO
 
 from a3m.appconfig import Config
 from a3m.appconfig import process_watched_directory_interval
@@ -158,7 +157,7 @@ rpc_bind_address = 0.0.0.0:7000
 
 
 config = Config(env_prefix="A3M", attrs=CONFIG_MAPPING)
-config.read_defaults(StringIO.StringIO(CONFIG_DEFAULTS))
+config.read_defaults(StringIO(CONFIG_DEFAULTS))
 config.read_files(["/etc/a3m/a3m.cfg"])
 
 
@@ -178,7 +177,7 @@ DATABASES = {
 
 MIDDLEWARE_CLASSES = ()
 
-TEMPLATES = ()
+TEMPLATES = [{"BACKEND": "django.template.backends.django.DjangoTemplates"}]
 
 INSTALLED_APPS = (
     "django.contrib.auth",

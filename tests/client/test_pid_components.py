@@ -75,7 +75,7 @@ class TestPIDComponents(object):
 
     @staticmethod
     @pytest.fixture(scope="class")
-    def django_db_setup(django_db_blocker):
+    def django_db_setup(django_db_setup, django_db_blocker):
         """Load the various database fixtures required for our tests."""
         pid_dir = "pid_binding"
         fixture_files = ["sip.json", "transfer.json", "files.json", "directories.json"]
@@ -395,6 +395,6 @@ class TestPIDComponents(object):
         try:
             DeclarePIDs(job).pid_declaration(unit_uuid="", sip_directory="")
         except DeclarePIDsException as err:
-            assert "No JSON object could be decoded" in str(
+            assert "Expecting value: line 15 column 1 (char 336)" in str(
                 err
             ), "Error message something other than anticipated for invalid JSON"

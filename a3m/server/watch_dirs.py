@@ -19,7 +19,6 @@ import sys
 import time
 import warnings
 
-import scandir
 from django.conf import settings
 from inotify_simple import flags
 from inotify_simple import INotify
@@ -68,7 +67,7 @@ def watch_directories_poll(
         current_paths = set()
 
         for watched_dir in active_watched_dirs:
-            for item in scandir.scandir(watched_dir.path):
+            for item in os.scandir(watched_dir.path):
                 if watched_dir.only_dirs and not item.is_dir():
                     continue
                 elif item.path in known_paths:
@@ -113,7 +112,7 @@ def watch_directories_inotify(
         watches[descriptor] = (watched_dir.path, watched_dir)
 
         # If the directory already has something in it, trigger callbacks
-        for item in scandir.scandir(watched_dir.path):
+        for item in os.scandir(watched_dir.path):
             if watched_dir.only_dirs and not item.is_dir():
                 continue
             logger.debug(

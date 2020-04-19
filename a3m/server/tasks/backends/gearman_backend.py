@@ -191,7 +191,7 @@ class GearmanTaskBatch(object):
     def serialize_task(self, task):
         return {
             "uuid": six.text_type(task.uuid),
-            "createdDate": task.start_timestamp.isoformat(b" "),
+            "createdDate": task.start_timestamp.isoformat(" "),
             "arguments": task.arguments,
             "wants_output": task.wants_output,
         }
@@ -211,9 +211,9 @@ class GearmanTaskBatch(object):
         pickled_data = cPickle.dumps(data)
 
         self.pending = client.submit_job(
-            task=six.binary_type(job.name),
+            task=job.name.encode("utf8"),
             data=pickled_data,
-            unique=six.binary_type(self.uuid),
+            unique=str(self.uuid).encode("utf8"),
             wait_until_complete=False,
             background=False,
             max_retries=0,
