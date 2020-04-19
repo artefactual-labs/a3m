@@ -37,7 +37,7 @@ multidict==4.7.5          # via yarl
 olefile==0.46             # via -r requirements.txt, opf-fido
 opf-fido==1.4.1           # via -r requirements.txt
 packaging==20.3           # via pytest, tox
-pip-tools==4.5.1          # via -r requirements-dev.in
+pip-tools==5.0.0          # via -r requirements-dev.in
 pluggy==0.13.1            # via pytest, tox
 prometheus_client==0.7.1  # via -r requirements.txt
 protobuf==3.11.3          # via -r requirements.txt, googleapis-common-protos, grpcio-reflection, grpcio-status, grpcio-tools
@@ -64,4 +64,5 @@ yarl==1.4.2               # via vcrpy
 zipp==1.2.0               # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
+# pip
 # setuptools

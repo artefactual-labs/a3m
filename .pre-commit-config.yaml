@@ -15,3 +15,15 @@ repos:
   hooks:
   - id: reorder-python-imports
     args: ["--application-directories=.:src"]
+- repo: https://github.com/jazzband/pip-tools
+  rev: 5.0.0
+  hooks:
+  - id: pip-compile
+    files: ^requirements\.(in|txt)$
+    args: ["requirements.in"]
+- repo: https://github.com/jazzband/pip-tools
+  rev: 5.0.0
+  hooks:
+  - id: pip-compile
+    files: ^requirements-dev\.(in|txt)$
+    args: ["requirements-dev.in"]
