@@ -354,7 +354,7 @@ class Transfer(Package):
 
     def __init__(self, current_path, uuid, url):
         super(Transfer, self).__init__(current_path, uuid)
-        self.url = url
+        self.url = url or ""
 
     @classmethod
     @auto_close_old_connections()
@@ -388,7 +388,7 @@ class Transfer(Package):
             path,
         )
 
-        return cls(path, transfer_obj.uuid)
+        return cls(path, transfer_obj.uuid, None)
 
     @property
     @auto_close_old_connections()
