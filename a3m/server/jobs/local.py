@@ -53,7 +53,7 @@ class GetUnitVarLinkJob(LocalJob):
         except models.UnitVariable.DoesNotExist:
             link_id = self.link.config["chain_id"]
         else:
-            link_id = unitvar.microservicechainlink
+            link_id = str(unitvar.microservicechainlink)
 
         try:
             link = self.link.workflow.get_link(link_id)

@@ -20,7 +20,6 @@ contextlib2==0.6.0.post1  # via importlib-metadata, importlib-resources, vcrpy, 
 coverage==5.1             # via -r requirements-dev.in, pytest-cov
 distlib==0.3.0            # via virtualenv
 django-autoslug==1.9.3    # via -r requirements.txt
-django-extensions==1.1.1  # via -r requirements.txt
 django==1.8.19            # via -r requirements.txt
 enum34==1.1.6             # via -r requirements.txt, grpcio, inotify-simple
 filelock==3.0.12          # via tox, virtualenv
@@ -62,7 +61,7 @@ pyyaml==5.3.1             # via vcrpy
 requests==2.23.0          # via -r requirements.txt, amclient
 scandir==1.10.0 ; python_version < "3.5"  # via -r requirements.txt, pathlib2
 singledispatch==3.4.0.3   # via importlib-resources
-six==1.14.0               # via -r requirements.txt, amclient, django-extensions, grpcio, metsrw, mock, more-itertools, opf-fido, packaging, pathlib2, pip-tools, protobuf, pytest, tox, vcrpy, virtualenv
+six==1.14.0               # via -r requirements.txt, amclient, grpcio, metsrw, mock, more-itertools, opf-fido, packaging, pathlib2, pip-tools, protobuf, pytest, tox, vcrpy, virtualenv
 toml==0.10.0              # via tox
 tox==3.14.6               # via -r requirements-dev.in
 typing==3.7.4.1           # via importlib-resources

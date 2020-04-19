@@ -19,7 +19,6 @@
         }
     },
     {
-        "pk": 1,
         "model": "main.unitvariable",
         "fields": {
             "createdtime": "2014-10-30T00:00:00",
@@ -63,7 +62,6 @@
         }
     },
     {
-        "pk": 2,
         "model": "main.unitvariable",
         "fields": {
             "createdtime": "2014-10-30T00:00:00",
@@ -112,7 +110,6 @@
         }
     },
     {
-        "pk": 3,
         "model": "main.unitvariable",
         "fields": {
             "createdtime": "2014-10-30T00:00:00",
@@ -154,7 +151,6 @@
         }
     },
     {
-        "pk": 4,
         "model": "main.unitvariable",
         "fields": {
             "createdtime": "2014-10-30T00:00:00",

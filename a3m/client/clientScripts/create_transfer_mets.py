@@ -343,7 +343,7 @@ def get_premis_relationship_data(derivations, originals):
                 (
                     "related_event_identification",
                     ("related_event_identifier_type", "UUID"),
-                    ("related_event_identifier_value", derivation.event_id),
+                    ("related_event_identifier_value", str(derivation.event_id)),
                 ),
             ),
         )
@@ -361,7 +361,7 @@ def get_premis_relationship_data(derivations, originals):
                 (
                     "related_event_identification",
                     ("related_event_identifier_type", "UUID"),
-                    ("related_event_identifier_value", original.event_id),
+                    ("related_event_identifier_value", str(original.event_id)),
                 ),
             ),
         )
@@ -682,7 +682,7 @@ def event_to_premis(event):
         (
             "event_identifier",
             ("event_identifier_type", "UUID"),
-            ("event_identifier_value", event.event_id),
+            ("event_identifier_value", str(event.event_id)),
         ),
         ("event_type", event.event_type),
         ("event_date_time", event.event_datetime),

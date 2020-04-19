@@ -341,7 +341,7 @@ class TestHashsum(object):
             )
             # Ensure that UUID creation has happened as anticipated. Will raise
             # a TypeError if otherwise.
-            UUID(events[0].event_id, version=4)
+            UUID(str(events[0].event_id), version=4)
             # Test the linked agents associated with our events.
             for event in events:
                 idvalues = []

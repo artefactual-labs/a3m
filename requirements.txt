@@ -12,7 +12,6 @@ chardet==3.0.4            # via requests
 clamd==1.0.2              # via -r requirements.in
 contextdecorator==0.10.0 ; python_version < "3.2"  # via -r requirements.in
 django-autoslug==1.9.3    # via -r requirements.in
-django-extensions==1.1.1  # via -r requirements.in
 django==1.8.19            # via -r requirements.in
 enum34==1.1.6             # via grpcio, inotify-simple
 functools32==3.2.3.post2  # via jsonschema
@@ -36,7 +35,7 @@ protobuf==3.11.3          # via googleapis-common-protos, grpcio-reflection, grp
 pytz==2019.3              # via -r requirements.in
 requests==2.23.0          # via -r requirements.in, amclient
 scandir==1.10.0 ; python_version < "3.5"  # via -r requirements.in, pathlib2
-six==1.14.0               # via -r requirements.in, amclient, django-extensions, grpcio, metsrw, opf-fido, pathlib2, protobuf
+six==1.14.0               # via -r requirements.in, amclient, grpcio, metsrw, opf-fido, pathlib2, protobuf
 unidecode==1.1.1          # via -r requirements.in
 urllib3==1.25.8           # via amclient, requests
 

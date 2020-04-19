@@ -3,7 +3,6 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 import autoslug.fields
-import django_extensions.db.fields
 from django.db import migrations
 from django.db import models
 
@@ -27,7 +26,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uuid",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         help_text="Unique identifier",
                         unique=True,
                         max_length=36,
@@ -69,7 +68,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uuid",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         help_text="Unique identifier",
                         unique=True,
                         max_length=36,
@@ -114,7 +113,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uuid",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         help_text="Unique identifier",
                         unique=True,
                         max_length=36,
@@ -212,7 +211,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uuid",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         help_text="Unique identifier",
                         unique=True,
                         max_length=36,
@@ -321,7 +320,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uuid",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         help_text="Unique identifier",
                         unique=True,
                         max_length=36,
@@ -407,7 +406,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uuid",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         help_text="Unique identifier",
                         unique=True,
                         max_length=36,
@@ -458,7 +457,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uuid",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         help_text="Unique identifier",
                         unique=True,
                         max_length=36,
@@ -543,7 +542,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uuid",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         help_text="Unique identifier",
                         unique=True,
                         max_length=36,
@@ -598,7 +597,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uuid",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         help_text="Unique identifier",
                         unique=True,
                         max_length=36,

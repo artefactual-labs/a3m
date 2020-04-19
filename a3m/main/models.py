@@ -23,6 +23,7 @@ from __future__ import absolute_import
 
 import logging
 import re
+import uuid
 
 import six
 from django.contrib.auth.models import User
@@ -30,7 +31,6 @@ from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
-from django_extensions.db.fields import UUIDField
 
 # Core Django, alphabetical by import source
 # Third party dependencies, alphabetical by import source
@@ -50,14 +50,6 @@ METADATA_STATUS = (
 BULK_CREATE_BATCH_SIZE = 2000
 
 # CUSTOM FIELDS
-
-
-class UUIDPkField(UUIDField):
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault("max_length", 36)
-        kwargs["primary_key"] = True
-        kwargs["db_column"] = "pk"
-        super(UUIDPkField, self).__init__(*args, **kwargs)
 
 
 class BlobTextField(models.TextField):
@@ -143,7 +135,9 @@ class MetadataAppliesToType(models.Model):
     TODO replace this with choices fields.
     """
 
-    id = UUIDPkField()
+    id = models.UUIDField(
+        max_length=36, primary_key=True, db_column="pk", default=uuid.uuid4
+    )
     description = models.CharField(max_length=50, db_column="description")
     replaces = models.CharField(
         max_length=36, db_column="replaces", null=True, blank=True
@@ -161,8 +155,8 @@ class Event(models.Model):
     """ PREMIS Events associated with Files. """
 
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
-    event_id = UUIDField(
-        auto=False, null=True, unique=True, db_column="eventIdentifierUUID"
+    event_id = models.UUIDField(
+        null=True, unique=True, db_column="eventIdentifierUUID", default=uuid.uuid4
     )
     file_uuid = models.ForeignKey(
         "File",
@@ -587,7 +581,7 @@ class JobQuerySet(models.QuerySet):
 
 
 class Job(models.Model):
-    jobuuid = UUIDField(db_column="jobUUID", primary_key=True)
+    jobuuid = models.UUIDField(db_column="jobUUID", primary_key=True, default=uuid.uuid4)
     jobtype = models.CharField(max_length=250, db_column="jobType", blank=True)
     createdtime = models.DateTimeField(db_column="createdTime")
     createdtimedec = models.DecimalField(
@@ -617,8 +611,8 @@ class Job(models.Model):
         max_length=50, db_column="microserviceGroup", blank=True
     )
     hidden = models.BooleanField(default=False)
-    microservicechainlink = UUIDField(
-        auto=False, null=True, blank=True, db_column="MicroServiceChainLinksPK"
+    microservicechainlink = models.UUIDField(
+        null=True, blank=True, db_column="MicroServiceChainLinksPK", default=uuid.uuid4
     )
 
     objects = JobQuerySet.as_manager()
@@ -1275,7 +1269,9 @@ class UnitVariableManager(models.Manager):
 
 
 class UnitVariable(models.Model):
-    id = UUIDPkField()
+    id = models.UUIDField(
+        max_length=36, primary_key=True, db_column="pk", default=uuid.uuid4
+    )
     unittype = models.CharField(
         max_length=50, null=True, blank=True, db_column="unitType"
     )
@@ -1287,8 +1283,8 @@ class UnitVariable(models.Model):
     )
     variable = models.TextField(null=True, db_column="variable")
     variablevalue = models.TextField(null=True, db_column="variableValue")
-    microservicechainlink = UUIDField(
-        auto=False, null=True, blank=True, db_column="microServiceChainLink"
+    microservicechainlink = models.UUIDField(
+        null=True, blank=True, db_column="microServiceChainLink", default=uuid.uuid4
     )
     createdtime = models.DateTimeField(db_column="createdTime", auto_now_add=True)
     updatedtime = models.DateTimeField(db_column="updatedTime", auto_now=True)
@@ -1302,7 +1298,9 @@ class UnitVariable(models.Model):
 
 
 class TransferMetadataSet(models.Model):
-    id = UUIDPkField()
+    id = models.UUIDField(
+        max_length=36, primary_key=True, db_column="pk", default=uuid.uuid4
+    )
     createdtime = models.DateTimeField(db_column="createdTime", auto_now_add=True)
     createdbyuserid = models.IntegerField(db_column="createdByUserID")
 
@@ -1311,7 +1309,9 @@ class TransferMetadataSet(models.Model):
 
 
 class TransferMetadataField(models.Model):
-    id = UUIDPkField()
+    id = models.UUIDField(
+        max_length=36, primary_key=True, db_column="pk", default=uuid.uuid4
+    )
     createdtime = models.DateTimeField(
         db_column="createdTime", auto_now_add=True, null=True
     )
@@ -1335,7 +1335,9 @@ class TransferMetadataField(models.Model):
 
 
 class TransferMetadataFieldValue(models.Model):
-    id = UUIDPkField()
+    id = models.UUIDField(
+        max_length=36, primary_key=True, db_column="pk", default=uuid.uuid4
+    )
     createdtime = models.DateTimeField(db_column="createdTime", auto_now_add=True)
     set = models.ForeignKey(
         "TransferMetadataSet",
@@ -1360,7 +1362,9 @@ class TransferMetadataFieldValue(models.Model):
 # designed to be editable, and forms to do so exist. (Forms for editing and
 # defining new fields are present in the code but currently disabled.)
 class Taxonomy(models.Model):
-    id = UUIDPkField()
+    id = models.UUIDField(
+        max_length=36, primary_key=True, db_column="pk", default=uuid.uuid4
+    )
     createdtime = models.DateTimeField(
         db_column="createdTime", auto_now_add=True, null=True
     )
@@ -1375,7 +1379,9 @@ class Taxonomy(models.Model):
 
 
 class TaxonomyTerm(models.Model):
-    id = UUIDPkField()
+    id = models.UUIDField(
+        max_length=36, primary_key=True, db_column="pk", default=uuid.uuid4
+    )
     createdtime = models.DateTimeField(
         db_column="createdTime", auto_now_add=True, null=True
     )

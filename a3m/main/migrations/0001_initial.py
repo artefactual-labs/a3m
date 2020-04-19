@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 from __future__ import unicode_literals
+import uuid
 
-import django_extensions.db.fields
 from django.conf import settings
 from django.db import migrations
 from django.db import models
@@ -195,13 +195,14 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "event_id",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         null=True,
                         db_column="eventIdentifierUUID",
                         editable=False,
                         max_length=36,
                         blank=True,
                         unique=True,
+                        default=uuid.uuid4,
                     ),
                 ),
                 ("event_type", models.TextField(db_column="eventType", blank=True)),
@@ -415,13 +416,14 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "jobuuid",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         primary_key=True,
                         db_column="jobUUID",
                         serialize=False,
                         editable=False,
                         max_length=36,
                         blank=True,
+                        default=uuid.uuid4,
                     ),
                 ),
                 (
@@ -470,12 +472,13 @@ class Migration(migrations.Migration):
                 ("hidden", models.BooleanField(default=False)),
                 (
                     "microservicechainlink",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         max_length=36,
                         null=True,
                         editable=False,
                         db_column="MicroServiceChainLinksPK",
                         blank=True,
+                        default=uuid.uuid4,
                     ),
                 ),
             ],
@@ -486,13 +489,14 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    a3m.main.models.UUIDPkField(
+                    models.UUIDField(
                         primary_key=True,
                         db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
                         blank=True,
+                        default=uuid.uuid4,
                     ),
                 ),
                 (
@@ -1417,13 +1421,14 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    a3m.main.models.UUIDPkField(
+                    models.UUIDField(
                         primary_key=True,
                         db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
                         blank=True,
+                        default=uuid.uuid4,
                     ),
                 ),
                 (
@@ -1445,13 +1450,14 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    a3m.main.models.UUIDPkField(
+                    models.UUIDField(
                         primary_key=True,
                         db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
                         blank=True,
+                        default=uuid.uuid4,
                     ),
                 ),
                 (
@@ -1508,13 +1514,14 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    a3m.main.models.UUIDPkField(
+                    models.UUIDField(
                         primary_key=True,
                         db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
                         blank=True,
+                        default=uuid.uuid4,
                     ),
                 ),
                 (
@@ -1547,13 +1554,14 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    a3m.main.models.UUIDPkField(
+                    models.UUIDField(
                         primary_key=True,
                         db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
                         blank=True,
+                        default=uuid.uuid4,
                     ),
                 ),
                 (
@@ -1577,13 +1585,14 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    a3m.main.models.UUIDPkField(
+                    models.UUIDField(
                         primary_key=True,
                         db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
                         blank=True,
+                        default=uuid.uuid4,
                     ),
                 ),
                 (
@@ -1599,13 +1608,14 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    a3m.main.models.UUIDPkField(
+                    models.UUIDField(
                         primary_key=True,
                         db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
                         blank=True,
+                        default=uuid.uuid4,
                     ),
                 ),
                 (
@@ -1630,12 +1640,13 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "microservicechainlink",
-                    django_extensions.db.fields.UUIDField(
+                    models.UUIDField(
                         max_length=36,
                         null=True,
                         editable=False,
                         db_column="microServiceChainLink",
                         blank=True,
+                        default=uuid.uuid4,
                     ),
                 ),
                 (

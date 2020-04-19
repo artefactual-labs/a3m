@@ -643,7 +643,7 @@ def create_premis_object_derivations(fileUUID):
         ).text = "UUID"
         etree.SubElement(
             relatedEventIdentifier, ns.premisBNS + "relatedEventIdentifierValue"
-        ).text = derivation.event_id
+        ).text = str(derivation.event_id)
 
         elements.append(relationship)
 
@@ -677,7 +677,7 @@ def create_premis_object_derivations(fileUUID):
         ).text = "UUID"
         etree.SubElement(
             relatedEventIdentifier, ns.premisBNS + "relatedEventIdentifierValue"
-        ).text = derivation.event_id
+        ).text = str(derivation.event_id)
 
         elements.append(relationship)
 
@@ -738,7 +738,7 @@ def createEvent(event_record):
     ).text = "UUID"
     etree.SubElement(
         eventIdentifier, ns.premisBNS + "eventIdentifierValue"
-    ).text = event_record.event_id
+    ).text = str(event_record.event_id)
 
     etree.SubElement(event, ns.premisBNS + "eventType").text = event_record.event_type
     etree.SubElement(

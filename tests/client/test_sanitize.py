@@ -184,7 +184,7 @@ def verify_event_details(event):
         'prohibited characters removed: program="sanitize_names"; version="1.10.'
     )
     assert event.event_id is not None, "Event ID is None"
-    assert is_uuid(event.event_id), "UUID is invalid"
+    assert is_uuid(str(event.event_id)), "UUID is invalid"
     assert EVENT_DETAIL in event.event_detail, "Event detail written incorrectly"
     # Verify the all Event agents are written as expected in standard workflow.
     agents = list(event.agents.all())
