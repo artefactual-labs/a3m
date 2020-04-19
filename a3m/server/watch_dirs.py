@@ -31,6 +31,24 @@ WATCHED_BASE_DIR = os.path.abspath(settings.WATCH_DIRECTORY)
 logger = logging.getLogger("archivematica.mcp.server.watchdirs")
 
 
+def _get_active_watched_dirs(watched_dirs):
+    """Generate the list of watched directories.
+
+    It expands the path described in workflow as well as excluding entries
+    that are not physically present, which is the case when a watched dir
+    is being deprecated and still listed in workflow (A3M-TODO).
+    """
+    dirs = list()
+    for watched_dir in watched_dirs:
+        original_path = watched_dir.path
+        watched_dir.path = os.path.join(WATCHED_BASE_DIR, watched_dir.path.lstrip("/"))
+        if not os.path.exists(watched_dir.path):
+            logger.warning("Watched directory %s not created", original_path)
+            continue
+        dirs.append(watched_dir)
+    return dirs
+
+
 def watch_directories_poll(
     watched_dirs, shutdown_event, callback, interval=settings.WATCH_DIRECTORY_INTERVAL
 ):
@@ -44,19 +62,7 @@ def watch_directories_poll(
     # paths that have already appeared in watch directories
     known_paths = set()
 
-    # Expand path attribute.
-    #
-    # TODO: also revoving non-existent entries, but those should just go from
-    # workflow.json which I haven't done yet because I don't want to mess with
-    # the graph yet.
-    active_watched_dirs = []
-    for watched_dir in watched_dirs:
-        original_path = watched_dir.path
-        watched_dir.path = os.path.join(WATCHED_BASE_DIR, watched_dir.path.lstrip("/"))
-        if not os.path.exists(watched_dir.path):
-            logger.warning("Watched directory %s not created", original_path)
-            continue
-        active_watched_dirs.append(watched_dir)
+    active_watched_dirs = _get_active_watched_dirs(watched_dirs)
 
     while not shutdown_event.is_set():
         current_paths = set()
@@ -100,16 +106,14 @@ def watch_directories_inotify(
     watch_flags = flags.CREATE | flags.MOVED_TO
     watches = {}  # descriptor: (path, WatchedDir)
 
-    for watched_dir in watched_dirs:
-        path = os.path.join(WATCHED_BASE_DIR, watched_dir.path.lstrip("/"))
-        if not os.path.isdir(path):
-            raise OSError('The path "{}" is not a directory.'.format(path))
+    active_watched_dirs = _get_active_watched_dirs(watched_dirs)
 
-        descriptor = inotify.add_watch(path, watch_flags)
-        watches[descriptor] = (path, watched_dir)
+    for watched_dir in active_watched_dirs:
+        descriptor = inotify.add_watch(watched_dir.path, watch_flags)
+        watches[descriptor] = (watched_dir.path, watched_dir)
 
         # If the directory already has something in it, trigger callbacks
-        for item in scandir.scandir(path):
+        for item in scandir.scandir(watched_dir.path):
             if watched_dir.only_dirs and not item.is_dir():
                 continue
             logger.debug(
