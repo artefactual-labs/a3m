@@ -28,6 +28,8 @@ Salient parameters are the UUID of the containing unit (Transfer or SIP) and
 the path to the file.
 
 """
+from __future__ import absolute_import
+
 import argparse
 import os
 import re

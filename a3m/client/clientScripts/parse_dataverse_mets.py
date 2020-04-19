@@ -4,6 +4,8 @@
 validate against the objects expected to be part of the SIP generated during
 transfer.
 """
+from __future__ import absolute_import
+
 import json
 import os
 import uuid

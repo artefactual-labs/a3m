@@ -17,6 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 # @version svn: $Id$
+from __future__ import absolute_import
+
 import os
 import sys
 

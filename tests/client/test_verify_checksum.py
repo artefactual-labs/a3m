@@ -22,6 +22,7 @@ hashsum checksum utilities. We need to ensure that the output of the tool is
 mapped consistently to something that can be understood by users when
 debugging their preservation workflow.
 """
+from __future__ import absolute_import
 from __future__ import unicode_literals
 
 import os

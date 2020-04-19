@@ -22,12 +22,15 @@ Archivematica documentation:
 
 https://wiki.archivematica.org/Dataverse
 """
+from __future__ import absolute_import
+
 import json
 import os
 import sys
 import uuid
 
 import django
+import six
 from lxml import etree
 
 # Database functions requires Django to be set up.
@@ -70,7 +73,7 @@ def output_ddi_elems_info(job, ddi_elems):
     """
     draft = False
     job.pyprint("Fields retrieved from Dataverse:")
-    for ddi_k, ddi_v in ddi_elems.iteritems():
+    for ddi_k, ddi_v in six.iteritems(ddi_elems):
         if ddi_k == "Version Type" and ddi_v == "DRAFT":
             draft = True
         job.pyprint("{}: {}".format(ddi_k, ddi_v))

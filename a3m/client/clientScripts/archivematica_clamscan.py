@@ -15,6 +15,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
+
 import abc
 import argparse
 import errno
@@ -25,6 +27,7 @@ import subprocess
 import uuid
 
 import django
+import six
 
 django.setup()
 from django.db import transaction
@@ -71,9 +74,7 @@ def clamav_version_parts(ver):
     return None, None
 
 
-class ScannerBase(object):
-    __metaclass__ = abc.ABCMeta
-
+class ScannerBase(six.with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod
     def scan(self, path):
         """Scan a file and return a tuple of three elements reporting the

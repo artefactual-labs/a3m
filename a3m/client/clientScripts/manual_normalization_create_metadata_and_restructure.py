@@ -10,6 +10,8 @@ Add a derivative link.
 :param fileUUID: UUID of the preservation file.
 :param filePath: Path on disk of the preservation file.
 """
+from __future__ import absolute_import
+
 import os
 import uuid
 

@@ -18,10 +18,14 @@
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 # @version svn: $Id$
 # /src/dashboard/src/main/models.py
+from __future__ import absolute_import
+
 import collections
 import csv
 import sys
 import traceback
+
+from six.moves import zip
 
 from a3m import archivematicaFunctions
 
@@ -106,7 +110,7 @@ def parseMetadataCSV(job, metadataCSVFilePath):
                 entry_name = entry_name[:-1]
             # Strip file/dir name from values
             row = row[1:]
-            values = archivematicaFunctions.OrderedListsDict(zip(header, row))
+            values = archivematicaFunctions.OrderedListsDict(list(zip(header, row)))
             if entry_name in metadata and metadata[entry_name] != values:
                 job.pyprint(
                     "Metadata for",

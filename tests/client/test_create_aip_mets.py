@@ -1,4 +1,5 @@
 # -*- coding: utf8
+from __future__ import absolute_import
 from __future__ import unicode_literals
 
 import collections
@@ -12,6 +13,7 @@ import unittest
 import scandir
 from django.test import TestCase
 from lxml import etree
+from six.moves import range
 
 from . import TempDirMixin
 from a3m import namespaces as ns
@@ -992,8 +994,8 @@ class TestCustomStructMap(TempDirMixin, TestCase):
                 res.files
             ), "Uneven replacement of IDs for files in structmap"
             for fileid in [fid.attrib["FILEID"] for fid in fids]:
-                assert (
-                    fileid in self.state.fileNameToFileID.values()
+                assert fileid in list(
+                    self.state.fileNameToFileID.values()
                 ), "Expected FILEID not in returned structmap"
 
     def test_get_included_structmap_incomplete_mets(self):

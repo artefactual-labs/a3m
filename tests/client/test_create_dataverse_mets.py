@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Unit tests against the Convert Dataverse Structure MCP Client script."""
+from __future__ import absolute_import
 from __future__ import print_function
 
 import os

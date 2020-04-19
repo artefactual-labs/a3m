@@ -39,6 +39,8 @@ The idea is to allow for PURL resolution like:
 The sole command-line argument is the File's UUID. If the --bind-pids option
 is something other than 'Yes', the script will exit without doing anything.
 """
+from __future__ import absolute_import
+
 import argparse
 from functools import wraps
 

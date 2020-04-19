@@ -15,11 +15,14 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
+
 import os
 import sys
 
 import scandir
-from verify_sip_compliance import checkDirectory
+
+from .verify_sip_compliance import checkDirectory
 
 REQUIRED_DIRECTORIES = (
     "objects",

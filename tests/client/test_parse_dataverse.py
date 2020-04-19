@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf8
 """Tests for the parse Dataverse functionality in Archivematica."""
+from __future__ import absolute_import
+
 import os
 
 import metsrw
@@ -105,14 +107,11 @@ class TestParseDataverse(TestCase):
 
         for test_case in test_cases:
             assert self.mets.get_file(file_uuid=test_case["file_uuid"]) in mapping
-            assert (
-                models.File.objects.get(
-                    currentlocation=test_case.get("file_location", "").format(
-                        self.transfer_location
-                    )
+            assert models.File.objects.get(
+                currentlocation=test_case.get("file_location", "").format(
+                    self.transfer_location
                 )
-                in mapping.values()
-            )
+            ) in list(mapping.values())
 
     def test_set_filegroups(self):
         """

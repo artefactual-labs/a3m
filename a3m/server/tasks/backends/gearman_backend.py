@@ -18,7 +18,6 @@ from gearman.constants import JOB_COMPLETE
 from gearman.constants import JOB_FAILED
 from gearman.constants import JOB_UNKNOWN
 
-from a3m.client.mcp import execute_command
 from a3m.server import metrics
 from a3m.server.tasks.backends.base import TaskBackend
 from a3m.server.tasks.task import Task

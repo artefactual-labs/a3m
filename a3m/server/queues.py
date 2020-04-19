@@ -12,7 +12,7 @@ import logging
 import threading
 import uuid
 
-import Queue
+import six.moves.queue
 from django.conf import settings
 from django.utils import six
 
@@ -86,12 +86,12 @@ class PackageQueue(object):
         self.active_package_lock = threading.Lock()
         self.active_packages = {}  # package uuid: Package
 
-        self.job_queue = Queue.Queue(maxsize=max_concurrent_packages)
+        self.job_queue = six.moves.queue.Queue(maxsize=max_concurrent_packages)
 
         # Split queues by package type
-        self.transfer_queue = Queue.Queue(maxsize=max_queued_packages)
-        self.sip_queue = Queue.Queue(maxsize=max_queued_packages)
-        self.dip_queue = Queue.Queue(maxsize=max_queued_packages)
+        self.transfer_queue = six.moves.queue.Queue(maxsize=max_queued_packages)
+        self.sip_queue = six.moves.queue.Queue(maxsize=max_queued_packages)
+        self.dip_queue = six.moves.queue.Queue(maxsize=max_queued_packages)
 
         if self.debug:
             logger.debug(
@@ -178,7 +178,7 @@ class PackageQueue(object):
         """
         try:
             job = self.job_queue.get(timeout=timeout)
-        except Queue.Empty:
+        except six.moves.queue.Empty:
             return
 
         metrics.job_queue_length_gauge.dec()
@@ -254,19 +254,19 @@ class PackageQueue(object):
         """
         try:
             job = self.dip_queue.get_nowait()
-        except Queue.Empty:
+        except six.moves.queue.Empty:
             job = None
 
         if job is None:
             try:
                 job = self.sip_queue.get_nowait()
-            except Queue.Empty:
+            except six.moves.queue.Empty:
                 pass
 
         if job is None:
             try:
                 job = self.transfer_queue.get_nowait()
-            except Queue.Empty:
+            except six.moves.queue.Empty:
                 pass
 
         if job is not None:

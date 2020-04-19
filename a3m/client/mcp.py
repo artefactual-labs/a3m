@@ -45,19 +45,22 @@ task to run next).
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import absolute_import
+
 import logging
 import os
 import time
 from functools import partial
 from socket import gethostname
 
-import ConfigParser
-import cPickle
 import django
 import gearman
+import six.moves.configparser
+import six.moves.cPickle
 from django.conf import settings as django_settings
 from django.db import transaction
 from django.utils import six
+from six.moves import zip
 
 django.setup()
 
@@ -84,7 +87,7 @@ def get_supported_modules():
     modules config file (typically MCPClient/lib/archivematicaClientModules).
     """
     supported_modules = {}
-    supported_modules_config = ConfigParser.RawConfigParser()
+    supported_modules_config = six.moves.configparser.RawConfigParser()
     supported_modules_config.read(MODULES_FILE)
     for client_script, module_name in supported_modules_config.items(
         "supportedBatchCommands"
@@ -96,7 +99,7 @@ def get_supported_modules():
 @auto_close_db
 def handle_batch_task(gearman_job, supported_modules):
     module_name = supported_modules.get(gearman_job.task)
-    gearman_data = cPickle.loads(gearman_job.data)
+    gearman_data = six.moves.cPickle.loads(gearman_job.data)
 
     utc_date = getUTCDate()
     jobs = []
@@ -106,9 +109,8 @@ def handle_batch_task(gearman_job, supported_modules):
         if isinstance(arguments, six.text_type):
             arguments = arguments.encode("utf-8")
 
-        replacements = (
-            replacement_dict.items()
-            + {
+        replacements = list(replacement_dict.items()) + list(
+            {
                 r"%date%": utc_date.isoformat(),
                 r"%taskUUID%": task_uuid,
                 r"%jobCreatedDate%": task_data["createdDate"],
@@ -162,7 +164,7 @@ def _shlex_unescape(s):
 
 
 def fail_all_tasks(gearman_job, reason):
-    gearman_data = cPickle.loads(gearman_job.data)
+    gearman_data = six.moves.cPickle.loads(gearman_job.data)
 
     result = {}
 
@@ -186,7 +188,7 @@ def fail_all_tasks(gearman_job, reason):
     for task_uuid in gearman_data["tasks"]:
         result[task_uuid] = {"exitCode": 1}
 
-    return cPickle.dumps({"task_results": result})
+    return six.moves.cPickle.dumps({"task_results": result})
 
 
 @auto_close_db
@@ -245,7 +247,7 @@ def execute_command(supported_modules, gearman_worker, gearman_job):
 
             retryOnFailure("Write task results", write_task_results_callback)
 
-            return cPickle.dumps({"task_results": results})
+            return six.moves.cPickle.dumps({"task_results": results})
         except SystemExit:
             logger.error(
                 "IMPORTANT: Task %s attempted to call exit()/quit()/sys.exit(). This module should be fixed!",

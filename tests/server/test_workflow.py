@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
 from __future__ import unicode_literals
 
 import os
@@ -95,7 +96,7 @@ def test_load_valid_document(path):
 
     # Test normalization of job statuses.
     link = next(itervalues(links))
-    valid_statuses = workflow._STATUSES.values()
+    valid_statuses = list(workflow._STATUSES.values())
     assert link["fallback_job_status"] in valid_statuses
     for item in link["exit_codes"].values():
         assert item["job_status"] in valid_statuses

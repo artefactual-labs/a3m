@@ -27,6 +27,8 @@ the --include-dirs option is something other than 'Yes', the script will exit
 without doing anything.
 
 """
+from __future__ import absolute_import
+
 import argparse
 import os
 from functools import wraps

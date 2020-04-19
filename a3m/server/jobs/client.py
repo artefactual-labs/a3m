@@ -11,7 +11,6 @@ import abc
 import ast
 import logging
 
-from django.conf import settings
 from django.utils import six
 
 from a3m.main import models

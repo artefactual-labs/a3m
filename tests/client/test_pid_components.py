@@ -6,6 +6,7 @@ identifier binding and declaration in Archivematica.
 The tests in this module cover both the two bind_pid(s) microservice jobs but
 also limited unit testing in create_mets_v2 (AIP METS generation).
 """
+from __future__ import absolute_import
 from __future__ import unicode_literals
 
 import os
@@ -14,6 +15,8 @@ from itertools import chain
 import pytest
 import vcr
 from django.core.management import call_command
+from six.moves import range
+from six.moves import zip
 
 from a3m import namespaces as ns
 from a3m.client.clientScripts import bind_pid
@@ -176,13 +179,13 @@ class TestPIDComponents(object):
             )
             id_types = [item.text for item in id_type]
             id_values = [item.text for item in id_value]
-            identifiers_dict = dict(zip(id_types, id_values))
+            identifiers_dict = dict(list(zip(id_types, id_values)))
             for key in identifiers_dict.keys():
                 assert key in chain(
                     self.traditional_identifiers, self.bound_identifier_types
                 )
-            assert bound_hdl in identifiers_dict.values()
-            assert bound_uri in identifiers_dict.values()
+            assert bound_hdl in list(identifiers_dict.values())
+            assert bound_uri in list(identifiers_dict.values())
 
     @pytest.mark.django_db
     def test_bind_pid_no_config(self, caplog, settings):
@@ -234,13 +237,13 @@ class TestPIDComponents(object):
             )
             id_types = [item.text for item in id_type]
             id_values = [item.text for item in id_value]
-            identifiers_dict = dict(zip(id_types, id_values))
+            identifiers_dict = dict(list(zip(id_types, id_values)))
             for key in identifiers_dict.keys():
                 assert key in chain(
                     self.traditional_identifiers, self.bound_identifier_types
                 ), "Identifier type not in expected schemes list"
-            assert bound_hdl in identifiers_dict.values()
-            assert bound_uri in identifiers_dict.values()
+            assert bound_hdl in list(identifiers_dict.values())
+            assert bound_uri in list(identifiers_dict.values())
 
     @pytest.mark.django_db
     def test_bind_pid_no_settings(self, caplog, settings):
@@ -338,7 +341,7 @@ class TestPIDComponents(object):
             assert len(id_value) == len(
                 all_identifier_types
             ), "Identifier value count is incorrect"
-            for key, value in dict(zip(id_type, id_value)).items():
+            for key, value in dict(list(zip(id_type, id_value))).items():
                 if key == self.pid_exid:
                     assert example_uri in value, "Example URI not preserved"
                 if key == self.pid_ulid:
@@ -361,7 +364,7 @@ class TestPIDComponents(object):
             assert len(id_value) == len(
                 all_identifier_types
             ), "Identifier value count is incorrect"
-            for key, value in dict(zip(id_type, id_value)).items():
+            for key, value in dict(list(zip(id_type, id_value))).items():
                 if key == self.pid_exid:
                     assert example_uri in value, "Example URI not preserved"
                 if key == self.pid_ulid:
