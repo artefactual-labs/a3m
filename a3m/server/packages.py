@@ -56,7 +56,7 @@ def create_package(package_queue, executor, workflow, name, url):
     logger.debug("Transfer object created: %s", transfer.pk)
 
     params = (transfer, name, url, workflow, package_queue)
-    future = executor.submit(_trigger_worflow, *params)
+    future = executor.submit(_trigger_workflow, *params)
     future.add_done_callback(_trigger_workflow_done_callback)
 
     return transfer
@@ -69,7 +69,7 @@ def _trigger_workflow_done_callback(future):
         logger.warning("Exception detected: %s", err, exc_info=True)
 
 
-def _trigger_worflow(transfer, name, url, workflow, package_queue):
+def _trigger_workflow(transfer, name, url, workflow, package_queue):
     logger.debug("Package %s: starting workflow processing", transfer.pk)
     standard_workflow_chain = "6953950b-c101-4f4c-a0c3-0cd0684afe5e"
     standard_workflow_link = "045c43ae-d6cf-44f7-97d6-c8a602748565"
