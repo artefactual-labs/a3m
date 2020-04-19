@@ -53,7 +53,9 @@ def main(job, file_path, file_uuid, sip_uuid):
     # Characterization always occurs - if nothing is specified, get one or more
     # defaults specified in the FPR.
     if not rules:
-        rules = FPRule.active.filter(purpose="default_characterization")
+        # A3M-TODO DEFAULT CHARACTERIZATION DISABLED
+        # rules = FPRule.active.filter(purpose="default_characterization")
+        return 0
 
     for rule in rules:
         if (
