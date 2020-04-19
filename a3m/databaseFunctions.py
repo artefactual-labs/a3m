@@ -123,7 +123,6 @@ def getAMAgentsForFile(fileUUID):
     Fetches the IDs for the Archivematica agents associated with the given file.
 
     The current user may be an Agent.
-    The current user's agent ID is stored in a UnitVariable with the name "activeAgent", associated with either the SIP or the transfer containing the file.
     This function will attempt to fetch the unit variable from a SIP first,
     then the transfer.
 

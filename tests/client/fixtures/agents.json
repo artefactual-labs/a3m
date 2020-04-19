@@ -1,21 +1,21 @@
 [
 {
-    "pk": 1, 
-    "model": "main.agent", 
+    "pk": 1,
+    "model": "main.agent",
     "fields": {
-        "agenttype": "software", 
+        "agenttype": "software",
         "identifiervalue": "Archivematica-1.4.0",
-        "name": "Archivematica", 
+        "name": "Archivematica",
         "identifiertype": "preservation system"
     }
 },
 {
-    "pk": 2, 
-    "model": "main.agent", 
+    "pk": 2,
+    "model": "main.agent",
     "fields": {
-        "agenttype": "organization", 
-        "identifiervalue": "demo", 
-        "name": "demo", 
+        "agenttype": "organization",
+        "identifiervalue": "demo",
+        "name": "demo",
         "identifiertype": "repository code"
     }
 },
@@ -38,23 +38,5 @@
         "name": "Unrelated Agent",
         "identifiertype": "repository code"
     }
-},
-{
-  "fields": {
-    "username": "kmindelan",
-    "first_name": "Keladry",
-    "last_name": "Mindelan",
-    "is_active": true,
-    "is_superuser": true,
-    "is_staff": true,
-    "last_login": "2016-02-05T00:24:09Z",
-    "groups": [],
-    "user_permissions": [],
-    "password": "pbkdf2_sha256$15000$dq63sJGkTF6C$/mDJUzeJQDz1eWnRQYEEbeBN+FVImEkilDsW25U2H3Y=",
-    "email": "keladry@mindelan.com",
-    "date_joined": "2016-02-05T00:24:09Z"
-  },
-  "model": "auth.user",
-  "pk": 1
 }
 ]

@@ -29,7 +29,19 @@ manage:  ## Run Django /manage.py on a3m, suppling <command> [options] as value 
 	docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m $(ARG)
 
 migrations:  # Make Django migrations.
-	docker-compose run --rm --user=$(CURRENT_UID) --entrypoint=/a3m/manage.py a3m makemigrations
+	docker-compose run --rm --user=$(CURRENT_UID) --entrypoint=/a3m/manage.py a3m makemigrations main fpr
+
+reset-migrations:
+	@echo "Disabled! This is a temporary hack, uncomment and use carefully!"
+	exit 1
+	find a3m/main/migrations -name "*.py" -delete
+	find a3m/fpr/migrations -name "*.py" -delete
+	find a3m/ -name "*.pyc" -delete
+	docker-compose run --rm --user=$(CURRENT_UID) --entrypoint=/a3m/manage.py a3m makemigrations main fpr
+	git checkout -- a3m/main/migrations/0002_initial_data.py a3m/fpr/migrations/0002_initial_data.py
+	black a3m/main/migrations a3m/fpr/migrations
+	reorder-python-imports --exit-zero-even-if-changed a3m/main/migrations/0001_initial.py a3m/fpr/migrations/0001_initial.py
+	pyupgrade --py37-plus --exit-zero-even-if-changed a3m/main/migrations/0001_initial.py a3m/fpr/migrations/0001_initial.py
 
 logs:
 	docker-compose logs -f

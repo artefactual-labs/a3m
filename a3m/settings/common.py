@@ -159,6 +159,11 @@ rejected_directory =
 
 
 def get_data_dir():
+    # A3M-TODO: when we run a command with an unknown uid (Compose)
+    home_dir = Path.home()
+    if str(home_dir) == "/":
+        return Path("/home/a3m/.local/share/a3m")
+
     return Path(user_data_dir("a3m", "Artefactual"))
 
 
@@ -215,14 +220,7 @@ MIDDLEWARE_CLASSES = ()
 
 TEMPLATES = [{"BACKEND": "django.template.backends.django.DjangoTemplates"}]
 
-INSTALLED_APPS = (
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "a3m.main",
-    "a3m.fpr",
-)
+INSTALLED_APPS = ("a3m.main", "a3m.fpr")
 
 SECRET_KEY = config.get("secret_key")
 

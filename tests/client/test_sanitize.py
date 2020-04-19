@@ -141,23 +141,20 @@ def is_uuid(uuid_):
 
 def verify_event_details(event):
     """Verify event detail and event agent information is written correctly"""
-    NUMBER_OF_EXPECTED_AGENTS = 3
+    NUMBER_OF_EXPECTED_AGENTS = 2
     # Agent values we can test against. Three agents, which should be,
     # preservation system, repository, and user.
     AGENT_IDENTIFIER_VALUES = [
         "Archivematica-1.10",
         "エズメレルダ",
-        "Atefactual Systems Inc.",
     ]
     AGENT_IDENTIFIER_TYPES = [
         "preservation system",
         "repository code",
-        "Archivematica user pk",
     ]
     AGENT_NAMES = [
         "Archivematica",
         "Artefactual Systems Corporate Archive",
-        'username="\u30a8\u30ba\u30e1\u30ec\u30eb\u30c0", first_name="\u3053\u3093\u306b\u3061\u306f", last_name="\u4e16\u754c"',
     ]
     AGENT_TYPES = ["software", "organization", "Archivematica user"]
 
@@ -198,12 +195,10 @@ class TestSanitize(TempDirMixin, TestCase):
         """Load the various database fixtures required for our tests."""
         agents_fixtures_dir = "microservice_agents"
         agents = os.path.join(agents_fixtures_dir, "microservice_agents.json")
-        agent_unitvars = os.path.join(agents_fixtures_dir, "microservice_unitvars.json")
         fixture_files = [
             "transfer.json",
             "files-transfer-unicode.json",
             agents,
-            agent_unitvars,
         ]
         fixtures = [os.path.join(THIS_DIR, "fixtures", p) for p in fixture_files]
         with django_db_blocker.unblock():

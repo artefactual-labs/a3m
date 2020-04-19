@@ -29,8 +29,8 @@
     {
         "fields": {
             "agenttype": "software",
-            "identifiervalue": "Archivematica-1.11",
-            "name": "Archivematica",
+            "identifiervalue": "a3m (unknown version)",
+            "name": "a3m",
             "identifiertype": "preservation system"
         },
         "model": "main.agent",
@@ -45,16 +45,6 @@
         },
         "model": "main.agent",
         "pk": 2
-    },
-    {
-        "fields": {
-            "agenttype": "Archivematica user",
-            "identifiervalue": "1",
-            "name": "username=\"test\", first_name=\"\", last_name=\"\"",
-            "identifiertype": "Archivematica user pk"
-        },
-        "model": "main.agent",
-        "pk": 3
     },
     {
         "fields": {

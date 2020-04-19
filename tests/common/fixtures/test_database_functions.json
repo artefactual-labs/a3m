@@ -19,18 +19,6 @@
         }
     },
     {
-        "model": "main.unitvariable",
-        "fields": {
-            "createdtime": "2014-10-30T00:00:00",
-            "microservicechainlink": null,
-            "unittype": "SIP",
-            "unituuid": "742b0443-cf18-442a-94f9-6d5b4948227d",
-            "updatedtime": "2014-10-30T00:00:00",
-            "variable": "activeAgent",
-            "variablevalue": "5"
-        }
-    },
-    {
         "pk": 1,
         "model": "main.sip",
         "fields": {
@@ -59,18 +47,6 @@
             "size": 0,
             "transfer": "11449c3c-a31d-4663-8a01-10d1c705410f",
             "uuid": "1f4af873-8d60-4907-a92e-d1889e643524"
-        }
-    },
-    {
-        "model": "main.unitvariable",
-        "fields": {
-            "createdtime": "2014-10-30T00:00:00",
-            "microservicechainlink": null,
-            "unittype": "Transfer",
-            "unituuid": "11449c3c-a31d-4663-8a01-10d1c705410f",
-            "updatedtime": "2014-10-30T00:00:00",
-            "variable": "activeAgent",
-            "variablevalue": "10"
         }
     },
     {
@@ -110,18 +86,6 @@
         }
     },
     {
-        "model": "main.unitvariable",
-        "fields": {
-            "createdtime": "2014-10-30T00:00:00",
-            "microservicechainlink": null,
-            "unittype": "Transfer",
-            "unituuid": "b3c75166-86e9-443b-97ce-ddb4f7025219",
-            "updatedtime": "2014-10-30T00:00:00",
-            "variable": "activeAgent",
-            "variablevalue": "10"
-        }
-    },
-    {
         "pk": 2,
         "model": "main.sip",
         "fields": {
@@ -148,18 +112,6 @@
             "type": "Standard",
             "typeoftransfer": "",
             "uuid": "b3c75166-86e9-443b-97ce-ddb4f7025219"
-        }
-    },
-    {
-        "model": "main.unitvariable",
-        "fields": {
-            "createdtime": "2014-10-30T00:00:00",
-            "microservicechainlink": null,
-            "unittype": "SIP",
-            "unituuid": "b266cd28-108c-41b3-9a49-a3d775ee6e76",
-            "updatedtime": "2014-10-30T00:00:00",
-            "variable": "activeAgent",
-            "variablevalue": "5"
         }
     },
     {

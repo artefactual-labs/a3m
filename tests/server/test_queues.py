@@ -48,9 +48,6 @@ class MockDecisionJob(DecisionJob):
 
         return self.next_job
 
-    def set_active_agent(self, *args, **kwargs):
-        pass
-
 
 @pytest.fixture(scope="module")
 def simple_executor(request):

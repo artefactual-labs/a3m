@@ -87,7 +87,6 @@ class TestDatabaseFunctions(TestCase):
         agents = databaseFunctions.getAMAgentsForFile(
             "88c8f115-80bc-4da4-a1e6-0158f5df13b9"
         )
-        assert 5 in agents
         assert 1 in agents  # AM software
         assert 2 in agents  # organization
 
@@ -95,7 +94,6 @@ class TestDatabaseFunctions(TestCase):
         agents = databaseFunctions.getAMAgentsForFile(
             "1f4af873-8d60-4907-a92e-d1889e643524"
         )
-        assert 10 in agents
         assert 1 in agents  # AM software
         assert 2 in agents  # organization
 
@@ -103,7 +101,6 @@ class TestDatabaseFunctions(TestCase):
         agents = databaseFunctions.getAMAgentsForFile(
             "dc569efe-c88f-4be3-94d3-d9eac0c5d410"
         )
-        assert 5 in agents
         assert 1 in agents  # AM software
         assert 2 in agents  # organization
 
@@ -145,7 +142,6 @@ class TestDatabaseFunctions(TestCase):
         agents = Event.objects.get(
             event_id="00e46dbc-81ec-11ea-bf23-eb8a0da7ab13"
         ).agents
-        assert agents.count() == 3
+        assert agents.count() == 2
         assert agents.get(id=1)
         assert agents.get(id=2)
-        assert agents.get(id=5)

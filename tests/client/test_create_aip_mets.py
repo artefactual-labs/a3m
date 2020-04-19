@@ -681,23 +681,6 @@ class TestCreateDigiprovMD(TestCase):
             ret[7].find(".//{http://www.loc.gov/premis/v3}agentType").text
             == "organization"
         )
-        assert ret[8][0].attrib["MDTYPE"] == "PREMIS:AGENT"
-        assert (
-            ret[8].find(".//{http://www.loc.gov/premis/v3}agentIdentifierType").text
-            == "Archivematica user pk"
-        )
-        assert (
-            ret[8].find(".//{http://www.loc.gov/premis/v3}agentIdentifierValue").text
-            == "1"
-        )
-        assert (
-            ret[8].find(".//{http://www.loc.gov/premis/v3}agentName").text
-            == 'username="kmindelan", first_name="Keladry", last_name="Mindelan"'
-        )
-        assert (
-            ret[8].find(".//{http://www.loc.gov/premis/v3}agentType").text
-            == "Archivematica user"
-        )
 
 
 class TestRights(TestCase):

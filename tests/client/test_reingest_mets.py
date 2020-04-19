@@ -1872,13 +1872,6 @@ class TestAddingNewFiles(TestCase):
             )
             != []
         )
-        assert (
-            amdsec.xpath(
-                """.//premis:agentName[text()='username="kmindelan", first_name="Keladry", last_name="Mindelan"']""",
-                namespaces=NSMAP,
-            )
-            != []
-        )
 
 
 class TestDeleteFiles(TestCase):

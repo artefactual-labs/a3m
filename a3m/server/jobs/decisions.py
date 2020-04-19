@@ -6,7 +6,6 @@ import logging
 import threading
 from collections import OrderedDict
 
-from a3m.main import models
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs.base import Job
 from a3m.server.processing_config import load_preconfigured_choice
@@ -67,15 +66,6 @@ class DecisionJob(Job, metaclass=abc.ABCMeta):
         super().mark_awaiting_decision()
 
         self._awaiting_decision_event.set()
-
-    # TODO: this (global?) active agent setting isn't really the concern of
-    # the job; move it elsewhere.
-    @auto_close_old_connections()
-    def set_active_agent(self, user_id):
-        if user_id is None:
-            return
-        agent_id = models.UserProfile.objects.get(user_id=user_id).agent_id
-        self.package.set_variable("activeAgent", agent_id, None)
 
     @abc.abstractmethod
     def get_choices(self):

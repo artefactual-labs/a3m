@@ -22,7 +22,6 @@ import logging
 import re
 import uuid
 
-from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
@@ -276,16 +275,6 @@ class SIP(models.Model):
     def agents(self):
         """Returns a queryset of agents related to this SIP."""
         agent_lookups = Agent.objects.default_agents_query_keywords()
-
-        try:
-            unit_variable = UnitVariable.objects.get(
-                unittype="SIP", unituuid=self.uuid, variable="activeAgent"
-            )
-        except UnitVariable.DoesNotExist:
-            pass
-        else:
-            agent_lookups = agent_lookups | models.Q(id=unit_variable.variablevalue)
-
         return Agent.objects.filter(agent_lookups)
 
 
@@ -329,16 +318,6 @@ class Transfer(models.Model):
     def agents(self):
         """Returns a queryset of agents related to this tranfer."""
         agent_lookups = Agent.objects.default_agents_query_keywords()
-
-        try:
-            unit_variable = UnitVariable.objects.get(
-                unittype="Transfer", unituuid=self.uuid, variable="activeAgent"
-            )
-        except UnitVariable.DoesNotExist:
-            pass
-        else:
-            agent_lookups = agent_lookups | models.Q(id=unit_variable.variablevalue)
-
         return Agent.objects.filter(agent_lookups)
 
     def set_processing_configuration(self, processing_configuration):
@@ -732,23 +711,6 @@ class Agent(models.Model):
 
     class Meta:
         db_table = "Agents"
-
-
-class UserProfile(models.Model):
-    """ Extension of the User model for additional information. """
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    agent = models.OneToOneField(Agent, on_delete=models.CASCADE)
-    system_emails = models.BooleanField(
-        default=True,
-        help_text=_(
-            "If checked, this user will receive system emails, such as Transfer Fail and Normalization Reports."
-        ),
-        verbose_name=_("Send system emails?"),
-    )
-
-    class Meta:
-        db_table = "main_userprofile"
 
 
 class RightsStatement(models.Model):

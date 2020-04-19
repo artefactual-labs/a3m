@@ -22,6 +22,7 @@ from .common import *
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
+        "NAME": str(get_data_dir() / "db.sqlite"),
         "TEST": {"NAME": str(get_data_dir() / "dbtest.sqlite")},
     }
 }

@@ -363,8 +363,6 @@ class PackageQueue:
 
         with self.waiting_choices_lock:
             decision = self.waiting_choices[job_uuid]
-            # TODO: move this into RPCServer
-            decision.set_active_agent(user_id)
             next_job = decision.decide(choice)
             del self.waiting_choices[job_uuid]
 

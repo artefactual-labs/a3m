@@ -271,7 +271,6 @@ class TestHashsum:
             "transfer.json",
             "files-transfer-unicode.json",
             os.path.join(fixtures_dir, "microservice_agents.json"),
-            os.path.join(fixtures_dir, "microservice_unitvars.json"),
         ]
         fixtures = []
         for fixture in fixture_files:
@@ -291,24 +290,6 @@ class TestHashsum:
         event_outcome = "pass"
         # Values we will write.
         detail = "suma de verificación validada: OK"
-        number_of_expected_agents = 3
-        # Agent values we can test against. Three agents, which should be,
-        # preservation system, repository, and user.
-        identifier_values = ["Archivematica-1.10", "エズメレルダ", "Atefactual Systems Inc."]
-
-        identifier_types = [
-            "preservation system",
-            "repository code",
-            "Archivematica user pk",
-        ]
-
-        agent_names = [
-            "Archivematica",
-            "Artefactual Systems Corporate Archive",
-            'username="\u30a8\u30ba\u30e1\u30ec\u30eb\u30c0", first_name="\u3053\u3093\u306b\u3061\u306f", last_name="\u4e16\u754c"',
-        ]
-
-        agent_types = ["software", "organization", "Archivematica user"]
         package_uuid = "e95ab50f-9c84-45d5-a3ca-1b0b3f58d9b6"
         kwargs = {"removedtime__isnull": True, "transfer_id": package_uuid}
         file_objs_queryset = File.objects.filter(**kwargs)
@@ -316,61 +297,31 @@ class TestHashsum:
             event_detail = f"{algorithm}: {detail}"
             write_premis_event_per_file(file_objs_queryset, package_uuid, event_detail)
         file_uuids = File.objects.filter(**kwargs).values_list("uuid")
-        assert (
-            file_uuids
-        ), "Files couldn't be retrieved for the transfer from the database"
+        assert file_uuids
+
         event_algorithms = []
         for uuid_ in file_uuids:
             events = Event.objects.filter(file_uuid=uuid_, event_type=event_type)
-            assert len(events) == len(
-                algorithms
-            ), "Length of the event objects is not '1', it is: {}".format(len(events))
-            assert (
-                events[0].event_outcome == event_outcome
-            ), "Event outcome retrieved from the database is incorrect: {}".format(
-                events[0].event_outcome
-            )
-            assert (
-                detail in events[0].event_detail
-            ), "Event detail retrieved from the database is incorrect: {}".format(
-                events[0].event_detail
-            )
-            # Ensure that UUID creation has happened as anticipated. Will raise
-            # a TypeError if otherwise.
+            assert len(events) == len(algorithms)
+            assert events[0].event_outcome == event_outcome
+            assert detail in events[0].event_detail
             UUID(str(events[0].event_id), version=4)
-            # Test the linked agents associated with our events.
-            for event in events:
-                idvalues = []
-                idtypes = []
-                agentnames = []
-                agenttypes = []
-                for agent_count, agent in enumerate(event.agents.all(), 1):
-                    idvalues.append(agent.identifiervalue)
-                    idtypes.append(agent.identifiertype)
-                    agentnames.append(agent.name)
-                    agenttypes.append(agent.agenttype)
-                assert set(idvalues) == set(
-                    identifier_values
-                ), "agent identifier values returned don't match"
-                assert set(idtypes) == set(
-                    identifier_types
-                ), "agent type values returned don't match"
-                assert set(agentnames) == set(
-                    agent_names
-                ), "agent name values returned don't match"
-                assert set(agenttypes) == set(agent_types), "agent types don't match"
-                assert (
-                    agent_count == number_of_expected_agents
-                ), "Number of agents is incorrect: {} expected: {}".format(
-                    agent_count, number_of_expected_agents
-                )
+            assert len(events) == 3
+            assert events[0].agents.count() == 2
+            assert events[0].agents.get(identifiertype="preservation system")
+            assert events[0].agents.get(identifiertype="repository code")
+            assert events[1].agents.count() == 2
+            assert events[1].agents.get(identifiertype="preservation system")
+            assert events[1].agents.get(identifiertype="repository code")
+            assert events[2].agents.count() == 2
+            assert events[2].agents.get(identifiertype="preservation system")
+            assert events[2].agents.get(identifiertype="repository code")
             # Collect the different checksum algorithms written to ensure they
             # were all written independently in the function.
             for event in events:
                 event_algorithms.append(event.event_detail.split(":", 1)[0])
-        assert set(event_algorithms) == set(
-            algorithms
-        ), "No all algorithms written to PREMIS events"
+
+        assert set(event_algorithms) == set(algorithms)
 
     @pytest.mark.django_db
     def test_get_file_obj_queryset(self):
