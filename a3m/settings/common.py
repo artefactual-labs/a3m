@@ -102,6 +102,11 @@ CONFIG_MAPPING = {
         "option": "clamav_client_max_scan_size",
         "type": "float",
     },
+    "virus_scanning_enabled": {
+        "section": "a3m",
+        "option": "virus_scanning_enabled",
+        "type": "boolean",
+    },
     "db_engine": {"section": "a3m", "option": "db_engine", "type": "string"},
     "db_name": {"section": "a3m", "option": "db_name", "type": "string"},
     "db_user": {"section": "a3m", "option": "db_user", "type": "string"},
@@ -140,6 +145,7 @@ clamav_client_timeout = 86400
 clamav_client_backend = clamscanner     ; Options: clamdscanner or clamscanner
 clamav_client_max_file_size = 42        ; MB
 clamav_client_max_scan_size = 42        ; MB
+virus_scanning_enabled = False
 db_engine = django.db.backends.sqlite3
 db_name = /var/archivematica/sharedDirectory/a3m.sqlite
 db_user =
@@ -249,6 +255,7 @@ CLAMAV_CLIENT_TIMEOUT = config.get("clamav_client_timeout")
 CLAMAV_CLIENT_BACKEND = config.get("clamav_client_backend")
 CLAMAV_CLIENT_MAX_FILE_SIZE = config.get("clamav_client_max_file_size")
 CLAMAV_CLIENT_MAX_SCAN_SIZE = config.get("clamav_client_max_scan_size")
+VIRUS_SCANNING_ENABLED = config.get("virus_scanning_enabled")
 CAPTURE_CLIENT_SCRIPT_OUTPUT = config.get("capture_client_script_output")
 DEFAULT_CHECKSUM_ALGORITHM = "sha256"
 RPC_BIND_ADDRESS = config.get("rpc_bind_address")
