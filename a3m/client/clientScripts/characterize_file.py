@@ -19,12 +19,17 @@ from django.db import transaction
 from a3m.main.models import FPCommandOutput
 from a3m.fpr.models import FPRule, FormatVersion
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.databaseFunctions import insertIntoFPCommandOutput
 from a3m.dicts import replace_string_values, ReplacementDict, setup_dicts
 
 
 def concurrent_instances():
     return multiprocessing.cpu_count()
+
+
+def _insert_command_output(file_uuid, rule_uuid, content):
+    return FPCommandOutput.objects.create(
+        file_id=file_uuid, rule_id=rule_uuid, content=content,
+    )
 
 
 def main(job, file_path, file_uuid, sip_uuid):
@@ -93,7 +98,7 @@ def main(job, file_path, file_uuid, sip_uuid):
         ):
             try:
                 etree.fromstring(stdout)
-                insertIntoFPCommandOutput(file_uuid, stdout, rule.uuid)
+                _insert_command_output(file_uuid, rule.uuid, stdout)
                 job.write_output(
                     'Saved XML output for command "{}" ({})'.format(
                         rule.command.description, rule.command.uuid

@@ -228,21 +228,6 @@ def insertIntoDerivations(sourceFileUUID, derivedFileUUID, relatedEventUUID=None
     )
 
 
-def insertIntoFPCommandOutput(fileUUID="", fitsXMLString="", ruleUUID=""):
-    """
-    Creates a new entry in the FPCommandOutput table using the supplied argument.
-    This is typically used to store output of file characterization.
-    This data is intended to be unique per combination of fileUUID and ruleUUID; an exception will be raised if FPCommandOutput data already exists for a file with this ruleUUID.
-
-    :param str fileUUID:
-    :param str fitsXMLString: An XML document, encoded into a string. The name is historical; this can represent XML output from any software.
-    :param str ruleUUID: The UUID of the FPR rule used to generate this XML data. Foreign key to FPRule.
-    """
-    FPCommandOutput.objects.create(
-        file_id=fileUUID, content=fitsXMLString, rule_id=ruleUUID
-    )
-
-
 def fileWasRemoved(
     fileUUID, utcDate=None, eventDetail="", eventOutcomeDetailNote="", eventOutcome=""
 ):
