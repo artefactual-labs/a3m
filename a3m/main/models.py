@@ -81,7 +81,9 @@ class DublinCore(models.Model):
 
     id = models.AutoField(primary_key=True, db_column="pk")
     metadataappliestotype = models.ForeignKey(
-        "MetadataAppliesToType", db_column="metadataAppliesToType"
+        "MetadataAppliesToType",
+        db_column="metadataAppliesToType",
+        on_delete=models.CASCADE,
     )
     metadataappliestoidentifier = models.CharField(
         max_length=36,
@@ -163,7 +165,12 @@ class Event(models.Model):
         auto=False, null=True, unique=True, db_column="eventIdentifierUUID"
     )
     file_uuid = models.ForeignKey(
-        "File", db_column="fileUUID", to_field="uuid", null=True, blank=True
+        "File",
+        db_column="fileUUID",
+        to_field="uuid",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
     )
     event_type = models.TextField(db_column="eventType", blank=True)
     event_datetime = models.DateTimeField(db_column="eventDateTime", auto_now=True)
@@ -201,12 +208,14 @@ class Derivation(models.Model):
         db_column="sourceFileUUID",
         to_field="uuid",
         related_name="derived_file_set",
+        on_delete=models.CASCADE,
     )
     derived_file = models.ForeignKey(
         "File",
         db_column="derivedFileUUID",
         to_field="uuid",
         related_name="original_file_set",
+        on_delete=models.CASCADE,
     )
     event = models.ForeignKey(
         "Event",
@@ -214,6 +223,7 @@ class Derivation(models.Model):
         to_field="event_id",
         null=True,
         blank=True,
+        on_delete=models.CASCADE,
     )
 
     class Meta:
@@ -316,6 +326,7 @@ class Transfer(models.Model):
         to_field="id",
         null=True,
         blank=True,
+        on_delete=models.CASCADE,
     )
     diruuids = models.BooleanField(db_column="dirUUIDs", default=False)
 
@@ -389,10 +400,20 @@ class File(models.Model):
 
     uuid = models.CharField(max_length=36, primary_key=True, db_column="fileUUID")
     sip = models.ForeignKey(
-        SIP, db_column="sipUUID", to_field="uuid", null=True, blank=True
+        SIP,
+        db_column="sipUUID",
+        to_field="uuid",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
     )
     transfer = models.ForeignKey(
-        Transfer, db_column="transferUUID", to_field="uuid", null=True, blank=True
+        Transfer,
+        db_column="transferUUID",
+        to_field="uuid",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
     )
 
     # both actually `longblob` in the database
@@ -454,10 +475,20 @@ class Directory(models.Model):
 
     uuid = models.CharField(max_length=36, primary_key=True, db_column="directoryUUID")
     sip = models.ForeignKey(
-        SIP, db_column="sipUUID", to_field="uuid", null=True, blank=True
+        SIP,
+        db_column="sipUUID",
+        to_field="uuid",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
     )
     transfer = models.ForeignKey(
-        Transfer, db_column="transferUUID", to_field="uuid", null=True, blank=True
+        Transfer,
+        db_column="transferUUID",
+        to_field="uuid",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
     )
     originallocation = BlobTextField(db_column="originalLocation")
     currentlocation = BlobTextField(db_column="currentLocation", null=True)
@@ -518,9 +549,14 @@ class FileFormatVersion(models.Model):
     """
 
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
-    file_uuid = models.ForeignKey("File", db_column="fileUUID", to_field="uuid")
+    file_uuid = models.ForeignKey(
+        "File", db_column="fileUUID", to_field="uuid", on_delete=models.CASCADE
+    )
     format_version = models.ForeignKey(
-        "fpr.FormatVersion", db_column="fileID", to_field="uuid"
+        "fpr.FormatVersion",
+        db_column="fileID",
+        to_field="uuid",
+        on_delete=models.CASCADE,
     )
 
     class Meta:
@@ -616,7 +652,9 @@ class Job(models.Model):
 
 class Task(models.Model):
     taskuuid = models.CharField(max_length=36, primary_key=True, db_column="taskUUID")
-    job = models.ForeignKey("Job", db_column="jobuuid", to_field="jobuuid")
+    job = models.ForeignKey(
+        "Job", db_column="jobuuid", to_field="jobuuid", on_delete=models.CASCADE
+    )
     createdtime = models.DateTimeField(db_column="createdTime")
     fileuuid = models.CharField(
         max_length=36, db_column="fileUUID", null=True, blank=True
@@ -707,8 +745,8 @@ class Agent(models.Model):
 class UserProfile(models.Model):
     """ Extension of the User model for additional information. """
 
-    user = models.OneToOneField(User)
-    agent = models.OneToOneField(Agent)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    agent = models.OneToOneField(Agent, on_delete=models.CASCADE)
     system_emails = models.BooleanField(
         default=True,
         help_text=_(
@@ -724,7 +762,10 @@ class UserProfile(models.Model):
 class RightsStatement(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk")
     metadataappliestotype = models.ForeignKey(
-        MetadataAppliesToType, to_field="id", db_column="metadataAppliesToType"
+        MetadataAppliesToType,
+        to_field="id",
+        db_column="metadataAppliesToType",
+        on_delete=models.CASCADE,
     )
     metadataappliestoidentifier = models.CharField(
         max_length=36, blank=True, db_column="metadataAppliesToidentifier"
@@ -777,7 +818,9 @@ class RightsStatement(models.Model):
 
 class RightsStatementCopyright(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
-    rightsstatement = models.ForeignKey(RightsStatement, db_column="fkRightsStatement")
+    rightsstatement = models.ForeignKey(
+        RightsStatement, db_column="fkRightsStatement", on_delete=models.CASCADE
+    )
     PREMIS_COPYRIGHT_STATUSES = (
         ("copyrighted", _("copyrighted")),
         ("public domain", _("public domain")),
@@ -829,7 +872,9 @@ class RightsStatementCopyright(models.Model):
 class RightsStatementCopyrightDocumentationIdentifier(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
     rightscopyright = models.ForeignKey(
-        RightsStatementCopyright, db_column="fkRightsStatementCopyrightInformation"
+        RightsStatementCopyright,
+        db_column="fkRightsStatementCopyrightInformation",
+        on_delete=models.CASCADE,
     )
     copyrightdocumentationidentifiertype = models.TextField(
         db_column="copyrightDocumentationIdentifierType",
@@ -854,7 +899,9 @@ class RightsStatementCopyrightDocumentationIdentifier(models.Model):
 class RightsStatementCopyrightNote(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
     rightscopyright = models.ForeignKey(
-        RightsStatementCopyright, db_column="fkRightsStatementCopyrightInformation"
+        RightsStatementCopyright,
+        db_column="fkRightsStatementCopyrightInformation",
+        on_delete=models.CASCADE,
     )
     copyrightnote = models.TextField(
         db_column="copyrightNote", verbose_name=_("Copyright note")
@@ -867,7 +914,9 @@ class RightsStatementCopyrightNote(models.Model):
 
 class RightsStatementLicense(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
-    rightsstatement = models.ForeignKey(RightsStatement, db_column="fkRightsStatement")
+    rightsstatement = models.ForeignKey(
+        RightsStatement, db_column="fkRightsStatement", on_delete=models.CASCADE
+    )
     licenseterms = models.TextField(
         db_column="licenseTerms", blank=True, null=True, verbose_name=_("License terms")
     )
@@ -900,7 +949,9 @@ class RightsStatementLicense(models.Model):
 class RightsStatementLicenseDocumentationIdentifier(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
     rightsstatementlicense = models.ForeignKey(
-        RightsStatementLicense, db_column="fkRightsStatementLicense"
+        RightsStatementLicense,
+        db_column="fkRightsStatementLicense",
+        on_delete=models.CASCADE,
     )
     licensedocumentationidentifiertype = models.TextField(
         db_column="licenseDocumentationIdentifierType",
@@ -925,7 +976,9 @@ class RightsStatementLicenseDocumentationIdentifier(models.Model):
 class RightsStatementLicenseNote(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
     rightsstatementlicense = models.ForeignKey(
-        RightsStatementLicense, db_column="fkRightsStatementLicense"
+        RightsStatementLicense,
+        db_column="fkRightsStatementLicense",
+        on_delete=models.CASCADE,
     )
     licensenote = models.TextField(
         db_column="licenseNote", verbose_name=_("License note")
@@ -938,7 +991,9 @@ class RightsStatementLicenseNote(models.Model):
 
 class RightsStatementRightsGranted(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk")
-    rightsstatement = models.ForeignKey(RightsStatement, db_column="fkRightsStatement")
+    rightsstatement = models.ForeignKey(
+        RightsStatement, db_column="fkRightsStatement", on_delete=models.CASCADE
+    )
     act = models.TextField(db_column="act")
     startdate = models.TextField(
         db_column="startDate",
@@ -990,6 +1045,7 @@ class RightsStatementRightsGrantedNote(models.Model):
         RightsStatementRightsGranted,
         related_name="notes",
         db_column="fkRightsStatementRightsGranted",
+        on_delete=models.CASCADE,
     )
     rightsgrantednote = models.TextField(
         db_column="rightsGrantedNote", verbose_name=_("Rights note")
@@ -1006,6 +1062,7 @@ class RightsStatementRightsGrantedRestriction(models.Model):
         RightsStatementRightsGranted,
         related_name="restrictions",
         db_column="fkRightsStatementRightsGranted",
+        on_delete=models.CASCADE,
     )
     restriction = models.TextField(db_column="restriction")
 
@@ -1016,7 +1073,9 @@ class RightsStatementRightsGrantedRestriction(models.Model):
 
 class RightsStatementStatuteInformation(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk")
-    rightsstatement = models.ForeignKey(RightsStatement, db_column="fkRightsStatement")
+    rightsstatement = models.ForeignKey(
+        RightsStatement, db_column="fkRightsStatement", on_delete=models.CASCADE
+    )
     statutejurisdiction = models.TextField(
         db_column="statuteJurisdiction", verbose_name=_("Statute jurisdiction")
     )
@@ -1061,6 +1120,7 @@ class RightsStatementStatuteInformationNote(models.Model):
     rightsstatementstatute = models.ForeignKey(
         RightsStatementStatuteInformation,
         db_column="fkRightsStatementStatuteInformation",
+        on_delete=models.CASCADE,
     )
     statutenote = models.TextField(
         db_column="statuteNote", verbose_name=_("Statute note")
@@ -1076,6 +1136,7 @@ class RightsStatementStatuteDocumentationIdentifier(models.Model):
     rightsstatementstatute = models.ForeignKey(
         RightsStatementStatuteInformation,
         db_column="fkRightsStatementStatuteInformation",
+        on_delete=models.CASCADE,
     )
     statutedocumentationidentifiertype = models.TextField(
         db_column="statuteDocumentationIdentifierType",
@@ -1099,7 +1160,9 @@ class RightsStatementStatuteDocumentationIdentifier(models.Model):
 
 class RightsStatementOtherRightsInformation(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
-    rightsstatement = models.ForeignKey(RightsStatement, db_column="fkRightsStatement")
+    rightsstatement = models.ForeignKey(
+        RightsStatement, db_column="fkRightsStatement", on_delete=models.CASCADE
+    )
     otherrightsbasis = models.TextField(
         db_column="otherRightsBasis",
         verbose_name=_("Other rights basis"),
@@ -1136,6 +1199,7 @@ class RightsStatementOtherRightsDocumentationIdentifier(models.Model):
     rightsstatementotherrights = models.ForeignKey(
         RightsStatementOtherRightsInformation,
         db_column="fkRightsStatementOtherRightsInformation",
+        on_delete=models.CASCADE,
     )
     otherrightsdocumentationidentifiertype = models.TextField(
         db_column="otherRightsDocumentationIdentifierType",
@@ -1162,6 +1226,7 @@ class RightsStatementOtherRightsInformationNote(models.Model):
     rightsstatementotherrights = models.ForeignKey(
         RightsStatementOtherRightsInformation,
         db_column="fkRightsStatementOtherRightsInformation",
+        on_delete=models.CASCADE,
     )
     otherrightsnote = models.TextField(
         db_column="otherRightsNote", verbose_name=_("Other rights note")
@@ -1174,7 +1239,9 @@ class RightsStatementOtherRightsInformationNote(models.Model):
 
 class RightsStatementLinkingAgentIdentifier(models.Model):
     id = models.AutoField(primary_key=True, db_column="pk")
-    rightsstatement = models.ForeignKey(RightsStatement, db_column="fkRightsStatement")
+    rightsstatement = models.ForeignKey(
+        RightsStatement, db_column="fkRightsStatement", on_delete=models.CASCADE
+    )
     linkingagentidentifiertype = models.TextField(
         db_column="linkingAgentIdentifierType",
         verbose_name=_("Linking Agent"),
@@ -1252,7 +1319,11 @@ class TransferMetadataField(models.Model):
     fieldname = models.CharField(max_length=50, db_column="fieldName")
     fieldtype = models.CharField(max_length=50, db_column="fieldType")
     optiontaxonomy = models.ForeignKey(
-        "Taxonomy", db_column="optionTaxonomyUUID", to_field="id", null=True
+        "Taxonomy",
+        db_column="optionTaxonomyUUID",
+        to_field="id",
+        null=True,
+        on_delete=models.CASCADE,
     )
     sortorder = models.IntegerField(default=0, db_column="sortOrder")
 
@@ -1266,9 +1337,17 @@ class TransferMetadataField(models.Model):
 class TransferMetadataFieldValue(models.Model):
     id = UUIDPkField()
     createdtime = models.DateTimeField(db_column="createdTime", auto_now_add=True)
-    set = models.ForeignKey("TransferMetadataSet", db_column="setUUID", to_field="id")
+    set = models.ForeignKey(
+        "TransferMetadataSet",
+        db_column="setUUID",
+        to_field="id",
+        on_delete=models.CASCADE,
+    )
     field = models.ForeignKey(
-        "TransferMetadataField", db_column="fieldUUID", to_field="id"
+        "TransferMetadataField",
+        db_column="fieldUUID",
+        to_field="id",
+        on_delete=models.CASCADE,
     )
     fieldvalue = models.TextField(blank=True, db_column="fieldValue")
 
@@ -1300,7 +1379,9 @@ class TaxonomyTerm(models.Model):
     createdtime = models.DateTimeField(
         db_column="createdTime", auto_now_add=True, null=True
     )
-    taxonomy = models.ForeignKey("Taxonomy", db_column="taxonomyUUID", to_field="id")
+    taxonomy = models.ForeignKey(
+        "Taxonomy", db_column="taxonomyUUID", to_field="id", on_delete=models.CASCADE
+    )
     term = models.CharField(max_length=255, db_column="term")
 
     class Meta:
@@ -1311,9 +1392,13 @@ class TaxonomyTerm(models.Model):
 
 
 class FPCommandOutput(models.Model):
-    file = models.ForeignKey("File", db_column="fileUUID", to_field="uuid")
+    file = models.ForeignKey(
+        "File", db_column="fileUUID", to_field="uuid", on_delete=models.CASCADE
+    )
     content = models.TextField(null=True)
-    rule = models.ForeignKey("fpr.FPRule", db_column="ruleUUID", to_field="uuid")
+    rule = models.ForeignKey(
+        "fpr.FPRule", db_column="ruleUUID", to_field="uuid", on_delete=models.CASCADE
+    )
 
     # Table name is main_fpcommandoutput
 
@@ -1331,7 +1416,9 @@ class FileID(models.Model):
     """
 
     id = models.AutoField(primary_key=True, db_column="pk")
-    file = models.ForeignKey("File", null=True, db_column="fileUUID", blank=True)
+    file = models.ForeignKey(
+        "File", null=True, db_column="fileUUID", blank=True, on_delete=models.CASCADE
+    )
     format_name = models.TextField(db_column="formatName", blank=True)
     format_version = models.TextField(db_column="formatVersion", blank=True)
     format_registry_name = models.TextField(db_column="formatRegistryName", blank=True)

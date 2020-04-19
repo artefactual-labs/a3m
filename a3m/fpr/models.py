@@ -46,6 +46,7 @@ class VersionedModel(models.Model):
         null=True,
         blank=True,
         verbose_name=_("the related model"),
+        on_delete=models.CASCADE,
     )
     enabled = models.BooleanField(_("enabled"), default=True)
     lastmodified = models.DateTimeField(_("last modified"), auto_now_add=True)
@@ -143,7 +144,11 @@ class Format(models.Model):
         _("description"), max_length=128, help_text=_("Common name of format")
     )
     group = models.ForeignKey(
-        "FormatGroup", to_field="uuid", null=True, verbose_name=_("the related group")
+        "FormatGroup",
+        to_field="uuid",
+        null=True,
+        verbose_name=_("the related group"),
+        on_delete=models.CASCADE,
     )
     slug = AutoSlugField(_("slug"), populate_from="description", unique=True)
 
@@ -186,6 +191,7 @@ class FormatVersion(VersionedModel, models.Model):
         related_name="version_set",
         null=True,
         verbose_name=_("the related format"),
+        on_delete=models.CASCADE,
     )
     version = models.CharField(_("version"), max_length=10, null=True, blank=True)
     pronom_id = models.CharField(_("pronom id"), max_length=32, null=True, blank=True)
@@ -270,7 +276,11 @@ class IDCommand(VersionedModel, models.Model):
         _("script type"), max_length=16, choices=SCRIPT_TYPE_CHOICES
     )
     tool = models.ForeignKey(
-        "IDTool", to_field="uuid", null=True, verbose_name=_("the related tool")
+        "IDTool",
+        to_field="uuid",
+        null=True,
+        verbose_name=_("the related tool"),
+        on_delete=models.CASCADE,
     )
 
     class Meta:
@@ -305,10 +315,16 @@ class IDRule(VersionedModel, models.Model):
         editable=False, unique=True, version=4, help_text=_("Unique identifier")
     )
     command = models.ForeignKey(
-        "IDCommand", to_field="uuid", verbose_name=_("the related command")
+        "IDCommand",
+        to_field="uuid",
+        verbose_name=_("the related command"),
+        on_delete=models.CASCADE,
     )
     format = models.ForeignKey(
-        "FormatVersion", to_field="uuid", verbose_name=_("the related format")
+        "FormatVersion",
+        to_field="uuid",
+        verbose_name=_("the related format"),
+        on_delete=models.CASCADE,
     )
     # Output from IDToolConfig.command to match on that gives the format
     command_output = models.TextField(_("command output"))
@@ -437,10 +453,16 @@ class FPRule(VersionedModel, models.Model):
     PURPOSE_CHOICES = DISPLAY_CHOICES + HIDDEN_CHOICES
     purpose = models.CharField(_("purpose"), max_length=32, choices=PURPOSE_CHOICES)
     command = models.ForeignKey(
-        "FPCommand", to_field="uuid", verbose_name=_("the related command")
+        "FPCommand",
+        to_field="uuid",
+        verbose_name=_("the related command"),
+        on_delete=models.CASCADE,
     )
     format = models.ForeignKey(
-        "FormatVersion", to_field="uuid", verbose_name=_("the related format")
+        "FormatVersion",
+        to_field="uuid",
+        verbose_name=_("the related format"),
+        on_delete=models.CASCADE,
     )
 
     count_attempts = models.IntegerField(_("count attempts"), default=0)
@@ -489,6 +511,7 @@ class FPCommand(VersionedModel, models.Model):
         to_field="uuid",
         null=True,
         verbose_name=_("the related tool"),
+        on_delete=models.CASCADE,
     )
     description = models.CharField(_("description"), max_length=256)
     command = models.TextField(_("command"))
@@ -508,6 +531,7 @@ class FPCommand(VersionedModel, models.Model):
         null=True,
         blank=True,
         verbose_name=_("the related output format"),
+        on_delete=models.CASCADE,
     )
     COMMAND_USAGE_CHOICES = (
         ("characterization", _("Characterization")),
@@ -528,6 +552,7 @@ class FPCommand(VersionedModel, models.Model):
         blank=True,
         related_name="+",
         verbose_name=_("the related verification command"),
+        on_delete=models.CASCADE,
     )
     event_detail_command = models.ForeignKey(
         "self",
@@ -536,6 +561,7 @@ class FPCommand(VersionedModel, models.Model):
         blank=True,
         related_name="+",
         verbose_name=_("the related event detail command"),
+        on_delete=models.CASCADE,
     )
 
     class Meta:

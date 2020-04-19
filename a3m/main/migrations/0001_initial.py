@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                     models.TextField(
                         null=True,
                         verbose_name="Agent Identifier Type",
-                        db_column=b"agentIdentifierType",
+                        db_column="agentIdentifierType",
                     ),
                 ),
                 (
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                         help_text="Used for premis:agentIdentifierValue and premis:linkingAgentIdentifierValue in the METS file.",
                         null=True,
                         verbose_name="Agent Identifier Value",
-                        db_column=b"agentIdentifierValue",
+                        db_column="agentIdentifierValue",
                     ),
                 ),
                 (
@@ -53,16 +53,16 @@ class Migration(migrations.Migration):
                         help_text="Used for premis:agentName in the METS file.",
                         null=True,
                         verbose_name="Agent Name",
-                        db_column=b"agentName",
+                        db_column="agentName",
                     ),
                 ),
                 (
                     "agenttype",
                     models.TextField(
-                        default=b"organization",
+                        default="organization",
                         help_text="Used for premis:agentType in the METS file.",
                         verbose_name="Agent Type",
-                        db_column=b"agentType",
+                        db_column="agentType",
                     ),
                 ),
             ],
@@ -77,7 +77,7 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 )
             ],
@@ -92,22 +92,22 @@ class Migration(migrations.Migration):
                         max_length=36,
                         serialize=False,
                         primary_key=True,
-                        db_column=b"directoryUUID",
+                        db_column="directoryUUID",
                     ),
                 ),
                 (
                     "originallocation",
-                    a3m.main.models.BlobTextField(db_column=b"originalLocation"),
+                    a3m.main.models.BlobTextField(db_column="originalLocation"),
                 ),
                 (
                     "currentlocation",
                     a3m.main.models.BlobTextField(
-                        null=True, db_column=b"currentLocation"
+                        null=True, db_column="currentLocation"
                     ),
                 ),
                 (
                     "enteredsystem",
-                    models.DateTimeField(auto_now_add=True, db_column=b"enteredSystem"),
+                    models.DateTimeField(auto_now_add=True, db_column="enteredSystem"),
                 ),
             ],
             options={"db_table": "Directories"},
@@ -117,9 +117,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.AutoField(
-                        serialize=False, primary_key=True, db_column=b"pk"
-                    ),
+                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
                 ),
                 (
                     "metadataappliestoidentifier",
@@ -127,56 +125,56 @@ class Migration(migrations.Migration):
                         default=None,
                         max_length=36,
                         null=True,
-                        db_column=b"metadataAppliesToidentifier",
+                        db_column="metadataAppliesToidentifier",
                         blank=True,
                     ),
                 ),
-                ("title", models.TextField(db_column=b"title", blank=True)),
+                ("title", models.TextField(db_column="title", blank=True)),
                 (
                     "is_part_of",
                     models.TextField(
                         help_text="Optional: leave blank if unsure",
                         verbose_name="Part of AIC",
-                        db_column=b"isPartOf",
+                        db_column="isPartOf",
                         blank=True,
                     ),
                 ),
-                ("creator", models.TextField(db_column=b"creator", blank=True)),
-                ("subject", models.TextField(db_column=b"subject", blank=True)),
-                ("description", models.TextField(db_column=b"description", blank=True)),
-                ("publisher", models.TextField(db_column=b"publisher", blank=True)),
-                ("contributor", models.TextField(db_column=b"contributor", blank=True)),
+                ("creator", models.TextField(db_column="creator", blank=True)),
+                ("subject", models.TextField(db_column="subject", blank=True)),
+                ("description", models.TextField(db_column="description", blank=True)),
+                ("publisher", models.TextField(db_column="publisher", blank=True)),
+                ("contributor", models.TextField(db_column="contributor", blank=True)),
                 (
                     "date",
                     models.TextField(
                         help_text="Use ISO 8601 (YYYY-MM-DD or YYYY-MM-DD/YYYY-MM-DD)",
-                        db_column=b"date",
+                        db_column="date",
                         blank=True,
                     ),
                 ),
-                ("type", models.TextField(db_column=b"type", blank=True)),
-                ("format", models.TextField(db_column=b"format", blank=True)),
-                ("identifier", models.TextField(db_column=b"identifier", blank=True)),
-                ("source", models.TextField(db_column=b"source", blank=True)),
-                ("relation", models.TextField(db_column=b"relation", blank=True)),
+                ("type", models.TextField(db_column="type", blank=True)),
+                ("format", models.TextField(db_column="format", blank=True)),
+                ("identifier", models.TextField(db_column="identifier", blank=True)),
+                ("source", models.TextField(db_column="source", blank=True)),
+                ("relation", models.TextField(db_column="relation", blank=True)),
                 (
                     "language",
                     models.TextField(
-                        help_text="Use ISO 639", db_column=b"language", blank=True
+                        help_text="Use ISO 639", db_column="language", blank=True
                     ),
                 ),
-                ("coverage", models.TextField(db_column=b"coverage", blank=True)),
-                ("rights", models.TextField(db_column=b"rights", blank=True)),
+                ("coverage", models.TextField(db_column="coverage", blank=True)),
+                ("rights", models.TextField(db_column="rights", blank=True)),
                 (
                     "status",
                     models.CharField(
-                        default=b"ORIGINAL",
+                        default="ORIGINAL",
                         max_length=8,
-                        db_column=b"status",
+                        db_column="status",
                         choices=[
-                            (b"ORIGINAL", b"original"),
-                            (b"REINGEST", b"parsed from reingest"),
-                            (b"UPDATED", b"updated"),
+                            ("ORIGINAL", "original"),
+                            ("REINGEST", "parsed from reingest"),
+                            ("UPDATED", "updated"),
                         ],
                     ),
                 ),
@@ -192,36 +190,36 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
                     "event_id",
                     django_extensions.db.fields.UUIDField(
                         null=True,
-                        db_column=b"eventIdentifierUUID",
+                        db_column="eventIdentifierUUID",
                         editable=False,
                         max_length=36,
                         blank=True,
                         unique=True,
                     ),
                 ),
-                ("event_type", models.TextField(db_column=b"eventType", blank=True)),
+                ("event_type", models.TextField(db_column="eventType", blank=True)),
                 (
                     "event_datetime",
-                    models.DateTimeField(auto_now=True, db_column=b"eventDateTime"),
+                    models.DateTimeField(auto_now=True, db_column="eventDateTime"),
                 ),
                 (
                     "event_detail",
-                    models.TextField(db_column=b"eventDetail", blank=True),
+                    models.TextField(db_column="eventDetail", blank=True),
                 ),
                 (
                     "event_outcome",
-                    models.TextField(db_column=b"eventOutcome", blank=True),
+                    models.TextField(db_column="eventOutcome", blank=True),
                 ),
                 (
                     "event_outcome_detail",
-                    models.TextField(db_column=b"eventOutcomeDetailNote", blank=True),
+                    models.TextField(db_column="eventOutcomeDetailNote", blank=True),
                 ),
                 ("agents", models.ManyToManyField(to="main.Agent")),
             ],
@@ -236,62 +234,60 @@ class Migration(migrations.Migration):
                         max_length=36,
                         serialize=False,
                         primary_key=True,
-                        db_column=b"fileUUID",
+                        db_column="fileUUID",
                     ),
                 ),
                 (
                     "originallocation",
-                    a3m.main.models.BlobTextField(db_column=b"originalLocation"),
+                    a3m.main.models.BlobTextField(db_column="originalLocation"),
                 ),
                 (
                     "currentlocation",
                     a3m.main.models.BlobTextField(
-                        null=True, db_column=b"currentLocation"
+                        null=True, db_column="currentLocation"
                     ),
                 ),
                 (
                     "filegrpuse",
                     models.CharField(
-                        default=b"Original", max_length=50, db_column=b"fileGrpUse"
+                        default="Original", max_length=50, db_column="fileGrpUse"
                     ),
                 ),
                 (
                     "filegrpuuid",
                     models.CharField(
-                        max_length=36, db_column=b"fileGrpUUID", blank=True
+                        max_length=36, db_column="fileGrpUUID", blank=True
                     ),
                 ),
                 (
                     "checksum",
-                    models.CharField(max_length=128, db_column=b"checksum", blank=True),
+                    models.CharField(max_length=128, db_column="checksum", blank=True),
                 ),
                 (
                     "checksumtype",
                     models.CharField(
-                        max_length=36, db_column=b"checksumType", blank=True
+                        max_length=36, db_column="checksumType", blank=True
                     ),
                 ),
                 (
                     "size",
-                    models.BigIntegerField(
-                        null=True, db_column=b"fileSize", blank=True
-                    ),
+                    models.BigIntegerField(null=True, db_column="fileSize", blank=True),
                 ),
                 ("label", models.TextField(blank=True)),
                 (
                     "modificationtime",
                     models.DateTimeField(
-                        auto_now_add=True, null=True, db_column=b"modificationTime"
+                        auto_now_add=True, null=True, db_column="modificationTime"
                     ),
                 ),
                 (
                     "enteredsystem",
-                    models.DateTimeField(auto_now_add=True, db_column=b"enteredSystem"),
+                    models.DateTimeField(auto_now_add=True, db_column="enteredSystem"),
                 ),
                 (
                     "removedtime",
                     models.DateTimeField(
-                        default=None, null=True, db_column=b"removedTime"
+                        default=None, null=True, db_column="removedTime"
                     ),
                 ),
             ],
@@ -306,14 +302,22 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
-                ("file_uuid", models.ForeignKey(to="main.File", db_column=b"fileUUID")),
+                (
+                    "file_uuid",
+                    models.ForeignKey(
+                        to="main.File", db_column="fileUUID", on_delete=models.CASCADE
+                    ),
+                ),
                 (
                     "format_version",
                     models.ForeignKey(
-                        to="fpr.FormatVersion", db_column=b"fileID", to_field=b"uuid"
+                        to="fpr.FormatVersion",
+                        db_column="fileID",
+                        to_field="uuid",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -324,27 +328,29 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.AutoField(
-                        serialize=False, primary_key=True, db_column=b"pk"
-                    ),
+                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
                 ),
-                ("format_name", models.TextField(db_column=b"formatName", blank=True)),
+                ("format_name", models.TextField(db_column="formatName", blank=True)),
                 (
                     "format_version",
-                    models.TextField(db_column=b"formatVersion", blank=True),
+                    models.TextField(db_column="formatVersion", blank=True),
                 ),
                 (
                     "format_registry_name",
-                    models.TextField(db_column=b"formatRegistryName", blank=True),
+                    models.TextField(db_column="formatRegistryName", blank=True),
                 ),
                 (
                     "format_registry_key",
-                    models.TextField(db_column=b"formatRegistryKey", blank=True),
+                    models.TextField(db_column="formatRegistryKey", blank=True),
                 ),
                 (
                     "file",
                     models.ForeignKey(
-                        db_column=b"fileUUID", blank=True, to="main.File", null=True
+                        db_column="fileUUID",
+                        blank=True,
+                        to="main.File",
+                        null=True,
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -363,11 +369,19 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("content", models.TextField(null=True)),
-                ("file", models.ForeignKey(to="main.File", db_column=b"fileUUID")),
+                (
+                    "file",
+                    models.ForeignKey(
+                        to="main.File", db_column="fileUUID", on_delete=models.CASCADE
+                    ),
+                ),
                 (
                     "rule",
                     models.ForeignKey(
-                        to="fpr.FPRule", db_column=b"ruleUUID", to_field=b"uuid"
+                        to="fpr.FPRule",
+                        db_column="ruleUUID",
+                        to_field="uuid",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -381,7 +395,7 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 ("type", models.TextField(null=True, verbose_name="Identifier Type")),
@@ -397,13 +411,13 @@ class Migration(migrations.Migration):
             options={"db_table": "Identifiers"},
         ),
         migrations.CreateModel(
-            name="Job",
+            name="Jo",
             fields=[
                 (
                     "jobuuid",
                     django_extensions.db.fields.UUIDField(
                         primary_key=True,
-                        db_column=b"jobUUID",
+                        db_column="jobUUID",
                         serialize=False,
                         editable=False,
                         max_length=36,
@@ -412,34 +426,32 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "jobtype",
-                    models.CharField(max_length=250, db_column=b"jobType", blank=True),
+                    models.CharField(max_length=250, db_column="jobType", blank=True),
                 ),
-                ("createdtime", models.DateTimeField(db_column=b"createdTime")),
+                ("createdtime", models.DateTimeField(db_column="createdTime")),
                 (
                     "createdtimedec",
                     models.DecimalField(
                         default=0.0,
                         decimal_places=10,
                         max_digits=26,
-                        db_column=b"createdTimeDec",
+                        db_column="createdTimeDec",
                     ),
                 ),
                 ("directory", models.TextField(blank=True)),
                 (
                     "sipuuid",
-                    models.CharField(
-                        max_length=36, db_column=b"SIPUUID", db_index=True
-                    ),
+                    models.CharField(max_length=36, db_column="SIPUUID", db_index=True),
                 ),
                 (
                     "unittype",
-                    models.CharField(max_length=50, db_column=b"unitType", blank=True),
+                    models.CharField(max_length=50, db_column="unitType", blank=True),
                 ),
                 (
                     "currentstep",
                     models.IntegerField(
                         default=0,
-                        db_column=b"currentStep",
+                        db_column="currentStep",
                         choices=[
                             (0, "Unknown"),
                             (1, "Awaiting decision"),
@@ -452,7 +464,7 @@ class Migration(migrations.Migration):
                 (
                     "microservicegroup",
                     models.CharField(
-                        max_length=50, db_column=b"microserviceGroup", blank=True
+                        max_length=50, db_column="microserviceGroup", blank=True
                     ),
                 ),
                 ("hidden", models.BooleanField(default=False)),
@@ -462,7 +474,7 @@ class Migration(migrations.Migration):
                         max_length=36,
                         null=True,
                         editable=False,
-                        db_column=b"MicroServiceChainLinksPK",
+                        db_column="MicroServiceChainLinksPK",
                         blank=True,
                     ),
                 ),
@@ -476,7 +488,7 @@ class Migration(migrations.Migration):
                     "id",
                     a3m.main.models.UUIDPkField(
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
@@ -485,17 +497,17 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "description",
-                    models.CharField(max_length=50, db_column=b"description"),
+                    models.CharField(max_length=50, db_column="description"),
                 ),
                 (
                     "replaces",
                     models.CharField(
-                        max_length=36, null=True, db_column=b"replaces", blank=True
+                        max_length=36, null=True, db_column="replaces", blank=True
                     ),
                 ),
                 (
                     "lastmodified",
-                    models.DateTimeField(auto_now=True, db_column=b"lastModified"),
+                    models.DateTimeField(auto_now=True, db_column="lastModified"),
                 ),
             ],
             options={"db_table": "MetadataAppliesToTypes"},
@@ -505,15 +517,13 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.AutoField(
-                        serialize=False, primary_key=True, db_column=b"pk"
-                    ),
+                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
                 ),
                 (
                     "metadataappliestoidentifier",
                     models.CharField(
                         max_length=36,
-                        db_column=b"metadataAppliesToidentifier",
+                        db_column="metadataAppliesToidentifier",
                         blank=True,
                     ),
                 ),
@@ -521,7 +531,7 @@ class Migration(migrations.Migration):
                     "rightsstatementidentifiertype",
                     models.TextField(
                         verbose_name="Type",
-                        db_column=b"rightsStatementIdentifierType",
+                        db_column="rightsStatementIdentifierType",
                         blank=True,
                     ),
                 ),
@@ -529,43 +539,43 @@ class Migration(migrations.Migration):
                     "rightsstatementidentifiervalue",
                     models.TextField(
                         verbose_name="Value",
-                        db_column=b"rightsStatementIdentifierValue",
+                        db_column="rightsStatementIdentifierValue",
                         blank=True,
                     ),
                 ),
                 (
                     "rightsholder",
                     models.IntegerField(
-                        default=0, verbose_name="Rights holder", db_column=b"fkAgent"
+                        default=0, verbose_name="Rights holder", db_column="fkAgent"
                     ),
                 ),
                 (
                     "rightsbasis",
                     models.CharField(
-                        default=b"Copyright",
+                        default="Copyright",
                         max_length=64,
                         verbose_name="Basis",
-                        db_column=b"rightsBasis",
+                        db_column="rightsBasis",
                         choices=[
-                            (b"Copyright", "Copyright"),
-                            (b"Statute", "Statute"),
-                            (b"License", "License"),
-                            (b"Donor", "Donor"),
-                            (b"Policy", "Policy"),
-                            (b"Other", "Other"),
+                            ("Copyright", "Copyright"),
+                            ("Statute", "Statute"),
+                            ("License", "License"),
+                            ("Donor", "Donor"),
+                            ("Policy", "Policy"),
+                            ("Other", "Other"),
                         ],
                     ),
                 ),
                 (
                     "status",
                     models.CharField(
-                        default=b"ORIGINAL",
+                        default="ORIGINAL",
                         max_length=8,
-                        db_column=b"status",
+                        db_column="status",
                         choices=[
-                            (b"ORIGINAL", b"original"),
-                            (b"REINGEST", b"parsed from reingest"),
-                            (b"UPDATED", b"updated"),
+                            ("ORIGINAL", "original"),
+                            ("REINGEST", "parsed from reingest"),
+                            ("UPDATED", "updated"),
                         ],
                     ),
                 ),
@@ -573,7 +583,8 @@ class Migration(migrations.Migration):
                     "metadataappliestotype",
                     models.ForeignKey(
                         to="main.MetadataAppliesToType",
-                        db_column=b"metadataAppliesToType",
+                        db_column="metadataAppliesToType",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -588,19 +599,19 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
                     "copyrightstatus",
                     models.TextField(
-                        default=b"unknown",
+                        default="unknown",
                         verbose_name="Copyright status",
-                        db_column=b"copyrightStatus",
+                        db_column="copyrightStatus",
                         choices=[
-                            (b"copyrighted", "copyrighted"),
-                            (b"public domain", "public domain"),
-                            (b"unknown", "unknown"),
+                            ("copyrighted", "copyrighted"),
+                            ("public domain", "public domain"),
+                            ("unknown", "unknown"),
                         ],
                     ),
                 ),
@@ -608,7 +619,7 @@ class Migration(migrations.Migration):
                     "copyrightjurisdiction",
                     models.TextField(
                         verbose_name="Copyright jurisdiction",
-                        db_column=b"copyrightJurisdiction",
+                        db_column="copyrightJurisdiction",
                     ),
                 ),
                 (
@@ -617,7 +628,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="Copyright determination date",
-                        db_column=b"copyrightStatusDeterminationDate",
+                        db_column="copyrightStatusDeterminationDate",
                         blank=True,
                     ),
                 ),
@@ -627,7 +638,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="Copyright start date",
-                        db_column=b"copyrightApplicableStartDate",
+                        db_column="copyrightApplicableStartDate",
                         blank=True,
                     ),
                 ),
@@ -637,7 +648,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="Copyright end date",
-                        db_column=b"copyrightApplicableEndDate",
+                        db_column="copyrightApplicableEndDate",
                         blank=True,
                     ),
                 ),
@@ -647,13 +658,15 @@ class Migration(migrations.Migration):
                         default=False,
                         help_text="Indicate end date is open",
                         verbose_name="Open End Date",
-                        db_column=b"copyrightApplicableEndDateOpen",
+                        db_column="copyrightApplicableEndDateOpen",
                     ),
                 ),
                 (
                     "rightsstatement",
                     models.ForeignKey(
-                        to="main.RightsStatement", db_column=b"fkRightsStatement"
+                        to="main.RightsStatement",
+                        db_column="fkRightsStatement",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -671,21 +684,21 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
                     "copyrightdocumentationidentifiertype",
                     models.TextField(
                         verbose_name="Copyright document identification type",
-                        db_column=b"copyrightDocumentationIdentifierType",
+                        db_column="copyrightDocumentationIdentifierType",
                     ),
                 ),
                 (
                     "copyrightdocumentationidentifiervalue",
                     models.TextField(
                         verbose_name="Copyright document identification value",
-                        db_column=b"copyrightDocumentationIdentifierValue",
+                        db_column="copyrightDocumentationIdentifierValue",
                     ),
                 ),
                 (
@@ -693,7 +706,7 @@ class Migration(migrations.Migration):
                     models.TextField(
                         null=True,
                         verbose_name="Copyright document identification role",
-                        db_column=b"copyrightDocumentationIdentifierRole",
+                        db_column="copyrightDocumentationIdentifierRole",
                         blank=True,
                     ),
                 ),
@@ -701,7 +714,8 @@ class Migration(migrations.Migration):
                     "rightscopyright",
                     models.ForeignKey(
                         to="main.RightsStatementCopyright",
-                        db_column=b"fkRightsStatementCopyrightInformation",
+                        db_column="fkRightsStatementCopyrightInformation",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -719,20 +733,21 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
                     "copyrightnote",
                     models.TextField(
-                        verbose_name="Copyright note", db_column=b"copyrightNote"
+                        verbose_name="Copyright note", db_column="copyrightNote"
                     ),
                 ),
                 (
                     "rightscopyright",
                     models.ForeignKey(
                         to="main.RightsStatementCopyright",
-                        db_column=b"fkRightsStatementCopyrightInformation",
+                        db_column="fkRightsStatementCopyrightInformation",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -750,7 +765,7 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
@@ -758,7 +773,7 @@ class Migration(migrations.Migration):
                     models.TextField(
                         null=True,
                         verbose_name="License terms",
-                        db_column=b"licenseTerms",
+                        db_column="licenseTerms",
                         blank=True,
                     ),
                 ),
@@ -768,7 +783,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="License start date",
-                        db_column=b"licenseApplicableStartDate",
+                        db_column="licenseApplicableStartDate",
                         blank=True,
                     ),
                 ),
@@ -778,7 +793,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="License end date",
-                        db_column=b"licenseApplicableEndDate",
+                        db_column="licenseApplicableEndDate",
                         blank=True,
                     ),
                 ),
@@ -788,13 +803,15 @@ class Migration(migrations.Migration):
                         default=False,
                         help_text="Indicate end date is open",
                         verbose_name="Open End Date",
-                        db_column=b"licenseApplicableEndDateOpen",
+                        db_column="licenseApplicableEndDateOpen",
                     ),
                 ),
                 (
                     "rightsstatement",
                     models.ForeignKey(
-                        to="main.RightsStatement", db_column=b"fkRightsStatement"
+                        to="main.RightsStatement",
+                        db_column="fkRightsStatement",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -812,21 +829,21 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
                     "licensedocumentationidentifiertype",
                     models.TextField(
                         verbose_name="License documentation identification type",
-                        db_column=b"licenseDocumentationIdentifierType",
+                        db_column="licenseDocumentationIdentifierType",
                     ),
                 ),
                 (
                     "licensedocumentationidentifiervalue",
                     models.TextField(
                         verbose_name="License documentation identification value",
-                        db_column=b"licenseDocumentationIdentifierValue",
+                        db_column="licenseDocumentationIdentifierValue",
                     ),
                 ),
                 (
@@ -834,7 +851,7 @@ class Migration(migrations.Migration):
                     models.TextField(
                         null=True,
                         verbose_name="License document identification role",
-                        db_column=b"licenseDocumentationIdentifierRole",
+                        db_column="licenseDocumentationIdentifierRole",
                         blank=True,
                     ),
                 ),
@@ -842,7 +859,8 @@ class Migration(migrations.Migration):
                     "rightsstatementlicense",
                     models.ForeignKey(
                         to="main.RightsStatementLicense",
-                        db_column=b"fkRightsStatementLicense",
+                        db_column="fkRightsStatementLicense",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -860,20 +878,21 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
                     "licensenote",
                     models.TextField(
-                        verbose_name="License note", db_column=b"licenseNote"
+                        verbose_name="License note", db_column="licenseNote"
                     ),
                 ),
                 (
                     "rightsstatementlicense",
                     models.ForeignKey(
                         to="main.RightsStatementLicense",
-                        db_column=b"fkRightsStatementLicense",
+                        db_column="fkRightsStatementLicense",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -887,15 +906,13 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.AutoField(
-                        serialize=False, primary_key=True, db_column=b"pk"
-                    ),
+                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
                 ),
                 (
                     "linkingagentidentifiertype",
                     models.TextField(
                         verbose_name="Linking Agent",
-                        db_column=b"linkingAgentIdentifierType",
+                        db_column="linkingAgentIdentifierType",
                         blank=True,
                     ),
                 ),
@@ -903,14 +920,16 @@ class Migration(migrations.Migration):
                     "linkingagentidentifiervalue",
                     models.TextField(
                         verbose_name="Linking Agent Value",
-                        db_column=b"linkingAgentIdentifierValue",
+                        db_column="linkingAgentIdentifierValue",
                         blank=True,
                     ),
                 ),
                 (
                     "rightsstatement",
                     models.ForeignKey(
-                        to="main.RightsStatement", db_column=b"fkRightsStatement"
+                        to="main.RightsStatement",
+                        db_column="fkRightsStatement",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -928,21 +947,21 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
                     "otherrightsdocumentationidentifiertype",
                     models.TextField(
                         verbose_name="Other rights document identification type",
-                        db_column=b"otherRightsDocumentationIdentifierType",
+                        db_column="otherRightsDocumentationIdentifierType",
                     ),
                 ),
                 (
                     "otherrightsdocumentationidentifiervalue",
                     models.TextField(
                         verbose_name="Other right document identification value",
-                        db_column=b"otherRightsDocumentationIdentifierValue",
+                        db_column="otherRightsDocumentationIdentifierValue",
                     ),
                 ),
                 (
@@ -950,7 +969,7 @@ class Migration(migrations.Migration):
                     models.TextField(
                         null=True,
                         verbose_name="Other rights document identification role",
-                        db_column=b"otherRightsDocumentationIdentifierRole",
+                        db_column="otherRightsDocumentationIdentifierRole",
                         blank=True,
                     ),
                 ),
@@ -969,15 +988,15 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
                     "otherrightsbasis",
                     models.TextField(
-                        default=b"Other",
+                        default="Other",
                         verbose_name="Other rights basis",
-                        db_column=b"otherRightsBasis",
+                        db_column="otherRightsBasis",
                     ),
                 ),
                 (
@@ -986,7 +1005,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="Other rights start date",
-                        db_column=b"otherRightsApplicableStartDate",
+                        db_column="otherRightsApplicableStartDate",
                         blank=True,
                     ),
                 ),
@@ -996,7 +1015,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="Other rights end date",
-                        db_column=b"otherRightsApplicableEndDate",
+                        db_column="otherRightsApplicableEndDate",
                         blank=True,
                     ),
                 ),
@@ -1006,13 +1025,15 @@ class Migration(migrations.Migration):
                         default=False,
                         help_text="Indicate end date is open",
                         verbose_name="Open End Date",
-                        db_column=b"otherRightsApplicableEndDateOpen",
+                        db_column="otherRightsApplicableEndDateOpen",
                     ),
                 ),
                 (
                     "rightsstatement",
                     models.ForeignKey(
-                        to="main.RightsStatement", db_column=b"fkRightsStatement"
+                        to="main.RightsStatement",
+                        db_column="fkRightsStatement",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -1026,21 +1047,20 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.AutoField(
-                        serialize=False, primary_key=True, db_column=b"pk"
-                    ),
+                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
                 ),
                 (
                     "otherrightsnote",
                     models.TextField(
-                        verbose_name="Other rights note", db_column=b"otherRightsNote"
+                        verbose_name="Other rights note", db_column="otherRightsNote"
                     ),
                 ),
                 (
                     "rightsstatementotherrights",
                     models.ForeignKey(
                         to="main.RightsStatementOtherRightsInformation",
-                        db_column=b"fkRightsStatementOtherRightsInformation",
+                        db_column="fkRightsStatementOtherRightsInformation",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -1054,18 +1074,16 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.AutoField(
-                        serialize=False, primary_key=True, db_column=b"pk"
-                    ),
+                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
                 ),
-                ("act", models.TextField(db_column=b"act")),
+                ("act", models.TextField(db_column="act")),
                 (
                     "startdate",
                     models.TextField(
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="Start",
-                        db_column=b"startDate",
+                        db_column="startDate",
                         blank=True,
                     ),
                 ),
@@ -1075,7 +1093,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="End",
-                        db_column=b"endDate",
+                        db_column="endDate",
                         blank=True,
                     ),
                 ),
@@ -1085,13 +1103,15 @@ class Migration(migrations.Migration):
                         default=False,
                         help_text="Indicate end date is open",
                         verbose_name="Open End Date",
-                        db_column=b"endDateOpen",
+                        db_column="endDateOpen",
                     ),
                 ),
                 (
                     "rightsstatement",
                     models.ForeignKey(
-                        to="main.RightsStatement", db_column=b"fkRightsStatement"
+                        to="main.RightsStatement",
+                        db_column="fkRightsStatement",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -1109,21 +1129,22 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
                     "rightsgrantednote",
                     models.TextField(
-                        verbose_name="Rights note", db_column=b"rightsGrantedNote"
+                        verbose_name="Rights note", db_column="rightsGrantedNote"
                     ),
                 ),
                 (
                     "rightsgranted",
                     models.ForeignKey(
                         related_name="notes",
-                        db_column=b"fkRightsStatementRightsGranted",
+                        db_column="fkRightsStatementRightsGranted",
                         to="main.RightsStatementRightsGranted",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -1137,17 +1158,16 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.AutoField(
-                        serialize=False, primary_key=True, db_column=b"pk"
-                    ),
+                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
                 ),
-                ("restriction", models.TextField(db_column=b"restriction")),
+                ("restriction", models.TextField(db_column="restriction")),
                 (
                     "rightsgranted",
                     models.ForeignKey(
                         related_name="restrictions",
-                        db_column=b"fkRightsStatementRightsGranted",
+                        db_column="fkRightsStatementRightsGranted",
                         to="main.RightsStatementRightsGranted",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -1165,21 +1185,21 @@ class Migration(migrations.Migration):
                         serialize=False,
                         editable=False,
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                     ),
                 ),
                 (
                     "statutedocumentationidentifiertype",
                     models.TextField(
                         verbose_name="Statute document identification type",
-                        db_column=b"statuteDocumentationIdentifierType",
+                        db_column="statuteDocumentationIdentifierType",
                     ),
                 ),
                 (
                     "statutedocumentationidentifiervalue",
                     models.TextField(
                         verbose_name="Statute document identification value",
-                        db_column=b"statuteDocumentationIdentifierValue",
+                        db_column="statuteDocumentationIdentifierValue",
                     ),
                 ),
                 (
@@ -1187,7 +1207,7 @@ class Migration(migrations.Migration):
                     models.TextField(
                         null=True,
                         verbose_name="Statute document identification role",
-                        db_column=b"statuteDocumentationIdentifierRole",
+                        db_column="statuteDocumentationIdentifierRole",
                         blank=True,
                     ),
                 ),
@@ -1202,21 +1222,19 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.AutoField(
-                        serialize=False, primary_key=True, db_column=b"pk"
-                    ),
+                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
                 ),
                 (
                     "statutejurisdiction",
                     models.TextField(
                         verbose_name="Statute jurisdiction",
-                        db_column=b"statuteJurisdiction",
+                        db_column="statuteJurisdiction",
                     ),
                 ),
                 (
                     "statutecitation",
                     models.TextField(
-                        verbose_name="Statute citation", db_column=b"statuteCitation"
+                        verbose_name="Statute citation", db_column="statuteCitation"
                     ),
                 ),
                 (
@@ -1225,7 +1243,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="Statute determination date",
-                        db_column=b"statuteInformationDeterminationDate",
+                        db_column="statuteInformationDeterminationDate",
                         blank=True,
                     ),
                 ),
@@ -1235,7 +1253,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="Statute start date",
-                        db_column=b"statuteApplicableStartDate",
+                        db_column="statuteApplicableStartDate",
                         blank=True,
                     ),
                 ),
@@ -1245,7 +1263,7 @@ class Migration(migrations.Migration):
                         help_text="Use ISO 8061 (YYYY-MM-DD)",
                         null=True,
                         verbose_name="Statute end date",
-                        db_column=b"statuteApplicableEndDate",
+                        db_column="statuteApplicableEndDate",
                         blank=True,
                     ),
                 ),
@@ -1255,13 +1273,15 @@ class Migration(migrations.Migration):
                         default=False,
                         help_text="Indicate end date is open",
                         verbose_name="Open End Date",
-                        db_column=b"statuteApplicableEndDateOpen",
+                        db_column="statuteApplicableEndDateOpen",
                     ),
                 ),
                 (
                     "rightsstatement",
                     models.ForeignKey(
-                        to="main.RightsStatement", db_column=b"fkRightsStatement"
+                        to="main.RightsStatement",
+                        db_column="fkRightsStatement",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -1275,21 +1295,20 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.AutoField(
-                        serialize=False, primary_key=True, db_column=b"pk"
-                    ),
+                    models.AutoField(serialize=False, primary_key=True, db_column="pk"),
                 ),
                 (
                     "statutenote",
                     models.TextField(
-                        verbose_name="Statute note", db_column=b"statuteNote"
+                        verbose_name="Statute note", db_column="statuteNote"
                     ),
                 ),
                 (
                     "rightsstatementstatute",
                     models.ForeignKey(
                         to="main.RightsStatementStatuteInformation",
-                        db_column=b"fkRightsStatementStatuteInformation",
+                        db_column="fkRightsStatementStatuteInformation",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -1307,37 +1326,37 @@ class Migration(migrations.Migration):
                         max_length=36,
                         serialize=False,
                         primary_key=True,
-                        db_column=b"sipUUID",
+                        db_column="sipUUID",
                     ),
                 ),
                 (
                     "createdtime",
-                    models.DateTimeField(auto_now_add=True, db_column=b"createdTime"),
+                    models.DateTimeField(auto_now_add=True, db_column="createdTime"),
                 ),
                 (
                     "currentpath",
-                    models.TextField(null=True, db_column=b"currentPath", blank=True),
+                    models.TextField(null=True, db_column="currentPath", blank=True),
                 ),
                 ("hidden", models.BooleanField(default=False)),
                 (
                     "aip_filename",
-                    models.TextField(null=True, db_column=b"aipFilename", blank=True),
+                    models.TextField(null=True, db_column="aipFilename", blank=True),
                 ),
                 (
                     "sip_type",
                     models.CharField(
-                        default=b"SIP",
+                        default="SIP",
                         max_length=8,
-                        db_column=b"sipType",
+                        db_column="sipType",
                         choices=[
-                            (b"SIP", "SIP"),
-                            (b"AIC", "AIC"),
-                            (b"AIP-REIN", "Reingested AIP"),
-                            (b"AIC-REIN", "Reingested AIC"),
+                            ("SIP", "SIP"),
+                            ("AIC", "AIC"),
+                            ("AIP-REIN", "Reingested AIP"),
+                            ("AIC-REIN", "Reingested AIC"),
                         ],
                     ),
                 ),
-                ("diruuids", models.BooleanField(default=False, db_column=b"dirUUIDs")),
+                ("diruuids", models.BooleanField(default=False, db_column="dirUUIDs")),
                 ("identifiers", models.ManyToManyField(to="main.Identifier")),
             ],
             options={"db_table": "SIPs"},
@@ -1351,42 +1370,45 @@ class Migration(migrations.Migration):
                         max_length=36,
                         serialize=False,
                         primary_key=True,
-                        db_column=b"taskUUID",
+                        db_column="taskUUID",
                     ),
                 ),
-                ("createdtime", models.DateTimeField(db_column=b"createdTime")),
+                ("createdtime", models.DateTimeField(db_column="createdTime")),
                 (
                     "fileuuid",
                     models.CharField(
-                        max_length=36, null=True, db_column=b"fileUUID", blank=True
+                        max_length=36, null=True, db_column="fileUUID", blank=True
                     ),
                 ),
-                ("filename", models.TextField(db_column=b"fileName", blank=True)),
+                ("filename", models.TextField(db_column="fileName", blank=True)),
                 (
                     "execution",
-                    models.CharField(max_length=250, db_column=b"exec", blank=True),
+                    models.CharField(max_length=250, db_column="exec", blank=True),
                 ),
                 ("arguments", models.CharField(max_length=1000, blank=True)),
                 (
                     "starttime",
                     models.DateTimeField(
-                        default=None, null=True, db_column=b"startTime"
+                        default=None, null=True, db_column="startTime"
                     ),
                 ),
                 (
                     "endtime",
-                    models.DateTimeField(default=None, null=True, db_column=b"endTime"),
+                    models.DateTimeField(default=None, null=True, db_column="endTime"),
                 ),
                 ("client", models.CharField(max_length=50, blank=True)),
-                ("stdout", models.TextField(db_column=b"stdOut", blank=True)),
-                ("stderror", models.TextField(db_column=b"stdError", blank=True)),
+                ("stdout", models.TextField(db_column="stdOut", blank=True)),
+                ("stderror", models.TextField(db_column="stdError", blank=True)),
                 (
                     "exitcode",
-                    models.BigIntegerField(
-                        null=True, db_column=b"exitCode", blank=True
+                    models.BigIntegerField(null=True, db_column="exitCode", blank=True),
+                ),
+                (
+                    "jo",
+                    models.ForeignKey(
+                        to="main.Jo", db_column="jobuuid", on_delete=models.CASCADE
                     ),
                 ),
-                ("job", models.ForeignKey(to="main.Job", db_column=b"jobuuid")),
             ],
             options={"db_table": "Tasks"},
         ),
@@ -1397,7 +1419,7 @@ class Migration(migrations.Migration):
                     "id",
                     a3m.main.models.UUIDPkField(
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
@@ -1407,14 +1429,14 @@ class Migration(migrations.Migration):
                 (
                     "createdtime",
                     models.DateTimeField(
-                        auto_now_add=True, null=True, db_column=b"createdTime"
+                        auto_now_add=True, null=True, db_column="createdTime"
                     ),
                 ),
                 (
                     "name",
-                    models.CharField(max_length=255, db_column=b"name", blank=True),
+                    models.CharField(max_length=255, db_column="name", blank=True),
                 ),
-                ("type", models.CharField(default=b"open", max_length=50)),
+                ("type", models.CharField(default="open", max_length=50)),
             ],
             options={"db_table": "Taxonomies"},
         ),
@@ -1425,7 +1447,7 @@ class Migration(migrations.Migration):
                     "id",
                     a3m.main.models.UUIDPkField(
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
@@ -1435,13 +1457,17 @@ class Migration(migrations.Migration):
                 (
                     "createdtime",
                     models.DateTimeField(
-                        auto_now_add=True, null=True, db_column=b"createdTime"
+                        auto_now_add=True, null=True, db_column="createdTime"
                     ),
                 ),
-                ("term", models.CharField(max_length=255, db_column=b"term")),
+                ("term", models.CharField(max_length=255, db_column="term")),
                 (
                     "taxonomy",
-                    models.ForeignKey(to="main.Taxonomy", db_column=b"taxonomyUUID"),
+                    models.ForeignKey(
+                        to="main.Taxonomy",
+                        db_column="taxonomyUUID",
+                        on_delete=models.CASCADE,
+                    ),
                 ),
             ],
             options={"db_table": "TaxonomyTerms"},
@@ -1455,25 +1481,25 @@ class Migration(migrations.Migration):
                         max_length=36,
                         serialize=False,
                         primary_key=True,
-                        db_column=b"transferUUID",
+                        db_column="transferUUID",
                     ),
                 ),
-                ("currentlocation", models.TextField(db_column=b"currentLocation")),
-                ("type", models.CharField(max_length=50, db_column=b"type")),
-                ("accessionid", models.TextField(db_column=b"accessionID")),
+                ("currentlocation", models.TextField(db_column="currentLocation")),
+                ("type", models.CharField(max_length=50, db_column="type")),
+                ("accessionid", models.TextField(db_column="accessionID")),
                 (
                     "sourceofacquisition",
-                    models.TextField(db_column=b"sourceOfAcquisition", blank=True),
+                    models.TextField(db_column="sourceOfAcquisition", blank=True),
                 ),
                 (
                     "typeoftransfer",
-                    models.TextField(db_column=b"typeOfTransfer", blank=True),
+                    models.TextField(db_column="typeOfTransfer", blank=True),
                 ),
                 ("description", models.TextField(blank=True)),
                 ("notes", models.TextField(blank=True)),
-                ("access_system_id", models.TextField(db_column=b"access_system_id")),
+                ("access_system_id", models.TextField(db_column="access_system_id")),
                 ("hidden", models.BooleanField(default=False)),
-                ("diruuids", models.BooleanField(default=False, db_column=b"dirUUIDs")),
+                ("diruuids", models.BooleanField(default=False, db_column="dirUUIDs")),
             ],
             options={"db_table": "Transfers"},
         ),
@@ -1484,7 +1510,7 @@ class Migration(migrations.Migration):
                     "id",
                     a3m.main.models.UUIDPkField(
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
@@ -1494,22 +1520,23 @@ class Migration(migrations.Migration):
                 (
                     "createdtime",
                     models.DateTimeField(
-                        auto_now_add=True, null=True, db_column=b"createdTime"
+                        auto_now_add=True, null=True, db_column="createdTime"
                     ),
                 ),
                 (
                     "fieldlabel",
-                    models.CharField(
-                        max_length=50, db_column=b"fieldLabel", blank=True
-                    ),
+                    models.CharField(max_length=50, db_column="fieldLabel", blank=True),
                 ),
-                ("fieldname", models.CharField(max_length=50, db_column=b"fieldName")),
-                ("fieldtype", models.CharField(max_length=50, db_column=b"fieldType")),
-                ("sortorder", models.IntegerField(default=0, db_column=b"sortOrder")),
+                ("fieldname", models.CharField(max_length=50, db_column="fieldName")),
+                ("fieldtype", models.CharField(max_length=50, db_column="fieldType")),
+                ("sortorder", models.IntegerField(default=0, db_column="sortOrder")),
                 (
                     "optiontaxonomy",
                     models.ForeignKey(
-                        db_column=b"optionTaxonomyUUID", to="main.Taxonomy", null=True
+                        db_column="optionTaxonomyUUID",
+                        to="main.Taxonomy",
+                        null=True,
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -1522,7 +1549,7 @@ class Migration(migrations.Migration):
                     "id",
                     a3m.main.models.UUIDPkField(
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
@@ -1531,13 +1558,15 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "createdtime",
-                    models.DateTimeField(auto_now_add=True, db_column=b"createdTime"),
+                    models.DateTimeField(auto_now_add=True, db_column="createdTime"),
                 ),
-                ("fieldvalue", models.TextField(db_column=b"fieldValue", blank=True)),
+                ("fieldvalue", models.TextField(db_column="fieldValue", blank=True)),
                 (
                     "field",
                     models.ForeignKey(
-                        to="main.TransferMetadataField", db_column=b"fieldUUID"
+                        to="main.TransferMetadataField",
+                        db_column="fieldUUID",
+                        on_delete=models.CASCADE,
                     ),
                 ),
             ],
@@ -1550,7 +1579,7 @@ class Migration(migrations.Migration):
                     "id",
                     a3m.main.models.UUIDPkField(
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
@@ -1559,9 +1588,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "createdtime",
-                    models.DateTimeField(auto_now_add=True, db_column=b"createdTime"),
+                    models.DateTimeField(auto_now_add=True, db_column="createdTime"),
                 ),
-                ("createdbyuserid", models.IntegerField(db_column=b"createdByUserID")),
+                ("createdbyuserid", models.IntegerField(db_column="createdByUserID")),
             ],
             options={"db_table": "TransferMetadataSets"},
         ),
@@ -1572,7 +1601,7 @@ class Migration(migrations.Migration):
                     "id",
                     a3m.main.models.UUIDPkField(
                         primary_key=True,
-                        db_column=b"pk",
+                        db_column="pk",
                         serialize=False,
                         editable=False,
                         max_length=36,
@@ -1582,7 +1611,7 @@ class Migration(migrations.Migration):
                 (
                     "unittype",
                     models.CharField(
-                        max_length=50, null=True, db_column=b"unitType", blank=True
+                        max_length=50, null=True, db_column="unitType", blank=True
                     ),
                 ),
                 (
@@ -1591,13 +1620,13 @@ class Migration(migrations.Migration):
                         help_text="Semantically a foreign key to SIP or Transfer",
                         max_length=36,
                         null=True,
-                        db_column=b"unitUUID",
+                        db_column="unitUUID",
                     ),
                 ),
-                ("variable", models.TextField(null=True, db_column=b"variable")),
+                ("variable", models.TextField(null=True, db_column="variable")),
                 (
                     "variablevalue",
-                    models.TextField(null=True, db_column=b"variableValue"),
+                    models.TextField(null=True, db_column="variableValue"),
                 ),
                 (
                     "microservicechainlink",
@@ -1605,17 +1634,17 @@ class Migration(migrations.Migration):
                         max_length=36,
                         null=True,
                         editable=False,
-                        db_column=b"microServiceChainLink",
+                        db_column="microServiceChainLink",
                         blank=True,
                     ),
                 ),
                 (
                     "createdtime",
-                    models.DateTimeField(auto_now_add=True, db_column=b"createdTime"),
+                    models.DateTimeField(auto_now_add=True, db_column="createdTime"),
                 ),
                 (
                     "updatedtime",
-                    models.DateTimeField(auto_now=True, db_column=b"updatedTime"),
+                    models.DateTimeField(auto_now=True, db_column="updatedTime"),
                 ),
             ],
             options={"db_table": "UnitVariables"},
@@ -1640,8 +1669,16 @@ class Migration(migrations.Migration):
                         verbose_name="Send system emails?",
                     ),
                 ),
-                ("agent", models.OneToOneField(to="main.Agent")),
-                ("user", models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                (
+                    "agent",
+                    models.OneToOneField(to="main.Agent", on_delete=models.CASCADE),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+                    ),
+                ),
             ],
             options={"db_table": "main_userprofile"},
         ),
@@ -1649,17 +1686,20 @@ class Migration(migrations.Migration):
             model_name="transfermetadatafieldvalue",
             name="set",
             field=models.ForeignKey(
-                to="main.TransferMetadataSet", db_column=b"setUUID"
+                to="main.TransferMetadataSet",
+                db_column="setUUID",
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
             model_name="transfer",
             name="transfermetadatasetrow",
             field=models.ForeignKey(
-                db_column=b"transferMetadataSetRowUUID",
+                db_column="transferMetadataSetRowUUID",
                 blank=True,
                 to="main.TransferMetadataSet",
                 null=True,
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
@@ -1667,7 +1707,8 @@ class Migration(migrations.Migration):
             name="rightsstatementstatute",
             field=models.ForeignKey(
                 to="main.RightsStatementStatuteInformation",
-                db_column=b"fkRightsStatementStatuteInformation",
+                db_column="fkRightsStatementStatuteInformation",
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
@@ -1675,11 +1716,12 @@ class Migration(migrations.Migration):
             name="rightsstatementotherrights",
             field=models.ForeignKey(
                 to="main.RightsStatementOtherRightsInformation",
-                db_column=b"fkRightsStatementOtherRightsInformation",
+                db_column="fkRightsStatementOtherRightsInformation",
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AlterIndexTogether(
-            name="job",
+            name="jo",
             index_together=set(
                 [
                     ("sipuuid", "createdtime", "createdtimedec"),
@@ -1703,28 +1745,42 @@ class Migration(migrations.Migration):
             model_name="file",
             name="sip",
             field=models.ForeignKey(
-                db_column=b"sipUUID", blank=True, to="main.SIP", null=True
+                db_column="sipUUID",
+                blank=True,
+                to="main.SIP",
+                null=True,
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
             model_name="file",
             name="transfer",
             field=models.ForeignKey(
-                db_column=b"transferUUID", blank=True, to="main.Transfer", null=True
+                db_column="transferUUID",
+                blank=True,
+                to="main.Transfer",
+                null=True,
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
             model_name="event",
             name="file_uuid",
             field=models.ForeignKey(
-                db_column=b"fileUUID", blank=True, to="main.File", null=True
+                db_column="fileUUID",
+                blank=True,
+                to="main.File",
+                null=True,
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
             model_name="dublincore",
             name="metadataappliestotype",
             field=models.ForeignKey(
-                to="main.MetadataAppliesToType", db_column=b"metadataAppliesToType"
+                to="main.MetadataAppliesToType",
+                db_column="metadataAppliesToType",
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
@@ -1736,14 +1792,22 @@ class Migration(migrations.Migration):
             model_name="directory",
             name="sip",
             field=models.ForeignKey(
-                db_column=b"sipUUID", blank=True, to="main.SIP", null=True
+                db_column="sipUUID",
+                blank=True,
+                to="main.SIP",
+                null=True,
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
             model_name="directory",
             name="transfer",
             field=models.ForeignKey(
-                db_column=b"transferUUID", blank=True, to="main.Transfer", null=True
+                db_column="transferUUID",
+                blank=True,
+                to="main.Transfer",
+                null=True,
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
@@ -1751,19 +1815,21 @@ class Migration(migrations.Migration):
             name="derived_file",
             field=models.ForeignKey(
                 related_name="original_file_set",
-                db_column=b"derivedFileUUID",
+                db_column="derivedFileUUID",
                 to="main.File",
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
             model_name="derivation",
             name="event",
             field=models.ForeignKey(
-                db_column=b"relatedEventUUID",
-                to_field=b"event_id",
+                db_column="relatedEventUUID",
+                to_field="event_id",
                 blank=True,
                 to="main.Event",
                 null=True,
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AddField(
@@ -1771,8 +1837,9 @@ class Migration(migrations.Migration):
             name="source_file",
             field=models.ForeignKey(
                 related_name="derived_file_set",
-                db_column=b"sourceFileUUID",
+                db_column="sourceFileUUID",
                 to="main.File",
+                on_delete=models.CASCADE,
             ),
         ),
         migrations.AlterIndexTogether(
