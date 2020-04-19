@@ -81,7 +81,7 @@ def package_queue(request):
 @pytest.fixture
 def transfer(request, db):
     transfer_obj = models.Transfer.objects.create(uuid=uuid.uuid4())
-    return Transfer("transfer_path", transfer_obj.uuid)
+    return Transfer("transfer_path", transfer_obj.uuid, "file:///tmp/foobar.gz")
 
 
 @pytest.fixture

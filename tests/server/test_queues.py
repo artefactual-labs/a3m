@@ -91,7 +91,7 @@ def workflow_link(request):
 
 @pytest.fixture
 def transfer(request, tmp_path):
-    return Transfer(str(tmp_path), uuid.uuid4())
+    return Transfer(str(tmp_path), uuid.uuid4(), "file:///tmp/foobar.gz")
 
 
 @pytest.fixture
