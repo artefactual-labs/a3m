@@ -207,6 +207,7 @@ DATABASES = {
         "HOST": config.get("db_host"),
         "PORT": config.get("db_port"),
         "CONN_MAX_AGE": 3600,
+        "OPTIONS": {"timeout": 5},
     }
 }
 
