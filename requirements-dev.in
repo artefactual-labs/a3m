@@ -1,12 +1,11 @@
 -rrequirements.txt
 
-mock
-pytest>=4,<5
+pytest>=5,<6
 pytest-django>=3,<4
-pytest-mock>=1,<2
+pytest-mock>=2,<3
 vcrpy>=1,<2
 pytest-cov==2.8.1
 coverage==5.1
 pip-tools==5.0.0
+grpcio-tools==1.28.1
 tox
-grpcio-tools
