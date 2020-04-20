@@ -1,6 +1,4 @@
 #!/usr/bin/env python2
-from __future__ import absolute_import
-
 import multiprocessing
 import os
 from uuid import uuid4
@@ -26,7 +24,7 @@ def insert_transcription_event(status, file_uuid, rule, relative_location):
     outcome = "transcribed" if status == 0 else "not transcribed"
 
     tool = rule.command.tool
-    event_detail = u'program={}; version={}; command="{}"'.format(
+    event_detail = 'program={}; version={}; command="{}"'.format(
         tool.description, tool.version, rule.command.command.replace('"', r"\"")
     )
 
@@ -110,7 +108,7 @@ def main(job, task_uuid, file_uuid):
     #
     # Skip derivatives to avoid double-scanning them; only look at them as a fallback.
     if file_.filegrpuse != "original":
-        job.print_error("{} is not an original; not transcribing".format(file_uuid))
+        job.print_error(f"{file_uuid} is not an original; not transcribing")
         return 0
 
     rules = fetch_rules_for(file_)
@@ -129,7 +127,7 @@ def main(job, task_uuid, file_uuid):
             noun = "original"
         else:
             noun = file_.filegrpuse + " derivative"
-        job.print_error("Transcribing {} {}".format(noun, file_.uuid))
+        job.print_error(f"Transcribing {noun} {file_.uuid}")
 
     rd = ReplacementDict.frommodel(file_=file_, type_="file")
 

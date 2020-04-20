@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import os
 import sys
 from optparse import OptionParser
@@ -91,7 +89,7 @@ def something(
                     dipPath = os.path.join(
                         DIPDirectory,
                         "objects",
-                        "%s-%s" % (objectUUID, os.path.basename(accessPath)),
+                        "{}-{}".format(objectUUID, os.path.basename(accessPath)),
                     )
                     if copy:
                         job.pyprint("TODO - copy not supported yet")

@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import os
 import sys
 import uuid
@@ -92,9 +90,8 @@ def call(jobs):
                             for path, fileUUID in fileID.items():
                                 eventDetail = 'program="python"; module="hashlib.md5()"'
                                 eventOutcome = "Pass"
-                                eventOutcomeDetailNote = "%s %s" % (
-                                    xmlFile.__str__(),
-                                    "verified",
+                                eventOutcomeDetailNote = "{} {}".format(
+                                    xmlFile.__str__(), "verified",
                                 )
                                 eventIdentifierUUID = uuid.uuid4().__str__()
 

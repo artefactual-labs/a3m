@@ -1,12 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 i18n handling.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import pprint
 
 from django.utils.six import python_2_unicode_compatible
@@ -17,7 +11,7 @@ UNKNOWN_TRANSLATION_LABEL = "<unknown>"
 
 
 @python_2_unicode_compatible
-class TranslationLabel(object):
+class TranslationLabel:
     """Mixin for easy access to translated messages.
 
     The JSON-encoded workflow uses ``object`` (mapping type) to associate

@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import os
 import shutil
 
@@ -31,7 +29,7 @@ def _move_file(job, src, dst, exit_on_error=True):
     job.pyprint("Moving", src, "to", dst)
     try:
         shutil.move(src, dst)
-    except IOError:
+    except OSError:
         job.pyprint("Could not move", src)
         if exit_on_error:
             raise
@@ -101,6 +99,6 @@ def call(jobs):
                     printing=True,
                     printfn=job.pyprint,
                 )
-            except IOError as err:
+            except OSError as err:
                 job.print_error(repr(err))
                 job.set_status(1)

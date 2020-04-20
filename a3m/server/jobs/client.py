@@ -1,17 +1,9 @@
-# -*- coding: utf-8 -*-
 """
 Jobs remotely executed by on MCP client.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import abc
 import ast
 import logging
-
-from django.utils import six
 
 from a3m.main import models
 from a3m.server import metrics
@@ -28,20 +20,19 @@ def _escape_for_command_line(value):
     # escape slashes, quotes, backticks
     value = value.replace("\\", "\\\\")
     value = value.replace('"', '\\"')
-    value = value.replace("`", "\`")
+    value = value.replace("`", r"\`")
 
     return value
 
 
-@six.add_metaclass(abc.ABCMeta)
-class ClientScriptJob(Job):
+class ClientScriptJob(Job, metaclass=abc.ABCMeta):
     """A job with one or more Tasks."""
 
     # If True, request stdout/stderr be returned by mcp client in task results
     capture_task_output = False
 
     def __init__(self, *args, **kwargs):
-        super(ClientScriptJob, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         # Lazy initialize in `run` method
         self.task_backend = None
@@ -89,7 +80,7 @@ class ClientScriptJob(Job):
         if command is None:
             return None
 
-        for key, replacement in six.iteritems(replacements):
+        for key, replacement in replacements.items():
             escaped_replacement = _escape_for_command_line(replacement)
             command = command.replace(key, escaped_replacement)
 
@@ -97,7 +88,7 @@ class ClientScriptJob(Job):
 
     @auto_close_old_connections()
     def run(self, *args, **kwargs):
-        super(ClientScriptJob, self).run(*args, **kwargs)
+        super().run(*args, **kwargs)
 
         logger.info("Running %s (package %s)", self.description, self.package.uuid)
 

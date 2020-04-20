@@ -15,12 +15,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 from a3m.executeOrRunSubProcess import executeOrRun
 
 
-class Command(object):
+class Command:
     def __init__(self, job, command, replacement_dict, on_success=None, opts=None):
         self.fpcommand = command
         self.command = command.command
@@ -55,7 +53,7 @@ class Command(object):
             )
 
     def __str__(self):
-        return u"[COMMAND] {}\n\tExecuting: {}\n\tOutput location: {}\n".format(
+        return "[COMMAND] {}\n\tExecuting: {}\n\tOutput location: {}\n".format(
             self.fpcommand,
             self.command,
             self.verification_command,
@@ -114,7 +112,7 @@ class Command(object):
         return self.exit_code
 
 
-class CommandLinker(object):
+class CommandLinker:
     """TODO: useless?"""
 
     def __init__(self, job, command, replacement_dict, opts, on_success):
@@ -127,7 +125,7 @@ class CommandLinker(object):
         )
 
     def __str__(self):
-        return "[Command Linker] Command: {co}".format(co=self.commandObject)
+        return f"[Command Linker] Command: {self.commandObject}"
 
     def execute(self):
         """Execute the command."""

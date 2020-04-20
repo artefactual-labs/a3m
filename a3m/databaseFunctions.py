@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -15,9 +14,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-from __future__ import print_function
-
 import logging
 import random
 import string
@@ -26,10 +22,8 @@ import time
 import uuid
 from functools import wraps
 
-import six
 from django.db import close_old_connections
 from django.utils import timezone
-from six.moves import range
 
 from a3m.common_metrics import db_retry_timer
 from a3m.main.models import Agent
@@ -291,7 +285,7 @@ def deUnicode(unicode_string):
     """
     if unicode_string is None:
         return None
-    return six.text_type(unicode_string).encode("utf-8")
+    return str(unicode_string).encode("utf-8")
 
 
 def retryOnFailure(description, callback, retries=10):

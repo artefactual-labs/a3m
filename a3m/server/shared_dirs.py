@@ -1,11 +1,5 @@
-# -*- coding: utf-8 -*-
 """Shared directory setup.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import logging
 import os
 
@@ -211,7 +205,7 @@ def install_builtin_config(name):
     path = os.path.join(
         settings.SHARED_DIRECTORY,
         "sharedMicroServiceTasksConfigs/processingMCPConfigs",
-        "{}ProcessingMCP.xml".format(name),
+        f"{name}ProcessingMCP.xml",
     )
     if not os.path.isfile(path):
         with open(path, "w") as file_descriptor:

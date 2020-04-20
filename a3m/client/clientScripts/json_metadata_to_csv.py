@@ -1,12 +1,7 @@
 #!/usr/bin/env python2
-from __future__ import absolute_import
-
 import csv
 import json
 import os
-
-from django.utils import six
-from six.moves import range
 
 
 def fetch_keys(objects):
@@ -70,7 +65,7 @@ def encode_item(item):
     """
     if not item:  # Handle case where json contains null.
         return
-    elif isinstance(item, six.string_types):
+    elif isinstance(item, str):
         return item
     elif isinstance(item, (list, tuple)):
         return [i if i else "" for i in item]

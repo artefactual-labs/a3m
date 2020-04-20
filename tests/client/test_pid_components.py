@@ -1,22 +1,16 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Unit tests for the various components associated with PID (persistent
 identifier binding and declaration in Archivematica.
 
 The tests in this module cover both the two bind_pid(s) microservice jobs but
 also limited unit testing in create_mets_v2 (AIP METS generation).
 """
-from __future__ import absolute_import
-from __future__ import unicode_literals
-
 import os
 from itertools import chain
 
 import pytest
 import vcr
 from django.core.management import call_command
-from six.moves import range
-from six.moves import zip
 
 from a3m import namespaces as ns
 from a3m.client.clientScripts import bind_pid
@@ -38,7 +32,7 @@ vcr_cassettes = vcr.VCR(
 )
 
 
-class TestPIDComponents(object):
+class TestPIDComponents:
     """PID binding and declaration test runner class."""
 
     # Information we'll refer back to in our tests.
@@ -160,8 +154,8 @@ class TestPIDComponents(object):
                 "hdl" in pid_types
             ), "An expected hdl persistent identifier isn't in the result set"
             assert "URI" in pid_types, "An expected URI isn't in the result set"
-            bound_hdl = "{}{}".format(self.bound_hdl, mdl.pk)
-            bound_uri = "{}{}".format(self.bound_uri, mdl.pk)
+            bound_hdl = f"{self.bound_hdl}{mdl.pk}"
+            bound_uri = f"{self.bound_uri}{mdl.pk}"
             pids = []
             for pid in bound:
                 pids.append(pid[1])
@@ -222,8 +216,8 @@ class TestPIDComponents(object):
                 "hdl" in bound
             ), "An expected hdl persistent identifier isn't in the result set"
             assert "URI" in bound, "An expected URI isn't in the result set"
-            bound_hdl = "{}{}".format(self.bound_hdl, file_mdl.pk)
-            bound_uri = "{}{}".format(self.bound_uri, file_mdl.pk)
+            bound_hdl = f"{self.bound_hdl}{file_mdl.pk}"
+            bound_uri = f"{self.bound_uri}{file_mdl.pk}"
             assert bound.get("hdl") == bound_hdl
             assert bound.get("URI") == bound_uri
             # Then test to see that the PREMIS objects are created correctly in

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Workflow decoder and validator.
 
 The main function to start working with this module is ``load``. It decodes the
@@ -14,11 +13,6 @@ MCPServer to read workflow links that can be instances of three different
 classes ``Chain``, ``Link`` and ``WatchedDir``. They have different method
 sets.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import json
 import os
 
@@ -58,7 +52,7 @@ _STATUSES = _invert_job_statuses()
 
 
 @python_2_unicode_compatible
-class Workflow(object):
+class Workflow:
     def __init__(self, parsed_obj):
         self._src = parsed_obj
         self._decode_chains()
@@ -102,7 +96,7 @@ class Workflow(object):
 
 
 @python_2_unicode_compatible
-class BaseLink(object):
+class BaseLink:
     def __str__(self):
         return self.id
 
@@ -130,7 +124,7 @@ class Chain(BaseLink):
         self._decode_translations()
 
     def __repr__(self):
-        return "Chain <{}>".format(self.id)
+        return f"Chain <{self.id}>"
 
     def __getitem__(self, key):
         return self._src[key]
@@ -152,7 +146,7 @@ class Link(BaseLink):
         self._decode_translations()
 
     def __repr__(self):
-        return "Link <{}>".format(self.id)
+        return f"Link <{self.id}>"
 
     def __getitem__(self, key):
         return self._src[key]
@@ -215,7 +209,7 @@ class WatchedDir(BaseLink):
         return self.path
 
     def __repr__(self):
-        return "Watched directory <{}>".format(self.path)
+        return f"Watched directory <{self.path}>"
 
     def __getitem__(self, key):
         return self._src[key]
@@ -235,7 +229,7 @@ class WatchedDir(BaseLink):
 
 class WorkflowJSONDecoder(json.JSONDecoder):
     def decode(self, foo, **kwargs):
-        parsed_json = super(WorkflowJSONDecoder, self).decode(foo, **kwargs)
+        parsed_json = super().decode(foo, **kwargs)
         return Workflow(parsed_json)
 
 

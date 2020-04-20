@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import os
 import shutil
 import sys
@@ -83,7 +81,7 @@ def call(jobs):
                     sip_uuid = str(uuid.uuid4())
 
                 destSIPDir = os.path.join(
-                    autoProcessSIPDirectory, "{}-{}".format(sipName, sip_uuid)
+                    autoProcessSIPDirectory, f"{sipName}-{sip_uuid}"
                 )
 
                 # TODO: it's not clear in which case a SIP would already exist

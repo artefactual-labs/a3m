@@ -4,8 +4,6 @@ performed--corresponding to a Task on the MCP Server side.  Jobs are run in
 batches by clientScript modules and populated with an exit code, standard out
 and standard error information.
 """
-from __future__ import absolute_import
-
 import logging
 import sys
 import traceback
@@ -29,14 +27,14 @@ class Job:
 
     def dump(self):
         return (
-            u"#<%s; exit=%s; code=%s uuid=%s\n"
-            u"=============== STDOUT ===============\n"
-            u"%s"
-            u"\n=============== END STDOUT ===============\n"
-            u"=============== STDERR ===============\n"
-            u"%s"
-            u"\n=============== END STDERR ===============\n"
-            u"\n>"
+            "#<%s; exit=%s; code=%s uuid=%s\n"
+            "=============== STDOUT ===============\n"
+            "%s"
+            "\n=============== END STDOUT ===============\n"
+            "=============== STDERR ===============\n"
+            "%s"
+            "\n=============== END STDERR ===============\n"
+            "\n>"
         ) % (
             self.name,
             self.int_code,

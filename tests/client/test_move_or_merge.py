@@ -1,6 +1,3 @@
-# -*- encoding: utf-8
-from __future__ import absolute_import
-
 import pytest
 
 from a3m.client.clientScripts.move_or_merge import move_or_merge

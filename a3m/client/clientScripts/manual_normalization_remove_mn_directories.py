@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import os
 import sys
 
@@ -20,8 +18,7 @@ def recursivelyRemoveEmptyDirectories(job, dir):
                 os.rmdir(os.path.join(root, directory))
             except OSError as e:
                 job.pyprint(
-                    "{0} could not be deleted: {1}".format(directory, e.args),
-                    file=sys.stderr,
+                    f"{directory} could not be deleted: {e.args}", file=sys.stderr,
                 )
                 error_count += 1
     return error_count
@@ -63,7 +60,7 @@ def call(jobs):
                         os.rmdir(manual_normalization_dir)
                     except OSError as e:
                         job.pyprint(
-                            "{0} could not be deleted: {1}".format(
+                            "{} could not be deleted: {}".format(
                                 manual_normalization_dir, e.args
                             ),
                             file=sys.stderr,

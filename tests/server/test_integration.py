@@ -1,8 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import concurrent.futures
 import os
 import threading
@@ -12,8 +7,6 @@ import pytest
 from django.utils import six
 from django.utils import timezone
 from lxml import etree
-from six.moves import range
-from six.moves import zip
 
 from a3m.main import models
 from a3m.server.jobs import DirectoryClientScriptJob
@@ -90,7 +83,7 @@ def dummy_file_replacements(request):
     for x in range(3):
         files.append(
             {
-                r"%relativeLocation%": "transfer_path/file{}".format(x),
+                r"%relativeLocation%": f"transfer_path/file{x}",
                 r"%fileUUID%": str(uuid.uuid4()),
             }
         )

@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8 -*-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -28,8 +27,6 @@ Salient parameters are the UUID of the containing unit (Transfer or SIP) and
 the path to the file.
 
 """
-from __future__ import absolute_import
-
 import argparse
 import os
 import re

@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8 -*-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -27,8 +26,6 @@ the --include-dirs option is something other than 'Yes', the script will exit
 without doing anything.
 
 """
-from __future__ import absolute_import
-
 import argparse
 import os
 from functools import wraps

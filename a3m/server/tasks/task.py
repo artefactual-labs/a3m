@@ -4,11 +4,6 @@ Stored in the `Task` model.
 
 Tasks are passed to MCPClient for processing.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import logging
 import os
 import uuid
@@ -22,7 +17,7 @@ from a3m.server.db import auto_close_old_connections
 logger = logging.getLogger("archivematica.mcp.server.tasks")
 
 
-class Task(object):
+class Task:
     """A task object, representing an individual command (usually run on a file or
     directory).
 

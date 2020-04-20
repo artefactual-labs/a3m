@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8 -*-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -39,8 +38,6 @@ The idea is to allow for PURL resolution like:
 The sole command-line argument is the File's UUID. If the --bind-pids option
 is something other than 'Yes', the script will exit without doing anything.
 """
-from __future__ import absolute_import
-
 import argparse
 from functools import wraps
 
@@ -95,7 +92,7 @@ def _update_file_mdl(file_uuid, naming_authority, resolver_url):
     """Add the newly minted handle to the ``File`` model as an identifier in its
     m2m ``identifiers`` attribute.
     """
-    pid = "{}/{}".format(naming_authority, file_uuid)
+    pid = f"{naming_authority}/{file_uuid}"
     purl = "{}/{}".format(resolver_url.rstrip("/"), pid)
     file_mdl = File.objects.get(uuid=file_uuid)
     existing_ids = file_mdl.identifiers.all()

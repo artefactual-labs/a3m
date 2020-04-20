@@ -1,11 +1,5 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8 -*-
 """Download transfer object from storage."""
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import os
 import shutil
 from tempfile import mkdtemp
@@ -24,7 +18,7 @@ from a3m.client.clientScripts.extract_zipped_transfer import extract
 
 
 def _create_tmpdir(suffix):
-    suffix = ".{}".format(suffix)
+    suffix = f".{suffix}"
     return mkdtemp(suffix=suffix, dir=settings.TEMP_DIRECTORY)
 
 

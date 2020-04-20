@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -27,10 +26,6 @@ us to easily call each of the tools packaged against its different algorithms:
     * SHA256
     * SHA512
 """
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import datetime
 import os
 import subprocess
@@ -61,7 +56,7 @@ class PREMISFailure(Exception):
     """
 
 
-class Hashsum(object):
+class Hashsum:
     """Class to capture various functions around calling Hashsum as a mechanism
     for comparing user-supplied checksums in Archivematica.
     """

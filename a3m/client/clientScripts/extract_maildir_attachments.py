@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import mailbox
 import os
 import sys
@@ -28,7 +26,6 @@ from lxml import etree
 
 django.setup()
 from django.db import transaction
-from django.utils import six
 
 from a3m.main.models import File
 from a3m.externals.extractMaildirAttachments import parse
@@ -36,7 +33,7 @@ from a3m.fileOperations import addFileToTransfer, updateSizeAndChecksum
 from a3m.archivematicaFunctions import unicodeToStr
 
 
-class State(object):
+class State:
     def __init__(self):
         self.error_count = 0
         self.sourceFilePath = None
@@ -164,7 +161,7 @@ def handle_job(job):
                             "Message-ID"
                         ][1:-1]
                         etree.SubElement(msg, "Extracted-from").text = item
-                        if isinstance(out["subject"], six.binary_type):
+                        if isinstance(out["subject"], bytes):
                             etree.SubElement(msg, "Subject").text = out[
                                 "subject"
                             ].decode("utf-8")
@@ -202,14 +199,13 @@ def handle_job(job):
                                     "attachments",
                                     maildirsub,
                                     subDir,
-                                    "%s_%s" % (attachedFileUUID, attachment.name),
+                                    f"{attachedFileUUID}_{attachment.name}",
                                 )
                                 job.pyprint("\tAttachment path:", filePath)
                                 filePath = unicodeToStr(filePath)
                                 writeFile(filePath, attachment)
-                                eventDetail = "Unpacked from: {%s}%s" % (
-                                    sourceFileUUID,
-                                    sourceFilePath,
+                                eventDetail = "Unpacked from: {{{}}}{}".format(
+                                    sourceFileUUID, sourceFilePath,
                                 )
                                 addFile(
                                     filePath,

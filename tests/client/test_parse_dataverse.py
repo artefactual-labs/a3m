@@ -1,8 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf8
 """Tests for the parse Dataverse functionality in Archivematica."""
-from __future__ import absolute_import
-
 import os
 
 import metsrw

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -15,9 +14,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-from __future__ import print_function
-
 import csv
 import os
 import shutil
@@ -71,7 +67,7 @@ def updateSizeAndChecksum(
             fileUUID=fileUUID,
             eventType="message digest calculation",
             eventDateTime=date,
-            eventDetail='program="python"; module="hashlib.{}()"'.format(checksumType),
+            eventDetail=f'program="python"; module="hashlib.{checksumType}()"',
             eventOutcomeDetailNote=checksum,
         )
 
@@ -112,7 +108,7 @@ def addFileToTransfer(
 def addAccessionEvent(fileUUID, transferUUID, date):
     transfer = Transfer.objects.get(uuid=transferUUID)
     if transfer.accessionid:
-        eventOutcomeDetailNote = "accession#{}".format(transfer.accessionid)
+        eventOutcomeDetailNote = f"accession#{transfer.accessionid}"
         insertIntoEvents(
             fileUUID=fileUUID,
             eventType="registration",
@@ -286,7 +282,7 @@ def updateFileLocation(
         return
 
     if eventOutcomeDetailNote == "":
-        eventOutcomeDetailNote = 'Original name="%s"; cleaned up name="%s"' % (src, dst)
+        eventOutcomeDetailNote = f'Original name="{src}"; cleaned up name="{dst}"'
     # CREATE THE EVENT
     insertIntoEvents(
         fileUUID=f.uuid,
@@ -339,7 +335,7 @@ def findFileInNormalizationCSV(
     :returns: Path to the origin file for `target_file`. Note this is the path from normalization.csv, so will be the original location.
     """
     # use universal newline mode to support unusual newlines, like \r
-    with open(csv_path, "rbU") as csv_file:
+    with open(csv_path, "rb") as csv_file:
         reader = csv.reader(csv_file)
         # Search CSV for an access/preservation filename that matches target_file
         # Get original name of target file, to handle sanitized names
@@ -377,7 +373,7 @@ def findFileInNormalizationCSV(
                 original, access, preservation = row
                 if commandClassification == "access" and access == target_file:
                     printfn(
-                        "Found access file ({0}) for original ({1})".format(
+                        "Found access file ({}) for original ({})".format(
                             access, original
                         )
                     )
@@ -387,7 +383,7 @@ def findFileInNormalizationCSV(
                     and preservation == target_file
                 ):
                     printfn(
-                        "Found preservation file ({0}) for original ({1})".format(
+                        "Found preservation file ({}) for original ({})".format(
                             preservation, original
                         )
                     )

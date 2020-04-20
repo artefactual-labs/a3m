@@ -1,6 +1,4 @@
 #!/usr/bin/env python2
-from __future__ import absolute_import
-
 import os
 import sys
 import uuid
@@ -61,7 +59,7 @@ def assign_uuid(
     relative_package_path = package_filename.replace(
         sip_directory, TRANSFER_DIRECTORY, 1
     )
-    package_detail = "{} ({})".format(relative_package_path, package_uuid)
+    package_detail = f"{relative_package_path} ({package_uuid})"
     event_detail = "Unpacked from: " + package_detail
     addFileToTransfer(
         relative_path,
@@ -279,7 +277,7 @@ def call(jobs):
                 delete = False
                 if job.args[5] == "True":
                     delete = True
-                job.pyprint("Deleting?: {}".format(delete), file=sys.stderr)
+                job.pyprint(f"Deleting?: {delete}", file=sys.stderr)
                 job.set_status(
                     main(
                         job,

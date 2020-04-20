@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
 """
 :mod:`fpr.models`
 
 Describes the data model for the FPR
 
 """
-from __future__ import absolute_import
-
 import logging
 import uuid
 
@@ -29,10 +26,10 @@ class Enabled(models.Manager):
     Filters by enabled=True.  """
 
     def get_queryset(self):
-        return super(Enabled, self).get_queryset().filter(enabled=True)
+        return super().get_queryset().filter(enabled=True)
 
     def get_query_set(self):
-        return super(Enabled, self).get_query_set().filter(enabled=True)
+        return super().get_query_set().filter(enabled=True)
 
 
 # ########### MIXINS ############
@@ -61,7 +58,7 @@ class VersionedModel(models.Model):
             )
             replacing.enabled = False
             replacing.save()
-        super(VersionedModel, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     class Meta:
         abstract = True
@@ -161,7 +158,7 @@ class Format(models.Model):
         ordering = ["group", "description"]
 
     def __unicode__(self):
-        return u"{}: {}".format(self.group.description, self.description)
+        return f"{self.group.description}: {self.description}"
 
 
 class FormatGroup(models.Model):
@@ -181,7 +178,7 @@ class FormatGroup(models.Model):
         ordering = ["description"]
 
     def __unicode__(self):
-        return u"{}".format(self.description)
+        return f"{self.description}"
 
 
 class FormatVersion(VersionedModel, models.Model):
@@ -220,7 +217,7 @@ class FormatVersion(VersionedModel, models.Model):
         ordering = ["format", "description"]
 
     def validate_unique(self, *args, **kwargs):
-        super(FormatVersion, self).validate_unique(*args, **kwargs)
+        super().validate_unique(*args, **kwargs)
 
         if len(self.pronom_id) > 0:
             qs = self.__class__._default_manager.filter(
@@ -314,7 +311,7 @@ class IDCommand(VersionedModel, models.Model):
                 if cmd != self:
                     cmd.enabled = False
                     cmd.save()
-        super(IDCommand, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class IDRule(VersionedModel, models.Model):
@@ -345,7 +342,7 @@ class IDRule(VersionedModel, models.Model):
         verbose_name = _("Format identification rule")
 
     def validate_unique(self, *args, **kwargs):
-        super(IDRule, self).validate_unique(*args, **kwargs)
+        super().validate_unique(*args, **kwargs)
 
         qs = self.__class__._default_manager.filter(
             command=self.command, command_output=self.command_output, enabled=1
@@ -403,7 +400,7 @@ class IDTool(models.Model):
 
     def _slug(self):
         """ Returns string to be slugified. """
-        src = "{} {}".format(self.description, self.version)
+        src = f"{self.description} {self.version}"
         encoded = src.encode("utf-8")[: self._meta.get_field("slug").max_length]
         return encoded.decode("utf-8", "ignore")
 
@@ -588,7 +585,7 @@ class FPCommand(VersionedModel, models.Model):
         ordering = ["description"]
 
     def __unicode__(self):
-        return u"{}".format(self.description)
+        return f"{self.description}"
 
 
 class FPTool(models.Model):
@@ -616,6 +613,6 @@ class FPTool(models.Model):
 
     def _slug(self):
         """ Returns string to be slugified. """
-        src = "{} {}".format(self.description, self.version)
+        src = f"{self.description} {self.version}"
         encoded = src.encode("utf-8")[: self._meta.get_field("slug").max_length]
         return encoded.decode("utf-8", "ignore")

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Start and run MCPServer via the `main` function.
 
@@ -20,11 +19,6 @@ Start and run MCPServer via the `main` function.
     watched dirs as set in the workflow.
 10. The `PackageQueue.work` processing loop is started on the main thread.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import concurrent.futures
 import functools
 import logging
@@ -70,7 +64,7 @@ def watched_dir_handler(package_queue, path, watched_dir):
     elif package_type == "Transfer" and not is_dir:
         package = Transfer.get_or_create_from_db_by_path(path)
     else:
-        raise ValueError("Unexpected unit type given for file {}".format(path))
+        raise ValueError(f"Unexpected unit type given for file {path}")
 
     job_chain = JobChain(package, watched_dir.chain, watched_dir.chain.workflow)
     package_queue.schedule_job(next(job_chain))

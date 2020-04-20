@@ -6,8 +6,6 @@
 #
 # If a tool has no defined characterization commands, then the default
 # will be run instead (currently FITS).
-from __future__ import absolute_import
-
 import multiprocessing
 
 import django

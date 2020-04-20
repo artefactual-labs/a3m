@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-# -*- coding: utf8
 """pid_declaration.py
 
 Given an identifiers.json file, supplying third-party persistent identifiers
@@ -7,9 +6,6 @@ Given an identifiers.json file, supplying third-party persistent identifiers
 with the objects in the transfer, so be translated to PREMIS objects in the
 AIP METS.
 """
-from __future__ import absolute_import
-from __future__ import unicode_literals
-
 import json
 import os
 import sys
@@ -38,7 +34,7 @@ class DeclarePIDsExceptionNonCritical(Exception):
     exit_code = 0
 
 
-class DeclarePIDs(object):
+class DeclarePIDs:
     """Class to wrap PID declaration features and provide some mechanism of
     recording state.
     """
@@ -106,7 +102,7 @@ class DeclarePIDs(object):
             self.job.pyprint(msg)
         except KeyError:
             self.job.pyprint(
-                "Identifier {}: {} added to {}".format(identifier_type, identifier, mdl)
+                f"Identifier {identifier_type}: {identifier} added to {mdl}"
             )
 
     def _validate_identifier(self, mdl, id_):
@@ -125,7 +121,7 @@ class DeclarePIDs(object):
             return (False,)
         if identifier is None:
             self.job.pyprint(
-                "None value returned for identifier: {} on object: {}".format(id_, mdl),
+                f"None value returned for identifier: {id_} on object: {mdl}",
                 file=sys.stderr,
             )
             return (False,)
@@ -201,12 +197,10 @@ class DeclarePIDs(object):
         """
         identifiers = self._retrieve_identifiers_path(unit_uuid, sip_directory)
         try:
-            with open(identifiers, "r") as identifiers_file:
+            with open(identifiers) as identifiers_file:
                 json_data = json.load(identifiers_file)
-        except (ValueError, IOError) as err:
-            raise DeclarePIDsException(
-                "Error loading identifiers.json file: {}".format(err)
-            )
+        except (ValueError, OSError) as err:
+            raise DeclarePIDsException(f"Error loading identifiers.json file: {err}")
         self.parse_and_attach_identifiers(unit_uuid, json_data)
 
 

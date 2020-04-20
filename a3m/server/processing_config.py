@@ -1,15 +1,9 @@
-# -*- coding: utf-8 -*-
 """Processing configuration.
 
 This module lists the processing configuration fields where the user has the
 ability to establish predefined choices via the user interface, and handles
 processing config file operations.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import logging
 import os
 import shutil
@@ -243,7 +237,7 @@ def copy_processing_config(processing_config, destination_path):
     dest = os.path.join(destination_path, "processingMCP.xml")
     try:
         shutil.copyfile(src, dest)
-    except IOError:
+    except OSError:
         logger.warning(
             "Processing configuration could not be copied: (from=%s to=%s)",
             src,

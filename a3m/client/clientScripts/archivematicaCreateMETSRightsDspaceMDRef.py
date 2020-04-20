@@ -16,8 +16,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import os
 import sys
 
@@ -36,7 +34,7 @@ def createMDRefDMDSec(LABEL, itemdirectoryPath, directoryPathSTR):
         "{http://www.loc.gov/METS/}amdSec/{http://www.loc.gov/METS/}rightsMD"
     ):
         # print "rights id:", item.get("ID")
-        XPTR = "%s %s" % (XPTR, item.get("ID"))
+        XPTR = "{} {}".format(XPTR, item.get("ID"))
     XPTR = XPTR.replace(" ", "'", 1) + "'))"
     mdRef = etree.Element(ns.metsBNS + "mdRef")
     mdRef.set("LABEL", LABEL)
@@ -81,7 +79,7 @@ def archivematicaCreateMETSRightsDspaceMDRef(
             if not os.path.isdir(fullDir):
                 continue
 
-            path = "%SIPDirectory%{}/mets.xml".format(fullDir2)
+            path = f"%SIPDirectory%{fullDir2}/mets.xml"
             try:
                 f = File.objects.get(currentlocation=path, transfer_id=transferUUID)
             except File.DoesNotExist:

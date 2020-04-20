@@ -1,11 +1,8 @@
 #!/usr/bin/env python2
-from __future__ import absolute_import
-
 import copy
 import os
 
 import metsrw
-from django.utils import six
 from lxml import etree
 
 from . import archivematicaCreateMETSMetadataCSV as createmetscsv
@@ -398,7 +395,7 @@ def add_events(job, mets, sip_uuid):
             visited[fsentry.file_uuid] = fsentry
         fsentry.add_premis_event(createmets2.createEvent(event))
 
-    for fsentry in six.itervalues(visited):
+    for fsentry in visited.values():
         for identifier_type, identifier_value in _extract_event_agents(fsentry):
             try:
                 agent = agents[(identifier_type, identifier_value)]

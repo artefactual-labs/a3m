@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8 -*-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -21,8 +20,6 @@
 This client script hanles an unstored DIP by moving it to the rejected/
 directory if it has *not* been uploaded and doing nothing otherwise.
 """
-from __future__ import absolute_import
-
 import os
 import shutil
 

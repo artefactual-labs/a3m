@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -18,9 +17,6 @@
 """archivematicaFunctions provides various helper functions across the
 different Archivematica modules.
 """
-from __future__ import absolute_import
-from __future__ import print_function
-
 import base64
 import collections
 import hashlib
@@ -63,20 +59,20 @@ class OrderedListsDict(collections.OrderedDict):
         try:
             self[key]
         except KeyError:
-            super(OrderedListsDict, self).__setitem__(key, [])
+            super().__setitem__(key, [])
         self[key].append(value)
 
 
 def unicodeToStr(string):
     """Convert Unicode to string format."""
-    if isinstance(string, six.text_type):
+    if isinstance(string, str):
         return six.ensure_str(string, "utf-8")
     return string
 
 
 def strToUnicode(string, obstinate=False):
     """Convert string to Unicode format."""
-    if isinstance(string, six.binary_type):
+    if isinstance(string, bytes):
         try:
             string = string.decode("utf8")
         except UnicodeDecodeError:
@@ -120,10 +116,10 @@ def cmd_line_arg_to_unicode(cmd_line_arg):
 def escapeForCommand(string):
     """Escape special characters in a given string."""
     ret = string
-    if isinstance(ret, six.string_types):
+    if isinstance(ret, str):
         ret = ret.replace("\\", "\\\\")
         ret = ret.replace('"', '\\"')
-        ret = ret.replace("`", "\`")
+        ret = ret.replace("`", r"\`")
         # ret = ret.replace("'", "\\'")
         # ret = ret.replace("$", "\\$")
     return ret
@@ -134,7 +130,7 @@ def escape(string):
     primarily for arbitrary strings (e.g. filenames, paths) that might not
     be valid unicode to begin with.
     """
-    if isinstance(string, six.binary_type):
+    if isinstance(string, bytes):
         string = string.decode("utf-8", errors="replace")
     return string
 
@@ -240,7 +236,7 @@ def get_dir_uuids(dir_paths, logger=None, printfn=print):
     """
     for dir_path in dir_paths:
         dir_uuid = str(uuid4())
-        msg = u"Assigning UUID {} to directory path {}".format(
+        msg = "Assigning UUID {} to directory path {}".format(
             strToUnicode(dir_uuid), strToUnicode(dir_path)
         )
         printfn(msg)
@@ -297,7 +293,7 @@ def reconstruct_empty_directories(mets_file_path, objects_path, logger=None):
     if not os.path.isfile(mets_file_path) or not os.path.isdir(objects_path):
         if logger:
             logger.info(
-                u"Unable to construct empty directories, either because"
+                "Unable to construct empty directories, either because"
                 " there is no METS file at {} or because there is no"
                 " objects/ directory at {}".format(
                     strToUnicode(mets_file_path), strToUnicode(objects_path)
@@ -314,7 +310,7 @@ def reconstruct_empty_directories(mets_file_path, objects_path, logger=None):
     if logical_struct_map_el is None:
         if logger:
             logger.info(
-                u"Unable to locate a logical structMap labelled {}."
+                "Unable to locate a logical structMap labelled {}."
                 " Aborting attempt to reconstruct empty"
                 " directories.".format(strToUnicode(NORMATIVE_STRUCTMAP_LABEL))
             )
@@ -325,7 +321,7 @@ def reconstruct_empty_directories(mets_file_path, objects_path, logger=None):
     if root_div_el is None:
         if logger:
             logger.info(
-                u"Unable to locate a logical structMap labelled {}."
+                "Unable to locate a logical structMap labelled {}."
                 " Aborting attempt to reconstruct empty"
                 " directories.".format(strToUnicode(NORMATIVE_STRUCTMAP_LABEL))
             )
@@ -356,7 +352,7 @@ def find_transfer_path_from_ingest(transfer_path, shared_path):
     if os.path.isdir(path):
         return path
 
-    path = os.path.join(shared_path, "tmp", "transfer-{}".format(transfer_uuid))
+    path = os.path.join(shared_path, "tmp", f"transfer-{transfer_uuid}")
     if os.path.isdir(path):
         return path
 

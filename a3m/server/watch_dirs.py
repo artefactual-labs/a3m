@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Watched directory handling.
 
@@ -8,11 +7,6 @@ want to remove in future; however, currently they are used extensively in all
 workflows, as many chains start the next chain by moving a transfer or SIP t
 the appropriate watched directory.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import logging
 import os
 import sys
@@ -152,4 +146,4 @@ def watch_directories(*args, **kwargs):
     elif method == "poll":
         watch_directories_poll(*args, **kwargs)
     else:
-        raise RuntimeError("Unexpected watch method {}".format(method))
+        raise RuntimeError(f"Unexpected watch method {method}")

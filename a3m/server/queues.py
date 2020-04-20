@@ -1,12 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 The PackageQueue class handles job queueing, as it relates to packages.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import functools
 import logging
 import threading
@@ -25,7 +19,7 @@ from a3m.server.packages import SIP
 logger = logging.getLogger("archivematica.mcp.server.queues")
 
 
-class PackageQueue(object):
+class PackageQueue:
     """Package queue.
 
     This queue throttles `Job` objects belonging to packages, so that at most
@@ -348,7 +342,7 @@ class PackageQueue(object):
     def await_decision(self, job):
         """Mark a job as awaiting user input to proceed.
         """
-        job_id = six.text_type(job.uuid)
+        job_id = str(job.uuid)
         with self.waiting_choices_lock:
             self.waiting_choices[job_id] = job
 
@@ -366,7 +360,7 @@ class PackageQueue(object):
     def decide(self, job_uuid, choice, user_id=None):
         """Make a decsion on a job waiting for user input.
         """
-        job_uuid = six.text_type(job_uuid)
+        job_uuid = str(job_uuid)
 
         with self.waiting_choices_lock:
             decision = self.waiting_choices[job_uuid]

@@ -1,10 +1,4 @@
-# -*- coding: utf-8 -*-
 """Package management."""
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import abc
 import ast
 import collections
@@ -14,7 +8,6 @@ from uuid import UUID
 from uuid import uuid4
 
 from django.conf import settings
-from django.utils import six
 
 from a3m.archivematicaFunctions import strToUnicode
 from a3m.main import models
@@ -115,8 +108,7 @@ def get_file_replacement_mapping(file_obj, unit_directory):
     return mapping
 
 
-@six.add_metaclass(abc.ABCMeta)
-class Package(object):
+class Package(metaclass=abc.ABCMeta):
     """A `Package` can be a Transfer, a SIP, or a DIP.
     """
 
@@ -158,7 +150,7 @@ class Package(object):
     @property
     def package_name(self):
         basename = os.path.basename(self.current_path.rstrip("/"))
-        return basename.replace("-" + six.text_type(self.uuid), "")
+        return basename.replace("-" + str(self.uuid), "")
 
     @property
     @auto_close_old_connections()
@@ -182,7 +174,7 @@ class Package(object):
         mapping = BASE_REPLACEMENTS.copy()
         mapping.update(
             {
-                r"%SIPUUID%": six.text_type(self.uuid),
+                r"%SIPUUID%": str(self.uuid),
                 r"%SIPName%": self.package_name,
                 r"%SIPLogsDirectory%": os.path.join(self.current_path, "logs", ""),
                 r"%SIPObjectsDirectory%": os.path.join(
@@ -259,7 +251,7 @@ class Package(object):
         if not value:
             value = ""
         else:
-            value = six.text_type(value)
+            value = str(value)
 
         unit_var, created = models.UnitVariable.objects.update_or_create(
             unittype=self.UNIT_VARIABLE_TYPE,
@@ -333,9 +325,7 @@ class DIP(SIPDIP):
         pass
 
     def get_replacement_mapping(self, filter_subdir_path=None):
-        mapping = super(DIP, self).get_replacement_mapping(
-            filter_subdir_path=filter_subdir_path
-        )
+        mapping = super().get_replacement_mapping(filter_subdir_path=filter_subdir_path)
         mapping[r"%unitType%"] = "DIP"
 
         if filter_subdir_path:
@@ -353,7 +343,7 @@ class Transfer(Package):
     JOB_UNIT_TYPE = "unitTransfer"
 
     def __init__(self, current_path, uuid, url):
-        super(Transfer, self).__init__(current_path, uuid)
+        super().__init__(current_path, uuid)
         self.url = url or ""
 
     @classmethod
@@ -402,9 +392,7 @@ class Transfer(Package):
         self.processing_configuration = transfer.processing_configuration
 
     def get_replacement_mapping(self, filter_subdir_path=None):
-        mapping = super(Transfer, self).get_replacement_mapping(
-            filter_subdir_path=filter_subdir_path
-        )
+        mapping = super().get_replacement_mapping(filter_subdir_path=filter_subdir_path)
 
         mapping.update(
             {
@@ -424,7 +412,7 @@ class SIP(SIPDIP):
     JOB_UNIT_TYPE = "unitSIP"
 
     def __init__(self, *args, **kwargs):
-        super(SIP, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.aip_filename = None
         self.sip_type = None
@@ -437,9 +425,7 @@ class SIP(SIPDIP):
         self.sip_type = sip.sip_type
 
     def get_replacement_mapping(self, filter_subdir_path=None):
-        mapping = super(SIP, self).get_replacement_mapping(
-            filter_subdir_path=filter_subdir_path
-        )
+        mapping = super().get_replacement_mapping(filter_subdir_path=filter_subdir_path)
 
         mapping.update(
             {
@@ -452,7 +438,7 @@ class SIP(SIPDIP):
         return mapping
 
 
-class PackageContext(object):
+class PackageContext:
     """Package context tracks choices made previously while processing
     """
 
@@ -465,8 +451,7 @@ class PackageContext(object):
         return "PackageContext({!r})".format(dict(list(self._data.items())))
 
     def __iter__(self):
-        for key, value in six.iteritems(self._data):
-            yield key, value
+        yield from self._data.items()
 
     def __len__(self):
         return len(self._data)

@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import os
 import re
 from optparse import OptionParser
@@ -81,7 +79,7 @@ def regular(SIPDirectory, objectsDirectory, SIPUUID, date):
 
     for (path, dirs, files) in os.walk(objectsDirectory):
         for file in files:
-            m = re.search("_me\.[a-zA-Z0-9]{2,4}$", file)
+            m = re.search(r"_me\.[a-zA-Z0-9]{2,4}$", file)
             if m is not None:
                 file1Full = os.path.join(path, file).replace(
                     SIPDirectory, "%SIPDirectory%", 1

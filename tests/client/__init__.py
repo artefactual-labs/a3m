@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import shutil
 import tempfile
 import unittest
@@ -17,7 +15,7 @@ class TempDirMixin(unittest.TestCase):
     """
 
     def setUp(self):
-        super(TempDirMixin, self).setUp()
+        super().setUp()
         self.tmpdir = Path(tempfile.mkdtemp())
         self.addCleanup(self._cleanup)
 

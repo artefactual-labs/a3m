@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import csv
 import os
 
@@ -42,7 +40,7 @@ def call(jobs):
                     continue
 
                 # use universal newline mode to support unusual newlines, like \r
-                with open(fileLabels, "rU") as f:
+                with open(fileLabels) as f:
                     reader = csv.reader(f)
                     for row in reader:
                         if labelFirst:

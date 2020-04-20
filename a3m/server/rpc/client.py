@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import print_function
-
 import sys
 import time
 
@@ -29,18 +25,18 @@ def _submit(stub):
             a3m_pb2.SubmitRequest(name=str(time.time()), url=DEFAULT_URL), timeout=1
         )
     except grpc.RpcError as err:
-        print("RPC failed ({} - {})".format(err.code(), err.details()))
+        print(f"RPC failed ({err.code()} - {err.details()})")
         return
 
     package_id = resp.id
-    print("Transfer created: {}".format(package_id))
+    print(f"Transfer created: {package_id}")
 
     while True:
         time.sleep(2)
         try:
             resp = stub.Status(a3m_pb2.StatusRequest(id=package_id), timeout=1)
         except grpc.RpcError as err:
-            print("RPC failed ({} - {})".format(err.code(), err.details()))
+            print(f"RPC failed ({err.code()} - {err.details()})")
             return
         else:
             if resp.status == a3m_pb2.COMPLETE:

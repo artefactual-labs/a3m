@@ -1,7 +1,4 @@
 """Tests for the archivematica_clamscan.py client script."""
-from __future__ import absolute_import
-from __future__ import print_function
-
 import errno
 from collections import namedtuple
 

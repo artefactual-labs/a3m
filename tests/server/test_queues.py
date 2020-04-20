@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import concurrent.futures
 import threading
 import uuid
@@ -17,7 +15,7 @@ from a3m.server.workflow import Link
 
 class MockJob(Job):
     def __init__(self, *args, **kwargs):
-        super(MockJob, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.job_ran = threading.Event()
 
@@ -30,7 +28,7 @@ class MockDecisionJob(DecisionJob):
     """
 
     def __init__(self, *args, **kwargs):
-        super(MockDecisionJob, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.job_ran = threading.Event()
         self.decision = None

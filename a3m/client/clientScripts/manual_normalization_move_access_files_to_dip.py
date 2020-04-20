@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import os
 from optparse import OptionParser
 
@@ -81,9 +79,7 @@ def main(job):
                     opts.filePath.index("manualNormalization/access/") :
                 ]
             except ValueError:
-                job.print_error(
-                    "{0} not in manualNormalization directory".format(opts.filePath)
-                )
+                job.print_error(f"{opts.filePath} not in manualNormalization directory")
                 return 4
             original = fileOperations.findFileInNormalizationCSV(
                 csv_path, "access", access_file, unitIdentifier, printfn=job.pyprint
@@ -91,7 +87,7 @@ def main(job):
             if original is None:
                 if isinstance(e, File.DoesNotExist):
                     job.print_error(
-                        "No matching file for: {0}".format(
+                        "No matching file for: {}".format(
                             opts.filePath.replace(opts.sipDirectory, "%SIPDirectory%")
                         )
                     )
@@ -129,7 +125,7 @@ def main(job):
     originalFileUUID = f.uuid
     originalFilePath = f.originallocation
 
-    job.print_output("matched: {%s}%s" % (originalFileUUID, originalFilePath))
+    job.print_output(f"matched: {{{originalFileUUID}}}{originalFilePath}")
     dstDir = os.path.join(opts.sipDirectory, "DIP", "objects")
     dstFile = originalFileUUID + "-" + os.path.basename(opts.filePath)
 

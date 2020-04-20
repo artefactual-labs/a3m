@@ -1,9 +1,6 @@
 """
 Exposes various metrics via Prometheus.
 """
-from __future__ import absolute_import
-from __future__ import unicode_literals
-
 import datetime
 import functools
 import os
@@ -17,7 +14,6 @@ from prometheus_client import Gauge
 from prometheus_client import Histogram
 from prometheus_client import Info
 from prometheus_client import start_http_server
-from six.moves import range
 
 from a3m.client import MODULES_FILE
 from a3m.common_metrics import PACKAGE_FILE_COUNT_BUCKETS

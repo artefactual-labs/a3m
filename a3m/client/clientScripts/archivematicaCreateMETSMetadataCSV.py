@@ -18,14 +18,10 @@
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 # @version svn: $Id$
 # /src/dashboard/src/main/models.py
-from __future__ import absolute_import
-
 import collections
 import csv
 import sys
 import traceback
-
-from six.moves import zip
 
 from a3m import archivematicaFunctions
 
@@ -95,7 +91,7 @@ def parseMetadataCSV(job, metadataCSVFilePath):
     """
     metadata = {}
     # use universal newline mode to support unusual newlines, like \r
-    with open(metadataCSVFilePath, "rU") as f:
+    with open(metadataCSVFilePath) as f:
         reader = csv.reader(f)
         # Parse first row as header
         header = next(reader)

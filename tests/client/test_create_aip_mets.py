@@ -1,7 +1,3 @@
-# -*- coding: utf8
-from __future__ import absolute_import
-from __future__ import unicode_literals
-
 import collections
 import csv
 import os
@@ -12,7 +8,6 @@ import unittest
 
 from django.test import TestCase
 from lxml import etree
-from six.moves import range
 
 from . import TempDirMixin
 from a3m import namespaces as ns
@@ -48,7 +43,7 @@ class TestNormativeStructMap(TempDirMixin, TestCase):
     fixtures = [os.path.join(THIS_DIR, "fixtures", p) for p in fixture_files]
 
     def setUp(self):
-        super(TestNormativeStructMap, self).setUp()
+        super().setUp()
         self.sip_dir = self.tmpdir / "sip"
         self.sip_object_dir = self.sip_dir / "objects"
         shutil.copytree(
@@ -439,7 +434,7 @@ class TestCSVMetadata(TempDirMixin, TestCase):
     """Test parsing the metadata.csv."""
 
     def setUp(self):
-        super(TestCSVMetadata, self).setUp()
+        super().setUp()
         self.metadata_file = self.tmpdir / "metadata.csv"
 
     def test_parse_metadata_csv(self):
@@ -973,7 +968,7 @@ class TestCustomStructMap(TempDirMixin, TestCase):
             # All custom structmaps that are used and return from this function
             # should remain valid.
             self.validate_mets(self.mets_xsd_path, custom_structmap)
-            assert custom_structmap.tag == "{{{}}}structMap".format(ns.metsNS)
+            assert custom_structmap.tag == f"{{{ns.metsNS}}}structMap"
             if not res.structmap_id:
                 assert custom_structmap.attrib["ID"].lower() == "structmap_{}".format(
                     self.state.globalStructMapCounter
@@ -986,7 +981,7 @@ class TestCustomStructMap(TempDirMixin, TestCase):
                 "//*[@FILEID]", namespaces={"mets:": ns.metsNS}
             )
             assert len(fids) == res.replaced_count, "Count of FILEIDs is incorrect"
-            assert len(set([fid.attrib["FILEID"] for fid in fids])) == len(
+            assert len({fid.attrib["FILEID"] for fid in fids}) == len(
                 res.files
             ), "Uneven replacement of IDs for files in structmap"
             for fileid in [fid.attrib["FILEID"] for fid in fids]:

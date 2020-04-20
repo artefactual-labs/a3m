@@ -1,8 +1,3 @@
-# -*- coding: utf8
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import os
 import shutil
 import uuid
@@ -11,7 +6,6 @@ import pytest
 import six
 from django.core.management import call_command
 from django.test import TestCase
-from six.moves import range
 
 from . import TempDirMixin
 from a3m.client.clientScripts import sanitize_names
@@ -114,7 +108,7 @@ def sip_file_obj(db, sip, tmp_path, subdir_path):
 
 @pytest.fixture()
 def multiple_file_paths(subdir_path):
-    paths = [(subdir_path / "bülk-filé{}".format(x)) for x in range(11)]
+    paths = [(subdir_path / f"bülk-filé{x}") for x in range(11)]
     for path in paths:
         path.write_text("Hello world")
 
@@ -209,7 +203,7 @@ class TestSanitize(TempDirMixin, TestCase):
     transfer_uuid = "e95ab50f-9c84-45d5-a3ca-1b0b3f58d9b6"
 
     def setUp(self):
-        super(TestSanitize, self).setUp()
+        super().setUp()
 
     @staticmethod
     @pytest.fixture(scope="class")

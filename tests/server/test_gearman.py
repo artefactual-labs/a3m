@@ -1,8 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import math
 import uuid
 
@@ -10,7 +5,6 @@ import gearman
 import pytest
 import six.moves.cPickle
 from django.utils import six
-from six.moves import range
 
 from a3m.server.jobs import Job
 from a3m.server.tasks import GearmanTaskBackend
@@ -20,7 +14,7 @@ from a3m.server.tasks import Task
 class MockJob(Job):
     def __init__(self, *args, **kwargs):
         self.name = kwargs.pop("name", "")
-        super(MockJob, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def run(self, *args, **kwargs):
         pass
@@ -45,7 +39,7 @@ def simple_task(request):
 def format_gearman_request(tasks):
     request = {"tasks": {}}
     for task in tasks:
-        task_uuid = six.text_type(task.uuid)
+        task_uuid = str(task.uuid)
         request["tasks"][task_uuid] = {
             "uuid": task_uuid,
             "createdDate": task.start_timestamp.isoformat(" "),
@@ -61,7 +55,7 @@ def format_gearman_response(task_results):
     """
     response = {"task_results": {}}
     for task_uuid, task_data in task_results:
-        task_uuid = six.text_type(task_uuid)
+        task_uuid = str(task_uuid)
         response["task_results"][task_uuid] = task_data
 
     return six.moves.cPickle.dumps(response)
@@ -201,7 +195,7 @@ def test_gearman_multiple_batches(
     tasks = []
     for i in range(5):
         task = Task(
-            "a argument string {}".format(i),
+            f"a argument string {i}",
             "/tmp/stdoutfile",
             "/tmp/stderrfile",
             {r"%relativeLocation%": "testfile"},
@@ -238,8 +232,8 @@ def test_gearman_multiple_batches(
                             task.uuid,
                             {
                                 "exitCode": 0,
-                                "stdout": "stdout example {}".format(index),
-                                "stderr": "stderr example {}".format(index),
+                                "stdout": f"stdout example {index}",
+                                "stderr": f"stderr example {index}",
                             },
                         )
                         for task in task_batches[index]

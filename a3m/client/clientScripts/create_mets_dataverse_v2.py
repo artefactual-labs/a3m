@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # This file is part of Archivematica.
 #
@@ -19,9 +18,6 @@
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 """Maps Dataverse specific elements into the AIP METS file generated on ingest.
 """
-from __future__ import absolute_import
-from __future__ import print_function
-
 import sys
 
 import metsrw

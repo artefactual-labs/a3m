@@ -2,16 +2,10 @@
 Built-in task backend. Submits `Task` objects to a local pool of processes for
 processing, and returns results.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import concurrent
 import logging
 import uuid
 
-import six
 from six.moves import cPickle
 
 from a3m.client.mcp import execute_command
@@ -71,8 +65,7 @@ class PoolTaskBackend(TaskBackend):
         futures = [item.future for item in pending_batches]
         for future in concurrent.futures.as_completed(futures):
             batch, results = future.result()
-            for task in batch.update_task_results(results):
-                yield task
+            yield from batch.update_task_results(results)
             metrics.gearman_active_jobs_gauge.dec()
 
         # Once we've gotten results for all job tasks, clear the batches
@@ -106,7 +99,7 @@ class PoolTaskBackend(TaskBackend):
         self.executor.shutdown(wait)
 
 
-class PoolTaskBatch(object):
+class PoolTaskBatch:
     def __init__(self):
         self.uuid = uuid.uuid4()
         self.tasks = []
@@ -117,7 +110,7 @@ class PoolTaskBatch(object):
 
     def serialize_task(self, task):
         return {
-            "uuid": six.text_type(task.uuid),
+            "uuid": str(task.uuid),
             "createdDate": task.start_timestamp.isoformat(" "),
             "arguments": task.arguments,
             "wants_output": task.wants_output,
@@ -138,7 +131,7 @@ class PoolTaskBatch(object):
 
         data = {"tasks": {}}
         for task in self.tasks:
-            task_uuid = six.text_type(task.uuid)
+            task_uuid = str(task.uuid)
             data["tasks"][task_uuid] = self.serialize_task(task)
 
         pickled_data = cPickle.dumps(data)
@@ -152,7 +145,7 @@ class PoolTaskBatch(object):
     def update_task_results(self, results):
         result = cPickle.loads(results)["task_results"]
         for task in self.tasks:
-            task_id = six.text_type(task.uuid)
+            task_id = str(task.uuid)
             task_result = result[task_id]
             task.exit_code = task_result["exitCode"]
             task.stdout = task_result.get("stdout", "")

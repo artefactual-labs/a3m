@@ -1,16 +1,8 @@
-# -*- coding: utf-8 -*-
 """
 Jobs executed locally in MCP server.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import abc
 import logging
-
-from django.utils import six
 
 from a3m.main import models
 from a3m.server.db import auto_close_old_connections
@@ -20,13 +12,12 @@ from a3m.server.jobs.base import Job
 logger = logging.getLogger("archivematica.mcp.server.jobs.local")
 
 
-@six.add_metaclass(abc.ABCMeta)
-class LocalJob(Job):
+class LocalJob(Job, metaclass=abc.ABCMeta):
     """Base class for jobs that are executed directly."""
 
     @auto_close_old_connections()
     def run(self, *args, **kwargs):
-        super(LocalJob, self).run(*args, **kwargs)
+        super().run(*args, **kwargs)
         logger.info("Running %s (package %s)", self.description, self.package.uuid)
 
         # Reload the package, in case the path has changed
@@ -42,7 +33,7 @@ class GetUnitVarLinkJob(LocalJob):
 
     @auto_close_old_connections()
     def run(self, *args, **kwargs):
-        super(GetUnitVarLinkJob, self).run(*args, **kwargs)
+        super().run(*args, **kwargs)
 
         try:
             unitvar = models.UnitVariable.objects.get(
@@ -59,7 +50,7 @@ class GetUnitVarLinkJob(LocalJob):
             link = self.link.workflow.get_link(link_id)
         except KeyError:
             raise ValueError(
-                "Failed to find workflow link {} (set in unit variable)".format(link_id)
+                f"Failed to find workflow link {link_id} (set in unit variable)"
             )
 
         self.job_chain.next_link = link
@@ -76,7 +67,7 @@ class SetUnitVarLinkJob(LocalJob):
     # TODO: replace this concept, if possible
 
     def run(self, *args, **kwargs):
-        super(SetUnitVarLinkJob, self).run(*args, **kwargs)
+        super().run(*args, **kwargs)
 
         self.package.set_variable(
             self.link.config["variable"],

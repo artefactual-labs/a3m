@@ -1,10 +1,6 @@
-# -*- coding: UTF-8 -*-
-from __future__ import absolute_import
-
 import os
 
 import pytest
-import six
 
 from a3m.dicts import ChoicesDict
 from a3m.dicts import ReplacementDict
@@ -124,11 +120,11 @@ def test_replacementdict_options():
 
 
 def test_replacementdict_replace_returns_bytestring():
-    in_str = u"%originalLocation%/location/การแปล"
-    assert isinstance(in_str, six.text_type)
+    in_str = "%originalLocation%/location/การแปล"
+    assert isinstance(in_str, str)
 
     d = ReplacementDict(
         {"%originalLocation%": "\x82\xdb\x82\xc1\x82\xd5\x82\xe9\x83\x81\x83C\x83\x8b"}
     )
     out_str = d.replace(in_str)[0]
-    assert isinstance(out_str, six.binary_type)
+    assert isinstance(out_str, bytes)

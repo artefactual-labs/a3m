@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import argparse
 import os
 import shutil
@@ -40,7 +38,7 @@ def extract(job, target, destinationDirectory):
     if file_extension != ".tgz" and file_extension != ".gz":
         job.pyprint("Unzipping...")
 
-        command = """/usr/bin/7z x -bd -o"%s" "%s" """ % (destinationDirectory, target)
+        command = f"""/usr/bin/7z x -bd -o"{destinationDirectory}" "{target}" """
         exitC, stdOut, stdErr = executeOrRun(
             "command", command, printing=False, capture_output=True
         )

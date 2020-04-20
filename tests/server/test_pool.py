@@ -1,10 +1,4 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import pytest
-from six.moves import range
 
 from a3m.server.jobs import Job
 from a3m.server.tasks import PoolTaskBackend
@@ -14,7 +8,7 @@ from a3m.server.tasks import Task
 class MockJob(Job):
     def __init__(self, *args, **kwargs):
         self.name = kwargs.pop("name", "")
-        super(MockJob, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def run(self, *args, **kwargs):
         pass

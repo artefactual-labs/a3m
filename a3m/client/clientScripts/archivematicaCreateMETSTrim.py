@@ -17,8 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 # @version svn: $Id$
-from __future__ import absolute_import
-
 import os
 import sys
 
@@ -65,9 +63,7 @@ def getTrimDmdSec(job, baseDirectoryPath, fileGroupIdentifier):
     files = File.objects.filter(
         removedtime__isnull=True, sip_id=fileGroupIdentifier, filegrpuse="original"
     )
-    etree.SubElement(
-        dublincore, ns.dctermsBNS + "extent"
-    ).text = "%d digital objects".format(files.count())
+    etree.SubElement(dublincore, ns.dctermsBNS + "extent").text = f"%d digital objects"
 
     files = File.objects.filter(
         removedtime__isnull=True,
@@ -90,9 +86,8 @@ def getTrimDmdSec(job, baseDirectoryPath, fileGroupIdentifier):
             if maxDateMod is None or dateMod > maxDateMod:
                 maxDateMod = dateMod
 
-    etree.SubElement(dublincore, ns.dctermsBNS + "date").text = "%s/%s" % (
-        minDateMod,
-        maxDateMod,
+    etree.SubElement(dublincore, ns.dctermsBNS + "date").text = "{}/{}".format(
+        minDateMod, maxDateMod,
     )
 
     # print etree.tostring(dublincore, pretty_print = True)

@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import os
 import string
 import sys
@@ -59,7 +57,7 @@ def getTimedeltaFromRetensionSchedule(RetentionSchedule):
         entry = "0"
         for c in part:
             if c in string.digits:
-                entry = "%s%s" % (entry, c)
+                entry = f"{entry}{c}"
         rs.append(entry)
     for entry in rs:
         ret += int(entry)

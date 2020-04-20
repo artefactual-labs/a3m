@@ -12,11 +12,6 @@ concrete types of jobs, handled by subclasses:
     * `DecisionJob`, handling workflow decision points
     * `LocalJob`, handling work done directly on MCPServer
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 from a3m.server.jobs.base import Job
 from a3m.server.jobs.chain import JobChain
 from a3m.server.jobs.client import ClientScriptJob

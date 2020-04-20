@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -22,9 +21,6 @@ hashsum checksum utilities. We need to ensure that the output of the tool is
 mapped consistently to something that can be understood by users when
 debugging their preservation workflow.
 """
-from __future__ import absolute_import
-from __future__ import unicode_literals
-
 import os
 import subprocess
 from uuid import UUID
@@ -45,7 +41,7 @@ from a3m.main.models import File
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-class TestHashsum(object):
+class TestHashsum:
     """Hashsum test runner object."""
 
     assert_exception_string = "Hashsum exception string returned is incorrect"
@@ -115,7 +111,7 @@ class TestHashsum(object):
         provenance_output = hashsum.get_command_detail()
         assert (
             provenance_output == expected_provenance
-        ), "Provenance output is incorrect: {}".format(provenance_output)
+        ), f"Provenance output is incorrect: {provenance_output}"
 
     def test_provenance_string_no_command(self):
         """When nothing has happened, e.g. the checksums haven't been validated
@@ -317,7 +313,7 @@ class TestHashsum(object):
         kwargs = {"removedtime__isnull": True, "transfer_id": package_uuid}
         file_objs_queryset = File.objects.filter(**kwargs)
         for algorithm in algorithms:
-            event_detail = "{}: {}".format(algorithm, detail)
+            event_detail = f"{algorithm}: {detail}"
             write_premis_event_per_file(file_objs_queryset, package_uuid, event_detail)
         file_uuids = File.objects.filter(**kwargs).values_list("uuid")
         assert (

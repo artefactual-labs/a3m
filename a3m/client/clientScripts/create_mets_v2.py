@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8 -*-
 #
 # This file is part of Archivematica.
 #
@@ -17,8 +16,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import collections
 import copy
 import os
@@ -78,12 +75,12 @@ from .sanitize_names import sanitize_name
 from bagit import Bag, BagError
 
 
-class ErrorAccumulator(object):
+class ErrorAccumulator:
     def __init__(self):
         self.error_count = 0
 
 
-class MetsState(object):
+class MetsState:
     def __init__(
         self, globalAmdSecCounter=0, globalTechMDCounter=0, globalDigiprovMDCounter=0
     ):
@@ -333,8 +330,7 @@ def createDmdSecsFromCSVParsedMetadata(job, metadata, state):
                     )
                 except UnicodeDecodeError:
                     job.pyprint(
-                        "Skipping DC value; not valid UTF-8: {}".format(v),
-                        file=sys.stderr,
+                        f"Skipping DC value; not valid UTF-8: {v}", file=sys.stderr,
                     )
         else:  # not a dublin core item
             if other is None:
@@ -354,8 +350,7 @@ def createDmdSecsFromCSVParsedMetadata(job, metadata, state):
                     ).text = six.ensure_text(v, encoding="utf8")
                 except UnicodeDecodeError:
                     job.pyprint(
-                        "Skipping DC value; not valid UTF-8: {}".format(v),
-                        file=sys.stderr,
+                        f"Skipping DC value; not valid UTF-8: {v}", file=sys.stderr,
                     )
     return ret
 
@@ -909,7 +904,7 @@ def include_custom_structmap(
             id_ = structMap.get("ID")
             if not id_:
                 state.globalStructMapCounter += 1
-                structMap.set("ID", "structMap_{}".format(state.globalStructMapCounter))
+                structMap.set("ID", f"structMap_{state.globalStructMapCounter}")
             ret.append(structMap)
             # CONTENTIDS will map to fptrs and area elements where present.
             fptrs = root.xpath("//mets:fptr", namespaces={"mets": ns.metsNS})
@@ -1104,7 +1099,7 @@ def createFileSec(
 
             # Create <div TYPE="Item"> and child <fptr>
             # <fptr FILEID="file-<UUID>" LABEL="filename.ext">
-            fileId = "file-{}".format(f.uuid)
+            fileId = f"file-{f.uuid}"
             label = item if not label else label
             fileDiv = etree.SubElement(
                 structMapDiv, ns.metsBNS + "div", LABEL=label, TYPE="Item"
@@ -1308,7 +1303,7 @@ def build_arranged_structmap(job, original_structmap, sip_uuid):
     structmap = copy.deepcopy(original_structmap)
     structmap.attrib["TYPE"] = "logical"
     structmap.attrib["LABEL"] = "Hierarchical"
-    structmap.attrib["ID"] = "structMap_{}".format(uuid4())
+    structmap.attrib["ID"] = f"structMap_{uuid4()}"
     root_div = structmap.find("./mets:div", namespaces=ns.NSMAP)
     del root_div.attrib["TYPE"]
     objects = root_div.find('./mets:div[@LABEL="objects"]', namespaces=ns.NSMAP)
@@ -1317,7 +1312,7 @@ def build_arranged_structmap(job, original_structmap, sip_uuid):
     # not have intellectual arrangement, so don't need to be
     # represented in this structMap.
     for label in ("submissionDocumentation", "metadata"):
-        div = objects.find('.mets:div[@LABEL="{}"]'.format(label), namespaces=ns.NSMAP)
+        div = objects.find(f'.mets:div[@LABEL="{label}"]', namespaces=ns.NSMAP)
         if div is not None:
             objects.remove(div)
 
@@ -1384,7 +1379,7 @@ def find_bag_metadata(job, bag_logs_path):
         return Bag(bag_logs_path).info
     except BagError:
         job.pyprint(
-            "Unable to locate or parse bag metadata at: {}".format(bag_logs_path),
+            f"Unable to locate or parse bag metadata at: {bag_logs_path}",
             file=sys.stderr,
         )
         return {}
@@ -1405,7 +1400,7 @@ def create_object_metadata(job, struct_map, baseDirectoryPath, state):
         return
 
     state.globalAmdSecCounter += 1
-    label = "amdSec_{}".format(state.globalAmdSecCounter)
+    label = f"amdSec_{state.globalAmdSecCounter}"
     struct_map.set("ADMID", label)
 
     source_md_counter = 1
@@ -1414,7 +1409,7 @@ def create_object_metadata(job, struct_map, baseDirectoryPath, state):
 
     for filename in transfer:
         sourcemd = etree.SubElement(
-            el, ns.metsBNS + "sourceMD", {"ID": "sourceMD_{}".format(source_md_counter)}
+            el, ns.metsBNS + "sourceMD", {"ID": f"sourceMD_{source_md_counter}"}
         )
         mdwrap = etree.SubElement(sourcemd, ns.metsBNS + "mdWrap", {"MDTYPE": "OTHER"})
         xmldata = etree.SubElement(mdwrap, ns.metsBNS + "xmlData")
@@ -1425,7 +1420,7 @@ def create_object_metadata(job, struct_map, baseDirectoryPath, state):
 
     for filename in source:
         sourcemd = etree.SubElement(
-            el, ns.metsBNS + "sourceMD", {"ID": "sourceMD_{}".format(source_md_counter)}
+            el, ns.metsBNS + "sourceMD", {"ID": f"sourceMD_{source_md_counter}"}
         )
         source_md_counter += 1
         attributes = {
@@ -1442,7 +1437,7 @@ def create_object_metadata(job, struct_map, baseDirectoryPath, state):
             continue
 
         sourcemd = etree.SubElement(
-            el, ns.metsBNS + "sourceMD", {"ID": "sourceMD_{}".format(source_md_counter)}
+            el, ns.metsBNS + "sourceMD", {"ID": f"sourceMD_{source_md_counter}"}
         )
         source_md_counter += 1
         mdwrap = etree.SubElement(
@@ -1536,7 +1531,7 @@ def get_normative_structmap(
     normativeStructMap = etree.Element(
         ns.metsBNS + "structMap",
         TYPE="logical",
-        ID="structMap_{}".format(state.globalStructMapCounter),
+        ID=f"structMap_{state.globalStructMapCounter}",
         LABEL="Normative Directory Structure",
     )
     normativeStructMapDiv = etree.SubElement(
@@ -1705,7 +1700,7 @@ def call(jobs):
                 structMap = etree.Element(
                     ns.metsBNS + "structMap",
                     TYPE="physical",
-                    ID="structMap_{}".format(state.globalStructMapCounter),
+                    ID=f"structMap_{state.globalStructMapCounter}",
                     LABEL="Archivematica default",
                 )
                 sip_dir_name = os.path.basename(baseDirectoryPath.rstrip("/"))

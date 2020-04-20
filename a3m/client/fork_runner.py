@@ -10,8 +10,6 @@ them to the MCP Client.
 This is invoked when a clientScripts module provides a `concurrent_instances`
 function (indicating that it supports being run as a subprocess).
 """
-from __future__ import absolute_import
-
 import importlib
 import logging
 import multiprocessing

@@ -1,6 +1,3 @@
-# -*- coding: utf8
-from __future__ import absolute_import
-
 import os
 import shutil
 import tempfile
@@ -10,7 +7,6 @@ import metsrw
 from django.core.management import call_command
 from django.test import TestCase
 from lxml import etree
-from six.moves import range
 
 from a3m.client.clientScripts import archivematicaCreateMETSReingest
 from a3m.client.job import Job

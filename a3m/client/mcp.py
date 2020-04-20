@@ -45,8 +45,6 @@ task to run next).
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import logging
 import os
 import time
@@ -60,7 +58,6 @@ import six.moves.cPickle
 from django.conf import settings as django_settings
 from django.db import transaction
 from django.utils import six
-from six.moves import zip
 
 django.setup()
 
@@ -264,7 +261,7 @@ def execute_command(supported_modules, gearman_worker, gearman_job):
 def start_gearman_worker():
     """Setup a gearman client, for the thread."""
     gm_worker = gearman.GearmanWorker([django_settings.GEARMAN_SERVER])
-    host_id = "{}_{}".format(gethostname(), os.getpid())
+    host_id = f"{gethostname()}_{os.getpid()}"
     gm_worker.set_client_id(host_id)
     supported_modules = get_supported_modules()
     task_handler = partial(execute_command, supported_modules)

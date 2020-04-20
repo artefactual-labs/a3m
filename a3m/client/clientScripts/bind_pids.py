@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8 -*-
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -38,8 +37,6 @@ The required arguments are the SIP's UUID and the path to the
 shared directory where SIPs are stored. If the --bind-pids option is something
 other than 'Yes', the script will continue to the next job without doing anything.
 """
-from __future__ import absolute_import
-
 import argparse
 import os
 import sys

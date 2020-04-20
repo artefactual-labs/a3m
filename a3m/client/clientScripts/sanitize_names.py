@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-# -*- coding: utf8
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -16,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import absolute_import
-
 import os
 import re
 import shutil
@@ -95,5 +92,4 @@ def sanitize_tree(start_path, old_start_path):
         yield old_path, sanitized_path, is_dir, was_sanitized
 
         if is_dir:
-            for result in sanitize_tree(sanitized_path, old_path):
-                yield result
+            yield from sanitize_tree(sanitized_path, old_path)

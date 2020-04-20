@@ -1,6 +1,3 @@
-# -*- coding: UTF-8 -*-
-from __future__ import absolute_import
-
 import shlex
 
 import a3m.executeOrRunSubProcess as execsub
