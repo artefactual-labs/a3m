@@ -103,15 +103,16 @@ RUN set -ex \
 		libxml2-dev \
 		libxslt-dev \
 	&& curl https://bootstrap.pypa.io/get-pip.py | python3.7 \
-	&& rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/* \
+	&& update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
 
 COPY ./requirements.txt /a3m/requirements.txt
 COPY ./requirements-dev.txt /a3m/requirements-dev.txt
-RUN /usr/bin/python3.7 -m pip install -r ${REQUIREMENTS}
+RUN python -m pip install -r ${REQUIREMENTS}
 
 COPY . /a3m
 WORKDIR /a3m
 
 USER archivematica
 
-ENTRYPOINT ["python3.7", "-m", "a3m"]
+ENTRYPOINT ["python", "-m", "a3m"]

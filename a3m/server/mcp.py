@@ -30,6 +30,7 @@ import functools
 import logging
 import os
 import signal
+import sys
 import threading
 
 import django
@@ -78,6 +79,12 @@ def watched_dir_handler(package_queue, path, watched_dir):
 def main(shutdown_event=None):
     logger.info("PID: %s", os.getpid())
     logger.info("UID: %s", os.getuid())
+    logger.info(
+        "Python: %s.%s.%s",
+        sys.version_info.major,
+        sys.version_info.minor,
+        sys.version_info.micro,
+    )
 
     # Tracks whether a sigterm has been received or not
     if shutdown_event is None:
