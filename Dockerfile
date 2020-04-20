@@ -92,25 +92,26 @@ COPY ./a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/
 COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
 
 RUN set -ex \
-	&& curl -s https://bootstrap.pypa.io/get-pip.py | python \
+	&& add-apt-repository ppa:deadsnakes/ppa \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		build-essential \
-		python-dev \
+		python3.7 \
 		libffi-dev \
 		libyaml-dev \
 		libssl-dev \
 		libxml2-dev \
 		libxslt-dev \
+	&& curl https://bootstrap.pypa.io/get-pip.py | python3.7 \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements.txt /a3m/requirements.txt
 COPY ./requirements-dev.txt /a3m/requirements-dev.txt
-RUN pip install -r ${REQUIREMENTS}
+RUN /usr/bin/python3.7 -m pip install -r ${REQUIREMENTS}
 
 COPY . /a3m
 WORKDIR /a3m
 
 USER archivematica
 
-ENTRYPOINT ["python", "-m", "a3m"]
+ENTRYPOINT ["python3.7", "-m", "a3m"]
