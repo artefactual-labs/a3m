@@ -6,8 +6,6 @@ See the [tasklist](https://www.notion.so/a3m-acfaae80a800407b80317b7efd3b76bf) f
 
 - [Usage](#usage)
 - [Development](#development)
-  - [Container-free workflow](#container-free-workflow)
-  - [Docker Compose](#docker-compose)
 
 ### Usage
 
@@ -15,17 +13,45 @@ See the [tasklist](https://www.notion.so/a3m-acfaae80a800407b80317b7efd3b76bf) f
 
 ### Development
 
-#### Container-free workflow
+a3m depends on many open-source tools that need to be available in the system path. Docker Compose sets up an environment with all these dependencies available. However, it is also possible to keep Docker out of your development workflow.
 
-There are a few limitations that we will address in the future:
+<details>
+<summary>Docker Compose</summary>
+
+If you're confortable using our Makefile try:
+
+    make create-volumes build bootstrap restart
+
+Otherwise...
+
+    # Build service
+    env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
+
+    # Create database
+    docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m migrate --noinput
+
+    # Bring the service up
+    docker-compose up -d a3m
+
+    # Submit a transfer
+    docker-compose run --rm --entrypoint sh a3m -c "python -m a3m.server.rpc.client a3m:7000"
+
+    # Check out the AIP
+    sudo find ~/.a3m/a3m-pipeline-data/currentlyProcessing/ -name "*.7z";
+
+</details>
+
+<details>
+<summary>Container-free workflow</summary>
+
+There are a couple limitations that we will address in the future:
 
 - You need to create `/var/archivematica` and have write access, and
 - Preservation tasks need to be locally available for a fully working experience, and
-- Python 2 needed.
 
 Check out the repo and create the virtual environment from inside:
 
-    virtualenv --python=python2 .venv
+    python -m venv .venv
 
 Enable the environment:
 
@@ -58,8 +84,4 @@ Start a new transfer:
     Transfer created: afe8898c-a194-42ce-84de-4021f2795fb2
     Done!
 
-#### Docker Compose
-
-Start with the following:
-
-    make create-volumes build bootstrap restart
+</details>
