@@ -29,7 +29,7 @@ opf-fido==1.4.1           # via -r requirements.in
 prometheus_client==0.7.1  # via -r requirements.in
 protobuf==3.11.3          # via googleapis-common-protos, grpcio-reflection, grpcio-status
 pyrsistent==0.16.0        # via jsonschema
-pytz==2019.3              # via -r requirements.in, django
+pytz==2019.3              # via django
 requests==2.23.0          # via -r requirements.in, amclient
 six==1.14.0               # via -r requirements.in, amclient, grpcio, jsonschema, metsrw, opf-fido, protobuf, pyrsistent
 sqlparse==0.3.1           # via django

@@ -10,7 +10,6 @@ unidecode==1.1.1
 
 # Django and its ORM!
 Django>=2.2,<3
-pytz
 
 # Infra
 prometheus_client==0.7.1
