@@ -20,10 +20,10 @@ repos:
   hooks:
   - id: pip-compile
     files: ^requirements\.(in|txt)$
-    args: ["requirements.in"]
+    args: ["--output-file=requirements.txt", "requirements.in"]
 - repo: https://github.com/jazzband/pip-tools
   rev: 5.0.0
   hooks:
   - id: pip-compile
     files: ^requirements-dev\.(in|txt)$
-    args: ["requirements-dev.in"]
+    args: ["--output-file=requirements-dev.txt", "requirements-dev.in"]
