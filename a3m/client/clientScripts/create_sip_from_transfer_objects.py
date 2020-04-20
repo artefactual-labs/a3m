@@ -28,7 +28,7 @@ django.setup()
 from django.db import transaction
 
 from a3m.main.models import File, Directory, SIP, Transfer
-from a3m import archivematicaFunctions, databaseFunctions
+from a3m import archivematicaFunctions
 
 
 def call(jobs):
