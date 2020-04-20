@@ -1495,7 +1495,7 @@ def write_mets(tree, filename):
         cgi.escape(
             etree.tostring(
                 tree, pretty_print=True, xml_declaration=True, encoding="utf-8"
-            )
+            ).decode("utf8")
         )
     )
     with open(validate_filename, "w") as f:

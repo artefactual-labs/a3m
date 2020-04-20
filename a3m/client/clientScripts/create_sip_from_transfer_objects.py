@@ -121,7 +121,7 @@ def call(jobs):
                 # objects/ directory. For each subdirectory, confirm it's in the SIP
                 # objects/ directory, and update the current location and owning SIP.
                 for dir_mdl in dir_mdls:
-                    currentPath = databaseFunctions.deUnicode(dir_mdl.currentlocation)
+                    currentPath = dir_mdl.currentlocation
                     currentSIPDirPath = currentPath.replace(
                         "%transferDirectory%", tmpSIPDir
                     )
@@ -145,7 +145,7 @@ def call(jobs):
                     removedtime__isnull=True,
                 )
                 for f in files:
-                    currentPath = databaseFunctions.deUnicode(f.currentlocation)
+                    currentPath = f.currentlocation
                     currentSIPFilePath = currentPath.replace(
                         "%transferDirectory%", tmpSIPDir
                     )
