@@ -55,7 +55,7 @@ toml==0.10.0              # via tox
 tox==3.14.6               # via -r requirements-dev.in
 unidecode==1.1.1          # via -r requirements.txt
 urllib3==1.25.8           # via -r requirements.txt, amclient, requests
-vcrpy==1.13.0             # via -r requirements-dev.in
+vcrpy==4.0.2              # via -r requirements-dev.in
 virtualenv==20.0.16       # via tox
 wcwidth==0.1.9            # via pytest
 wrapt==1.12.1             # via vcrpy
