@@ -4,7 +4,6 @@ import uuid
 import gearman
 import pytest
 import six.moves.cPickle
-from django.utils import six
 
 from a3m.server.jobs import Job
 from a3m.server.tasks import GearmanTaskBackend

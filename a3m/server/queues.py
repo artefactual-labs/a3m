@@ -8,7 +8,6 @@ import uuid
 
 import six.moves.queue
 from django.conf import settings
-from django.utils import six
 
 from a3m.server import metrics
 from a3m.server.jobs import DecisionJob

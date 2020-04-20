@@ -6,11 +6,11 @@ import logging
 import uuid
 
 from django.conf import settings
-from django.utils.six.moves import cPickle
 from gearman import GearmanClient
 from gearman.constants import JOB_COMPLETE
 from gearman.constants import JOB_FAILED
 from gearman.constants import JOB_UNKNOWN
+from six.moves import cPickle
 
 from a3m.server import metrics
 from a3m.server.tasks.backends.base import TaskBackend

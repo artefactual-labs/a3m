@@ -3,14 +3,10 @@ i18n handling.
 """
 import pprint
 
-from django.utils.six import python_2_unicode_compatible
-from django.utils.six import text_type
-
 FALLBACK_LANG = "en"
 UNKNOWN_TRANSLATION_LABEL = "<unknown>"
 
 
-@python_2_unicode_compatible
 class TranslationLabel:
     """Mixin for easy access to translated messages.
 
@@ -44,7 +40,7 @@ class TranslationLabel:
 
     def __init__(self, translations):
         if not isinstance(translations, dict):
-            translations = {FALLBACK_LANG: text_type(translations)}
+            translations = {FALLBACK_LANG: str(translations)}
         self._src = translations
 
     def __repr__(self):

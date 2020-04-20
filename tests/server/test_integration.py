@@ -4,7 +4,7 @@ import threading
 import uuid
 
 import pytest
-from django.utils import six
+import six
 from django.utils import timezone
 from lxml import etree
 

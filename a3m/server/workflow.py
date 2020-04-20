@@ -16,8 +16,6 @@ sets.
 import json
 import os
 
-from django.utils.six import python_2_unicode_compatible
-from django.utils.six import text_type
 from jsonschema import FormatChecker
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
@@ -39,7 +37,7 @@ def _invert_job_statuses():
     """Return an inverted dict of job statuses, i.e. indexed by labels."""
     statuses = {}
     for status in Job.STATUSES:
-        label = text_type(status[1])
+        label = str(status[1])
         statuses[label] = status[0]
 
     return statuses
@@ -51,7 +49,6 @@ def _invert_job_statuses():
 _STATUSES = _invert_job_statuses()
 
 
-@python_2_unicode_compatible
 class Workflow:
     def __init__(self, parsed_obj):
         self._src = parsed_obj
@@ -95,7 +92,6 @@ class Workflow:
         return self.links[link_id]
 
 
-@python_2_unicode_compatible
 class BaseLink:
     def __str__(self):
         return self.id
@@ -182,7 +178,7 @@ class Link(BaseLink):
         return self._src.get("end", False)
 
     def get_next_link(self, code):
-        code = text_type(code)
+        code = str(code)
         try:
             link_id = self._src["exit_codes"][code]["link_id"]
         except KeyError:
@@ -191,7 +187,7 @@ class Link(BaseLink):
 
     def get_status_id(self, code):
         """Return the expected Job status ID given an exit code."""
-        code = text_type(code)
+        code = str(code)
         try:
             status_id = self._src["exit_codes"][code]["job_status"]
         except KeyError:
