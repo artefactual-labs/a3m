@@ -16,6 +16,7 @@ prometheus_client==0.7.1
 gearman3==0.2.0
 requests==2.23.0
 appdirs==1.4.3
+click==7.1.1
 
 # MCPServer
 jsonschema==3.2.0

@@ -50,7 +50,11 @@ class TransferService(a3m_pb2_grpc.TransferServicer):
 
         # A3M-TODO: it may raise if the transfer was just submitted and there
         # are zero jobs recorded.
-        status, _ = get_unit_status(request.id, "unitTransfer")
+        try:
+            status, _ = get_unit_status(request.id, "unitTransfer")
+        except Exception as err:
+            logger.warning("Error looking up transfer: %s", err)
+            context.abort(code_pb2.INTERNAL, "Unhandled error")
 
         return a3m_pb2.StatusReply(status=status)
 

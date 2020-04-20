@@ -12,6 +12,7 @@ bagit==1.7.0              # via -r requirements.in
 certifi==2020.4.5.1       # via requests
 chardet==3.0.4            # via requests
 clamd==1.0.2              # via -r requirements.in
+click==7.1.1              # via -r requirements.in
 django==2.2.12            # via -r requirements.in
 future==0.18.2            # via metsrw
 gearman3==0.2.0           # via -r requirements.in
