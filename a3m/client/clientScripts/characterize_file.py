@@ -97,7 +97,7 @@ def main(job, file_path, file_uuid, sip_uuid):
             and rule.command.output_format.pronom_id == "fmt/101"
         ):
             try:
-                etree.fromstring(stdout)
+                etree.fromstring(stdout.encode("utf8"))
                 _insert_command_output(file_uuid, rule.uuid, stdout)
                 job.write_output(
                     'Saved XML output for command "{}" ({})'.format(
