@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 """
 Execute the .call(jobs) function of a clientScripts module from multiple
 processes.

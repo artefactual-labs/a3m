@@ -215,7 +215,7 @@ def executeOrRun(
             capture_output=capture_output,
         )
     if type == "pythonScript":
-        text = "#!/usr/bin/env python2\n" + text
+        text = "#!/usr/bin/env python\n" + text
         return createAndRunScript(
             text,
             stdIn=stdIn,
