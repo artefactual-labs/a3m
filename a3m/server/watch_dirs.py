@@ -131,7 +131,10 @@ def watch_directories_inotify(
             callback(os.path.join(path, event.name), watched_dir)
 
     for watch_descriptor in watches.keys():
-        inotify.rm_watch(watch_descriptor)
+        try:
+            inotify.rm_watch(watch_descriptor)
+        except OSError:
+            logger.warning("Cannot remove watcher: %s", watch_descriptor)
 
     inotify.close()
 
