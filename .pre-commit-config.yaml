@@ -27,3 +27,8 @@ repos:
   - id: pip-compile
     files: ^requirements-dev\.(in|txt)$
     args: ["--output-file=requirements-dev.txt", "requirements-dev.in"]
+- repo: https://github.com/asottile/pyupgrade
+  rev: v2.2.0
+  hooks:
+  - id: pyupgrade
+    args: ["--py37-plus"]
