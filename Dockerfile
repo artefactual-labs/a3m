@@ -95,13 +95,7 @@ RUN set -ex \
 	&& add-apt-repository ppa:deadsnakes/ppa \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
-		build-essential \
 		python3.7 \
-		libffi-dev \
-		libyaml-dev \
-		libssl-dev \
-		libxml2-dev \
-		libxslt-dev \
 	&& curl https://bootstrap.pypa.io/get-pip.py | python3.7 \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
