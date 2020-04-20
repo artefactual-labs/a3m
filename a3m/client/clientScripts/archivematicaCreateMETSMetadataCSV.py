@@ -16,8 +16,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
-# @version svn: $Id$
-# /src/dashboard/src/main/models.py
 import collections
 import csv
 import sys
