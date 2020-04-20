@@ -330,7 +330,7 @@ def createDmdSecsFromCSVParsedMetadata(job, metadata, state):
                     )
                 except UnicodeDecodeError:
                     job.pyprint(
-                        f"Skipping DC value; not valid UTF-8: {v}", file=sys.stderr,
+                        f"Skipping DC value; not valid UTF-8: {v}", file=sys.stderr
                     )
         else:  # not a dublin core item
             if other is None:
@@ -350,7 +350,7 @@ def createDmdSecsFromCSVParsedMetadata(job, metadata, state):
                     ).text = six.ensure_text(v, encoding="utf8")
                 except UnicodeDecodeError:
                     job.pyprint(
-                        f"Skipping DC value; not valid UTF-8: {v}", file=sys.stderr,
+                        f"Skipping DC value; not valid UTF-8: {v}", file=sys.stderr
                     )
     return ret
 

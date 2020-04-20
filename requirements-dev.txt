@@ -6,7 +6,7 @@
 #
 -e git+https://github.com/artefactual-labs/ammcpc@v0.1.1#egg=ammcpc  # via -r requirements.txt
 amclient==1.1.1           # via -r requirements.txt
-appdirs==1.4.3            # via virtualenv
+appdirs==1.4.3            # via -r requirements.txt, virtualenv
 attrs==19.3.0             # via -r requirements.txt, jsonschema, pytest
 bagit==1.7.0              # via -r requirements.txt
 certifi==2020.4.5.1       # via -r requirements.txt, requests

@@ -70,12 +70,12 @@ RUN set -ex \
 # Download ClamAV virus signatures
 RUN freshclam --quiet
 
-# Create Archivematica user
+# Create a3m user
 RUN set -ex \
-	&& groupadd --gid 333 --system archivematica \
-	&& useradd --uid 333 --gid 333 --create-home --system archivematica \
-	&& mkdir -p /var/archivematica/sharedDirectory \
-	&& chown -R archivematica:archivematica /var/archivematica
+	&& groupadd --gid 333 --system a3m \
+	&& useradd --uid 333 --gid 333 --create-home --home-dir /home/a3m --system a3m \
+	&& mkdir -p /home/a3m/.local/share/a3m \
+	&& chown -R a3m:a3m /home/a3m/.local
 
 
 #
@@ -94,11 +94,10 @@ COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/
 RUN set -ex \
 	&& add-apt-repository ppa:deadsnakes/ppa \
 	&& apt-get update \
-	&& apt-get install -y --no-install-recommends \
-		python3.7 \
-	&& curl https://bootstrap.pypa.io/get-pip.py | python3.7 \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
+	&& apt-get install -y --no-install-recommends python3.7 \
+	&& update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1 \
+	&& curl https://bootstrap.pypa.io/get-pip.py | python \
+	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements.txt /a3m/requirements.txt
 COPY ./requirements-dev.txt /a3m/requirements-dev.txt
@@ -107,6 +106,6 @@ RUN python -m pip install -r ${REQUIREMENTS}
 COPY . /a3m
 WORKDIR /a3m
 
-USER archivematica
+USER a3m
 
 ENTRYPOINT ["python", "-m", "a3m"]

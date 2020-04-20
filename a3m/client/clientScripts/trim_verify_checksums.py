@@ -91,7 +91,7 @@ def call(jobs):
                                 eventDetail = 'program="python"; module="hashlib.md5()"'
                                 eventOutcome = "Pass"
                                 eventOutcomeDetailNote = "{} {}".format(
-                                    xmlFile.__str__(), "verified",
+                                    xmlFile.__str__(), "verified"
                                 )
                                 eventIdentifierUUID = uuid.uuid4().__str__()
 

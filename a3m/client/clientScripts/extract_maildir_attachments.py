@@ -205,7 +205,7 @@ def handle_job(job):
                                 filePath = unicodeToStr(filePath)
                                 writeFile(filePath, attachment)
                                 eventDetail = "Unpacked from: {{{}}}{}".format(
-                                    sourceFileUUID, sourceFilePath,
+                                    sourceFileUUID, sourceFilePath
                                 )
                                 addFile(
                                     filePath,

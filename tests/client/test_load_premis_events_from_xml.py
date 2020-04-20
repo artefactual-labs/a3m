@@ -768,7 +768,7 @@ def transfer_file(db, transfer, tmp_path, file_path):
         originallocation=path,
         currentlocation=path,
         removedtime=None,
-        size=113318,
+        size=113_318,
         checksum="35e0cc683d75704fc5b04fc3633f6c654e10cd3af57471271f370309c7ff9dba",
         checksumtype="sha256",
     )

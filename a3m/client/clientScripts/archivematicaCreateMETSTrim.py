@@ -86,7 +86,7 @@ def getTrimDmdSec(job, baseDirectoryPath, fileGroupIdentifier):
                 maxDateMod = dateMod
 
     etree.SubElement(dublincore, ns.dctermsBNS + "date").text = "{}/{}".format(
-        minDateMod, maxDateMod,
+        minDateMod, maxDateMod
     )
 
     # print etree.tostring(dublincore, pretty_print = True)

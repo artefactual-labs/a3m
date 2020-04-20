@@ -34,7 +34,7 @@ def compress_aip(
     compressAIP.py
         7z-lzma
         5
-        /var/archivematica/sharedDirectory/watchedDirectories/workFlowDecisions/compressionAIPDecisions/ep-d87d5845-bd07-4200-b1a4-928e0cb6e1e4/
+        %sharedDirectory%/watchedDirectories/workFlowDecisions/compressionAIPDecisions/ep-d87d5845-bd07-4200-b1a4-928e0cb6e1e4/
         ep
         d87d5845-bd07-4200-b1a4-928e0cb6e1e4
     """

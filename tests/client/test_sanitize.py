@@ -100,7 +100,7 @@ def sip_file_obj(db, sip, tmp_path, subdir_path):
         originallocation=relative_path,
         currentlocation=relative_path,
         removedtime=None,
-        size=113318,
+        size=113_318,
         checksum="35e0cc683d75704fc5b04fc3633f6c654e10cd3af57471271f370309c7ff9dba",
         checksumtype="sha256",
     )
@@ -134,7 +134,7 @@ def multiple_transfer_file_objs(db, transfer, tmp_path, multiple_file_paths):
             originallocation=relative_path,
             currentlocation=relative_path,
             removedtime=None,
-            size=113318,
+            size=113_318,
             checksum="35e0cc683d75704fc5b04fc3633f6c654e10cd3af57471271f370309c7ff9dba",
             checksumtype="sha256",
         )

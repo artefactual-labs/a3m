@@ -25,3 +25,6 @@
 
 # tox working directory
 .tox/
+
+# a3m data dir for Compose volume
+/hack/compose-volume

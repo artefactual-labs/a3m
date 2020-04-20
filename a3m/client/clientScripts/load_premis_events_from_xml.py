@@ -49,9 +49,7 @@ def log_missing_xsd(path, printfn=print):
 
 def log_invalid_xsd(path, exception, printfn=print):
     printfn(
-        f"Could not parse the PREMIS XML schema {path}",
-        str(exception),
-        file=sys.stderr,
+        f"Could not parse the PREMIS XML schema {path}", str(exception), file=sys.stderr
     )
 
 

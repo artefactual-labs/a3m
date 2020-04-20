@@ -6,6 +6,7 @@
 #
 -e git+https://github.com/artefactual-labs/ammcpc@v0.1.1#egg=ammcpc  # via -r requirements.in
 amclient==1.1.1           # via -r requirements.in
+appdirs==1.4.3            # via -r requirements.in
 attrs==19.3.0             # via jsonschema
 bagit==1.7.0              # via -r requirements.in
 certifi==2020.4.5.1       # via requests

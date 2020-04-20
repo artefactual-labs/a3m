@@ -17,6 +17,6 @@ services:
       A3M_PROMETHEUS_BIND_ADDRESS: "0.0.0.0"
     volumes:
       - ".:/a3m"
-      - "a3m-pipeline-data:/var/archivematica/sharedDirectory:rw"
+      - "a3m-pipeline-data:/home/a3m/.local/share/a3m:rw"
     ports:
       - "52000:7000"

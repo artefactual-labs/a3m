@@ -29,9 +29,7 @@ from a3m.main.models import File, SIP
 from a3m.archivematicaFunctions import find_transfer_path_from_ingest
 
 
-def main(
-    job, sipUUID, transfersMetadataDirectory, transfersLogsDirectory, sharedPath=""
-):
+def main(job, sipUUID, transfersMetadataDirectory, transfersLogsDirectory, sharedPath):
     if not os.path.exists(transfersMetadataDirectory):
         os.makedirs(transfersMetadataDirectory)
     if not os.path.exists(transfersLogsDirectory):
@@ -109,13 +107,7 @@ def call(jobs):
         "-s", "--sipDirectory", action="store", dest="sipDirectory", default=""
     )
     parser.add_option("-S", "--sipUUID", action="store", dest="sipUUID", default="")
-    parser.add_option(
-        "-p",
-        "--sharedPath",
-        action="store",
-        dest="sharedPath",
-        default="/var/archivematica/sharedDirectory/",
-    )
+    parser.add_option("-p", "--sharedPath", action="store", dest="sharedPath")
 
     for job in jobs:
         with job.JobContext():

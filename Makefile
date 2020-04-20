@@ -1,15 +1,18 @@
 .DEFAULT_GOAL := help
 
-A3M_PIPELINE_DATA ?= $(HOME)/.a3m/a3m-pipeline-data
+A3M_PIPELINE_DATA ?= $(CURDIR)/hack/compose-volume
 
 CURRENT_UID := $(shell id -u)
 
+
+shell:  ## Open a shell in a new container.
+	docker-compose run --rm --entrypoint bash a3m
 
 build:  ## Build and recreate containers.
 	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
 	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --force-recreate
 
-create-volumes:  ## Create external data volumes.
+create-volume:  ## Create external data volume.
 	mkdir -p ${A3M_PIPELINE_DATA}
 	docker volume create \
 		--opt type=none \
@@ -38,10 +41,13 @@ compile-requirements:  ## Run pip-compile
 	pip-compile --output-file requirements.txt requirements.in
 	pip-compile --output-file requirements-dev.txt requirements-dev.in
 
-flush: flush-shared-dir bootstrap restart  # Delete ALL user data.
+flush: flush-db flush-shared-dir bootstrap restart  # Delete ALL user data.
+
+flush-db:  # Flush SQLite database.
+	docker-compose run --rm --no-deps --entrypoint sh a3m -c "rm -rf /home/a3m/.a3m/db.sqlite"
 
 flush-shared-dir:  # Flush shared directory including the database.
-	docker-compose run --rm --no-deps --entrypoint sh a3m -c "rm -rf /var/archivematica/sharedDirectory/*"
+	docker-compose run --rm --no-deps --entrypoint sh a3m -c "rm -rf /home/a3m/.a3m/share/"
 
 amflow:  # See workflow.
 	amflow edit --file=a3m/assets/workflow.json

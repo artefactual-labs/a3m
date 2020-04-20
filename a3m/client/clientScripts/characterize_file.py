@@ -26,7 +26,7 @@ def concurrent_instances():
 
 def _insert_command_output(file_uuid, rule_uuid, content):
     return FPCommandOutput.objects.create(
-        file_id=file_uuid, rule_id=rule_uuid, content=content,
+        file_id=file_uuid, rule_id=rule_uuid, content=content
     )
 
 

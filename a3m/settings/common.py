@@ -4,6 +4,9 @@ import math
 import multiprocessing
 import os
 from io import StringIO
+from pathlib import Path
+
+from appdirs import user_data_dir
 
 from a3m.appconfig import Config
 from a3m.appconfig import process_watched_directory_interval
@@ -121,11 +124,6 @@ CONFIG_DEFAULTS = """[a3m]
 
 debug = False
 gearman_server = localhost:4730
-watch_directory = /var/archivematica/sharedDirectory/watchedDirectories/
-shared_directory = /var/archivematica/sharedDirectory/
-temp_dir = /var/archivematica/sharedDirectory/tmp
-processing_directory = /var/archivematica/sharedDirectory/currentlyProcessing/
-rejected_directory = %%sharedPath%%rejected/
 watch_directory_method = inotify
 watch_directory_interval = 1
 batch_size = 128
@@ -142,20 +140,60 @@ clamav_client_backend = clamscanner     ; Options: clamdscanner or clamscanner
 clamav_client_max_file_size = 42        ; MB
 clamav_client_max_scan_size = 42        ; MB
 virus_scanning_enabled = False
+secret_key = 12345
+rpc_bind_address = 0.0.0.0:7000
+
 db_engine = django.db.backends.sqlite3
-db_name = /var/archivematica/sharedDirectory/a3m.sqlite
+db_name =
 db_user =
 db_password =
 db_host =
 db_port =
-secret_key = 12345
-rpc_bind_address = 0.0.0.0:7000
+
+shared_directory =
+watch_directory =
+temp_dir =
+processing_directory =
+rejected_directory =
 """
+
+
+def get_data_dir():
+    return Path(user_data_dir("a3m", "Artefactual"))
+
+
+def _get_data_dir_defaults(config):
+    data_dir = get_data_dir()
+    config_dict = {"a3m": {}}
+
+    def format_path(subdir):
+        return os.path.join(str(data_dir / "share" / subdir), "")
+
+    if not config.get("shared_directory"):
+        config_dict["a3m"].update(
+            {
+                "shared_directory": format_path(""),
+                "watch_directory": format_path("watchedDirectories"),
+                "temp_dir": format_path("tmp"),
+                "processing_directory": format_path("currentlyProcessing"),
+                "rejected_directory": format_path("rejected"),
+            }
+        )
+
+    if not config.get("db_name"):
+        config_dict["a3m"].update({"db_name": data_dir / "db.sqlite"})
+
+    # Create home directory if we're going to use it.
+    if config_dict["a3m"]:
+        data_dir.mkdir(parents=True, exist_ok=True)
+
+    return config_dict
 
 
 config = Config(env_prefix="A3M", attrs=CONFIG_MAPPING)
 config.read_defaults(StringIO(CONFIG_DEFAULTS))
 config.read_files(["/etc/a3m/a3m.cfg"])
+config.read_dict(_get_data_dir_defaults(config))
 
 
 # Django
@@ -230,11 +268,6 @@ def concurrent_packages_default():
     return int(math.ceil(cpu_count / 2))
 
 
-SHARED_DIRECTORY = config.get("shared_directory")
-TEMP_DIRECTORY = config.get("temp_directory")
-WATCH_DIRECTORY = config.get("watch_directory")
-REJECTED_DIRECTORY = config.get("rejected_directory")
-PROCESSING_DIRECTORY = config.get("processing_directory")
 GEARMAN_SERVER = config.get("gearman_server")
 WATCH_DIRECTORY_METHOD = config.get("watch_directory_method")
 WATCH_DIRECTORY_INTERVAL = config.get("watch_directory_interval")
@@ -255,6 +288,15 @@ VIRUS_SCANNING_ENABLED = config.get("virus_scanning_enabled")
 CAPTURE_CLIENT_SCRIPT_OUTPUT = config.get("capture_client_script_output")
 DEFAULT_CHECKSUM_ALGORITHM = "sha256"
 RPC_BIND_ADDRESS = config.get("rpc_bind_address")
+
+
+# Shared directories
+
+SHARED_DIRECTORY = config.get("shared_directory")
+TEMP_DIRECTORY = config.get("temp_directory")
+WATCH_DIRECTORY = config.get("watch_directory")
+REJECTED_DIRECTORY = config.get("rejected_directory")
+PROCESSING_DIRECTORY = config.get("processing_directory")
 
 
 # Prometheus

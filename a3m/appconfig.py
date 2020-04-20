@@ -118,6 +118,9 @@ class Config:
     def read_files(self, files):
         self.config.read(files)
 
+    def read_dict(self, dictionary, source="<dict>"):
+        self.config.read_dict(dictionary, source)
+
     def get(self, attr, default=None):
         if attr not in self.attrs:
             raise ImproperlyConfigured(
