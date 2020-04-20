@@ -5,7 +5,7 @@ metsrw==0.3.15
 bagit==1.7.0
 opf-fido==1.4.1
 clamd==1.0.2
-lxml==3.5.0
+lxml==4.5.0
 unidecode==1.1.1
 
 # Django and its ORM!
