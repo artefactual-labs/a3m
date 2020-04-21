@@ -63,7 +63,6 @@ django.setup()
 from a3m.main.models import Task
 from a3m.client import fork_runner, metrics, ASSETS_DIR, MODULES_FILE
 from a3m.client.job import Job
-from a3m.archivematicaFunctions import unicodeToStr
 from a3m.databaseFunctions import getUTCDate, retryOnFailure, auto_close_db
 
 import shlex
@@ -112,7 +111,7 @@ def handle_batch_task(gearman_job, supported_modules):
         )
 
         for var, val in replacements:
-            arguments = arguments.replace(var, unicodeToStr(val))
+            arguments = arguments.replace(var, val)
 
         job = Job(
             gearman_job.task.decode("utf8"),

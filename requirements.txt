@@ -33,7 +33,7 @@ protobuf==3.11.3          # via googleapis-common-protos, grpcio-reflection, grp
 pyrsistent==0.16.0        # via jsonschema
 pytz==2019.3              # via django
 requests==2.23.0          # via -r requirements.in, amclient
-six==1.14.0               # via -r requirements.in, amclient, grpcio, jsonschema, metsrw, opf-fido, protobuf, pyrsistent
+six==1.14.0               # via amclient, grpcio, jsonschema, metsrw, opf-fido, protobuf, pyrsistent
 sqlparse==0.3.1           # via django
 unidecode==1.1.1          # via -r requirements.in
 urllib3==1.25.8           # via amclient, requests

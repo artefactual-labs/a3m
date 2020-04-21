@@ -3,7 +3,6 @@ import shutil
 import uuid
 
 import pytest
-import six
 from django.core.management import call_command
 from django.test import TestCase
 
@@ -50,7 +49,7 @@ def transfer_dir_obj(db, transfer, tmp_path, subdir_path):
     dir_obj_path = "".join(
         [
             transfer.currentlocation,
-            six.ensure_text(subdir_path.relative_to(tmp_path).as_posix(), "utf-8"),
+            subdir_path.relative_to(tmp_path).as_posix(),
             os.path.sep,
         ]
     )
@@ -67,11 +66,7 @@ def transfer_dir_obj(db, transfer, tmp_path, subdir_path):
 @pytest.fixture()
 def sip_dir_obj(db, sip, tmp_path, subdir_path):
     dir_obj_path = "".join(
-        [
-            sip.currentpath,
-            six.ensure_text(subdir_path.relative_to(tmp_path).as_posix(), "utf-8"),
-            os.path.sep,
-        ]
+        [sip.currentpath, subdir_path.relative_to(tmp_path).as_posix(), os.path.sep]
     )
     dir_obj = Directory.objects.create(
         uuid=uuid.uuid4(),
@@ -88,10 +83,7 @@ def sip_file_obj(db, sip, tmp_path, subdir_path):
     file_path = subdir_path / "filé1"
     file_path.write_text("Hello world")
     relative_path = "".join(
-        [
-            sip.currentpath,
-            six.ensure_text(file_path.relative_to(tmp_path).as_posix(), "utf-8"),
-        ]
+        [sip.currentpath, file_path.relative_to(tmp_path).as_posix()]
     )
 
     return File.objects.create(
@@ -118,12 +110,7 @@ def multiple_file_paths(subdir_path):
 @pytest.fixture()
 def multiple_transfer_file_objs(db, transfer, tmp_path, multiple_file_paths):
     relative_paths = [
-        "".join(
-            [
-                transfer.currentlocation,
-                six.ensure_text(path.relative_to(tmp_path).as_posix(), "utf-8"),
-            ]
-        )
+        "".join([transfer.currentlocation, path.relative_to(tmp_path).as_posix()])
         for path in multiple_file_paths
     ]
 
@@ -371,10 +358,7 @@ def test_sanitize_transfer_with_multiple_files(
         file_obj.refresh_from_db()
 
         assert file_obj.currentlocation != original_location
-        assert (
-            six.ensure_text(subdir_path.as_posix(), "utf-8")
-            not in file_obj.currentlocation
-        )
+        assert subdir_path.as_posix() not in file_obj.currentlocation
         assert "bulk-file" in file_obj.currentlocation
         # Test the event details were written correctly for our object.
         event = Event.objects.get(file_uuid=file_obj.uuid, event_type="name cleanup")
@@ -400,10 +384,7 @@ def test_sanitize_transfer_with_directory_uuids(
     transfer_dir_obj.refresh_from_db()
 
     assert transfer_dir_obj.currentlocation != original_location
-    assert (
-        six.ensure_text(subdir_path.as_posix(), "utf-8")
-        not in transfer_dir_obj.currentlocation
-    )
+    assert subdir_path.as_posix() not in transfer_dir_obj.currentlocation
 
 
 @pytest.mark.django_db
@@ -423,17 +404,11 @@ def test_sanitize_sip(tmp_path, sip, subdir_path, sip_dir_obj, sip_file_obj):
     sip_dir_obj.refresh_from_db()
 
     assert sip_dir_obj.currentlocation != original_dir_location
-    assert (
-        six.ensure_text(subdir_path.as_posix(), "utf-8")
-        not in sip_dir_obj.currentlocation
-    )
+    assert subdir_path.as_posix() not in sip_dir_obj.currentlocation
 
     original_file_location = sip_file_obj.currentlocation
     sip_file_obj.refresh_from_db()
 
     assert sip_file_obj.currentlocation != original_file_location
-    assert (
-        six.ensure_text(subdir_path.as_posix(), "utf-8")
-        not in sip_file_obj.currentlocation
-    )
+    assert subdir_path.as_posix() not in sip_file_obj.currentlocation
     assert "file" in sip_file_obj.currentlocation

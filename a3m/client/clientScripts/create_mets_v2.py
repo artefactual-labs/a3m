@@ -29,7 +29,6 @@ from uuid import uuid4
 
 import django
 import lxml.etree as etree
-import six
 
 django.setup()
 from django.utils import timezone
@@ -40,7 +39,6 @@ from a3m.archivematicaFunctions import (
     escape,
     normalizeNonDcElementName,
     strToUnicode,
-    unicodeToStr,
 )
 from a3m.main.models import (
     Agent,
@@ -269,7 +267,7 @@ def createDMDIDsFromCSVMetadata(job, path, state):
     :param path: Path relative to the SIP to find CSV metadata on
     :return: Space-separated list of DMDIDs or empty string
     """
-    metadata = state.CSV_METADATA.get(unicodeToStr(path), {})
+    metadata = state.CSV_METADATA.get(path, {})
     dmdsecs = createDmdSecsFromCSVParsedMetadata(job, metadata, state)
     return " ".join([d.get("ID") for d in dmdsecs])
 
@@ -324,14 +322,7 @@ def createDmdSecsFromCSVParsedMetadata(job, metadata, state):
             if match:
                 (key,) = match.groups()
             for v in value:
-                try:
-                    etree.SubElement(dc, elem_namespace + key).text = six.ensure_text(
-                        v, encoding="utf8"
-                    )
-                except UnicodeDecodeError:
-                    job.pyprint(
-                        f"Skipping DC value; not valid UTF-8: {v}", file=sys.stderr
-                    )
+                etree.SubElement(dc, elem_namespace + key).text = v
         else:  # not a dublin core item
             if other is None:
                 state.globalDmdSecCounter += 1
@@ -344,14 +335,7 @@ def createDmdSecsFromCSVParsedMetadata(job, metadata, state):
                 mdWrap.set("OTHERMDTYPE", "CUSTOM")
                 other = etree.SubElement(mdWrap, ns.metsBNS + "xmlData")
             for v in value:
-                try:
-                    etree.SubElement(
-                        other, normalizeNonDcElementName(key)
-                    ).text = six.ensure_text(v, encoding="utf8")
-                except UnicodeDecodeError:
-                    job.pyprint(
-                        f"Skipping DC value; not valid UTF-8: {v}", file=sys.stderr
-                    )
+                etree.SubElement(other, normalizeNonDcElementName(key)).text = v
     return ret
 
 

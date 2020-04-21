@@ -30,7 +30,7 @@ from django.conf import settings as django_settings
 from a3m.databaseFunctions import insertIntoFiles
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.databaseFunctions import insertIntoEvents
-from a3m.archivematicaFunctions import unicodeToStr, get_file_checksum
+from a3m.archivematicaFunctions import get_file_checksum
 from a3m.main.models import File, Transfer
 
 
@@ -255,9 +255,6 @@ def updateFileLocation(
     To suppress creation of an event, pass the createEvent keyword argument (for example, if the file moved due to the renaming of a parent directory and not the file itself).
     """
 
-    src = unicodeToStr(src)
-    dst = unicodeToStr(dst)
-    fileUUID = unicodeToStr(fileUUID)
     if not fileUUID or fileUUID == "None":
         kwargs = {"removedtime__isnull": True, "currentlocation": src}
 

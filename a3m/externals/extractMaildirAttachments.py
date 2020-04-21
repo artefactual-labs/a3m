@@ -6,8 +6,7 @@
 import email
 import sys
 import uuid
-
-from six import StringIO
+from io import StringIO
 
 
 def parse_attachment(message_part, state, attachments=None):

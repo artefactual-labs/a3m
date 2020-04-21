@@ -30,7 +30,6 @@ from django.db import transaction
 from a3m.main.models import File
 from a3m.externals.extractMaildirAttachments import parse
 from a3m.fileOperations import addFileToTransfer, updateSizeAndChecksum
-from a3m.archivematicaFunctions import unicodeToStr
 
 
 class State:
@@ -202,7 +201,6 @@ def handle_job(job):
                                     f"{attachedFileUUID}_{attachment.name}",
                                 )
                                 job.pyprint("\tAttachment path:", filePath)
-                                filePath = unicodeToStr(filePath)
                                 writeFile(filePath, attachment)
                                 eventDetail = "Unpacked from: {{{}}}{}".format(
                                     sourceFileUUID, sourceFilePath

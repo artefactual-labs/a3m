@@ -22,8 +22,6 @@ import subprocess
 import sys
 import uuid
 
-import six
-
 # https://stackoverflow.com/a/36321030
 try:
     file_types = (file, io.IOBase)
@@ -63,8 +61,9 @@ def launchSubProcess(
                     returned IF the subprocess has failed, i.e., returned a
                     non-zero exit code.
     """
-    stdError = ""
-    stdOut = ""
+    # These represent subprocess output so we use bytes until they're returned
+    stdError = b""
+    stdOut = b""
 
     try:
         # Split command strings but pass through arrays untouched
@@ -114,11 +113,11 @@ def launchSubProcess(
         # If we are not capturing output and the subprocess has succeeded, set
         # its stderr to the empty string.
         if (not capture_output) and (retcode == 0):
-            stdError = ""
+            stdError = b""
         # append the output to stderror and stdout
         if printing:
-            print(six.ensure_text(stdOut, "utf8"))
-            print(six.ensure_text(stdError, "utf8"), file=sys.stderr)
+            print(stdOut.decode("utf8"))
+            print(stdError.decode("utf8"), file=sys.stderr)
     except OSError as ose:
         print("Execution failed:", ose, file=sys.stderr)
         return -1, "Config Error!", ose.__str__()
@@ -127,7 +126,7 @@ def launchSubProcess(
         print(type(inst), file=sys.stderr)  # the exception instance
         print(inst.args, file=sys.stderr)
         return -1, "Execution failed:", command
-    return retcode, six.ensure_text(stdOut, "utf8"), six.ensure_text(stdError, "utf8")
+    return retcode, stdOut.decode("utf8"), stdError.decode("utf8")
 
 
 def createAndRunScript(

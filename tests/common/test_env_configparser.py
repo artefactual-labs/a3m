@@ -1,9 +1,9 @@
 import configparser
 import os
+from io import StringIO
 
 import pytest
 from django.test import TestCase
-from six import StringIO
 
 from a3m.appconfig import EnvConfigParser
 
