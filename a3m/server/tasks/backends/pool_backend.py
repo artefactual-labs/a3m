@@ -4,9 +4,8 @@ processing, and returns results.
 """
 import concurrent
 import logging
+import pickle
 import uuid
-
-from six.moves import cPickle
 
 from a3m.client.mcp import execute_command
 from a3m.client.mcp import get_supported_modules
@@ -134,7 +133,7 @@ class PoolTaskBatch:
             task_uuid = str(task.uuid)
             data["tasks"][task_uuid] = self.serialize_task(task)
 
-        pickled_data = cPickle.dumps(data)
+        pickled_data = pickle.dumps(data)
 
         self.future = executor.submit(
             self.run, supported_modules, job.name.encode("utf8"), pickled_data
@@ -143,7 +142,7 @@ class PoolTaskBatch:
         logger.debug("Submitted pool job %s (%s)", self.uuid, job.name)
 
     def update_task_results(self, results):
-        result = cPickle.loads(results)["task_results"]
+        result = pickle.loads(results)["task_results"]
         for task in self.tasks:
             task_id = str(task.uuid)
             task_result = result[task_id]

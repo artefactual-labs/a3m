@@ -1,11 +1,11 @@
 """
 Exposes various metrics via Prometheus.
 """
+import configparser
 import datetime
 import functools
 import os
 
-import six.moves.configparser
 from django.conf import settings
 from django.db.models import Sum
 from django.utils import timezone
@@ -197,7 +197,7 @@ def skip_if_prometheus_disabled(func):
 def init_counter_labels():
     # Zero our counters to start, by intializing all labels. Non-zero starting points
     # cause problems when measuring rates.
-    modules_config = six.moves.configparser.RawConfigParser()
+    modules_config = configparser.RawConfigParser()
     modules_config.read(MODULES_FILE)
     for script_name, _ in modules_config.items("supportedBatchCommands"):
         job_counter.labels(script_name=script_name)

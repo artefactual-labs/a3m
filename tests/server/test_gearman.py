@@ -1,9 +1,9 @@
 import math
+import pickle
 import uuid
 
 import gearman
 import pytest
-import six.moves.cPickle
 
 from a3m.server.jobs import Job
 from a3m.server.tasks import GearmanTaskBackend
@@ -46,7 +46,7 @@ def format_gearman_request(tasks):
             "wants_output": task.wants_output,
         }
 
-    return six.moves.cPickle.dumps(request)
+    return pickle.dumps(request)
 
 
 def format_gearman_response(task_results):
@@ -57,7 +57,7 @@ def format_gearman_response(task_results):
         task_uuid = str(task_uuid)
         response["task_results"][task_uuid] = task_data
 
-    return six.moves.cPickle.dumps(response)
+    return pickle.dumps(response)
 
 
 def test_gearman_task_submission(simple_job, simple_task, mocker):
@@ -77,9 +77,7 @@ def test_gearman_task_submission(simple_job, simple_task, mocker):
 
     assert submit_job_kwargs["task"] == simple_job.name.encode("utf8")
     # Comparing pickled strings is fragile, so compare the python version
-    assert six.moves.cPickle.loads(
-        submit_job_kwargs["data"]
-    ) == six.moves.cPickle.loads(task_data)
+    assert pickle.loads(submit_job_kwargs["data"]) == pickle.loads(task_data)
     try:
         uuid.UUID(submit_job_kwargs["unique"].decode("utf8"))
     except ValueError:
@@ -156,7 +154,7 @@ def test_gearman_task_result_error(simple_job, simple_task, mocker):
 
     def mock_jobs_completed(*args):
         job_request.state = gearman.JOB_FAILED
-        job_request.exception = six.moves.cPickle.dumps(Exception("Error!"))
+        job_request.exception = pickle.dumps(Exception("Error!"))
 
         return [job_request]
 

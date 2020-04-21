@@ -1,8 +1,8 @@
 import os
+from io import StringIO
 
 import pytest
 from django.utils.translation import ugettext_lazy
-from six.moves import StringIO
 
 from a3m.server import translation
 from a3m.server import workflow

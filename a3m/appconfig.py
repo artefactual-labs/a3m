@@ -13,10 +13,10 @@ Alternatively, they can include the 'section' and a 'process_function' callback
 where a specific parsing process can be defined. Those callbacks must accept the
 current appconfig Config object and the section.
 """
+import configparser
 import functools
 import os
 
-import six.moves.configparser as ConfigParser
 from django.core.exceptions import ImproperlyConfigured
 
 
@@ -25,7 +25,7 @@ def fallback_option(fn):
         fallback = kwargs.pop("fallback", None)
         try:
             return fn(*args, **kwargs)
-        except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
+        except (configparser.NoSectionError, configparser.NoOptionError):
             if fallback:
                 return fallback
             raise
@@ -33,7 +33,7 @@ def fallback_option(fn):
     return functools.wraps(fn)(wrapper)
 
 
-class EnvConfigParser(ConfigParser.SafeConfigParser):
+class EnvConfigParser(configparser.ConfigParser):
     """
     EnvConfigParser enables the user to provide configuration defaults using
     the string environment, e.g. given:
@@ -61,7 +61,7 @@ class EnvConfigParser(ConfigParser.SafeConfigParser):
     def __init__(self, defaults=None, env=None, prefix=""):
         self._environ = env or os.environ
         self._prefix = prefix.rstrip("_")
-        ConfigParser.SafeConfigParser.__init__(
+        configparser.ConfigParser.__init__(
             self, defaults, inline_comment_prefixes=(";",)
         )
 
@@ -78,19 +78,19 @@ class EnvConfigParser(ConfigParser.SafeConfigParser):
         ret = self._get_envvar(section, option)
         if ret:
             return ret
-        return ConfigParser.SafeConfigParser.get(self, section, option, **kwargs)
+        return configparser.ConfigParser.get(self, section, option, **kwargs)
 
     @fallback_option
     def getint(self, *args, **kwargs):
-        return ConfigParser.SafeConfigParser.getint(self, *args, **kwargs)
+        return configparser.ConfigParser.getint(self, *args, **kwargs)
 
     @fallback_option
     def getfloat(self, *args, **kwargs):
-        return ConfigParser.SafeConfigParser.getfloat(self, *args, **kwargs)
+        return configparser.ConfigParser.getfloat(self, *args, **kwargs)
 
     @fallback_option
     def getboolean(self, *args, **kwargs):
-        return ConfigParser.SafeConfigParser.getboolean(self, *args, **kwargs)
+        return configparser.ConfigParser.getboolean(self, *args, **kwargs)
 
     @fallback_option
     def getiboolean(self, *args, **kwargs):
@@ -113,7 +113,7 @@ class Config:
     UNDEFINED_ATTR_MSG = "The following configuration attribute must be defined: %s."
 
     def read_defaults(self, fp):
-        self.config.readfp(fp)
+        self.config.read_file(fp)
 
     def read_files(self, files):
         self.config.read(files)
@@ -148,7 +148,7 @@ class Config:
 
         try:
             return getattr(self.config, getter)(**kwargs)
-        except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
+        except (configparser.NoSectionError, configparser.NoOptionError):
             raise ImproperlyConfigured(self.UNDEFINED_ATTR_MSG % attr)
 
     def get_from_opts_list(self, attr, attr_opts_list, default=None):
@@ -168,8 +168,8 @@ class Config:
             try:
                 return getattr(self.config, getter)(**kwargs)
             except (
-                ConfigParser.NoSectionError,
-                ConfigParser.NoOptionError,
+                configparser.NoSectionError,
+                configparser.NoOptionError,
                 ValueError,
             ):
                 pass

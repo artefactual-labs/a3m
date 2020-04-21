@@ -1,9 +1,9 @@
 import concurrent.futures
+import queue
 import threading
 import uuid
 
 import pytest
-import six.moves.queue
 
 from a3m.server.jobs import DecisionJob
 from a3m.server.jobs import Job
@@ -164,7 +164,7 @@ def test_queue_next_job_raises_full(
 
     assert package_queue.job_queue.qsize() == 1
 
-    with pytest.raises(six.moves.queue.Full):
+    with pytest.raises(queue.Full):
         package_queue.queue_next_job()
 
 

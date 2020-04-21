@@ -2,9 +2,9 @@ import concurrent.futures
 import os
 import threading
 import uuid
+from io import StringIO
 
 import pytest
-import six
 from django.utils import timezone
 from lxml import etree
 
@@ -25,7 +25,7 @@ from a3m.server.workflow import load as load_workflow
 FIXTURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
 INTEGRATION_TEST_PATH = os.path.join(FIXTURES_DIR, "workflow-integration-test.json")
 TEST_PROCESSING_CONFIG = etree.parse(
-    six.moves.StringIO(
+    StringIO(
         """<processingMCP>
   <preconfiguredChoices>
     <!-- Store DIP -->

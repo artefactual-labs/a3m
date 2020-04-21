@@ -45,16 +45,16 @@ task to run next).
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+import configparser
 import logging
 import os
+import pickle
 import time
 from functools import partial
 from socket import gethostname
 
 import django
 import gearman
-import six.moves.configparser
-import six.moves.cPickle
 from django.conf import settings as django_settings
 from django.db import transaction
 
@@ -83,7 +83,7 @@ def get_supported_modules():
     modules config file (typically MCPClient/lib/archivematicaClientModules).
     """
     supported_modules = {}
-    supported_modules_config = six.moves.configparser.RawConfigParser()
+    supported_modules_config = configparser.RawConfigParser()
     supported_modules_config.read(MODULES_FILE)
     for client_script, module_name in supported_modules_config.items(
         "supportedBatchCommands"
@@ -95,7 +95,7 @@ def get_supported_modules():
 @auto_close_db
 def handle_batch_task(gearman_job, supported_modules):
     module_name = supported_modules.get(gearman_job.task.decode("utf8"))
-    gearman_data = six.moves.cPickle.loads(gearman_job.data)
+    gearman_data = pickle.loads(gearman_job.data)
 
     utc_date = getUTCDate()
     jobs = []
@@ -158,7 +158,7 @@ def _shlex_unescape(s):
 
 
 def fail_all_tasks(gearman_job, reason):
-    gearman_data = six.moves.cPickle.loads(gearman_job.data)
+    gearman_data = pickle.loads(gearman_job.data)
 
     result = {}
 
@@ -182,7 +182,7 @@ def fail_all_tasks(gearman_job, reason):
     for task_uuid in gearman_data["tasks"]:
         result[task_uuid] = {"exitCode": 1}
 
-    return six.moves.cPickle.dumps({"task_results": result})
+    return pickle.dumps({"task_results": result})
 
 
 @auto_close_db
@@ -241,7 +241,7 @@ def execute_command(supported_modules, gearman_worker, gearman_job):
 
             retryOnFailure("Write task results", write_task_results_callback)
 
-            return six.moves.cPickle.dumps({"task_results": results})
+            return pickle.dumps({"task_results": results})
         except SystemExit:
             logger.error(
                 "IMPORTANT: Task %s attempted to call exit()/quit()/sys.exit(). This module should be fixed!",

@@ -3,6 +3,7 @@ Gearman task backend. Submits `Task` objects to gearman for processing,
 and returns results.
 """
 import logging
+import pickle
 import uuid
 
 from django.conf import settings
@@ -10,7 +11,6 @@ from gearman import GearmanClient
 from gearman.constants import JOB_COMPLETE
 from gearman.constants import JOB_FAILED
 from gearman.constants import JOB_UNKNOWN
-from six.moves import cPickle
 
 from a3m.server import metrics
 from a3m.server.tasks.backends.base import TaskBackend
@@ -201,7 +201,7 @@ class GearmanTaskBatch:
             task_uuid = str(task.uuid)
             data["tasks"][task_uuid] = self.serialize_task(task)
 
-        pickled_data = cPickle.dumps(data)
+        pickled_data = pickle.dumps(data)
 
         self.pending = client.submit_job(
             task=job.name.encode("utf8"),
@@ -219,7 +219,7 @@ class GearmanTaskBatch:
         elif not self.pending.result:
             raise ValueError("Unexpected empty result from Gearman job")
 
-        job_result = cPickle.loads(self.pending.result)
+        job_result = pickle.loads(self.pending.result)
 
         try:
             return job_result["task_results"]
