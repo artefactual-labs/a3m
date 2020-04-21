@@ -298,9 +298,7 @@ def add_rights_elements(job, rights_list, files, state, updated=False):
     for fsentry in files:
         for rights in rights_list:
             rights_subsections = [
-                s
-                for s in fsentry.amdsecs[0].subsections
-                if s.subsection == "rightsMD"
+                s for s in fsentry.amdsecs[0].subsections if s.subsection == "rightsMD"
             ]
             # Create element
             new_rightsmd = fsentry.add_premis_rights(

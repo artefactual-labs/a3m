@@ -20,7 +20,6 @@ import re
 
 from django.conf import settings as django_settings
 
-from a3m.archivematicaFunctions import unicodeToStr
 from a3m.main import models
 
 
@@ -185,26 +184,12 @@ class ReplacementDict(dict):
         >>> rd = ReplacementDict({"$foo": "bar"})
         >>> rd.replace('The value of the foo variable is: $foo')
         ['The value of the foo variable is: bar']
-
-        IMPORTANT NOTE: Any unicode strings present as dictionary values will
-        be converted into bytestrings. All returned strings will also be
-        bytestrings, regardless of the type of the original strings.
-        Returned strings may or may not be valid Unicode, depending on the
-        contents of data fetched from the database. (%originalLocation%,
-        for instance, may contain arbitrary non-Unicode characters of
-        nonspecific encoding.)
-
-        Note that, within, Archivematica, the only value that typically
-        contains Unicode characters is "%originalLocation%", and Archivematica
-        does not use this variable in any place where precise fidelity of the
-        original string is required.
         """
         ret = []
         for orig in strings:
             if orig is not None:
-                orig = unicodeToStr(orig)
                 for key, value in self.items():
-                    orig = orig.replace(key, unicodeToStr(value))
+                    orig = orig.replace(key, value)
             ret.append(orig)
         return ret
 
