@@ -18,12 +18,10 @@ import os
 import re
 import shutil
 
-import django
-
-
-from a3m.bag import is_bag
-from a3m.main.models import File, SIP
 from a3m.archivematicaFunctions import find_transfer_path_from_ingest
+from a3m.bag import is_bag
+from a3m.main.models import File
+from a3m.main.models import SIP
 
 
 def call(jobs):

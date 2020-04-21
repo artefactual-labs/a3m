@@ -17,12 +17,10 @@
 import os
 from optparse import OptionParser
 
-import django
 from django.db import transaction
 
-
-from a3m.main.models import File
 from a3m import fileOperations
+from a3m.main.models import File
 
 # --sipUUID "%SIPUUID%" --sipDirectory "%SIPDirectory%" --filePath "%relativeLocation%"
 

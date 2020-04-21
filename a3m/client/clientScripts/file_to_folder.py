@@ -2,8 +2,6 @@
 import os
 import sys
 
-import django
-
 from django.db import transaction
 
 from a3m.main.models import Transfer

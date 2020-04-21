@@ -19,12 +19,13 @@ import shutil
 import sys
 import uuid
 
-import django
-
 from django.db import transaction
 
-from a3m.main.models import File, Directory, SIP, Transfer
 from a3m import archivematicaFunctions
+from a3m.main.models import Directory
+from a3m.main.models import File
+from a3m.main.models import SIP
+from a3m.main.models import Transfer
 
 
 def call(jobs):

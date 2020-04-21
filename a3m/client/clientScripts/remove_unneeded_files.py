@@ -8,14 +8,12 @@ however, this can be overridden in MCPClient/clientConfig.conf s
 import os
 import shutil
 
-import django
+from django.conf import settings as mcpclient_settings
 from django.db import transaction
-
-# databaseFunctions requires Django to be set up
 
 from a3m.databaseFunctions import fileWasRemoved
 
-from django.conf import settings as mcpclient_settings
+# databaseFunctions requires Django to be set up
 
 
 def remove_file(job, target_file, file_uuid):

@@ -20,24 +20,19 @@ import logging
 import os
 import uuid
 
-import django
+import metsrw
 from django.conf import settings as django_settings
 from django.db.models import Prefetch
 from lxml import etree
 
-import metsrw
-
 from a3m.archivematicaFunctions import escape
 from a3m.countryCodes import getCodeForCountry
-
-from a3m.main.models import (
-    Derivation,
-    Directory,
-    File,
-    FPCommandOutput,
-    RightsStatement,
-    Transfer,
-)
+from a3m.main.models import Derivation
+from a3m.main.models import Directory
+from a3m.main.models import File
+from a3m.main.models import FPCommandOutput
+from a3m.main.models import RightsStatement
+from a3m.main.models import Transfer
 
 
 PREMIS_META = metsrw.plugins.premisrw.PREMIS_3_0_META

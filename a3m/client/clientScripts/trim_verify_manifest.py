@@ -19,14 +19,12 @@ import re
 import sys
 import uuid
 
-import django
-
-# fileOperations, databaseFunctions requires Django to be set up
-
 from django.db import transaction
 
-from a3m.fileOperations import getFileUUIDLike
 from a3m import databaseFunctions
+from a3m.fileOperations import getFileUUIDLike
+
+# fileOperations, databaseFunctions requires Django to be set up
 
 
 def call(jobs):

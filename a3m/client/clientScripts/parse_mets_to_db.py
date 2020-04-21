@@ -3,15 +3,14 @@ import datetime
 import os
 import uuid
 
-import django
 from django.db import transaction
 from lxml import etree
 
-
-from a3m.main import models
-from a3m.fpr import models as fpr_models
+from a3m import databaseFunctions
+from a3m import fileOperations
 from a3m import namespaces as ns
-from a3m import fileOperations, databaseFunctions
+from a3m.fpr import models as fpr_models
+from a3m.main import models
 
 MD_TYPE_SIP_ID = "3e48343d-e2d2-4956-aaa3-b54d26eb9761"
 

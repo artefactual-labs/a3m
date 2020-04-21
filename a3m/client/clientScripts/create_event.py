@@ -17,13 +17,11 @@
 import uuid
 from optparse import OptionParser
 
-import django
-
-# databaseFunctions requires Django to be set up
-
 from django.db import transaction
 
 from a3m.databaseFunctions import insertIntoEvents
+
+# databaseFunctions requires Django to be set up
 
 
 def call(jobs):

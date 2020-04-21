@@ -42,22 +42,19 @@ import sys
 from functools import wraps
 from itertools import chain
 
-import django
-
 from django.conf import settings as django_settings
 from django.db import transaction
 from lxml import etree
 
-from a3m.main.models import Directory, SIP
-from a3m.archivematicaFunctions import str2bool
-from a3m.bindpid import (
-    bind_pid,
-    BindPIDException,
-    _validate_handle_server_config,
-    _validate_entity_type_required_params,
-)
-from a3m.custom_handlers import get_script_logger
 from a3m import namespaces as ns
+from a3m.archivematicaFunctions import str2bool
+from a3m.bindpid import _validate_entity_type_required_params
+from a3m.bindpid import _validate_handle_server_config
+from a3m.bindpid import bind_pid
+from a3m.bindpid import BindPIDException
+from a3m.custom_handlers import get_script_logger
+from a3m.main.models import Directory
+from a3m.main.models import SIP
 
 
 logger = get_script_logger("archivematica.mcp.client.bind_pids")

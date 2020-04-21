@@ -26,49 +26,37 @@ from glob import glob
 from itertools import chain
 from uuid import uuid4
 
-import django
 import lxml.etree as etree
-
+from bagit import Bag
+from bagit import BagError
 from django.utils import timezone
-
-from a3m.custom_handlers import get_script_logger
-from a3m import namespaces as ns
-from a3m.archivematicaFunctions import (
-    escape,
-    normalizeNonDcElementName,
-    strToUnicode,
-)
-from a3m.main.models import (
-    Agent,
-    Derivation,
-    Directory,
-    DublinCore,
-    Event,
-    File,
-    FileID,
-    FPCommandOutput,
-    SIP,
-)
 
 from .archivematicaCreateMETSMetadataCSV import parseMetadata
 from .archivematicaCreateMETSRights import archivematicaGetRights
 from .archivematicaCreateMETSRightsDspaceMDRef import (
     archivematicaCreateMETSRightsDspaceMDRef,
 )
-from .archivematicaCreateMETSTrim import (
-    getTrimDmdSec,
-    getTrimFileDmdSec,
-    getTrimAmdSec,
-    getTrimFileAmdSec,
-)
-
-from .create_mets_dataverse_v2 import (
-    create_dataverse_sip_dmdsec,
-    create_dataverse_tabfile_dmdsec,
-)
+from .archivematicaCreateMETSTrim import getTrimAmdSec
+from .archivematicaCreateMETSTrim import getTrimDmdSec
+from .archivematicaCreateMETSTrim import getTrimFileAmdSec
+from .archivematicaCreateMETSTrim import getTrimFileDmdSec
+from .create_mets_dataverse_v2 import create_dataverse_sip_dmdsec
+from .create_mets_dataverse_v2 import create_dataverse_tabfile_dmdsec
 from .sanitize_names import sanitize_name
-
-from bagit import Bag, BagError
+from a3m import namespaces as ns
+from a3m.archivematicaFunctions import escape
+from a3m.archivematicaFunctions import normalizeNonDcElementName
+from a3m.archivematicaFunctions import strToUnicode
+from a3m.custom_handlers import get_script_logger
+from a3m.main.models import Agent
+from a3m.main.models import Derivation
+from a3m.main.models import Directory
+from a3m.main.models import DublinCore
+from a3m.main.models import Event
+from a3m.main.models import File
+from a3m.main.models import FileID
+from a3m.main.models import FPCommandOutput
+from a3m.main.models import SIP
 
 
 class ErrorAccumulator:

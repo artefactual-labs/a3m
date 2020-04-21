@@ -18,13 +18,10 @@ import os
 import shutil
 import sys
 
-import django
-
 from django.db import transaction
 
-from a3m.main.models import SIP
-
 from a3m.fileOperations import rename
+from a3m.main.models import SIP
 
 
 def updateDB(dst, sip_uuid):

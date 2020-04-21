@@ -20,11 +20,12 @@ import sys
 import traceback
 from optparse import OptionParser
 
-import django
-
 from django.db import transaction
 from django.utils import timezone
-from a3m.main.models import Derivation, Event, File
+
+from a3m.main.models import Derivation
+from a3m.main.models import Event
+from a3m.main.models import File
 
 
 def removeDIP(job, SIPDirectory, SIPUUID):

@@ -3,16 +3,15 @@ import shutil
 import sys
 from pprint import pformat
 
-import django
-
+from bagit import Bag
+from bagit import BagError
 from django.conf import settings as mcpclient_settings
 from django.db import transaction
 
 from a3m import databaseFunctions
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.main.models import File, SIP
-
-from bagit import Bag, BagError
+from a3m.main.models import File
+from a3m.main.models import SIP
 
 
 class VerifyChecksumsError(Exception):

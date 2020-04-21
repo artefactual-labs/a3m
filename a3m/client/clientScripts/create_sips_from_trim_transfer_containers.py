@@ -19,12 +19,11 @@ import shutil
 import sys
 import uuid
 
-import django
 from django.db import transaction
 
-
+from a3m import archivematicaFunctions
+from a3m import databaseFunctions
 from a3m.main.models import File
-from a3m import archivematicaFunctions, databaseFunctions
 
 
 def call(jobs):

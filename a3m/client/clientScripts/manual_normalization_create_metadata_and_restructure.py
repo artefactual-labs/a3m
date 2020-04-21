@@ -12,13 +12,13 @@ Add a derivative link.
 import os
 import uuid
 
-import django
 from django.db import transaction
-
 from django.db.models import Q
 
-from a3m.main.models import Event, File
-from a3m import databaseFunctions, fileOperations
+from a3m import databaseFunctions
+from a3m import fileOperations
+from a3m.main.models import Event
+from a3m.main.models import File
 
 
 def main(job):

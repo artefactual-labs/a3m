@@ -5,16 +5,16 @@
 #
 # If a tool has no defined characterization commands, then the default
 # will be run instead (currently FITS).
-
-import django
+from django.db import transaction
 from lxml import etree
 
-from django.db import transaction
-
-from a3m.main.models import FPCommandOutput
-from a3m.fpr.models import FPRule, FormatVersion
+from a3m.dicts import replace_string_values
+from a3m.dicts import ReplacementDict
+from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.dicts import replace_string_values, ReplacementDict, setup_dicts
+from a3m.fpr.models import FormatVersion
+from a3m.fpr.models import FPRule
+from a3m.main.models import FPCommandOutput
 
 
 def _insert_command_output(file_uuid, rule_uuid, content):

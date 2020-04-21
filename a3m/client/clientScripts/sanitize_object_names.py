@@ -18,14 +18,15 @@ import os
 import unicodedata
 import uuid
 
-import django
-
 from django.db import transaction
 
-from a3m.main.models import Event, File, Directory, Transfer, SIP
-
-from a3m.custom_handlers import get_script_logger
 from . import sanitize_names
+from a3m.custom_handlers import get_script_logger
+from a3m.main.models import Directory
+from a3m.main.models import Event
+from a3m.main.models import File
+from a3m.main.models import SIP
+from a3m.main.models import Transfer
 
 logger = get_script_logger("archivematica.mcp.client.sanitizeObjectNames")
 

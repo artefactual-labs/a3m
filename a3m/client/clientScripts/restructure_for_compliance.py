@@ -18,20 +18,16 @@ import os
 import re
 import shutil
 
-import django
-
 from django.db import transaction
-from a3m.main.models import Transfer, SIP
 
-from a3m.archivematicaFunctions import (
-    create_structured_directory,
-    reconstruct_empty_directories,
-    REQUIRED_DIRECTORIES,
-    OPTIONAL_FILES,
-)
-
-from a3m.custom_handlers import get_script_logger
 from a3m import bag
+from a3m.archivematicaFunctions import create_structured_directory
+from a3m.archivematicaFunctions import OPTIONAL_FILES
+from a3m.archivematicaFunctions import reconstruct_empty_directories
+from a3m.archivematicaFunctions import REQUIRED_DIRECTORIES
+from a3m.custom_handlers import get_script_logger
+from a3m.main.models import SIP
+from a3m.main.models import Transfer
 
 
 logger = get_script_logger("archivematica.mcp.client.restructureForCompliance")

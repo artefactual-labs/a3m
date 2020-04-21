@@ -29,14 +29,14 @@ import argparse
 import os
 from functools import wraps
 
-import django
-
-
-from a3m.main.models import Transfer, Directory
-from a3m.custom_handlers import get_script_logger
-from a3m.archivematicaFunctions import get_dir_uuids, format_subdir_path, str2bool
-
 from django.db import transaction
+
+from a3m.archivematicaFunctions import format_subdir_path
+from a3m.archivematicaFunctions import get_dir_uuids
+from a3m.archivematicaFunctions import str2bool
+from a3m.custom_handlers import get_script_logger
+from a3m.main.models import Directory
+from a3m.main.models import Transfer
 
 logger = get_script_logger("archivematica.mcp.client.assignUUIDsToDirectories")
 

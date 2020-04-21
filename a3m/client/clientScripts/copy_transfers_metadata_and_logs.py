@@ -19,12 +19,10 @@ import shutil
 import traceback
 from optparse import OptionParser
 
-import django
-
-
-from a3m.bag import is_bag
-from a3m.main.models import File, SIP
 from a3m.archivematicaFunctions import find_transfer_path_from_ingest
+from a3m.bag import is_bag
+from a3m.main.models import File
+from a3m.main.models import SIP
 
 
 def main(job, sipUUID, transfersMetadataDirectory, transfersLogsDirectory, sharedPath):

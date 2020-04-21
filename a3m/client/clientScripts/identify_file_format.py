@@ -1,14 +1,18 @@
 import argparse
 import uuid
 
-import django
-
 from django.db import transaction
 
-from a3m.fpr.models import IDCommand, IDRule, FormatVersion
-from a3m.main.models import FileFormatVersion, File, FileID, UnitVariable
+from a3m.databaseFunctions import getUTCDate
+from a3m.databaseFunctions import insertIntoEvents
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.databaseFunctions import getUTCDate, insertIntoEvents
+from a3m.fpr.models import FormatVersion
+from a3m.fpr.models import IDCommand
+from a3m.fpr.models import IDRule
+from a3m.main.models import File
+from a3m.main.models import FileFormatVersion
+from a3m.main.models import FileID
+from a3m.main.models import UnitVariable
 
 
 def _save_id_preference(file_, value):

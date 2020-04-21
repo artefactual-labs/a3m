@@ -18,12 +18,11 @@ import os
 import sys
 from optparse import OptionParser
 
-import django
 from django.db import transaction
 
-
+from a3m.fileOperations import rename
+from a3m.fileOperations import updateFileLocation
 from a3m.main.models import File
-from a3m.fileOperations import updateFileLocation, rename
 
 
 def something(

@@ -17,8 +17,6 @@
 import argparse
 import os
 
-import django
-
 from a3m.main.models import File
 
 

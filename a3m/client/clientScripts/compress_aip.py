@@ -2,13 +2,11 @@ import argparse
 import os.path
 import sys
 
-import django
 from django.db import transaction
 
-
-from a3m.main.models import SIP
 from a3m import databaseFunctions
 from a3m.executeOrRunSubProcess import executeOrRun
+from a3m.main.models import SIP
 
 
 def update_unit(sip_uuid, compressed_location):

@@ -19,20 +19,17 @@ import os
 import re
 import uuid
 
-import django
+import metsrw
 from django.db import transaction
 
-# fileOperations requires Django to be set up
-
-
-from a3m.main.models import File, FileFormatVersion
+from . import parse_mets_to_db
 from a3m.custom_handlers import get_script_logger
 from a3m.databaseFunctions import insertIntoDerivations
 from a3m.fileOperations import updateSizeAndChecksum
+from a3m.main.models import File
+from a3m.main.models import FileFormatVersion
 
-import metsrw
-
-from . import parse_mets_to_db
+# fileOperations requires Django to be set up
 
 logger = get_script_logger("archivematica.mcp.client.updateSizeAndChecksum")
 

@@ -3,16 +3,14 @@ import os
 import shutil
 from tempfile import mkdtemp
 
-import django
-
-from django.db import transaction
-
-from a3m.main.models import Transfer, UnitVariable
-from django.conf import settings
 import requests
+from django.conf import settings
+from django.db import transaction
 
 from a3m.bag import is_bag
 from a3m.client.clientScripts.extract_zipped_transfer import extract
+from a3m.main.models import Transfer
+from a3m.main.models import UnitVariable
 
 
 def _create_tmpdir(suffix):

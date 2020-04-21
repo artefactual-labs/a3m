@@ -25,14 +25,12 @@ import os
 import sys
 import uuid
 
-import django
+import metsrw
 from lxml import etree
 
-# Database functions requires Django to be set up.
-
-
 from a3m.custom_handlers import get_script_logger
-import metsrw
+
+# Database functions requires Django to be set up.
 
 
 logger = get_script_logger("archivematica.mcp.client.convert_dataverse_struct")

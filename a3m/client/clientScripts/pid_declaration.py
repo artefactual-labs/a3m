@@ -10,12 +10,10 @@ import os
 import sys
 from functools import wraps
 
-import django
-
-
-from a3m.main.models import Directory, File, SIP
-
 from .sanitize_names import sanitize_name
+from a3m.main.models import Directory
+from a3m.main.models import File
+from a3m.main.models import SIP
 
 
 class DeclarePIDsException(Exception):

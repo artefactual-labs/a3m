@@ -31,17 +31,15 @@ import os
 import re
 import uuid
 
-import django
+import metsrw
 from django.db import transaction
 
-
-from a3m.main.models import File, Transfer
-from a3m.custom_handlers import get_script_logger
-from a3m.fileOperations import addFileToTransfer
-from a3m.fileOperations import addFileToSIP
 from a3m import namespaces as ns
-
-import metsrw
+from a3m.custom_handlers import get_script_logger
+from a3m.fileOperations import addFileToSIP
+from a3m.fileOperations import addFileToTransfer
+from a3m.main.models import File
+from a3m.main.models import Transfer
 
 logger = get_script_logger("archivematica.mcp.client.assignFileUUID")
 

@@ -22,20 +22,17 @@ import re
 import subprocess
 import uuid
 
-import django
-
-from django.db import transaction
+from clamd import BufferTooLongError
+from clamd import ClamdNetworkSocket
+from clamd import ClamdUnixSocket
+from clamd import ConnectionError
 from django.conf import settings as mcpclient_settings
+from django.db import transaction
 
-from clamd import (
-    ClamdUnixSocket,
-    ClamdNetworkSocket,
-    BufferTooLongError,
-    ConnectionError,
-)
 from a3m.custom_handlers import get_script_logger
 from a3m.databaseFunctions import insertIntoEvents
-from a3m.main.models import Event, File
+from a3m.main.models import Event
+from a3m.main.models import File
 
 logger = get_script_logger("archivematica.mcp.client.clamscan")
 

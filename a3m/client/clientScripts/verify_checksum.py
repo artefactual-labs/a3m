@@ -32,12 +32,13 @@ import subprocess
 import sys
 import uuid
 
-import django
 from django.db import transaction
 
 from a3m.archivematicaFunctions import strToUnicode
-from a3m.main.models import Event, File, Transfer
 from a3m.custom_handlers import get_script_logger
+from a3m.main.models import Event
+from a3m.main.models import File
+from a3m.main.models import Transfer
 
 
 logger = get_script_logger("archivematica.mcp.client.verify_checksum")

@@ -16,14 +16,13 @@
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 import os
 
-import django
-
-# fileOperations requires Django to be set up
-
 from django.db import transaction
 
 from a3m import fileOperations
-from a3m.archivematicaFunctions import REQUIRED_DIRECTORIES, create_directories
+from a3m.archivematicaFunctions import create_directories
+from a3m.archivematicaFunctions import REQUIRED_DIRECTORIES
+
+# fileOperations requires Django to be set up
 
 
 def restructureTRIMForComplianceFileUUIDsAssigned(

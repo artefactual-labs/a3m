@@ -20,14 +20,13 @@ import sys
 import traceback
 import uuid
 
-import django
+from django.db import transaction
 from lxml import etree
 
-from django.db import transaction
-
-from a3m.main.models import File
 from a3m.externals.extractMaildirAttachments import parse
-from a3m.fileOperations import addFileToTransfer, updateSizeAndChecksum
+from a3m.fileOperations import addFileToTransfer
+from a3m.fileOperations import updateSizeAndChecksum
+from a3m.main.models import File
 
 
 class State:

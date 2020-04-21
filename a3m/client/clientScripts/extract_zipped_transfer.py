@@ -19,13 +19,11 @@ import os
 import shutil
 import sys
 
-import django
-
 from django.db import transaction
 
-from a3m.main.models import Transfer
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.fileOperations import get_extract_dir_name
+from a3m.main.models import Transfer
 
 
 def extract(job, target, destinationDirectory):

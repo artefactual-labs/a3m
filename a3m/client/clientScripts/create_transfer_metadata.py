@@ -1,11 +1,9 @@
 from argparse import ArgumentParser
 
-import django
 from lxml import etree
 
-
-from a3m.main.models import Transfer
 from a3m.client import metrics
+from a3m.main.models import Transfer
 
 
 def fetch_set(sip_uuid):

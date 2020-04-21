@@ -40,15 +40,13 @@ is something other than 'Yes', the script will exit without doing anything.
 import argparse
 from functools import wraps
 
-import django
 from django.conf import settings as django_settings
 from django.db import transaction
 
-
-from a3m.main.models import File
 from a3m import bindpid
-from a3m.custom_handlers import get_script_logger
 from a3m.archivematicaFunctions import str2bool
+from a3m.custom_handlers import get_script_logger
+from a3m.main.models import File
 
 
 logger = get_script_logger("archivematica.mcp.client.bind_pid")

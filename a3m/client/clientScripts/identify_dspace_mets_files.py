@@ -14,9 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-import django
 from django.db import transaction
-
 
 from a3m.main.models import File
 

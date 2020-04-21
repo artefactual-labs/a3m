@@ -16,13 +16,10 @@
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 import os
 
-import django
 from django.db import transaction
 from lxml import etree
 
 from a3m import namespaces
-
-
 from a3m.main.models import File
 
 

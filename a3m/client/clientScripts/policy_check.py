@@ -12,16 +12,19 @@ Arguments::
 import json
 import os
 
-import django
-
 from django.db import transaction
 
-from a3m.custom_handlers import get_script_logger
-from a3m.fpr.models import FPRule, FormatVersion
-from a3m.main.models import Derivation, File, SIP, Transfer
-from a3m.executeOrRunSubProcess import executeOrRun
 from a3m import databaseFunctions
-from a3m.dicts import replace_string_values, setup_dicts
+from a3m.custom_handlers import get_script_logger
+from a3m.dicts import replace_string_values
+from a3m.dicts import setup_dicts
+from a3m.executeOrRunSubProcess import executeOrRun
+from a3m.fpr.models import FormatVersion
+from a3m.fpr.models import FPRule
+from a3m.main.models import Derivation
+from a3m.main.models import File
+from a3m.main.models import SIP
+from a3m.main.models import Transfer
 
 # Note that linkTaskManagerFiles.py will take the highest exit code it has seen
 # from all tasks and will use that as the exit code of the job as a whole.

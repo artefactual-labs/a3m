@@ -22,8 +22,6 @@ directory if it has *not* been uploaded and doing nothing otherwise.
 import os
 import shutil
 
-import django
-
 from django.db import transaction
 
 from a3m.custom_handlers import get_script_logger

@@ -17,8 +17,6 @@
 import csv
 import os
 
-import django
-
 from django.db import transaction
 
 from a3m.main import models

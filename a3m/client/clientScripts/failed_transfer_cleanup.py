@@ -1,11 +1,10 @@
 import argparse
 
-import django
-
 from django.db import transaction
 
-from a3m.main.models import File, Transfer
 from a3m.client import metrics
+from a3m.main.models import File
+from a3m.main.models import Transfer
 
 
 REJECTED = "reject"

@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-import django
-
-
 from a3m.fpr.models import FPRule
-from a3m.main.models import FileFormatVersion, Transfer, File, Event
+from a3m.main.models import Event
+from a3m.main.models import File
+from a3m.main.models import FileFormatVersion
+from a3m.main.models import Transfer
 
 
 def is_extractable(f):

@@ -16,13 +16,10 @@
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 import os
 
-import django
-
 from django.db import transaction
 
-from a3m.main.models import Transfer
-
 from a3m.fileOperations import rename
+from a3m.main.models import Transfer
 
 
 def updateDB(dst, transferUUID):

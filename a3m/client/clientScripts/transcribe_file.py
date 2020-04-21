@@ -1,16 +1,18 @@
 import os
 from uuid import uuid4
 
-import django
 from django.db import transaction
 from django.utils import timezone
 
-
-from a3m.main.models import Derivation, File, FileFormatVersion
-from a3m.fpr.models import FPRule
-from a3m.dicts import ReplacementDict, setup_dicts
+from a3m import databaseFunctions
+from a3m import fileOperations
+from a3m.dicts import ReplacementDict
+from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m import databaseFunctions, fileOperations
+from a3m.fpr.models import FPRule
+from a3m.main.models import Derivation
+from a3m.main.models import File
+from a3m.main.models import FileFormatVersion
 
 
 def insert_transcription_event(status, file_uuid, rule, relative_location):

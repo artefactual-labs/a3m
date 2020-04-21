@@ -17,12 +17,10 @@
 import datetime
 import os
 
-import django
-
 from django.db import transaction
 
-from a3m.main import models
 from a3m.custom_handlers import get_script_logger
+from a3m.main import models
 
 
 logger = get_script_logger("archivematica.mcp.client.storeFileModificationDates")

@@ -19,8 +19,6 @@ import multiprocessing
 import os
 import shutil
 
-import django
-
 from bagit import make_bag
 from django.conf import settings as mcpclient_settings
 

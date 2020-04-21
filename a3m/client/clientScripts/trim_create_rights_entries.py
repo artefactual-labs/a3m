@@ -22,21 +22,16 @@ import uuid
 from datetime import datetime
 from datetime import timedelta
 
-import django
+from django.db import transaction
 from lxml import etree as etree
 
-from django.db import transaction
-
-from a3m.main.models import (
-    RightsStatement,
-    RightsStatementOtherRightsInformation,
-    RightsStatementOtherRightsDocumentationIdentifier,
-    RightsStatementRightsGranted,
-    RightsStatementRightsGrantedNote,
-    RightsStatementRightsGrantedRestriction,
-)
-
 from a3m.fileOperations import getFileUUIDLike
+from a3m.main.models import RightsStatement
+from a3m.main.models import RightsStatementOtherRightsDocumentationIdentifier
+from a3m.main.models import RightsStatementOtherRightsInformation
+from a3m.main.models import RightsStatementRightsGranted
+from a3m.main.models import RightsStatementRightsGrantedNote
+from a3m.main.models import RightsStatementRightsGrantedRestriction
 
 
 def relativedelta():

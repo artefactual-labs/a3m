@@ -17,16 +17,15 @@
 import os
 import sys
 
-import django
 from django.db import transaction
 
-
-from a3m.main.models import File
-from a3m.archivematicaFunctions import REQUIRED_DIRECTORIES, OPTIONAL_FILES
-from a3m import bag, fileOperations
-from a3m.databaseFunctions import insertIntoEvents
-
 from .move_or_merge import move_or_merge
+from a3m import bag
+from a3m import fileOperations
+from a3m.archivematicaFunctions import OPTIONAL_FILES
+from a3m.archivematicaFunctions import REQUIRED_DIRECTORIES
+from a3m.databaseFunctions import insertIntoEvents
+from a3m.main.models import File
 
 
 def restructureBagForComplianceFileUUIDsAssigned(
