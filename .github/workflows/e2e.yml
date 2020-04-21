@@ -1,0 +1,25 @@
+name: End-to-end
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out source code
+      uses: actions/checkout@v2
+    - uses: whoan/docker-build-with-cache-action@v5
+      with:
+        username: sevein
+        password: "${{ secrets.GITHUB_TOKEN }}"
+        image_name: sevein/a3m/a3m
+        image_tag: main
+        registry: docker.pkg.github.com
+        build_extra_args: "--compress=true"
+    - name: Test
+      run: |
+        import sys
+        print(sys.version)
+        print("TODO - run tests here!")
+      shell: python
