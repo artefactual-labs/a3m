@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 """Download transfer object from storage."""
 import os
 import shutil
@@ -6,7 +5,6 @@ from tempfile import mkdtemp
 
 import django
 
-django.setup()
 from django.db import transaction
 
 from a3m.main.models import Transfer, UnitVariable

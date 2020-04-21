@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -22,7 +21,6 @@ import shutil
 
 import django
 
-django.setup()
 from bagit import make_bag
 from django.conf import settings as mcpclient_settings
 

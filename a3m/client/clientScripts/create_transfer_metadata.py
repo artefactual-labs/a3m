@@ -1,10 +1,8 @@
-#!/usr/bin/env python2
 from argparse import ArgumentParser
 
 import django
 from lxml import etree
 
-django.setup()
 
 from a3m.main.models import Transfer
 from a3m.client import metrics

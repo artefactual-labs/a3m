@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -45,7 +44,6 @@ import django
 from django.conf import settings as django_settings
 from django.db import transaction
 
-django.setup()
 
 from a3m.main.models import File
 from a3m import bindpid

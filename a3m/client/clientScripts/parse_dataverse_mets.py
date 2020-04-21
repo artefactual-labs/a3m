@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Parse the transfer METS file created as part of a Dataverse transfer and
 validate against the objects expected to be part of the SIP generated during
 transfer.
@@ -11,7 +10,6 @@ import django
 
 # databaseFunctions requires Django to be set up
 
-django.setup()
 from django.utils import timezone
 
 from a3m.archivematicaFunctions import get_file_checksum

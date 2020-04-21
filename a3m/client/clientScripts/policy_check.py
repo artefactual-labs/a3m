@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 """Runs zero or more FPR policy check against the provided file and returns an
 exit code. May also print to stdout, generate an Event models in the db,
 and/or write command-specific stdout to disk.
@@ -15,7 +14,6 @@ import os
 
 import django
 
-django.setup()
 from django.db import transaction
 
 from a3m.custom_handlers import get_script_logger

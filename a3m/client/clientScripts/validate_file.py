@@ -1,14 +1,8 @@
-#!/usr/bin/env python2
 """Runs zero or more FPR validation commands against the provided file and
 returns an exit code. May also print to stdout, generate an Event model in the
 db, and/or write command-specific stdout to disk.
 
 If a format has no defined validation commands, no command is run.
-
-`concurrent_instances` is intentionally unused in order to mitigate a problem
-where MediaConch (one of the default validation tools) may block forever if
-there are more than one instance running in the same machine. See
-https://github.com/archivematica/Issues/issues/44 for more details.
 
 Arguments:
     [FILE_PATH] [FILE_UUID] [SIP_UUID] [SHARED_PATH] [FILE_TYPE]
@@ -21,7 +15,6 @@ from pprint import pformat
 
 import django
 
-django.setup()
 from django.db import transaction
 
 from a3m.fpr.models import FPRule, FormatVersion

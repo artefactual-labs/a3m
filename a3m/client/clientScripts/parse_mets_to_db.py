@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 import argparse
 import datetime
 import os
@@ -8,7 +7,6 @@ import django
 from django.db import transaction
 from lxml import etree
 
-django.setup()
 
 from a3m.main import models
 from a3m.fpr import models as fpr_models

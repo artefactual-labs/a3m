@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -22,7 +21,6 @@ from optparse import OptionParser
 
 import django
 
-django.setup()
 
 from a3m.bag import is_bag
 from a3m.main.models import File, SIP

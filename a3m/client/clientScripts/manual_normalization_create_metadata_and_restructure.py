@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 """
 Associate manually normalized preservation files with their originals.
 
@@ -16,7 +15,6 @@ import uuid
 import django
 from django.db import transaction
 
-django.setup()
 from django.db.models import Q
 
 from a3m.main.models import Event, File

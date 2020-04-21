@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 #
 # This file is part of Archivematica.
 #
@@ -26,7 +25,6 @@ from django.conf import settings as django_settings
 from django.db.models import Prefetch
 from lxml import etree
 
-django.setup()
 import metsrw
 
 from a3m.archivematicaFunctions import escape

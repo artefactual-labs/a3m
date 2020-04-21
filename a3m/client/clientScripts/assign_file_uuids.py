@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -35,7 +34,6 @@ import uuid
 import django
 from django.db import transaction
 
-django.setup()
 
 from a3m.main.models import File, Transfer
 from a3m.custom_handlers import get_script_logger

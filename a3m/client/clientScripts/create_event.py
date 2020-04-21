@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -22,7 +21,6 @@ import django
 
 # databaseFunctions requires Django to be set up
 
-django.setup()
 from django.db import transaction
 
 from a3m.databaseFunctions import insertIntoEvents

@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 import os
 
 from a3m.executeOrRunSubProcess import executeOrRun

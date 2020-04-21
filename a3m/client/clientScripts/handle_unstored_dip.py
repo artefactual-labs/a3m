@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -25,7 +24,6 @@ import shutil
 
 import django
 
-django.setup()
 from django.db import transaction
 
 from a3m.custom_handlers import get_script_logger

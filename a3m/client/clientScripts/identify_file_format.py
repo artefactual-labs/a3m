@@ -1,21 +1,14 @@
-#!/usr/bin/env python2
 import argparse
-import multiprocessing
 import uuid
 
 import django
 
-django.setup()
 from django.db import transaction
 
 from a3m.fpr.models import IDCommand, IDRule, FormatVersion
 from a3m.main.models import FileFormatVersion, File, FileID, UnitVariable
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.databaseFunctions import getUTCDate, insertIntoEvents
-
-
-def concurrent_instances():
-    return multiprocessing.cpu_count()
 
 
 def _save_id_preference(file_, value):

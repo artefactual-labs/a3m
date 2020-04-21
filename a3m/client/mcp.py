@@ -61,7 +61,7 @@ from django.db import transaction
 django.setup()
 
 from a3m.main.models import Task
-from a3m.client import fork_runner, metrics, ASSETS_DIR, MODULES_FILE
+from a3m.client import metrics, ASSETS_DIR, MODULES_FILE
 from a3m.client.job import Job
 from a3m.databaseFunctions import getUTCDate, retryOnFailure, auto_close_db
 
@@ -131,16 +131,7 @@ def handle_batch_task(gearman_job, supported_modules):
     retryOnFailure("Set task start times", set_start_times)
 
     module = importlib.import_module("a3m.client.clientScripts." + module_name)
-
-    # Our module can indicate that it should be run concurrently...
-    if False and hasattr(module, "concurrent_instances"):
-        fork_runner.call(
-            "a3m.client.clientScripts." + module_name,
-            jobs,
-            task_count=module.concurrent_instances(),
-        )
-    else:
-        module.call(jobs)
+    module.call(jobs)
 
     return jobs
 

@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 import argparse
 import os
 import shutil
@@ -7,7 +6,6 @@ import django
 
 # fileOperations requires Django to be set up
 
-django.setup()
 from django.db import transaction
 
 from a3m import fileOperations

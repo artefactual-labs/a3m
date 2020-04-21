@@ -1,5 +1,3 @@
-#!/usr/bin/env python2
-import multiprocessing
 import os
 from uuid import uuid4
 
@@ -7,17 +5,12 @@ import django
 from django.db import transaction
 from django.utils import timezone
 
-django.setup()
 
 from a3m.main.models import Derivation, File, FileFormatVersion
 from a3m.fpr.models import FPRule
 from a3m.dicts import ReplacementDict, setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m import databaseFunctions, fileOperations
-
-
-def concurrent_instances():
-    return multiprocessing.cpu_count()
 
 
 def insert_transcription_event(status, file_uuid, rule, relative_location):

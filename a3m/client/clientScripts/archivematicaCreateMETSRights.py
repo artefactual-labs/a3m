@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 #
 # This file is part of Archivematica.
 #

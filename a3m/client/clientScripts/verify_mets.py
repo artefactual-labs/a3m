@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 """verify_mets.py
 
 Verify METS documents provided to the script. Its first, and primary use so

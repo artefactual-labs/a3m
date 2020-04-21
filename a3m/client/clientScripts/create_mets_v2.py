@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 #
 # This file is part of Archivematica.
 #
@@ -30,7 +29,6 @@ from uuid import uuid4
 import django
 import lxml.etree as etree
 
-django.setup()
 from django.utils import timezone
 
 from a3m.custom_handlers import get_script_logger

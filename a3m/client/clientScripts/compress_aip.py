@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 import argparse
 import os.path
 import sys
@@ -6,7 +5,6 @@ import sys
 import django
 from django.db import transaction
 
-django.setup()
 
 from a3m.main.models import SIP
 from a3m import databaseFunctions

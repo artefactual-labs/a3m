@@ -4,7 +4,6 @@ import sys
 
 import django
 
-django.setup()
 from django.db import transaction
 
 from a3m.main.models import Transfer

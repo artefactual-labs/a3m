@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -23,7 +22,6 @@ from optparse import OptionParser
 
 import django
 
-django.setup()
 from django.db import transaction
 from django.utils import timezone
 from a3m.main.models import Derivation, Event, File

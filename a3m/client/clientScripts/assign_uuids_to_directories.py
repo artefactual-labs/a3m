@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -32,7 +31,6 @@ from functools import wraps
 
 import django
 
-django.setup()
 
 from a3m.main.models import Transfer, Directory
 from a3m.custom_handlers import get_script_logger

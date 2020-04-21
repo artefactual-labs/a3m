@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # This file is part of Archivematica.
 #
 # Copyright 2010-2013 Artefactual Systems Inc. <http://artefactual.com>
@@ -23,7 +22,6 @@ from lxml import etree
 
 from a3m import namespaces
 
-django.setup()
 
 from a3m.main.models import File
 

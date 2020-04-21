@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 import argparse
 import csv
 import errno
@@ -11,7 +10,6 @@ import django
 
 from . import transcoder
 
-django.setup()
 from django.db import transaction
 from django.conf import settings as mcpclient_settings
 from django.utils import timezone

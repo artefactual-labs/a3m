@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 """Convert Dataverse Structure
 
 Given a transfer type Dataverse, read the metadata submission object
@@ -31,7 +30,6 @@ from lxml import etree
 
 # Database functions requires Django to be set up.
 
-django.setup()
 
 from a3m.custom_handlers import get_script_logger
 import metsrw

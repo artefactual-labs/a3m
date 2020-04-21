@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 import os
 import shutil
 import sys
@@ -6,7 +5,6 @@ from pprint import pformat
 
 import django
 
-django.setup()
 from django.conf import settings as mcpclient_settings
 from django.db import transaction
 

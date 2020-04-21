@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 """pid_declaration.py
 
 Given an identifiers.json file, supplying third-party persistent identifiers
@@ -13,7 +12,6 @@ from functools import wraps
 
 import django
 
-django.setup()
 
 from a3m.main.models import Directory, File, SIP
 

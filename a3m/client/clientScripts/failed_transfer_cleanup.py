@@ -1,9 +1,7 @@
-#!/usr/bin/env python2
 import argparse
 
 import django
 
-django.setup()
 from django.db import transaction
 
 from a3m.main.models import File, Transfer

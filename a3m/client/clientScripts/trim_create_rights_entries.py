@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -26,7 +25,6 @@ from datetime import timedelta
 import django
 from lxml import etree as etree
 
-django.setup()
 from django.db import transaction
 
 from a3m.main.models import (

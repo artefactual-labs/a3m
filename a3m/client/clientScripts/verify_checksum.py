@@ -35,7 +35,6 @@ import uuid
 import django
 from django.db import transaction
 
-django.setup()
 from a3m.archivematicaFunctions import strToUnicode
 from a3m.main.models import Event, File, Transfer
 from a3m.custom_handlers import get_script_logger

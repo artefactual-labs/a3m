@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 import os
 import sys
 import uuid
@@ -6,7 +5,6 @@ import uuid
 import django
 from django.db import transaction
 
-django.setup()
 
 from a3m.fpr.models import FPCommand
 from a3m.main.models import Directory, FileFormatVersion, File, Transfer

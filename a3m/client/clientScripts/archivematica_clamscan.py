@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -18,7 +17,6 @@
 import abc
 import argparse
 import errno
-import multiprocessing
 import os
 import re
 import subprocess
@@ -26,7 +24,6 @@ import uuid
 
 import django
 
-django.setup()
 from django.db import transaction
 from django.conf import settings as mcpclient_settings
 
@@ -41,10 +38,6 @@ from a3m.databaseFunctions import insertIntoEvents
 from a3m.main.models import Event, File
 
 logger = get_script_logger("archivematica.mcp.client.clamscan")
-
-
-def concurrent_instances():
-    return multiprocessing.cpu_count()
 
 
 def clamav_version_parts(ver):
