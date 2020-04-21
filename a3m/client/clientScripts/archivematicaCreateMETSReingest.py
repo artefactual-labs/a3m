@@ -297,6 +297,11 @@ def add_rights_elements(job, rights_list, files, state, updated=False):
     # Add to files' amdSecs
     for fsentry in files:
         for rights in rights_list:
+            rights_subsections = [
+                s
+                for s in fsentry.amdsecs[0].subsections
+                if s.subsection == "rightsMD"
+            ]
             # Create element
             new_rightsmd = fsentry.add_premis_rights(
                 createmetsrights.createRightsStatement(
@@ -316,12 +321,7 @@ def add_rights_elements(job, rights_list, files, state, updated=False):
                 # Mark as replacing another rightsMD
                 # rightsBasis is semantically unique (though not currently enforced in code). Assume that this replaces a rightsMD with the same basis
                 # Find the most ce
-                superseded = [
-                    s
-                    for s in fsentry.amdsecs[0].subsections
-                    if s.subsection == "rightsMD"
-                ]
-                superseded = sorted(superseded, key=lambda x: x.created)
+                superseded = sorted(rights_subsections, key=lambda x: x.created)
                 # NOTE sort(..., reverse=True) behaves differently with unsortable elements like '' and None
                 for rightmd in superseded[::-1]:
                     job.pyprint("created", rightmd.created)
