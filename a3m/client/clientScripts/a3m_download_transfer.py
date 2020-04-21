@@ -55,7 +55,7 @@ def main(job, transfer_id, url):
         transfer.save()
 
     if bagged:
-        next_link_id = "3c526a07-c3b8-4e53-801b-7f3d0c4857a5"
+        next_link_id = "154dd501-a344-45a9-97e3-b30093da35f5"
     else:
         next_link_id = "045c43ae-d6cf-44f7-97d6-c8a602748565"
 
