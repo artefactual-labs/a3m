@@ -24,28 +24,5 @@ SCRIPT_FILE_FORMAT = "{}: %(levelname)-8s  %(asctime)s  %(name)s:%(funcName)s:%(
 )
 
 
-def get_script_logger(
-    name, formatter=SCRIPT_FILE_FORMAT, root="archivematica", level=logging.INFO
-):
-
-    logging_config = {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "formatters": {"fmt": {"format": formatter}},
-        "handlers": {
-            "console": {
-                "level": "DEBUG",
-                "class": "logging.StreamHandler",
-                "formatter": "fmt",
-            }
-        },
-        "loggers": {
-            root: {"level": level},  # 'archivematica'
-            name: {"level": level},  # 'archivematica.mcp.client.script_name'
-        },
-        "root": {"handlers": ["console"], "level": "WARNING"},  # Everything else
-    }
-
-    logging.config.dictConfig(logging_config)
-    logger = logging.getLogger(name)
-    return logger
+def get_script_logger(name):
+    return logging.getLogger(name)
