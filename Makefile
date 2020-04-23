@@ -56,10 +56,10 @@ compile-requirements:  ## Run pip-compile
 flush: flush-db flush-shared-dir bootstrap restart  # Delete ALL user data.
 
 flush-db:  # Flush SQLite database.
-	docker-compose run --rm --no-deps --entrypoint sh a3m -c "rm -rf /home/a3m/.a3m/db.sqlite"
+	docker-compose run --rm --no-deps --entrypoint sh a3m -c "rm -rf /home/a3m/.local/share/a3m/db.sqlite"
 
 flush-shared-dir:  # Flush shared directory including the database.
-	docker-compose run --rm --no-deps --entrypoint sh a3m -c "rm -rf /home/a3m/.a3m/share/"
+	docker-compose run --rm --no-deps --entrypoint sh a3m -c "rm -rf /home/a3m/.local/share/a3m/share/"
 
 amflow:  # See workflow.
 	amflow edit --file=a3m/assets/workflow.json
