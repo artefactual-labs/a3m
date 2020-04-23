@@ -4,14 +4,13 @@ from a3m.executeOrRunSubProcess import executeOrRun
 
 
 def call(jobs):
-    command = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), "copyRecursiveIfExists.sh"
-    )
-
     for job in jobs:
         with job.JobContext():
+            if not os.path.isdir(job.args[1]):
+                return
+
             exit_code, std_out, std_error = executeOrRun(
-                "command", [command] + job.args[1:], capture_output=True
+                "command", ["cp", "-R"] + job.args[1:], capture_output=True
             )
 
             job.write_error(std_error)

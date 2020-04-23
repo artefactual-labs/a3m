@@ -4,14 +4,22 @@ from a3m.executeOrRunSubProcess import executeOrRun
 
 
 def call(jobs):
-    command = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), "copySubmissionDocs.sh"
-    )
-
     for job in jobs:
         with job.JobContext():
+            sip_dir = job.args[1]
+            sip_name = job.args[2]
+
+            source_dir = os.path.join(
+                sip_dir, sip_name, "data", "objects", "submissionDocumentation"
+            )
+            submission_docs_dir = os.path.join(sip_dir, "submissionDocumentation")
+
+            os.makedirs(submission_docs_dir, mode=0o770, exist_ok=True)
+
             exit_code, std_out, std_error = executeOrRun(
-                "command", [command] + job.args[1:], capture_output=True
+                "command",
+                ["cp", "-R", source_dir, submission_docs_dir],
+                capture_output=True,
             )
 
             job.write_error(std_error)
