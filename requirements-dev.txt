@@ -4,8 +4,8 @@
 #
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #
--e git+https://github.com/artefactual-labs/ammcpc@v0.1.1#egg=ammcpc  # via -r requirements.txt
 amclient==1.1.1           # via -r requirements.txt
+ammcpc==0.1.3             # via -r requirements.txt
 appdirs==1.4.3            # via -r requirements.txt, virtualenv
 attrs==19.3.0             # via -r requirements.txt, jsonschema, pytest
 bagit==1.7.0              # via -r requirements.txt
@@ -25,7 +25,8 @@ grpcio-status==1.28.1     # via -r requirements.txt
 grpcio-tools==1.28.1      # via -r requirements-dev.in
 grpcio==1.28.1            # via -r requirements.txt, grpcio-reflection, grpcio-status, grpcio-tools
 idna==2.9                 # via -r requirements.txt, requests, yarl
-importlib-metadata==1.6.0  # via -r requirements.txt, jsonschema, pluggy, pytest, tox, virtualenv
+importlib-metadata==1.6.0  # via -r requirements.txt, importlib-resources, jsonschema, pluggy, pytest, tox, virtualenv
+importlib-resources==1.4.0  # via virtualenv
 inotify_simple==1.3.3     # via -r requirements.txt
 jsonschema==3.2.0         # via -r requirements.txt
 lxml==4.5.0               # via -r requirements.txt, ammcpc, metsrw
@@ -60,7 +61,7 @@ virtualenv==20.0.16       # via tox
 wcwidth==0.1.9            # via pytest
 wrapt==1.12.1             # via vcrpy
 yarl==1.4.2               # via vcrpy
-zipp==3.1.0               # via -r requirements.txt, importlib-metadata
+zipp==3.1.0               # via -r requirements.txt, importlib-metadata, importlib-resources
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
