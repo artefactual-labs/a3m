@@ -245,14 +245,22 @@ LOGGING = {
     },
     "handlers": {
         "console": {
-            "level": "DEBUG",
+            "level": "WARNING",
             "class": "logging.StreamHandler",
             "formatter": "detailed",
         }
     },
-    "loggers": {"archivematica": {"level": "DEBUG"}},
+    "loggers": {"archivematica": {"level": "WARNING"}},
     "root": {"handlers": ["console"], "level": "WARNING"},
 }
+
+DEBUG = config.get("debug")
+
+if DEBUG:
+    LOGGING["handlers"]["console"]["level"] = "DEBUG"
+    LOGGING["loggers"]["archivematica"]["level"] = "DEBUG"
+    LOGGING["root"]["level"] = "DEBUG"
+
 
 if os.path.isfile(LOGGING_CONFIG_FILE):
     with open(LOGGING_CONFIG_FILE) as f:
@@ -312,5 +320,3 @@ else:
 BIND_PID_HANDLE = {}
 
 INSTANCE_ID = "fec7bcf7-45db-4a22-8ceb-e94377db3476"
-
-DEBUG = config.get("debug")
