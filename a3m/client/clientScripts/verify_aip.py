@@ -22,9 +22,7 @@ def extract_aip(job, aip_path, extract_path):
     os.makedirs(extract_path)
     command = f"atool --extract-to={extract_path} -V0 {aip_path}"
     job.pyprint("Running extraction command:", command)
-    exit_code, stdout, stderr = executeOrRun(
-        "command", command, printing=True, capture_output=True
-    )
+    exit_code, stdout, stderr = executeOrRun("command", command, capture_output=True)
     job.write_output(stdout)
     job.write_error(stderr)
     if exit_code != 0:

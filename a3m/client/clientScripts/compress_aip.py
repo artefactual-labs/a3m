@@ -105,7 +105,7 @@ def compress_aip(
 
     job.pyprint("Executing command:", command)
     exit_code, std_out, std_err = executeOrRun(
-        "bashScript", command, printing=True, capture_output=True
+        "bashScript", command, capture_output=True
     )
     job.write_output(std_out)
     job.write_error(std_err)
@@ -122,7 +122,7 @@ def compress_aip(
     # Add compression event
     job.pyprint("Tool info command:", tool_info_command)
     _, tool_info, tool_info_err = executeOrRun(
-        "bashScript", tool_info_command, printing=True, capture_output=True
+        "bashScript", tool_info_command, capture_output=True
     )
     job.write_output(tool_info)
     job.write_error(tool_info_err)

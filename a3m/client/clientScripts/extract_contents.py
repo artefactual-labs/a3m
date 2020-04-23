@@ -197,7 +197,6 @@ def main(job, transfer_uuid, sip_directory, date, task_uuid, delete=False):
             command.script_type,
             command_to_execute,
             arguments=args,
-            printing=True,
             capture_output=True,
         )
         job.write_output(stdout)

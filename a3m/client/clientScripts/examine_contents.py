@@ -8,9 +8,7 @@ def main(job, target, output):
     try:
         os.makedirs(output)
 
-        _, stdout, stderr = executeOrRun(
-            "command", args, printing=True, capture_output=True
-        )
+        _, stdout, stderr = executeOrRun("command", args, capture_output=True)
 
         job.write_output(stdout)
         job.write_error(stderr)
