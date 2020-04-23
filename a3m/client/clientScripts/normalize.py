@@ -95,7 +95,7 @@ class Command:
         self.job.print_output("-----")
         self.job.print_output("Command stdout:")
         self.exit_code, self.std_out, std_err = executeOrRun(
-            self.type, self.command, arguments=args, printing=True, capture_output=True
+            self.type, self.command, arguments=args, capture_output=True
         )
         self.job.write_output(self.std_out)
         self.job.write_error(std_err)

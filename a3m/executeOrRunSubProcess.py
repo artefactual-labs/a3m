@@ -159,7 +159,7 @@ def executeOrRun(
     type,
     text,
     stdIn="",
-    printing=True,
+    printing=False,
     arguments=[],
     env_updates={},
     capture_output=True,
