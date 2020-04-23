@@ -271,6 +271,10 @@ else:
 
 def concurrent_packages_default():
     """Default to 1/2 of CPU count, rounded up."""
+    if "sqlite" in DATABASES["default"]["ENGINE"]:
+        # A3M-TODO: this needs to be investigated further, but having multiple
+        # writer in SQLite seems counterproductive.
+        return 1
     cpu_count = multiprocessing.cpu_count()
     return int(math.ceil(cpu_count / 2))
 
