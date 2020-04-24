@@ -54,10 +54,14 @@ def main(job, transfer_id, url):
         transfer.currentlocation = processing_dir
         transfer.save()
 
+    # A3M-TODO: revisit if we're doing this right,
+    # e.g. baggitZippedDirectory, baggitDirectory, verifyAndRestructureTransferBag...
+
     if bagged:
         next_link_id = "154dd501-a344-45a9-97e3-b30093da35f5"
     else:
-        next_link_id = "045c43ae-d6cf-44f7-97d6-c8a602748565"
+        # Standard transfer path.
+        next_link_id = "50b67418-cb8d-434d-acc9-4a8324e7fdd2"
 
     UnitVariable.objects.update_variable(
         "Transfer", transfer_id, "startingLinkID", value=None, link_id=next_link_id

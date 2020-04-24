@@ -56,17 +56,6 @@
             },
             "link_id": "7a024896-c4f7-4808-a240-44c87c762bc5"
         },
-        "167dc382-4ab1-4051-8e22-e7f1c1bf3e6f": {
-            "description": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            },
-            "link_id": "3229e01f-adf3-4294-85f7-4acb01b3fbcf"
-        },
         "169a5448-c756-4705-a920-737de6b8d595": {
             "description": {
                 "en": "Reject",
@@ -259,17 +248,6 @@
             },
             "link_id": "ccf8ec5c-3a9a-404a-a7e7-8f567d3b36a0"
         },
-        "6953950b-c101-4f4c-a0c3-0cd0684afe5e": {
-            "description": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            },
-            "link_id": "b4567e89-9fea-4256-99f5-a88987026488"
-        },
         "6f0f35fb-6831-4842-9512-4a263700a29b": {
             "description": {
                 "en": "storeAIP",
@@ -296,14 +274,6 @@
                 "sv": "Nej"
             },
             "link_id": "f8ef02c4-f585-4b0d-9b6f-3cef6fbe527f"
-        },
-        "816f28cd-6af1-4d26-97f3-e61645eb881b": {
-            "description": {
-                "en": "baggitDirectory Transfers In progress",
-                "pt_BR": "Transferências baggitDirectory em andamento",
-                "sv": "baggitDirectory Pågående transfers"
-            },
-            "link_id": "f6bcc82a-d629-4a78-8643-bf6e3cb39fe6"
         },
         "86fbea68-d08c-440f-af2c-dac68556db12": {
             "description": {
@@ -374,24 +344,6 @@
             },
             "link_id": "19c94543-14cb-4158-986b-1d2b55723cd8"
         },
-        "b0e0bf75-6b7e-44b6-a0d0-189eea7605dd": {
-            "description": {
-                "en": "baggitZippedFile Transfers In progress",
-                "fr": "Fichier Baggit compressé - Transferts en cours",
-                "pt_BR": "Transferências baggitZippedFile em andamento",
-                "sv": "baggitZippedFile Pågående transfers"
-            },
-            "link_id": "15402367-2d3f-475e-b251-55532347a3c2"
-        },
-        "a10b0088-b038-4ea2-91cc-b7761f07fe5a": {
-            "description": {
-                "en": "Zipped Transfers In progress",
-                "fr": "Fichier compressé - Transferts en cours",
-                "pt_BR": "Transferências ZippedFile em andamento",
-                "sv": "ZippedFile Pågående transfers"
-            },
-            "link_id": "44e0b981-78d2-4403-8233-05038b3cc603"
-        },
         "b7ce05f0-9d94-4b3e-86cc-d4b2c6dba546": {
             "description": {
                 "en": "No",
@@ -441,17 +393,6 @@
                 "sv": "Ja"
             },
             "link_id": "6c147aeb-20c5-47ce-9f40-7f22683cea1f"
-        },
-        "c75ef451-2040-4511-95ac-3baa0f019b48": {
-            "description": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            },
-            "link_id": "288b739d-40a1-4454-971b-812127a5e03d"
         },
         "c868840c-cf0b-49db-a684-af4248702954": {
             "description": {
@@ -543,17 +484,6 @@
             },
             "link_id": "2584b25c-8d98-44b7-beca-2b3ea2ea2505"
         },
-        "f3caceff-5ad5-4bad-b98c-e73f8cd03450": {
-            "description": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            },
-            "link_id": "541f5994-73b0-45bb-9cb5-367c06a21be7"
-        },
         "f6df8882-d076-441e-bb00-2f58d5eda098": {
             "description": {
                 "en": "Generate transfer structure report",
@@ -584,15 +514,6 @@
                 "sv": "Automatisk skapande av SIP avslutad"
             },
             "link_id": "70669a5b-01e4-4ea0-ac70-10292f87da05"
-        },
-        "fffd5342-2337-463f-857a-b2c8c3778c6d": {
-            "description": {
-                "en": "Transfers In progress",
-                "fr": "Transferts en cours",
-                "pt_BR": "Transferências em andamento",
-                "sv": "Pågående överföringar"
-            },
-            "link_id": "0c94e6b5-4714-4bec-82c8-e187e0c04d77"
         }
     },
     "links": {
@@ -632,7 +553,7 @@
                 "variable": "startingLinkID"
             },
             "description": {
-                "en": "Start processing"
+                "en": "a3m - Start processing"
             },
             "exit_codes": {},
             "fallback_job_status": "Completed successfully",
@@ -943,39 +864,6 @@
                 "sv": "Bearbeta metadatamapp"
             }
         },
-        "045c43ae-d6cf-44f7-97d6-c8a602748565": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"Standard\"",
-                "execute": "archivematicaSetTransferType_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Set transfer type: Standard",
-                "fr": "Définir le type de transfert : Standard",
-                "pt_BR": "Definir tipo de transferência: Padrão",
-                "sv": "Sätt transfertyp: Standard"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "50b67418-cb8d-434d-acc9-4a8324e7fdd2"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "50b67418-cb8d-434d-acc9-4a8324e7fdd2",
-            "group": {
-                "en": "Verify transfer compliance",
-                "fr": "Vérifier la conformité du transfert",
-                "pt_BR": "Verificar a conformidade da transferência",
-                "sv": "Kontrollera överförings följsamhet"
-            }
-        },
         "087d27be-c719-47d8-9bbb-9a7d8b609c44": {
             "config": {
                 "@manager": "linkTaskManagerReplacementDicFromChoice",
@@ -1223,35 +1111,6 @@
                 "sv": "Normalisera"
             }
         },
-        "0c94e6b5-4714-4bec-82c8-e187e0c04d77": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "6953950b-c101-4f4c-a0c3-0cd0684afe5e",
-                    "1b04ec43-055c-43b7-9543-bd03c6a778ba"
-                ]
-            },
-            "description": {
-                "en": "Approve standard transfer",
-                "es": "Aprobar transferencia estándar",
-                "fr": "Approuver le transfert Standard",
-                "ja": "標準転送を承認",
-                "pt_BR": "Confirmar transferência padrão",
-                "sv": "Godkänn standardöverföring"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            }
-        },
         "0c96c798-9ace-4c05-b3cf-243cdad796b7": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -1480,70 +1339,6 @@
                 "fr": "Vérifications de politique sur les copies",
                 "pt_BR": "Verificações de políticas para derivados",
                 "sv": "Policykontroll för bearbetningar"
-            }
-        },
-        "15402367-2d3f-475e-b251-55532347a3c2": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "167dc382-4ab1-4051-8e22-e7f1c1bf3e6f",
-                    "1b04ec43-055c-43b7-9543-bd03c6a778ba"
-                ]
-            },
-            "description": {
-                "en": "Approve zipped bagit transfer",
-                "es": "Aprobar transferencia de zipped bagit",
-                "fr": "Approuver le transfert BagIt compressé",
-                "ja": "ZIPにした bagit 転送を承認",
-                "pt_BR": "Confirmar transferência bagit zipada",
-                "sv": "Godkänn zipped bagit överföring"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            }
-        },
-        "154dd501-a344-45a9-97e3-b30093da35f5": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%%SIPName%-%SIPUUID%\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Rename with transfer UUID",
-                "fr": "Renommer avec l'UUID du transfert",
-                "pt_BR": "Renomear com transferência UUID",
-                "sv": "Byt namn med överförings UUID"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "3c526a07-c3b8-4e53-801b-7f3d0c4857a5"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
             }
         },
         "15a2df8a-7b45-4c11-b6fa-884c9b7e5c67": {
@@ -2113,40 +1908,6 @@
                 "sv": "Normalisera"
             }
         },
-        "288b739d-40a1-4454-971b-812127a5e03d": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "154dd501-a344-45a9-97e3-b30093da35f5"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            }
-        },
         "2900f6d8-b64c-4f2a-8f7f-bb60a57394f6": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -2420,41 +2181,6 @@
                 "ja": "AIPの再インジェスト",
                 "pt_BR": "Readmitir AIP",
                 "sv": "Återingestera AIP"
-            }
-        },
-        "3229e01f-adf3-4294-85f7-4acb01b3fbcf": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%SIPUUID%\" \"%processingDirectory%\" \"%sharedPath%\" --bag",
-                "execute": "extractZippedTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Extract zipped bag transfer",
-                "es": "Extraer transferencia bag comprimida",
-                "pt_BR": "Extrair o pacote zipado",
-                "sv": "Extrahera zipped bag överföring"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "154dd501-a344-45a9-97e3-b30093da35f5"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
             }
         },
         "333532b9-b7c2-4478-9415-28a3056d58df": {
@@ -2875,43 +2601,6 @@
                 "sv": "Policykontroll för bearbetningar"
             }
         },
-        "3c526a07-c3b8-4e53-801b-7f3d0c4857a5": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "--transferUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
-                "execute": "assignFileUUIDs_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Assign file UUIDs to objects",
-                "es": "Asignar UUIDs a los objetos",
-                "fr": "Attribuer un fichier UUID aux objets",
-                "ja": "ファイルUUIDをオブジェクトに割当",
-                "pt_BR": "Atribuir UUIDs de arquivos a objetos",
-                "sv": "Tilldela fils UUID:er till objekt"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "c77fee8c-7c4e-4871-a72e-94d499994869"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            }
-        },
         "3e25bda6-5314-4bb4-aa1e-90900dce887d": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -3158,69 +2847,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "44e0b981-78d2-4403-8233-05038b3cc603": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "f3caceff-5ad5-4bad-b98c-e73f8cd03450",
-                    "1b04ec43-055c-43b7-9543-bd03c6a778ba"
-                ]
-            },
-            "description": {
-                "en": "Approve zipped transfer",
-                "es": "Aprobar transferencia de zipfile",
-                "fr": "Approuver le transfert compressé",
-                "ja": "ZIPにした 転送を承認",
-                "pt_BR": "Confirmar transferência zipada",
-                "sv": "Godkänn zipped överföring"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            }
-        },
-        "46e19522-9a71-48f1-9ccd-09cabfba3f38": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%sharedMicroServiceTasksConfigs/processingMCPConfigs/%processingConfiguration%ProcessingMCP.xml\" \"%SIPDirectory%processingMCP.xml\" -n",
-                "execute": "copy_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Include default Transfer processingMCP.xml",
-                "pt_BR": "Incluir transferência padrão processingMCP.xml",
-                "sv": "Inkludera standadard överförings processing.xml"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "8882bad4-561c-4126-89c9-f7f0c083d5d7"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
             }
         },
         "47c83e01-7556-4c13-881f-282c6d9c7d6a": {
@@ -3516,76 +3142,6 @@
                 "ja": "READMEファイルを追加",
                 "pt_BR": "Adicionar arquivo README",
                 "sv": "Lägg till README-fil"
-            }
-        },
-        "5415c813-3637-49ab-afec-9b435c2e4d2c": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%SIPUUID%\" --include-dirs \"%AssignUUIDsToDirectories%\"",
-                "execute": "assignUUIDsToDirectories_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Assign UUIDs to directories",
-                "fr": "Attribuer les UUIDs aux répertoires",
-                "pt_BR": "Atribuir UUIDs para diretórios",
-                "sv": "Tilldela mappar UUID:er"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "1c2550f1-3fc0-45d8-8bc4-4c06d720283b"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "1c2550f1-3fc0-45d8-8bc4-4c06d720283b",
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            }
-        },
-        "541f5994-73b0-45bb-9cb5-367c06a21be7": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%SIPUUID%\" \"%processingDirectory%\" \"%sharedPath%\"",
-                "execute": "extractZippedTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Extract zipped transfer",
-                "es": "Extraer transferencia comprimida",
-                "pt_BR": "Extrair o zipado",
-                "sv": "Extrahera zipped överföring"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "045c43ae-d6cf-44f7-97d6-c8a602748565"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
             }
         },
         "54b73077-a062-41cc-882c-4df1eba447d9": {
@@ -5140,62 +4696,6 @@
                 "sv": "Lås PID:er."
             }
         },
-        "8882bad4-561c-4126-89c9-f7f0c083d5d7": {
-            "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": [
-                    {
-                        "description": {
-                            "en": "No",
-                            "fr": "Non",
-                            "ja": "いいえ",
-                            "sv": "Nej"
-                        },
-                        "id": "0053c670-3e61-4a3e-a188-3a2dd1eda426",
-                        "items": {
-                            "AssignUUIDsToDirectories": "False"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "Yes",
-                            "es": "Sí",
-                            "fr": "Oui",
-                            "ja": "はい",
-                            "pt_BR": "Sim",
-                            "sv": "Ja"
-                        },
-                        "id": "7e4cf404-e62d-4dc2-8d81-6141e390f66f",
-                        "items": {
-                            "AssignUUIDsToDirectories": "True"
-                        }
-                    }
-                ]
-            },
-            "description": {
-                "en": "Assign UUIDs to directories?",
-                "fr": "Attribuer les UUIDs aux répertoires?",
-                "pt_BR": "Atribuir UUIDs aos diretórios?",
-                "sv": "Tilldela mappar UUID:er?"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5415c813-3637-49ab-afec-9b435c2e4d2c"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "5415c813-3637-49ab-afec-9b435c2e4d2c",
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            }
-        },
         "88d2120a-4d19-4b47-922f-7438be1f52a2": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -6446,38 +5946,6 @@
                 "sv": "Normalisera"
             }
         },
-        "b4567e89-9fea-4256-99f5-a88987026488": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "045c43ae-d6cf-44f7-97d6-c8a602748565"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Verify transfer compliance",
-                "fr": "Vérifier la conformité du transfert",
-                "pt_BR": "Verificar a conformidade da transferência",
-                "sv": "Kontrollera överförings följsamhet"
-            }
-        },
         "b6b0fe37-aa26-40bd-8be8-d3acebf3ccf8": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -6918,43 +6386,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "c77fee8c-7c4e-4871-a72e-94d499994869": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
-                "execute": "updateSizeAndChecksum_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Assign checksums and file sizes to objects",
-                "es": "Asignar sumas de verificación y tamaños de ficheros a los objectos",
-                "fr": "Attribuer des sommes de contrôle et la taille des fichier aux objets",
-                "ja": "チェックサムとファイルサイズをオブジェクトに割当",
-                "pt_BR": "Atribua somas de verificação e tamanhos de arquivo aos objetos",
-                "sv": "Tilldela checksummor  och filstorlekar till objekt"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "f0f64c7e-30fa-47c1-9877-43955680c0d0"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
             }
         },
         "cb8e5706-e73f-472f-ad9b-d1236af8095f": {
@@ -8044,40 +7475,6 @@
                 "sv": "Identifiera filformat"
             }
         },
-        "f0f64c7e-30fa-47c1-9877-43955680c0d0": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%SIPUUID%\"",
-                "execute": "verifyAndRestructureTransferBag_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Verify bag, and restructure for compliance",
-                "pt_BR": "Verifique o pacote e reestruturar a conformidade",
-                "sv": "Kontrollera bag, och omstrukturera för följsamhet"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "46e19522-9a71-48f1-9ccd-09cabfba3f38"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            }
-        },
         "f19926dd-8fb5-4c79-8ade-c83f61f55b40": {
             "config": {
                 "@manager": "linkTaskManagerReplacementDicFromChoice",
@@ -8342,35 +7739,6 @@
                 "sv": "Bearbeta leveransdokumentation"
             }
         },
-        "f6bcc82a-d629-4a78-8643-bf6e3cb39fe6": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "1b04ec43-055c-43b7-9543-bd03c6a778ba",
-                    "c75ef451-2040-4511-95ac-3baa0f019b48"
-                ]
-            },
-            "description": {
-                "en": "Approve bagit transfer",
-                "es": "Aprobar transferencia bagit",
-                "fr": "Approuver le transfert BagIt",
-                "ja": "bagit転送を承認",
-                "pt_BR": "Confirmar transferência bagit",
-                "sv": "Godkänn bagit-överföring"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Approve transfer",
-                "es": "Aprobar transferencia",
-                "fr": "Approuver le transfert",
-                "ja": "転送を承認",
-                "pt_BR": "Confirmar transferência",
-                "sv": "Godkänn överföring"
-            }
-        },
         "f6fdd1a7-f0c5-4631-b5d3-19421155bd7a": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -8577,30 +7945,6 @@
             "only_dirs": true,
             "path": "/system/autoProcessSIP",
             "unit_type": "SIP"
-        },
-        {
-            "chain_id": "b0e0bf75-6b7e-44b6-a0d0-189eea7605dd",
-            "only_dirs": false,
-            "path": "/activeTransfers/baggitZippedDirectory",
-            "unit_type": "Transfer"
-        },
-        {
-            "chain_id": "fffd5342-2337-463f-857a-b2c8c3778c6d",
-            "only_dirs": true,
-            "path": "/activeTransfers/standardTransfer",
-            "unit_type": "Transfer"
-        },
-        {
-            "chain_id": "a10b0088-b038-4ea2-91cc-b7761f07fe5a",
-            "only_dirs": false,
-            "path": "/activeTransfers/zippedDirectory",
-            "unit_type": "Transfer"
-        },
-        {
-            "chain_id": "816f28cd-6af1-4d26-97f3-e61645eb881b",
-            "only_dirs": true,
-            "path": "/activeTransfers/baggitDirectory",
-            "unit_type": "Transfer"
         },
         {
             "chain_id": "a2e19764-b373-4093-b0dd-11d61580f180",
