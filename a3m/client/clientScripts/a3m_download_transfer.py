@@ -45,7 +45,7 @@ def main(job, transfer_id, url):
         raise Exception("Extraction failed")
 
     # Determine whether it is a bag.
-    bagged = is_bag(contents_dir, printfn=job.pyprint)
+    bagged = is_bag(contents_dir)
 
     # Move to processing directory.
     shutil.move(contents_dir, processing_dir)

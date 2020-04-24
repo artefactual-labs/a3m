@@ -5,7 +5,7 @@ from bagit import Bag
 from bagit import BagError
 
 
-def is_bag(path, printfn=print):
+def is_bag(path):
     """Determine whether the directory contains a BagIt package.
 
     The constructor of ``Bag`` is fast enough but we may prefer to optimize
@@ -13,8 +13,7 @@ def is_bag(path, printfn=print):
     """
     try:
         Bag(path)
-    except BagError as err:
-        printfn("Error opening BagIt package:", err, file=sys.stderr)
+    except BagError:
         return False
     return True
 
