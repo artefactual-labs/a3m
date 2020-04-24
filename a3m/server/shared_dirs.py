@@ -223,8 +223,6 @@ def create():
         "rejected",
         "sharedMicroServiceTasksConfigs",
         "sharedMicroServiceTasksConfigs/processingMCPConfigs",
-        "sharedMicroServiceTasksConfigs/transcoder",
-        "sharedMicroServiceTasksConfigs/transcoder/defaultIcons",
         "tmp",
         "watchedDirectories",
         "watchedDirectories/approveNormalization",
