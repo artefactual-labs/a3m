@@ -172,13 +172,8 @@ class Hashsum:
 
     @staticmethod
     def _decode(out):
-        """Decode string output in Py2 or Py3 and return a list of lines to be
-        parsed elsewhere.
-        """
-        try:
-            return str(out, "utf8").split("\n")
-        except TypeError:
-            return out.decode("utf8").split("\n")
+        """Decode binary string and return a list of lines."""
+        return str(out, "utf8").split("\n")
 
     @staticmethod
     def get_ext(path):
