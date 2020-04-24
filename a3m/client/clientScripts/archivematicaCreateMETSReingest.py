@@ -461,12 +461,10 @@ def add_new_files(job, mets, sip_uuid, sip_dir):
         amdsec, amdid = createmets2.getAMDSec(
             job,
             fileUUID=f.uuid,
-            filePath=None,  # Only needed if use=original
             use=f.filegrpuse,
             sip_uuid=sip_uuid,
             transferUUID=None,  # Only needed if use=original
             itemdirectoryPath=None,  # Only needed if use=original
-            typeOfTransfer=None,  # Only needed if use=original
             baseDirectoryPath=sip_dir,
             state=state,
         )

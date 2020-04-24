@@ -34,15 +34,6 @@ from django.utils import timezone
 
 from .archivematicaCreateMETSMetadataCSV import parseMetadata
 from .archivematicaCreateMETSRights import archivematicaGetRights
-from .archivematicaCreateMETSRightsDspaceMDRef import (
-    archivematicaCreateMETSRightsDspaceMDRef,
-)
-from .archivematicaCreateMETSTrim import getTrimAmdSec
-from .archivematicaCreateMETSTrim import getTrimDmdSec
-from .archivematicaCreateMETSTrim import getTrimFileAmdSec
-from .archivematicaCreateMETSTrim import getTrimFileDmdSec
-from .create_mets_dataverse_v2 import create_dataverse_sip_dmdsec
-from .create_mets_dataverse_v2 import create_dataverse_tabfile_dmdsec
 from .sanitize_names import sanitize_name
 from a3m import namespaces as ns
 from a3m.archivematicaFunctions import escape
@@ -96,8 +87,6 @@ class MetsState:
         self.fileNameToFileID = {}  # Used for mapping structMaps included with transfer
         self.globalStructMapCounter = 0
 
-        self.trimStructMap = None
-        self.trimStructMapObjects = None
         # GROUPID="G1" -> GROUPID="Group-%object's UUID%"
         # group of the object and it's related access, license
 
@@ -369,74 +358,6 @@ def createDublincoreDMDSecFromDBData(
     xmlData = etree.SubElement(mdWrap, ns.metsBNS + "xmlData")
     xmlData.append(dc)
     return (dmdSec, ID)
-
-
-def createDSpaceDMDSec(job, label, dspace_mets_path, directoryPathSTR, state):
-    """
-    Parse DSpace METS file and create a dmdSecs from the info.
-
-    One dmdSec will contain a mdRef to the DSpace METS file. The other dmdSec
-    will contain Dublin Core metadata with the identifier and parent collection
-    identifier.
-
-    :param str label: LABEL for the mdRef
-    :param str dspace_mets_path: Path to the DSpace METS
-    :param str directoryPathSTR: Relative path to the DSpace METS
-    :return: dict of {<dmdSec ID>: <dmdSec Element>}
-    """
-    dmdsecs = collections.OrderedDict()
-    root = etree.parse(dspace_mets_path)
-
-    # Create mdRef to DSpace METS file
-    state.globalDmdSecCounter += 1
-    dmdid = "dmdSec_" + str(state.globalDmdSecCounter)
-    dmdsec = etree.Element(ns.metsBNS + "dmdSec", ID=dmdid)
-    dmdsecs[dmdid] = dmdsec
-    xptr_dmdids = [
-        i.get("ID") for i in root.findall("{http://www.loc.gov/METS/}dmdSec")
-    ]
-    try:
-        xptr = "xpointer(id('{}'))".format(" ".join(xptr_dmdids))
-    except TypeError:  # Trying to .join() on a list with None
-        job.pyprint("dmdSec in", dspace_mets_path, "missing an ID", file=sys.stderr)
-        raise
-    newChild(
-        dmdsec,
-        ns.metsBNS + "mdRef",
-        text=None,
-        sets=[
-            ("LABEL", label),
-            (ns.xlinkBNS + "href", directoryPathSTR),
-            ("MDTYPE", "OTHER"),
-            ("LOCTYPE", "OTHER"),
-            ("OTHERLOCTYPE", "SYSTEM"),
-            ("XPTR", xptr),
-        ],
-    )
-
-    # Create dmdSec with DC identifier and isPartOf
-    identifier = root.findtext(
-        'mets:amdSec/mets:sourceMD/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@qualifier="uri"]',
-        namespaces=ns.NSMAP,
-    )
-    part_of = root.findtext(
-        'mets:amdSec/mets:sourceMD/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@qualifier="isPartOf"]',
-        namespaces=ns.NSMAP,
-    )
-    if identifier is None or part_of is None:
-        job.pyprint(
-            "Unable to parse identifer and isPartOf from",
-            dspace_mets_path,
-            file=sys.stderr,
-        )
-        return {}
-    metadata = {"dc.identifier": [identifier], "dcterms.isPartOf": [part_of]}
-    dc_dmdsecs = createDmdSecsFromCSVParsedMetadata(job, metadata, state)
-    dmdsec = dc_dmdsecs[0]  # Should only be one dmdSec
-    dmdid = dmdsec.get("ID")
-    dmdsecs[dmdid] = dmdsec
-
-    return dmdsecs
 
 
 def createTechMD(fileUUID, state):
@@ -770,12 +691,10 @@ def createAgent(agent_record):
 def getAMDSec(
     job,
     fileUUID,
-    filePath,
     use,
     sip_uuid,
     transferUUID,
     itemdirectoryPath,
-    typeOfTransfer,
     baseDirectoryPath,
     state,
 ):
@@ -783,17 +702,14 @@ def getAMDSec(
     Creates an amdSec.
 
     techMD contains a PREMIS:OBJECT, see createTechMD
-    rightsMD contain PREMIS:RIGHTS, see archivematicaGetRights, archivematicaCreateMETSRightsDspaceMDRef or getTrimFileAmdSec
+    rightsMD contain PREMIS:RIGHTS, see archivematicaGetRights
     digiprovMD contain PREMIS:EVENT and PREMIS:AGENT, see createDigiprovMD and createDigiprovMDAgents
 
     :param fileUUID: UUID of the file
-    :param filePath: For archivematicaCreateMETSRightsDspaceMDRef
     :param use: If "original", look for rights metadata.
     :param sip_uuid: UUID of the SIP this file is in, to check for original file rights metadata.
     :param transferUUID: UUID of the Transfer this file was in, to check for original file rights metadata.
-    :param itemdirectoryPath: For archivematicaCreateMETSRightsDspaceMDRef
-    :param typeOfTransfer: Transfer type, used for checking for DSpace or TRIM rights metadata.
-    :param baseDirectoryPath: For getTrimFileAmdSec
+    :param itemdirectoryPath:
     """
     state.globalAmdSecCounter += 1
     AMDID = "amdSec_%s" % (state.globalAmdSecCounter.__str__())
@@ -817,23 +733,6 @@ def getAMDSec(
             mdWrap.set("MDTYPE", "PREMIS:RIGHTS")
             xmlData = newChild(mdWrap, ns.metsBNS + "xmlData")
             xmlData.append(a)
-
-        if typeOfTransfer == "Dspace":
-            for a in archivematicaCreateMETSRightsDspaceMDRef(
-                job, fileUUID, filePath, transferUUID, itemdirectoryPath, state
-            ):
-                state.globalRightsMDCounter += 1
-                rightsMD = etree.SubElement(AMD, ns.metsBNS + "rightsMD")
-                rightsMD.set("ID", "rightsMD_" + state.globalRightsMDCounter.__str__())
-                rightsMD.append(a)
-
-        elif typeOfTransfer == "TRIM":
-            digiprovMD = getTrimFileAmdSec(job, baseDirectoryPath, sip_uuid, fileUUID)
-            state.globalDigiprovMDCounter += 1
-            digiprovMD.set(
-                "ID", "digiprovMD_" + state.globalDigiprovMDCounter.__str__()
-            )
-            AMD.append(digiprovMD)
 
     for a in createDigiprovMD(fileUUID, state):
         AMD.append(a)
@@ -946,7 +845,6 @@ def createFileSec(
     :param includeAmdSec: If True, creates amdSecs for the files
     """
     filesInThisDirectory = []
-    dspaceMetsDMDID = None
     try:
         directoryContents = sorted(os.listdir(directoryPath))
     except os.error:
@@ -1026,46 +924,8 @@ def createFileSec(
 
             use = f.filegrpuse
             label = f.label
-            typeOfTransfer = f.transfer.type if f.transfer else None
 
             directoryPathSTR = itemdirectoryPath.replace(baseDirectoryPath, "", 1)
-
-            # Special TRIM processing
-            if typeOfTransfer == "TRIM" and state.trimStructMap is None:
-                state.trimStructMap = etree.Element(
-                    ns.metsBNS + "structMap",
-                    attrib={
-                        "TYPE": "logical",
-                        "ID": "structMap_2",
-                        "LABEL": "Hierarchical arrangement",
-                    },
-                )
-                state.trimStructMapObjects = etree.SubElement(
-                    state.trimStructMap,
-                    ns.metsBNS + "div",
-                    attrib={"TYPE": "File", "LABEL": "objects"},
-                )
-
-                trimDmdSec = getTrimDmdSec(job, baseDirectoryPath, fileGroupIdentifier)
-                state.globalDmdSecCounter += 1
-                state.dmdSecs.append(trimDmdSec)
-                ID = "dmdSec_" + state.globalDmdSecCounter.__str__()
-                trimDmdSec.set("ID", ID)
-                state.trimStructMapObjects.set("DMDID", ID)
-
-                trimAmdSec = etree.Element(ns.metsBNS + "amdSec")
-                state.globalAmdSecCounter += 1
-                state.amdSecs.append(trimAmdSec)
-                ID = "amdSec_" + state.globalAmdSecCounter.__str__()
-                trimAmdSec.set("ID", ID)
-
-                digiprovMD = getTrimAmdSec(job, baseDirectoryPath, fileGroupIdentifier)
-                state.globalDigiprovMDCounter += 1
-                digiprovMD.set("ID", "digiprovMD_" + str(state.globalDigiprovMDCounter))
-
-                trimAmdSec.append(digiprovMD)
-
-                state.trimStructMapObjects.set("ADMID", ID)
 
             # Create <div TYPE="Item"> and child <fptr>
             # <fptr FILEID="file-<UUID>" LABEL="filename.ext">
@@ -1084,19 +944,10 @@ def createFileSec(
             if f.filegrpuuid:
                 # GROUPID was determined elsewhere
                 GROUPID = "Group-%s" % (f.filegrpuuid)
-                if use == "TRIM file metadata":
-                    use = "metadata"
 
-            elif use in (
-                "original",
-                "submissionDocumentation",
-                "metadata",
-                "maildirFile",
-            ):
+            elif use in ("original", "submissionDocumentation", "metadata",):
                 # These files are in a group defined by themselves
                 GROUPID = "Group-%s" % (f.uuid)
-                if use == "maildirFile":
-                    use = "original"
                 # Check for CSV-based Dublincore dmdSec
                 if use == "original":
                     DMDIDS = createDMDIDsFromCSVMetadata(
@@ -1106,41 +957,6 @@ def createFileSec(
                     )
                     if DMDIDS:
                         fileDiv.set("DMDID", DMDIDS)
-                    # More special TRIM processing
-                    if typeOfTransfer == "TRIM":
-                        trimFileDiv = etree.SubElement(
-                            state.trimStructMapObjects,
-                            ns.metsBNS + "div",
-                            attrib={"TYPE": "Item"},
-                        )
-
-                        trimFileDmdSec = getTrimFileDmdSec(
-                            job, baseDirectoryPath, fileGroupIdentifier, f.uuid
-                        )
-                        state.globalDmdSecCounter += 1
-                        state.dmdSecs.append(trimFileDmdSec)
-                        ID = "dmdSec_" + state.globalDmdSecCounter.__str__()
-                        trimFileDmdSec.set("ID", ID)
-
-                        trimFileDiv.set("DMDID", ID)
-
-                        etree.SubElement(
-                            trimFileDiv, ns.metsBNS + "fptr", FILEID=fileId
-                        )
-
-            elif typeOfTransfer == "Dspace" and (
-                use in ("license", "text/ocr", "DSPACEMETS")
-            ):
-                # Dspace transfers are treated specially, but some of these fileGrpUses may be encountered in other types
-                kwargs = {
-                    "removedtime__isnull": True,
-                    fileGroupType: fileGroupIdentifier,
-                    "filegrpuse": "original",
-                    "originallocation__startswith": os.path.dirname(f.originallocation),
-                }
-                original_file = File.objects.filter(**kwargs).first()
-                if original_file is not None:
-                    GROUPID = "Group-" + original_file.uuid
 
             elif use in ("preservation", "text/ocr", "derivative"):
                 # Derived files should be in the original file's group
@@ -1171,41 +987,6 @@ def createFileSec(
                 }
                 original_file = File.objects.get(**kwargs)
                 GROUPID = "Group-" + original_file.uuid
-
-            elif use == "TRIM container metadata":
-                GROUPID = "Group-%s" % (f.uuid)
-                use = "metadata"
-
-            # Special DSPACEMETS processing
-            if f.transfer and f.transfer.type == "Dspace" and use == "DSPACEMETS":
-                use = "submissionDocumentation"
-                admidApplyTo = None
-                if GROUPID == "":  # is an AIP identifier
-                    GROUPID = f.uuid
-                    admidApplyTo = structMapDiv.getparent()
-
-                label = "mets.xml-%s" % (GROUPID)
-                dspace_dmdsecs = createDSpaceDMDSec(
-                    job, label, itemdirectoryPath, directoryPathSTR, state
-                )
-                if dspace_dmdsecs:
-                    state.dmdSecs.extend(list(dspace_dmdsecs.values()))
-                    ids = " ".join(list(dspace_dmdsecs.keys()))
-                    if admidApplyTo is not None:
-                        admidApplyTo.set("DMDID", ids)
-                    else:
-                        dspaceMetsDMDID = ids
-
-            # Special Dataverse processing. If there's .tab file, check if
-            # there's a Dataverse METS with additional metadata.
-            if f.originallocation.endswith(".tab"):
-                dv_metadata = create_dataverse_tabfile_dmdsec(
-                    job, baseDirectoryPath, os.path.basename(f.originallocation)
-                )
-                state.dmdSecs.extend(dv_metadata)
-                ids = " ".join([ds.get("ID") for ds in dv_metadata])
-                if ids != "":
-                    fileDiv.attrib["DMDID"] = fileDiv.attrib.get("DMDID", "") + ids
 
             if GROUPID == "":
                 state.error_accumulator.error_count += 1
@@ -1239,21 +1020,15 @@ def createFileSec(
                     AMD, ADMID = getAMDSec(
                         job,
                         f.uuid,
-                        directoryPathSTR,
                         use,
                         fileGroupIdentifier,
                         f.transfer_id,
                         itemdirectoryPath,
-                        typeOfTransfer,
                         baseDirectoryPath,
                         state,
                     )
                     state.amdSecs.append(AMD)
                     file_elem.set("ADMID", ADMID)
-
-    if dspaceMetsDMDID is not None:
-        for file_elem in filesInThisDirectory:
-            file_elem.set("DMDID", dspaceMetsDMDID)
 
     return structMapDiv
 
@@ -1781,14 +1556,6 @@ def call(jobs):
                         structMapDiv.set("DMDID", ID)
                     root.append(dmdSec)
 
-                # Look for Dataverse specific descriptive metatdata.
-                dv = create_dataverse_sip_dmdsec(job, baseDirectoryPath)
-                for dmdSec in dv:
-                    dmdid = dmdSec.attrib["ID"]
-                    dmdids = structMapDivObjects.get("DMDID", "") + " " + dmdid
-                    structMapDivObjects.set("DMDID", dmdids)
-                    root.append(dmdSec)
-
                 for dmdSec in state.dmdSecs:
                     root.append(dmdSec)
 
@@ -1804,9 +1571,6 @@ def call(jobs):
                     job, baseDirectoryPath, state
                 ):
                     root.append(custom_structmap)
-
-                if state.trimStructMap is not None:
-                    root.append(state.trimStructMap)
 
                 arranged_structmap = build_arranged_structmap(
                     job, structMap, fileGroupIdentifier

@@ -181,7 +181,7 @@ environment_info = Info(
 # There's no central place to pull these constants from currently
 FILE_GROUPS = ("original", "derivative", "metadata")
 PACKAGE_FAILURE_TYPES = ("fail", "reject")
-TRANSFER_TYPES = ("Standard", "Dataverse", "Dspace", "TRIM", "Maildir", "Unknown")
+TRANSFER_TYPES = ("Standard", "Unknown")
 
 
 def skip_if_prometheus_disabled(func):
