@@ -51,16 +51,6 @@
     },
     {
         "fields": {
-            "slug": "archivematica-maildir",
-            "group": "5b14d57c-d6f1-4807-b98d-0a574d6bf8fc",
-            "uuid": "187d9216-7a53-4ef6-b9dd-4a397c414543",
-            "description": "Archivematica Maildir"
-        },
-        "model": "fpr.format",
-        "pk": 6
-    },
-    {
-        "fields": {
             "slug": "mbox",
             "group": "5b14d57c-d6f1-4807-b98d-0a574d6bf8fc",
             "uuid": "0adc6cb6-d283-497a-8cec-da6f8618120f",
@@ -16355,23 +16345,6 @@
         },
         "model": "fpr.formatversion",
         "pk": 258
-    },
-    {
-        "fields": {
-            "replaces": null,
-            "uuid": "c6a208a1-8abc-47b9-9b1e-47c877aa4a0f",
-            "format": "187d9216-7a53-4ef6-b9dd-4a397c414543",
-            "lastmodified": "2013-11-15T01:18:32Z",
-            "enabled": true,
-            "access_format": false,
-            "preservation_format": true,
-            "version": "",
-            "slug": "archivematica-maildir",
-            "pronom_id": "",
-            "description": "Archivematica Maildir"
-        },
-        "model": "fpr.formatversion",
-        "pk": 259
     },
     {
         "fields": {
@@ -45297,19 +45270,6 @@
     {
         "fields": {
             "replaces": null,
-            "uuid": "7f8975f9-376b-41f9-86c7-3e40437d5d2f",
-            "format": "c6a208a1-8abc-47b9-9b1e-47c877aa4a0f",
-            "lastmodified": "2013-11-15T01:18:35Z",
-            "enabled": true,
-            "command_output": ".archivematicamaildir",
-            "command": "41efbe1b-3fc7-4b24-9290-d0fb5d0ea9e9"
-        },
-        "model": "fpr.idrule",
-        "pk": 104
-    },
-    {
-        "fields": {
-            "replaces": null,
             "uuid": "c146adf2-79d0-490a-bd1e-9c4c1eae393f",
             "format": "b4300961-1f9e-45ab-9d5a-1b0f725e7dc7",
             "lastmodified": "2013-11-15T01:18:35Z",
@@ -61170,22 +61130,6 @@
             "count_not_okay": 0,
             "replaces": null,
             "count_attempts": 0,
-            "uuid": "88337789-3e52-442c-8b66-ac46faf61133",
-            "format": "c6a208a1-8abc-47b9-9b1e-47c877aa4a0f",
-            "lastmodified": "2013-11-15T01:18:40Z",
-            "enabled": true,
-            "command": "e1b71449-8822-49ac-9d8a-b7ed6f960ec8",
-            "purpose": "access",
-            "count_okay": 0
-        },
-        "model": "fpr.fprule",
-        "pk": 294
-    },
-    {
-        "fields": {
-            "count_not_okay": 0,
-            "replaces": null,
-            "count_attempts": 0,
             "uuid": "7083ca27-77c5-4ab2-8250-ce48d13c2835",
             "format": "ce097bf8-dc4d-4083-932e-82224890f26a",
             "lastmodified": "2013-11-15T01:18:40Z",
@@ -70277,25 +70221,6 @@
     {
         "fields": {
             "replaces": null,
-            "uuid": "5c319663-42f6-4a46-b957-f730c5f3ae88",
-            "lastmodified": "2013-11-15T01:18:36Z",
-            "tool": "2385486a-35e2-42e4-bae9-3bfa1995dda4",
-            "enabled": true,
-            "event_detail_command": null,
-            "output_location": "",
-            "command_usage": "event_detail",
-            "verification_command": null,
-            "command": "echo \"/usr/lib/archivematica/transcoder/transcoderScripts/\" \"%fileFullName%\" \"%outputDirectory%%prefix%%fileName%%postfix%.mbox\"",
-            "script_type": "command",
-            "output_format": null,
-            "description": "Transcoding maildir to mbox event detail"
-        },
-        "model": "fpr.fpcommand",
-        "pk": 10
-    },
-    {
-        "fields": {
-            "replaces": null,
             "uuid": "77f73d63-7d82-4b61-8dec-6626c3dc224a",
             "lastmodified": "2013-11-15T01:18:36Z",
             "tool": "307d4e6d-9cfc-414e-8354-f41fe1247e12",
@@ -70615,25 +70540,6 @@
         },
         "model": "fpr.fpcommand",
         "pk": 27
-    },
-    {
-        "fields": {
-            "replaces": null,
-            "uuid": "e1b71449-8822-49ac-9d8a-b7ed6f960ec8",
-            "lastmodified": "2013-11-15T01:18:36Z",
-            "tool": "efa8474a-8526-48c3-8279-e5a76bdc0995",
-            "enabled": true,
-            "event_detail_command": "5c319663-42f6-4a46-b957-f730c5f3ae88",
-            "output_location": "%outputDirectory%%prefix%%fileName%%postfix%.mbox",
-            "command_usage": "normalization",
-            "verification_command": "ef3ea000-0c3c-4cae-adc2-aa2a6ccbffce",
-            "command": "\"/usr/lib/archivematica/MCPClient/clientScripts/archivematicaMaildirToMbox.py\" \"%fileFullName%\" \"%outputDirectory%%prefix%%fileName%%postfix%.mbox\"",
-            "script_type": "command",
-            "output_format": "b791c6e4-17f1-4317-961c-d87ea7811132",
-            "description": "Transcoding maildir to mbox"
-        },
-        "model": "fpr.fpcommand",
-        "pk": 28
     },
     {
         "fields": {
