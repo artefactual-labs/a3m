@@ -348,9 +348,8 @@ def dip_stored(sip_uuid, size):
 
 
 @skip_if_prometheus_disabled
-def transfer_started(transfer_type):
-    if not transfer_type:
-        transfer_type = "Unknown"
+def transfer_started():
+    transfer_type = "Unknown"
     transfer_started_counter.labels(transfer_type=transfer_type).inc()
     transfer_started_timestamp.labels(transfer_type=transfer_type).set_to_current_time()
 

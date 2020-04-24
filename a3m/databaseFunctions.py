@@ -16,7 +16,6 @@
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 import random
-import string
 import sys
 import time
 import uuid
@@ -30,7 +29,6 @@ from a3m.main.models import Agent
 from a3m.main.models import Derivation
 from a3m.main.models import Event
 from a3m.main.models import File
-from a3m.main.models import SIP
 
 logger = logging.getLogger(__name__)
 
@@ -51,17 +49,6 @@ def auto_close_db(f):
 def getUTCDate():
     """Returns a timezone-aware representation of the current datetime in UTC."""
     return timezone.now()
-
-
-def getDeciDate(date):
-    valid = "." + string.digits
-    ret = ""
-    for c in date:
-        if c in valid:
-            ret += c
-        # else:
-        #     ret += replacementChar
-    return str("{:10.10f}".format(float(ret)))
 
 
 def insertIntoFiles(
@@ -253,38 +240,6 @@ def fileWasRemoved(
     f.removedtime = utcDate
     f.currentlocation = None
     f.save()
-
-
-def createSIP(path, UUID=None, sip_type="SIP", diruuids=False, printfn=print):
-    """
-    Create a new SIP object for a SIP at the given path.
-
-    :param str path: The current path of the SIP on disk. Can contain variables; see the documentation for ReplacementDict for supported names.
-    :param str UUID: The UUID to be created for the SIP. If not specified, a new UUID will be generated using the version 4 scheme.
-    :param str sip_type: A string representing the type of the SIP. Defaults to "SIP". The other value typically used is "AIC".
-    :param str diruuids: A boolean indicating whether the SIP should have UUIDs assigned to all of its subdirectories. This param is relevant in filesystem_ajax/views.py and clientScripts/createSIPfromTransferObjects.py.
-
-    :returns str: The UUID for the created SIP.
-    """
-    if UUID is None:
-        UUID = str(uuid.uuid4())
-    printfn("Creating SIP:", UUID, "-", path)
-    sip = SIP(uuid=UUID, currentpath=path, sip_type=sip_type, diruuids=diruuids)
-    sip.save()
-
-    return UUID
-
-
-def deUnicode(unicode_string):
-    """
-    Convert a unicode string into an str by encoding it using UTF-8.
-
-    :param unicode: A string. If not already a unicode string, it will be converted to one before encoding.
-    :returns str: A UTF-8 encoded string, or None if the provided string was None. May be identical to the original string, if the original string contained only ASCII values.
-    """
-    if unicode_string is None:
-        return None
-    return str(unicode_string).encode("utf-8")
 
 
 def retryOnFailure(description, callback, retries=10):

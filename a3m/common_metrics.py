@@ -90,13 +90,3 @@ def db_retry_timer(*args, **kwargs):
     finally:
         duration = time.time() - start_time
         db_retry_time_counter.labels(**kwargs).inc(duration)
-
-
-@contextmanager
-def ss_api_timer(*args, **kwargs):
-    start_time = time.time()
-    try:
-        yield
-    finally:
-        duration = time.time() - start_time
-        ss_api_time_counter.labels(**kwargs).inc(duration)

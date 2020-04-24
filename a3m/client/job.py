@@ -61,16 +61,6 @@ class Job:
             self.get_stderr(),
         )
 
-    def load_from(self, other_job):
-        self.name = other_job.name
-        self.UUID = other_job.UUID
-        self.args = other_job.args
-        self.caller_wants_output = other_job.caller_wants_output
-        self.int_code = other_job.int_code
-        self.status_code = other_job.status_code
-        self.output = other_job.output
-        self.error = other_job.error
-
     def set_status(self, int_code, status_code="success"):
         if int_code:
             self.int_code = int(int_code)

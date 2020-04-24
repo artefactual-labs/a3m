@@ -18,15 +18,15 @@ import csv
 import os
 import shutil
 import sys
-import uuid
 
-try:
-    from pathlib import Path
-except ImportError:
-    from pathlib2 import Path
+from django.conf import settings as django_settings
+import uuid
+from pathlib import Path
 
 from django.conf import settings as django_settings
 
+from a3m.archivematicaFunctions import get_file_checksum
+from a3m.archivematicaFunctions import unicodeToStr
 from a3m.databaseFunctions import insertIntoFiles
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.databaseFunctions import insertIntoEvents
@@ -158,35 +158,6 @@ def rename(source, destination, printfn=print, should_exit=False):
     return exitCode
 
 
-def updateDirectoryLocation(
-    src, dst, unitPath, unitIdentifier, unitIdentifierType, unitPathReplaceWith
-):
-    srcDB = src.replace(unitPath, unitPathReplaceWith)
-    if not srcDB.endswith("/") and srcDB != unitPathReplaceWith:
-        srcDB += "/"
-    dstDB = dst.replace(unitPath, unitPathReplaceWith)
-    if not dstDB.endswith("/") and dstDB != unitPathReplaceWith:
-        dstDB += "/"
-
-    kwargs = {
-        "removedtime__isnull": True,
-        "currentlocation__startswith": srcDB,
-        unitIdentifierType: unitIdentifier,
-    }
-    files = File.objects.filter(**kwargs)
-
-    for f in files:
-        f.currentlocation = f.currentlocation.replace(srcDB, dstDB)
-        f.save()
-    if os.path.isdir(dst):
-        if dst.endswith("/"):
-            dst += "."
-        else:
-            dst += "/."
-    print("moving: ", src, dst)
-    shutil.move(src, dst)
-
-
 class UpdateFileLocationFailed(Exception):
     def __init__(self, code):
         self.code = code
@@ -255,6 +226,9 @@ def updateFileLocation(
     To suppress creation of an event, pass the createEvent keyword argument (for example, if the file moved due to the renaming of a parent directory and not the file itself).
     """
 
+    src = unicodeToStr(src)
+    dst = unicodeToStr(dst)
+    fileUUID = unicodeToStr(fileUUID)
     if not fileUUID or fileUUID == "None":
         kwargs = {"removedtime__isnull": True, "currentlocation": src}
 
@@ -288,25 +262,6 @@ def updateFileLocation(
         eventDetail=eventDetail,
         eventOutcome="",
         eventOutcomeDetailNote=eventOutcomeDetailNote,
-    )
-
-
-def getFileUUIDLike(
-    filePath, unitPath, unitIdentifier, unitIdentifierType, unitPathReplaceWith
-):
-    """Dest needs to be the actual full destination path with filename."""
-    srcDB = filePath.replace(unitPath, unitPathReplaceWith)
-    kwargs = {
-        "removedtime__isnull": True,
-        "currentlocation__contains": srcDB,
-        unitIdentifierType: unitIdentifier,
-    }
-    return {f.currentlocation: f.uuid for f in File.objects.filter(**kwargs)}
-
-
-def updateFileGrpUsefileGrpUUID(fileUUID, fileGrpUse, fileGrpUUID):
-    File.objects.filter(uuid=fileUUID).update(
-        filegrpuse=fileGrpUse, filegrpuuid=fileGrpUUID
     )
 
 

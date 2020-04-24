@@ -11,7 +11,6 @@ xsiNS = "http://www.w3.org/2001/XMLSchema-instance"
 
 dcBNS = "{" + dcNS + "}"
 dctermsBNS = "{" + dctermsNS + "}"
-fitsBNS = "{" + fitsNS + "}"
 metsBNS = "{" + metsNS + "}"
 premisBNS = "{" + premisNS + "}"
 premisBNS_V2 = "{" + premisNS_V2 + "}"

@@ -272,19 +272,8 @@ countryCodes = {
 }
 
 
-def getCountryCodes():
-    return countryCodes
-
-
 def getCodeForCountry(country):
     if country in countryCodes:
         return countryCodes[country]
     else:
         return None
-
-
-def getCountryFromCode(code):
-    for key, value in countryCodes.items():
-        if value == code:
-            return key
-    return None

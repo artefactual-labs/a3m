@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 import os
-import re
 from optparse import OptionParser
 
 from django.db import transaction
@@ -67,38 +66,6 @@ def something(job, SIPDirectory, serviceDirectory, objectsDirectory, SIPUUID, da
     return exitCode
 
 
-# only works if files have the same extension
-def regular(SIPDirectory, objectsDirectory, SIPUUID, date):
-    searchForRegularExpressions = True
-    if not searchForRegularExpressions:
-        return
-
-    for (path, dirs, files) in os.walk(objectsDirectory):
-        for file in files:
-            m = re.search(r"_me\.[a-zA-Z0-9]{2,4}$", file)
-            if m is not None:
-                file1Full = os.path.join(path, file).replace(
-                    SIPDirectory, "%SIPDirectory%", 1
-                )  # service
-                file2 = file.replace(m.group(0), m.group(0).replace("_me", "_m", 1))
-                file2Full = os.path.join(path, file2).replace(
-                    SIPDirectory, "%SIPDirectory%", 1
-                )  # original
-
-                f = File.objects.get(
-                    currentlocation=file1Full, removedtime__isnull=True, sip_id=SIPUUID
-                )
-                f.filegrpuse = "service"
-
-                grp_file = File.objects.get(
-                    currentlocation__startswith=file2Full,
-                    removedtime__isnull=True,
-                    sip_id=SIPUUID,
-                )
-                f.filegrpuuid = grp_file.uuid
-                f.save()
-
-
 def call(jobs):
     parser = OptionParser()
     # '--SIPDirectory "%SIPDirectory%" --serviceDirectory "objects/service/" --objectsDirectory "objects/" --SIPUUID "%SIPUUID%" --date "%date%"' );
@@ -127,7 +94,6 @@ def call(jobs):
 
                 if not os.path.isdir(serviceDirectory):
                     job.pyprint("no service directory in this sip")
-                    # regular(SIPDirectory, objectsDirectory, SIPUUID, date)
                     job.set_status(0)
                     continue
 

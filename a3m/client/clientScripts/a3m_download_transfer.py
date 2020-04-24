@@ -8,6 +8,7 @@ from django.conf import settings
 from django.db import transaction
 
 from a3m.bag import is_bag
+from a3m.client import metrics
 from a3m.client.clientScripts.extract_zipped_transfer import extract
 from a3m.main.models import Transfer
 from a3m.main.models import UnitVariable
@@ -28,6 +29,8 @@ def _download_object(url, filename):
 
 
 def main(job, transfer_id, url):
+    metrics.transfer_started()
+
     tmp_dir = _create_tmpdir(transfer_id)
     object_file = os.path.join(tmp_dir, "object")
     contents_dir = os.path.join(tmp_dir, "contents")

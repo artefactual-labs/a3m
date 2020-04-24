@@ -47,17 +47,6 @@ def fetch_keys(objects):
     return keys
 
 
-def shallow_flatten(array):
-    out = []
-    for item in array:
-        if isinstance(item, (list, tuple, set)):
-            for i in item:
-                out.append(i)
-        else:
-            out.append(item)
-    return out
-
-
 def encode_item(item):
     """
     Wraps str.encode by recursively encoding lists.

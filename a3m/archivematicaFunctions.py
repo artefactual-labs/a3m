@@ -17,15 +17,14 @@
 """archivematicaFunctions provides various helper functions across the
 different Archivematica modules.
 """
-import base64
 import collections
 import hashlib
-import locale
 import os
 import pprint
 import re
 from uuid import uuid4
 
+import six
 from lxml import etree
 
 from a3m.namespaces import NSMAP
@@ -77,44 +76,11 @@ def strToUnicode(string, obstinate=False):
     return string
 
 
-def b64encode_string(data):
-    return base64.b64encode(data.encode("utf8")).decode("utf8")
-
-
-def b64decode_string(data):
-    return base64.b64decode(data.encode("utf8")).decode("utf8")
-
-
-def get_locale_encoding():
-    """Return the default locale of the machine calling this function."""
-    default = "UTF-8"
-    try:
-        return locale.getdefaultlocale()[1] or default
-    except IndexError:
-        return default
-
-
-def cmd_line_arg_to_unicode(cmd_line_arg):
-    """Decode a command-line argument (bytestring, type ``str``) to Unicode
-    (type ``unicode``) by decoding it using the default system encoding (if
-    retrievable) or UTF-8 otherwise.
-    """
-    try:
-        return cmd_line_arg.decode(get_locale_encoding())
-    except (LookupError, UnicodeDecodeError):
-        return cmd_line_arg
-
-
-def escapeForCommand(string):
-    """Escape special characters in a given string."""
-    ret = string
-    if isinstance(ret, str):
-        ret = ret.replace("\\", "\\\\")
-        ret = ret.replace('"', '\\"')
-        ret = ret.replace("`", r"\`")
-        # ret = ret.replace("'", "\\'")
-        # ret = ret.replace("$", "\\$")
-    return ret
+def unicodeToStr(string):
+    """Convert Unicode to string format."""
+    if isinstance(string, str):
+        return six.ensure_str(string, "utf-8")
+    return string
 
 
 def escape(string):

@@ -92,10 +92,6 @@ class EnvConfigParser(configparser.ConfigParser):
     def getboolean(self, *args, **kwargs):
         return configparser.ConfigParser.getboolean(self, *args, **kwargs)
 
-    @fallback_option
-    def getiboolean(self, *args, **kwargs):
-        return not self.getboolean(*args, **kwargs)
-
 
 class Config:
     """EnvConfigParser wrapper"""
