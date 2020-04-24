@@ -32,7 +32,7 @@ from a3m.main.models import Event
 from a3m.main.models import File
 from a3m.main.models import SIP
 
-LOGGER = logging.getLogger("archivematica.common")
+logger = logging.getLogger(__name__)
 
 
 def auto_close_db(f):
@@ -131,7 +131,7 @@ def getAMAgentsForFile(fileUUID):
     try:
         f = File.objects.get(uuid=fileUUID)
     except File.DoesNotExist:
-        LOGGER.warning(
+        logger.warning(
             "File with UUID %s does not exist in database; unable to fetch Agents",
             fileUUID,
         )
@@ -295,14 +295,14 @@ def retryOnFailure(description, callback, retries=10):
                 break
             except Exception as e:
                 if retry == retries:
-                    LOGGER.error(
+                    logger.error(
                         'Failed to complete transaction "%s" after %s retries',
                         description,
                         retries,
                     )
                     raise e
                 else:
-                    LOGGER.debug(
+                    logger.debug(
                         'Retrying "%s" transaction after caught exception (retry %d): %s',
                         description,
                         retry + 1,

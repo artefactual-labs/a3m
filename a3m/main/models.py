@@ -30,7 +30,7 @@ from django.utils.translation import ugettext_lazy as _
 # Core Django, alphabetical by import source
 # Third party dependencies, alphabetical by import source
 
-LOGGER = logging.getLogger("archivematica.dashboard")
+logger = logging.getLogger(__name__)
 
 METADATA_STATUS_ORIGINAL = "ORIGINAL"
 METADATA_STATUS_REINGEST = "REINGEST"

@@ -11,8 +11,6 @@ import traceback
 from contextlib import contextmanager
 
 
-LOGGER = logging.getLogger("archivematica.mcp.client.job")
-
 STANDARD_FORMAT = (
     "%(levelname)-8s  %(asctime)s  %(name)s.%(funcName)s:%(lineno)d  %(message)s"
 )
