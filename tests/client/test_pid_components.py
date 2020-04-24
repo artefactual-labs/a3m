@@ -39,7 +39,6 @@ class TestPIDComponents:
     package_uuid = "cb5ebaf5-beda-40b4-8d0c-fefbd546b8de"
     fake_package_uuid = "eb6b860e-611c-45c8-8d3e-b9396ed6c751"
     do_not_bind = "Configuration indicates that PIDs should not be bound."
-    incomplete_configuration_msg = "A value for parameter"
     bound_uri = "http://195.169.88.240:8017/12345/"
     bound_hdl = "12345/"
     traditional_identifiers = ("UUID",)
@@ -98,7 +97,7 @@ class TestPIDComponents:
         }
 
     @pytest.mark.django_db
-    def test_bind_pids_no_config(self, caplog, settings):
+    def test_bind_pids_no_config(self, settings):
         """Test the output of the code without any args.
 
         In this instance, we want bind_pids to think that there is some
@@ -111,7 +110,6 @@ class TestPIDComponents:
         assert (
             bind_pids.main(self.job, None, None) == 1
         ), "Incorrect return value for bind_pids with incomplete configuration."
-        assert caplog.records[0].message.startswith(self.incomplete_configuration_msg)
 
     @pytest.mark.django_db
     def test_bind_pids(self, mocker, settings):
@@ -182,7 +180,7 @@ class TestPIDComponents:
             assert bound_uri in list(identifiers_dict.values())
 
     @pytest.mark.django_db
-    def test_bind_pid_no_config(self, caplog, settings):
+    def test_bind_pid_no_config(self, settings):
         """Test the output of the code when bind_pids is set to True but there
         are no handle settings in the Dashboard. Conceivably then the dashboard
         settings could be in-between two states, complete and not-complete,
@@ -191,7 +189,6 @@ class TestPIDComponents:
         """
         settings.BIND_PID_HANDLE = {}
         assert bind_pid.main(self.job, self.package_uuid) == 1
-        assert caplog.records[0].message.startswith(self.incomplete_configuration_msg)
 
     @pytest.mark.django_db
     def test_bind_pid(self, settings):
@@ -238,27 +235,6 @@ class TestPIDComponents:
                 ), "Identifier type not in expected schemes list"
             assert bound_hdl in list(identifiers_dict.values())
             assert bound_uri in list(identifiers_dict.values())
-
-    @pytest.mark.django_db
-    def test_bind_pid_no_settings(self, caplog, settings):
-        """Test the output of the code when bind_pids is set to True but there
-        are no handle settings in the Dashboard. Conceivably then the dashboard
-        settings could be in-between two states, complete and not-complete,
-        here we test for the two opposites on the assumption they'll be the
-        most visible errors to the user.
-        """
-        file_count = 5
-        settings.BIND_PID_HANDLE = {}
-        files = File.objects.filter(sip=self.package_uuid).all()
-        assert (
-            files is not None
-        ), "Files haven't been retrieved from the model as expected"
-        for file_ in files:
-            bind_pid.main(self.job, file_.pk)
-        for file_number in range(file_count):
-            assert caplog.records[file_number].message.startswith(
-                self.incomplete_configuration_msg
-            )
 
     @pytest.mark.django_db
     def test_pid_declaration(self, mocker, settings):
