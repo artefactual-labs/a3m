@@ -5,8 +5,8 @@
         "fields": {
             "checksum": "",
             "currentlocation": "file_with_sip_agent",
-            "enteredsystem": "2014-10-30T00:00:00",
-            "modificationtime": "2014-10-30T00:00:00",
+            "enteredsystem": "2014-10-30T00:00:00Z",
+            "modificationtime": "2014-10-30T00:00:00Z",
             "filegrpuse": "original",
             "filegrpuuid": "",
             "label": "",
@@ -23,7 +23,7 @@
         "model": "main.sip",
         "fields": {
             "aip_filename": "",
-            "createdtime": "2014-10-30T00:00:00",
+            "createdtime": "2014-10-30T00:00:00Z",
             "currentpath": "%path%",
             "hidden": false,
             "sip_type": "SIP",
@@ -36,8 +36,8 @@
         "fields": {
             "checksum": "",
             "currentlocation": "file_with_transfer_agent",
-            "enteredsystem": "2014-10-30T00:00:00",
-            "modificationtime": "2014-10-30T00:00:00",
+            "enteredsystem": "2014-10-30T00:00:00Z",
+            "modificationtime": "2014-10-30T00:00:00Z",
             "filegrpuse": "original",
             "filegrpuuid": "",
             "label": "",
@@ -72,8 +72,8 @@
         "fields": {
             "checksum": "",
             "currentlocation": "file_with_sip_agent",
-            "enteredsystem": "2014-10-30T00:00:00",
-            "modificationtime": "2014-10-30T00:00:00",
+            "enteredsystem": "2014-10-30T00:00:00Z",
+            "modificationtime": "2014-10-30T00:00:00Z",
             "filegrpuse": "original",
             "filegrpuuid": "",
             "label": "",
@@ -90,7 +90,7 @@
         "model": "main.sip",
         "fields": {
             "aip_filename": "",
-            "createdtime": "2014-10-30T00:00:00",
+            "createdtime": "2014-10-30T00:00:00Z",
             "currentpath": "%path%",
             "hidden": false,
             "sip_type": "SIP",
@@ -120,8 +120,8 @@
         "fields": {
             "checksum": "",
             "currentlocation": "file_with_no_unit_var",
-            "enteredsystem": "2014-10-30T00:00:00",
-            "modificationtime": "2014-10-30T00:00:00",
+            "enteredsystem": "2014-10-30T00:00:00Z",
+            "modificationtime": "2014-10-30T00:00:00Z",
             "filegrpuse": "original",
             "filegrpuuid": "",
             "label": "",
@@ -138,7 +138,7 @@
         "model": "main.sip",
         "fields": {
             "aip_filename": "",
-            "createdtime": "2014-10-30T00:00:00",
+            "createdtime": "2014-10-30T00:00:00Z",
             "currentpath": "%path%",
             "hidden": false,
             "sip_type": "SIP",
@@ -150,7 +150,7 @@
         "model": "main.sip",
         "fields": {
             "aip_filename": "",
-            "createdtime": "2014-10-30T00:00:00",
+            "createdtime": "2014-10-30T00:00:00Z",
             "currentpath": "%path%",
             "hidden": false,
             "sip_type": "SIP",

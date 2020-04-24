@@ -14,8 +14,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-import datetime
 import os
+from datetime import datetime
+from datetime import timezone
 
 from django.db import transaction
 
@@ -28,7 +29,7 @@ logger = get_script_logger("archivematica.mcp.client.storeFileModificationDates"
 
 def get_modification_date(file_path):
     mod_time = os.path.getmtime(file_path)
-    return datetime.datetime.utcfromtimestamp(int(mod_time))
+    return datetime.fromtimestamp(int(mod_time), tz=timezone.utc)
 
 
 def main(transfer_uuid, shared_directory_path):
