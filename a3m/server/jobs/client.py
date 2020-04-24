@@ -13,7 +13,7 @@ from a3m.server.tasks import get_task_backend
 from a3m.server.tasks import Task
 
 
-logger = logging.getLogger("archivematica.mcp.server.jobs.client")
+logger = logging.getLogger(__name__)
 
 
 def _escape_for_command_line(value):

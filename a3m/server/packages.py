@@ -17,7 +17,7 @@ from a3m.server.rpc import a3m_pb2
 from a3m.server.utils import uuid_from_path
 
 
-logger = logging.getLogger("archivematica.mcp.server.packages")
+logger = logging.getLogger(__name__)
 
 
 StartingPoint = collections.namedtuple("StartingPoint", "watched_dir chain link")

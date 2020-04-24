@@ -15,7 +15,7 @@ from a3m.server.tasks.backends.base import TaskBackend
 from a3m.server.tasks.task import Task
 
 
-logger = logging.getLogger("archivematica.mcp.server.jobs.tasks")
+logger = logging.getLogger(__name__)
 
 
 class PoolTaskBackend(TaskBackend):

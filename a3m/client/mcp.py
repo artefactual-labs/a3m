@@ -69,7 +69,7 @@ import shlex
 import importlib
 
 
-logger = logging.getLogger("archivematica.mcp.client")
+logger = logging.getLogger(__name__)
 
 replacement_dict = {
     r"%sharedPath%": django_settings.SHARED_DIRECTORY,

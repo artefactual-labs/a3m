@@ -15,7 +15,7 @@ from a3m.server.rpc import a3m_pb2
 from a3m.server.rpc import a3m_pb2_grpc
 
 
-logger = logging.getLogger("archivematica.mcp.server.rpc_server")
+logger = logging.getLogger(__name__)
 
 
 class TransferService(a3m_pb2_grpc.TransferServicer):

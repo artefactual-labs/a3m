@@ -9,7 +9,7 @@ from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs.base import Job
 
 
-logger = logging.getLogger("archivematica.mcp.server.jobs.local")
+logger = logging.getLogger(__name__)
 
 
 class LocalJob(Job, metaclass=abc.ABCMeta):

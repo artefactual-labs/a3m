@@ -250,7 +250,7 @@ LOGGING = {
             "formatter": "detailed",
         }
     },
-    "loggers": {"archivematica": {"level": "WARNING"}},
+    "loggers": {"a3m": {"level": "WARNING"}},
     "root": {"handlers": ["console"], "level": "WARNING"},
 }
 
@@ -258,7 +258,7 @@ DEBUG = config.get("debug")
 
 if DEBUG:
     LOGGING["handlers"]["console"]["level"] = "DEBUG"
-    LOGGING["loggers"]["archivematica"]["level"] = "DEBUG"
+    LOGGING["loggers"]["a3m"]["level"] = "DEBUG"
     LOGGING["root"]["level"] = "DEBUG"
 
 

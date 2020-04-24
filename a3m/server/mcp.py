@@ -43,7 +43,7 @@ from a3m.server.workflow import load_default_workflow
 from a3m.server.tasks.backends import get_task_backend
 
 
-logger = logging.getLogger("archivematica.mcp.server")
+logger = logging.getLogger(__name__)
 
 
 def watched_dir_handler(package_queue, path, watched_dir):

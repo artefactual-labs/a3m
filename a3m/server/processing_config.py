@@ -13,7 +13,7 @@ from django.conf import settings
 from lxml import etree
 
 
-logger = logging.getLogger("archivematica.mcp.server.processing_config")
+logger = logging.getLogger(__name__)
 
 PROCESSING_XML_FILE = "processingMCP.xml"
 

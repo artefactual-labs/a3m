@@ -21,7 +21,7 @@ from inotify_simple import INotify
 IS_LINUX = sys.platform.startswith("linux")
 WATCHED_BASE_DIR = os.path.abspath(settings.WATCH_DIRECTORY)
 
-logger = logging.getLogger("archivematica.mcp.server.watchdirs")
+logger = logging.getLogger(__name__)
 
 
 def _get_active_watched_dirs(watched_dirs):

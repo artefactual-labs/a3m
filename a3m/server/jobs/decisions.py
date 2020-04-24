@@ -12,7 +12,7 @@ from a3m.server.processing_config import load_preconfigured_choice
 from a3m.server.processing_config import load_processing_xml
 
 
-logger = logging.getLogger("archivematica.mcp.server.jobs.decisions")
+logger = logging.getLogger(__name__)
 
 
 class DecisionJob(Job, metaclass=abc.ABCMeta):

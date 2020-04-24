@@ -15,7 +15,7 @@ from a3m.server.packages import DIP
 from a3m.server.packages import SIP
 
 
-logger = logging.getLogger("archivematica.mcp.server.queues")
+logger = logging.getLogger(__name__)
 
 
 class PackageQueue:

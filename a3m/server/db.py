@@ -29,7 +29,7 @@ from django.conf import settings
 from django.db import close_old_connections
 
 
-logger = logging.getLogger("archivematica.mcp.server.db")
+logger = logging.getLogger(__name__)
 thread_locals = threading.local()
 
 
@@ -93,7 +93,7 @@ if settings.DEBUG:
     auto_close_old_connections = DebugAutoCloseOldConnections
 
     # Queries are  only logged if DEBUG is on.
-    db_logger = logging.getLogger("django.db.backends")
+    db_logger = logging.getLogger(__name__)
     db_logger.setLevel(logging.DEBUG)
     handler = CheckCloseConnectionsHandler(level=logging.DEBUG)
     db_logger.addHandler(handler)

@@ -6,7 +6,7 @@ import os
 from django.conf import settings
 
 
-logger = logging.getLogger("archivematica.mcp.server.shareddirs")
+logger = logging.getLogger(__name__)
 
 
 # TODO: store this in assets at least

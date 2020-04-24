@@ -21,7 +21,7 @@ from a3m.server.jobs.local import GetUnitVarLinkJob
 from a3m.server.jobs.local import SetUnitVarLinkJob
 
 
-logger = logging.getLogger("archivematica.mcp.server.jobs.chain")
+logger = logging.getLogger(__name__)
 
 
 def get_job_class_for_link(link):
