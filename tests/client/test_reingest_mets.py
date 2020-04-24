@@ -2,6 +2,7 @@ import os
 import shutil
 import tempfile
 import unittest
+from pathlib import Path
 
 import metsrw
 from django.core.management import call_command
@@ -13,11 +14,6 @@ from a3m.client.job import Job
 from a3m.main import models
 from a3m.namespaces import NSMAP
 from a3m.namespaces import nsmap_for_premis2
-
-try:
-    from pathlib import Path
-except ImportError:
-    from pathlib2 import Path
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 FIXTURES_DIR = os.path.join(THIS_DIR, "fixtures")

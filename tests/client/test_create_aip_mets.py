@@ -5,6 +5,7 @@ import random
 import shutil
 import tempfile
 import unittest
+from pathlib import Path
 
 from django.test import TestCase
 from lxml import etree
@@ -16,12 +17,6 @@ from a3m.client.clientScripts import archivematicaCreateMETSRights
 from a3m.client.clientScripts import create_mets_v2
 from a3m.client.job import Job
 from a3m.main.models import RightsStatement
-
-
-try:
-    from pathlib import Path
-except ImportError:
-    from pathlib2 import Path
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

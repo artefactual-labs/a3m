@@ -1,4 +1,5 @@
 import uuid
+from pathlib import Path
 
 import pytest
 
@@ -6,11 +7,6 @@ from a3m.main import models
 from a3m.server.packages import DIP
 from a3m.server.packages import SIP
 from a3m.server.packages import Transfer
-
-try:
-    from pathlib import Path
-except ImportError:
-    from pathlib2 import Path
 
 
 @pytest.mark.django_db(transaction=True)

@@ -19,6 +19,7 @@ import os
 import shutil
 import sys
 
+
 from django.conf import settings as django_settings
 import uuid
 from pathlib import Path
@@ -27,11 +28,11 @@ from django.conf import settings as django_settings
 
 from a3m.archivematicaFunctions import get_file_checksum
 from a3m.archivematicaFunctions import unicodeToStr
+from a3m.databaseFunctions import insertIntoEvents
 from a3m.databaseFunctions import insertIntoFiles
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.databaseFunctions import insertIntoEvents
-from a3m.archivematicaFunctions import get_file_checksum
-from a3m.main.models import File, Transfer
+from a3m.main.models import File
+from a3m.main.models import Transfer
 
 
 def updateSizeAndChecksum(
