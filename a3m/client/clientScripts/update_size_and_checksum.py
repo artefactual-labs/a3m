@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 import argparse
+import logging
 import os
 import re
 import uuid
@@ -23,7 +24,6 @@ import metsrw
 from django.db import transaction
 
 from . import parse_mets_to_db
-from a3m.custom_handlers import get_script_logger
 from a3m.databaseFunctions import insertIntoDerivations
 from a3m.fileOperations import updateSizeAndChecksum
 from a3m.main.models import File
@@ -31,7 +31,7 @@ from a3m.main.models import FileFormatVersion
 
 # fileOperations requires Django to be set up
 
-logger = get_script_logger("archivematica.mcp.client.updateSizeAndChecksum")
+logger = logging.getLogger(__name__)
 
 
 def find_mets_file(unit_path):

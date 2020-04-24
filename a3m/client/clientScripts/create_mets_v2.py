@@ -17,6 +17,7 @@
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 import collections
 import copy
+import logging
 import os
 import pprint
 import re
@@ -47,7 +48,6 @@ from a3m import namespaces as ns
 from a3m.archivematicaFunctions import escape
 from a3m.archivematicaFunctions import normalizeNonDcElementName
 from a3m.archivematicaFunctions import strToUnicode
-from a3m.custom_handlers import get_script_logger
 from a3m.main.models import Agent
 from a3m.main.models import Derivation
 from a3m.main.models import Directory
@@ -105,7 +105,7 @@ class MetsState:
         self.error_accumulator = ErrorAccumulator()
 
 
-logger = get_script_logger("archivematica.mcp.client.createMETS2")
+logger = logging.getLogger(__name__)
 
 FSItem = collections.namedtuple("FSItem", "type path is_empty")
 FakeDirMdl = collections.namedtuple("FakeDirMdl", "uuid")

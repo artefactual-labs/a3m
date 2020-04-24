@@ -14,14 +14,14 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+import logging
 import os
 import shutil
 
 from a3m import archivematicaFunctions
-from a3m.custom_handlers import get_script_logger
 
 
-logger = get_script_logger("archivematica.mcp.client.restructureBagAIPToSIP")
+logger = logging.getLogger(__name__)
 
 
 def _move_file(job, src, dst, exit_on_error=True):

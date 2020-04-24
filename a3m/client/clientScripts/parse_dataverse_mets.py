@@ -3,6 +3,7 @@ validate against the objects expected to be part of the SIP generated during
 transfer.
 """
 import json
+import logging
 import os
 import uuid
 
@@ -12,13 +13,12 @@ from django.utils import timezone
 
 from a3m import databaseFunctions
 from a3m.archivematicaFunctions import get_file_checksum
-from a3m.custom_handlers import get_script_logger
 from a3m.main.models import Agent
 from a3m.main.models import File
 
 # databaseFunctions requires Django to be set up
 
-logger = get_script_logger("archivematica.mcp.client.parse_dataverse_mets")
+logger = logging.getLogger(__name__)
 transfer_objects_directory = "%transferDirectory%objects"
 
 

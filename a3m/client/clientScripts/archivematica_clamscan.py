@@ -17,6 +17,7 @@
 import abc
 import argparse
 import errno
+import logging
 import os
 import re
 import subprocess
@@ -29,12 +30,11 @@ from clamd import ConnectionError
 from django.conf import settings as mcpclient_settings
 from django.db import transaction
 
-from a3m.custom_handlers import get_script_logger
 from a3m.databaseFunctions import insertIntoEvents
 from a3m.main.models import Event
 from a3m.main.models import File
 
-logger = get_script_logger("archivematica.mcp.client.clamscan")
+logger = logging.getLogger(__name__)
 
 
 def clamav_version_parts(ver):

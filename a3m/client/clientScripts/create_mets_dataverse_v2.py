@@ -17,16 +17,16 @@
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 """Maps Dataverse specific elements into the AIP METS file generated on ingest.
 """
+import logging
 import sys
 
 import metsrw
 
 from a3m import archivematicaFunctions
-from a3m.custom_handlers import get_script_logger
 
 
 # Create a module level logger.
-logger = get_script_logger("archivematica.mcp.client.createMETSDataverse")
+logger = logging.getLogger(__name__)
 
 
 def create_dataverse_sip_dmdsec(job, sip_path):

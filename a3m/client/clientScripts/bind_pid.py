@@ -38,6 +38,7 @@ The sole command-line argument is the File's UUID. If the --bind-pids option
 is something other than 'Yes', the script will exit without doing anything.
 """
 import argparse
+import logging
 from functools import wraps
 
 from django.conf import settings as django_settings
@@ -45,11 +46,10 @@ from django.db import transaction
 
 from a3m import bindpid
 from a3m.archivematicaFunctions import str2bool
-from a3m.custom_handlers import get_script_logger
 from a3m.main.models import File
 
 
-logger = get_script_logger("archivematica.mcp.client.bind_pid")
+logger = logging.getLogger(__name__)
 
 
 class BindPIDException(Exception):

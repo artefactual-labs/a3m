@@ -27,6 +27,7 @@ the path to the file.
 
 """
 import argparse
+import logging
 import os
 import re
 import uuid
@@ -35,13 +36,12 @@ import metsrw
 from django.db import transaction
 
 from a3m import namespaces as ns
-from a3m.custom_handlers import get_script_logger
 from a3m.fileOperations import addFileToSIP
 from a3m.fileOperations import addFileToTransfer
 from a3m.main.models import File
 from a3m.main.models import Transfer
 
-logger = get_script_logger("archivematica.mcp.client.assignFileUUID")
+logger = logging.getLogger(__name__)
 
 
 def find_mets_file(unit_path):

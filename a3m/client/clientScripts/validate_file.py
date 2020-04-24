@@ -9,6 +9,7 @@ Arguments:
 
 """
 import ast
+import logging
 import os
 import sys
 from pprint import pformat
@@ -16,7 +17,6 @@ from pprint import pformat
 from django.db import transaction
 
 from a3m import databaseFunctions
-from a3m.custom_handlers import get_script_logger
 from a3m.dicts import replace_string_values
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
@@ -41,7 +41,7 @@ def main(job, file_path, file_uuid, sip_uuid, shared_path, file_type):
     return validator.validate()
 
 
-logger = get_script_logger("archivematica.mcp.client.validateFile")
+logger = logging.getLogger(__name__)
 
 
 class Validator:

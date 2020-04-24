@@ -21,6 +21,7 @@ Archivematica documentation:
 https://wiki.archivematica.org/Dataverse
 """
 import json
+import logging
 import os
 import sys
 import uuid
@@ -28,12 +29,10 @@ import uuid
 import metsrw
 from lxml import etree
 
-from a3m.custom_handlers import get_script_logger
-
 # Database functions requires Django to be set up.
 
 
-logger = get_script_logger("archivematica.mcp.client.convert_dataverse_struct")
+logger = logging.getLogger(__name__)
 
 
 class ConvertDataverseError(Exception):

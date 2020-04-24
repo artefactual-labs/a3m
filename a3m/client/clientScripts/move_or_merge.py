@@ -1,11 +1,10 @@
 import errno
 import filecmp
+import logging
 import os
 import shutil
 
-from a3m.custom_handlers import get_script_logger
-
-logger = get_script_logger("archivematica.mcp.client.move_or_merge")
+logger = logging.getLogger(__name__)
 
 
 def mkdir_p(path):

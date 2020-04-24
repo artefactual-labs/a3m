@@ -19,15 +19,14 @@
 This client script hanles an unstored DIP by moving it to the rejected/
 directory if it has *not* been uploaded and doing nothing otherwise.
 """
+import logging
 import os
 import shutil
 
 from django.db import transaction
 
-from a3m.custom_handlers import get_script_logger
 
-
-logger = get_script_logger("archivematica.mcp.client.handleUnstoredDIP")
+logger = logging.getLogger(__name__)
 
 
 def _get_sip_dirname(sip_path):

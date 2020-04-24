@@ -37,6 +37,7 @@ shared directory where SIPs are stored. If the --bind-pids option is something
 other than 'Yes', the script will continue to the next job without doing anything.
 """
 import argparse
+import logging
 import os
 import sys
 from functools import wraps
@@ -52,12 +53,11 @@ from a3m.bindpid import _validate_entity_type_required_params
 from a3m.bindpid import _validate_handle_server_config
 from a3m.bindpid import bind_pid
 from a3m.bindpid import BindPIDException
-from a3m.custom_handlers import get_script_logger
 from a3m.main.models import Directory
 from a3m.main.models import SIP
 
 
-logger = get_script_logger("archivematica.mcp.client.bind_pids")
+logger = logging.getLogger(__name__)
 
 
 class BindPIDsException(Exception):

@@ -5,13 +5,32 @@ batches by clientScript modules and populated with an exit code, standard out
 and standard error information.
 """
 import logging
+import os
 import sys
 import traceback
 from contextlib import contextmanager
 
-from a3m.custom_handlers import CallbackHandler
 
 LOGGER = logging.getLogger("archivematica.mcp.client.job")
+
+STANDARD_FORMAT = (
+    "%(levelname)-8s  %(asctime)s  %(name)s.%(funcName)s:%(lineno)d  %(message)s"
+)
+
+SCRIPT_FILE_FORMAT = "{}: %(levelname)-8s  %(asctime)s  %(name)s:%(funcName)s:%(lineno)d:  %(message)s".format(
+    os.path.basename(sys.argv[0])
+)
+
+
+class CallbackHandler(logging.Handler):
+    def __init__(self, callback, module_name=None):
+        logging.Handler.__init__(self)
+        fmt = STANDARD_FORMAT if module_name else SCRIPT_FILE_FORMAT
+        self.formatter = logging.Formatter(f"{module_name}: {fmt}")
+        self.callback = callback
+
+    def emit(self, record):
+        self.callback(self.format(record))
 
 
 class Job:

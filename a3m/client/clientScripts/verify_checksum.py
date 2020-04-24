@@ -27,6 +27,7 @@ us to easily call each of the tools packaged against its different algorithms:
     * SHA512
 """
 import datetime
+import logging
 import os
 import subprocess
 import sys
@@ -35,13 +36,12 @@ import uuid
 from django.db import transaction
 
 from a3m.archivematicaFunctions import strToUnicode
-from a3m.custom_handlers import get_script_logger
 from a3m.main.models import Event
 from a3m.main.models import File
 from a3m.main.models import Transfer
 
 
-logger = get_script_logger("archivematica.mcp.client.verify_checksum")
+logger = logging.getLogger(__name__)
 
 
 class NoHashCommandAvailable(Exception):

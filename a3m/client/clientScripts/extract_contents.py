@@ -1,3 +1,4 @@
+import logging
 import os
 import sys
 import uuid
@@ -7,7 +8,6 @@ from django.db import transaction
 from .has_packages import already_extracted
 from a3m.archivematicaFunctions import format_subdir_path
 from a3m.archivematicaFunctions import get_dir_uuids
-from a3m.custom_handlers import get_script_logger
 from a3m.databaseFunctions import fileWasRemoved
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.fileOperations import addFileToTransfer
@@ -18,7 +18,7 @@ from a3m.main.models import File
 from a3m.main.models import FileFormatVersion
 from a3m.main.models import Transfer
 
-logger = get_script_logger("archivematica.mcp.client.extractContents")
+logger = logging.getLogger(__name__)
 
 TRANSFER_DIRECTORY = "%transferDirectory%"
 
