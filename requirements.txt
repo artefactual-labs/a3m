@@ -21,7 +21,8 @@ grpcio-reflection==1.28.1  # via -r requirements.in
 grpcio-status==1.28.1     # via -r requirements.in
 grpcio==1.28.1            # via -r requirements.in, grpcio-reflection, grpcio-status
 idna==2.9                 # via requests
-importlib-metadata==1.6.0  # via jsonschema
+importlib-metadata==1.6.0  # via importlib-resources, jsonschema
+importlib-resources==1.4.0  # via -r requirements.in
 inotify_simple==1.3.3     # via -r requirements.in
 jsonschema==3.2.0         # via -r requirements.in
 lxml==4.5.0               # via -r requirements.in, ammcpc, metsrw
@@ -36,8 +37,8 @@ requests==2.23.0          # via -r requirements.in, amclient
 six==1.14.0               # via amclient, grpcio, jsonschema, metsrw, opf-fido, protobuf, pyrsistent
 sqlparse==0.3.1           # via django
 unidecode==1.1.1          # via -r requirements.in
-urllib3==1.25.8           # via amclient, requests
-zipp==3.1.0               # via importlib-metadata
+urllib3==1.25.9           # via amclient, requests
+zipp==3.1.0               # via importlib-metadata, importlib-resources
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
