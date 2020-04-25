@@ -28,17 +28,6 @@
             },
             "link_id": "100a75f4-9d2a-41bf-8dd0-aec811ae1077"
         },
-        "082fa7d6-68e1-431c-9216-899aec92cfa7": {
-            "description": {
-                "en": "Attempt restructure for compliance",
-                "es": "Intento de reestructuración para cumplimiento ",
-                "fr": "Tentative de réorganisation pour conformité",
-                "ja": "コンプライアンスのための再構成を試みる",
-                "pt_BR": "Tentativa de reestruturação para conformidade",
-                "sv": "Försök omstrukturera för följsamhet"
-            },
-            "link_id": "5cf308fd-a6dc-4033-bda1-61689bb55ce2"
-        },
         "0a24787c-00e3-4710-b324-90e792bfb484": {
             "description": {
                 "en": "No",
@@ -66,15 +55,6 @@
                 "sv": "Förkasta"
             },
             "link_id": "19c94543-14cb-4158-986b-1d2b55723cd8"
-        },
-        "191914db-119e-4b91-8422-c77805ad8249": {
-            "description": {
-                "en": "Move transfer back to activeTransfers directory",
-                "es": "Mover la transferencia de vuelta al directorio activeTransfers",
-                "pt_BR": "Mover a transferência de volta para o diretório activeTransfers",
-                "sv": "Flytta tillbaka överföringspaket till activeTransfers mappen"
-            },
-            "link_id": "89071669-3bb6-4e03-90a3-3c8b20c7f6fe"
         },
         "1b04ec43-055c-43b7-9543-bd03c6a778ba": {
             "description": {
@@ -415,15 +395,6 @@
                 "sv": "Gör om"
             },
             "link_id": "b15c0ba6-e247-4512-8b56-860fd2b6299d"
-        },
-        "cc38912d-6520-44e1-92ff-76bb4881a55e": {
-            "description": {
-                "en": "Failed compliance",
-                "fr": "Échec de la mise en conformité",
-                "pt_BR": "Falha na conformidade",
-                "sv": "Följsamhetskontroll misslyckades"
-            },
-            "link_id": "a98ba456-3dcd-4f45-804c-a40220ddc6cb"
         },
         "d9760427-b488-4381-832a-de10106de6fe": {
             "description": {
@@ -2011,36 +1982,6 @@
                 "sv": "Normalisera"
             }
         },
-        "2e7f83f9-495a-44b3-b0cf-bff66f021a4d": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "5c459c1a-f998-404d-a0dd-808709510b72",
-                "variable": "linkAfterAutoRestructureForCompliance",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Designate to process as a standard transfer",
-                "fr": "Marquer le transfert pour le traiter comme transfert standard",
-                "ja": "標準転送として処理するように指定する",
-                "pt_BR": "Indicar para processar como uma transferência padrão",
-                "sv": "Designera för att bearbetas som en standardöverföring"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "bbfbecde-370c-4e26-8087-cfa751e72e6a"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Failed transfer compliance",
-                "fr": "Échec de la mise en conformité du transfert",
-                "pt_BR": "Falha na transferência da conformidade",
-                "sv": "Överföringsföljsamhetskontroll misslyckades"
-            }
-        },
         "303a65f6-a16f-4a06-807b-cb3425a30201": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -2763,7 +2704,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "2e7f83f9-495a-44b3-b0cf-bff66f021a4d",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -3384,66 +3325,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "5c459c1a-f998-404d-a0dd-808709510b72": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "082fa7d6-68e1-431c-9216-899aec92cfa7",
-                    "1b04ec43-055c-43b7-9543-bd03c6a778ba",
-                    "191914db-119e-4b91-8422-c77805ad8249"
-                ]
-            },
-            "description": {
-                "en": "Attempt restructure for compliance?",
-                "es": "¿Intentar reestructurar para cumplimiento?",
-                "fr": "Tenter une réorganisation pour conformité?",
-                "ja": "コンプライアンスのための再構成を試みますか？",
-                "pt_BR": "Tentativa de reestruturação para conformidade?",
-                "sv": "Försök omstrukturera för följsamhet?"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Failed transfer compliance",
-                "fr": "Échec de la mise en conformité du transfert",
-                "pt_BR": "Falha na transferência da conformidade",
-                "sv": "Överföringsföljsamhetskontroll misslyckades"
-            }
-        },
-        "5cf308fd-a6dc-4033-bda1-61689bb55ce2": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "88d2120a-4d19-4b47-922f-7438be1f52a2"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Failed transfer compliance",
-                "fr": "Échec de la mise en conformité du transfert",
-                "pt_BR": "Falha na transferência da conformidade",
-                "sv": "Överföringsföljsamhetskontroll misslyckades"
             }
         },
         "5d6a103c-9a5d-4010-83a8-6f4c61eb1478": {
@@ -4696,75 +4577,6 @@
                 "sv": "Lås PID:er."
             }
         },
-        "88d2120a-4d19-4b47-922f-7438be1f52a2": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%SIPUUID%\"",
-                "execute": "restructureForCompliance_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Attempt restructure for compliance",
-                "es": "Intento de reestructuración para cumplimiento ",
-                "fr": "Tentative de réorganisation pour conformité",
-                "ja": "コンプライアンスのための再構成を試みる",
-                "pt_BR": "Tentativa de reestruturação para conformidade",
-                "sv": "Försök omstrukturera för följsamhet"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "89071669-3bb6-4e03-90a3-3c8b20c7f6fe"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "89071669-3bb6-4e03-90a3-3c8b20c7f6fe",
-            "group": {
-                "en": "Failed transfer compliance",
-                "fr": "Échec de la mise en conformité du transfert",
-                "pt_BR": "Falha na transferência da conformidade",
-                "sv": "Överföringsföljsamhetskontroll misslyckades"
-            }
-        },
-        "89071669-3bb6-4e03-90a3-3c8b20c7f6fe": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/activeTransfers/standardTransfer/.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move transfer back to activeTransfers directory.",
-                "es": "Mover la transferencia de vuelta al directorio activeTransfers",
-                "pt_BR": "Mova a transferência de volta para o diretório activeTransfers.",
-                "sv": "Flytta tillbaka överföringspaket till activeTransfers mappen."
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Failed transfer compliance",
-                "fr": "Échec de la mise en conformité du transfert",
-                "pt_BR": "Falha na transferência da conformidade",
-                "sv": "Överföringsföljsamhetskontroll misslyckades"
-            },
-            "end": true
-        },
         "8ba83807-2832-4e41-843c-2e55ad10ea0b": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -5501,28 +5313,6 @@
                 "sv": "Normalisera"
             }
         },
-        "a98ba456-3dcd-4f45-804c-a40220ddc6cb": {
-            "config": {
-                "@manager": "linkTaskManagerUnitVariableLinkPull",
-                "@model": "TaskConfigUnitVariableLinkPull",
-                "chain_id": null,
-                "variable": "linkAfterAutoRestructureForCompliance"
-            },
-            "description": {
-                "en": "Find branch to continue processing",
-                "pt_BR": "Localize a ramificação para continuar o processamento",
-                "sv": "Hitta gren för att fortsätta processa"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Failed transfer compliance",
-                "fr": "Échec de la mise en conformité du transfert",
-                "pt_BR": "Falha na transferência da conformidade",
-                "sv": "Överföringsföljsamhetskontroll misslyckades"
-            }
-        },
         "aaa929e4-5c35-447e-816a-033a66b9b90b": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -6050,39 +5840,6 @@
                 "sv": "Skapa SIP från överföringspaket"
             }
         },
-        "bbfbecde-370c-4e26-8087-cfa751e72e6a": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/system/autoRestructureForCompliance/.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Failed compliance.",
-                "fr": "Échec de la mise en conformité.",
-                "pt_BR": "Falha na conformidade.",
-                "sv": "Följsamhetskontroll misslyckades."
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Failed transfer compliance",
-                "fr": "Échec de la mise en conformité du transfert",
-                "pt_BR": "Falha na transferência da conformidade",
-                "sv": "Överföringsföljsamhetskontroll misslyckades"
-            }
-        },
         "bcabd5e2-c93e-4aaa-af6a-9a74d54e8bf0": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -6549,7 +6306,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "2e7f83f9-495a-44b3-b0cf-bff66f021a4d",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "Verify transfer compliance",
                 "fr": "Vérifier la conformité du transfert",
@@ -7903,12 +7660,6 @@
             "only_dirs": true,
             "path": "/uploadDIP/",
             "unit_type": "DIP"
-        },
-        {
-            "chain_id": "cc38912d-6520-44e1-92ff-76bb4881a55e",
-            "only_dirs": true,
-            "path": "/system/autoRestructureForCompliance/",
-            "unit_type": "Transfer"
         },
         {
             "chain_id": "0ea3a6f9-ff37-4f32-ac01-eec5393f008a",

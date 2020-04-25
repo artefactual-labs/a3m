@@ -233,7 +233,6 @@ def create():
         "watchedDirectories/storeAIP",
         "watchedDirectories/system",
         "watchedDirectories/system/autoProcessSIP",
-        "watchedDirectories/system/autoRestructureForCompliance",
         "watchedDirectories/system/reingestAIP",
         "watchedDirectories/uploadDIP",
         "watchedDirectories/uploadedDIPs",
