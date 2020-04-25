@@ -1,9 +1,9 @@
-"""Tests for the archivematica_clamscan.py client script."""
+"""Tests for the virus_scan.py client script."""
 import subprocess
 
 import pytest
 
-from a3m.client.clientScripts import archivematica_clamscan
+from a3m.client.clientScripts import virus_scan
 
 
 @pytest.mark.parametrize(
@@ -18,12 +18,12 @@ from a3m.client.clientScripts import archivematica_clamscan
     ],
 )
 def test_clamav_version_parts(version, want):
-    got = archivematica_clamscan.clamav_version_parts(version)
+    got = virus_scan.clamav_version_parts(version)
     assert got == want
 
 
 def setup_clamscanner():
-    return archivematica_clamscan.ClamScanner()
+    return virus_scan.ClamScanner()
 
 
 def test_clamscanner_version_props(mocker):

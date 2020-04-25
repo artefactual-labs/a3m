@@ -1,11 +1,11 @@
-"""Tests for the archivematica_clamscan.py client script."""
+"""Tests for the virus_scan.py client script."""
 from collections import namedtuple
 from collections import OrderedDict
 
 import pytest
 
 from . import test_antivirus_clamdscan
-from a3m.client.clientScripts import archivematica_clamscan
+from a3m.client.clientScripts import virus_scan
 
 
 def test_get_scanner(settings):
@@ -17,36 +17,36 @@ def test_get_scanner(settings):
 
     # Testing to ensure clamscanner is returned when explicitly set.
     settings.CLAMAV_CLIENT_BACKEND = "clamscanner"
-    scanner = archivematica_clamscan.get_scanner()
-    assert isinstance(scanner, archivematica_clamscan.ClamScanner)
+    scanner = virus_scan.get_scanner()
+    assert isinstance(scanner, virus_scan.ClamScanner)
 
     # Testing to ensure that clamdscanner is returned when explicitly set.
     settings.CLAMAV_CLIENT_BACKEND = "clamdscanner"
-    scanner = archivematica_clamscan.get_scanner()
-    assert isinstance(scanner, archivematica_clamscan.ClamdScanner)
+    scanner = virus_scan.get_scanner()
+    assert isinstance(scanner, virus_scan.ClamdScanner)
 
     # Testing to ensure that clamdscanner is the default returned scanner.
     settings.CLAMAV_CLIENT_BACKEND = "fprot"
-    scanner = archivematica_clamscan.get_scanner()
-    assert isinstance(scanner, archivematica_clamscan.ClamdScanner)
+    scanner = virus_scan.get_scanner()
+    assert isinstance(scanner, virus_scan.ClamdScanner)
 
     # Testing to ensure that clamdscanner is the default returned scanner when
     # the user configures an empty string.
     settings.CLAMAV_CLIENT_BACKEND = ""
-    scanner = archivematica_clamscan.get_scanner()
-    assert isinstance(scanner, archivematica_clamscan.ClamdScanner)
+    scanner = virus_scan.get_scanner()
+    assert isinstance(scanner, virus_scan.ClamdScanner)
 
     # Testing to ensure that clamdscanner is returned when the environment
     # hasn't been configured appropriately and None is returned.
     settings.CLAMAV_CLIENT_BACKEND = None
-    scanner = archivematica_clamscan.get_scanner()
-    assert isinstance(scanner, archivematica_clamscan.ClamdScanner)
+    scanner = virus_scan.get_scanner()
+    assert isinstance(scanner, virus_scan.ClamdScanner)
 
     # Testing to ensure that clamdscanner is returned when another variable
     # type is specified, e.g. in this instance, an integer.
     settings.CLAMAV_CLIENT_BACKEND = 10
-    scanner = archivematica_clamscan.get_scanner()
-    assert isinstance(scanner, archivematica_clamscan.ClamdScanner)
+    scanner = virus_scan.get_scanner()
+    assert isinstance(scanner, virus_scan.ClamdScanner)
 
 
 args = OrderedDict()
@@ -61,7 +61,7 @@ class FileMock:
         self.size = size
 
 
-class ScannerMock(archivematica_clamscan.ScannerBase):
+class ScannerMock(virus_scan.ScannerBase):
     PROGRAM = "Mock"
 
     def __init__(self, should_except=False, passed=False):
@@ -86,7 +86,7 @@ def setup_test_scan_file_mocks(
 ):
     deps = namedtuple("deps", ["file_already_scanned", "file_get", "scanner"])(
         file_already_scanned=mocker.patch(
-            "a3m.client.clientScripts.archivematica_clamscan.file_already_scanned",
+            "a3m.client.clientScripts.virus_scan.file_already_scanned",
             return_value=file_already_scanned,
         ),
         file_get=mocker.patch(
@@ -96,8 +96,7 @@ def setup_test_scan_file_mocks(
     )
 
     mocker.patch(
-        "a3m.client.clientScripts.archivematica_clamscan.get_scanner",
-        return_value=deps.scanner,
+        "a3m.client.clientScripts.virus_scan.get_scanner", return_value=deps.scanner,
     )
 
     return deps
@@ -106,7 +105,7 @@ def setup_test_scan_file_mocks(
 def test_scan_file_already_scanned(mocker):
     deps = setup_test_scan_file_mocks(mocker, file_already_scanned=True)
 
-    exit_code = archivematica_clamscan.scan_file([], **dict(args))
+    exit_code = virus_scan.scan_file([], **dict(args))
 
     assert exit_code == 0
     deps.file_already_scanned.assert_called_once_with(args["file_uuid"])
@@ -174,10 +173,10 @@ def test_scan_file(mocker, setup_kwargs, exit_code, queue_event_params, settings
 
     event_queue = []
 
-    ret = archivematica_clamscan.scan_file(event_queue, **dict(args))
+    ret = virus_scan.scan_file(event_queue, **dict(args))
 
     # The integer returned by scan_file() is going to be used as the exit code
-    # of the archivematica_clamscan.py script which is important for the AM
+    # of the virus_scan.py script which is important for the AM
     # workflow in order to control what to do next.
     assert exit_code == ret
 

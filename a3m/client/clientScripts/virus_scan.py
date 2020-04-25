@@ -359,6 +359,7 @@ def call(jobs):
 
     for job in jobs:
         with job.JobContext(logger=logger):
+            raise Exception("ANTIVIRUS DAEMON IS UNAVAILABLE")
             if not mcpclient_settings.VIRUS_SCANNING_ENABLED:
                 job.set_status(0)
                 continue

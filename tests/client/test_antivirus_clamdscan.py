@@ -1,4 +1,4 @@
-"""Tests for the archivematica_clamscan.py client script."""
+"""Tests for the virus_scan.py client script."""
 import errno
 from collections import namedtuple
 
@@ -7,7 +7,7 @@ from clamd import ClamdNetworkSocket
 from clamd import ClamdUnixSocket
 from clamd import ConnectionError
 
-from a3m.client.clientScripts import archivematica_clamscan
+from a3m.client.clientScripts import virus_scan
 
 
 def setup_clamdscanner(
@@ -17,7 +17,7 @@ def setup_clamdscanner(
     settings.CLAMAV_CLIENT_TIMEOUT = timeout
     settings.CLAMAV_PASS_BY_STREAM = stream
 
-    return archivematica_clamscan.ClamdScanner()
+    return virus_scan.ClamdScanner()
 
 
 def test_clamdscanner_version_props(mocker, settings):
