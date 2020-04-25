@@ -18,9 +18,6 @@ import csv
 import os
 import shutil
 import sys
-
-
-from django.conf import settings as django_settings
 import uuid
 from pathlib import Path
 
