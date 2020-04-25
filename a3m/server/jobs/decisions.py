@@ -121,7 +121,7 @@ class UpdateContextDecisionJob(DecisionJob):
     # linkTaskManagerReplacementDicFromChoice, and it seems to have multiple
     # ways of executing. It could use some cleanup.
 
-    # A3M-TODO: this is unused now, maybe delete?
+    # A3M-TODO: CHOICE_MAPPING is unused now, maybe delete?
 
     # Maps decision point UUIDs and decision UUIDs to their "canonical"
     # equivalents. This is useful for when there are multiple decision points which

@@ -506,6 +506,22 @@ class PackageContext:
             self._data[key] = value
 
 
+class PackageNotFoundError(Exception):
+    pass
+
+
+@auto_close_old_connections()
+def get_package_status(package_id):
+    try:
+        models.Transfer.objects.get(pk=package_id)
+    except models.Transfer.DoesNotExist:
+        raise PackageNotFoundError
+
+    # A3M-TODO: it may raise if the transfer was just submitted and there
+    # are zero jobs recorded.
+    return get_unit_status(package_id, "unitTransfer")
+
+
 def get_unit_status(unit_uuid, unit_type):
     """Get status for a SIP or Transfer.
 
