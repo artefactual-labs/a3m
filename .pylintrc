@@ -1,0 +1,5 @@
+[MASTER]
+extension-pkg-whitelist=lxml
+
+[MESSAGES CONTROL]
+disable=C, F, I, R, W, E1101

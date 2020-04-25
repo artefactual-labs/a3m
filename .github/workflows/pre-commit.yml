@@ -1,4 +1,4 @@
-name: Pre-commit hooks
+name: Lint
 on:
 - push
 - pull_request
