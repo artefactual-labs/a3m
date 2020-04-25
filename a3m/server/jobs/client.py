@@ -126,7 +126,7 @@ class ClientScriptJob(Job, metaclass=abc.ABCMeta):
 
     def wait_for_task_results(self):
         for task in self.task_backend.wait_for_results(self):
-            # XXX: These 0s avoid comparing int with None
+            # A3M-TODO: These 0s avoid comparing int with None
             self.exit_code = max([self.exit_code or 0, task.exit_code or 0])
             metrics.task_completed(task, self)
             self.task_completed_callback(task)
@@ -138,10 +138,19 @@ class ClientScriptJob(Job, metaclass=abc.ABCMeta):
     @auto_close_old_connections()
     def update_status_from_exit_code(self):
         status_code = self.link.get_status_id(self.exit_code)
-
-        return models.Job.objects.filter(jobuuid=self.uuid).update(
-            currentstep=status_code
-        )
+        models.Job.objects.filter(jobuuid=self.uuid).update(currentstep=status_code)
+        if status_code != models.Job.STATUS_COMPLETED_SUCCESSFULLY:
+            try:
+                status = models.Job.STATUS[status_code][1]
+            except IndexError:
+                status = status_code
+            logger.warning(
+                "Processing error in package %s (%s <%s>) with status: %s.",
+                self.package.uuid,
+                self.link._src["description"]["en"],
+                self.link.id,
+                status,
+            )
 
 
 class DirectoryClientScriptJob(ClientScriptJob):
