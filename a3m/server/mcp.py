@@ -71,9 +71,9 @@ def watched_dir_handler(package_queue, path, watched_dir):
 
 
 def main(shutdown_event=None):
-    logger.info("PID: %s", os.getpid())
-    logger.info("UID: %s", os.getuid())
-    logger.info(
+    logger.warning("PID: %s", os.getpid())
+    logger.warning("UID: %s", os.getuid())
+    logger.warning(
         "Python: %s.%s.%s",
         sys.version_info.major,
         sys.version_info.minor,
@@ -92,7 +92,7 @@ def main(shutdown_event=None):
 
     def signal_handler(signal, frame):
         """Used to handle the stop/kill command signals (SIGINT, SIGKILL)"""
-        logger.info("Received termination signal (%s)", signal)
+        logger.warning("Received termination signal (%s)", signal)
 
         shutdown_event.set()
         executor.shutdown(wait=False)
@@ -140,7 +140,7 @@ def main(shutdown_event=None):
     # Shut down task backend.
     get_task_backend().shutdown(wait=False)
 
-    logger.info("MCPServer shut down complete.")
+    logger.warning("a3m shutdown complete.")
 
 
 if __name__ == "__main__":
