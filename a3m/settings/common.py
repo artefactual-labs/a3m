@@ -239,7 +239,7 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "detailed": {
-            "format": "%(levelname)-8s %(threadName)s %(asctime)s %(module)s:%(funcName)s:%(lineno)d:  %(message)s",
+            "format": "%(levelname)-8s <%(asctime)s> %(module)s: %(message)s",
             "datefmt": "%Y-%m-%d %H:%M:%S",
         }
     },
@@ -257,6 +257,9 @@ LOGGING = {
 DEBUG = config.get("debug")
 
 if DEBUG:
+    LOGGING["formatters"]["detailed"][
+        "format"
+    ] = "%(levelname)-8s %(threadName)s <%(asctime)s> %(module)s:%(funcName)s:%(lineno)d: %(message)s"
     LOGGING["handlers"]["console"]["level"] = "DEBUG"
     LOGGING["loggers"]["a3m"]["level"] = "DEBUG"
     LOGGING["root"]["level"] = "DEBUG"
