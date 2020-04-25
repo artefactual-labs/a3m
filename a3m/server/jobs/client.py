@@ -2,7 +2,6 @@
 Jobs remotely executed by on MCP client.
 """
 import abc
-import ast
 import logging
 
 from a3m.main import models
@@ -175,34 +174,11 @@ class FilesClientScriptJob(ClientScriptJob):
     def filter_subdir(self):
         """Returns directory to filter files on.
 
-        This path is usually defined in the workflow but can be overridden
-        per package in a UnitVariable, so we need to look that up.
+        In Archivematica, it was possible to override this per package in a
+        UnitVariable. In practice this was done only twice in the workflow of
+        Maildir transfers which a3m does not handle.
         """
-
-        filter_subdir = self.link.config.get("filter_subdir", "")
-
-        # Check if filterSubDir has been overridden for this Transfer/SIP
-        try:
-            var = models.UnitVariable.objects.get(
-                unittype=self.package.UNIT_VARIABLE_TYPE,
-                unituuid=self.package.uuid,
-                variable=self.name,
-            )
-        except (
-            models.UnitVariable.DoesNotExist,
-            models.UnitVariable.MultipleObjectsReturned,
-        ):
-            var = None
-
-        if var:
-            try:
-                script_override = ast.literal_eval(var.variablevalue)
-            except (SyntaxError, ValueError):
-                pass
-            else:
-                filter_subdir = script_override.get("filterSubDir")
-
-        return filter_subdir
+        return self.link.config.get("filter_subdir", "")
 
     def submit_tasks(self):
         """Iterate through all matching files for the package, and submit tasks.
