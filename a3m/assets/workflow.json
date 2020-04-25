@@ -120,15 +120,6 @@
             },
             "link_id": "18c37bff-fce9-4b40-a50a-022ea0386f1a"
         },
-        "2eae85d6-da2f-4f1c-8c33-3810b55e23aa": {
-            "description": {
-                "en": "SIP Creation complete",
-                "fr": "Création du SIP complète",
-                "pt_BR": "Criação do SIP concluída",
-                "sv": "SIP skapelse fullföljd"
-            },
-            "link_id": "36609513-6502-4aca-886a-6c4ae03a9f05"
-        },
         "35151db8-3a11-4b49-8865-f6697ef0ac75": {
             "description": {
                 "en": "Yes",
@@ -303,15 +294,6 @@
                 "sv": "AIP återingest godkänningsled"
             },
             "link_id": "9520386f-bb6d-4fb9-a6b6-5845ef39375f"
-        },
-        "a2e19764-b373-4093-b0dd-11d61580f180": {
-            "description": {
-                "en": "SIP Creation",
-                "fr": "Création du SIP",
-                "pt_BR": "Criação do SIP",
-                "sv": "SIP Skapelse"
-            },
-            "link_id": "ab69c494-23b7-4f50-acff-2e00cf7bffda"
         },
         "a6ed697e-6189-4b4e-9f80-29209abc7937": {
             "description": {
@@ -1762,8 +1744,8 @@
                     "link_id": "e3a6d178-fa65-4086-a4aa-6533e8f12d51"
                 }
             },
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": "7d0616b2-afed-41a6-819a-495032e86291",
+            "fallback_job_status": "Failed",
+            "fallback_link_id": null,
             "group": {
                 "en": "Verify SIP compliance",
                 "fr": "Vérifier la conformité du SIP",
@@ -2323,41 +2305,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "36609513-6502-4aca-886a-6c4ae03a9f05": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "--eventType \"removal from backlog\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --eventDateTime \"%jobCreatedDate%\"",
-                "execute": "createEvent_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create removal from backlog PREMIS events",
-                "es": "Crear eventos PREMIS de eliminación en cola",
-                "pt_BR": "Crie eliminação dos eventos PREMIS do backlog",
-                "sv": "Skapa borttaggning från backloggens PREMIS händelser"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "70669a5b-01e4-4ea0-ac70-10292f87da05"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Approve SIP creation",
-                "es": "Aprobar creación de SIP",
-                "fr": "Approuver la création du SIP",
-                "ja": "SIP作成を承認",
-                "pt_BR": "Confirmar criação SIP",
-                "sv": "Godkänn skapande av SIP"
             }
         },
         "370aca94-65ab-4f2a-9d7d-294a62c8b7ba": {
@@ -5349,35 +5296,6 @@
                 "sv": "Extrahera paket"
             }
         },
-        "ab69c494-23b7-4f50-acff-2e00cf7bffda": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "2eae85d6-da2f-4f1c-8c33-3810b55e23aa",
-                    "a6ed697e-6189-4b4e-9f80-29209abc7937"
-                ]
-            },
-            "description": {
-                "en": "Approve SIP Creation",
-                "es": "Aprobar creación de SIP",
-                "fr": "Approuver la création du SIP",
-                "ja": "SIP作成を承認",
-                "pt_BR": "Confirmar Criação SIP",
-                "sv": "Godkänn skapande av SIP"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Approve SIP creation",
-                "es": "Aprobar creación de SIP",
-                "fr": "Approuver la création du SIP",
-                "ja": "SIP作成を承認",
-                "pt_BR": "Confirmar criação SIP",
-                "sv": "Godkänn skapande av SIP"
-            }
-        },
         "accea2bf-ba74-4a3a-bb97-614775c74459": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
@@ -7147,39 +7065,6 @@
                 "sv": "Normalisera"
             }
         },
-        "f025f58c-d48c-4ba1-8904-a56d2a67b42f": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/SIPCreation/SIPsUnderConstruction/.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Failed compliance. See output in dashboard. SIP moved back to SIPsUnderConstruction",
-                "pt_BR": "Falha na conformidade. Veja a saída no painel. SIP voltou para SIPsUnderConstruction",
-                "sv": "Klarade inte följsamhetskontroll. Se output på översiktsvyn. Överföringspaket flyttats tillbaka till SIPsUnderConstruction."
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Failed compliance",
-                "fr": "Échec de la mise en conformité",
-                "pt_BR": "Falha na conformidade",
-                "sv": "Följsamhetskontroll misslyckades"
-            },
-            "end": true
-        },
         "f09847c2-ee51-429a-9478-a860477f6b8d": {
             "config": {
                 "@manager": "linkTaskManagerReplacementDicFromChoice",
@@ -7695,12 +7580,6 @@
             "chain_id": "fefdcee4-dd84-4b55-836f-99ef880ecdb6",
             "only_dirs": true,
             "path": "/system/autoProcessSIP",
-            "unit_type": "SIP"
-        },
-        {
-            "chain_id": "a2e19764-b373-4093-b0dd-11d61580f180",
-            "only_dirs": true,
-            "path": "/SIPCreation/SIPsUnderConstruction",
             "unit_type": "SIP"
         },
         {
