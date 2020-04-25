@@ -15,6 +15,13 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip tox
-    - name: Run tox
+    - name: Run tox -e vulture
+      continue-on-error: true
+      run: |
+        tox -e vulture
+    - name: Run tox -e lint
       run: |
         tox -e lint
+    - name: Run tox -e pylint
+      run: |
+        tox -e pylint
