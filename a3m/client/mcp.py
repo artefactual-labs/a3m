@@ -46,27 +46,30 @@ task to run next).
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 import configparser
+import importlib
 import logging
 import os
 import pickle
+import shlex
 import time
 from functools import partial
 from socket import gethostname
 
 import django
-import gearman
-from django.conf import settings as django_settings
-from django.db import transaction
 
 django.setup()
+from django.conf import settings as django_settings
+from django.db import transaction
+import gearman
 
-from a3m.main.models import Task
-from a3m.client import metrics, ASSETS_DIR, MODULES_FILE
+from a3m.client import ASSETS_DIR
+from a3m.client import metrics
+from a3m.client import MODULES_FILE
 from a3m.client.job import Job
-from a3m.databaseFunctions import getUTCDate, retryOnFailure, auto_close_db
-
-import shlex
-import importlib
+from a3m.databaseFunctions import auto_close_db
+from a3m.databaseFunctions import getUTCDate
+from a3m.databaseFunctions import retryOnFailure
+from a3m.main.models import Task
 
 
 logger = logging.getLogger(__name__)

@@ -30,17 +30,21 @@ import threading
 import django
 
 django.setup()
-
 from django.conf import settings
 
-from a3m.server import metrics, rpc_server, shared_dirs
-from a3m.server.jobs import Job, JobChain
-from a3m.server.packages import DIP, Transfer, SIP
+from a3m.server import metrics
+from a3m.server import rpc_server
+from a3m.server import shared_dirs
+from a3m.server.jobs import Job
+from a3m.server.jobs import JobChain
+from a3m.server.packages import DIP
+from a3m.server.packages import SIP
+from a3m.server.packages import Transfer
 from a3m.server.queues import PackageQueue
 from a3m.server.tasks import Task
+from a3m.server.tasks.backends import get_task_backend
 from a3m.server.watch_dirs import watch_directories
 from a3m.server.workflow import load_default_workflow
-from a3m.server.tasks.backends import get_task_backend
 
 
 logger = logging.getLogger(__name__)

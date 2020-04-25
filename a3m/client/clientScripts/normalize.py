@@ -70,10 +70,7 @@ class Command:
 
     def __str__(self):
         return "[COMMAND] {}\n\tExecuting: {}\n\tOutput location: {}\n".format(
-            self.fpcommand,
-            self.command,
-            self.verification_command,
-            self.output_location,
+            self.fpcommand, self.command, self.output_location,
         )
 
     def execute(self, skip_on_success=False):
@@ -556,14 +553,7 @@ def main(job, opts):
 
     replacement_dict = get_replacement_dict(job, opts)
 
-    cl = Command(
-        job,
-        rule,
-        command,
-        replacement_dict,
-        on_success=once_normalized_callback(job),
-        opts=opts,
-    )
+    cl = Command(rule, command, replacement_dict, once_normalized_callback(job), opts,)
     exitstatus = cl.execute()
 
     # If the access/thumbnail normalization command has errored AND a
@@ -607,12 +597,11 @@ def main(job, opts):
 
             # Use existing replacement dict
             cl = Command(
-                job,
                 fallback_rule,
                 command,
                 replacement_dict,
-                on_success=once_normalized_callback(job),
-                opts=opts,
+                once_normalized_callback(job),
+                opts,
             )
             exitstatus = cl.execute()
 

@@ -17,7 +17,6 @@
 # This Django model module was auto-generated and then updated manually
 # Needs some cleanups, make sure each model has its primary_key=True
 # Feel free to rename the models, but don't rename db_table values or field names.
-# stdlib, alphabetical by import source
 import logging
 import re
 import uuid
@@ -27,8 +26,6 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
-# Core Django, alphabetical by import source
-# Third party dependencies, alphabetical by import source
 
 logger = logging.getLogger(__name__)
 
@@ -1369,9 +1366,7 @@ class FPCommandOutput(models.Model):
     # Table name is main_fpcommandoutput
 
     def __unicode__(self):
-        return "<file: {file}; rule: {rule}; content: {content}".format(
-            file=self.file, rule=self.rule, content=self.content[:20]
-        )
+        return f"<file: {self.file}; rule: {self.rule};>"
 
 
 class FileID(models.Model):
