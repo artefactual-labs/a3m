@@ -231,7 +231,6 @@ def create():
         "watchedDirectories/storeAIP",
         "watchedDirectories/system",
         "watchedDirectories/system/autoProcessSIP",
-        "watchedDirectories/system/reingestAIP",
         "watchedDirectories/workFlowDecisions",
         "watchedDirectories/workFlowDecisions/compressionAIPDecisions",
         "watchedDirectories/workFlowDecisions/createTree",

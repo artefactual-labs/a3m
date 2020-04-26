@@ -78,16 +78,6 @@
             },
             "link_id": "0f0c1f33-29f2-49ae-b413-3e043da5df61"
         },
-        "260ef4ea-f87d-4acf-830d-d0de41e6d2af": {
-            "description": {
-                "en": "Approve AIP reingest",
-                "fr": "Approuver la réacquisition de l'AIP",
-                "ja": "AIPの再インジェストを承認",
-                "pt_BR": "Aprovar readmissão do AIP",
-                "sv": "Godkänn AIP reingest"
-            },
-            "link_id": "c103b2fb-9a6b-4b68-8112-b70597a6cd14"
-        },
         "27cf6ca9-11b4-41ac-9014-f8018bcbad5e": {
             "description": {
                 "en": "Compress AIP",
@@ -275,15 +265,6 @@
                 "sv": "Granska innehåll?"
             },
             "link_id": "accea2bf-ba74-4a3a-bb97-614775c74459"
-        },
-        "9918b64c-b898-407b-bce4-a65aa3c11b89": {
-            "description": {
-                "en": "AIP reingest approval chain",
-                "fr": "Processus d’approbation de réacquisition de l'AIP",
-                "pt_BR": "Cadeia de aprovação de readmissão do AIP",
-                "sv": "AIP återingest godkänningsled"
-            },
-            "link_id": "9520386f-bb6d-4fb9-a6b6-5845ef39375f"
         },
         "a6ed697e-6189-4b4e-9f80-29209abc7937": {
             "description": {
@@ -2028,39 +2009,6 @@
                 "sv": "Normalisera"
             }
         },
-        "31fc3f66-34e9-478f-8d1b-c29cd0012360": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\"",
-                "execute": "restructureBagAIPToSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Restructure from bag AIP to SIP directory format",
-                "pt_BR": "Reestruturar do pacote AIP para o formato de diretório SIP",
-                "sv": "Omstrukturera från bag AIP till SIP katalog format"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "33533fbb-1607-434f-a82b-cf938c05f60b"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Reingest AIP",
-                "fr": "Réacquistion de l’AIP",
-                "ja": "AIPの再インジェスト",
-                "pt_BR": "Readmitir AIP",
-                "sv": "Återingestera AIP"
-            }
-        },
         "333532b9-b7c2-4478-9415-28a3056d58df": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -2095,39 +2043,6 @@
                 "sv": "Avslå överföring"
             },
             "end": true
-        },
-        "33533fbb-1607-434f-a82b-cf938c05f60b": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPDirectory%\"",
-                "execute": "parseMETStoDB_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Populate database with reingested AIP data",
-                "pt_BR": "Preencher banco de dados com dados do AIP readmitido",
-                "sv": "Fyll databas med data från återingesterad AIP"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5d6a103c-9a5d-4010-83a8-6f4c61eb1478"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Reingest AIP",
-                "fr": "Réacquistion de l’AIP",
-                "ja": "AIPの再インジェスト",
-                "pt_BR": "Readmitir AIP",
-                "sv": "Återingestera AIP"
-            }
         },
         "33d7ac55-291c-43ae-bb42-f599ef428325": {
             "config": {
@@ -3284,40 +3199,6 @@
                 "es": "Preparar AIP",
                 "fr": "Préparer l'AIP",
                 "sv": "Förbered AIP"
-            }
-        },
-        "60b0e812-ebbe-487e-810f-56b1b6fdd819": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPDirectory%\"",
-                "execute": "determineAIPVersionKeyExitCode_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Determine processing path for this AIP version",
-                "es": "Determinar la ruta de procesamiento para la versión de este AIP",
-                "pt_BR": "Determine o caminho de processamento para esta versão do AIP",
-                "sv": "Välj bearbetningsmapp för denna AIP-version"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "31fc3f66-34e9-478f-8d1b-c29cd0012360"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Reingest AIP",
-                "fr": "Réacquistion de l’AIP",
-                "ja": "AIPの再インジェスト",
-                "pt_BR": "Readmitir AIP",
-                "sv": "Återingestera AIP"
             }
         },
         "62e0adc0-87f6-4162-acfa-f560c93d181d": {
@@ -4714,33 +4595,6 @@
                 "sv": "Förbered AIP"
             }
         },
-        "9520386f-bb6d-4fb9-a6b6-5845ef39375f": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "260ef4ea-f87d-4acf-830d-d0de41e6d2af",
-                    "a6ed697e-6189-4b4e-9f80-29209abc7937"
-                ]
-            },
-            "description": {
-                "en": "Approve AIP reingest",
-                "fr": "Approuver la réacquisition de l'AIP",
-                "ja": "AIPの再インジェストを承認",
-                "pt_BR": "Aprovar readmissão do AIP",
-                "sv": "Godkänn AIP reingest"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "c103b2fb-9a6b-4b68-8112-b70597a6cd14",
-            "group": {
-                "en": "Reingest AIP",
-                "fr": "Réacquistion de l’AIP",
-                "ja": "AIPの再インジェスト",
-                "pt_BR": "Readmitir AIP",
-                "sv": "Återingestera AIP"
-            }
-        },
         "970b7d17-7a6b-4d51-808b-c94b78c0d97f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -5712,39 +5566,6 @@
                 "ja": "パッケージの抽出",
                 "pt_BR": "Extrair pacotes",
                 "sv": "Extrahera paket"
-            }
-        },
-        "c103b2fb-9a6b-4b68-8112-b70597a6cd14": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "ff516d0b-2bba-414c-88d4-f3575ebf050a"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Reingest AIP",
-                "fr": "Réacquistion de l’AIP",
-                "ja": "AIPの再インジェスト",
-                "pt_BR": "Readmitir AIP",
-                "sv": "Återingestera AIP"
             }
         },
         "c2e6600d-cd26-42ed-bed5-95d41c06e37b": {
@@ -7198,39 +7019,6 @@
                 "pt_BR": "Caracterizar e extrair metadados",
                 "sv": "Karaktärisera och extrahera metadata"
             }
-        },
-        "ff516d0b-2bba-414c-88d4-f3575ebf050a": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%sharedMicroServiceTasksConfigs/processingMCPConfigs/defaultProcessingMCP.xml\" \"%SIPDirectory%processingMCP.xml\" -n",
-                "execute": "copy_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Include default SIP processingMCP.xml",
-                "pt_BR": "Incluir padrão SIP processingMCP.xml",
-                "sv": "Inkludera standard SIP processingMCP.xml"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "60b0e812-ebbe-487e-810f-56b1b6fdd819"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Reingest AIP",
-                "fr": "Réacquistion de l’AIP",
-                "ja": "AIPの再インジェスト",
-                "pt_BR": "Readmitir AIP",
-                "sv": "Återingestera AIP"
-            }
         }
     },
     "watched_directories": [
@@ -7263,12 +7051,6 @@
             "only_dirs": true,
             "path": "/SIPCreation/completedTransfers/",
             "unit_type": "Transfer"
-        },
-        {
-            "chain_id": "9918b64c-b898-407b-bce4-a65aa3c11b89",
-            "only_dirs": true,
-            "path": "/system/reingestAIP/",
-            "unit_type": "SIP"
         },
         {
             "chain_id": "86fbea68-d08c-440f-af2c-dac68556db12",
