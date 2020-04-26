@@ -38,14 +38,6 @@
             },
             "link_id": "f574b2a0-6e0b-4c74-ac5b-a73ddb9593a0"
         },
-        "0ea3a6f9-ff37-4f32-ac01-eec5393f008a": {
-            "description": {
-                "en": "Pre-normalize identify file format",
-                "pt_BR": "Pré-normalize identificação de formato de arquivo",
-                "sv": "För-normalisera identifiera filformat"
-            },
-            "link_id": "7a024896-c4f7-4808-a240-44c87c762bc5"
-        },
         "169a5448-c756-4705-a920-737de6b8d595": {
             "description": {
                 "en": "Reject",
@@ -257,16 +249,6 @@
                 "sv": "Normalisera för bevarande och åtkomst"
             },
             "link_id": "424ee8f1-6cdd-4960-8641-ed82361d3ad7"
-        },
-        "bd94cc9b-7990-45a2-a255-a1b70936f9f2": {
-            "description": {
-                "en": "Identify file format",
-                "es": "Identificar formato de fichero",
-                "fr": "Identifier le format de fichier",
-                "pt_BR": "Identifique o formato do arquivo",
-                "sv": "Identifiera filformat"
-            },
-            "link_id": "f09847c2-ee51-429a-9478-a860477f6b8d"
         },
         "c34bd22a-d077-4180-bf58-01db35bdb644": {
             "description": {
@@ -3515,7 +3497,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "a2173b55-abff-4d8f-97b9-79cc2e0a64fa"
+                    "link_id": "7a024896-c4f7-4808-a240-44c87c762bc5"
                 }
             },
             "fallback_job_status": "Failed",
@@ -4501,39 +4483,6 @@
                 "sv": "Bearbeta manuellt normaliserade filer"
             }
         },
-        "a2173b55-abff-4d8f-97b9-79cc2e0a64fa": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/workFlowDecisions/selectFormatIDToolIngest/.\"  \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to select file ID tool",
-                "pt_BR": "Mover para selecionar ferramenta de ID de arquivo",
-                "sv": "Flytta till välj fil ID-verktyg"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser ",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "a2ba5278-459a-4638-92d9-38eb1588717d": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
@@ -4579,7 +4528,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "d1b27e9e-73c8-4954-832c-36bd1e00c802"
+                    "link_id": "f09847c2-ee51-429a-9478-a860477f6b8d"
                 }
             },
             "fallback_job_status": "Failed",
@@ -5631,39 +5580,6 @@
                 "sv": "Genrerera AIP METS"
             }
         },
-        "d1b27e9e-73c8-4954-832c-36bd1e00c802": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/workFlowDecisions/selectFormatIDToolTransfer/.\"  \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to select file ID tool",
-                "pt_BR": "Mover para selecionar ferramenta de ID de arquivo",
-                "sv": "Flytta till välj fil ID-verktyg"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Identify file format",
-                "es": "Identificar formato de fichero",
-                "fr": "Identifier le format de fichier",
-                "pt_BR": "Identifique o formato do arquivo",
-                "sv": "Identifiera filformat"
-            }
-        },
         "d27fd07e-d3ed-4767-96a5-44a2251c6d0a": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -6074,7 +5990,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "a2173b55-abff-4d8f-97b9-79cc2e0a64fa"
+                    "link_id": "7a024896-c4f7-4808-a240-44c87c762bc5"
                 }
             },
             "fallback_job_status": "Failed",
@@ -6770,18 +6686,6 @@
         }
     },
     "watched_directories": [
-        {
-            "chain_id": "bd94cc9b-7990-45a2-a255-a1b70936f9f2",
-            "only_dirs": true,
-            "path": "/workFlowDecisions/selectFormatIDToolTransfer/",
-            "unit_type": "Transfer"
-        },
-        {
-            "chain_id": "0ea3a6f9-ff37-4f32-ac01-eec5393f008a",
-            "only_dirs": true,
-            "path": "/workFlowDecisions/selectFormatIDToolIngest/",
-            "unit_type": "SIP"
-        },
         {
             "chain_id": "c868840c-cf0b-49db-a684-af4248702954",
             "only_dirs": true,

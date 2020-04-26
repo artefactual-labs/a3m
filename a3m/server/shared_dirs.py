@@ -233,8 +233,6 @@ def create():
         "watchedDirectories/workFlowDecisions",
         "watchedDirectories/workFlowDecisions/examineContentsChoice",
         "watchedDirectories/workFlowDecisions/extractPackagesChoice",
-        "watchedDirectories/workFlowDecisions/selectFormatIDToolIngest",
-        "watchedDirectories/workFlowDecisions/selectFormatIDToolTransfer",
         "www",
         "www/AIPsStore",
     )
