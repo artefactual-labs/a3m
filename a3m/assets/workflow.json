@@ -99,16 +99,6 @@
             },
             "link_id": "01d64f58-8295-4b7b-9cab-8f1b153a504f"
         },
-        "28a4322d-b8a5-4bae-b2dd-71cc9ff99e73": {
-            "description": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "télécharger le DIP",
-                "pt_BR": "carregarDIP",
-                "sv": "Ladda upp DIP"
-            },
-            "link_id": "f8ee488b-5667-4417-ae15-bed9e42ee97d"
-        },
         "29881c21-3548-454a-9637-ebc5fd46aee0": {
             "description": {
                 "en": "Yes",
@@ -302,7 +292,7 @@
                 "fr": "Rejeter le SIP",
                 "ja": "SIPを拒否",
                 "pt_BR": "Rejeitar SIP",
-                "sv": "Förkasta DIP"
+                "sv": "Förkasta SIP"
             },
             "link_id": "19c94543-14cb-4158-986b-1d2b55723cd8"
         },
@@ -1234,41 +1224,6 @@
                 "sv": "Bearbeta leveransdokumentation"
             }
         },
-        "1401c4d0-fb6f-42ef-94d3-c884c25800b2": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%processingMCP.xml\" \"%SIPDirectory%DIP/processingMCP.xml\"",
-                "execute": "copy_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Copy preconfigured choice XML to DIP directory",
-                "es": "Copiar XML de configuración de procesamiento al directorio DIP ",
-                "fr": "Copier les choix XML préconfigurés dans le répertoire DIP",
-                "ja": "事前設定したXMLをDIPディレクトリにコピー",
-                "pt_BR": "Copie a opção pré-configurada XML para o diretório DIP",
-                "sv": "Kopiera förkonfigurerad vald XML till DIP katalogen"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "43c72f8b-3cea-4b4c-b99d-cfdefdfcc270"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare DIP",
-                "es": "Preparar DIP",
-                "fr": "Préparer le DIP",
-                "sv": "Förbered DIP"
-            }
-        },
         "153c5f41-3cfb-47ba-9150-2dd44ebc27df": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
@@ -1474,7 +1429,7 @@
                 "fr": "Rejeter le SIP",
                 "ja": "SIPを拒否",
                 "pt_BR": "Rejeitar SIP",
-                "sv": "Förkasta DIP"
+                "sv": "Förkasta SIP"
             }
         },
         "1a136608-ae7b-42b4-bf2f-de0e514cfd47": {
@@ -2240,7 +2195,7 @@
                 "fr": "Rejeter le SIP",
                 "ja": "SIPを拒否",
                 "pt_BR": "Rejeitar SIP",
-                "sv": "Förkasta DIP"
+                "sv": "Förkasta SIP"
             },
             "end": true
         },
@@ -2378,41 +2333,6 @@
                 "sv": "Överföring misslyckad"
             },
             "end": true
-        },
-        "378ae4fc-7b62-40af-b448-a1ab47ac2c0c": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%thumbnails\" \"%SIPDirectory%DIP\"",
-                "execute": "copyThumbnailsToDIPDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Copy thumbnails to DIP directory",
-                "es": "Copiar miniaturas al directorio dIP",
-                "fr": "Copier les vignettes dans le répertoire DIP",
-                "ja": "DIPディレクトリにサムネイルをコピー",
-                "pt_BR": "Copie os thumbnails para o diretório DIP",
-                "sv": "Kopiera tumnagel till DIP-mapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "ad011cc2-b0eb-4f51-96bb-400149a2ea11"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare DIP",
-                "es": "Preparar DIP",
-                "fr": "Préparer le DIP",
-                "sv": "Förbered DIP"
-            }
         },
         "39a128e3-c35d-40b7-9363-87f75091e1ff": {
             "config": {
@@ -2657,41 +2577,6 @@
                 "fr": "Vérifier la conformité du transfert",
                 "pt_BR": "Verificar a conformidade da transferência",
                 "sv": "Kontrollera överförings följsamhet"
-            }
-        },
-        "43c72f8b-3cea-4b4c-b99d-cfdefdfcc270": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPObjectsDirectory%metadata/OCRfiles\" \"%SIPDirectory%DIP\"",
-                "execute": "copyRecursive_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Copy OCR data to DIP directory",
-                "es": "Copiar datos OCR al directorio DIP",
-                "fr": "Copier les données ROC dans le répertoire DIP",
-                "ja": "DIPディレクトリにOCRをコピー",
-                "pt_BR": "Copie os dados do OCR para o diretório DIP",
-                "sv": "Kopiera OCR-data till DIP-mapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "61a8de9c-7b25-4f0f-b218-ad4dde261eed"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare DIP",
-                "es": "Preparar DIP",
-                "fr": "Préparer le DIP",
-                "sv": "Förbered DIP"
             }
         },
         "440ef381-8fe8-4b6e-9198-270ee5653454": {
@@ -3020,11 +2905,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "f1e286f9-4ec7-4e19-820c-dae7b8ea7d09"
+                    "link_id": "3e25bda6-5314-4bb4-aa1e-90900dce887d"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "f1e286f9-4ec7-4e19-820c-dae7b8ea7d09",
+            "fallback_link_id": "3e25bda6-5314-4bb4-aa1e-90900dce887d",
             "group": {
                 "en": "Add README file",
                 "ja": "READMEファイルを追加",
@@ -3433,41 +3318,6 @@
                 "ja": "AIPの再インジェスト",
                 "pt_BR": "Readmitir AIP",
                 "sv": "Återingestera AIP"
-            }
-        },
-        "61a8de9c-7b25-4f0f-b218-ad4dde261eed": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%DIP\" \"%sharedPath%watchedDirectories/uploadDIP/%SIPDirectoryBasename%\"",
-                "execute": "move_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Generate DIP",
-                "es": "Generar DIP",
-                "fr": "Générer un DIP",
-                "ja": "DIPを生成",
-                "pt_BR": "Gerar DIP",
-                "sv": "Skapa DIP"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "3e25bda6-5314-4bb4-aa1e-90900dce887d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare DIP",
-                "es": "Preparar DIP",
-                "fr": "Préparer le DIP",
-                "sv": "Förbered DIP"
             }
         },
         "62e0adc0-87f6-4162-acfa-f560c93d181d": {
@@ -4305,42 +4155,6 @@
                 "ja": "AIPを蓄える",
                 "pt_BR": "Armazenar AIP",
                 "sv": "Lagra AIP"
-            }
-        },
-        "7d0616b2-afed-41a6-819a-495032e86291": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%SIPUUID%\"",
-                "execute": "restructureForComplianceSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Attempt restructure for compliance",
-                "es": "Intento de reestructuración para cumplimiento ",
-                "fr": "Tentative de réorganisation pour conformité",
-                "ja": "コンプライアンスのための再構成を試みる",
-                "pt_BR": "Tentativa de reestruturação para conformidade",
-                "sv": "Försök omstrukturera för följsamhet"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "e3a6d178-fa65-4086-a4aa-6533e8f12d51"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "f025f58c-d48c-4ba1-8904-a56d2a67b42f",
-            "group": {
-                "en": "Verify SIP compliance",
-                "fr": "Vérifier la conformité du SIP",
-                "ja": "SIPコンプライアンスを検証",
-                "pt_BR": "Verificar a conformidade com o SIP",
-                "sv": "Kontrollera SIPs följsamhet"
             }
         },
         "7d33f228-0fa8-4f4c-a66b-24f8e264c214": {
@@ -5323,41 +5137,6 @@
                 "ja": "内容を検査する",
                 "pt_BR": "Examinar conteúdos",
                 "sv": "Undersök innehåll"
-            }
-        },
-        "ad011cc2-b0eb-4f51-96bb-400149a2ea11": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%METS.%SIPUUID%.xml\" \"%SIPDirectory%DIP/METS.%SIPUUID%.xml\"",
-                "execute": "copy_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Copy METS to DIP directory",
-                "es": "Copiar METS al directorio DIP",
-                "fr": "Copier le METS dans le répertoire DIP",
-                "ja": "DIPディレクトリにMETSをコピー",
-                "pt_BR": "Copie METS para o diretório DIP",
-                "sv": "Kopiera METS till DIP-mapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "1401c4d0-fb6f-42ef-94d3-c884c25800b2"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare DIP",
-                "es": "Preparar DIP",
-                "fr": "Préparer le DIP",
-                "sv": "Förbered DIP"
             }
         },
         "ae5cdd0d-2f81-4935-a380-d5c6f1337d93": {
@@ -7208,44 +6987,6 @@
                 "sv": "Kontrollera transferns checksums"
             }
         },
-        "f1e286f9-4ec7-4e19-820c-dae7b8ea7d09": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-d \"%SIPDirectory%DIP\"",
-                "execute": "test_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Check if DIP should be generated",
-                "es": "Comprobar si el DIP debería ser generado",
-                "fr": "Vérifier si un DIP devrait être créé ",
-                "pt_BR": "Verifique se deve ser gerado DIP ",
-                "sv": "Kolla ifall DIP bör genereras"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "378ae4fc-7b62-40af-b448-a1ab47ac2c0c"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "3e25bda6-5314-4bb4-aa1e-90900dce887d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare AIP",
-                "es": "Preparar AIP",
-                "fr": "Préparer l'AIP",
-                "sv": "Förbered AIP"
-            }
-        },
         "f378ec85-adcc-4ee6-ada2-bc90cfe20efb": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -7423,41 +7164,6 @@
                 "sv": "Normalisera"
             }
         },
-        "f8ee488b-5667-4417-ae15-bed9e42ee97d": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%rejectedDirectory%\" \"%watchDirectoryPath%uploadedDIPs/\"",
-                "execute": "handleUnstoredDIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Handle unstored DIP",
-                "pt_BR": "Controlar DIP não armazenado",
-                "sv": "Hantera icke lagrade DIP:ar"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Upload DIP",
-                "es": "Subir DIP",
-                "fr": "Télécharger le DIP",
-                "ja": "DIPをアップロード",
-                "pt_BR": "Carregar DIP",
-                "sv": "Ladda upp DIP"
-            },
-            "end": true
-        },
         "f8ef02c4-f585-4b0d-9b6f-3cef6fbe527f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -7539,12 +7245,6 @@
             "only_dirs": true,
             "path": "/storeAIP/",
             "unit_type": "SIP"
-        },
-        {
-            "chain_id": "28a4322d-b8a5-4bae-b2dd-71cc9ff99e73",
-            "only_dirs": true,
-            "path": "/uploadDIP/",
-            "unit_type": "DIP"
         },
         {
             "chain_id": "0ea3a6f9-ff37-4f32-ac01-eec5393f008a",

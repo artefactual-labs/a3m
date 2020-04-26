@@ -111,7 +111,6 @@ def test_schedule_job(package_queue, transfer, workflow_link, mocker):
     assert package_queue.job_queue.qsize() == 0
     assert package_queue.sip_queue.qsize() == 0
     assert package_queue.transfer_queue.qsize() == 0
-    assert package_queue.dip_queue.qsize() == 0
 
 
 def test_active_transfer_limit(package_queue, transfer, sip, workflow_link, mocker):
@@ -137,7 +136,6 @@ def test_active_transfer_limit(package_queue, transfer, sip, workflow_link, mock
     assert package_queue.job_queue.qsize() == 0
     assert package_queue.sip_queue.qsize() == 1
     assert package_queue.transfer_queue.qsize() == 0
-    assert package_queue.dip_queue.qsize() == 0
 
 
 def test_activate_and_deactivate_package(package_queue, transfer):

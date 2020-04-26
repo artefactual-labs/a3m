@@ -109,7 +109,7 @@ def get_file_replacement_mapping(file_obj, unit_directory):
 
 
 class Package(metaclass=abc.ABCMeta):
-    """A `Package` can be a Transfer, a SIP, or a DIP.
+    """A `Package` can be a Transfer or a SIP.
     """
 
     def __init__(self, current_path, uuid):
@@ -267,76 +267,6 @@ class Package(metaclass=abc.ABCMeta):
         logger.info(message, key, self.uuid, value, chain_link_id)
 
 
-class SIPDIP(Package):
-    """SIPDIP captures behavior shared between SIP- and DIP-type packages that
-    share the same model in Archivematica.
-    """
-
-    @classmethod
-    @auto_close_old_connections()
-    def get_or_create_from_db_by_path(cls, path):
-        """Matches a directory to a database SIP by its appended UUID, or path."""
-        path = path.replace(_get_setting("SHARED_DIRECTORY"), r"%sharedPath%", 1)
-        package_type = cls.UNIT_VARIABLE_TYPE
-        sip_uuid = uuid_from_path(path)
-        created = True
-        if sip_uuid:
-            sip_obj, created = models.SIP.objects.get_or_create(
-                uuid=sip_uuid,
-                defaults={
-                    "sip_type": package_type,
-                    "currentpath": path,
-                    "diruuids": False,
-                },
-            )
-            # TODO: we thought this path was unused but some tests have proved
-            # us wrong (see issue #1141) - needs to be investigated.
-            if package_type == "SIP" and (not created and sip_obj.currentpath != path):
-                sip_obj.currentpath = path
-                sip_obj.save()
-        else:
-            try:
-                sip_obj = models.SIP.objects.get(currentpath=path)
-                created = False
-            except models.SIP.DoesNotExist:
-                sip_obj = models.SIP.objects.create(
-                    uuid=uuid4(),
-                    currentpath=path,
-                    sip_type=package_type,
-                    diruuids=False,
-                )
-        logger.info(
-            "%s %s %s (%s)",
-            package_type,
-            sip_obj.uuid,
-            "created" if created else "updated",
-            path,
-        )
-        return cls(path, sip_obj.uuid)
-
-
-class DIP(SIPDIP):
-    REPLACEMENT_PATH_STRING = r"%SIPDirectory%"
-    UNIT_VARIABLE_TYPE = "DIP"
-    JOB_UNIT_TYPE = "unitDIP"
-
-    def reload(self):
-        # reload is a no-op for DIPs
-        pass
-
-    def get_replacement_mapping(self, filter_subdir_path=None):
-        mapping = super().get_replacement_mapping(filter_subdir_path=filter_subdir_path)
-        mapping[r"%unitType%"] = "DIP"
-
-        if filter_subdir_path:
-            relative_location = filter_subdir_path.replace(
-                _get_setting("SHARED_DIRECTORY"), r"%sharedPath%", 1
-            )
-            mapping[r"%relativeLocation%"] = relative_location
-
-        return mapping
-
-
 class Transfer(Package):
     REPLACEMENT_PATH_STRING = r"%transferDirectory%"
     UNIT_VARIABLE_TYPE = "Transfer"
@@ -406,7 +336,7 @@ class Transfer(Package):
         return mapping
 
 
-class SIP(SIPDIP):
+class SIP(Package):
     REPLACEMENT_PATH_STRING = r"%SIPDirectory%"
     UNIT_VARIABLE_TYPE = "SIP"
     JOB_UNIT_TYPE = "unitSIP"
@@ -436,6 +366,48 @@ class SIP(SIPDIP):
         )
 
         return mapping
+
+    @classmethod
+    @auto_close_old_connections()
+    def get_or_create_from_db_by_path(cls, path):
+        """Matches a directory to a database SIP by its appended UUID, or path."""
+        path = path.replace(_get_setting("SHARED_DIRECTORY"), r"%sharedPath%", 1)
+        package_type = cls.UNIT_VARIABLE_TYPE
+        sip_uuid = uuid_from_path(path)
+        created = True
+        if sip_uuid:
+            sip_obj, created = models.SIP.objects.get_or_create(
+                uuid=sip_uuid,
+                defaults={
+                    "sip_type": package_type,
+                    "currentpath": path,
+                    "diruuids": False,
+                },
+            )
+            # TODO: we thought this path was unused but some tests have proved
+            # us wrong (see issue #1141) - needs to be investigated.
+            if package_type == "SIP" and (not created and sip_obj.currentpath != path):
+                sip_obj.currentpath = path
+                sip_obj.save()
+        else:
+            try:
+                sip_obj = models.SIP.objects.get(currentpath=path)
+                created = False
+            except models.SIP.DoesNotExist:
+                sip_obj = models.SIP.objects.create(
+                    uuid=uuid4(),
+                    currentpath=path,
+                    sip_type=package_type,
+                    diruuids=False,
+                )
+        logger.info(
+            "%s %s %s (%s)",
+            package_type,
+            sip_obj.uuid,
+            "created" if created else "updated",
+            path,
+        )
+        return cls(path, sip_obj.uuid)
 
 
 class PackageContext:

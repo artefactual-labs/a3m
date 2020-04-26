@@ -37,7 +37,6 @@ from a3m.server import rpc_server
 from a3m.server import shared_dirs
 from a3m.server.jobs import Job
 from a3m.server.jobs import JobChain
-from a3m.server.packages import DIP
 from a3m.server.packages import SIP
 from a3m.server.packages import Transfer
 from a3m.server.queues import PackageQueue
@@ -61,11 +60,7 @@ def watched_dir_handler(package_queue, path, watched_dir):
 
     if package_type == "SIP" and is_dir:
         package = SIP.get_or_create_from_db_by_path(path)
-    elif package_type == "DIP" and is_dir:
-        package = DIP.get_or_create_from_db_by_path(path)
-    elif package_type == "Transfer" and is_dir:
-        package = Transfer.get_or_create_from_db_by_path(path)
-    elif package_type == "Transfer" and not is_dir:
+    elif package_type == "Transfer":
         package = Transfer.get_or_create_from_db_by_path(path)
     else:
         raise ValueError(f"Unexpected unit type given for file {path}")

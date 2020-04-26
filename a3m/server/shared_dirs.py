@@ -233,8 +233,6 @@ def create():
         "watchedDirectories/system",
         "watchedDirectories/system/autoProcessSIP",
         "watchedDirectories/system/reingestAIP",
-        "watchedDirectories/uploadDIP",
-        "watchedDirectories/uploadedDIPs",
         "watchedDirectories/workFlowDecisions",
         "watchedDirectories/workFlowDecisions/compressionAIPDecisions",
         "watchedDirectories/workFlowDecisions/createDip",
@@ -246,7 +244,6 @@ def create():
         "watchedDirectories/workFlowDecisions/selectFormatIDToolTransfer",
         "www",
         "www/AIPsStore",
-        "www/DIPsStore",
     )
     for dirname in dirs:
         dirname = os.path.join(settings.SHARED_DIRECTORY, dirname)

@@ -4,37 +4,8 @@ from pathlib import Path
 import pytest
 
 from a3m.main import models
-from a3m.server.packages import DIP
 from a3m.server.packages import SIP
 from a3m.server.packages import Transfer
-
-
-@pytest.mark.django_db(transaction=True)
-def test_dip_get_or_create_from_db_path_without_uuid(tmp_path):
-    dip_path = tmp_path / "test-dip"
-
-    dip = DIP.get_or_create_from_db_by_path(str(dip_path))
-
-    assert dip.current_path == str(dip_path)
-    try:
-        models.SIP.objects.get(uuid=dip.uuid)
-    except models.SIP.DoesNotExist:
-        pytest.fail("DIP.get_or_create_from_db_by_path didn't create a SIP model")
-
-
-@pytest.mark.django_db(transaction=True)
-def test_dip_get_or_create_from_db_path_with_uuid(tmp_path):
-    dip_uuid = uuid.uuid4()
-    dip_path = tmp_path / f"test-dip-{dip_uuid}"
-
-    dip = DIP.get_or_create_from_db_by_path(str(dip_path))
-
-    assert dip.uuid == dip_uuid
-    assert dip.current_path == str(dip_path)
-    try:
-        models.SIP.objects.get(uuid=dip_uuid)
-    except models.SIP.DoesNotExist:
-        pytest.fail("DIP.get_or_create_from_db_by_path didn't create a SIP model")
 
 
 @pytest.mark.django_db(transaction=True)
