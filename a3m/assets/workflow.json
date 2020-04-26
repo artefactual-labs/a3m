@@ -78,17 +78,6 @@
             },
             "link_id": "0f0c1f33-29f2-49ae-b413-3e043da5df61"
         },
-        "27cf6ca9-11b4-41ac-9014-f8018bcbad5e": {
-            "description": {
-                "en": "Compress AIP",
-                "es": "Comprimir AIP",
-                "fr": "Compresser l'AIP",
-                "ja": "AIPを圧縮する",
-                "pt_BR": "Comprimir AIP",
-                "sv": "Komprimera AIP"
-            },
-            "link_id": "01d64f58-8295-4b7b-9cab-8f1b153a504f"
-        },
         "29881c21-3548-454a-9637-ebc5fd46aee0": {
             "description": {
                 "en": "Yes",
@@ -159,17 +148,6 @@
             },
             "link_id": "032cdc54-0b9b-4caf-86e8-10d63efbaec0"
         },
-        "5727faac-88af-40e8-8c10-268644b0142d": {
-            "description": {
-                "en": "Continue",
-                "es": "Continuar",
-                "fr": "Continuer",
-                "ja": "続ける",
-                "pt_BR": "Continua",
-                "sv": "Fortsätt"
-            },
-            "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
-        },
         "612e3609-ce9a-4df6-a9a3-63d634d2d934": {
             "description": {
                 "en": "Normalize for preservation",
@@ -215,7 +193,7 @@
                 "ja": "いいえ",
                 "sv": "Nej"
             },
-            "link_id": "54b73077-a062-41cc-882c-4df1eba447d9"
+            "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
         },
         "79f1f5af-7694-48a4-b645-e42790bbf870": {
             "description": {
@@ -225,14 +203,6 @@
                 "sv": "Nej"
             },
             "link_id": "f8ef02c4-f585-4b0d-9b6f-3cef6fbe527f"
-        },
-        "86fbea68-d08c-440f-af2c-dac68556db12": {
-            "description": {
-                "en": "Move to metadata reminder",
-                "pt_BR": "Mover para lembrete de metadados",
-                "sv": "Flytta till metadata påminellse"
-            },
-            "link_id": "eeb23509-57e2-4529-8857-9d62525db048"
         },
         "89cb80dd-0636-464f-930d-57b61e3928b2": {
             "description": {
@@ -408,16 +378,6 @@
             },
             "link_id": "2584b25c-8d98-44b7-beca-2b3ea2ea2505"
         },
-        "f6df8882-d076-441e-bb00-2f58d5eda098": {
-            "description": {
-                "en": "Generate transfer structure report",
-                "fr": "Générer un rapport de structure de transfert ",
-                "ja": "転送の構造レポートを生成",
-                "pt_BR": "Gerar relatório de estrutura de transferência",
-                "sv": "Generera överföringsstruktursrapport"
-            },
-            "link_id": "6eca2676-b4ed-48d9-adb0-374e1d5c6e71"
-        },
         "fb7a326e-1e50-4b48-91b9-4917ff8d0ae8": {
             "description": {
                 "en": "Normalize for access",
@@ -441,6 +401,29 @@
         }
     },
     "links": {
+        "00000546-1ada-400b-8819-ca8f6d546e56": {
+            "config": {
+                "@manager": "linkTaskManagerDirectories",
+                "@model": "StandardTaskConfig",
+                "arguments": ".",
+                "execute": "test_v0.0",
+                "filter_file_end": null,
+                "filter_file_start": null,
+                "filter_subdir": null,
+                "stderr_file": null,
+                "stdout_file": null
+            },
+            "description": {
+                "en": "a3m - Terminator"
+            },
+            "exit_codes": {},
+            "fallback_job_status": "Completed successfully",
+            "fallback_link_id": null,
+            "group": {
+                "en": "a3m"
+            },
+            "end": true
+        },
         "8e3e2bf8-a543-43f9-bb2a-c3df01f112df": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -463,11 +446,10 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": null,
+            "fallback_link_id": "00000546-1ada-400b-8819-ca8f6d546e56",
             "group": {
                 "en": "a3m"
-            },
-            "end": true
+            }
         },
         "aaebd7d4-5dc5-4579-893e-60650506d1cd": {
             "config": {
@@ -486,38 +468,6 @@
                 "en": "a3m"
             },
             "end": true
-        },
-        "002716a1-ae29-4f36-98ab-0d97192669c4": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%watchDirectoryPath%workFlowDecisions/compressionAIPDecisions/.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to compressionAIPDecisions directory",
-                "pt_BR": "Mover para o diretório compressionAIPDecisions",
-                "sv": "Flytta till compressionAIPDecisions katalog"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Prepare AIP",
-                "es": "Preparar AIP",
-                "fr": "Préparer l'AIP",
-                "sv": "Förbered AIP"
-            }
         },
         "01c651cb-c174-4ba4-b985-1d87a44d6754": {
             "config": {
@@ -1536,7 +1486,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "559d9b14-05bf-4136-918a-de74a821b759"
+                    "link_id": "56eebd45-5600-4768-a8c2-ec0114555a3d"
                 }
             },
             "fallback_job_status": "Failed",
@@ -2308,11 +2258,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "54b73077-a062-41cc-882c-4df1eba447d9"
+                    "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
                 },
                 "1": {
                     "job_status": "Failed",
-                    "link_id": "54b73077-a062-41cc-882c-4df1eba447d9"
+                    "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
                 }
             },
             "fallback_job_status": "Failed",
@@ -2345,7 +2295,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "002716a1-ae29-4f36-98ab-0d97192669c4"
+                    "link_id": "01d64f58-8295-4b7b-9cab-8f1b153a504f"
                 }
             },
             "fallback_job_status": "Failed",
@@ -2830,73 +2780,6 @@
                 "ja": "READMEファイルを追加",
                 "pt_BR": "Adicionar arquivo README",
                 "sv": "Lägg till README-fil"
-            }
-        },
-        "54b73077-a062-41cc-882c-4df1eba447d9": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/workFlowDecisions/metadataReminder/.\"  \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to metadata reminder",
-                "pt_BR": "Mover para lembrete de metadados",
-                "sv": "Flytta till metadata påminellse"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Add final metadata",
-                "es": "Añadir metadatos finales",
-                "fr": "Ajouter les métadonnées finales",
-                "ja": "最終メタデータ追加",
-                "pt_BR": "Adicionar metadados finais",
-                "sv": "Lägg till slutgiltig metadata"
-            }
-        },
-        "559d9b14-05bf-4136-918a-de74a821b759": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/workFlowDecisions/createTree/.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to generate transfer tree",
-                "pt_BR": "Mover para gerar árvore de transferência",
-                "sv": "Flytta till träd för generering av transfer"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Generate transfer structure report",
-                "fr": "Générer un rapport de structure de transfert ",
-                "ja": "転送の構造レポートを生成",
-                "pt_BR": "Gerar relatório de estrutura de transferência",
-                "sv": "Generera överföringsstruktursrapport"
             }
         },
         "56da7758-913a-4cd2-a815-be140ed09357": {
@@ -3564,39 +3447,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "6eca2676-b4ed-48d9-adb0-374e1d5c6e71": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "56eebd45-5600-4768-a8c2-ec0114555a3d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Generate transfer structure report",
-                "fr": "Générer un rapport de structure de transfert ",
-                "ja": "転送の構造レポートを生成",
-                "pt_BR": "Gerar relatório de estrutura de transferência",
-                "sv": "Generera överföringsstruktursrapport"
             }
         },
         "70669a5b-01e4-4ea0-ac70-10292f87da05": {
@@ -6562,33 +6412,6 @@
                 "sv": "Bearbeta metadatamapp"
             }
         },
-        "eeb23509-57e2-4529-8857-9d62525db048": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "5727faac-88af-40e8-8c10-268644b0142d"
-                ]
-            },
-            "description": {
-                "en": "Reminder: add metadata if desired",
-                "fr": "Rappel : ajouter des métadonnées, au besoin ",
-                "ja": "リマインダー：必要に応じてメタデータを追加する",
-                "pt_BR": "Lembrete: adicione metadados se desejar",
-                "sv": "Påminnelse: lägg till metadata om önskat"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Add final metadata",
-                "es": "Añadir metadatos finales",
-                "fr": "Ajouter les métadonnées finales",
-                "ja": "最終メタデータ追加",
-                "pt_BR": "Adicionar metadados finais",
-                "sv": "Lägg till slutgiltig metadata"
-            }
-        },
         "ef6332ee-a890-4e1b-88de-986efc4269fb": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -7053,12 +6876,6 @@
             "unit_type": "Transfer"
         },
         {
-            "chain_id": "86fbea68-d08c-440f-af2c-dac68556db12",
-            "only_dirs": true,
-            "path": "/workFlowDecisions/metadataReminder/",
-            "unit_type": "SIP"
-        },
-        {
             "chain_id": "fefdcee4-dd84-4b55-836f-99ef880ecdb6",
             "only_dirs": true,
             "path": "/system/autoProcessSIP",
@@ -7068,18 +6885,6 @@
             "chain_id": "96b49116-b114-47e8-95d0-b3c6ae4e80f5",
             "only_dirs": true,
             "path": "/workFlowDecisions/examineContentsChoice/",
-            "unit_type": "Transfer"
-        },
-        {
-            "chain_id": "27cf6ca9-11b4-41ac-9014-f8018bcbad5e",
-            "only_dirs": true,
-            "path": "/workFlowDecisions/compressionAIPDecisions/",
-            "unit_type": "SIP"
-        },
-        {
-            "chain_id": "f6df8882-d076-441e-bb00-2f58d5eda098",
-            "only_dirs": true,
-            "path": "/workFlowDecisions/createTree/",
             "unit_type": "Transfer"
         },
         {

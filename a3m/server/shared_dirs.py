@@ -131,7 +131,7 @@ AUTOMATED_PROCESSING_CONFIG = """<processingMCP>
     <!-- Generate transfer structure report -->
     <preconfiguredChoice>
       <appliesTo>56eebd45-5600-4768-a8c2-ec0114555a3d</appliesTo>
-      <goToChain>e9eaef1e-c2e0-4e3b-b942-bfb537162795</goToChain>
+      <goToChain>df54fec1-dae1-4ea6-8d17-a839ee7ac4a7</goToChain>
     </preconfiguredChoice>
     <!-- Perform policy checks on originals -->
     <preconfiguredChoice>
@@ -232,11 +232,8 @@ def create():
         "watchedDirectories/system",
         "watchedDirectories/system/autoProcessSIP",
         "watchedDirectories/workFlowDecisions",
-        "watchedDirectories/workFlowDecisions/compressionAIPDecisions",
-        "watchedDirectories/workFlowDecisions/createTree",
         "watchedDirectories/workFlowDecisions/examineContentsChoice",
         "watchedDirectories/workFlowDecisions/extractPackagesChoice",
-        "watchedDirectories/workFlowDecisions/metadataReminder",
         "watchedDirectories/workFlowDecisions/selectFormatIDToolIngest",
         "watchedDirectories/workFlowDecisions/selectFormatIDToolTransfer",
         "www",

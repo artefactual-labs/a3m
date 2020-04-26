@@ -145,11 +145,12 @@ class ClientScriptJob(Job, metaclass=abc.ABCMeta):
             except IndexError:
                 status = status_code
             logger.warning(
-                "Processing error in package %s (%s <%s>) with status: %s.",
+                "Processing error in package %s (%s <%s>) with status: %s (job %s).",
                 self.package.uuid,
                 self.link._src["description"]["en"],
                 self.link.id,
                 status,
+                self.uuid,
             )
 
 
