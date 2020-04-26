@@ -53,6 +53,9 @@ compile-requirements:  ## Run pip-compile
 	pip-compile --output-file requirements.txt requirements.in
 	pip-compile --output-file requirements-dev.txt requirements-dev.in
 
+db:
+	sqlite3 $(CURDIR)/hack/compose-volume/db.sqlite
+
 flush: flush-db flush-shared-dir bootstrap restart  # Delete ALL user data.
 
 flush-db:  # Flush SQLite database.
