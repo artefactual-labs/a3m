@@ -228,7 +228,6 @@ def create():
         "watchedDirectories/approveNormalization",
         "watchedDirectories/SIPCreation",
         "watchedDirectories/SIPCreation/completedTransfers",
-        "watchedDirectories/storeAIP",
         "watchedDirectories/system",
         "watchedDirectories/system/autoProcessSIP",
         "watchedDirectories/workFlowDecisions",

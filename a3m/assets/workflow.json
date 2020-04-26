@@ -178,15 +178,6 @@
             },
             "link_id": "ccf8ec5c-3a9a-404a-a7e7-8f567d3b36a0"
         },
-        "6f0f35fb-6831-4842-9512-4a263700a29b": {
-            "description": {
-                "en": "storeAIP",
-                "es": "Almacenar AIP",
-                "pt_BR": "armazenarSIP",
-                "sv": "Lagra AIP"
-            },
-            "link_id": "5f213529-ced4-49b0-9e30-be4e0c9b81d5"
-        },
         "76befd52-14c3-44f9-838f-15a4e01624b0": {
             "description": {
                 "en": "No",
@@ -464,11 +455,10 @@
             },
             "exit_codes": {},
             "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
+            "fallback_link_id": "50b67418-cb8d-434d-acc9-4a8324e7fdd2",
             "group": {
                 "en": "a3m"
-            },
-            "end": true
+            }
         },
         "01c651cb-c174-4ba4-b985-1d87a44d6754": {
             "config": {
@@ -3019,39 +3009,6 @@
                 "sv": "Kontrollera överförings följsamhet"
             }
         },
-        "5f213529-ced4-49b0-9e30-be4e0c9b81d5": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "3f543585-fa4f-4099-9153-dd6d53572f5c"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "3f543585-fa4f-4099-9153-dd6d53572f5c",
-            "group": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
-            }
-        },
         "5fbc344c-19c8-48be-a753-02dac987428c": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -3166,11 +3123,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "7c44c454-e3cc-43d4-abe0-885f93d693c6"
+                    "link_id": "3f543585-fa4f-4099-9153-dd6d53572f5c"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7c44c454-e3cc-43d4-abe0-885f93d693c6",
+            "fallback_link_id": "3f543585-fa4f-4099-9153-dd6d53572f5c",
             "group": {
                 "en": "Prepare AIP",
                 "es": "Preparar AIP",
@@ -3591,11 +3548,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "7c44c454-e3cc-43d4-abe0-885f93d693c6"
+                    "link_id": "3f543585-fa4f-4099-9153-dd6d53572f5c"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "7c44c454-e3cc-43d4-abe0-885f93d693c6",
+            "fallback_link_id": "3f543585-fa4f-4099-9153-dd6d53572f5c",
             "group": {
                 "en": "Prepare AIP",
                 "es": "Preparar AIP",
@@ -3854,39 +3811,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "7c44c454-e3cc-43d4-abe0-885f93d693c6": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/storeAIP/.\" \"%SIPUUID%\" \"%sharedPath%\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to the store AIP approval directory",
-                "pt_BR": "Mover para armazenar no diretório de aprovação do AIP",
-                "sv": "Flytta till lagra AIP godkänning-katalog"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Store AIP",
-                "fr": "Stocker l’AIP",
-                "ja": "AIPを蓄える",
-                "pt_BR": "Armazenar AIP",
-                "sv": "Lagra AIP"
             }
         },
         "7d33f228-0fa8-4f4c-a66b-24f8e264c214": {
@@ -6851,12 +6775,6 @@
             "only_dirs": true,
             "path": "/workFlowDecisions/selectFormatIDToolTransfer/",
             "unit_type": "Transfer"
-        },
-        {
-            "chain_id": "6f0f35fb-6831-4842-9512-4a263700a29b",
-            "only_dirs": true,
-            "path": "/storeAIP/",
-            "unit_type": "SIP"
         },
         {
             "chain_id": "0ea3a6f9-ff37-4f32-ac01-eec5393f008a",
