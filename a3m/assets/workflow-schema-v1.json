@@ -36,6 +36,9 @@
         },
         "description": {
           "$ref": "#/definitions/translations"
+        },
+        "start": {
+          "type": "boolean"
         }
       },
       "additionalProperties": false,

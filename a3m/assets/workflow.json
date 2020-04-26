@@ -4,7 +4,8 @@
             "description": {
                 "en": "a3m - Start"
             },
-            "link_id": "8e3e2bf8-a543-43f9-bb2a-c3df01f112df"
+            "link_id": "8e3e2bf8-a543-43f9-bb2a-c3df01f112df",
+            "start": true
         },
         "01d80b27-4ad1-4bd1-8f8d-f819f18bf685": {
             "description": {
