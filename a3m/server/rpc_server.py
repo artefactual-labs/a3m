@@ -7,8 +7,8 @@ from google.rpc import code_pb2
 from grpc import server
 from grpc_reflection.v1alpha import reflection
 
-from a3m.server.packages import create_package
 from a3m.server.packages import get_package_status
+from a3m.server.packages import Package
 from a3m.server.packages import PackageNotFoundError
 from a3m.server.rpc import a3m_pb2
 from a3m.server.rpc import a3m_pb2_grpc
@@ -25,7 +25,7 @@ class TransferService(a3m_pb2_grpc.TransferServicer):
 
     def Submit(self, request, context):
         try:
-            transfer = create_package(
+            package = Package.create_package(
                 self.package_queue,
                 self.executor,
                 self.workflow,
@@ -35,7 +35,7 @@ class TransferService(a3m_pb2_grpc.TransferServicer):
         except Exception as err:
             logger.warning("Submit handler error: %s", err)
             context.abort(code_pb2.INTERNAL, "Unknown error")
-        return a3m_pb2.SubmitReply(id=str(transfer.pk))
+        return a3m_pb2.SubmitReply(id=str(package.sip.pk))
 
     def Status(self, request, context):
         try:

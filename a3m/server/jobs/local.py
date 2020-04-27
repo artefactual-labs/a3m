@@ -37,8 +37,8 @@ class GetUnitVarLinkJob(LocalJob):
 
         try:
             unitvar = models.UnitVariable.objects.get(
-                unittype=self.package.UNIT_VARIABLE_TYPE,
-                unituuid=self.package.uuid,
+                unittype=self.package.unit_variable_type,
+                unituuid=self.package.subid,
                 variable=self.link.config["variable"],
             )
         except models.UnitVariable.DoesNotExist:

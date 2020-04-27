@@ -216,22 +216,12 @@ def install_builtin_config(name):
 
 def create():
     dirs = (
-        "completed",
-        "completed/transfers",
-        "currentlyProcessing",
+        "currentlyProcessing/transfer",
+        "currentlyProcessing/ingest",
         "failed",
-        "rejected",
         "sharedMicroServiceTasksConfigs",
         "sharedMicroServiceTasksConfigs/processingMCPConfigs",
         "tmp",
-        "watchedDirectories",
-        "watchedDirectories/SIPCreation",
-        "watchedDirectories/SIPCreation/completedTransfers",
-        "watchedDirectories/system",
-        "watchedDirectories/system/autoProcessSIP",
-        "watchedDirectories/workFlowDecisions",
-        "www",
-        "www/AIPsStore",
     )
     for dirname in dirs:
         dirname = os.path.join(settings.SHARED_DIRECTORY, dirname)

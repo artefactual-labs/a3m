@@ -9,7 +9,7 @@ from a3m.main.models import Transfer
 FAILED = "fail"
 
 
-def main(job, transfer_uuid, transfer_path):
+def main(job, transfer_uuid):
     transfer = Transfer.objects.get(uuid=transfer_uuid)
     metrics.transfer_failed(transfer.type, FAILED)
 

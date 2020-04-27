@@ -44,14 +44,17 @@ class Job:
 
     def dump(self):
         return (
-            "#<%s; exit=%s; code=%s uuid=%s\n"
-            "=============== STDOUT ===============\n"
-            "%s"
-            "\n=============== END STDOUT ===============\n"
-            "=============== STDERR ===============\n"
-            "%s"
-            "\n=============== END STDERR ===============\n"
-            "\n>"
+            "\n\n\t| =============== JOB\n"
+            "\t| %s (exit=%s; code=%s uuid=%s)\n"
+            "\t| =============== STDOUT\n"
+            "\t| %s\n"
+            "\t| =============== END STDOUT\n"
+            "\t| =============== STDERR\n"
+            "\t| %s\n"
+            "\t| =============== END STDERR\n"
+            "\t| =============== ARGS\n"
+            "\t| %s\n"
+            "\t| =============== END ARGS\n"
         ) % (
             self.name,
             self.int_code,
@@ -59,6 +62,7 @@ class Job:
             self.UUID,
             self.get_stdout(),
             self.get_stderr(),
+            self.args,
         )
 
     def set_status(self, int_code, status_code="success"):

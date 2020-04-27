@@ -84,7 +84,7 @@ class CheckCloseConnectionsHandler(logging.Handler):
             )
 
 
-if settings.DEBUG:
+if False and settings.DEBUG:
     logger.debug("Using DEBUG auto_close_old_connections")
     auto_close_old_connections = DebugAutoCloseOldConnections
 

@@ -4,7 +4,8 @@
       "description": {
         "en": "Chain test"
       },
-      "link_id": "03df8d8c-34d3-4924-86d4-f4e706c1522b"
+      "link_id": "03df8d8c-34d3-4924-86d4-f4e706c1522b",
+      "start": true
     }
   },
   "links": {
@@ -36,12 +37,5 @@
       }
     }
   },
-  "watched_directories": [
-    {
-      "chain_id": "03df8d8c-34d3-4924-86d4-f4e706c1522b",
-      "only_dirs": true,
-      "path": "/approveNormalization/",
-      "unit_type": "SIP"
-    }
-  ]
+  "watched_directories": []
 }

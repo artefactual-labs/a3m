@@ -34,7 +34,6 @@ FILE = models.File(
 def with_dicts(settings):
     settings.SHARED_DIRECTORY = "/shared/"
     settings.PROCESSING_DIRECTORY = "/processing/"
-    settings.WATCH_DIRECTORY = "/watch/"
     settings.REJECTED_DIRECTORY = "/rejected/"
     setup_dicts()
 

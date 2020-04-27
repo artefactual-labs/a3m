@@ -16,7 +16,7 @@ from a3m.server.jobs import JobChain
 from a3m.server.jobs import NextChainDecisionJob
 from a3m.server.jobs import SetUnitVarLinkJob
 from a3m.server.jobs import UpdateContextDecisionJob
-from a3m.server.packages import Transfer
+from a3m.server.packages import Package
 from a3m.server.queues import PackageQueue
 from a3m.server.tasks import TaskBackend
 from a3m.server.workflow import load as load_workflow
@@ -71,10 +71,20 @@ def package_queue(request):
     return PackageQueue(executor, threading.Event(), debug=True)
 
 
+class FakeUnit:
+    def __init__(self, pk):
+        self.pk = pk
+
+
 @pytest.fixture
-def transfer(request, db):
-    transfer_obj = models.Transfer.objects.create(uuid=uuid.uuid4())
-    return Transfer("transfer_path", transfer_obj.uuid, "file:///tmp/foobar.gz")
+def package(request):
+
+    return Package(
+        "package-1",
+        "file:///tmp/foobar-1.gz",
+        models.Transfer.objects.create(pk=uuid.uuid4()),
+        models.SIP.objects.create(pk=uuid.uuid4()),
+    )
 
 
 @pytest.fixture
@@ -98,7 +108,7 @@ def test_workflow_integration(
     tmp_path,
     workflow,
     package_queue,
-    transfer,
+    package,
     dummy_file_replacements,
 ):
     # Setup our many mocks
@@ -119,17 +129,17 @@ def test_workflow_integration(
     mock_load_processing_xml = mocker.patch(
         "a3m.server.jobs.decisions.load_processing_xml"
     )
-    mocker.patch.object(transfer, "files", return_value=dummy_file_replacements)
+    mocker.patch.object(package, "files", return_value=dummy_file_replacements)
 
     # Schedule the first job
     first_workflow_chain = workflow.get_chains()["3816f689-65a8-4ad0-ac27-74292a70b093"]
-    first_job_chain = JobChain(transfer, first_workflow_chain, workflow)
+    first_job_chain = JobChain(package, first_workflow_chain, workflow)
     job = next(first_job_chain)
     package_queue.schedule_job(job)
 
     assert package_queue.job_queue.qsize() == 1
     assert len(package_queue.active_packages) == 1
-    assert transfer.uuid in package_queue.active_packages
+    assert package.uuid in package_queue.active_packages
 
     # Process the first job (DirectoryClientScriptJob)
     future = package_queue.process_one_job(timeout=1.0)
@@ -141,7 +151,7 @@ def test_workflow_integration(
     assert isinstance(job, DirectoryClientScriptJob)
     assert job.exit_code == 0
     assert task.arguments == '"{}" "{}"'.format(
-        settings.PROCESSING_DIRECTORY, transfer.uuid
+        settings.PROCESSING_DIRECTORY, package.subid
     )
 
     # Next job in chain should be queued
@@ -227,8 +237,8 @@ def test_workflow_integration(
     assert job.exit_code == 0
 
     unit_var = models.UnitVariable.objects.get(
-        unittype=transfer.UNIT_VARIABLE_TYPE,
-        unituuid=transfer.uuid,
+        unittype=package.unit_variable_type,
+        unituuid=package.subid,
         variable="test_unit_variable",
         variablevalue="",
         microservicechainlink="f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e",

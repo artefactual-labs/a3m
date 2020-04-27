@@ -54,12 +54,9 @@ class Workflow:
         self._src = parsed_obj
         self._decode_chains()
         self._decode_links()
-        self._decode_wdirs()
 
     def __str__(self):
-        return "Chains {}, links {}, watched directories: {}".format(
-            len(self.chains), len(self.links), len(self.wdirs)
-        )
+        return "Chains {}, links {}".format(len(self.chains), len(self.links))
 
     def _decode_chains(self):
         self.chains = {}
@@ -71,19 +68,11 @@ class Workflow:
         for link_id, link_obj in self._src["links"].items():
             self.links[link_id] = Link(link_id, link_obj, self)
 
-    def _decode_wdirs(self):
-        self.wdirs = []
-        for wdir_obj in self._src["watched_directories"]:
-            self.wdirs.append(WatchedDir(wdir_obj, self))
-
     def get_chains(self):
         return self.chains
 
     def get_links(self):
         return self.links
-
-    def get_wdirs(self):
-        return self.wdirs
 
     def get_chain(self, chain_id):
         return self.chains[chain_id]
@@ -92,7 +81,7 @@ class Workflow:
         return self.links[link_id]
 
     def get_initiator_chain(self):
-        for chain in self.chains:
+        for _, chain in self.chains.items():
             if chain.initiator:
                 return chain
 
@@ -202,34 +191,6 @@ class Link(BaseLink):
         except KeyError:
             status_id = self._src["fallback_job_status"]
         return status_id
-
-
-class WatchedDir(BaseLink):
-    def __init__(self, attrs, workflow):
-        self.path = attrs["path"]
-        self._src = attrs
-        self._workflow = workflow
-
-    def __str__(self):
-        return self.path
-
-    def __repr__(self):
-        return f"Watched directory <{self.path}>"
-
-    def __getitem__(self, key):
-        return self._src[key]
-
-    @property
-    def only_dirs(self):
-        return bool(self._src["only_dirs"])
-
-    @property
-    def unit_type(self):
-        return self._src["unit_type"]
-
-    @property
-    def chain(self):
-        return self._workflow.get_chain(self._src["chain_id"])
 
 
 class WorkflowJSONDecoder(json.JSONDecoder):

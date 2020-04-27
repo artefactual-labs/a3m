@@ -29,7 +29,6 @@ config = {}
 def setup_dicts():
     config["shared_directory"] = django_settings.SHARED_DIRECTORY
     config["processing_directory"] = django_settings.PROCESSING_DIRECTORY
-    config["watch_directory"] = django_settings.WATCH_DIRECTORY
     config["rejected_directory"] = django_settings.REJECTED_DIRECTORY
 
 
@@ -169,7 +168,6 @@ class ReplacementDict(dict):
 
         rd["%tmpDirectory%"] = os.path.join(config["shared_directory"], "tmp", "")
         rd["%processingDirectory%"] = config["processing_directory"]
-        rd["%watchDirectoryPath%"] = config["watch_directory"]
         rd["%rejectedDirectory%"] = config["rejected_directory"]
 
         return rd

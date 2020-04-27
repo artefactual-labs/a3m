@@ -38,28 +38,6 @@
             },
             "link_id": "f574b2a0-6e0b-4c74-ac5b-a73ddb9593a0"
         },
-        "169a5448-c756-4705-a920-737de6b8d595": {
-            "description": {
-                "en": "Reject",
-                "es": "Rechazar",
-                "fr": "Rejeter",
-                "ja": "拒否",
-                "pt_BR": "Rejeitar",
-                "sv": "Förkasta"
-            },
-            "link_id": "19c94543-14cb-4158-986b-1d2b55723cd8"
-        },
-        "1e0df175-d56d-450d-8bee-7df1dc7ae815": {
-            "description": {
-                "en": "Approve",
-                "es": "Aprobar",
-                "fr": "Approuver",
-                "ja": "承認",
-                "pt_BR": "Confirmar",
-                "sv": "Godkänn"
-            },
-            "link_id": "0f0c1f33-29f2-49ae-b413-3e043da5df61"
-        },
         "29881c21-3548-454a-9637-ebc5fd46aee0": {
             "description": {
                 "en": "Yes",
@@ -119,7 +97,7 @@
                 "pt_BR": "Normalize para preservação",
                 "sv": "Normalisera för bevarande"
             },
-            "link_id": "6b39088b-683e-48bd-ab89-9dab47f4e9e0"
+            "link_id": "35c8763a-0430-46be-8198-9ecb23f895c8"
         },
         "65273f18-5b4e-4944-af4f-09be175a88e8": {
             "description": {
@@ -168,17 +146,6 @@
                 "sv": "Ja"
             },
             "link_id": "87e93d08-36e4-4c81-99a8-beea00b18400"
-        },
-        "a6ed697e-6189-4b4e-9f80-29209abc7937": {
-            "description": {
-                "en": "Reject SIP",
-                "es": "Rechazar SIP",
-                "fr": "Rejeter le SIP",
-                "ja": "SIPを拒否",
-                "pt_BR": "Rejeitar SIP",
-                "sv": "Förkasta SIP"
-            },
-            "link_id": "19c94543-14cb-4158-986b-1d2b55723cd8"
         },
         "b7ce05f0-9d94-4b3e-86cc-d4b2c6dba546": {
             "description": {
@@ -288,48 +255,14 @@
                 "sv": "Normalisera för åtkomst"
             },
             "link_id": "6327fdf9-9673-42a8-ace5-cccad005818b"
-        },
-        "fefdcee4-dd84-4b55-836f-99ef880ecdb6": {
-            "description": {
-                "en": "Automatic SIP Creation complete",
-                "es": "Creación automática de SIP completa",
-                "fr": "Création automatique du SIP complète",
-                "ja": "自動SIP作成完了",
-                "pt_BR": "Criação SIP automática completa",
-                "sv": "Automatisk skapande av SIP avslutad"
-            },
-            "link_id": "70669a5b-01e4-4ea0-ac70-10292f87da05"
         }
     },
     "links": {
-        "00000546-1ada-400b-8819-ca8f6d546e56": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": ".",
-                "execute": "test_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "a3m - Terminator"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "a3m"
-            },
-            "end": true
-        },
         "8e3e2bf8-a543-43f9-bb2a-c3df01f112df": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%URL%\"",
+                "arguments": "\"%TransferUUID%\" \"%transferDirectory%\" \"%URL%\"",
                 "execute": "a3mDownloadTransfer_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -338,7 +271,7 @@
                 "stdout_file": null
             },
             "description": {
-                "en": "a3m - Fetch contents"
+                "en": "a3m - Download package"
             },
             "exit_codes": {
                 "0": {
@@ -347,7 +280,7 @@
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "00000546-1ada-400b-8819-ca8f6d546e56",
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
                 "en": "a3m"
             }
@@ -916,39 +849,6 @@
                 "sv": "Inkludera standadard överförings processing.xml"
             }
         },
-        "0f0c1f33-29f2-49ae-b413-3e043da5df61": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "78b7adff-861d-4450-b6dd-3fabe96a849e"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser ",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "0fd20984-db3c-492b-a512-eedd74bacc82": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -1226,48 +1126,11 @@
                 "sv": "Genrerera AIP METS"
             }
         },
-        "19c94543-14cb-4158-986b-1d2b55723cd8": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"reject\" \"%SIPUUID%\"",
-                "execute": "failedSIPCleanup_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Cleanup rejected SIP",
-                "es": "Eliminar SIP rechazado",
-                "fr": "Nettoyer les SIP qui ont été rejetés",
-                "ja": "拒否されたSIPをクリーン",
-                "pt_BR": "SIP limpeza rejeitada ",
-                "sv": "Rensa underkända SIP:er"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "3467d003-1603-49e3-b085-e58aa693afed"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "3467d003-1603-49e3-b085-e58aa693afed",
-            "group": {
-                "en": "Reject SIP",
-                "es": "Rechazar SIP",
-                "fr": "Rejeter le SIP",
-                "ja": "SIPを拒否",
-                "pt_BR": "Rejeitar SIP",
-                "sv": "Förkasta SIP"
-            }
-        },
         "1a136608-ae7b-42b4-bf2f-de0e514cfd47": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPDirectory%metadata/rights.csv\"",
+                "arguments": "\"%TransferUUID%\" \"%SIPDirectory%metadata/rights.csv\"",
                 "execute": "rightsFromCSV_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1301,7 +1164,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPDirectory%metadata/file_labels.csv\"",
+                "arguments": "\"%TransferUUID%\" \"%SIPDirectory%metadata/file_labels.csv\"",
                 "execute": "loadLabelsFromCSV_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1403,7 +1266,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%transferDirectory%\" \"%date%\" \"%taskUUID%\" \"%DeletePackage%\"",
+                "arguments": "\"%TransferUUID%\" \"%transferDirectory%\" \"%date%\" \"%taskUUID%\" \"%DeletePackage%\"",
                 "execute": "extractContents_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1527,7 +1390,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "e3a6d178-fa65-4086-a4aa-6533e8f12d51"
+                    "link_id": "df02cac1-f582-4a86-b7cf-da98a58e279e"
                 }
             },
             "fallback_job_status": "Failed",
@@ -1579,7 +1442,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPObjectsDirectory%\" \"%SIPUUID%\" \"%date%\" \"%taskUUID%\" \"transferDirectory\" \"transfer_id\" \"%SIPDirectory%\"",
+                "arguments": "\"%SIPObjectsDirectory%\" \"%TransferUUID%\" \"%date%\" \"%taskUUID%\" \"transferDirectory\" \"transfer_id\" \"%SIPDirectory%\"",
                 "execute": "sanitizeObjectNames_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1595,7 +1458,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "a329d39b-4711-4231-b54e-b5958934dccb"
+                    "link_id": "f09847c2-ee51-429a-9478-a860477f6b8d"
                 }
             },
             "fallback_job_status": "Failed",
@@ -1754,7 +1617,7 @@
             "config": {
                 "@manager": "linkTaskManagerFiles",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%SIPUUID%\"",
+                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%TransferUUID%\"",
                 "execute": "characterizeFile_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1791,7 +1654,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "--sipUUID \"%SIPUUID%\" --basePath \"%SIPDirectory%\" --xmlFile \"%SIPDirectory%\"metadata/submissionDocumentation/METS.xml --basePathString \"transferDirectory\"",
+                "arguments": "--sipUUID \"%TransferUUID%\" --basePath \"%SIPDirectory%\" --xmlFile \"%SIPDirectory%\"metadata/submissionDocumentation/METS.xml --basePathString \"transferDirectory\"",
                 "execute": "createTransferMETS_v1.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1893,41 +1756,6 @@
                 "pt_BR": "Processar documentação de submissão",
                 "sv": "Bearbeta leveransdokumentation"
             }
-        },
-        "3467d003-1603-49e3-b085-e58aa693afed": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%rejectedDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to the rejected directory",
-                "pt_BR": "Mover para o diretório rejeitado",
-                "sv": "Flytta dill den avslagna mappen"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Reject SIP",
-                "es": "Rechazar SIP",
-                "fr": "Rejeter le SIP",
-                "ja": "SIPを拒否",
-                "pt_BR": "Rejeitar SIP",
-                "sv": "Förkasta SIP"
-            },
-            "end": true
         },
         "3505acc1-2b03-45df-93e2-626e6885e907": {
             "config": {
@@ -2033,7 +1861,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%failed/.\" \"%SIPUUID%\" \"%sharedPath%\" \"%SIPUUID%\" \"%sharedPath%\"",
+                "arguments": "\"%SIPDirectory%\" \"%sharedPath%failed/.\" \"%TransferUUID%\" \"%sharedPath%\"",
                 "execute": "moveTransfer_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -2068,7 +1896,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPObjectsDirectory%\" \"%SIPName%\" \"%SIPUUID%\" \"%processingDirectory%\" \"%sharedPath%watchedDirectories/system/autoProcessSIP/\" \"%sharedPath%\"",
+                "arguments": "\"%TransferUUID%\" \"%SIPUUID%\"",
                 "execute": "createSIPfromTransferObjects_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -2087,7 +1915,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": null
+                    "link_id": "208d441b-6938-44f9-b54a-bd73f05bc764"
                 }
             },
             "fallback_job_status": "Failed",
@@ -2099,8 +1927,7 @@
                 "ja": "転送からSIPを作成する",
                 "pt_BR": "Crie SIP a partir da transferência",
                 "sv": "Skapa SIP från överföringspaket"
-            },
-            "end": true
+            }
         },
         "3bbfbd27-ba41-4e36-8b7f-b4f02676bda3": {
             "config": {
@@ -2206,7 +2033,8 @@
                 "ja": "AIPを蓄える",
                 "pt_BR": "Armazenar AIP",
                 "sv": "Lagra AIP"
-            }
+            },
+            "end": true
         },
         "4103a5b0-e473-4198-8ff7-aaa6fec34749": {
             "config": {
@@ -2428,18 +2256,18 @@
                 "@model": "MicroServiceChoiceReplacementDic",
                 "replacements": [
                     {
-                      "description": {
-                          "en": "Yes",
-                          "es": "Sí",
-                          "fr": "Oui",
-                          "ja": "はい",
-                          "pt_BR": "Sim",
-                          "sv": "Ja"
-                      },
-                      "id": "c318b224-b718-4535-a911-494b1af6ff26",
-                      "items": {
-                          "ThumbnailMode": "generate"
-                      }
+                        "description": {
+                            "en": "Yes",
+                            "es": "Sí",
+                            "fr": "Oui",
+                            "ja": "はい",
+                            "pt_BR": "Sim",
+                            "sv": "Ja"
+                        },
+                        "id": "c318b224-b718-4535-a911-494b1af6ff26",
+                        "items": {
+                            "ThumbnailMode": "generate"
+                        }
                     },
                     {
                         "description": {
@@ -2984,7 +2812,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%SIPUUID%\" --include-dirs \"%AssignUUIDsToDirectories%\"",
+                "arguments": "\"%SIPDirectory%\" \"%TransferUUID%\" --include-dirs \"%AssignUUIDsToDirectories%\"",
                 "execute": "assignUUIDsToDirectories_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -3023,7 +2851,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%clientAssetsDirectory%premis/premis.xsd\" \"%SIPDirectory%metadata/premis.xml\"",
+                "arguments": "\"%TransferUUID%\" \"%clientAssetsDirectory%premis/premis.xsd\" \"%SIPDirectory%metadata/premis.xml\"",
                 "execute": "loadPREMISEventsFromXML_v1.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -3055,7 +2883,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPDirectory%\"",
+                "arguments": "\"%TransferUUID%\" \"%SIPDirectory%\"",
                 "execute": "parseExternalMETS",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -3124,39 +2952,6 @@
                 "sv": "Normalisera"
             }
         },
-        "6b39088b-683e-48bd-ab89-9dab47f4e9e0": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "35c8763a-0430-46be-8198-9ecb23f895c8"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser ",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "6b931965-d5f6-4611-a536-39d5901f8f70": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -3196,7 +2991,7 @@
             "config": {
                 "@manager": "linkTaskManagerFiles",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%SIPUUID%\" \"%sharedPath%\" \"original\"",
+                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%TransferUUID%\" \"%sharedPath%\" \"original\"",
                 "execute": "policyCheck_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -3250,39 +3045,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "70669a5b-01e4-4ea0-ac70-10292f87da05": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "208d441b-6938-44f9-b54a-bd73f05bc764"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Verify SIP compliance",
-                "fr": "Vérifier la conformité du SIP",
-                "ja": "SIPコンプライアンスを検証",
-                "pt_BR": "Verificar a conformidade com o SIP",
-                "sv": "Kontrollera SIPs följsamhet"
             }
         },
         "70f41678-baa5-46e6-a71c-4b6b4d99f4a6": {
@@ -3411,8 +3173,7 @@
                 "@model": "MicroServiceChainChoice",
                 "chain_choices": [
                     "612e3609-ce9a-4df6-a9a3-63d634d2d934",
-                    "e8544c5e-9cbb-4b8f-a68b-6d9b4d7f7362",
-                    "a6ed697e-6189-4b4e-9f80-29209abc7937"
+                    "e8544c5e-9cbb-4b8f-a68b-6d9b4d7f7362"
                 ]
             },
             "description": {
@@ -3696,7 +3457,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%failed/.\" \"%SIPUUID%\" \"%sharedPath%\" \"%SIPUUID%\" \"%sharedPath%\"",
+                "arguments": "\"%SIPDirectory%\" \"%sharedPath%failed/.\" \"%SIPUUID%\" \"%sharedPath%\"",
                 "execute": "moveSIP_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -3905,7 +3666,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPDirectory%metadata/metadata.json\"",
+                "arguments": "\"%TransferUUID%\" \"%SIPDirectory%metadata/metadata.json\"",
                 "execute": "jsonMetadataToCSV_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -4242,77 +4003,11 @@
                 "sv": "Lås PID:er."
             }
         },
-        "a329d39b-4711-4231-b54e-b5958934dccb": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%SIPUUID%\" \"%date%\" \"%sharedPath%\" \"%unitType%\"",
-                "execute": "sanitizeSIPName_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": "%SIPLogsDirectory%SIPnameCleanup.log",
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Change transfer name",
-                "pt_BR": "Limpar o nome da transferência",
-                "sv": "Sanera överföringspaketets namn"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "f09847c2-ee51-429a-9478-a860477f6b8d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Change transfer filenames",
-                "es": "Limpiar nombres",
-                "fr": "Nettoyer les noms",
-                "pt_BR": "Limpe nomes",
-                "sv": "Rensa namn"
-            }
-        },
-        "a46e95fe-4a11-4d3c-9b76-c5d8ea0b094d": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%SIPUUID%\" \"%date%\" \"%sharedPath%\" \"%unitType%\"",
-                "execute": "sanitizeSIPName_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": "%SIPLogsDirectory%SIPnameCleanup.log",
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Change SIP name",
-                "pt_BR": "Limpar o nome SIP",
-                "sv": "Sanera SIP-namn"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "970b7d17-7a6b-4d51-808b-c94b78c0d97f"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Change SIP filenames",
-                "es": "Limpiar nombres",
-                "fr": "Nettoyer les noms",
-                "pt_BR": "Limpe nomes",
-                "sv": "Rensa namn"
-            }
-        },
         "a536828c-be65-4088-80bd-eb511a0a063d": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%SIPUUID%\"",
+                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%TransferUUID%\"",
                 "execute": "validateFile_v1.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -4687,7 +4382,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\"",
+                "arguments": "\"%TransferUUID%\"",
                 "execute": "hasPackages_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -4770,7 +4465,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\"",
+                "arguments": "\"%TransferUUID%\"",
                 "execute": "hasPackages_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -4904,7 +4599,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPObjectsDirectory%\" \"%SIPUUID%\" \"%date%\" \"%taskUUID%\" \"transferDirectory\" \"transfer_id\" \"%SIPDirectory%\"",
+                "arguments": "\"%SIPObjectsDirectory%\" \"%TransferUUID%\" \"%date%\" \"%taskUUID%\" \"transferDirectory\" \"transfer_id\" \"%SIPDirectory%\"",
                 "execute": "sanitizeObjectNames_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -4972,8 +4667,7 @@
                     "fb7a326e-1e50-4b48-91b9-4917ff8d0ae8",
                     "e600b56d-1a43-4031-9d7c-f64f123e5662",
                     "c34bd22a-d077-4180-bf58-01db35bdb644",
-                    "89cb80dd-0636-464f-930d-57b61e3928b2",
-                    "a6ed697e-6189-4b4e-9f80-29209abc7937"
+                    "89cb80dd-0636-464f-930d-57b61e3928b2"
                 ]
             },
             "description": {
@@ -5068,7 +4762,7 @@
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\" \"%clientAssetsDirectory%mets/mets.xsd\"",
-                "execute": "archivematicaVerifyMets_v0.0",
+                "execute": "verifyMets_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
                 "filter_subdir": null,
@@ -5084,7 +4778,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "ef6332ee-a890-4e1b-88de-986efc4269fb"
+                    "link_id": "0c96c798-9ace-4c05-b3cf-243cdad796b7"
                 }
             },
             "fallback_job_status": "Failed",
@@ -5220,7 +4914,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "--sipUUID \"%SIPUUID%\" --xmlFile \"%SIPDirectory%\"metadata/transfer_metadata.xml",
+                "arguments": "--sipUUID \"%TransferUUID%\" --xmlFile \"%SIPDirectory%\"metadata/transfer_metadata.xml",
                 "execute": "createTransferMetadata_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -5272,7 +4966,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "de909a42-c5b5-46e1-9985-c031b50e9d30"
+                    "link_id": "78b7adff-861d-4450-b6dd-3fabe96a849e"
                 }
             },
             "fallback_job_status": "Failed",
@@ -5289,7 +4983,7 @@
             "config": {
                 "@manager": "linkTaskManagerFiles",
                 "@model": "StandardTaskConfig",
-                "arguments": "--transferUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
+                "arguments": "--transferUUID \"%TransferUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
                 "execute": "assignFileUUIDs_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -5357,34 +5051,6 @@
                 "sv": "Bearbeta metadatamapp"
             }
         },
-        "de909a42-c5b5-46e1-9985-c031b50e9d30": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "1e0df175-d56d-450d-8bee-7df1dc7ae815",
-                    "169a5448-c756-4705-a920-737de6b8d595"
-                ]
-            },
-            "description": {
-                "en": "Approve normalization",
-                "es": "Aprobar normalización",
-                "fr": "Approuver la normalisation",
-                "ja": "正常化／normalizationを承認",
-                "pt_BR": "Aprovar a normalização",
-                "sv": "Godkän normalisering"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser ",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "dec97e3c-5598-4b99-b26e-f87a435a6b7f": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
@@ -5418,7 +5084,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%sharedMicroServiceTasksConfigs/processingMCPConfigs/defaultProcessingMCP.xml\" \"%SIPDirectory%processingMCP.xml\" -n",
+                "arguments": "\"%sharedPath%sharedMicroServiceTasksConfigs/processingMCPConfigs/defaultProcessingMCP.xml\" \"%relativeLocation%processingMCP.xml\" -n",
                 "execute": "copy_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -5472,39 +5138,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "e3a6d178-fa65-4086-a4aa-6533e8f12d51": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%%SIPName%-%SIPUUID%\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Rename SIP directory with SIP UUID",
-                "fr": "Renommer le SIP avec l'UUID du SIP",
-                "pt_BR": "Renomeie o diretório SIP com SIP UUID",
-                "sv": "Byt namn på SIP-mappen med SIP UUID"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "df02cac1-f582-4a86-b7cf-da98a58e279e"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Rename SIP directory with SIP UUID",
-                "fr": "Renommer le SIP avec l'UUID du SIP",
-                "pt_BR": "Renomeie o diretório SIP com SIP UUID",
-                "sv": "Byt namn på SIP-mappen med SIP UUID"
             }
         },
         "e4b0c713-988a-4606-82ea-4b565936d9a7": {
@@ -5579,7 +5212,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\"",
+                "arguments": "\"%TransferUUID%\"",
                 "execute": "failedTransferCleanup",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -5658,7 +5291,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%SIPUUID%\"",
+                "arguments": "\"%SIPDirectory%\" \"%TransferUUID%\"",
                 "execute": "restructureForCompliance_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -5722,39 +5355,6 @@
                 "es": "Procesar directorio de metadatos",
                 "pt_BR": "Processar diretório de metadados",
                 "sv": "Bearbeta metadatamapp"
-            }
-        },
-        "ef6332ee-a890-4e1b-88de-986efc4269fb": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%%SIPName%-%SIPUUID%\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Rename with transfer UUID",
-                "fr": "Renommer avec l'UUID du transfert",
-                "pt_BR": "Renomear com transferência UUID",
-                "sv": "Byt namn med överförings UUID"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "0c96c798-9ace-4c05-b3cf-243cdad796b7"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Rename with transfer UUID",
-                "fr": "Renommer avec l'UUID du transfert",
-                "pt_BR": "Renomear com transferência UUID",
-                "sv": "Byt namn med överförings UUID"
             }
         },
         "ef8bd3f3-22f5-4283-bfd6-d458a2d18f22": {
@@ -5914,7 +5514,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%SIPUUID%\"",
+                "arguments": "\"%relativeLocation%\" \"%TransferUUID%\"",
                 "execute": "verifychecksum_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -5947,7 +5547,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%relativeLocation%metadata/dc.json\"",
+                "arguments": "\"%TransferUUID%\" \"%relativeLocation%metadata/dc.json\"",
                 "execute": "saveDublinCore_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -6032,11 +5632,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "a46e95fe-4a11-4d3c-9b76-c5d8ea0b094d"
+                    "link_id": "970b7d17-7a6b-4d51-808b-c94b78c0d97f"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "a46e95fe-4a11-4d3c-9b76-c5d8ea0b094d",
+            "fallback_link_id": "970b7d17-7a6b-4d51-808b-c94b78c0d97f",
             "group": {
                 "en": "Remove cache files",
                 "pt_BR": "Remover arquivos de cache",
@@ -6124,7 +5724,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%sharedPath%\"",
+                "arguments": "\"%TransferUUID%\" \"%sharedPath%\"",
                 "execute": "storeFileModificationDates_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -6156,12 +5756,5 @@
             }
         }
     },
-    "watched_directories": [
-        {
-            "chain_id": "fefdcee4-dd84-4b55-836f-99ef880ecdb6",
-            "only_dirs": true,
-            "path": "/system/autoProcessSIP",
-            "unit_type": "SIP"
-        }
-    ]
+    "watched_directories": []
 }

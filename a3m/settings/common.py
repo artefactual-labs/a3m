@@ -9,19 +9,9 @@ from pathlib import Path
 from appdirs import user_data_dir
 
 from a3m.appconfig import Config
-from a3m.appconfig import process_watched_directory_interval
 
 CONFIG_MAPPING = {
     "debug": {"section": "a3m", "option": "debug", "type": "boolean"},
-    "watch_directory_method": {
-        "section": "a3m",
-        "option": "watch_directory_method",
-        "type": "string",
-    },
-    "watch_directory_interval": {
-        "section": "a3m",
-        "process_function": process_watched_directory_interval,
-    },
     "batch_size": {"section": "a3m", "option": "batch_size", "type": "int"},
     "concurrent_packages": {
         "section": "a3m",
@@ -44,11 +34,6 @@ CONFIG_MAPPING = {
     "rejected_directory": {
         "section": "a3m",
         "option": "rejected_directory",
-        "type": "string",
-    },
-    "watch_directory": {
-        "section": "a3m",
-        "option": "watch_directory",
         "type": "string",
     },
     "gearman_server": {"section": "a3m", "option": "gearman_server", "type": "string"},
@@ -124,8 +109,6 @@ CONFIG_DEFAULTS = """[a3m]
 
 debug = False
 gearman_server = localhost:4730
-watch_directory_method = inotify
-watch_directory_interval = 1
 batch_size = 128
 rpc_threads = 4
 prometheus_bind_address =
@@ -151,7 +134,6 @@ db_host =
 db_port =
 
 shared_directory =
-watch_directory =
 temp_dir =
 processing_directory =
 rejected_directory =
@@ -178,7 +160,6 @@ def _get_data_dir_defaults(config):
         config_dict["a3m"].update(
             {
                 "shared_directory": format_path(""),
-                "watch_directory": format_path("watchedDirectories"),
                 "temp_dir": format_path("tmp"),
                 "processing_directory": format_path("currentlyProcessing"),
                 "rejected_directory": format_path("rejected"),
@@ -261,8 +242,11 @@ if DEBUG:
         "format"
     ] = "%(levelname)-8s %(threadName)s <%(asctime)s> %(module)s:%(funcName)s:%(lineno)d: %(message)s"
     LOGGING["handlers"]["console"]["level"] = "DEBUG"
-    LOGGING["loggers"]["a3m"]["level"] = "DEBUG"
     LOGGING["root"]["level"] = "DEBUG"
+    LOGGING["loggers"] = {
+        "a3m": {"level": "DEBUG"},
+        "django.db.backends": {"level": "WARNING"},
+    }
 
 
 if os.path.isfile(LOGGING_CONFIG_FILE):
@@ -283,8 +267,6 @@ def concurrent_packages_default():
 
 
 GEARMAN_SERVER = config.get("gearman_server")
-WATCH_DIRECTORY_METHOD = config.get("watch_directory_method")
-WATCH_DIRECTORY_INTERVAL = config.get("watch_directory_interval")
 BATCH_SIZE = config.get("batch_size")
 CONCURRENT_PACKAGES = config.get(
     "concurrent_packages", default=concurrent_packages_default()
@@ -308,7 +290,6 @@ RPC_BIND_ADDRESS = config.get("rpc_bind_address")
 
 SHARED_DIRECTORY = config.get("shared_directory")
 TEMP_DIRECTORY = config.get("temp_directory")
-WATCH_DIRECTORY = config.get("watch_directory")
 REJECTED_DIRECTORY = config.get("rejected_directory")
 PROCESSING_DIRECTORY = config.get("processing_directory")
 

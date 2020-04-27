@@ -195,7 +195,7 @@ def execute_command(supported_modules, gearman_worker, gearman_job):
             def write_task_results_callback():
                 with transaction.atomic():
                     for job in jobs:
-                        logger.info("\n\n*** Completed job: %s", job.dump())
+                        logger.info("Completed job: %s\n", job.dump())
 
                         exit_code = job.get_exit_code()
                         end_time = getUTCDate()

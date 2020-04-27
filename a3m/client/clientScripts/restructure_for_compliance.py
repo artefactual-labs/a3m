@@ -45,7 +45,7 @@ def _move_file(job, src, dst, exit_on_error=True):
 
 def restructure_transfer(job, unit_path):
     # Create required directories
-    create_structured_directory(unit_path, printing=True, printfn=job.pyprint)
+    create_structured_directory(unit_path)
 
     # Move everything else to the objects directory
     for item in os.listdir(unit_path):
@@ -75,7 +75,7 @@ def restructure_transfer_aip(job, unit_path):
     # - "/logs" and "/logs/fileMeta"
     # - "/metadata" and "/metadata/submissionDocumentation"
     # - "/objects"
-    create_structured_directory(unit_path, printing=True, printfn=job.pyprint)
+    create_structured_directory(unit_path)
 
     # Move /old_bag/data/METS.<UUID>.xml => /metadata/METS.<UUID>.xml
     p = re.compile(r"^METS\..*\.xml$", re.IGNORECASE)

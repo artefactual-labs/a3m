@@ -4,7 +4,8 @@
             "description": {
                 "en": "Chain 1"
             },
-            "link_id": "3b5dd6a5-b951-4e44-b00d-1180e5557beb"
+            "link_id": "3b5dd6a5-b951-4e44-b00d-1180e5557beb",
+            "start": true
         },
         "7b814362-c679-43c4-a2e2-1ba59957cd18": {
             "description": {
@@ -25,7 +26,7 @@
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
                 "execute": "link1_command",
-                "arguments": "\"%processingDirectory%\" \"%SIPUUID%\"",
+                "arguments": "\"%processingDirectory%\" \"%TransferUUID%\"",
                 "filter_file_start": null,
                 "filter_file_end": null,
                 "filter_subdir": null,
@@ -79,7 +80,7 @@
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
                 "execute": "link3_command",
-                "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%SIPUUID%\"",
+                "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
                 "filter_file_start": null,
                 "filter_file_end": null,
                 "filter_subdir": null,
@@ -106,7 +107,7 @@
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
                 "execute": "link4_command",
-                "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%SIPUUID%\"",
+                "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
                 "filter_file_start": null,
                 "filter_file_end": null,
                 "filter_subdir": null,
@@ -237,7 +238,7 @@
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
                 "execute": "final_command",
-                "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%SIPUUID%\"",
+                "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
                 "filter_file_start": null,
                 "filter_file_end": null,
                 "filter_subdir": null,

@@ -157,7 +157,7 @@ def find_metadata_files(sip_path, filename, only_transfers=False):
     return paths
 
 
-def create_directories(directories, basepath="", printing=False, printfn=print):
+def create_directories(directories, basepath=""):
     """Create arbitrary directory structures given an iterable list of directory
     paths.
     """
@@ -165,26 +165,13 @@ def create_directories(directories, basepath="", printing=False, printfn=print):
         dir_path = os.path.join(basepath, directory)
         if not os.path.isdir(dir_path):
             os.makedirs(dir_path)
-            if printing:
-                printfn("Creating directory", dir_path)
 
 
-def create_structured_directory(
-    basepath, manual_normalization=False, printing=False, printfn=print
-):
+def create_structured_directory(basepath):
     """Wrapper for create_directories for various structures required by
     Archivematica.
     """
-    create_directories(
-        REQUIRED_DIRECTORIES, basepath=basepath, printing=printing, printfn=printfn
-    )
-    if manual_normalization:
-        create_directories(
-            MANUAL_NORMALIZATION_DIRECTORIES,
-            basepath=basepath,
-            printing=printing,
-            printfn=printfn,
-        )
+    create_directories(REQUIRED_DIRECTORIES, basepath=basepath)
 
 
 def get_dir_uuids(dir_paths, logger=None, printfn=print):

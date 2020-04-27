@@ -1,10 +1,10 @@
 """Package management."""
-import abc
 import ast
 import collections
 import logging
 import os
-from uuid import UUID
+from enum import auto
+from enum import Enum
 from uuid import uuid4
 
 from django.conf import settings
@@ -14,13 +14,9 @@ from a3m.main import models
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs import JobChain
 from a3m.server.rpc import a3m_pb2
-from a3m.server.utils import uuid_from_path
 
 
 logger = logging.getLogger(__name__)
-
-
-StartingPoint = collections.namedtuple("StartingPoint", "watched_dir chain link")
 
 
 def _get_setting(name):
@@ -31,52 +27,8 @@ def _get_setting(name):
 BASE_REPLACEMENTS = {
     r"%tmpDirectory%": os.path.join(_get_setting("SHARED_DIRECTORY"), "tmp", ""),
     r"%processingDirectory%": _get_setting("PROCESSING_DIRECTORY"),
-    r"%watchDirectoryPath%": _get_setting("WATCH_DIRECTORY"),
     r"%rejectedDirectory%": _get_setting("REJECTED_DIRECTORY"),
 }
-
-
-@auto_close_old_connections()
-def create_package(package_queue, executor, workflow, name, url):
-    """Launch transfer and return its object immediately."""
-    if not name:
-        raise ValueError("No transfer name provided.")
-    if not url:
-        raise ValueError("No url provided.")
-
-    transfer = models.Transfer.objects.create(uuid=uuid4())
-    transfer.set_processing_configuration("automated")
-    logger.debug("Transfer object created: %s", transfer.pk)
-
-    params = (transfer, name, url, workflow, package_queue)
-    future = executor.submit(_trigger_workflow, *params)
-    future.add_done_callback(_trigger_workflow_done_callback)
-
-    return transfer
-
-
-def _trigger_workflow_done_callback(future):
-    try:
-        future.result()
-    except Exception as err:
-        logger.warning("Exception detected: %s", err, exc_info=True)
-
-
-def _trigger_workflow(transfer, name, url, workflow, package_queue):
-    logger.debug("Package %s: starting workflow processing", transfer.pk)
-    chain_id = "2671aef1-653a-49bf-bc74-82572b64ace9"
-    link_id = "8e3e2bf8-a543-43f9-bb2a-c3df01f112df"
-
-    unit = Transfer("", transfer.pk, url)
-
-    job_chain = JobChain(
-        unit,
-        workflow.get_chain(chain_id),
-        workflow,
-        starting_link=workflow.get_link(link_id),
-    )
-
-    package_queue.schedule_job(next(job_chain))
 
 
 def get_file_replacement_mapping(file_obj, unit_directory):
@@ -108,24 +60,100 @@ def get_file_replacement_mapping(file_obj, unit_directory):
     return mapping
 
 
-class Package(metaclass=abc.ABCMeta):
-    """A `Package` can be a Transfer or a SIP.
+class Stage(Enum):
+    """Package stages."""
+
+    TRANSFER = auto()
+    INGEST = auto()
+
+
+class Package:
+    """Package is the processing unit in a3m.
+
+    It wraps a SIP and borrows its SIP. But it also knows about its transfer
+    stage. Some methods return different values depending the stage the
+    package is in.
     """
 
-    def __init__(self, current_path, uuid):
-        self._current_path = current_path.replace(
-            r"%sharedPath%", _get_setting("SHARED_DIRECTORY")
-        )
-        if uuid and not isinstance(uuid, UUID):
-            uuid = UUID(uuid)
-        self.uuid = uuid
+    def __init__(self, name, url, transfer, sip):
+        self.name = name
+        self.url = url
+        self.transfer = transfer
+        self.sip = sip
+        self.stage = Stage.TRANSFER
+        self.aip_filename = None
+        self.sip_type = None
+        self._current_path = self.transfer.currentlocation
 
     def __repr__(self):
-        return '{class_name}("{current_path}", {uuid})'.format(
-            class_name=self.__class__.__name__,
-            uuid=self.uuid,
-            current_path=self.current_path,
+        return "{class_name}({uuid})".format(
+            class_name=self.__class__.__name__, uuid=self.uuid
         )
+
+    @classmethod
+    @auto_close_old_connections()
+    def create_package(cls, package_queue, executor, workflow, name, url):
+        """Launch transfer and return its object immediately."""
+        if not name:
+            raise ValueError("No transfer name provided.")
+        if not url:
+            raise ValueError("No url provided.")
+
+        transfer_id = str(uuid4())
+        transfer_dir = os.path.join(
+            _get_setting("PROCESSING_DIRECTORY"), "transfer", transfer_id, ""
+        )
+        transfer = models.Transfer.objects.create(
+            uuid=transfer_id, currentlocation=transfer_dir,
+        )
+        transfer.set_processing_configuration("automated")
+        logger.debug("Transfer object created: %s", transfer.pk)
+
+        sip_id = str(uuid4())
+        sip_dir = os.path.join(
+            _get_setting("PROCESSING_DIRECTORY"), "ingest", sip_id, ""
+        )
+        sip = models.SIP.objects.create(uuid=sip_id, currentpath=sip_dir,)
+        logger.debug("SIP object created: %s", sip.pk)
+
+        package = cls(name, url, transfer, sip)
+
+        params = (package, package_queue, workflow)
+        future = executor.submit(Package.trigger_workflow, *params)
+        future.add_done_callback(Package.trigger_workflow_done_callback)
+
+        return package
+
+    @staticmethod
+    def trigger_workflow(package, package_queue, workflow):
+        logger.debug("Package %s: starting workflow processing", package.uuid)
+
+        # It should be "2671aef1-653a-49bf-bc74-82572b64ace9".
+        chain = workflow.get_initiator_chain()
+        if chain is None:
+            raise ValueError("Workflow initiator not found")
+
+        job_chain = JobChain(package, chain, workflow)
+
+        package_queue.schedule_job(next(job_chain))
+
+    @staticmethod
+    def trigger_workflow_done_callback(future):
+        try:
+            future.result()
+        except Exception as err:
+            logger.warning("Exception detected: %s", err, exc_info=True)
+
+    @property
+    def uuid(self):
+        return self.sip.pk
+
+    @property
+    def subid(self):
+        if self.stage is Stage.INGEST:
+            return self.sip.pk
+        else:
+            return self.transfer.pk
 
     @property
     def current_path(self):
@@ -148,34 +176,87 @@ class Package(metaclass=abc.ABCMeta):
         )
 
     @property
-    def package_name(self):
-        basename = os.path.basename(self.current_path.rstrip("/"))
-        return basename.replace("-" + str(self.uuid), "")
+    def context(self):
+        """Returns a `PackageContext` for this package."""
+        # This needs to be reloaded from the db every time, because new values
+        # could have been added by a client script.
+        # TODO: pass context changes back from client
+        return PackageContext.load_from_db(self.subid)
+
+    @property
+    def unit_type(self):
+        if self.stage is Stage.INGEST:
+            return "unitSIP"
+        else:
+            return "unitTransfer"
+
+    @property
+    def unit_variable_type(self):
+        if self.stage is Stage.INGEST:
+            return "SIP"
+        else:
+            return "Transfer"
+
+    @property
+    def replacement_path_string(self):
+        if self.stage is Stage.INGEST:
+            return r"%SIPDirectory%"
+        else:
+            return r"%transferDirectory%"
 
     @property
     @auto_close_old_connections()
     def base_queryset(self):
-        return models.File.objects.filter(sip_id=self.uuid)
+        if self.stage is Stage.INGEST:
+            return models.File.objects.filter(sip_id=self.sip.pk)
+        else:
+            return models.File.objects.filter(transfer_id=self.transfer.pk)
 
-    @property
-    def context(self):
-        """Returns a `PackageContext` for this package.
+    @auto_close_old_connections()
+    def set_variable(self, key, value, chain_link_id):
+        """Sets a UnitVariable, which tracks choices made by users during processing.
         """
-        # This needs to be reloaded from the db every time, because new values
-        # could have been added by a client script.
-        # TODO: pass context changes back from client
-        return PackageContext.load_from_db(self.uuid)
+        # TODO: refactor this concept
+        if not value:
+            value = ""
+        else:
+            value = str(value)
 
-    @abc.abstractmethod
+        unit_var, created = models.UnitVariable.objects.update_or_create(
+            unittype=self.unit_variable_type,
+            unituuid=self.subid,
+            variable=key,
+            defaults=dict(variablevalue=value, microservicechainlink=chain_link_id),
+        )
+        if created:
+            message = "New UnitVariable %s created for %s: %s (MSCL: %s)"
+        else:
+            message = "Existing UnitVariable %s for %s updated to %s (MSCL" " %s)"
+        logger.debug(message, key, self.subid, value, chain_link_id)
+
+    def start_ingest(self):
+        """Signal this package so it becomes a SIP."""
+        self.stage = Stage.INGEST
+
+    @auto_close_old_connections()
     def reload(self):
-        pass
+        if self.stage is Stage.INGEST:
+            sip = models.SIP.objects.get(uuid=self.sip.pk)
+            self.current_path = sip.currentpath
+            self.aip_filename = sip.aip_filename or ""
+            self.sip_type = sip.sip_type
+        else:
+            transfer = models.Transfer.objects.get(uuid=self.transfer.pk)
+            self.current_path = transfer.currentlocation
+            self.processing_configuration = transfer.processing_configuration
 
     def get_replacement_mapping(self, filter_subdir_path=None):
         mapping = BASE_REPLACEMENTS.copy()
         mapping.update(
             {
-                r"%SIPUUID%": str(self.uuid),
-                r"%SIPName%": self.package_name,
+                r"%SIPUUID%": str(self.sip.pk),
+                r"%TransferUUID%": str(self.transfer.pk),
+                r"%SIPName%": self.name,
                 r"%SIPLogsDirectory%": os.path.join(self.current_path, "logs", ""),
                 r"%SIPObjectsDirectory%": os.path.join(
                     self.current_path, "objects", ""
@@ -188,26 +269,35 @@ class Package(metaclass=abc.ABCMeta):
             }
         )
 
+        if self.stage is Stage.INGEST:
+            mapping.update(
+                {
+                    r"%unitType%": self.unit_variable_type,
+                    r"%AIPFilename%": self.aip_filename,
+                    r"%SIPType%": self.sip_type,
+                }
+            )
+        else:
+            mapping.update(
+                {
+                    self.replacement_path_string: self.current_path,
+                    r"%unitType%": self.unit_variable_type,
+                    r"%processingConfiguration%": self.processing_configuration,
+                    r"%URL%": self.url,
+                }
+            )
+
         return mapping
 
-    def files(
-        self, filter_filename_start=None, filter_filename_end=None, filter_subdir=None
-    ):
+    def files(self, filter_subdir=None):
         """Generator that yields all files associated with the package or that
         should be associated with a package.
         """
         with auto_close_old_connections():
             queryset = self.base_queryset
 
-            if filter_filename_start:
-                # TODO: regex filter
-                raise NotImplementedError("filter_filename_start is not implemented")
-            if filter_filename_end:
-                queryset = queryset.filter(
-                    currentlocation__endswith=filter_filename_end
-                )
             if filter_subdir:
-                filter_path = "".join([self.REPLACEMENT_PATH_STRING, filter_subdir])
+                filter_path = "".join([self.replacement_path_string, filter_subdir])
                 queryset = queryset.filter(currentlocation__startswith=filter_path)
 
             start_path = self.current_path
@@ -227,14 +317,6 @@ class Package(metaclass=abc.ABCMeta):
 
             for basedir, subdirs, files in os.walk(start_path):
                 for file_name in files:
-                    if (
-                        filter_filename_start
-                        and not file_name.startswith(filter_filename_start)
-                    ) or (
-                        filter_filename_end
-                        and not file_name.endswith(filter_filename_end)
-                    ):
-                        continue
                     file_path = os.path.join(basedir, file_name)
                     if file_path not in files_returned_already:
                         yield {
@@ -242,172 +324,6 @@ class Package(metaclass=abc.ABCMeta):
                             r"%fileUUID%": "None",
                             r"%fileGrpUse%": "",
                         }
-
-    @auto_close_old_connections()
-    def set_variable(self, key, value, chain_link_id):
-        """Sets a UnitVariable, which tracks choices made by users during processing.
-        """
-        # TODO: refactor this concept
-        if not value:
-            value = ""
-        else:
-            value = str(value)
-
-        unit_var, created = models.UnitVariable.objects.update_or_create(
-            unittype=self.UNIT_VARIABLE_TYPE,
-            unituuid=self.uuid,
-            variable=key,
-            defaults=dict(variablevalue=value, microservicechainlink=chain_link_id),
-        )
-        if created:
-            message = "New UnitVariable %s created for %s: %s (MSCL: %s)"
-        else:
-            message = "Existing UnitVariable %s for %s updated to %s (MSCL" " %s)"
-
-        logger.info(message, key, self.uuid, value, chain_link_id)
-
-
-class Transfer(Package):
-    REPLACEMENT_PATH_STRING = r"%transferDirectory%"
-    UNIT_VARIABLE_TYPE = "Transfer"
-    JOB_UNIT_TYPE = "unitTransfer"
-
-    def __init__(self, current_path, uuid, url):
-        super().__init__(current_path, uuid)
-        self.url = url or ""
-
-    @classmethod
-    @auto_close_old_connections()
-    def get_or_create_from_db_by_path(cls, path):
-        """Matches a directory to a database Transfer by its appended UUID, or path."""
-        path = path.replace(_get_setting("SHARED_DIRECTORY"), r"%sharedPath%", 1)
-
-        transfer_uuid = uuid_from_path(path)
-        created = True
-        if transfer_uuid:
-            transfer_obj, created = models.Transfer.objects.get_or_create(
-                uuid=transfer_uuid, defaults={"currentlocation": path}
-            )
-            # TODO: we thought this path was unused but some tests have proved
-            # us wrong (see issue #1141) - needs to be investigated.
-            if not created and transfer_obj.currentlocation != path:
-                transfer_obj.currentlocation = path
-                transfer_obj.save()
-        else:
-            try:
-                transfer_obj = models.Transfer.objects.get(currentlocation=path)
-                created = False
-            except models.Transfer.DoesNotExist:
-                transfer_obj = models.Transfer.objects.create(
-                    uuid=uuid4(), currentlocation=path
-                )
-        logger.info(
-            "Transfer %s %s (%s)",
-            transfer_obj.uuid,
-            "created" if created else "updated",
-            path,
-        )
-
-        return cls(path, transfer_obj.uuid, None)
-
-    @property
-    @auto_close_old_connections()
-    def base_queryset(self):
-        return models.File.objects.filter(transfer_id=self.uuid)
-
-    @auto_close_old_connections()
-    def reload(self):
-        transfer = models.Transfer.objects.get(uuid=self.uuid)
-        self.current_path = transfer.currentlocation
-        self.processing_configuration = transfer.processing_configuration
-
-    def get_replacement_mapping(self, filter_subdir_path=None):
-        mapping = super().get_replacement_mapping(filter_subdir_path=filter_subdir_path)
-
-        mapping.update(
-            {
-                self.REPLACEMENT_PATH_STRING: self.current_path,
-                r"%unitType%": "Transfer",
-                r"%processingConfiguration%": self.processing_configuration,
-                r"%URL%": self.url,
-            }
-        )
-
-        return mapping
-
-
-class SIP(Package):
-    REPLACEMENT_PATH_STRING = r"%SIPDirectory%"
-    UNIT_VARIABLE_TYPE = "SIP"
-    JOB_UNIT_TYPE = "unitSIP"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.aip_filename = None
-        self.sip_type = None
-
-    @auto_close_old_connections()
-    def reload(self):
-        sip = models.SIP.objects.get(uuid=self.uuid)
-        self.current_path = sip.currentpath
-        self.aip_filename = sip.aip_filename or ""
-        self.sip_type = sip.sip_type
-
-    def get_replacement_mapping(self, filter_subdir_path=None):
-        mapping = super().get_replacement_mapping(filter_subdir_path=filter_subdir_path)
-
-        mapping.update(
-            {
-                r"%unitType%": "SIP",
-                r"%AIPFilename%": self.aip_filename,
-                r"%SIPType%": self.sip_type,
-            }
-        )
-
-        return mapping
-
-    @classmethod
-    @auto_close_old_connections()
-    def get_or_create_from_db_by_path(cls, path):
-        """Matches a directory to a database SIP by its appended UUID, or path."""
-        path = path.replace(_get_setting("SHARED_DIRECTORY"), r"%sharedPath%", 1)
-        package_type = cls.UNIT_VARIABLE_TYPE
-        sip_uuid = uuid_from_path(path)
-        created = True
-        if sip_uuid:
-            sip_obj, created = models.SIP.objects.get_or_create(
-                uuid=sip_uuid,
-                defaults={
-                    "sip_type": package_type,
-                    "currentpath": path,
-                    "diruuids": False,
-                },
-            )
-            # TODO: we thought this path was unused but some tests have proved
-            # us wrong (see issue #1141) - needs to be investigated.
-            if package_type == "SIP" and (not created and sip_obj.currentpath != path):
-                sip_obj.currentpath = path
-                sip_obj.save()
-        else:
-            try:
-                sip_obj = models.SIP.objects.get(currentpath=path)
-                created = False
-            except models.SIP.DoesNotExist:
-                sip_obj = models.SIP.objects.create(
-                    uuid=uuid4(),
-                    currentpath=path,
-                    sip_type=package_type,
-                    diruuids=False,
-                )
-        logger.info(
-            "%s %s %s (%s)",
-            package_type,
-            sip_obj.uuid,
-            "created" if created else "updated",
-            path,
-        )
-        return cls(path, sip_obj.uuid)
 
 
 class PackageContext:

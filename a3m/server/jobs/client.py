@@ -131,9 +131,9 @@ class ClientScriptJob(Job, metaclass=abc.ABCMeta):
             metrics.task_completed(task, self)
             self.task_completed_callback(task)
 
+    @abc.abstractmethod
     def task_completed_callback(self, task):
-        """Hook for child classes.
-        """
+        """Hook for child classes."""
 
     @auto_close_old_connections()
     def update_status_from_exit_code(self):
@@ -157,9 +157,14 @@ class ClientScriptJob(Job, metaclass=abc.ABCMeta):
 class DirectoryClientScriptJob(ClientScriptJob):
     """
     A job with one Task, passing a directory path.
-
-    Fully implemented in ClientScriptJob.
     """
+
+    LINK_END_OF_TRANSFER = "39a128e3-c35d-40b7-9363-87f75091e1ff"
+
+    def task_completed_callback(self, task):
+        """Move the package to the Ingest stage."""
+        if self.link.id == self.LINK_END_OF_TRANSFER:
+            self.package.start_ingest()
 
 
 class FilesClientScriptJob(ClientScriptJob):
@@ -168,19 +173,6 @@ class FilesClientScriptJob(ClientScriptJob):
     """
 
     @property
-    def filter_file_start(self):
-        """Returns path prefix to filter files on, as defined in the workflow.
-        """
-        return self.link.config.get("filter_file_start", "")
-
-    @property
-    def filter_file_end(self):
-        """Returns path suffix to filter files on, as defined in the workflow.
-        """
-        return self.link.config.get("filter_file_end", "")
-
-    @property
-    @auto_close_old_connections()
     def filter_subdir(self):
         """Returns directory to filter files on.
 
@@ -193,11 +185,7 @@ class FilesClientScriptJob(ClientScriptJob):
     def submit_tasks(self):
         """Iterate through all matching files for the package, and submit tasks.
         """
-        for file_replacements in self.package.files(
-            filter_filename_start=self.filter_file_start,
-            filter_filename_end=self.filter_file_end,
-            filter_subdir=self.filter_subdir,
-        ):
+        for file_replacements in self.package.files(filter_subdir=self.filter_subdir):
             # File replacement values take priority
             command_replacements = self.command_replacements.copy()
             command_replacements.update(file_replacements)
@@ -217,3 +205,6 @@ class FilesClientScriptJob(ClientScriptJob):
         else:
             # Nothing to do; set exit code to success
             self.exit_code = 0
+
+    def task_completed_callback(self, task):
+        pass

@@ -73,20 +73,8 @@ def test_load_valid_document(path):
     assert isinstance(first_link, workflow.Link)
     assert first_link.config == first_link._src["config"]
 
-    wdirs = wf.get_wdirs()
-    assert len(wdirs) > 0
-    first_wdir = wdirs[0]
-    assert isinstance(first_wdir, workflow.WatchedDir)
-    assert first_wdir.path == first_wdir["path"]
-    assert str(first_wdir) == first_wdir["path"]
-    assert repr(first_wdir) == "Watched directory <{}>".format(first_wdir["path"])
-    assert isinstance(first_wdir.chain, workflow.Chain)
-    assert isinstance(first_wdir.chain, workflow.BaseLink)
-
     # Workflow __str__ method
-    assert str(wf) == "Chains {}, links {}, watched directories: {}".format(
-        len(chains), len(links), len(wdirs)
-    )
+    assert str(wf) == "Chains {}, links {}".format(len(chains), len(links))
 
     # Test normalization of job statuses.
     link = next(iter(links.values()))

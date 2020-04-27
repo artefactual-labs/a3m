@@ -1,9 +1,5 @@
 """
-Configuration helper for MCPServer, MCPClient and Dashboard, used in:
-
-    - MCPClient/lib/settings/common.py
-    - MCPServer/lib/settings/common.py
-    - Dashboard/src/settings/base.py
+Configuration helper.
 
 Config. attributes are declared on those settings files and they can be defined
 by a dictionary indicating the 'section', 'option' and 'type' to be parsed by
@@ -170,14 +166,3 @@ class Config:
             ):
                 pass
         raise ImproperlyConfigured(self.UNDEFINED_ATTR_MSG % attr)
-
-
-def process_watched_directory_interval(config, section):
-    """Backward compatible lookup of watch_directory_interval.
-    """
-    options = [
-        {"section": section, "option": "watch_directory_interval", "type": "int"},
-        {"section": section, "option": "watchDirectoriesPollInterval", "type": "int"},
-    ]
-
-    return config.get_from_opts_list("watch_directory_interval", options, default=1)

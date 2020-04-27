@@ -61,10 +61,8 @@ job_queue_length_gauge = Gauge(
     "Number of queued jobs related to currently active packages",
 )
 package_queue_length_gauge = Gauge(
-    "mcpserver_package_queue_length", "Number of queued packages", ["package_type"]
+    "mcpserver_package_queue_length", "Number of queued packages",
 )
-
-PACKAGE_TYPES = ("Transfer", "SIP")
 
 
 def skip_if_prometheus_disabled(func):
@@ -82,9 +80,6 @@ def init_labels(workflow):
     """Zero to start, by intializing all labels. Non-zero starting points
     cause problems when measuring rates.
     """
-    for package_type in PACKAGE_TYPES:
-        package_queue_length_gauge.labels(package_type=package_type)
-
     for link in workflow.get_links().values():
         group_name = link.get_label("group", "en")
         task_name = link.get_label("description", "en")

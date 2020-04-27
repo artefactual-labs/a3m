@@ -20,7 +20,6 @@ Start and run MCPServer via the `main` function.
 10. The `PackageQueue.work` processing loop is started on the main thread.
 """
 import concurrent.futures
-import functools
 import logging
 import os
 import signal
@@ -36,37 +35,13 @@ from a3m.server import metrics
 from a3m.server import rpc_server
 from a3m.server import shared_dirs
 from a3m.server.jobs import Job
-from a3m.server.jobs import JobChain
-from a3m.server.packages import SIP
-from a3m.server.packages import Transfer
 from a3m.server.queues import PackageQueue
 from a3m.server.tasks import Task
 from a3m.server.tasks.backends import get_task_backend
-from a3m.server.watch_dirs import watch_directories
 from a3m.server.workflow import load_default_workflow
 
 
 logger = logging.getLogger(__name__)
-
-
-def watched_dir_handler(package_queue, path, watched_dir):
-    if os.path.isdir(path):
-        path = path + "/"
-    logger.debug("Starting chain for %s", path)
-
-    package = None
-    package_type = watched_dir["unit_type"]
-    is_dir = os.path.isdir(path)
-
-    if package_type == "SIP" and is_dir:
-        package = SIP.get_or_create_from_db_by_path(path)
-    elif package_type == "Transfer":
-        package = Transfer.get_or_create_from_db_by_path(path)
-    else:
-        raise ValueError(f"Unexpected unit type given for file {path}")
-
-    job_chain = JobChain(package, watched_dir.chain, watched_dir.chain.workflow)
-    package_queue.schedule_job(next(job_chain))
 
 
 def main(shutdown_event=None):
@@ -120,19 +95,10 @@ def main(shutdown_event=None):
     )
     rpc_thread.start()
 
-    watched_dir_callback = functools.partial(watched_dir_handler, package_queue)
-    watch_dir_thread = threading.Thread(
-        target=watch_directories,
-        args=(workflow.get_wdirs(), shutdown_event, watched_dir_callback),
-        name="WatchDirs",
-    )
-    watch_dir_thread.start()
-
     # Blocks until shutdown_event is set by signal_handler
     package_queue.work()
 
     # We got a shutdown signal, so cleanup threads
-    watch_dir_thread.join(1.0)
     rpc_thread.join(0.1)
     logger.debug("RPC server stopped.")
 

@@ -1,4 +1,5 @@
 import concurrent.futures
+import os
 import queue
 import threading
 import uuid
@@ -7,10 +8,13 @@ import pytest
 
 from a3m.server.jobs import DecisionJob
 from a3m.server.jobs import Job
-from a3m.server.packages import SIP
-from a3m.server.packages import Transfer
+from a3m.server.packages import Package
 from a3m.server.queues import PackageQueue
 from a3m.server.workflow import Link
+
+
+FIXTURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
+INTEGRATION_TEST_PATH = os.path.join(FIXTURES_DIR, "workflow-integration-test.json")
 
 
 class MockJob(Job):
@@ -84,18 +88,28 @@ def workflow_link(request):
     )
 
 
-@pytest.fixture
-def transfer(request, tmp_path):
-    return Transfer(str(tmp_path), uuid.uuid4(), "file:///tmp/foobar.gz")
+class FakeUnit:
+    def __init__(self, pk):
+        self.pk = pk
+        self.currentlocation = None
 
 
 @pytest.fixture
-def sip(request, tmp_path):
-    return SIP(str(tmp_path), uuid.uuid4())
+def package(request):
+    return Package(
+        "package-1", "file:///tmp/foobar-1.gz", FakeUnit("abc"), FakeUnit("def")
+    )
 
 
-def test_schedule_job(package_queue, transfer, workflow_link, mocker):
-    test_job = MockJob(mocker.Mock(), workflow_link, transfer)
+@pytest.fixture
+def package_2(request):
+    return Package(
+        "package-2", "file:///tmp/foobar-2.gz", FakeUnit("ghi"), FakeUnit("jkl")
+    )
+
+
+def test_schedule_job(package_queue, package, workflow_link, mocker):
+    test_job = MockJob(mocker.Mock(), workflow_link, package)
 
     package_queue.schedule_job(test_job)
 
@@ -107,15 +121,15 @@ def test_schedule_job(package_queue, transfer, workflow_link, mocker):
     test_job.job_ran.wait(1.0)
 
     assert test_job.job_ran.is_set()
-    assert transfer.uuid in package_queue.active_packages
-    assert package_queue.job_queue.qsize() == 0
-    assert package_queue.sip_queue.qsize() == 0
-    assert package_queue.transfer_queue.qsize() == 0
+    assert package.uuid in package_queue.active_packages
+    assert package_queue.queue.qsize() == 0
 
 
-def test_active_transfer_limit(package_queue, transfer, sip, workflow_link, mocker):
-    test_job1 = MockJob(mocker.Mock(), workflow_link, transfer)
-    test_job2 = MockJob(mocker.Mock(), workflow_link, sip)
+def test_active_transfer_limit(
+    package_queue, package, package_2, workflow_link, mocker
+):
+    test_job1 = MockJob(mocker.Mock(), workflow_link, package)
+    test_job2 = MockJob(mocker.Mock(), workflow_link, package_2)
 
     package_queue.schedule_job(test_job1)
 
@@ -131,28 +145,26 @@ def test_active_transfer_limit(package_queue, transfer, sip, workflow_link, mock
     # give ourselves up to 1 sec for other threads to spin up
     test_job1.job_ran.wait(1.0)
 
-    assert transfer.uuid in package_queue.active_packages
-    assert sip.uuid not in package_queue.active_packages
-    assert package_queue.job_queue.qsize() == 0
-    assert package_queue.sip_queue.qsize() == 1
-    assert package_queue.transfer_queue.qsize() == 0
+    assert package.uuid in package_queue.active_packages
+    assert package_2.uuid not in package_queue.active_packages
+    assert package_queue.queue.qsize() == 1
 
 
-def test_activate_and_deactivate_package(package_queue, transfer):
-    package_queue.activate_package(transfer)
+def test_activate_and_deactivate_package(package_queue, package):
+    package_queue.activate_package(package)
 
-    assert transfer.uuid in package_queue.active_packages
+    assert package.uuid in package_queue.active_packages
 
-    package_queue.deactivate_package(transfer)
+    package_queue.deactivate_package(package)
 
-    assert transfer.uuid not in package_queue.active_packages
+    assert package.uuid not in package_queue.active_packages
 
 
 def test_queue_next_job_raises_full(
-    package_queue, transfer, sip, workflow_link, mocker
+    package_queue, package, package_2, workflow_link, mocker
 ):
-    test_job1 = MockJob(mocker.Mock(), workflow_link, transfer)
-    test_job2 = MockJob(mocker.Mock(), workflow_link, sip)
+    test_job1 = MockJob(mocker.Mock(), workflow_link, package)
+    test_job2 = MockJob(mocker.Mock(), workflow_link, package_2)
 
     package_queue.schedule_job(test_job1)
     package_queue.schedule_job(test_job2)
@@ -163,8 +175,8 @@ def test_queue_next_job_raises_full(
         package_queue.queue_next_job()
 
 
-def test_await_job_decision(package_queue, transfer, workflow_link, mocker):
-    test_job = MockDecisionJob(mocker.Mock(), workflow_link, transfer)
+def test_await_job_decision(package_queue, package, workflow_link, mocker):
+    test_job = MockDecisionJob(mocker.Mock(), workflow_link, package)
     package_queue.await_decision(test_job)
 
     assert package_queue.job_queue.qsize() == 0
@@ -175,10 +187,10 @@ def test_await_job_decision(package_queue, transfer, workflow_link, mocker):
 
 
 def test_decision_job_moved_to_awaiting_decision(
-    package_queue, transfer, sip, workflow_link, mocker
+    package_queue, package, package_2, workflow_link, mocker
 ):
-    test_job1 = MockDecisionJob(mocker.Mock(), workflow_link, transfer)
-    test_job2 = MockJob(mocker.Mock(), workflow_link, sip)
+    test_job1 = MockDecisionJob(mocker.Mock(), workflow_link, package)
+    test_job2 = MockJob(mocker.Mock(), workflow_link, package_2)
 
     package_queue.schedule_job(test_job1)
 
@@ -187,13 +199,13 @@ def test_decision_job_moved_to_awaiting_decision(
     test_job1.job_ran.wait(1.0)
 
     assert str(test_job1.uuid) in package_queue.jobs_awaiting_decisions()
-    assert transfer.uuid not in package_queue.active_packages
+    assert package.uuid not in package_queue.active_packages
     assert package_queue.job_queue.qsize() == 0
 
-    test_job2 = MockJob(mocker.Mock(), workflow_link, sip)
+    test_job2 = MockJob(mocker.Mock(), workflow_link, package_2)
     package_queue.schedule_job(test_job2)
     package_queue.process_one_job(timeout=0.1)
     test_job2.job_ran.wait(1.0)
 
     assert test_job2.uuid not in package_queue.jobs_awaiting_decisions()
-    assert sip.uuid in package_queue.active_packages
+    assert package_2.uuid in package_queue.active_packages
