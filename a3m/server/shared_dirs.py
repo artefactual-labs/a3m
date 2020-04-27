@@ -230,8 +230,6 @@ def create():
         "watchedDirectories/system",
         "watchedDirectories/system/autoProcessSIP",
         "watchedDirectories/workFlowDecisions",
-        "watchedDirectories/workFlowDecisions/examineContentsChoice",
-        "watchedDirectories/workFlowDecisions/extractPackagesChoice",
         "www",
         "www/AIPsStore",
     )

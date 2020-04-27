@@ -111,7 +111,7 @@
                 "ja": "いいえ",
                 "sv": "Nej"
             },
-            "link_id": "dae3c416-a8c2-4515-9081-6dbd7b265388"
+            "link_id": "accea2bf-ba74-4a3a-bb97-614775c74459"
         },
         "44a7c397-8187-4fd2-b8f7-c61737c4df49": {
             "description": {
@@ -200,17 +200,6 @@
             },
             "link_id": "87e93d08-36e4-4c81-99a8-beea00b18400"
         },
-        "96b49116-b114-47e8-95d0-b3c6ae4e80f5": {
-            "description": {
-                "en": "Examine contents?",
-                "es": "¿Examinar contenidos?",
-                "fr": "Examiner le contenu?",
-                "ja": "内容を検査しますか？",
-                "pt_BR": "Examinar o conteúdo?",
-                "sv": "Granska innehåll?"
-            },
-            "link_id": "accea2bf-ba74-4a3a-bb97-614775c74459"
-        },
         "a6ed697e-6189-4b4e-9f80-29209abc7937": {
             "description": {
                 "en": "Reject SIP",
@@ -261,17 +250,6 @@
                 "sv": "Ja"
             },
             "link_id": "6c147aeb-20c5-47ce-9f40-7f22683cea1f"
-        },
-        "c868840c-cf0b-49db-a684-af4248702954": {
-            "description": {
-                "en": "Extract packages",
-                "es": "Extraer paquetes",
-                "fr": "Extraire les paquets ",
-                "ja": "パッケージの抽出",
-                "pt_BR": "Extrair pacotes",
-                "sv": "Extrahera paket"
-            },
-            "link_id": "b944ec7f-7f99-491f-986d-58914c9bb4fa"
         },
         "d9760427-b488-4381-832a-de10106de6fe": {
             "description": {
@@ -1615,11 +1593,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "cc16178b-b632-4624-9091-822dd802a2c6"
+                    "link_id": "b944ec7f-7f99-491f-986d-58914c9bb4fa"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "cc16178b-b632-4624-9091-822dd802a2c6",
+            "fallback_link_id": "b944ec7f-7f99-491f-986d-58914c9bb4fa",
             "group": {
                 "en": "Identify file format",
                 "es": "Identificar formato de fichero",
@@ -3301,15 +3279,15 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "dae3c416-a8c2-4515-9081-6dbd7b265388"
+                    "link_id": "accea2bf-ba74-4a3a-bb97-614775c74459"
                 },
                 "1": {
                     "job_status": "Failed",
-                    "link_id": "dae3c416-a8c2-4515-9081-6dbd7b265388"
+                    "link_id": "accea2bf-ba74-4a3a-bb97-614775c74459"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "dae3c416-a8c2-4515-9081-6dbd7b265388",
+            "fallback_link_id": "accea2bf-ba74-4a3a-bb97-614775c74459",
             "group": {
                 "en": "Validation",
                 "es": "Validación",
@@ -5212,41 +5190,6 @@
                 "sv": "Normalisera"
             }
         },
-        "cc16178b-b632-4624-9091-822dd802a2c6": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/workFlowDecisions/extractPackagesChoice/.\"  \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to extract packages",
-                "ja": "パッケージの抽出に移動",
-                "pt_BR": "Mover para extrair pacotes",
-                "sv": "Flytta för att extrahera paket"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Extract packages",
-                "es": "Extraer paquetes",
-                "fr": "Extraire les paquets ",
-                "ja": "パッケージの抽出",
-                "pt_BR": "Extrair pacotes",
-                "sv": "Extrahera paket"
-            }
-        },
         "ccf8ec5c-3a9a-404a-a7e7-8f567d3b36a0": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -5468,40 +5411,6 @@
                 "fr": "Normaliser ",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
-            }
-        },
-        "dae3c416-a8c2-4515-9081-6dbd7b265388": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/workFlowDecisions/examineContentsChoice/.\"  \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to examine contents",
-                "pt_BR": "Mover para examinar o conteúdo",
-                "sv": "Flytta till granska innehåll"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Examine contents",
-                "es": "Examinar contenidos",
-                "fr": "Examiner le contenu",
-                "ja": "内容を検査する",
-                "pt_BR": "Examinar conteúdos",
-                "sv": "Undersök innehåll"
             }
         },
         "db9177f5-41d2-4894-be1a-a7547ed6b63a": {
@@ -6479,12 +6388,6 @@
     },
     "watched_directories": [
         {
-            "chain_id": "c868840c-cf0b-49db-a684-af4248702954",
-            "only_dirs": true,
-            "path": "/workFlowDecisions/extractPackagesChoice/",
-            "unit_type": "Transfer"
-        },
-        {
             "chain_id": "498795c7-06f2-4f3f-95bf-57f1b35964ad",
             "only_dirs": true,
             "path": "/SIPCreation/completedTransfers/",
@@ -6495,12 +6398,6 @@
             "only_dirs": true,
             "path": "/system/autoProcessSIP",
             "unit_type": "SIP"
-        },
-        {
-            "chain_id": "96b49116-b114-47e8-95d0-b3c6ae4e80f5",
-            "only_dirs": true,
-            "path": "/workFlowDecisions/examineContentsChoice/",
-            "unit_type": "Transfer"
         }
     ]
 }
