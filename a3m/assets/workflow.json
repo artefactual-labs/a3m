@@ -49,17 +49,6 @@
             },
             "link_id": "19c94543-14cb-4158-986b-1d2b55723cd8"
         },
-        "1b04ec43-055c-43b7-9543-bd03c6a778ba": {
-            "description": {
-                "en": "Reject transfer",
-                "es": "Rechazar transferencia",
-                "fr": "Rejeter le transfert",
-                "ja": "転送を拒否",
-                "pt_BR": "Rejeitar transferência",
-                "sv": "Avslå överföring"
-            },
-            "link_id": "ae5cdd0d-2f81-4935-a380-d5c6f1337d93"
-        },
         "1e0df175-d56d-450d-8bee-7df1dc7ae815": {
             "description": {
                 "en": "Approve",
@@ -131,16 +120,6 @@
                 "sv": "Normalisera för bevarande"
             },
             "link_id": "6b39088b-683e-48bd-ab89-9dab47f4e9e0"
-        },
-        "61cfa825-120e-4b17-83e6-51a42b67d969": {
-            "description": {
-                "en": "Create single SIP and continue processing",
-                "es": "Crear SIP y continuar proceso",
-                "fr": "Créer un seul SIP et continuer le traitement",
-                "pt_BR": "Crie um único SIP e continue processando",
-                "sv": "Skapa enskild SIP och fortsätt processa."
-            },
-            "link_id": "8f639582-8881-4a8b-8574-d2f86dc4db3d"
         },
         "65273f18-5b4e-4944-af4f-09be175a88e8": {
             "description": {
@@ -610,7 +589,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "b04e9232-2aea-49fc-9560-27349c8eba4e"
+                    "link_id": "f378ec85-adcc-4ee6-ada2-bc90cfe20efb"
                 }
             },
             "fallback_job_status": "Failed",
@@ -1879,41 +1858,6 @@
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
-        },
-        "333532b9-b7c2-4478-9415-28a3056d58df": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%rejectedDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to the rejected directory",
-                "pt_BR": "Mover para o diretório rejeitado",
-                "sv": "Flytta dill den avslagna mappen"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Reject transfer",
-                "es": "Rechazar transferencia",
-                "fr": "Rejeter le transfert",
-                "ja": "転送を拒否",
-                "pt_BR": "Rejeitar transferência",
-                "sv": "Avslå överföring"
-            },
-            "end": true
         },
         "33d7ac55-291c-43ae-bb42-f599ef428325": {
             "config": {
@@ -4101,40 +4045,6 @@
                 "sv": "Normalisera"
             }
         },
-        "8f639582-8881-4a8b-8574-d2f86dc4db3d": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "f378ec85-adcc-4ee6-ada2-bc90cfe20efb"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Create SIP from Transfer",
-                "es": "Crear SIP a partir de la transferencia",
-                "fr": "Créer un SIP à partir du Transfert",
-                "ja": "転送からSIPを作成する",
-                "pt_BR": "Crie SIP a partir da transferência",
-                "sv": "Skapa SIP från överföringspaket"
-            }
-        },
         "91ca6f1f-feb5-485d-99d2-25eed195e330": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -4541,73 +4451,6 @@
                 "sv": "Undersök innehåll"
             }
         },
-        "ae5cdd0d-2f81-4935-a380-d5c6f1337d93": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"reject\" \"%SIPUUID%\" \"%SIPDirectory%\"",
-                "execute": "failedTransferCleanup",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Cleanup rejected transfer",
-                "es": "Eliminar transferencia rechazada",
-                "fr": "Nettoyer les Tranferts qui ont été rejetés",
-                "ja": "拒否された転送をクリーン",
-                "pt_BR": "Transferência limpeza rejeitada ",
-                "sv": "Rensa underkänd överföring"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "333532b9-b7c2-4478-9415-28a3056d58df"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "333532b9-b7c2-4478-9415-28a3056d58df",
-            "group": {
-                "en": "Reject transfer",
-                "es": "Rechazar transferencia",
-                "fr": "Rejeter le transfert",
-                "ja": "転送を拒否",
-                "pt_BR": "Rejeitar transferência",
-                "sv": "Avslå överföring"
-            }
-        },
-        "b04e9232-2aea-49fc-9560-27349c8eba4e": {
-            "config": {
-                "@manager": "linkTaskManagerUnitVariableLinkPull",
-                "@model": "TaskConfigUnitVariableLinkPull",
-                "chain_id": "bb194013-597c-4e4a-8493-b36d190f8717",
-                "variable": "loadOptionsToCreateSIP"
-            },
-            "description": {
-                "en": "Load options to create SIPs",
-                "fr": "Charger les options pour créer des SIPs",
-                "pt_BR": "Carregar opções para criar SIPs",
-                "sv": "Ladda alternatif för att skapa SIP:ar"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Create SIP from Transfer",
-                "es": "Crear SIP a partir de la transferencia",
-                "fr": "Créer un SIP à partir du Transfert",
-                "ja": "転送からSIPを作成する",
-                "pt_BR": "Crie SIP a partir da transferência",
-                "sv": "Skapa SIP från överföringspaket"
-            }
-        },
         "b0ffcd90-eb26-4caf-8fab-58572d205f04": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -4878,35 +4721,6 @@
                 "ja": "パッケージの抽出",
                 "pt_BR": "Extrair pacotes",
                 "sv": "Extrahera paket"
-            }
-        },
-        "bb194013-597c-4e4a-8493-b36d190f8717": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "61cfa825-120e-4b17-83e6-51a42b67d969",
-                    "1b04ec43-055c-43b7-9543-bd03c6a778ba"
-                ]
-            },
-            "description": {
-                "en": "Create SIP(s)",
-                "es": "Crear SIP(s)",
-                "fr": "Création de SIP(s) ",
-                "ja": "SIPを作成する",
-                "pt_BR": "Criar SIP(s)",
-                "sv": "Skapa SIP(ar)"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Create SIP from Transfer",
-                "es": "Crear SIP a partir de la transferencia",
-                "fr": "Créer un SIP à partir du Transfert",
-                "ja": "転送からSIPを作成する",
-                "pt_BR": "Crie SIP a partir da transferência",
-                "sv": "Skapa SIP från överföringspaket"
             }
         },
         "bcabd5e2-c93e-4aaa-af6a-9a74d54e8bf0": {
@@ -5765,7 +5579,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"fail\" \"%SIPUUID%\" \"%SIPDirectory%\"",
+                "arguments": "\"%SIPUUID%\"",
                 "execute": "failedTransferCleanup",
                 "filter_file_end": null,
                 "filter_file_start": null,
