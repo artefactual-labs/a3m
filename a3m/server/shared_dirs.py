@@ -225,7 +225,6 @@ def create():
         "sharedMicroServiceTasksConfigs/processingMCPConfigs",
         "tmp",
         "watchedDirectories",
-        "watchedDirectories/approveNormalization",
         "watchedDirectories/SIPCreation",
         "watchedDirectories/SIPCreation/completedTransfers",
         "watchedDirectories/system",
