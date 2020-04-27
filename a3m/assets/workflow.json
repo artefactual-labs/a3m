@@ -122,16 +122,6 @@
             },
             "link_id": "d0dfa5fc-e3c2-4638-9eda-f96eea1070e0"
         },
-        "498795c7-06f2-4f3f-95bf-57f1b35964ad": {
-            "description": {
-                "en": "Check transfer directory for objects",
-                "es": "Comprobar objetos en el directorio de la transferencia",
-                "fr": "Chercher un objet dans le répertoire de transfert",
-                "pt_BR": "Verifique o diretório de transferência para objetos",
-                "sv": "Sök igenom överföringsmapp efter objekt"
-            },
-            "link_id": "032cdc54-0b9b-4caf-86e8-10d63efbaec0"
-        },
         "612e3609-ce9a-4df6-a9a3-63d634d2d934": {
             "description": {
                 "en": "Normalize for preservation",
@@ -5316,40 +5306,6 @@
                 "sv": "Genrerera AIP METS"
             }
         },
-        "d27fd07e-d3ed-4767-96a5-44a2251c6d0a": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%sharedPath%watchedDirectories/SIPCreation/completedTransfers/.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveTransfer_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to SIP creation directory for completed transfers",
-                "pt_BR": "Mover para o diretório de criação do SIP para transferências concluídas",
-                "sv": "Flytta till SIP skapande katalogen för färdigställda överföringar"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Complete transfer",
-                "es": "Completar transferencia",
-                "fr": "Transfert complété",
-                "ja": "転送完了",
-                "pt_BR": "Transferência completa",
-                "sv": "Slutför överföring"
-            }
-        },
         "d55b42c8-c7c5-4a40-b626-d248d2bd883f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -5468,7 +5424,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "d27fd07e-d3ed-4767-96a5-44a2251c6d0a"
+                    "link_id": "032cdc54-0b9b-4caf-86e8-10d63efbaec0"
                 }
             },
             "fallback_job_status": "Failed",
@@ -6387,12 +6343,6 @@
         }
     },
     "watched_directories": [
-        {
-            "chain_id": "498795c7-06f2-4f3f-95bf-57f1b35964ad",
-            "only_dirs": true,
-            "path": "/SIPCreation/completedTransfers/",
-            "unit_type": "Transfer"
-        },
         {
             "chain_id": "fefdcee4-dd84-4b55-836f-99ef880ecdb6",
             "only_dirs": true,
