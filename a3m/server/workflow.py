@@ -91,6 +91,11 @@ class Workflow:
     def get_link(self, link_id):
         return self.links[link_id]
 
+    def get_initiator_chain(self):
+        for chain in self.chains:
+            if chain.initiator:
+                return chain
+
 
 class BaseLink:
     def __str__(self):
@@ -131,6 +136,10 @@ class Chain(BaseLink):
     @property
     def link(self):
         return self._workflow.get_link(self._src["link_id"])
+
+    @property
+    def initiator(self):
+        return self._src.get("start", False)
 
 
 class Link(BaseLink):
