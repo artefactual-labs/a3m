@@ -50,8 +50,8 @@ def move_or_merge(src, dst):
     If ``dst`` does exist and is a directory, the two directories are merged by
     moving the contents of ``src`` into ``dst``.
     """
-    logger.info("Testing for the existence of src: %s", src)
-    logger.info("Moving or merging to dst: %s", dst)
+    logger.debug("Testing for the existence of src: %s", src)
+    logger.debug("Moving or merging to dst: %s", dst)
     if os.path.isfile(src):
         logger.debug("src: %s is a file", src)
         _move_file(src, dst)
@@ -63,10 +63,12 @@ def move_or_merge(src, dst):
         # ``src`` lower-levels are empty.
         logger.debug("src: %s is a directory", src)
         if not os.path.exists(dst):
-            logger.info("Creating top-level dst folder: %s, moving src as-a-whole", dst)
+            logger.debug(
+                "Creating top-level dst folder: %s, moving src as-a-whole", dst
+            )
             shutil.move(src, dst)
         else:
-            logger.info("dst: %s exists, copying src files one-by-one", dst)
+            logger.debug("dst: %s exists, copying src files one-by-one", dst)
             for root, _, filenames in os.walk(src):
                 rel_root = os.path.relpath(root, start=src)
                 for f in filenames:

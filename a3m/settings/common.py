@@ -226,13 +226,13 @@ LOGGING = {
     },
     "handlers": {
         "console": {
-            "level": "WARNING",
+            "level": "INFO",
             "class": "logging.StreamHandler",
             "formatter": "detailed",
         }
     },
-    "loggers": {"a3m": {"level": "WARNING"}},
-    "root": {"handlers": ["console"], "level": "WARNING"},
+    "loggers": {"a3m": {"level": "INFO"}},
+    "root": {"handlers": ["console"], "level": "INFO"},
 }
 
 DEBUG = config.get("debug")

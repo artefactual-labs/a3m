@@ -186,11 +186,11 @@ def _bind_pid_to_model(job, mdl, shared_path, config):
         msg = bind_pid(**config)
         _add_pid_to_mdl_identifiers(mdl, config)
         job.pyprint(msg)  # gets appended to handles.log file, cf. StandardTaskConfig
-        logger.info(msg)
+        logger.debug(msg)
         return 0
     except BindPIDException as exc:
         job.pyprint(exc, file=sys.stderr)
-        logger.info(exc)
+        logger.debug(exc)
         raise BindPIDsException
 
 
@@ -207,7 +207,7 @@ def main(job, sip_uuid, shared_path):
     try:
         _validate_handle_server_config(handle_config)
     except BindPIDException as err:
-        logger.info(err)
+        logger.debug(err)
         raise BindPIDsException
     for mdl in chain(
         [_get_sip(sip_uuid)], Directory.objects.filter(sip_id=sip_uuid).all()
@@ -236,5 +236,5 @@ def call(jobs):
                     job.set_status(0)
                     continue
 
-                logger.info("bind_pids called with args: %s", vars(args))
+                logger.debug("bind_pids called with args: %s", vars(args))
                 job.set_status(main(job, **vars(args)))

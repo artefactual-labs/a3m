@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 
 
 def _move_file(job, src, dst, exit_on_error=True):
-    logger.info("Moving %s to %s", src, dst)
+    logger.debug("Moving %s to %s", src, dst)
     try:
         shutil.move(src, dst)
     except OSError:
@@ -144,22 +144,22 @@ def call(jobs):
                         sip = SIP.objects.get(uuid=sip_uuid)
 
                     if transfer:
-                        logger.info("Transfer.type=%s", transfer.type)
+                        logger.debug("Transfer.type=%s", transfer.type)
                     else:
-                        logger.info("SIP.sip_type=%s", sip.sip_type)
+                        logger.debug("SIP.sip_type=%s", sip.sip_type)
 
                     if transfer and transfer.type == "Archivematica AIP":
-                        logger.info("Archivematica AIP detected, verifying bag...")
+                        logger.debug("Archivematica AIP detected, verifying bag...")
                         if not bag.is_valid(sip_path, job.pyprint):
-                            logger.info("Archivematica AIP: bag verification failed!")
+                            logger.debug("Archivematica AIP: bag verification failed!")
                             job.set_status(1)
                             continue
-                        logger.info(
+                        logger.debug(
                             "Restructuring transfer (Archivematica AIP re-ingest)..."
                         )
                         restructure_transfer_aip(job, sip_path)
                     else:
-                        logger.info("Restructuring transfer...")
+                        logger.debug("Restructuring transfer...")
                         restructure_transfer(job, sip_path)
                 except OSError as err:
                     job.pyprint(repr(err))

@@ -89,7 +89,7 @@ class ClientScriptJob(Job, metaclass=abc.ABCMeta):
     def run(self, *args, **kwargs):
         super().run(*args, **kwargs)
 
-        logger.info("Running %s (package %s)", self.description, self.package.uuid)
+        logger.debug("Running %s (package %s)", self.description, self.package.uuid)
 
         # Reload the package, in case the path has changed
         self.package.reload()

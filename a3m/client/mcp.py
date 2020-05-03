@@ -183,7 +183,7 @@ def execute_command(supported_modules, gearman_worker, gearman_job):
     """Execute the command encoded in ``gearman_job`` and return its exit code,
     standard output and standard error as a pickled dict.
     """
-    logger.info("\n\n*** RUNNING TASK: %s", gearman_job.task.decode("utf8"))
+    logger.debug("\n\n*** RUNNING TASK: %s", gearman_job.task.decode("utf8"))
 
     with metrics.task_execution_time_histogram.labels(
         script_name=gearman_job.task.decode("utf8")
@@ -195,7 +195,7 @@ def execute_command(supported_modules, gearman_worker, gearman_job):
             def write_task_results_callback():
                 with transaction.atomic():
                     for job in jobs:
-                        logger.info("Completed job: %s\n", job.dump())
+                        logger.debug("Completed job: %s\n", job.dump())
 
                         exit_code = job.get_exit_code()
                         end_time = getUTCDate()
@@ -298,7 +298,7 @@ def main():
     try:
         start_gearman_worker()
     except (KeyboardInterrupt, SystemExit):
-        logger.info("Received keyboard interrupt, quitting.")
+        logger.debug("Received keyboard interrupt, quitting.")
 
 
 if __name__ == "__main__":

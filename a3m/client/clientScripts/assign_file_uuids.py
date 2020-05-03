@@ -64,10 +64,10 @@ def get_file_info_from_mets(job, sip_directory, file_path_relative_to_sip):
     """
     mets_file = find_mets_file(sip_directory)
     if not mets_file:
-        logger.info("Archivematica AIP: METS file not found.")
+        logger.debug("Archivematica AIP: METS file not found.")
         return {}
     job.print_output("Reading METS file", mets_file, "for reingested file information.")
-    logger.info("Archivematica AIP: reading METS file %s.", mets_file)
+    logger.debug("Archivematica AIP: reading METS file %s.", mets_file)
     mets = metsrw.METSDocument.fromfile(mets_file)
 
     current_path = file_path_relative_to_sip
@@ -83,12 +83,12 @@ def get_file_info_from_mets(job, sip_directory, file_path_relative_to_sip):
     entry = mets.get_file(path=file_path_relative_to_sip)
     if not entry:
         job.print_output("Could not find", file_path_relative_to_sip, "in METS.")
-        logger.info(
+        logger.debug(
             "Archivematica AIP: file UUID has not been found in the METS document: %s",
             file_path_relative_to_sip,
         )
         return {}
-    logger.info(
+    logger.debug(
         "Archivematica AIP: file UUID of %s has been found in the METS document (%s).",
         entry.file_uuid,
         entry.path,
@@ -155,7 +155,7 @@ def main(
             )
         if not file_uuid:
             file_uuid = str(uuid.uuid4())
-            logger.info("Generated UUID for this file: %s.", file_uuid)
+            logger.debug("Generated UUID for this file: %s.", file_uuid)
         addFileToTransfer(
             file_path_relative_to_sip,
             file_uuid,

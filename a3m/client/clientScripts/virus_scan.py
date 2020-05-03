@@ -160,14 +160,14 @@ class ClamdScanner(ScannerBase):
         return ClamdNetworkSocket(host=host, port=int(port), timeout=self.timeout)
 
     def pass_by_reference(self, path):
-        logger.info(
+        logger.debug(
             "File being being read by Clamdscan from filesystem \
             reference."
         )
         return self.client.scan(path)
 
     def pass_by_stream(self, path):
-        logger.info("File contents being streamed to Clamdscan.")
+        logger.debug("File contents being streamed to Clamdscan.")
         return self.client.instream(open(path))
 
 
@@ -226,7 +226,7 @@ def queue_event(file_uuid, date, scanner, passed, queue):
         )
 
     outcome = "Pass" if passed else "Fail"
-    logger.info("Recording new event for file %s (outcome: %s)", file_uuid, outcome)
+    logger.debug("Recording new event for file %s (outcome: %s)", file_uuid, outcome)
 
     queue.append(
         {
@@ -291,7 +291,7 @@ def get_size(file_uuid, path):
 
 def scan_file(event_queue, file_uuid, path, date, task_uuid):
     if file_already_scanned(file_uuid):
-        logger.info("Virus scan already performed, not running scan again")
+        logger.debug("Virus scan already performed, not running scan again")
         return 0
 
     scanner, passed = None, False
@@ -308,7 +308,7 @@ def scan_file(event_queue, file_uuid, path, date, task_uuid):
         valid_scan = True
 
         if size > max_file_size:
-            logger.info(
+            logger.debug(
                 "File will not be scanned. Size %s bytes greater than scanner "
                 "max file size %s bytes",
                 size,
@@ -316,7 +316,7 @@ def scan_file(event_queue, file_uuid, path, date, task_uuid):
             )
             valid_scan = False
         elif size > max_scan_size:
-            logger.info(
+            logger.debug(
                 "File will not be scanned. Size %s bytes greater than scanner "
                 "max scan size %s bytes",
                 size,
@@ -326,7 +326,7 @@ def scan_file(event_queue, file_uuid, path, date, task_uuid):
 
         if valid_scan:
             scanner = get_scanner()
-            logger.info(
+            logger.debug(
                 "Using scanner %s (%s - %s)",
                 scanner.program(),
                 scanner.version(),
@@ -344,7 +344,7 @@ def scan_file(event_queue, file_uuid, path, date, task_uuid):
         # record pass or fail, but not None if the file hasn't
         # been scanned, e.g. Max File Size thresholds being too low.
         if passed is not None:
-            logger.info("File %s scanned!", path)
+            logger.debug("File %s scanned!", path)
             logger.debug("passed=%s state=%s details=%s", passed, state, details)
     finally:
         queue_event(file_uuid, date, scanner, passed, event_queue)

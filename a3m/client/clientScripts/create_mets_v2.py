@@ -1317,7 +1317,7 @@ def add_normative_structmap_div(
         try:
             parent_el = path_to_el[parent_path]
         except KeyError:
-            logger.info(
+            logger.debug(
                 "Unable to find parent path {} of item {} in path_to_el\n{}".format(
                     parent_path, fsitem.path, pprint.pformat(path_to_el)
                 )

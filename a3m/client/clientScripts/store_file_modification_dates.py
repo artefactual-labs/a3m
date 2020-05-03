@@ -43,7 +43,7 @@ def main(transfer_uuid, shared_directory_path):
                 "%transferDirectory%", transfer.currentlocation, 1
             )
         except AttributeError:
-            logger.info(
+            logger.debug(
                 "No modification date stored for file %s because it has no current location. It was probably a deleted compressed package.",
                 transfer_file.uuid,
             )
@@ -55,7 +55,7 @@ def main(transfer_uuid, shared_directory_path):
             transfer_file.save()
             mods_stored += 1
 
-    logger.info("Stored modification dates of %d files.", mods_stored)
+    logger.debug("Stored modification dates of %d files.", mods_stored)
 
 
 def call(jobs):

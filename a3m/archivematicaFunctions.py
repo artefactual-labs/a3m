@@ -178,7 +178,7 @@ def get_dir_uuids(dir_paths, logger=None, printfn=print):
         )
         printfn(msg)
         if logger:
-            logger.info(msg)
+            logger.debug(msg)
         yield {"currentLocation": dir_path, "uuid": dir_uuid}
 
 
@@ -229,7 +229,7 @@ def reconstruct_empty_directories(mets_file_path, objects_path, logger=None):
     """
     if not os.path.isfile(mets_file_path) or not os.path.isdir(objects_path):
         if logger:
-            logger.info(
+            logger.debug(
                 "Unable to construct empty directories, either because"
                 " there is no METS file at {} or because there is no"
                 " objects/ directory at {}".format(
@@ -246,7 +246,7 @@ def reconstruct_empty_directories(mets_file_path, objects_path, logger=None):
     )
     if logical_struct_map_el is None:
         if logger:
-            logger.info(
+            logger.debug(
                 "Unable to locate a logical structMap labelled {}."
                 " Aborting attempt to reconstruct empty"
                 " directories.".format(strToUnicode(NORMATIVE_STRUCTMAP_LABEL))
@@ -257,7 +257,7 @@ def reconstruct_empty_directories(mets_file_path, objects_path, logger=None):
     )
     if root_div_el is None:
         if logger:
-            logger.info(
+            logger.debug(
                 "Unable to locate a logical structMap labelled {}."
                 " Aborting attempt to reconstruct empty"
                 " directories.".format(strToUnicode(NORMATIVE_STRUCTMAP_LABEL))
@@ -265,8 +265,8 @@ def reconstruct_empty_directories(mets_file_path, objects_path, logger=None):
         return
     paths = div_el_to_dir_paths(root_div_el, include=False)
     if logger:
-        logger.info("paths extracted from METS file:")
-        logger.info(pprint.pformat(paths))
+        logger.debug("paths extracted from METS file:")
+        logger.debug(pprint.pformat(paths))
     for path in paths:
         path = os.path.join(objects_path, path)
         if not os.path.isdir(path):

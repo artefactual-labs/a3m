@@ -77,7 +77,7 @@ def write_mets(mets_path, transfer_dir_path, base_path_placeholder, transfer_uui
     try:
         transfer = Transfer.objects.get(uuid=transfer_uuid)
     except Transfer.DoesNotExist:
-        logger.info("No record in database for transfer: %s", transfer_uuid)
+        logger.debug("No record in database for transfer: %s", transfer_uuid)
         raise
 
     if transfer.accessionid:
@@ -219,7 +219,7 @@ class FSEntriesTree:
             try:
                 fsentry = self.file_index[file_obj.currentlocation]
             except KeyError:
-                logger.info(
+                logger.debug(
                     "File is no longer present on the filesystem: %s",
                     file_obj.currentlocation,
                 )
@@ -267,7 +267,7 @@ class FSEntriesTree:
             try:
                 fsentry = self.dir_index[dir_obj.currentlocation]
             except KeyError:
-                logger.info(
+                logger.debug(
                     "Directory is no longer present on the filesystem: %s",
                     dir_obj.currentlocation,
                 )
@@ -279,7 +279,7 @@ class FSEntriesTree:
         missing = []
         for path, fsentry in self.file_index.items():
             if fsentry.file_uuid is None:
-                logger.info("No record in database for file: %s", path)
+                logger.debug("No record in database for file: %s", path)
                 missing.append(path)
 
         # update our index after, so we don't modify the dict during iteration

@@ -119,11 +119,11 @@ def main(job, file_uuid):
         job.print_output(
             msg
         )  # gets appended to handles.log file, cf. StandardTaskConfig
-        logger.info(msg)
+        logger.debug(msg)
         return 0
     except bindpid.BindPIDException as exc:
         job.print_error(repr(exc))
-        logger.info(exc)
+        logger.debug(exc)
         raise BindPIDException
 
 
@@ -140,7 +140,7 @@ def call(jobs):
                 if args.file_uuid == "None":
                     job.set_status(0)
                 else:
-                    logger.info("bind_pid called with args: %s", vars(args))
+                    logger.debug("bind_pid called with args: %s", vars(args))
                     args = vars(args)
                     args["job"] = job
                     job.set_status(main(**(args)))

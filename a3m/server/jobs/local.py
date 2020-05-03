@@ -18,7 +18,7 @@ class LocalJob(Job, metaclass=abc.ABCMeta):
     @auto_close_old_connections()
     def run(self, *args, **kwargs):
         super().run(*args, **kwargs)
-        logger.info("Running %s (package %s)", self.description, self.package.uuid)
+        logger.debug("Running %s (package %s)", self.description, self.package.uuid)
 
         # Reload the package, in case the path has changed
         self.package.reload()

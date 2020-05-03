@@ -71,7 +71,7 @@ def exit_on_known_exception(func):
 def _exit_if_not_include_dirs(include_dirs):
     """Quit processing if include_dirs is not truthy."""
     if not include_dirs:
-        logger.info(
+        logger.debug(
             "Configuration indicates that directories in this Transfer"
             " should not be given UUIDs."
         )
@@ -140,5 +140,7 @@ def call(jobs):
         for job in jobs:
             with job.JobContext(logger=logger):
                 args = parser.parse_args(job.args[1:])
-                logger.info("assignUUIDsToDirectories called with args: %s", vars(args))
+                logger.debug(
+                    "assignUUIDsToDirectories called with args: %s", vars(args)
+                )
                 job.set_status(main(job, **vars(args)))

@@ -23,8 +23,8 @@ import concurrent.futures
 import logging
 import os
 import signal
-import sys
 import threading
+from platform import python_version
 
 import django
 
@@ -45,13 +45,8 @@ logger = logging.getLogger(__name__)
 
 
 def main(shutdown_event=None):
-    logger.warning("PID: %s", os.getpid())
-    logger.warning("UID: %s", os.getuid())
-    logger.warning(
-        "Python: %s.%s.%s",
-        sys.version_info.major,
-        sys.version_info.minor,
-        sys.version_info.micro,
+    logger.info(
+        f"Starting a3m... (pid={os.getpid()} uid={os.getuid()} python={python_version()})"
     )
 
     # Tracks whether a sigterm has been received or not
@@ -66,7 +61,7 @@ def main(shutdown_event=None):
 
     def signal_handler(signal, frame):
         """Used to handle the stop/kill command signals (SIGINT, SIGKILL)"""
-        logger.warning("Received termination signal (%s)", signal)
+        logger.info("Received termination signal (%s)", signal)
 
         shutdown_event.set()
         executor.shutdown(wait=False)
@@ -105,7 +100,7 @@ def main(shutdown_event=None):
     # Shut down task backend.
     get_task_backend().shutdown(wait=False)
 
-    logger.warning("a3m shutdown complete.")
+    logger.info("a3m shutdown complete.")
 
 
 if __name__ == "__main__":

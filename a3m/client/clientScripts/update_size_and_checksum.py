@@ -57,9 +57,9 @@ def get_file_info_from_mets(job, shared_path, file_):
     transfer_location = transfer.currentlocation.replace("%sharedPath%", shared_path, 1)
     mets_file = find_mets_file(transfer_location)
     if not mets_file:
-        logger.info("Archivematica AIP: METS file not found in %s.", transfer_location)
+        logger.debug("Archivematica AIP: METS file not found in %s.", transfer_location)
         return {}
-    logger.info("Archivematica AIP: reading METS file %s.", mets_file)
+    logger.debug("Archivematica AIP: reading METS file %s.", mets_file)
     mets = metsrw.METSDocument.fromfile(mets_file)
     fsentry = mets.get_file(file_uuid=file_.uuid)
     if not fsentry:
@@ -100,7 +100,7 @@ def get_file_info_from_mets(job, shared_path, file_):
         "derivation": related_object_uuid,
         "format_version": parse_mets_to_db.parse_format_version(job, premis_object_doc),
     }
-    logger.info("Archivematica AIP: %s", ret)
+    logger.debug("Archivematica AIP: %s", ret)
     return ret
 
 
@@ -161,7 +161,7 @@ def call(jobs):
     with transaction.atomic():
         for job in jobs:
             with job.JobContext(logger=logger):
-                logger.info("Invoked as %s.", " ".join(job.args))
+                logger.debug("Invoked as %s.", " ".join(job.args))
 
                 args = parser.parse_args(job.args[1:])
 

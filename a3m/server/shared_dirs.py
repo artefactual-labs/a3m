@@ -227,7 +227,7 @@ def create():
         dirname = os.path.join(settings.SHARED_DIRECTORY, dirname)
         if os.path.isdir(dirname):
             continue
-        logger.info("Creating directory: %s", dirname)
+        logger.debug("Creating directory: %s", dirname)
         os.makedirs(dirname, mode=0o770)
 
     # Populate processing configurations

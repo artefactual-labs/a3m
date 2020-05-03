@@ -40,7 +40,7 @@ class DecisionJob(Job, metaclass=abc.ABCMeta):
     def run(self, *args, **kwargs):
         super().run(*args, **kwargs)
 
-        logger.info("Running %s (package %s)", self.description, self.package.uuid)
+        logger.debug("Running %s (package %s)", self.description, self.package.uuid)
         # Reload the package, in case the path has changed
         self.package.reload()
         self.save_to_db()
@@ -105,7 +105,7 @@ class NextChainDecisionJob(DecisionJob):
             raise ValueError(f"{choice} is not one of the available choices")
 
         chain = self.workflow.get_chain(choice)
-        logger.info("Using user selected chain %s for link %s", chain.id, self.link.id)
+        logger.debug("Using user selected chain %s for link %s", chain.id, self.link.id)
 
         self.mark_complete()
 
@@ -132,7 +132,7 @@ class UpdateContextDecisionJob(DecisionJob):
     @auto_close_old_connections()
     def run(self, *args, **kwargs):
         # Intentionally don't call super() here
-        logger.info("Running %s (package %s)", self.description, self.package.uuid)
+        logger.debug("Running %s (package %s)", self.description, self.package.uuid)
         # Reload the package, in case the path has changed
         self.package.reload()
         self.save_to_db()

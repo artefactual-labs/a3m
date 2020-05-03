@@ -19,7 +19,7 @@ def parse_reingest_mets(job, transfer_uuid, transfer_path):
         root = etree.parse(mets_path)
     except Exception:
         job.pyprint("Error parsing reingest METS", mets_path, " - skipping")
-        logger.info(
+        logger.debug(
             "Error parsing reingest mets %s - skipping", mets_path, exc_info=True
         )
         return
