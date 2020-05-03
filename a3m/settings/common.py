@@ -231,7 +231,7 @@ LOGGING = {
             "formatter": "detailed",
         }
     },
-    "loggers": {"a3m": {"level": "INFO"}},
+    "loggers": {"a3m": {"level": "INFO"}, "bagit": {"level": "WARNING"}},
     "root": {"handlers": ["console"], "level": "INFO"},
 }
 
