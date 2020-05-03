@@ -24,7 +24,6 @@ from pathlib import Path
 from django.conf import settings as django_settings
 
 from a3m.archivematicaFunctions import get_file_checksum
-from a3m.archivematicaFunctions import unicodeToStr
 from a3m.databaseFunctions import insertIntoEvents
 from a3m.databaseFunctions import insertIntoFiles
 from a3m.executeOrRunSubProcess import executeOrRun
@@ -224,9 +223,6 @@ def updateFileLocation(
     To suppress creation of an event, pass the createEvent keyword argument (for example, if the file moved due to the renaming of a parent directory and not the file itself).
     """
 
-    src = unicodeToStr(src)
-    dst = unicodeToStr(dst)
-    fileUUID = unicodeToStr(fileUUID)
     if not fileUUID or fileUUID == "None":
         kwargs = {"removedtime__isnull": True, "currentlocation": src}
 

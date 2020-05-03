@@ -24,7 +24,6 @@ import pprint
 import re
 from uuid import uuid4
 
-import six
 from lxml import etree
 
 from a3m.namespaces import NSMAP
@@ -73,13 +72,6 @@ def strToUnicode(string, obstinate=False):
                 string = string.decode("utf8", "replace")
             else:
                 raise
-    return string
-
-
-def unicodeToStr(string):
-    """Convert Unicode to string format."""
-    if isinstance(string, str):
-        return six.ensure_str(string, "utf-8")
     return string
 
 
