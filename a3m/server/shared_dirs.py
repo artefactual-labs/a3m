@@ -218,6 +218,7 @@ def create():
     dirs = (
         "currentlyProcessing/transfer",
         "currentlyProcessing/ingest",
+        "completed",
         "failed",
         "sharedMicroServiceTasksConfigs",
         "sharedMicroServiceTasksConfigs/processingMCPConfigs",

@@ -1,6 +1,8 @@
+import logging
 import os
 import shutil
 import sys
+from pathlib import Path
 from pprint import pformat
 
 from bagit import Bag
@@ -12,6 +14,9 @@ from a3m import databaseFunctions
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.main.models import File
 from a3m.main.models import SIP
+
+
+logger = logging.getLogger(__name__)
 
 
 class VerifyChecksumsError(Exception):
@@ -238,6 +243,11 @@ def verify_aip(job):
                 " Error:\n{err}".format(extract_dir=extract_dir, err=err),
                 file=sys.stderr,
             )
+
+    aip_path = Path(aip_path)
+    completed_dir = Path(mcpclient_settings.SHARED_DIRECTORY, "completed")
+    shutil.move(str(aip_path), str(completed_dir))
+    logger.info(f"AIP generated: %s", aip_path.name)
 
     return return_code
 
