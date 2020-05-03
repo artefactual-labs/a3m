@@ -10,6 +10,7 @@ See the [tasklist](https://www.notion.so/a3m-acfaae80a800407b80317b7efd3b76bf) f
 ### Usage
 
 <details>
+
 <summary>Command-line interface</summary>
 
 `a3m.server.rpc.client` is work in progress - used mostly for local testing. The following are examples that connect to the server listening on the Compose development environment.
@@ -29,6 +30,7 @@ Look up processing status of a transfer:
 a3m depends on many open-source tools that need to be available in the system path. Docker Compose sets up an environment with all these dependencies available. However, it is also possible to keep Docker out of your development workflow.
 
 <details>
+
 <summary>Docker Compose</summary>
 
 Try the following if you feel confortable using our Makefile:
@@ -61,6 +63,7 @@ You're ready to submit a transfer:
 </details>
 
 <details>
+
 <summary>Container-free workflow</summary>
 
 Be aware that a3m has application dependencies that need to be available in the
@@ -92,5 +95,30 @@ Start a new transfer:
     Transfer created: 0f667867-800a-466f-856f-fea5980f1d97
 
 You can find both the database and the shared directory under `~/.local/share/a3m/`.
+
+</details>
+
+Other things you can do:
+
+<details>
+
+<summary>Python debugging with pdb</summary>
+
+Stop a3m if it's already running:
+
+    docker-compose stop a3m
+
+Introduce a [breakpoint](https://docs.python.org/3/library/functions.html#breakpoint)
+in the code. Breakpoints can be used anywhere, including client modules.
+
+    breakpoint()  # Add this!
+    important_code()
+
+Run a3m as follows:
+
+    docker-compose run --publish=52000:7000 a3m
+
+The [debugger](https://docs.python.org/3/library/pdb.html) should activate as
+your breakpoint is reached. Use commands to control the debugger, e.g. `help`.
 
 </details>
