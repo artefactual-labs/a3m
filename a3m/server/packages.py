@@ -107,7 +107,7 @@ class Package:
         transfer = models.Transfer.objects.create(
             uuid=transfer_id, currentlocation=transfer_dir,
         )
-        transfer.set_processing_configuration("automated")
+        transfer.set_processing_configuration("default")
         logger.debug("Transfer object created: %s", transfer.pk)
 
         sip_id = str(uuid4())

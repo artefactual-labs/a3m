@@ -157,9 +157,7 @@ class PolicyChecker:
             return False
 
     def _get_policies_dir(self):
-        return os.path.join(
-            self.shared_path, "sharedMicroServiceTasksConfigs", "policies"
-        )
+        return os.path.join(self.shared_path, "policies")
 
     def _get_is_manually_normalized_access_derivative(self):
         """Manually normalized access derivatives are never given UUIDs.

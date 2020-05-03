@@ -9,74 +9,7 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 
-# TODO: store this in assets at least
 DEFAULT_PROCESSING_CONFIG = """<processingMCP>
-  <preconfiguredChoices>
-    <!-- Select compression level -->
-    <preconfiguredChoice>
-      <appliesTo>01c651cb-c174-4ba4-b985-1d87a44d6754</appliesTo>
-      <goToChain>414da421-b83f-4648-895f-a34840e3c3f5</goToChain>
-    </preconfiguredChoice>
-    <!-- Perform file format identification (Submission documentation & metadata) -->
-    <preconfiguredChoice>
-      <appliesTo>087d27be-c719-47d8-9bbb-9a7d8b609c44</appliesTo>
-      <goToChain>4dec164b-79b0-4459-8505-8095af9655b5</goToChain>
-    </preconfiguredChoice>
-    <!-- Bind PIDs -->
-    <preconfiguredChoice>
-      <appliesTo>a2ba5278-459a-4638-92d9-38eb1588717d</appliesTo>
-      <goToChain>44a7c397-8187-4fd2-b8f7-c61737c4df49</goToChain>
-    </preconfiguredChoice>
-    <!-- Generate transfer structure report -->
-    <preconfiguredChoice>
-      <appliesTo>56eebd45-5600-4768-a8c2-ec0114555a3d</appliesTo>
-      <goToChain>df54fec1-dae1-4ea6-8d17-a839ee7ac4a7</goToChain>
-    </preconfiguredChoice>
-    <!-- Perform policy checks on originals -->
-    <preconfiguredChoice>
-      <appliesTo>70fc7040-d4fb-4d19-a0e6-792387ca1006</appliesTo>
-      <goToChain>3e891cc4-39d2-4989-a001-5107a009a223</goToChain>
-    </preconfiguredChoice>
-    <!-- Generate thumbnails -->
-    <preconfiguredChoice>
-      <appliesTo>498f7a6d-1b8c-431a-aa5d-83f14f3c5e65</appliesTo>
-      <goToChain>c318b224-b718-4535-a911-494b1af6ff26</goToChain>
-    </preconfiguredChoice>
-    <!-- Select compression algorithm -->
-    <preconfiguredChoice>
-      <appliesTo>01d64f58-8295-4b7b-9cab-8f1b153a504f</appliesTo>
-      <goToChain>9475447c-9889-430c-9477-6287a9574c5b</goToChain>
-    </preconfiguredChoice>
-    <!-- Perform policy checks on access derivatives -->
-    <preconfiguredChoice>
-      <appliesTo>8ce07e94-6130-4987-96f0-2399ad45c5c2</appliesTo>
-      <goToChain>76befd52-14c3-44f9-838f-15a4e01624b0</goToChain>
-    </preconfiguredChoice>
-    <!-- Perform file format identification (Ingest) -->
-    <preconfiguredChoice>
-      <appliesTo>7a024896-c4f7-4808-a240-44c87c762bc5</appliesTo>
-      <goToChain>3c1faec7-7e1e-4cdd-b3bd-e2f05f4baa9b</goToChain>
-    </preconfiguredChoice>
-    <!-- Perform policy checks on preservation derivatives -->
-    <preconfiguredChoice>
-      <appliesTo>153c5f41-3cfb-47ba-9150-2dd44ebc27df</appliesTo>
-      <goToChain>b7ce05f0-9d94-4b3e-86cc-d4b2c6dba546</goToChain>
-    </preconfiguredChoice>
-    <!-- Assign UUIDs to directories -->
-    <preconfiguredChoice>
-      <appliesTo>bd899573-694e-4d33-8c9b-df0af802437d</appliesTo>
-      <goToChain>891f60d0-1ba8-48d3-b39e-dd0934635d29</goToChain>
-    </preconfiguredChoice>
-    <!-- Document empty directories -->
-    <preconfiguredChoice>
-      <appliesTo>d0dfa5fc-e3c2-4638-9eda-f96eea1070e0</appliesTo>
-      <goToChain>65273f18-5b4e-4944-af4f-09be175a88e8</goToChain>
-    </preconfiguredChoice>
-  </preconfiguredChoices>
-</processingMCP>
-"""
-
-AUTOMATED_PROCESSING_CONFIG = """<processingMCP>
   <preconfiguredChoices>
     <!-- Select compression level -->
     <preconfiguredChoice>
@@ -193,7 +126,6 @@ AUTOMATED_PROCESSING_CONFIG = """<processingMCP>
 """
 BUILTIN_CONFIGS = {
     "default": DEFAULT_PROCESSING_CONFIG,
-    "automated": AUTOMATED_PROCESSING_CONFIG,
 }
 
 
@@ -202,11 +134,7 @@ def install_builtin_config(name):
     Install the original version of a builtin processing configuration
     """
     config = BUILTIN_CONFIGS[name]
-    path = os.path.join(
-        settings.SHARED_DIRECTORY,
-        "sharedMicroServiceTasksConfigs/processingMCPConfigs",
-        f"{name}ProcessingMCP.xml",
-    )
+    path = os.path.join(settings.SHARED_DIRECTORY, "processingConfigs", f"{name}.xml")
     if not os.path.isfile(path):
         with open(path, "w") as file_descriptor:
             file_descriptor.write(config)
@@ -220,8 +148,8 @@ def create():
         "currentlyProcessing/ingest",
         "completed",
         "failed",
-        "sharedMicroServiceTasksConfigs",
-        "sharedMicroServiceTasksConfigs/processingMCPConfigs",
+        "policies",
+        "processingConfigs",
         "tmp",
     )
     for dirname in dirs:

@@ -822,7 +822,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%sharedMicroServiceTasksConfigs/processingMCPConfigs/%processingConfiguration%ProcessingMCP.xml\" \"%SIPDirectory%processingMCP.xml\" -n",
+                "arguments": "\"%sharedPath%processingConfigs/%processingConfiguration%.xml\" \"%SIPDirectory%processingMCP.xml\" -n",
                 "execute": "copy_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -5084,7 +5084,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%sharedMicroServiceTasksConfigs/processingMCPConfigs/defaultProcessingMCP.xml\" \"%relativeLocation%processingMCP.xml\" -n",
+                "arguments": "\"%sharedPath%processingConfigs/default.xml\" \"%relativeLocation%processingMCP.xml\" -n",
                 "execute": "copy_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
