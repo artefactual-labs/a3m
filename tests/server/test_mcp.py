@@ -18,6 +18,7 @@ def test_mcp_main(mocker, settings):
     mock_shared_dirs = mocker.patch("a3m.server.mcp.shared_dirs")
     mock_job = mocker.patch("a3m.server.mcp.Job")
     mock_task = mocker.patch("a3m.server.mcp.Task")
+    mock_db_migrate = mocker.patch("a3m.server.mcp.migrate")
     mock_metrics = mocker.patch("a3m.server.mcp.metrics")
 
     shutdown_event = threading.Event()
@@ -29,4 +30,5 @@ def test_mcp_main(mocker, settings):
     mock_shared_dirs.create.assert_called_once()
     mock_job.cleanup_old_db_entries.assert_called_once()
     mock_task.cleanup_old_db_entries.assert_called_once()
+    mock_db_migrate.assert_called_once()
     mock_metrics.start_prometheus_server.assert_called_once()

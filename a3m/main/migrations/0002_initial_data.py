@@ -6,7 +6,7 @@ from django.db import migrations
 
 def load_fixtures(apps, schema_editor):
     fixture_file = os.path.join(os.path.dirname(__file__), "initial-data.json")
-    call_command("loaddata", fixture_file, app_label="main")
+    call_command("loaddata", fixture_file, app_label="main", verbosity=0)
 
 
 class Migration(migrations.Migration):

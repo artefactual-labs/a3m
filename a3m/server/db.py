@@ -22,6 +22,7 @@ import traceback
 from contextlib import ContextDecorator
 
 from django.conf import settings
+from django.core import management
 from django.db import close_old_connections
 
 
@@ -82,6 +83,10 @@ class CheckCloseConnectionsHandler(logging.Handler):
                 "auto_close_old_connections context. Traceback: %s",
                 "\n".join(traceback.format_stack()),
             )
+
+
+def migrate():
+    management.call_command("migrate", interactive=False, verbosity=int(settings.DEBUG))
 
 
 if False and settings.DEBUG:

@@ -34,6 +34,7 @@ from django.conf import settings
 from a3m.server import metrics
 from a3m.server import rpc_server
 from a3m.server import shared_dirs
+from a3m.server.db import migrate
 from a3m.server.jobs import Job
 from a3m.server.queues import PackageQueue
 from a3m.server.tasks import Task
@@ -70,13 +71,14 @@ def main(shutdown_event=None):
     signal.signal(signal.SIGTERM, signal_handler)
 
     workflow = load_default_workflow()
-    logger.debug("Loaded default workflow.")
+    logger.debug("Loaded workflow.")
 
     shared_dirs.create()
 
+    logger.info("Preparing database...")
+    migrate()
     Job.cleanup_old_db_entries()
     Task.cleanup_old_db_entries()
-    logger.debug("Cleaned up old db entries.")
 
     metrics.init_labels(workflow)
     metrics.start_prometheus_server()
@@ -89,13 +91,14 @@ def main(shutdown_event=None):
         name="gRPC server",
     )
     rpc_thread.start()
+    logger.info("Started gRPC server (%s)", settings.RPC_BIND_ADDRESS)
 
     # Blocks until shutdown_event is set by signal_handler
     package_queue.work()
 
     # We got a shutdown signal, so cleanup threads
     rpc_thread.join(0.1)
-    logger.debug("RPC server stopped.")
+    logger.debug("gRPC server stopped.")
 
     # Shut down task backend.
     get_task_backend().shutdown(wait=False)

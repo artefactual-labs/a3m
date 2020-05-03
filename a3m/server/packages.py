@@ -1,6 +1,7 @@
 """Package management."""
 import ast
 import collections
+import functools
 import logging
 import os
 from enum import auto
@@ -120,7 +121,9 @@ class Package:
 
         params = (package, package_queue, workflow)
         future = executor.submit(Package.trigger_workflow, *params)
-        future.add_done_callback(Package.trigger_workflow_done_callback)
+        future.add_done_callback(
+            functools.partial(Package.trigger_workflow_done_callback, package.uuid)
+        )
 
         return package
 
@@ -138,11 +141,13 @@ class Package:
         package_queue.schedule_job(next(job_chain))
 
     @staticmethod
-    def trigger_workflow_done_callback(future):
+    def trigger_workflow_done_callback(package_id, future):
         try:
             future.result()
         except Exception as err:
             logger.warning("Exception detected: %s", err, exc_info=True)
+        else:
+            logger.info("Package processing started (%s)", package_id)
 
     @property
     def uuid(self):

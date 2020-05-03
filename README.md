@@ -50,9 +50,6 @@ Otherwise, follow these steps:
     # Build service
     env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
 
-    # Create database
-    docker-compose run --rm --entrypoint /a3m/manage.py a3m migrate --noinput
-
     # Bring the service up
     docker-compose up -d a3m
 
@@ -86,9 +83,6 @@ Start checking out this repository and follow these steps:
 
     # Run the tests:
     pytest
-
-    # Populate the internal database
-    ./manage.py migrate
 
     # Run a3m server
     python -m a3m
