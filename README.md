@@ -47,7 +47,7 @@ Otherwise, follow these steps:
     env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
 
     # Create database
-    docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m migrate --noinput
+    docker-compose run --rm --entrypoint /a3m/manage.py a3m migrate --noinput
 
     # Bring the service up
     docker-compose up -d a3m
@@ -116,9 +116,25 @@ in the code. Breakpoints can be used anywhere, including client modules.
 
 Run a3m as follows:
 
-    docker-compose run --publish=52000:7000 a3m
+    docker-compose run --rm --publish=52000:7000 a3m
 
 The [debugger](https://docs.python.org/3/library/pdb.html) should activate as
 your breakpoint is reached. Use commands to control the debugger, e.g. `help`.
+
+</details>
+
+<details>
+
+<summary>Enable the debug mode</summary>
+
+a3m comes with a pre-configured logger that hides events with level `INFO` or
+lower. `INFO` is bloated, so we use `WARNING` and higher.
+
+Set the `A3M_DEBUG` environment string to see all events. The string can be
+injected in several ways, e.g.:
+
+    docker-compose run --rm -e A3M_DEBUG=yes --publish=52000:7000 a3m
+
+The logging configuration lives in `a3m.settings.common`.
 
 </details>
