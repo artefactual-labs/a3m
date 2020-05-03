@@ -59,9 +59,9 @@ def main(shutdown_event=None):
         max_workers=settings.WORKER_THREADS
     )
 
-    def signal_handler(signal, frame):
+    def signal_handler(signo, frame):
         """Used to handle the stop/kill command signals (SIGINT, SIGKILL)"""
-        logger.info("Received termination signal (%s)", signal)
+        logger.info("Received termination signal (%s)", signal.Signals(signo).name)
 
         shutdown_event.set()
         executor.shutdown(wait=False)
