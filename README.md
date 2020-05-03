@@ -12,6 +12,7 @@ See the [tasklist](https://www.notion.so/a3m-acfaae80a800407b80317b7efd3b76bf) f
 <details>
 
 <summary>Command-line interface</summary>
+<hr>
 
 `a3m.server.rpc.client` is work in progress - used mostly for local testing. The following are examples that connect to the server listening on the Compose development environment.
 
@@ -27,11 +28,14 @@ Look up processing status of a transfer:
 
 ### Development
 
-a3m depends on many open-source tools that need to be available in the system path. Docker Compose sets up an environment with all these dependencies available. However, it is also possible to keep Docker out of your development workflow.
+It is possible to do local development work in a3m. But we also provide an
+environment based on Docker Compose with all the tools and dependencies
+installed so you don't have to run them locally.
 
 <details>
 
 <summary>Docker Compose</summary>
+<hr>
 
 Try the following if you feel confortable using our Makefile:
 
@@ -55,7 +59,7 @@ Otherwise, follow these steps:
 You're ready to submit a transfer:
 
     # Submit a transfer
-    docker-compose run --rm --entrypoint sh a3m -c "python -m a3m.server.rpc.client submit --address=a3m:7000 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedBag.zip"
+    docker-compose run --rm --entrypoint sh a3m -c "python -m a3m.server.rpc.client submit --address=a3m:7000 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/DemoTransferCSV.tar.gz"
 
     # Find the AIP generated
     find hack/compose-volume -name "*.7z";
@@ -65,6 +69,7 @@ You're ready to submit a transfer:
 <details>
 
 <summary>Container-free workflow</summary>
+<hr>
 
 Be aware that a3m has application dependencies that need to be available in the
 system path. The Docker image makes them all available while in this workflow
@@ -80,17 +85,17 @@ Start checking out this repository and follow these steps:
     pip install -r requirements-dev.txt
 
     # Run the tests:
-    pytest -p no:warnings
+    pytest
 
-    # Populate the internal database:
+    # Populate the internal database
     ./manage.py migrate
 
-    # Run a3m server:
+    # Run a3m server
     python -m a3m
 
 Start a new transfer:
 
-    $ python -m a3m.server.rpc.client submit https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedBag.zip
+    $ python -m a3m.server.rpc.client submit https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/DemoTransferCSV.zip
     Submitting...
     Transfer created: 0f667867-800a-466f-856f-fea5980f1d97
 
@@ -103,6 +108,7 @@ Other things you can do:
 <details>
 
 <summary>Python debugging with pdb</summary>
+<hr>
 
 Stop a3m if it's already running:
 
@@ -126,6 +132,7 @@ your breakpoint is reached. Use commands to control the debugger, e.g. `help`.
 <details>
 
 <summary>Enable the debug mode</summary>
+<hr>
 
 a3m comes with a pre-configured logger that hides events with level `INFO` or
 lower. `INFO` is bloated, so we use `WARNING` and higher.
