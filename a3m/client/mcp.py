@@ -55,12 +55,9 @@ import time
 from functools import partial
 from socket import gethostname
 
-import django
-
-django.setup()
+import gearman
 from django.conf import settings as django_settings
 from django.db import transaction
-import gearman
 
 from a3m.client import ASSETS_DIR
 from a3m.client import metrics
@@ -299,7 +296,3 @@ def main():
         start_gearman_worker()
     except (KeyboardInterrupt, SystemExit):
         logger.debug("Received keyboard interrupt, quitting.")
-
-
-if __name__ == "__main__":
-    main()

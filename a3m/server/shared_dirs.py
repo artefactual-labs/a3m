@@ -124,9 +124,7 @@ DEFAULT_PROCESSING_CONFIG = """<processingMCP>
   </preconfiguredChoices>
 </processingMCP>
 """
-BUILTIN_CONFIGS = {
-    "default": DEFAULT_PROCESSING_CONFIG,
-}
+BUILTIN_CONFIGS = {"default": DEFAULT_PROCESSING_CONFIG}
 
 
 def install_builtin_config(name):

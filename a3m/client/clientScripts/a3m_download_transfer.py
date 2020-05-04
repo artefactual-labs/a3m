@@ -171,7 +171,8 @@ def main(job, transfer_id, transfer_path, url):
 
 def call(jobs):
     job = jobs[0]
-    transfer_id = job.args[1]
-    transfer_path = job.args[2]
-    url = job.args[3]
-    job.set_status(main(job, transfer_id, transfer_path, url))
+    with job.JobContext():
+        transfer_id = job.args[1]
+        transfer_path = job.args[2]
+        url = job.args[3]
+        job.set_status(main(job, transfer_id, transfer_path, url))

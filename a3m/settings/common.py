@@ -102,6 +102,42 @@ CONFIG_MAPPING = {
         "option": "rpc_bind_address",
         "type": "string",
     },
+    "cadence_server": {"section": "a3m", "option": "cadence_server", "type": "string"},
+    "cadence_domain": {"section": "a3m", "option": "cadence_domain", "type": "string"},
+    "cadence_task_list": {
+        "section": "a3m",
+        "option": "cadence_task_list",
+        "type": "string",
+    },
+    "s3_enabled": {"section": "a3m", "option": "s3_enabled", "type": "boolean"},
+    "s3_endpoint_url": {
+        "section": "a3m",
+        "option": "s3_endpoint_url",
+        "type": "string",
+    },
+    "s3_region_name": {"section": "a3m", "option": "s3_region_name", "type": "string"},
+    "s3_access_key_id": {
+        "section": "a3m",
+        "option": "s3_access_key_id",
+        "type": "string",
+    },
+    "s3_secret_access_key": {
+        "section": "a3m",
+        "option": "s3_secret_access_key",
+        "type": "string",
+    },
+    "s3_use_ssl": {"section": "a3m", "option": "s3_use_ssl", "type": "boolean"},
+    "s3_addressing_style": {
+        "section": "a3m",
+        "option": "s3_addressing_style",
+        "type": "string",
+    },
+    "s3_signature_version": {
+        "section": "a3m",
+        "option": "s3_signature_version",
+        "type": "string",
+    },
+    "s3_bucket": {"section": "a3m", "option": "s3_bucket", "type": "string"},
 }
 
 
@@ -114,7 +150,7 @@ rpc_threads = 4
 prometheus_bind_address =
 prometheus_bind_port =
 time_zone = UTC
-capture_client_script_output = true
+capture_client_script_output = True
 removable_files = Thumbs.db, Icon, Icon\r, .DS_Store
 clamav_server = /var/run/clamav/clamd.ctl
 clamav_pass_by_stream = True
@@ -126,12 +162,26 @@ virus_scanning_enabled = False
 secret_key = 12345
 rpc_bind_address = 0.0.0.0:7000
 
+cadence_server = localhost:7400
+cadence_domain = enduro
+cadence_task_list = a3m
+
 db_engine = django.db.backends.sqlite3
 db_name =
 db_user =
 db_password =
 db_host =
 db_port =
+
+s3_enabled = False
+s3_endpoint_url =
+s3_region_name =
+s3_access_key_id =
+s3_secret_access_key =
+s3_use_ssl = False
+s3_addressing_style = path
+s3_signature_version = s3v4
+s3_bucket =
 
 shared_directory =
 temp_dir =
@@ -286,6 +336,13 @@ DEFAULT_CHECKSUM_ALGORITHM = "sha256"
 RPC_BIND_ADDRESS = config.get("rpc_bind_address")
 
 
+# Cadence
+
+CADENCE_SERVER = config.get("cadence_server")
+CADENCE_DOMAIN = config.get("cadence_domain")
+CADENCE_TASK_LIST = config.get("cadence_task_list")
+
+
 # Shared directories
 
 SHARED_DIRECTORY = config.get("shared_directory")
@@ -307,4 +364,25 @@ else:
 
 BIND_PID_HANDLE = {}
 
+
+# S3
+
+S3_ENABLED = config.get("s3_enabled")
+S3_ENDPOINT_URL = config.get("s3_endpoint_url")
+S3_REGION_NAME = config.get("s3_region_name")
+S3_ACCESS_KEY_ID = config.get("s3_access_key_id")
+S3_SECRET_ACCESS_KEY = config.get("s3_secret_access_key")
+S3_USE_SSL = config.get("s3_use_ssl")
+S3_ADDRESSING_STYLE = config.get("s3_addressing_style")
+S3_SIGNATURE_VERSION = config.get("s3_signature_version")
+S3_BUCKET = config.get("s3_bucket")
+
+# A3M-TODO: fix this
 INSTANCE_ID = "fec7bcf7-45db-4a22-8ceb-e94377db3476"
+
+
+S3_ENDPOINT_URL = "https://play.min.io"
+S3_USE_SSL = True
+S3_ACCESS_KEY_ID = "Q3AM3UQ867SPQQA43P2F"
+S3_SECRET_ACCESS_KEY = "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
+S3_BUCKET = "000012345"

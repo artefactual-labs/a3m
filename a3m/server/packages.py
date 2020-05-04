@@ -4,6 +4,7 @@ import collections
 import functools
 import logging
 import os
+from dataclasses import dataclass
 from enum import auto
 from enum import Enum
 from uuid import uuid4
@@ -105,7 +106,7 @@ class Package:
             _get_setting("PROCESSING_DIRECTORY"), "transfer", transfer_id, ""
         )
         transfer = models.Transfer.objects.create(
-            uuid=transfer_id, currentlocation=transfer_dir,
+            uuid=transfer_id, currentlocation=transfer_dir
         )
         transfer.set_processing_configuration("default")
         logger.debug("Transfer object created: %s", transfer.pk)
@@ -114,7 +115,8 @@ class Package:
         sip_dir = os.path.join(
             _get_setting("PROCESSING_DIRECTORY"), "ingest", sip_id, ""
         )
-        sip = models.SIP.objects.create(uuid=sip_id, currentpath=sip_dir,)
+        sip = models.SIP.objects.create(uuid=sip_id, currentpath=sip_dir)
+        sip.transfer_id = transfer_id
         logger.debug("SIP object created: %s", sip.pk)
 
         package = cls(name, url, transfer, sip)
@@ -403,46 +405,54 @@ class PackageNotFoundError(Exception):
     pass
 
 
+@dataclass
+class PackageStatus:
+    status: int = None
+    job: str = None
+
+
 @auto_close_old_connections()
-def get_package_status(package_id):
+def get_package_status(package_queue, package_id: str) -> PackageStatus:
     try:
-        models.Transfer.objects.get(pk=package_id)
-    except models.Transfer.DoesNotExist:
+        sip = models.SIP.objects.get(pk=package_id)
+    except models.SIP.DoesNotExist:
         raise PackageNotFoundError
 
-    # A3M-TODO: it may raise if the transfer was just submitted and there
-    # are zero jobs recorded.
-    return get_unit_status(package_id, "unitTransfer")
+    def get_latest_job(unit_id):
+        return (
+            models.Job.objects.filter(sipuuid=unit_id)
+            .order_by("-createdtime", "-createdtimedec")
+            .first()
+        )
 
+    package = package_queue.active_packages.get(package_id)
+    if package:
+        # Reminder: package.subid can be in Transfer or Ingest.
+        job = get_latest_job(package.subid)
+        kwargs = dict(status=a3m_pb2.PROCESSING)
+        if job:
+            kwargs.update({"job": job.jobtype})
+        return PackageStatus(**kwargs)
 
-def get_unit_status(unit_uuid, unit_type):
-    """Get status for a SIP or Transfer.
+    # A3M-TODO: persist package-workflow status!
+    # It'd be much easier if a workflow instance could keep the package
+    # model(s) up to date.
 
-    Returns a dict with status info. Keys will always include 'status' and
-    'microservice', and may include 'sip_uuid'.
+    # We have an inactive package, look up the status in the database.
+    job = get_latest_job(package_id)
 
-    SIP UUID is populated only if the unit_type was unitTransfer and status is
-    COMPLETE. Otherwise, it is None.
-
-    :param str unit_uuid: UUID of the SIP or Transfer
-    :param str unit_type: unitSIP or unitTransfer
-    :return: Dict with status info.
-    """
-    status = None
-    ret = {}
-
-    # Get jobs for the current unit ordered by created time.
-    unit_jobs = (
-        models.Job.objects.filter(sipuuid=unit_uuid)
-        .filter(unittype=unit_type)
-        .order_by("-createdtime", "-createdtimedec")
-    )
-
-    # Tentatively choose the job with the latest created time to be the
-    # current/last for the unit.
-    job = unit_jobs[0]
-
-    ret["microservice"] = job.jobtype
+    # It must be an error during Transfer when Ingest activity not recorded.
+    if not job:
+        transfer_id = sip.transfer_id
+        if transfer_id is None:
+            raise Exception(
+                "Package status cannot be determined: transfer_id is undefined"
+            )
+        job = get_latest_job(sip.transfer_id)
+        if job is None:
+            raise Exception(
+                "Package status cannot be determined: transfer records are unavailable"
+            )
 
     if job.currentstep == models.Job.STATUS_AWAITING_DECISION:
         status = a3m_pb2.AWAITING_DECISION
@@ -450,38 +460,11 @@ def get_unit_status(unit_uuid, unit_type):
         status = a3m_pb2.FAILED
     elif "reject" in job.microservicegroup.lower():
         status = a3m_pb2.REJECTED
-    elif job.jobtype == "Verify AIP":
+    elif job.jobtype == "a3m - Store AIP":
         status = a3m_pb2.COMPLETE
-    elif unit_type == "unitTransfer" and (
-        models.Job.objects.filter(sipuuid=unit_uuid)
-        .filter(jobtype="Create SIP from transfer objects")
-        .exists()
-    ):
-        # Get SIP UUID
-        sips = (
-            models.File.objects.filter(transfer_id=unit_uuid, sip__isnull=False)
-            .values("sip")
-            .distinct()
-        )
-        if not sips:
-            raise Exception("SIP not found")
-        #  A3M-TODO: we're returning the status of the SIP but instead we
-        # could try to hide the transfer from the user.
-        return get_unit_status(sips[0]["sip"], "unitSIP")
     else:
-        status = a3m_pb2.PROCESSING
+        raise Exception(
+            f"Package status cannot be determined (job.currentstep={job.currentstep}, job.type={job.jobtype}, job.microservicegroup={job.microservicegroup})"
+        )
 
-    # The job with the latest created time is not always the last/current
-    # (Ref. https://github.com/archivematica/Issues/issues/262)
-    # As a workaround for SIPs, in case the job with latest created time
-    # is not the one that closes the chain, check if there could be a job
-    # that does so
-    # (a better fix would be to try to use microchain links related tables
-    # to obtain the actual last/current job, but this adds too much complexity)
-    if unit_type == "unitSIP" and status == a3m_pb2.PROCESSING:
-        for x in unit_jobs:
-            if x.jobtype == "Verify AIP":
-                status = a3m_pb2.COMPLETE
-                break
-
-    return status, ret
+    return PackageStatus(status=status, job=job.microservicegroup)

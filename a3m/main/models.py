@@ -274,6 +274,24 @@ class SIP(models.Model):
         agent_lookups = Agent.objects.default_agents_query_keywords()
         return Agent.objects.filter(agent_lookups)
 
+    @property
+    def transfer_id(self):
+        try:
+            unit_variable = UnitVariable.objects.get(
+                unittype="SIP", unituuid=self.uuid, variable="transferID"
+            )
+        except UnitVariable.DoesNotExist:
+            result = None
+        else:
+            result = unit_variable.variablevalue
+        return result
+
+    @transfer_id.setter
+    def transfer_id(self, transfer_id):
+        UnitVariable.objects.update_variable(
+            "SIP", self.uuid, "transferID", transfer_id
+        )
+
 
 class TransferManager(models.Manager):
     def is_hidden(self, uuid):

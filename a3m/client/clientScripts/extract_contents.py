@@ -194,10 +194,7 @@ def main(job, transfer_uuid, sip_directory, date, task_uuid, delete=False):
         # Make the command clear to users when inspecting stdin/stdout.
         logger.debug("Command to execute is: %s", command_to_execute)
         exitstatus, stdout, stderr = executeOrRun(
-            command.script_type,
-            command_to_execute,
-            arguments=args,
-            capture_output=True,
+            command.script_type, command_to_execute, arguments=args, capture_output=True
         )
         job.write_output(stdout)
         job.write_error(stderr)

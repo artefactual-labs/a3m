@@ -22,6 +22,7 @@ message StatusRequest {
 
 message StatusReply {
 	PackageStatus status = 1;
+	string job = 2;
 }
 
 enum PackageStatus {
