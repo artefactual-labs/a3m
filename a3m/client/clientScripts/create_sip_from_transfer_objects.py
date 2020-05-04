@@ -12,9 +12,7 @@ from a3m.main.models import File
 from a3m.main.models import SIP
 
 
-def main(
-    job, transfer_id, sip_id,
-):
+def main(job, transfer_id, sip_id):
     processing_dir = Path(settings.PROCESSING_DIRECTORY)
     transfer_dir = processing_dir / "transfer" / transfer_id
     objects_dir = transfer_dir / "objects"
@@ -89,7 +87,7 @@ def main(
             job.pyprint("File not found: ", currentSIPFilePath, file=sys.stderr)
 
     archivematicaFunctions.create_directories(
-        archivematicaFunctions.MANUAL_NORMALIZATION_DIRECTORIES, basepath=str(sip_dir),
+        archivematicaFunctions.MANUAL_NORMALIZATION_DIRECTORIES, basepath=str(sip_dir)
     )
 
     # Copy the JSON metadata file, if present; this contains a
@@ -102,7 +100,7 @@ def main(
 
     # Copy processingMCP.xml file
     shutil.copy(
-        str(transfer_dir / "processingMCP.xml"), str(sip_dir / "processingMCP.xml"),
+        str(transfer_dir / "processingMCP.xml"), str(sip_dir / "processingMCP.xml")
     )
 
 
@@ -113,4 +111,4 @@ def call(jobs):
             transfer_id = job.args[1]
             sip_id = job.args[2]
 
-            job.set_status(main(job, transfer_id, sip_id,))
+            job.set_status(main(job, transfer_id, sip_id))

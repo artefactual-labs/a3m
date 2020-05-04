@@ -945,7 +945,7 @@ def createFileSec(
                 # GROUPID was determined elsewhere
                 GROUPID = "Group-%s" % (f.filegrpuuid)
 
-            elif use in ("original", "submissionDocumentation", "metadata",):
+            elif use in ("original", "submissionDocumentation", "metadata"):
                 # These files are in a group defined by themselves
                 GROUPID = "Group-%s" % (f.uuid)
                 # Check for CSV-based Dublincore dmdSec

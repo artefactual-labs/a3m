@@ -33,19 +33,22 @@ class TransferService(a3m_pb2_grpc.TransferServicer):
                 request.url,
             )
         except Exception as err:
-            logger.warning("Submit handler error: %s", err)
+            logger.warning("TransferService.Submit handler error: %s", err)
             context.abort(code_pb2.INTERNAL, "Unknown error")
-        return a3m_pb2.SubmitReply(id=str(package.sip.pk))
+        return a3m_pb2.SubmitReply(id=str(package.uuid))
 
     def Status(self, request, context):
         try:
-            status, _ = get_package_status(request.id)
+            res = get_package_status(self.package_queue, request.id)
         except PackageNotFoundError:
             context.abort(code_pb2.NOT_FOUND, "Package not found")
         except Exception as err:
-            logger.warning("Status handler error: %s", err)
+            logger.warning("TransferService.Status handler error: %s", err)
             context.abort(code_pb2.INTERNAL, "Unknown error")
-        return a3m_pb2.StatusReply(status=status)
+        kwargs = dict(status=res.status)
+        if res.job:
+            kwargs.update({"job": res.job})
+        return a3m_pb2.StatusReply(**kwargs)
 
 
 def start(workflow, shutdown_event, package_queue, executor):

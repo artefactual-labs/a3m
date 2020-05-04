@@ -2022,6 +2022,37 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
+                    "link_id": "14d86bf1-f7a9-4d3e-9eda-f8b1f5583ea7"
+                }
+            },
+            "fallback_job_status": "Failed",
+            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
+            "group": {
+                "en": "Store AIP",
+                "fr": "Stocker l’AIP",
+                "ja": "AIPを蓄える",
+                "pt_BR": "Armazenar AIP",
+                "sv": "Lagra AIP"
+            }
+        },
+        "14d86bf1-f7a9-4d3e-9eda-f8b1f5583ea7": {
+            "config": {
+                "@manager": "linkTaskManagerDirectories",
+                "@model": "StandardTaskConfig",
+                "arguments": "\"%SIPUUID%\" \"%SIPDirectory%%AIPFilename%\"",
+                "execute": "a3mStoreAIP_v1.0",
+                "filter_file_end": null,
+                "filter_file_start": null,
+                "filter_subdir": null,
+                "stderr_file": null,
+                "stdout_file": null
+            },
+            "description": {
+                "en": "a3m - Store AIP"
+            },
+            "exit_codes": {
+                "0": {
+                    "job_status": "Completed successfully",
                     "link_id": null
                 }
             },

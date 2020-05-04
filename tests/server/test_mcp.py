@@ -1,5 +1,6 @@
 import threading
 
+from a3m.server.mcp import ExecutionMode
 from a3m.server.mcp import main
 
 
@@ -24,7 +25,7 @@ def test_mcp_main(mocker, settings):
     shutdown_event = threading.Event()
     shutdown_event.set()
 
-    main(shutdown_event=shutdown_event)
+    main(mode=ExecutionMode.RPC, shutdown_event=shutdown_event)
 
     mock_load_default_workflow.assert_called_once()
     mock_shared_dirs.create.assert_called_once()
