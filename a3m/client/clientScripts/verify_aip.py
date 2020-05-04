@@ -247,7 +247,7 @@ def verify_aip(job):
     aip_path = Path(aip_path)
     completed_dir = Path(mcpclient_settings.SHARED_DIRECTORY, "completed")
     shutil.move(str(aip_path), str(completed_dir))
-    logger.info(f"AIP generated: %s", aip_path.name)
+    logger.info("AIP generated: %s", aip_path.name)
 
     return return_code
 
