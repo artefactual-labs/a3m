@@ -18,7 +18,7 @@ See the [tasklist](https://www.notion.so/a3m-acfaae80a800407b80317b7efd3b76bf) f
 
 Submit a new transfer:
 
-    python -m a3m.server.rpc.client submit --address=127.0.0.1:52000 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedBag.zip
+    python -m a3m.server.rpc.client submit --address=127.0.0.1:52000 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
 
 Look up processing status of a transfer:
 
@@ -56,7 +56,7 @@ Otherwise, follow these steps:
 You're ready to submit a transfer:
 
     # Submit a transfer
-    docker-compose run --rm --entrypoint sh a3m -c "python -m a3m.server.rpc.client submit --address=a3m:7000 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/DemoTransferCSV.tar.gz"
+    docker-compose run --rm --entrypoint sh a3m -c "python -m a3m.server.rpc.client submit --address=a3m:7000 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
 
     # Find the AIP generated
     find hack/compose-volume -name "*.7z";
@@ -89,7 +89,7 @@ Start checking out this repository and follow these steps:
 
 Start a new transfer:
 
-    $ python -m a3m.server.rpc.client submit https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/DemoTransferCSV.zip
+    $ python -m a3m.server.rpc.client submit https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
     Submitting...
     Transfer created: 0f667867-800a-466f-856f-fea5980f1d97
 
