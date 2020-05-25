@@ -6,6 +6,8 @@ from botocore.client import Config
 from django.conf import settings
 from django.db import transaction
 
+from a3m.client import metrics
+
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +40,8 @@ def _upload_file(path, bucket, key):
 
 
 def _store_aip(job, sip_id, aip_path):
+    metrics.aip_stored(sip_id, size=0)  #  A3M-TODO: write size
+
     if not settings.S3_ENABLED:
         return
 
