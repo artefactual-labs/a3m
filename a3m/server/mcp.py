@@ -36,6 +36,8 @@ from a3m.server import rpc_server
 from a3m.server import shared_dirs
 from a3m.server.db import migrate
 from a3m.server.jobs import Job
+from a3m.server.processing_config import ProcessingConfigError
+from a3m.server.processing_config import validate_processing_configs
 from a3m.server.queues import PackageQueue
 from a3m.server.tasks import Task
 from a3m.server.tasks.backends import get_task_backend
@@ -92,6 +94,12 @@ def main(mode, shutdown_event=None):
 
     shared_dirs.create()
 
+    try:
+        validate_processing_configs(workflow)
+    except ProcessingConfigError as err:
+        logger.error("Invalid processing configuration: %s", err)
+        sys.exit(1)
+
     logger.info("Preparing database...")
     migrate()
     Job.cleanup_old_db_entries()
@@ -122,7 +130,8 @@ def main(mode, shutdown_event=None):
         )
         worker.start()
     else:
-        sys.exit("Confguration error, unknown operational mode")
+        logger.error(f"Configuration error, unknown operational mode: {mode}")
+        sys.exit(1)
 
     # Blocks until shutdown_event is set by signal_handler
     package_queue.work()

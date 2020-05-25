@@ -6,7 +6,6 @@ import uuid
 
 import pytest
 
-from a3m.server.jobs import DecisionJob
 from a3m.server.jobs import Job
 from a3m.server.packages import Package
 from a3m.server.queues import PackageQueue
@@ -25,32 +24,6 @@ class MockJob(Job):
 
     def run(self, *args, **kwargs):
         self.job_ran.set()
-
-
-class MockDecisionJob(DecisionJob):
-    """Mock Job that passes our checks for DecisionJob.
-    """
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.job_ran = threading.Event()
-        self.decision = None
-
-    def run(self, *args, **kwargs):
-        self.job_ran.set()
-        self._awaiting_decision_event.set()
-
-        return self
-
-    def get_choices(self):
-        return {"1": "Choice 1", "2": "Choice 2"}
-
-    def decide(self, choice):
-        self.decision = choice
-        self.next_job = MockJob(self.job_chain, self.link, self.package)
-
-        return self.next_job
 
 
 @pytest.fixture(scope="module")
@@ -173,39 +146,3 @@ def test_queue_next_job_raises_full(
 
     with pytest.raises(queue.Full):
         package_queue.queue_next_job()
-
-
-def test_await_job_decision(package_queue, package, workflow_link, mocker):
-    test_job = MockDecisionJob(mocker.Mock(), workflow_link, package)
-    package_queue.await_decision(test_job)
-
-    assert package_queue.job_queue.qsize() == 0
-
-    package_queue.decide(test_job.uuid, "1")
-
-    assert package_queue.job_queue.qsize() == 1
-
-
-def test_decision_job_moved_to_awaiting_decision(
-    package_queue, package, package_2, workflow_link, mocker
-):
-    test_job1 = MockDecisionJob(mocker.Mock(), workflow_link, package)
-    test_job2 = MockJob(mocker.Mock(), workflow_link, package_2)
-
-    package_queue.schedule_job(test_job1)
-
-    assert package_queue.job_queue.qsize() == 1
-    package_queue.process_one_job(timeout=0.1)
-    test_job1.job_ran.wait(1.0)
-
-    assert str(test_job1.uuid) in package_queue.jobs_awaiting_decisions()
-    assert package.uuid not in package_queue.active_packages
-    assert package_queue.job_queue.qsize() == 0
-
-    test_job2 = MockJob(mocker.Mock(), workflow_link, package_2)
-    package_queue.schedule_job(test_job2)
-    package_queue.process_one_job(timeout=0.1)
-    test_job2.job_ran.wait(1.0)
-
-    assert test_job2.uuid not in package_queue.jobs_awaiting_decisions()
-    assert package_2.uuid in package_queue.active_packages

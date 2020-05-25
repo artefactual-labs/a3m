@@ -197,10 +197,9 @@ class Migration(migrations.Migration):
                     models.IntegerField(
                         choices=[
                             (0, "Unknown"),
-                            (1, "Awaiting decision"),
-                            (2, "Completed successfully"),
-                            (3, "Executing command(s)"),
-                            (4, "Failed"),
+                            (1, "Completed successfully"),
+                            (2, "Executing command(s)"),
+                            (3, "Failed"),
                         ],
                         db_column="currentStep",
                         default=0,

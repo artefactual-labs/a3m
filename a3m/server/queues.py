@@ -10,7 +10,6 @@ import uuid
 from django.conf import settings
 
 from a3m.server import metrics
-from a3m.server.jobs import DecisionJob
 
 
 logger = logging.getLogger(__name__)
@@ -70,9 +69,6 @@ class PackageQueue:
         if shutdown_event is None:
             shutdown_event = threading.Event()
         self.shutdown_event = shutdown_event
-
-        self.waiting_choices_lock = threading.Lock()
-        self.waiting_choices = {}  # job.uuid: DecisionJob
 
         self.active_package_lock = threading.Lock()
         self.active_packages = {}  # package uuid: Package
@@ -213,10 +209,7 @@ class PackageQueue:
 
         if not next_job:
             return
-        elif isinstance(next_job, DecisionJob) and next_job.awaiting_decision:
-            self.await_decision(next_job)
-        else:
-            self.schedule_job(next_job)
+        self.schedule_job(next_job)
 
     def _put_package_nowait(self, package, job):
         """Queue a package and job for later processing."""
@@ -300,37 +293,3 @@ class PackageQueue:
                 package.uuid,
                 self.queue.qsize(),
             )
-
-    def await_decision(self, job):
-        """Mark a job as awaiting user input to proceed.
-        """
-        job_id = str(job.uuid)
-        with self.waiting_choices_lock:
-            self.waiting_choices[job_id] = job
-
-        self.deactivate_package(job.package)
-
-        if self.debug:
-            logger.debug("Marked job %s as awaiting a decision", job.uuid)
-
-    def jobs_awaiting_decisions(self):
-        """Returns all jobs waiting for input.
-        """
-        with self.waiting_choices_lock:
-            return self.waiting_choices.copy()
-
-    def decide(self, job_uuid, choice, user_id=None):
-        """Make a decsion on a job waiting for user input.
-        """
-        job_uuid = str(job_uuid)
-
-        with self.waiting_choices_lock:
-            decision = self.waiting_choices[job_uuid]
-            next_job = decision.decide(choice)
-            del self.waiting_choices[job_uuid]
-
-        if next_job is not None:
-            self.schedule_job(next_job)
-
-        if self.debug:
-            logger.debug("Decision made for job %s (%s)", decision.uuid, choice)

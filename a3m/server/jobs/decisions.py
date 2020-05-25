@@ -3,7 +3,6 @@ Jobs relating to user decisions.
 """
 import abc
 import logging
-import threading
 from collections import OrderedDict
 
 from a3m.server.db import auto_close_old_connections
@@ -19,19 +18,11 @@ class DecisionJob(Job, metaclass=abc.ABCMeta):
     """A Job that handles a workflow decision point.
 
     The `run` method checks if a choice has been preconfigured. If so,
-    it executes as a normal job. If not, the `awaiting_decision`
-    attribute is set, and the job returns itself to the package queue,
-    which will mark the job as awaiting a decision.
+    it executes as a normal job. If should fail otherwise.
     """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        self._awaiting_decision_event = threading.Event()
-
-    @property
-    def awaiting_decision(self):
-        return self._awaiting_decision_event.is_set()
 
     @property
     def workflow(self):
@@ -46,26 +37,20 @@ class DecisionJob(Job, metaclass=abc.ABCMeta):
         self.save_to_db()
 
         preconfigured_choice = self.get_preconfigured_choice()
-        if preconfigured_choice:
-            return self.decide(preconfigured_choice)
-        else:
-            self.mark_awaiting_decision()
-            # Special case for DecisionJob; we're not ready to move to the next
-            # job until a decision has been made. The queue has handling for
-            # this to prevent going into a loop.
-            return self
+        if not preconfigured_choice:
+            logger.error("Link not configured: %s", self.link.id)
+            return
+
+        return self.decide(preconfigured_choice)
 
     def get_preconfigured_choice(self):
         """Check the processing XML file for a pre-selected choice.
 
         Returns a value for choices if found, None otherwise.
         """
-        return load_preconfigured_choice(self.package.current_path, self.link.id)
-
-    def mark_awaiting_decision(self):
-        super().mark_awaiting_decision()
-
-        self._awaiting_decision_event.set()
+        return load_preconfigured_choice(
+            self.package.current_path, self.link.id, self.workflow
+        )
 
     @abc.abstractmethod
     def get_choices(self):
@@ -121,14 +106,6 @@ class UpdateContextDecisionJob(DecisionJob):
     # linkTaskManagerReplacementDicFromChoice, and it seems to have multiple
     # ways of executing. It could use some cleanup.
 
-    # A3M-TODO: CHOICE_MAPPING is unused now, maybe delete?
-
-    # Maps decision point UUIDs and decision UUIDs to their "canonical"
-    # equivalents. This is useful for when there are multiple decision points which
-    # are effectively identical and a preconfigured decision for one should hold for
-    # all of the others as well.
-    CHOICE_MAPPING = {}
-
     @auto_close_old_connections()
     def run(self, *args, **kwargs):
         # Intentionally don't call super() here
@@ -138,46 +115,45 @@ class UpdateContextDecisionJob(DecisionJob):
         self.save_to_db()
 
         preconfigured_context = self.load_preconfigured_context()
-        if preconfigured_context:
-            logger.debug(
-                "Job %s got preconfigured context %s", self.uuid, preconfigured_context
-            )
-            self.job_chain.context.update(preconfigured_context)
-            self.mark_complete()
-            return next(self.job_chain, None)
-        else:
-            self.mark_awaiting_decision()
-            return self
+        if not preconfigured_context:
+            logger.error("Link not configured: %s", self.link.id)
+            return
+
+        logger.debug(
+            "Job %s got preconfigured context %s", self.uuid, preconfigured_context
+        )
+        self.job_chain.context.update(preconfigured_context)
+        self.mark_complete()
+        return next(self.job_chain, None)
 
     def _format_items(self, items):
         """Wrap replacement items with the ``%`` wildcard character."""
         return {f"%{key}%": value for key, value in items.items()}
 
     def load_preconfigured_context(self):
-        normalized_choice_id = self.CHOICE_MAPPING.get(self.link.id, self.link.id)
+        choice_id = self.link.id
 
-        processing_xml = load_processing_xml(self.package.current_path)
-        if processing_xml is not None:
-            for preconfiguredChoice in processing_xml.findall(".//preconfiguredChoice"):
-                if preconfiguredChoice.find("appliesTo").text == normalized_choice_id:
-                    desired_choice = preconfiguredChoice.find("goToChain").text
-                    desired_choice = self.CHOICE_MAPPING.get(
-                        desired_choice, desired_choice
-                    )
+        processing_xml = load_processing_xml(self.package.current_path, self.workflow)
+        if processing_xml is None:
+            return
 
-                    try:
-                        link = self.workflow.get_link(normalized_choice_id)
-                    except KeyError:
-                        return None
+        for preconfiguredChoice in processing_xml.findall(".//preconfiguredChoice"):
+            if preconfiguredChoice.find("appliesTo").text != choice_id:
+                continue
+            desired_choice = preconfiguredChoice.find("goToChain").text
 
-                    for replacement in link.config["replacements"]:
-                        if replacement["id"] == desired_choice:
-                            # In our JSON-encoded document, the items in
-                            # the replacements are not wrapped, do it here.
-                            # Needed by ReplacementDict.
-                            return self._format_items(replacement["items"])
+            try:
+                link = self.workflow.get_link(choice_id)
+            except KeyError:
+                return None
 
-        return None
+            for replacement in link.config["replacements"]:
+                if replacement["id"] != desired_choice:
+                    continue
+                # In our JSON-encoded document, the items in
+                # the replacements are not wrapped, do it here.
+                # Needed by ReplacementDict.
+                return self._format_items(replacement["items"])
 
     def get_choices(self):
         choices = OrderedDict()

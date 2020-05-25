@@ -450,13 +450,9 @@ def get_package_status(package_queue, package_id: str) -> PackageStatus:
             )
         job = get_latest_job(sip.transfer_id)
         if job is None:
-            raise Exception(
-                "Package status cannot be determined: transfer records are unavailable"
-            )
+            return PackageStatus(status=a3m_pb2.PROCESSING, job="Unknown")
 
-    if job.currentstep == models.Job.STATUS_AWAITING_DECISION:
-        status = a3m_pb2.AWAITING_DECISION
-    elif "failed" in job.microservicegroup.lower():
+    if "failed" in job.microservicegroup.lower():
         status = a3m_pb2.FAILED
     elif "reject" in job.microservicegroup.lower():
         status = a3m_pb2.REJECTED

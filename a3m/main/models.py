@@ -585,13 +585,11 @@ class Job(models.Model):
     )  # Foreign key to SIPs or Transfers
     unittype = models.CharField(max_length=50, db_column="unitType", blank=True)
     STATUS_UNKNOWN = 0
-    STATUS_AWAITING_DECISION = 1
-    STATUS_COMPLETED_SUCCESSFULLY = 2
-    STATUS_EXECUTING_COMMANDS = 3
-    STATUS_FAILED = 4
+    STATUS_COMPLETED_SUCCESSFULLY = 1
+    STATUS_EXECUTING_COMMANDS = 2
+    STATUS_FAILED = 3
     STATUS = (
         (STATUS_UNKNOWN, _("Unknown")),
-        (STATUS_AWAITING_DECISION, _("Awaiting decision")),
         (STATUS_COMPLETED_SUCCESSFULLY, _("Completed successfully")),
         (STATUS_EXECUTING_COMMANDS, _("Executing command(s)")),
         (STATUS_FAILED, _("Failed")),

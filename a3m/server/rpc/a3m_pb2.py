@@ -16,7 +16,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package="a3m",
     syntax="proto3",
     serialized_options=None,
-    serialized_pb=b'\n\x18\x61\x33m/server/rpc/a3m.proto\x12\x03\x61\x33m"*\n\rSubmitRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\t"\x19\n\x0bSubmitReply\x12\n\n\x02id\x18\x01 \x01(\t"\x1b\n\rStatusRequest\x12\n\n\x02id\x18\x01 \x01(\t">\n\x0bStatusReply\x12"\n\x06status\x18\x01 \x01(\x0e\x32\x12.a3m.PackageStatus\x12\x0b\n\x03job\x18\x02 \x01(\t*^\n\rPackageStatus\x12\n\n\x06\x46\x41ILED\x10\x00\x12\x0c\n\x08REJECTED\x10\x01\x12\x0c\n\x08\x43OMPLETE\x10\x02\x12\x0e\n\nPROCESSING\x10\x03\x12\x15\n\x11\x41WAITING_DECISION\x10\x04\x32n\n\x08Transfer\x12\x30\n\x06Submit\x12\x12.a3m.SubmitRequest\x1a\x10.a3m.SubmitReply"\x00\x12\x30\n\x06Status\x12\x12.a3m.StatusRequest\x1a\x10.a3m.StatusReply"\x00\x62\x06proto3',
+    serialized_pb=b'\n\x18\x61\x33m/server/rpc/a3m.proto\x12\x03\x61\x33m"*\n\rSubmitRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\t"\x19\n\x0bSubmitReply\x12\n\n\x02id\x18\x01 \x01(\t"\x1b\n\rStatusRequest\x12\n\n\x02id\x18\x01 \x01(\t">\n\x0bStatusReply\x12"\n\x06status\x18\x01 \x01(\x0e\x32\x12.a3m.PackageStatus\x12\x0b\n\x03job\x18\x02 \x01(\t*G\n\rPackageStatus\x12\n\n\x06\x46\x41ILED\x10\x00\x12\x0c\n\x08REJECTED\x10\x01\x12\x0c\n\x08\x43OMPLETE\x10\x02\x12\x0e\n\nPROCESSING\x10\x03\x32n\n\x08Transfer\x12\x30\n\x06Submit\x12\x12.a3m.SubmitRequest\x1a\x10.a3m.SubmitReply"\x00\x12\x30\n\x06Status\x12\x12.a3m.StatusRequest\x1a\x10.a3m.StatusReply"\x00\x62\x06proto3',
 )
 
 _PACKAGESTATUS = _descriptor.EnumDescriptor(
@@ -37,18 +37,11 @@ _PACKAGESTATUS = _descriptor.EnumDescriptor(
         _descriptor.EnumValueDescriptor(
             name="PROCESSING", index=3, number=3, serialized_options=None, type=None
         ),
-        _descriptor.EnumValueDescriptor(
-            name="AWAITING_DECISION",
-            index=4,
-            number=4,
-            serialized_options=None,
-            type=None,
-        ),
     ],
     containing_type=None,
     serialized_options=None,
     serialized_start=197,
-    serialized_end=291,
+    serialized_end=268,
 )
 _sym_db.RegisterEnumDescriptor(_PACKAGESTATUS)
 
@@ -57,7 +50,6 @@ FAILED = 0
 REJECTED = 1
 COMPLETE = 2
 PROCESSING = 3
-AWAITING_DECISION = 4
 
 
 _SUBMITREQUEST = _descriptor.Descriptor(
@@ -141,7 +133,7 @@ _SUBMITREPLY = _descriptor.Descriptor(
             extension_scope=None,
             serialized_options=None,
             file=DESCRIPTOR,
-        )
+        ),
     ],
     extensions=[],
     nested_types=[],
@@ -180,7 +172,7 @@ _STATUSREQUEST = _descriptor.Descriptor(
             extension_scope=None,
             serialized_options=None,
             file=DESCRIPTOR,
-        )
+        ),
     ],
     extensions=[],
     nested_types=[],
@@ -310,8 +302,8 @@ _TRANSFER = _descriptor.ServiceDescriptor(
     file=DESCRIPTOR,
     index=0,
     serialized_options=None,
-    serialized_start=293,
-    serialized_end=403,
+    serialized_start=270,
+    serialized_end=380,
     methods=[
         _descriptor.MethodDescriptor(
             name="Submit",
