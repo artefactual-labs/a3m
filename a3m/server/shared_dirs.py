@@ -41,11 +41,6 @@ DEFAULT_PROCESSING_CONFIG = """<processingMCP>
       <appliesTo>a2ba5278-459a-4638-92d9-38eb1588717d</appliesTo>
       <goToChain>44a7c397-8187-4fd2-b8f7-c61737c4df49</goToChain>
     </preconfiguredChoice>
-    <!-- Create SIP(s) -->
-    <preconfiguredChoice>
-      <appliesTo>bb194013-597c-4e4a-8493-b36d190f8717</appliesTo>
-      <goToChain>61cfa825-120e-4b17-83e6-51a42b67d969</goToChain>
-    </preconfiguredChoice>
     <!-- Delete packages after extraction -->
     <preconfiguredChoice>
       <appliesTo>f19926dd-8fb5-4c79-8ade-c83f61f55b40</appliesTo>
@@ -70,11 +65,6 @@ DEFAULT_PROCESSING_CONFIG = """<processingMCP>
     <preconfiguredChoice>
       <appliesTo>70fc7040-d4fb-4d19-a0e6-792387ca1006</appliesTo>
       <goToChain>3e891cc4-39d2-4989-a001-5107a009a223</goToChain>
-    </preconfiguredChoice>
-    <!-- Reminder: add metadata if desired -->
-    <preconfiguredChoice>
-      <appliesTo>eeb23509-57e2-4529-8857-9d62525db048</appliesTo>
-      <goToChain>5727faac-88af-40e8-8c10-268644b0142d</goToChain>
     </preconfiguredChoice>
     <!-- Generate thumbnails -->
     <preconfiguredChoice>
@@ -115,11 +105,6 @@ DEFAULT_PROCESSING_CONFIG = """<processingMCP>
     <preconfiguredChoice>
       <appliesTo>dec97e3c-5598-4b99-b26e-f87a435a6b7f</appliesTo>
       <goToChain>01d80b27-4ad1-4bd1-8f8d-f819f18bf685</goToChain>
-    </preconfiguredChoice>
-    <!-- Approve normalization -->
-    <preconfiguredChoice>
-      <appliesTo>de909a42-c5b5-46e1-9985-c031b50e9d30</appliesTo>
-      <goToChain>1e0df175-d56d-450d-8bee-7df1dc7ae815</goToChain>
     </preconfiguredChoice>
   </preconfiguredChoices>
 </processingMCP>

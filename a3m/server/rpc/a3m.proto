@@ -30,5 +30,4 @@ enum PackageStatus {
 	REJECTED = 1;
 	COMPLETE = 2;
 	PROCESSING = 3;
-	AWAITING_DECISION = 4;
 }

@@ -233,11 +233,7 @@ class Activity:
             if res.status == a3m_pb2.PROCESSING:
                 time.sleep(1)
                 continue
-            if res.status in (
-                a3m_pb2.FAILED,
-                a3m_pb2.REJECTED,
-                a3m_pb2.AWAITING_DECISION,
-            ):
+            if res.status in (a3m_pb2.FAILED, a3m_pb2.REJECTED):
                 raise ActivityError("Processing failed")
 
         return package.uuid
