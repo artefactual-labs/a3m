@@ -19,6 +19,8 @@ Most of the use cases that we envision for a3m include the use of our Docker ima
 <summary>gRPC server</summary>
 <hr/>
 
+The following example shows how to set up a gRPC server and a client sharing the same network using Docker. Alternatively, see our [screencast](https://asciinema.org/a/lKWDIxPSwSfDySxTIgPPlYZrU).
+
 Create a virtual network:
 
     docker network create a3m-network
@@ -48,8 +50,6 @@ This mode is work in progress (see [#40](https://github.com/artefactual-labs/a3m
     docker run --rm --env="A3M_CADENCE_SERVER=127.0.0.1:12345" docker.pkg.github.com/artefactual-labs/a3m/a3m:main --mode="enduro"
 
 </details>
-
-<details>
 
 ### Development
 
