@@ -2,8 +2,6 @@
 
 ## a3m
 
-See the [tasklist](https://www.notion.so/a3m-acfaae80a800407b80317b7efd3b76bf) for more details.
-
 - [Usage](#usage)
 - [Development](#development)
 
