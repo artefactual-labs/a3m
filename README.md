@@ -12,22 +12,44 @@
 
 ### Usage
 
+Most of the use cases that we envision for a3m include the use of our Docker image because it includes all the tools and dependencies needed. It is possible to run a3m without Docker as long as you have Python, but a3m does not know how to install software dependencies for you automatically, e.g. 7-zip, ffmpeg, unar...
+
 <details>
 
-<summary>Command-line interface</summary>
-<hr>
+<summary>gRPC server</summary>
+<hr/>
 
-`a3m.server.rpc.client` is work in progress - used mostly for local testing. The following are examples that connect to the server listening on the Compose development environment.
+Create a virtual network:
 
-Submit a new transfer:
+    docker network create a3m-network
 
-    python -m a3m.server.rpc.client submit --wait --address=127.0.0.1:52000 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
+The following command will run the gRPC server in detached mode:
 
-Look up processing status of a transfer:
+    docker run --rm --detach --name a3m --network a3m-network -p 7000:7000 docker.pkg.github.com/artefactual-labs/a3m/a3m:main
 
-    python -m a3m.server.rpc.client status --address=127.0.0.1:52000 f81eff9f-312d-4eb3-9b4f-75fbb4474780
+You can implement your own gRPC client (sevice definition is available [here](https://github.com/artefactual-labs/a3m/blob/main/a3m/server/rpc/a3m.proto). a3m embeds a simple gRPC client to submit transfers from the command line, e.g.:
+
+    docker run --rm --network a3m-network --entrypoint=python docker.pkg.github.com/artefactual-labs/a3m/a3m:main -m a3m.server.rpc.client submit --wait --address=a3m:7000 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
+
+Clean up:
+
+    docker stop a3m
+    docker network remove a3m-network
 
 </details>
+
+<details>
+
+<summary>Enduro activity worker</summary>
+<hr/>
+
+This mode is work in progress (see [#40](https://github.com/artefactual-labs/a3m/issues/40) for more).
+
+    docker run --rm --env="A3M_CADENCE_SERVER=127.0.0.1:12345" docker.pkg.github.com/artefactual-labs/a3m/a3m:main --mode="enduro"
+
+</details>
+
+<details>
 
 ### Development
 
