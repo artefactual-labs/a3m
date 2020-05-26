@@ -51,6 +51,22 @@ This mode is work in progress (see [#40](https://github.com/artefactual-labs/a3m
 
 </details>
 
+<details>
+
+<summary>Embedded API</summary>
+<hr />
+
+Python developers should be able to implement new solutions embedding a3m as a library. See [#42](https://github.com/artefactual-labs/a3m/issues/42) for more.
+
+```python
+import a3m
+
+runner = a3m.Runner()
+runner.submit_package("https://...", wait=True)
+```
+
+</details>
+
 ### Development
 
 It is possible to do local development work in a3m. But we also provide an
