@@ -45,17 +45,6 @@ Don't forget to clean up before leaving!
 
 <details>
 
-<summary>Enduro activity worker</summary>
-<hr/>
-
-This mode is work in progress (see [#40](https://github.com/artefactual-labs/a3m/issues/40) for more).
-
-    docker run --rm --env="A3M_CADENCE_SERVER=127.0.0.1:12345" docker.pkg.github.com/artefactual-labs/a3m/a3m:main --mode="enduro"
-
-</details>
-
-<details>
-
 <summary>Embedded API</summary>
 <hr />
 
@@ -67,6 +56,19 @@ import a3m
 runner = a3m.Runner()
 runner.submit_package("https://...", wait=True)
 ```
+
+</details>
+
+<details>
+
+<summary>Enduro activity worker</summary>
+<hr/>
+
+a3m embeds an activity worker suited for [Enduro](https://github.com/artefactual-labs/enduro). It is work in progress (see [#40](https://github.com/artefactual-labs/a3m/issues/40) for more). The goal is to add preservation capabilities to Enduro without the cost of operating Archivematica pipelines.
+
+Enduro uses object storage (S3) to share transfers with a3m activity workers. Tasks are dispatched via an intermediate persistent queue that a3m polls.
+
+    docker run --rm --env="A3M_CADENCE_SERVER=127.0.0.1:12345" docker.pkg.github.com/artefactual-labs/a3m/a3m:main --mode="enduro"
 
 </details>
 
