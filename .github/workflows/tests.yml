@@ -23,3 +23,7 @@ jobs:
     - name: Run tox
       run: |
         tox -e py
+    - name: Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./.coverage.xml

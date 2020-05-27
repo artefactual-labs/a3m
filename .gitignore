@@ -18,6 +18,7 @@
 
 # coverage data file
 .coverage
+.coverage.*
 
 # pytest's working directory
 .cache
