@@ -26,15 +26,17 @@ Create a virtual network:
 
     docker network create a3m-network
 
-The following command will run the gRPC server in detached mode:
+The following command will run the gRPC server in detached mode listening locally on port 7000:
 
     docker run --rm --detach --name a3m --network a3m-network -p 7000:7000 docker.pkg.github.com/artefactual-labs/a3m/a3m:main
 
-You can implement your own gRPC client (sevice definition is available [here](https://github.com/artefactual-labs/a3m/blob/main/a3m/server/rpc/a3m.proto). a3m embeds a simple gRPC client to submit transfers from the command line, e.g.:
+Submit a transfer with the gRPC client, e.g.:
 
     docker run --rm --network a3m-network --entrypoint=python docker.pkg.github.com/artefactual-labs/a3m/a3m:main -m a3m.server.rpc.client submit --wait --address=a3m:7000 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
 
-Clean up:
+Using our [service definition](https://github.com/artefactual-labs/a3m/blob/main/a3m/server/rpc/a3m.proto), it is possible to generate client-side code in multiple programming languages. See [gRPC concepts](https://grpc.io/docs/guides/concepts/) for more.
+
+Don't forget to clean up before leaving!
 
     docker stop a3m
     docker network remove a3m-network
