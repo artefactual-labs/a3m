@@ -3,6 +3,7 @@
   <img src="https://github.com/artefactual-labs/a3m/workflows/Tests/badge.svg"/>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/evercam/evercam-dashboard"/></a>
   <a href="https://codecov.io/gh/artefactual-labs/a3m"><img src="https://img.shields.io/codecov/c/github/artefactual-labs/a3m"/></a>
+  <a href="https://pyup.io/repos/github/artefactual-labs/a3m/"><img src="https://pyup.io/repos/github/artefactual-labs/a3m/shield.svg" alt="Updates" /></a>
 </p>
 
 ## a3m
