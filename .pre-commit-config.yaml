@@ -19,13 +19,13 @@ repos:
   - id: reorder-python-imports
     args: ["--application-directories=.:src"]
 - repo: https://github.com/jazzband/pip-tools
-  rev: 5.1.1
+  rev: 5.2.0
   hooks:
   - id: pip-compile
     files: ^requirements\.(in|txt)$
     args: ["--output-file=requirements.txt", "requirements.in"]
 - repo: https://github.com/jazzband/pip-tools
-  rev: 5.1.1
+  rev: 5.2.0
   hooks:
   - id: pip-compile
     files: ^requirements-dev\.(in|txt)$

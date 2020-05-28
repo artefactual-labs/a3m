@@ -15,6 +15,7 @@ from prometheus_client import Histogram
 from prometheus_client import Info
 from prometheus_client import start_http_server
 
+from a3m import __version__
 from a3m.client import MODULES_FILE
 from a3m.common_metrics import PACKAGE_FILE_COUNT_BUCKETS
 from a3m.common_metrics import PACKAGE_SIZE_BUCKETS
@@ -24,7 +25,6 @@ from a3m.fpr.models import FormatVersion
 from a3m.main.models import File
 from a3m.main.models import FileFormatVersion
 from a3m.main.models import Transfer
-from a3m.version import get_full_version
 
 
 job_counter = Counter(
@@ -218,7 +218,7 @@ def init_counter_labels():
 def start_prometheus_server():
     init_counter_labels()
 
-    archivematica_info.info({"version": get_full_version()})
+    archivematica_info.info({"version": __version__})
     environment_info.info(os.environ)
 
     return start_http_server(

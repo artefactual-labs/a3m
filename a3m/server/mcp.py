@@ -30,7 +30,7 @@ from platform import python_version
 
 from django.conf import settings
 
-from a3m.server import enduro
+from a3m import __version__
 from a3m.server import metrics
 from a3m.server import rpc_server
 from a3m.server import shared_dirs
@@ -65,7 +65,7 @@ def main(mode: ExecutionMode, shutdown_event=None):
             raise ValueError(f"mode {mode} is not supported")
 
     logger.info(
-        f"Starting a3m... (pid={os.getpid()} uid={os.getuid()} python={python_version()} mode={mode.name.lower()})"
+        f"Starting a3m... (version={__version__} pid={os.getpid()} uid={os.getuid()} python={python_version()} mode={mode.name.lower()})"
     )
 
     # Tracks whether a sigterm has been received or not
@@ -119,6 +119,8 @@ def main(mode: ExecutionMode, shutdown_event=None):
         rpc_thread.start()
         logger.info("Started gRPC server (%s)", settings.RPC_BIND_ADDRESS)
     elif mode is ExecutionMode.ENDURO:
+        from a3m.server import enduro
+
         worker = enduro.ActivityWorker(
             settings.CADENCE_SERVER,
             settings.CADENCE_DOMAIN,
