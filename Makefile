@@ -28,7 +28,7 @@ bootstrap:  ## Bootstrap a3m (new database).
 manage:  ## Run Django /manage.py on a3m, suppling <command> [options] as value to ARG, e.g., `make manage-a3m ARG=shell`
 	docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m $(ARG)
 
-migrations:  # Make Django migrations.
+migrations:  ## Make Django migrations.
 	docker-compose run --rm --user=$(CURRENT_UID) --entrypoint=/a3m/manage.py a3m makemigrations main fpr
 
 reset-migrations:
@@ -46,7 +46,7 @@ reset-migrations:
 logs:
 	docker-compose logs -f
 
-restart:  # Restart services
+restart:  ## Restart services
 	docker-compose restart a3m
 
 compile-requirements:  ## Run pip-compile
@@ -56,19 +56,31 @@ compile-requirements:  ## Run pip-compile
 db:
 	sqlite3 $(CURDIR)/hack/compose-volume/db.sqlite
 
-flush: flush-db flush-shared-dir bootstrap restart  # Delete ALL user data.
+flush: flush-db flush-shared-dir bootstrap restart  ## Delete ALL user data.
 
-flush-db:  # Flush SQLite database.
+flush-db:  ## Flush SQLite database.
 	docker-compose run --rm --no-deps --entrypoint sh a3m -c "rm -rf /home/a3m/.local/share/a3m/db.sqlite"
 
-flush-shared-dir:  # Flush shared directory including the database.
+flush-shared-dir:  ## Flush shared directory including the database.
 	docker-compose run --rm --no-deps --entrypoint sh a3m -c "rm -rf /home/a3m/.local/share/a3m/share/"
 
-amflow:  # See workflow.
+amflow:  ## See workflow.
 	amflow edit --file=a3m/assets/workflow.json
 
-protoc:  # Generate gRPC code.
+protoc:  ## Generate gRPC code.
 	python3 -m grpc_tools.protoc -I=. --python_out=. --grpc_python_out=. a3m/server/rpc/a3m.proto
 
 help:  ## Print this help message.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+publish: publish-clean  ## Publish to PyPI
+	pip install --upgrade twine wheel
+	python setup.py sdist
+	python setup.py bdist_wheel --universal
+	twine check dist/*
+	twine upload dist/* --repository-url https://upload.pypi.org/legacy/
+
+publish-clean:
+	rm -rf a3m.egg-info/
+	rm -rf build/
+	rm -rf dist/

@@ -40,7 +40,7 @@ mypy-extensions==0.4.3    # via -r requirements.txt, typing-inspect
 olefile==0.46             # via -r requirements.txt, opf-fido
 opf-fido==1.4.1           # via -r requirements.txt
 packaging==20.3           # via pytest
-pip-tools==5.1.2          # via -r requirements-dev.in
+pip-tools==5.2.0          # via -r requirements-dev.in
 pluggy==0.13.1            # via pytest
 ply==3.11                 # via -r requirements.txt, cadence-client, thriftrw
 prometheus_client==0.8.0  # via -r requirements.txt

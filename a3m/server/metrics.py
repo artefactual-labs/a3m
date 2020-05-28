@@ -11,8 +11,8 @@ from prometheus_client import Histogram
 from prometheus_client import Info
 from prometheus_client import start_http_server
 
+from a3m import __version__
 from a3m.common_metrics import TASK_DURATION_BUCKETS
-from a3m.version import get_full_version
 
 
 gearman_active_jobs_gauge = Gauge(
@@ -94,7 +94,7 @@ def init_labels(workflow):
 
 @skip_if_prometheus_disabled
 def start_prometheus_server():
-    archivematica_info.info({"version": get_full_version()})
+    archivematica_info.info({"version": __version__})
     environment_info.info(os.environ)
 
     return start_http_server(
