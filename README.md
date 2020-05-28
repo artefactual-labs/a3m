@@ -8,12 +8,19 @@
 
 ## a3m
 
+a3m is a lightweight version of Archivematica focused on AIP creation. It has neither external dependencies, integration with access sytems, search capabilities nor a graphical interface. It is ideal for workloads where you would typically use multiple Archivematica pipelines and implement additional workflows elsewhere.
+
+- [Status)(#status)
 - [Usage](#usage)
 - [Development](#development)
 
+### Status
+
+Experimental, a3m is still being refined. See [open and closed issues](https://github.com/artefactual-labs/a3m/issues).
+
 ### Usage
 
-Most of the use cases that we envision for a3m include the use of our Docker image because it includes all the tools and dependencies needed. It is possible to run a3m without Docker as long as you have Python, but a3m does not know how to install software dependencies for you automatically, e.g. 7-zip, ffmpeg, unar...
+In most cases, it is preferably to run a3m via our [Docker image](https://github.com/artefactual-labs/a3m/packages/194315) because it includes all the dependencies needed (unar, 7z, ffmpeg, clamav, etc...).
 
 <details>
 
