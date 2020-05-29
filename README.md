@@ -10,7 +10,7 @@
 
 a3m is a lightweight version of Archivematica focused on AIP creation. It has neither external dependencies, integration with access sytems, search capabilities nor a graphical interface. It is ideal for workloads where you would typically use multiple Archivematica pipelines and implement additional workflows elsewhere.
 
-- [Status)(#status)
+- [Status](#status)
 - [Usage](#usage)
 - [Development](#development)
 
