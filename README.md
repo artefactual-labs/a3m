@@ -123,12 +123,74 @@ You're ready to submit a transfer:
 
 Be aware that a3m has application dependencies that need to be available in the
 system path. The Docker image makes them all available while in this workflow
-you may have to ensure they're available manually.
+you will have to ensure they're available manually.
 
-Start checking out this repository and follow these steps:
+A3M runs specifically on the 3.7 version of Python. So for an Ubuntu/Debian Linux environment:
+
+    sudo apt install -y python3.7 python3.7-venv python3.7-dev
+    
+The following external tools are used to process files in A3M and must be installed on your system. For an Ubuntu/Debian Linux environment:
+ 
+[Siegfried](https://www.itforarchivists.com/siegfried) 
+
+    wget -qO - https://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add - 
+    
+    echo "deb http://dl.bintray.com/siegfried/debian wheezy main" | sudo tee -a /etc/apt/sources.list 
+    
+    sudo apt-get update && sudo apt-get install siegfried
+    
+[unar](https://software.opensuse.org/package/unar)
+
+    sudo apt-get install unar
+    
+[ffmpeg (ffprobe)](https://ffmpeg.org/ffprobe.html)
+
+    sudo apt-get install ffmpeg
+    
+[ExifTool](https://exiftool.org/)
+
+    https://packages.archivematica.org/1.11.x/ubuntu-externals/pool/main/libi/libimage-exiftool-perl/libimage-exiftool-perl_10.10-2~14.04_all.deb`
+    
+    sudo dkpg -i libimage-exiftool-perl_10.10-2~14.04_all.deb
+    
+[MediaInfo](https://mediaarea.net/en/MediaInfo)
+
+    sudo apt-get install mediainfo
+
+[Sleuthkit (fiwalk)](https://sleuthkit.org/)
+
+    sudo apt-get install sleuthkit
+    
+[Jhove](https://jhove.openpreservation.org/)
+
+    DEPENDENCIES: sudo apt-get ca-certificates-java java-common openjdk-8-jre-headless
+
+    https://packages.archivematica.org/1.11.x/ubuntu-externals/pool/main/j/jhove/jhove_1.20.1-6~18.04_all.deb
+
+    sudo dpkg -i jhove_1.20.1-6~18.04_all.deb
+
+[7-Zip](https://www.7-zip.org/)
+
+    sudo apt-get install pzip-full
+    
+[atool](https://www.nongnu.org/atool/)
+
+    sudo apt-get install atool
+
+[test](https://www.gnu.org/software/coreutils/coreutils.html)
+
+    sudo apt-get install coreutils
+    
+Check that `usr/bin` is present in your system path (`echo $PATH`) and that each tool is available from there (`which [toolname]`)
+
+Check out this repository:
+
+    git clone --depth 1 https://github.com/artefactual-labs/a3m.git
+        
+Then follow these steps:
 
     # Create virtual environment and activate it
-    python -m venv .venv
+    virtualenv --python=python3.7 .venv
     source .venv/bin/activate
 
     # Install the dependencies
