@@ -127,11 +127,11 @@ Be aware that a3m has application dependencies that need to be available in the
 system path. The Docker image makes them all available while in this workflow
 you will have to ensure they're available manually.
 
-A3M runs specifically on the 3.7 version of Python. So for an Ubuntu/Debian Linux environment:
+a3m needs Python 3.7 or newer. So for an Ubuntu/Debian Linux environment:
 
     sudo apt install -y python3.7 python3.7-venv python3.7-dev
     
-The following external tools are used to process files in A3M and must be installed on your system. For an Ubuntu/Debian Linux environment:
+The following external tools are used to process files in a3m and must be installed on your system. For an Ubuntu/Debian Linux environment:
  
 [Siegfried](https://www.itforarchivists.com/siegfried) 
 
