@@ -1,5 +1,7 @@
 <p align="left">
   <a href="https://github.com/artefactual-labs/a3m/releases/latest"><img src="https://img.shields.io/github/v/release/artefactual-labs/a3m.svg?color=orange"/></a>
+  <a href="https://pepy.tech/project/a3m/"><img src="https://pepy.tech/badge/a3m" alt="Downloads"></a>
+  <a href="https://pypi.org/project/a3m"><img src="https://img.shields.io/pypi/pyversions/a3m.svg" alt="Versions"></a>
   <img src="https://github.com/artefactual-labs/a3m/workflows/Tests/badge.svg"/>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/evercam/evercam-dashboard"/></a>
   <a href="https://codecov.io/gh/artefactual-labs/a3m"><img src="https://img.shields.io/codecov/c/github/artefactual-labs/a3m"/></a>
