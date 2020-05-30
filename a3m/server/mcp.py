@@ -55,7 +55,7 @@ class ExecutionMode(Enum):
         return str(self.name)
 
 
-def main(mode, shutdown_event=None):
+def main(mode: ExecutionMode, shutdown_event=None):
     if mode not in ExecutionMode:
         if not isinstance(mode, str):
             raise ValueError("mode not supported")
