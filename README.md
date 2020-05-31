@@ -3,7 +3,6 @@
   <a href="https://pepy.tech/project/a3m/"><img src="https://pepy.tech/badge/a3m" alt="Downloads"></a>
   <a href="https://pypi.org/project/a3m"><img src="https://img.shields.io/pypi/pyversions/a3m.svg" alt="Versions"></a>
   <a href="https://github.com/artefactual-labs/a3m/actions?query=workflow%3ATests"><img src="https://github.com/artefactual-labs/a3m/workflows/Tests/badge.svg"/></a>
-  <a href="LICENSE"><img src="https://img.shields.io/pypi/l/a3m"/></a>
   <a href="https://codecov.io/gh/artefactual-labs/a3m"><img src="https://img.shields.io/codecov/c/github/artefactual-labs/a3m"/></a>
   <a href="https://pyup.io/repos/github/artefactual-labs/a3m/"><img src="https://pyup.io/repos/github/artefactual-labs/a3m/shield.svg" alt="Updates" /></a>
 </p>
@@ -22,7 +21,11 @@ Experimental, a3m is still being refined. See [open and closed issues](https://g
 
 ### Usage
 
-In most cases, it is preferably to run a3m via our [Docker image](https://github.com/artefactual-labs/a3m/packages/194315) because it includes all the dependencies needed (unar, 7z, ffmpeg, clamav, etc...).
+You can install a3m via PyPI:
+
+    pip install a3m
+
+However, it is preferably to run a3m via our [Docker image](https://github.com/artefactual-labs/a3m/packages/194315) because it includes all the dependencies needed (unar, 7z, ffmpeg, clamav, etc...).
 
 <details>
 
@@ -78,6 +81,10 @@ a3m embeds an activity worker suited for [Enduro](https://github.com/artefactual
 Enduro uses object storage (S3) to share transfers with a3m activity workers. Tasks are dispatched via an intermediate persistent queue that a3m polls.
 
     docker run --rm --env="A3M_CADENCE_SERVER=127.0.0.1:12345" docker.pkg.github.com/artefactual-labs/a3m/a3m:main --mode="enduro"
+
+If you use PyPI, install with:
+
+    pip install a3m[enduro]
 
 </details>
 
