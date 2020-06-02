@@ -72,14 +72,6 @@ db_retry_time_counter = Counter(
     ),
     ["description"],
 )
-ss_api_time_counter = Counter(
-    "common_ss_api_request_duration_seconds",
-    (
-        "Total time waiting on the Storage Service API in seconds, labeled by "
-        "function name"
-    ),
-    ["function"],
-)
 
 
 @contextmanager

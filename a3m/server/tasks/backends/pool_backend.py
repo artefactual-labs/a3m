@@ -4,11 +4,11 @@ processing, and returns results.
 """
 import concurrent
 import logging
-import pickle
 import uuid
 
 from a3m.client.mcp import execute_command
 from a3m.client.mcp import get_supported_modules
+from a3m.client.metrics import init_counter_labels
 from a3m.server import metrics
 from a3m.server.db import auto_close_old_connections
 from a3m.server.tasks.backends.base import TaskBackend
@@ -21,13 +21,13 @@ logger = logging.getLogger(__name__)
 class PoolTaskBackend(TaskBackend):
     """Submits tasks to the pool.
 
-    Tasks are batched into BATCH_SIZE groups (default 128), pickled and sent to
-    MCPClient. This adds some complexity but saves a lot of overhead.
-
-    TODO: factor out code shared with GearmanTaskBackend.
+    Tasks are batched into BATCH_SIZE groups (default 128) and sent to the
+    client. This adds some complexity but saves a lot of overhead.
     """
 
     def __init__(self):
+        init_counter_labels()
+
         # Having multiple threads would be equivalent to deploying multiple
         # MCPClient instances in Archivematica which is known to be problematic.
         # Let's stick to one for now.
@@ -121,28 +121,25 @@ class PoolTaskBatch:
     @auto_close_old_connections()
     def run(self, supported_modules, job_name, payload):
         gearman_job = FakeGearmanJob(job_name, payload)
-        result = execute_command(supported_modules, None, gearman_job)
+        result = execute_command(supported_modules, gearman_job)
         return self, result
 
     def submit(self, executor, supported_modules, job):
         # Log tasks to DB, before submitting the batch, as mcpclient then updates them
         Task.bulk_log(self.tasks, job)
 
-        data = {"tasks": {}}
-        for task in self.tasks:
-            task_uuid = str(task.uuid)
-            data["tasks"][task_uuid] = self.serialize_task(task)
-
-        pickled_data = pickle.dumps(data)
+        data = {
+            "tasks": {str(task.uuid): self.serialize_task(task) for task in self.tasks}
+        }
 
         self.future = executor.submit(
-            self.run, supported_modules, job.name.encode("utf8"), pickled_data
+            self.run, supported_modules, job.name.encode("utf8"), data
         )
 
         logger.debug("Submitted pool job %s (%s)", self.uuid, job.name)
 
     def update_task_results(self, results):
-        result = pickle.loads(results)["task_results"]
+        result = results["task_results"]
         for task in self.tasks:
             task_id = str(task.uuid)
             task_result = result[task_id]
@@ -162,6 +159,7 @@ class PoolTaskBatch:
 
 
 class FakeGearmanJob:
+    # A3M-TODO: convert into data class?
     def __init__(self, task, data):
         self.task = task
         self.data = data

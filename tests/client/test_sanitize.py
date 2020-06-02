@@ -144,18 +144,9 @@ def verify_event_details(event):
     NUMBER_OF_EXPECTED_AGENTS = 2
     # Agent values we can test against. Three agents, which should be,
     # preservation system, repository, and user.
-    AGENT_IDENTIFIER_VALUES = [
-        "Archivematica-1.10",
-        "エズメレルダ",
-    ]
-    AGENT_IDENTIFIER_TYPES = [
-        "preservation system",
-        "repository code",
-    ]
-    AGENT_NAMES = [
-        "Archivematica",
-        "Artefactual Systems Corporate Archive",
-    ]
+    AGENT_IDENTIFIER_VALUES = ["Archivematica-1.10", "エズメレルダ"]
+    AGENT_IDENTIFIER_TYPES = ["preservation system", "repository code"]
+    AGENT_NAMES = ["Archivematica", "Artefactual Systems Corporate Archive"]
     AGENT_TYPES = ["software", "organization", "Archivematica user"]
 
     EVENT_DETAIL = (
@@ -195,11 +186,7 @@ class TestSanitize(TempDirMixin, TestCase):
         """Load the various database fixtures required for our tests."""
         agents_fixtures_dir = "microservice_agents"
         agents = os.path.join(agents_fixtures_dir, "microservice_agents.json")
-        fixture_files = [
-            "transfer.json",
-            "files-transfer-unicode.json",
-            agents,
-        ]
+        fixture_files = ["transfer.json", "files-transfer-unicode.json", agents]
         fixtures = [os.path.join(THIS_DIR, "fixtures", p) for p in fixture_files]
         with django_db_blocker.unblock():
             for fixture in fixtures:

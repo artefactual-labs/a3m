@@ -99,7 +99,7 @@ def validate_processing_configs(workflow):
 
 def load_processing_xml(package_path, workflow):
     """Load the processing configuration made available in the package."""
-    return parse_processing_xml(Path(package_path, PROCESSING_XML_FILE), workflow,)
+    return parse_processing_xml(Path(package_path, PROCESSING_XML_FILE), workflow)
 
 
 def load_preconfigured_choice(package_path, workflow_link_id, workflow):

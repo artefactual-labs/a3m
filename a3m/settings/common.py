@@ -36,7 +36,6 @@ CONFIG_MAPPING = {
         "option": "rejected_directory",
         "type": "string",
     },
-    "gearman_server": {"section": "a3m", "option": "gearman_server", "type": "string"},
     "capture_client_script_output": {
         "section": "a3m",
         "option": "capture_client_script_output",
@@ -144,7 +143,6 @@ CONFIG_MAPPING = {
 CONFIG_DEFAULTS = """[a3m]
 
 debug = False
-gearman_server = localhost:4730
 batch_size = 128
 rpc_threads = 4
 prometheus_bind_address =
@@ -316,7 +314,6 @@ def concurrent_packages_default():
     return int(math.ceil(cpu_count / 2))
 
 
-GEARMAN_SERVER = config.get("gearman_server")
 BATCH_SIZE = config.get("batch_size")
 CONCURRENT_PACKAGES = config.get(
     "concurrent_packages", default=concurrent_packages_default()
@@ -336,7 +333,7 @@ DEFAULT_CHECKSUM_ALGORITHM = "sha256"
 RPC_BIND_ADDRESS = config.get("rpc_bind_address")
 
 
-# Cadence
+# Enduro activity worker (Cadence)
 
 CADENCE_SERVER = config.get("cadence_server")
 CADENCE_DOMAIN = config.get("cadence_domain")
@@ -377,12 +374,12 @@ S3_ADDRESSING_STYLE = config.get("s3_addressing_style")
 S3_SIGNATURE_VERSION = config.get("s3_signature_version")
 S3_BUCKET = config.get("s3_bucket")
 
+# ~ S3 config example ~
+# S3_ENDPOINT_URL = "https://play.min.io"
+# S3_USE_SSL = True
+# S3_ACCESS_KEY_ID = "Q3AM3UQ867SPQQA43P2F"
+# S3_SECRET_ACCESS_KEY = "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
+# S3_BUCKET = "a3m"
+
 # A3M-TODO: fix this
 INSTANCE_ID = "fec7bcf7-45db-4a22-8ceb-e94377db3476"
-
-
-S3_ENDPOINT_URL = "https://play.min.io"
-S3_USE_SSL = True
-S3_ACCESS_KEY_ID = "Q3AM3UQ867SPQQA43P2F"
-S3_SECRET_ACCESS_KEY = "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
-S3_BUCKET = "000012345"

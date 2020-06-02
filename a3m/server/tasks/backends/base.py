@@ -5,8 +5,6 @@ from django.conf import settings
 
 class TaskBackend(metaclass=abc.ABCMeta):
     """Handles out of process `Task` execution.
-
-    Currently we only have one backend, `GearmanTaskBackend`.
     """
 
     # The number of files we'll pack into each MCP Client job.  Chosen somewhat

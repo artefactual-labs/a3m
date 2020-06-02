@@ -4,7 +4,6 @@ Exposes various metrics via Prometheus.
 import configparser
 import datetime
 import functools
-import os
 
 from django.conf import settings
 from django.db.models import Sum
@@ -12,10 +11,7 @@ from django.utils import timezone
 from prometheus_client import Counter
 from prometheus_client import Gauge
 from prometheus_client import Histogram
-from prometheus_client import Info
-from prometheus_client import start_http_server
 
-from a3m import __version__
 from a3m.client import MODULES_FILE
 from a3m.common_metrics import PACKAGE_FILE_COUNT_BUCKETS
 from a3m.common_metrics import PACKAGE_SIZE_BUCKETS
@@ -54,51 +50,38 @@ task_execution_time_histogram = Histogram(
     ["script_name"],
     buckets=TASK_DURATION_BUCKETS,
 )
-waiting_for_gearman_time_counter = Counter(
-    "mcpclient_gearman_sleep_time_seconds",
-    "Total worker sleep after gearman error times in seconds",
-)
 
 transfer_started_counter = Counter(
-    "mcpclient_transfer_started_total",
-    "Number of Transfers started, by transfer type",
-    ["transfer_type"],
+    "mcpclient_transfer_started_total", "Number of Transfers started"
 )
 transfer_started_timestamp = Gauge(
-    "mcpclient_transfer_started_timestamp",
-    "Timestamp of most recent transfer started, by transfer type",
-    ["transfer_type"],
+    "mcpclient_transfer_started_timestamp", "Timestamp of most recent transfer started"
 )
 transfer_completed_counter = Counter(
-    "mcpclient_transfer_completed_total",
-    "Number of Transfers completed, by transfer type",
-    ["transfer_type"],
+    "mcpclient_transfer_completed_total", "Number of Transfers completed"
 )
 transfer_completed_timestamp = Gauge(
     "mcpclient_transfer_completed_timestamp",
-    "Timestamp of most recent transfer completed, by transfer type",
-    ["transfer_type"],
+    "Timestamp of most recent transfer completed",
 )
 transfer_error_counter = Counter(
     "mcpclient_transfer_error_total",
-    "Number of transfer failures, by transfer type, error type",
-    ["transfer_type", "failure_type"],
+    "Number of transfer failures, by error type",
+    ["failure_type"],
 )
 transfer_error_timestamp = Gauge(
     "mcpclient_transfer_error_timestamp",
-    "Timestamp of most recent transfer failure, by transfer type, error type",
-    ["transfer_type", "failure_type"],
+    "Timestamp of most recent transfer failure, by error type",
+    ["failure_type"],
 )
 transfer_files_histogram = Histogram(
     "mcpclient_transfer_files",
-    "Histogram of number of files included in transfers, by transfer type",
-    ["transfer_type"],
+    "Histogram of number of files included in transfers",
     buckets=PACKAGE_FILE_COUNT_BUCKETS,
 )
 transfer_size_histogram = Histogram(
     "mcpclient_transfer_size_bytes",
-    "Histogram of number bytes in transfers, by transfer type",
-    ["transfer_type"],
+    "Histogram of number bytes in transfers",
     buckets=PACKAGE_SIZE_BUCKETS,
 )
 
@@ -153,16 +136,10 @@ aip_original_file_timestamps_histogram = Histogram(
     + [float("inf")],
 )
 
-archivematica_info = Info("archivematica_client_version", "Archivematica version info")
-environment_info = Info(
-    "archivematica_client_environment_variables", "Environment Variables"
-)
-
 
 # There's no central place to pull these constants from currently
 FILE_GROUPS = ("original", "derivative", "metadata")
 PACKAGE_FAILURE_TYPES = ("fail", "reject")
-TRANSFER_TYPES = ("Unknown",)
 
 
 def skip_if_prometheus_disabled(func):
@@ -187,21 +164,9 @@ def init_counter_labels():
         job_error_timestamp.labels(script_name=script_name)
         task_execution_time_histogram.labels(script_name=script_name)
 
-    for transfer_type in TRANSFER_TYPES:
-        transfer_started_counter.labels(transfer_type=transfer_type)
-        transfer_started_timestamp.labels(transfer_type=transfer_type)
-        transfer_completed_counter.labels(transfer_type=transfer_type)
-        transfer_completed_timestamp.labels(transfer_type=transfer_type)
-        transfer_files_histogram.labels(transfer_type=transfer_type)
-        transfer_size_histogram.labels(transfer_type=transfer_type)
-
-        for failure_type in PACKAGE_FAILURE_TYPES:
-            transfer_error_counter.labels(
-                transfer_type=transfer_type, failure_type=failure_type
-            )
-            transfer_error_timestamp.labels(
-                transfer_type=transfer_type, failure_type=failure_type
-            )
+    for failure_type in PACKAGE_FAILURE_TYPES:
+        transfer_error_counter.labels(failure_type=failure_type)
+        transfer_error_timestamp.labels(failure_type=failure_type)
 
     for failure_type in PACKAGE_FAILURE_TYPES:
         sip_error_counter.labels(failure_type=failure_type)
@@ -212,18 +177,6 @@ def init_counter_labels():
             aip_files_stored_by_file_group_and_format_counter.labels(
                 file_group=file_group, format_name=format_name
             )
-
-
-@skip_if_prometheus_disabled
-def start_prometheus_server():
-    init_counter_labels()
-
-    archivematica_info.info({"version": __version__})
-    environment_info.info(os.environ)
-
-    return start_http_server(
-        settings.PROMETHEUS_BIND_PORT, addr=settings.PROMETHEUS_BIND_ADDRESS
-    )
 
 
 @skip_if_prometheus_disabled
@@ -312,9 +265,8 @@ def aip_stored(sip_uuid, size):
 
 @skip_if_prometheus_disabled
 def transfer_started():
-    transfer_type = "Unknown"
-    transfer_started_counter.labels(transfer_type=transfer_type).inc()
-    transfer_started_timestamp.labels(transfer_type=transfer_type).set_to_current_time()
+    transfer_started_counter.inc()
+    transfer_started_timestamp.set_to_current_time()
 
 
 @skip_if_prometheus_disabled
@@ -324,34 +276,21 @@ def transfer_completed(transfer_uuid):
     except Transfer.DoesNotExist:
         return
 
-    transfer_type = transfer.type or "Unknown"
-
-    transfer_completed_counter.labels(transfer_type=transfer_type).inc()
-    transfer_completed_timestamp.labels(
-        transfer_type=transfer_type
-    ).set_to_current_time()
+    transfer_completed_counter.inc()
+    transfer_completed_timestamp.set_to_current_time()
 
     file_queryset = File.objects.filter(transfer=transfer)
     file_count = file_queryset.count()
-    transfer_files_histogram.labels(transfer_type=transfer_type).observe(file_count)
+    transfer_files_histogram.observe(file_count)
 
     transfer_size = file_queryset.aggregate(total_size=Sum("size"))
-    transfer_size_histogram.labels(transfer_type=transfer_type).observe(
-        transfer_size["total_size"]
-    )
+    transfer_size_histogram.observe(transfer_size["total_size"])
 
 
 @skip_if_prometheus_disabled
-def transfer_failed(transfer_type, failure_type):
-    if not transfer_type:
-        transfer_type = "Unknown"
-
-    transfer_error_counter.labels(
-        transfer_type=transfer_type, failure_type=failure_type
-    ).inc()
-    transfer_error_timestamp.labels(
-        transfer_type=transfer_type, failure_type=failure_type
-    ).set_to_current_time()
+def transfer_failed(failure_type):
+    transfer_error_counter.labels(failure_type=failure_type).inc()
+    transfer_error_timestamp.labels(failure_type=failure_type).set_to_current_time()
 
 
 @skip_if_prometheus_disabled

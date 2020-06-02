@@ -95,9 +95,7 @@ class ClientScriptJob(Job, metaclass=abc.ABCMeta):
         self.package.reload()
         self.save_to_db()
 
-        self.command_replacements = self.package.get_replacement_mapping(
-            filter_subdir_path=self.link.config.get("filter_subdir")
-        )
+        self.command_replacements = self.package.get_replacement_mapping()
         if self.job_chain.context is not None:
             self.command_replacements.update(self.job_chain.context)
 

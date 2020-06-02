@@ -10,19 +10,6 @@ def test_handle_batch_task_replaces_non_ascii_arguments(mocker):
     mocker.patch("a3m.client.mcp.Job")
     mocker.patch("a3m.client.mcp.Task")
     mocker.patch("a3m.client.mcp.retryOnFailure")
-    mocker.patch(
-        "pickle.loads",
-        return_value={
-            "tasks": {
-                "some_task_uuid": {
-                    "uuid": "some_task_uuid",
-                    "arguments": "montréal %taskUUID% %jobCreatedDate%",
-                    "createdDate": "some montréal datetime",
-                    "wants_output": False,
-                }
-            }
-        },
-    )
 
     # The mocked module will not have a `concurrent_instances` attribute
     mocker.patch(
@@ -33,9 +20,21 @@ def test_handle_batch_task_replaces_non_ascii_arguments(mocker):
     _parse_command_line = mocker.patch("a3m.client.mcp._parse_command_line")
 
     # Mock the two parameters sent to handle_batch_task
-    gearman_job_mock = mocker.Mock()
+    batch_payload = mocker.Mock()
+    batch_payload.payload = "tásk".encode()
+    batch_payload.data = {
+        "tasks": {
+            "some_task_uuid": {
+                "uuid": "some_task_uuid",
+                "arguments": "montréal %taskUUID% %jobCreatedDate%",
+                "createdDate": "some montréal datetime",
+                "wants_output": False,
+            }
+        }
+    }
     supported_modules_mock = mocker.Mock(**{"get.side_effect": "some_module_name"})
-    handle_batch_task(gearman_job_mock, supported_modules_mock)
+
+    handle_batch_task(batch_payload, supported_modules_mock)
 
     # Check that string replacement were successful
     _parse_command_line.assert_called_once_with(

@@ -1,5 +1,8 @@
 """
-Archivematica Client (Gearman Worker)
+Archivematica Client.
+
+This module knows how to process batches dispatched by the workflow engine. A
+batch is made of jobs
 
 This executable does the following.
 
@@ -48,14 +51,8 @@ task to run next).
 import configparser
 import importlib
 import logging
-import os
-import pickle
 import shlex
-import time
-from functools import partial
-from socket import gethostname
 
-import gearman
 from django.conf import settings as django_settings
 from django.db import transaction
 
@@ -92,14 +89,15 @@ def get_supported_modules():
 
 
 @auto_close_db
-def handle_batch_task(gearman_job, supported_modules):
-    module_name = supported_modules.get(gearman_job.task.decode("utf8"))
-    gearman_data = pickle.loads(gearman_job.data)
+def handle_batch_task(payload, supported_modules):
+    task_name = payload.task.decode("utf8")
+    module_name = supported_modules.get(task_name)
+    tasks = payload.data["tasks"]
 
     utc_date = getUTCDate()
     jobs = []
-    for task_uuid in gearman_data["tasks"]:
-        task_data = gearman_data["tasks"][task_uuid]
+    for task_uuid in tasks:
+        task_data = tasks[task_uuid]
         arguments = task_data["arguments"]
 
         replacements = list(replacement_dict.items()) + list(
@@ -114,7 +112,7 @@ def handle_batch_task(gearman_job, supported_modules):
             arguments = arguments.replace(var, val)
 
         job = Job(
-            gearman_job.task.decode("utf8"),
+            task_name,
             task_data["uuid"],
             _parse_command_line(arguments),
             caller_wants_output=task_data["wants_output"],
@@ -147,10 +145,8 @@ def _shlex_unescape(s):
     return "".join(c1 for c1, c2 in zip(s, s[1:] + ".") if (c1, c2) != ("\\", "`"))
 
 
-def fail_all_tasks(gearman_job, reason):
-    gearman_data = pickle.loads(gearman_job.data)
-
-    result = {}
+def fail_all_tasks(batch_payload, reason):
+    tasks = batch_payload.data["tasks"]
 
     # Give it a best effort to write out an error for each task.  Obviously if
     # we got to this point because the DB is unavailable this isn't going to
@@ -158,35 +154,30 @@ def fail_all_tasks(gearman_job, reason):
     try:
 
         def fail_all_tasks_callback():
-            for task_uuid in gearman_data["tasks"]:
+            for task_uuid in tasks:
                 Task.objects.filter(taskuuid=task_uuid).update(
                     stderror=str(reason), exitcode=1, endtime=getUTCDate()
                 )
 
-            retryOnFailure("Fail all tasks", fail_all_tasks_callback)
-
+        retryOnFailure("Fail all tasks", fail_all_tasks_callback)
     except Exception as e:
         logger.exception("Failed to update tasks in DB: %s", e)
 
-    # But we can at least send an exit code back to Gearman
-    for task_uuid in gearman_data["tasks"]:
-        result[task_uuid] = {"exitCode": 1}
-
-    return pickle.dumps({"task_results": result})
+    # But we can at least send an exit code back to the server.
+    return {"task_results": {task_id: {"exitCode": 1} for task_id in tasks}}
 
 
 @auto_close_db
-def execute_command(supported_modules, gearman_worker, gearman_job):
-    """Execute the command encoded in ``gearman_job`` and return its exit code,
-    standard output and standard error as a pickled dict.
+def execute_command(supported_modules, batch_payload):
+    """Execute the command encoded in ``batch_payload`` and return its exit
+    code, standard output and standard error as a dictionary.
     """
-    logger.debug("\n\n*** RUNNING TASK: %s", gearman_job.task.decode("utf8"))
+    task_name = batch_payload.task.decode("utf8")
+    logger.debug("\n\n*** RUNNING TASK: %s", task_name)
 
-    with metrics.task_execution_time_histogram.labels(
-        script_name=gearman_job.task.decode("utf8")
-    ).time():
+    with metrics.task_execution_time_histogram.labels(script_name=task_name).time():
         try:
-            jobs = handle_batch_task(gearman_job, supported_modules)
+            jobs = handle_batch_task(batch_payload, supported_modules)
             results = {}
 
             def write_task_results_callback():
@@ -225,74 +216,19 @@ def execute_command(supported_modules, gearman_worker, gearman_job):
                             results[job.UUID]["stderror"] = job.get_stderr()
 
                         if exit_code == 0:
-                            metrics.job_completed(gearman_job.task.decode("utf8"))
+                            metrics.job_completed(task_name)
                         else:
-                            metrics.job_failed(gearman_job.task.decode("utf8"))
+                            metrics.job_failed(task_name)
 
             retryOnFailure("Write task results", write_task_results_callback)
 
-            return pickle.dumps({"task_results": results})
+            return {"task_results": results}
         except SystemExit:
             logger.error(
                 "IMPORTANT: Task %s attempted to call exit()/quit()/sys.exit(). This module should be fixed!",
-                gearman_job.task.decode("utf8"),
+                task_name,
             )
-            return fail_all_tasks(gearman_job, "Module attempted exit")
+            return fail_all_tasks(batch_payload, "Module attempted exit")
         except Exception as e:
-            logger.exception(
-                "Exception while processing task %s: %s",
-                gearman_job.task.decode("utf8"),
-                e,
-            )
-            return fail_all_tasks(gearman_job, e)
-
-
-def start_gearman_worker():
-    """Setup a gearman client, for the thread."""
-    gm_worker = gearman.GearmanWorker([django_settings.GEARMAN_SERVER])
-    host_id = f"{gethostname()}_{os.getpid()}"
-    gm_worker.set_client_id(host_id)
-    supported_modules = get_supported_modules()
-    task_handler = partial(execute_command, supported_modules)
-    for client_script in supported_modules:
-        gm_worker.register_task(client_script, task_handler)
-    fail_max_sleep = 30
-    fail_sleep = 1
-    fail_sleep_incrementor = 2
-    while True:
-        try:
-            gm_worker.work()
-        except gearman.errors.ServerUnavailable as inst:
-            logger.error(
-                "Gearman server is unavailable: %s. Retrying in %d" " seconds.",
-                inst.args,
-                fail_sleep,
-            )
-            metrics.waiting_for_gearman_time_counter.inc(fail_sleep)
-            time.sleep(fail_sleep)
-
-            if fail_sleep < fail_max_sleep:
-                fail_sleep += fail_sleep_incrementor
-        except Exception as e:
-            # Generally execute_command should have caught and dealt with any
-            # errors gracefully, but we should never let an exception take down
-            # the whole process, so one last catch-all.
-            logger.exception(
-                "Unexpected error while handling gearman job: %s."
-                " Retrying in %d seconds.",
-                e,
-                fail_sleep,
-            )
-            metrics.waiting_for_gearman_time_counter.inc(fail_sleep)
-            time.sleep(fail_sleep)
-            if fail_sleep < fail_max_sleep:
-                fail_sleep += fail_sleep_incrementor
-
-
-def main():
-    metrics.start_prometheus_server()
-
-    try:
-        start_gearman_worker()
-    except (KeyboardInterrupt, SystemExit):
-        logger.debug("Received keyboard interrupt, quitting.")
+            logger.exception("Exception while processing task %s: %s", task_name, e)
+            return fail_all_tasks(batch_payload, e)

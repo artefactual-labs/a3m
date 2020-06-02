@@ -177,9 +177,6 @@ class FSEntriesTree:
         self.load_dir_uuids_from_db()
         self.check_for_missing_file_uuids()
 
-    def get_relative_path(self, path):
-        return os.path.relpath(path, start=self.root_path)
-
     def build_tree(self, path, parent=None):
         dir_entries = sorted(os.scandir(path), key=lambda d: d.name)
         for dir_entry in dir_entries:
