@@ -168,7 +168,7 @@ class UpdateContextDecisionJob(DecisionJob):
         return choices
 
     @auto_close_old_connections()
-    def decide(self, choice, user_id=None):
+    def decide(self, choice):
         # TODO: DRY with sibling classes
         if choice not in self.get_choices():
             raise ValueError(f"{choice} is not one of the available choices")

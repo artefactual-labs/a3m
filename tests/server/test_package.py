@@ -30,11 +30,7 @@ def package_queue(request):
 @pytest.fixture
 def package(request, db, package_queue, workflow):
     return Package.create_package(
-        package_queue,
-        package_queue.executor,
-        workflow,
-        "name",
-        "file:///tmp/foobar.gz",
+        package_queue, package_queue.executor, workflow, "name", "file:///tmp/foobar.gz"
     )
 
 

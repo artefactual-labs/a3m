@@ -257,7 +257,7 @@ class Package:
             self.current_path = transfer.currentlocation
             self.processing_configuration = transfer.processing_configuration
 
-    def get_replacement_mapping(self, filter_subdir_path=None):
+    def get_replacement_mapping(self):
         mapping = BASE_REPLACEMENTS.copy()
         mapping.update(
             {

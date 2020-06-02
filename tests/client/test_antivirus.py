@@ -96,7 +96,7 @@ def setup_test_scan_file_mocks(
     )
 
     mocker.patch(
-        "a3m.client.clientScripts.virus_scan.get_scanner", return_value=deps.scanner,
+        "a3m.client.clientScripts.virus_scan.get_scanner", return_value=deps.scanner
     )
 
     return deps

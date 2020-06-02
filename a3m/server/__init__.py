@@ -12,8 +12,8 @@ It makes use of the following major abstractions:
     * `jobs.chain.JobChain` handles passing context between jobs, and determining the
       next `Job` to be executed based on the workflow chain
     * `tasks.Task` corresponds to a single command to be executed by MCPClient
-    * `tasks.backends.GearmanTaskBackend` handles passing tasks to MCPClient via
-      gearman (in batches)
+    * `tasks.backends.PoolTaskBackend` handles passing tasks to the executor
+      (in batches)
     * `packages.Package` subclasses `SIP` and `Transfer` handle package
        related logic
     * a `concurrent.futures.ThreadPoolExecutor` handles out of process execution
