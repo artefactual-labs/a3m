@@ -16,7 +16,7 @@ chardet==3.0.4            # via requests
 clamd==1.0.2              # via -r requirements.in
 click==7.1.2              # via -r requirements.in
 dataclasses-json==0.4.2   # via cadence-client
-django==2.2.12            # via -r requirements.in
+django==3.0.7            # via -r requirements.in
 docutils==0.15.2          # via botocore
 future==0.18.2            # via metsrw
 gearman3==0.2.0           # via -r requirements.in
