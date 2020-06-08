@@ -17,7 +17,7 @@ clamd==1.0.2              # via -r requirements.txt
 click==7.1.2              # via -r requirements.txt, pip-tools
 coverage==5.1             # via -r requirements-dev.in, pytest-cov
 dataclasses-json==0.4.2   # via -r requirements.txt, cadence-client
-django==2.2.12            # via -r requirements.txt
+django==3.0.7            # via -r requirements.txt
 docutils==0.15.2          # via -r requirements.txt, botocore
 future==0.18.2            # via -r requirements.txt, metsrw
 gearman3==0.2.0           # via -r requirements.txt
