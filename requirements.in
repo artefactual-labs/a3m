@@ -1,27 +1,27 @@
 # Used by client modules
-ammcpc==0.1.3
-metsrw==0.3.15
-bagit==1.7.0
-opf-fido==1.4.1
-clamd==1.0.2
-lxml==4.5.1
-unidecode==1.1.1
+ammcpc~=0.1
+metsrw~=0.3
+bagit~=1.7
+opf-fido~=1.4
+clamd~=1.0
+lxml~=4.5
+unidecode~=1.1
 
 # Django ORM
-Django==2.2.13  # pyup: <3.0
+Django~=2.2 # pyup: <3.0
 
 # Infra
-prometheus_client==0.8.0
-requests==2.23.0
-appdirs==1.4.4
-click==7.1.2
-tenacity==6.2.0
-boto3==1.13.25
--e git+https://github.com/firdaus/cadence-python.git@1.0.0-beta2#egg=cadence-client
+prometheus_client~=0.8
+requests~=2.24
+appdirs~=1.4
+click~=7.1
+tenacity~=6.2
+boto3~=1.14
+cadence-client>=1.0.0b3
 
 # MCPServer
-jsonschema==3.2.0
-grpcio==1.29.0
-grpcio-reflection==1.29.0
-grpcio-status==1.29.0
-googleapis-common-protos==1.52.0
+jsonschema~=3.2
+grpcio~=1.31
+grpcio-reflection~=1.31
+grpcio-status~=1.31
+googleapis-common-protos~=1.52

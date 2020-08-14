@@ -1,10 +1,10 @@
 -rrequirements.txt
 
-pytest==5.4.2
-pytest-cov==2.9.0
-pytest-django==3.9.0
-pytest-mock==3.1.0
-vcrpy==4.0.2
-coverage==5.1
-pip-tools==5.2.0
-grpcio-tools==1.29.0
+pytest
+pytest-cov
+pytest-django
+pytest-mock
+vcrpy
+coverage
+pip-tools
+grpcio-tools

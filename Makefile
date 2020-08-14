@@ -49,9 +49,20 @@ logs:
 restart:  ## Restart services
 	docker-compose restart a3m
 
-compile-requirements:  ## Run pip-compile
+pip-compile:  # Compile pip requirements
 	pip-compile --output-file requirements.txt requirements.in
 	pip-compile --output-file requirements-dev.txt requirements-dev.in
+
+pip-upgrade:  # Upgrade pip requirements
+	pip-compile --upgrade --output-file requirements.txt requirements.in
+	pip-compile --upgrade --output-file requirements-dev.txt requirements-dev.in
+
+pip-sync:  # Sync virtualenv
+	pip-sync requirements-dev.txt
+
+pip-ensure:  # Compile, upgrade and install requirements
+	$(MAKE) pip-upgrade pip-sync
+	pip list --outdated
 
 db:
 	sqlite3 $(CURDIR)/hack/compose-volume/db.sqlite
