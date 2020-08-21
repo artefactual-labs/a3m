@@ -9,7 +9,7 @@ appdirs==1.4.4            # via -r requirements.txt
 attrs==19.3.0             # via -r requirements.txt, jsonschema, pytest
 bagit==1.7.0              # via -r requirements.txt
 boto3==1.14.47            # via -r requirements.txt
-botocore==1.17.42         # via -r requirements.txt, boto3, s3transfer
+botocore==1.17.47         # via -r requirements.txt, boto3, s3transfer
 cadence-client==1.0.0b3   # via -r requirements.txt
 certifi==2020.6.20        # via -r requirements.txt, requests
 chardet==3.0.4            # via -r requirements.txt, requests
