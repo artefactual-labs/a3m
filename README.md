@@ -71,23 +71,6 @@ runner.submit_package("https://...", wait=True)
 
 </details>
 
-<details>
-
-<summary>Enduro activity worker</summary>
-<hr/>
-
-a3m embeds an activity worker suited for [Enduro](https://github.com/artefactual-labs/enduro). It is work in progress (see [#40](https://github.com/artefactual-labs/a3m/issues/40) for more). The goal is to add preservation capabilities to Enduro without the cost of operating Archivematica pipelines.
-
-Enduro uses object storage (S3) to share transfers with a3m activity workers. Tasks are dispatched via an intermediate persistent queue that a3m polls.
-
-    docker run --rm --env="A3M_CADENCE_SERVER=127.0.0.1:12345" docker.pkg.github.com/artefactual-labs/a3m/a3m:main --mode="enduro"
-
-If you use PyPI, install with:
-
-    pip install a3m[enduro]
-
-</details>
-
 ### Development
 
 It is possible to do local development work in a3m. But we also provide an
@@ -134,9 +117,9 @@ Be aware that a3m has application dependencies that need to be available in the
 system path. The Docker image makes them all available while in this workflow
 you will have to ensure they're available manually.
 
-a3m needs Python 3.7 or newer. So for an Ubuntu/Debian Linux environment:
+a3m needs Python 3.8 or newer. So for an Ubuntu/Debian Linux environment:
 
-    sudo apt install -y python3.7 python3.7-venv python3.7-dev
+    sudo apt install -y python3.8 python3.8-venv python3.8-dev
     
 The following external tools are used to process files in a3m and must be installed on your system. For an Ubuntu/Debian Linux environment:
  
@@ -199,7 +182,7 @@ Check out this repository:
 Then follow these steps:
 
     # Create virtual environment and activate it
-    virtualenv --python=python3.7 .venv
+    virtualenv --python=python3.8 .venv
     source .venv/bin/activate
 
     # Install the dependencies

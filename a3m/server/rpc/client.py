@@ -1,119 +1,86 @@
-import time
+import logging
+from typing import Callable
+from typing import Optional
 
-import click
-import grpc
 import tenacity
+from grpc import Channel
+from grpc import RpcError
 
-from . import a3m_pb2
-from . import a3m_pb2_grpc
-
-
-DEFAULT_SERVER_ADDR = "localhost:7000"
-
-
-@click.group()
-def cli():
-    pass
+from a3m import __version__
+from a3m.server.rpc.proto import a3m_pb2
+from a3m.server.rpc.proto import a3m_pb2_grpc
 
 
-@cli.command()
-@click.option("--name", default=str(time.time()))
-@click.option("--address", default=DEFAULT_SERVER_ADDR)
-@click.option("--wait/--no-wait", default=False)
-@click.argument("url")
-def submit(name, address, wait, url):
-    click.echo("🐶 Submitting...")
-    with _get_channel(address) as channel:
-        _submit(channel, name, url, wait=wait)
+logger = logging.getLogger(__name__)
 
 
-@cli.command()
-@click.option("--address", default=DEFAULT_SERVER_ADDR)
-@click.argument("package_id")
-def status(address, package_id):
-    click.echo("⌛ Loading status...")
-    with _get_channel(address) as channel:
-        _status(channel, package_id)
+# Default duration in seconds of RPC calls.
+_GRPC_DEFAULT_TIMEOUT_SECS = 30
+
+# Metadata key containing the client version.
+_VERSION_METADATA_KEY = "version"
 
 
-def _get_channel(address):
-    return grpc.insecure_channel(
-        target=address,
-        options=[("grpc.lb_policy_name", "pick_first"), ("grpc.enable_retries", 1)],
-    )
+class Client:
+    def __init__(
+        self,
+        channel: Channel,
+        rpc_timeout: Optional[int] = _GRPC_DEFAULT_TIMEOUT_SECS,
+        wait_for_ready: bool = False,
+    ):
+        self.transfer_stub = a3m_pb2_grpc.TransferStub(channel)
+        self.rpc_timeout = rpc_timeout
+        self.wait_for_ready = wait_for_ready
 
+    def _unary_call(self, api_method, request):
+        rpc_name = request.__class__.__name__.replace("Request", "")
+        logger.debug("RPC call %s with request: %r", rpc_name, request)
+        try:
+            return api_method(
+                request,
+                timeout=self.rpc_timeout,
+                metadata=Client.version_metadata(),
+                wait_for_ready=self.wait_for_ready,
+            )
+        except RpcError as e:
+            logger.warning("RPC call %s got error %s", rpc_name, e)
+            raise
 
-def _status(channel, package_id):
-    stub = a3m_pb2_grpc.TransferStub(channel)
-    try:
-        resp = stub.Status(a3m_pb2.StatusRequest(id=package_id), timeout=1)
-    except grpc.RpcError as err:
-        click.echo(
-            click.style(f"⚠️  RPC failed ({err.code()} - {err.details()})", fg="red"),
-            err=True,
+    @staticmethod
+    def version_metadata():
+        return ((_VERSION_METADATA_KEY, __version__),)
+
+    def submit(self, url: str, name: str):
+        request = a3m_pb2.SubmitRequest(name=name, url=url)
+        return self._unary_call(self.transfer_stub.Submit, request)
+
+    def read(self, package_id: str):
+        request = a3m_pb2.ReadRequest(id=package_id)
+        return self._unary_call(self.transfer_stub.Read, request)
+
+    def wait_until_complete(self, package_id: str, spin_cb: Callable = None):
+        """Blocks until processing of a package has completed."""
+
+        def _should_continue(resp):
+            if resp.status == a3m_pb2.PROCESSING:
+                return True
+            return False
+
+        def _callback(retry_state):
+            if spin_cb is not None:
+                spin_cb(retry_state)
+
+        @tenacity.retry(
+            wait=tenacity.wait_fixed(1),
+            retry=tenacity.retry(tenacity.retry_if_result(_should_continue)),
+            after=_callback,
         )
-    else:
-        click.echo(a3m_pb2.PackageStatus.Name(resp.status))
+        def _poll():
+            """Retries while the package is processing."""
+            return self.read(package_id)
 
+        return _poll()
 
-def _submit(channel, name, url, wait=False):
-    stub = a3m_pb2_grpc.TransferStub(channel)
-    try:
-        resp = stub.Submit(a3m_pb2.SubmitRequest(name=name, url=url), timeout=1)
-    except grpc.RpcError as err:
-        click.echo(
-            click.style(f"⚠️  RPC failed ({err.code()} - {err.details()})", fg="red"),
-            err=True,
-        )
-        return
-
-    package_id = resp.id
-    click.echo(f"📦 Package created: {package_id}. Processing...")
-
-    if not wait:
-        return
-
-    _poll(package_id, stub)
-
-
-def _poll_retry_reseval(ret):
-    if ret == a3m_pb2.PROCESSING:
-        return True
-    return False
-
-
-@tenacity.retry(
-    wait=tenacity.wait_fixed(1),
-    retry=tenacity.retry(
-        tenacity.retry_if_result(_poll_retry_reseval)
-        | tenacity.retry_if_exception_type()
-    ),
-)
-def _poll(package_id, stub):
-    try:
-        resp = stub.Status(a3m_pb2.StatusRequest(id=package_id), timeout=1)
-    except grpc.RpcError as err:
-        click.echo(
-            click.style(
-                f"⚠️  RPC failed ({err.code()} - {err.details()}) - Retrying...",
-                fg="red",
-            ),
-            err=True,
-        )
-        raise
-    status_name = a3m_pb2.PackageStatus.Name(resp.status)
-    if resp.status == a3m_pb2.PROCESSING:
-        return resp.status
-    if resp.status == a3m_pb2.COMPLETE:
-        click.echo(click.style("Done!", fg="green"))
-        return resp.status
-    click.echo(
-        click.style(
-            f"⚠️  Error! Last status seen: {status_name} ({resp.job}).", fg="red"
-        ),
-        err=True,
-    )
-
-
-if __name__ == "__main__":
-    cli()
+    def list_tasks(self, job_id: str):
+        request = a3m_pb2.ListTasksRequest(job_id=job_id)
+        return self._unary_call(self.transfer_stub.ListTasks, request)

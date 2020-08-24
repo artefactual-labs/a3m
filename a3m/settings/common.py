@@ -5,6 +5,8 @@ import multiprocessing
 import os
 from io import StringIO
 from pathlib import Path
+from typing import Any
+from typing import Dict
 
 from appdirs import user_data_dir
 
@@ -101,13 +103,6 @@ CONFIG_MAPPING = {
         "option": "rpc_bind_address",
         "type": "string",
     },
-    "cadence_server": {"section": "a3m", "option": "cadence_server", "type": "string"},
-    "cadence_domain": {"section": "a3m", "option": "cadence_domain", "type": "string"},
-    "cadence_task_list": {
-        "section": "a3m",
-        "option": "cadence_task_list",
-        "type": "string",
-    },
     "s3_enabled": {"section": "a3m", "option": "s3_enabled", "type": "boolean"},
     "s3_endpoint_url": {
         "section": "a3m",
@@ -159,10 +154,6 @@ clamav_client_max_scan_size = 42        ; MB
 virus_scanning_enabled = False
 secret_key = 12345
 rpc_bind_address = 0.0.0.0:7000
-
-cadence_server = localhost:7400
-cadence_domain = enduro
-cadence_task_list = a3m
 
 db_engine = django.db.backends.sqlite3
 db_name =
@@ -263,12 +254,12 @@ LOGGING_CONFIG = None
 # `logging.config.fileConfig` unless it doesn't exist.
 LOGGING_CONFIG_FILE = "/etc/a3m/logging.json"
 
-LOGGING = {
+LOGGING: Dict[str, Any] = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
         "detailed": {
-            "format": "%(levelname)-8s <%(asctime)s> %(module)s: %(message)s",
+            "format": "%(levelname)-8s <%(asctime)s>: %(message)s",
             "datefmt": "%Y-%m-%d %H:%M:%S",
         }
     },
@@ -333,13 +324,6 @@ DEFAULT_CHECKSUM_ALGORITHM = "sha256"
 RPC_BIND_ADDRESS = config.get("rpc_bind_address")
 
 
-# Enduro activity worker (Cadence)
-
-CADENCE_SERVER = config.get("cadence_server")
-CADENCE_DOMAIN = config.get("cadence_domain")
-CADENCE_TASK_LIST = config.get("cadence_task_list")
-
-
 # Shared directories
 
 SHARED_DIRECTORY = config.get("shared_directory")
@@ -359,7 +343,7 @@ else:
     PROMETHEUS_ENABLED = True
 
 
-BIND_PID_HANDLE = {}
+BIND_PID_HANDLE = {}  # type: ignore
 
 
 # S3

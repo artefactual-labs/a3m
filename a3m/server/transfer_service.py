@@ -1,18 +1,13 @@
-"""Archivematica MCPServer API."""
 import logging
-from concurrent import futures
 
-from django.conf import settings
 from google.rpc import code_pb2
-from grpc import server
-from grpc_reflection.v1alpha import reflection
 
+from a3m.main.models import Task
 from a3m.server.packages import get_package_status
 from a3m.server.packages import Package
 from a3m.server.packages import PackageNotFoundError
-from a3m.server.rpc import a3m_pb2
-from a3m.server.rpc import a3m_pb2_grpc
-
+from a3m.server.rpc.proto import a3m_pb2
+from a3m.server.rpc.proto import a3m_pb2_grpc
 
 logger = logging.getLogger(__name__)
 
@@ -37,32 +32,36 @@ class TransferService(a3m_pb2_grpc.TransferServicer):
             context.abort(code_pb2.INTERNAL, "Unknown error")
         return a3m_pb2.SubmitReply(id=str(package.uuid))
 
-    def Status(self, request, context):
+    def Read(self, request, context):
         try:
-            res = get_package_status(self.package_queue, request.id)
+            package_status = get_package_status(self.package_queue, request.id)
         except PackageNotFoundError:
             context.abort(code_pb2.NOT_FOUND, "Package not found")
         except Exception as err:
             logger.warning("TransferService.Status handler error: %s", err)
             context.abort(code_pb2.INTERNAL, "Unknown error")
-        kwargs = dict(status=res.status)
-        if res.job:
-            kwargs.update({"job": res.job})
-        return a3m_pb2.StatusReply(**kwargs)
+        reply = a3m_pb2.ReadReply(status=package_status.status)
+        if package_status.job:
+            reply.job = package_status.job
+        if package_status.jobs:
+            reply.jobs.extend(package_status.jobs)
+        return reply
 
-
-def start(workflow, shutdown_event, package_queue, executor):
-    transfer_service = TransferService(workflow, package_queue, executor)
-    grpc_server = server(futures.ThreadPoolExecutor(max_workers=settings.RPC_THREADS))
-    a3m_pb2_grpc.add_TransferServicer_to_server(transfer_service, grpc_server)
-    SERVICE_NAMES = (
-        a3m_pb2.DESCRIPTOR.services_by_name["Transfer"].full_name,
-        reflection.SERVICE_NAME,
-    )
-    reflection.enable_server_reflection(SERVICE_NAMES, grpc_server)
-    grpc_server.add_insecure_port(settings.RPC_BIND_ADDRESS)
-
-    grpc_server.start()
-
-    shutdown_event.wait()
-    grpc_server.stop(None)
+    def ListTasks(self, request, context):
+        if not request.job_id:
+            context.abort(code_pb2.INVALID_ARGUMENT, "job_id is mandatory")
+        reply = a3m_pb2.ListTasksReply()
+        for item in Task.objects.filter(job_id=request.job_id):
+            reply.tasks.append(
+                a3m_pb2.Task(
+                    id=item.pk,
+                    file_id=item.fileuuid,
+                    exit_code=item.exitcode,
+                    filename=item.filename,
+                    execution=item.execution,
+                    arguments=item.arguments,
+                    stdout=item.stdout,
+                    stderr=item.stderror,
+                )
+            )
+        return reply

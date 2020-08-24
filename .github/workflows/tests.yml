@@ -14,6 +14,7 @@ jobs:
         include:
         - {name: Python 3.8, python: '3.8', os: ubuntu-latest, tox: py, codecov: true}
         - {name: Lint, python: '3.8', os: ubuntu-latest, tox: lint, codecov: false}
+        - {name: Type, python: '3.8', os: ubuntu-latest, tox: type, codecov: false}
         - {name: Pylint, python: '3.8', os: ubuntu-latest, tox: pylint, codecov: false}
         - {name: Vulture, python: '3.8', os: ubuntu-latest, tox: vulture, codecov: false}
     steps:

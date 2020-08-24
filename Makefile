@@ -41,7 +41,7 @@ reset-migrations:
 	git checkout -- a3m/main/migrations/0002_initial_data.py a3m/fpr/migrations/0002_initial_data.py
 	black a3m/main/migrations a3m/fpr/migrations
 	reorder-python-imports --exit-zero-even-if-changed a3m/main/migrations/0001_initial.py a3m/fpr/migrations/0001_initial.py
-	pyupgrade --py37-plus --exit-zero-even-if-changed a3m/main/migrations/0001_initial.py a3m/fpr/migrations/0001_initial.py
+	pyupgrade --py38-plus --exit-zero-even-if-changed a3m/main/migrations/0001_initial.py a3m/fpr/migrations/0001_initial.py
 
 logs:
 	docker-compose logs -f
@@ -79,7 +79,8 @@ amflow:  ## See workflow.
 	amflow edit --file=a3m/assets/workflow.json
 
 protoc:  ## Generate gRPC code.
-	python3 -m grpc_tools.protoc -I=. --python_out=. --grpc_python_out=. a3m/server/rpc/a3m.proto
+	python3 -m grpc_tools.protoc -I=. --python_out=. --grpc_python_out=. a3m/server/rpc/proto/a3m.proto
+	black $(CURDIR)/a3m/server/rpc/proto
 
 help:  ## Print this help message.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

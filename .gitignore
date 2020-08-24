@@ -32,5 +32,8 @@
 # tox working directory
 .tox/
 
+# mypy cache
+.mypy_cache/
+
 # a3m data dir for Compose volume
 /hack/compose-volume

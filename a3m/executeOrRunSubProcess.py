@@ -22,12 +22,6 @@ import subprocess
 import sys
 import uuid
 
-# https://stackoverflow.com/a/36321030
-try:
-    file_types = (file, io.IOBase)
-except NameError:
-    file_types = (io.IOBase,)
-
 
 def launchSubProcess(
     command, stdIn="", printing=True, arguments=[], env_updates={}, capture_output=False
@@ -83,7 +77,7 @@ def launchSubProcess(
         if isinstance(stdIn, str):
             stdin_pipe = subprocess.PIPE
             stdin_string = stdIn
-        elif isinstance(stdIn, file_types):
+        elif isinstance(stdIn, io.IOBase):
             stdin_pipe = stdIn
             stdin_string = ""
         else:

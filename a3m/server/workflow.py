@@ -208,7 +208,7 @@ def load(fp):
     return parsed
 
 
-def load_default_workflow():
+def load_default_workflow() -> Workflow:
     with open(DEFAULT_WORKFLOW) as default_workflow:
         return load(default_workflow)
 

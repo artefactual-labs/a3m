@@ -145,6 +145,12 @@ class PackageQueue:
             # Using a timeout here allows shutdown signals to fire
             self.process_one_job(timeout=1.0)
 
+    def wait_for_termination(self):
+        """Blocks current thread until the server stops."""
+        while not self.shutdown_event.is_set():
+            self.shutdown_event.wait(timeout=None)
+        return False
+
     def process_one_job(self, timeout=None):
         """Process a single job, if one is queued before `timeout`.
 

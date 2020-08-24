@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package a3m;
+
+service Transfer {
+
+	// Submits a new transfer.
+	rpc Submit (SubmitRequest) returns (SubmitReply) {}
+
+	// Reads the status of a given transfer.
+	rpc Read (ReadRequest) returns (ReadReply) {}
+
+	// Lists all tasks in a given transfer.
+	rpc ListTasks (ListTasksRequest) returns (ListTasksReply) {}
+
+}
+
+message SubmitRequest {
+	string name = 1;
+	string url = 2;
+}
+
+message SubmitReply {
+	string id = 1;
+}
+
+message ReadRequest {
+	string id = 1;
+}
+
+message ReadReply {
+	PackageStatus status = 1;
+	string job = 2;
+	repeated Job jobs = 3;
+}
+
+message ListTasksRequest {
+	string job_id = 1;
+}
+
+message ListTasksReply {
+	repeated Task tasks = 1;
+}
+
+enum PackageStatus {
+	FAILED = 0;
+	REJECTED = 1;
+	COMPLETE = 2;
+	PROCESSING = 3;
+}
+
+message Job {
+	string id = 1;
+	string name = 2;
+	string group = 3;
+	string link_id = 4;
+
+	enum Status {
+		UNKNOWN = 0;
+		COMPLETE = 1;
+		PROCESSING = 2;
+		FAILED = 3;
+	}
+
+	Status status = 5;
+}
+
+message Task {
+	string id = 1;
+	string file_id = 2;
+	int32 exit_code = 3;
+	string filename = 4;
+	string execution = 5;
+	string arguments = 6;
+	string stdout = 7;
+	string stderr = 8;
+}
