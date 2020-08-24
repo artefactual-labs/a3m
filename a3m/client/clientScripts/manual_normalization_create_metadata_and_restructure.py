@@ -143,9 +143,9 @@ def main(job):
         # fileUUID, eventIdentifierUUID, eventType, eventDateTime, eventDetail
         # probably already correct, and we only set eventOutcomeDetailNote here
         # Not using .filter().update() because that doesn't generate an exception
-        e = Event.objects.get(event_type="normalization", file_uuid=original_file)
-        e.event_outcome_detail = dstR
-        e.save()
+        event = Event.objects.get(event_type="normalization", file_uuid=original_file)
+        event.event_outcome_detail = dstR
+        event.save()
         job.print_output(
             "Updated the eventOutcomeDetailNote of an existing normalization"
             " Event for file {}. Not creating a Derivation object".format(fileUUID)

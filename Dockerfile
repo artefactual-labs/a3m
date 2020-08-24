@@ -94,8 +94,8 @@ COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/
 RUN set -ex \
 	&& add-apt-repository ppa:deadsnakes/ppa \
 	&& apt-get update \
-	&& apt-get install -y --no-install-recommends python3.7 build-essential libpython3.7-dev \
-	&& update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1 \
+	&& apt-get install -y --no-install-recommends python3.8 build-essential libpython3.8-dev \
+	&& update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 \
 	&& curl https://bootstrap.pypa.io/get-pip.py | python \
 	&& rm -rf /var/lib/apt/lists/*
 

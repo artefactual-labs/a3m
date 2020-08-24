@@ -20,6 +20,8 @@ import logging
 import threading
 import traceback
 from contextlib import ContextDecorator
+from typing import Any
+from typing import Type
 
 from django.conf import settings
 from django.core import management
@@ -89,6 +91,7 @@ def migrate():
     management.call_command("migrate", interactive=False, verbosity=int(settings.DEBUG))
 
 
+auto_close_old_connections: Type[Any]
 if False and settings.DEBUG:
     logger.debug("Using DEBUG auto_close_old_connections")
     auto_close_old_connections = DebugAutoCloseOldConnections

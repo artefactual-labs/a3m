@@ -1,3 +1,4 @@
+import math
 import time
 from contextlib import contextmanager
 
@@ -17,7 +18,7 @@ TASK_DURATION_BUCKETS = (
     600.0,  # 10 min
     1800.0,  # 30 min
     3600.0,  # 1 hour
-    float("inf"),
+    math.inf,
 )
 # Histogram buckets for total processing time, e.g. for an AIP.
 # Not used with labels.
@@ -34,7 +35,7 @@ PROCESSING_TIME_BUCKETS = (
     7200.0,  # 2 hours
     14400.0,  # 4 hours
     28800.0,  # 8 hours
-    float("inf"),
+    math.inf,
 )
 # Histogram for distribution of transfer and AIP file counts
 PACKAGE_FILE_COUNT_BUCKETS = (
@@ -47,7 +48,7 @@ PACKAGE_FILE_COUNT_BUCKETS = (
     2000.0,
     5000.0,
     10000.0,
-    float("inf"),
+    math.inf,
 )
 # Histogram for distribution of transfer and AIP size in bytes
 PACKAGE_SIZE_BUCKETS = (
@@ -60,7 +61,7 @@ PACKAGE_SIZE_BUCKETS = (
     1000000000.0,  # 1 GB
     5000000000.0,  # 5 GB
     10000000000.0,  # 10 GB
-    float("inf"),
+    math.inf,
 )
 
 

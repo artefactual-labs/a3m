@@ -17,6 +17,7 @@
 # along with Archivematica.    If not, see <http://www.gnu.org/licenses/>.
 import collections
 import copy
+import html
 import logging
 import os
 import pprint
@@ -1216,8 +1217,6 @@ def write_mets(tree, filename):
     """
     tree.write(filename, pretty_print=True, xml_declaration=True, encoding="utf-8")
 
-    import cgi
-
     validate_filename = filename + ".validatorTester.html"
     fileContents = """<html>
 <body>
@@ -1232,10 +1231,10 @@ def write_mets(tree, filename):
   </form>
 </body>
 </html>""" % (
-        cgi.escape(
+        html.escape(
             etree.tostring(
                 tree, pretty_print=True, xml_declaration=True, encoding="utf-8"
-            ).decode("utf8")
+            ).decode("utf8"),
         )
     )
     with open(validate_filename, "w") as f:

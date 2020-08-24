@@ -8,3 +8,10 @@ vcrpy
 coverage
 pip-tools
 grpcio-tools
+mypy
+tox
+pylint
+vulture
+black
+flake8
+pre-commit

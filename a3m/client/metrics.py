@@ -4,6 +4,7 @@ Exposes various metrics via Prometheus.
 import configparser
 import datetime
 import functools
+import math
 
 from django.conf import settings
 from django.db.models import Sum
@@ -133,7 +134,7 @@ aip_original_file_timestamps_histogram = Histogram(
     "Histogram of modification times for files stored in AIPs, bucketed by year",
     buckets=[1970, 1980, 1990, 2005, 2010]
     + list(range(2015, datetime.date.today().year + 2))
-    + [float("inf")],
+    + [math.inf],  # type: ignore
 )
 
 

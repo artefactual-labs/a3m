@@ -5,8 +5,11 @@ import functools
 import logging
 import os
 from dataclasses import dataclass
+from dataclasses import field
 from enum import auto
 from enum import Enum
+from typing import List
+from typing import Optional
 from uuid import uuid4
 
 from django.conf import settings
@@ -15,7 +18,7 @@ from a3m.archivematicaFunctions import strToUnicode
 from a3m.main import models
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs import JobChain
-from a3m.server.rpc import a3m_pb2
+from a3m.server.rpc.proto import a3m_pb2
 
 
 logger = logging.getLogger(__name__)
@@ -211,7 +214,7 @@ class Package:
         else:
             return r"%transferDirectory%"
 
-    @property
+    @property  # type: ignore
     @auto_close_old_connections()
     def base_queryset(self):
         if self.stage is Stage.INGEST:
@@ -407,8 +410,9 @@ class PackageNotFoundError(Exception):
 
 @dataclass
 class PackageStatus:
-    status: int = None
-    job: str = None
+    status: Optional[int] = None
+    job: Optional[str] = None
+    jobs: List = field(default_factory=list)
 
 
 @auto_close_old_connections()
@@ -429,10 +433,9 @@ def get_package_status(package_queue, package_id: str) -> PackageStatus:
     if package:
         # Reminder: package.subid can be in Transfer or Ingest.
         job = get_latest_job(package.subid)
-        kwargs = dict(status=a3m_pb2.PROCESSING)
-        if job:
-            kwargs.update({"job": job.jobtype})
-        return PackageStatus(**kwargs)
+        return PackageStatus(
+            status=a3m_pb2.PROCESSING, job=job.jobtype if job else None
+        )
 
     # A3M-TODO: persist package-workflow status!
     # It'd be much easier if a workflow instance could keep the package
@@ -450,7 +453,7 @@ def get_package_status(package_queue, package_id: str) -> PackageStatus:
             )
         job = get_latest_job(sip.transfer_id)
         if job is None:
-            return PackageStatus(status=a3m_pb2.PROCESSING, job="Unknown")
+            return PackageStatus(status=a3m_pb2.PROCESSING)
 
     if "failed" in job.microservicegroup.lower():
         status = a3m_pb2.FAILED
@@ -463,4 +466,28 @@ def get_package_status(package_queue, package_id: str) -> PackageStatus:
             f"Package status cannot be determined (job.currentstep={job.currentstep}, job.type={job.jobtype}, job.microservicegroup={job.microservicegroup})"
         )
 
-    return PackageStatus(status=status, job=job.microservicegroup)
+    package_status = PackageStatus(status=status, job=job.microservicegroup)
+
+    for item in (
+        models.Job.objects.filter(sipuuid__in=(sip.pk, sip.transfer_id))
+        .order_by("createdtime")
+        .values(
+            "jobuuid",
+            "jobtype",
+            "currentstep",
+            "microservicegroup",
+            "microservicechainlink",
+            "currentstep",
+        )
+    ):
+        package_status.jobs.append(
+            a3m_pb2.Job(
+                id=str(item["jobuuid"]),
+                name=item["jobtype"],
+                group=item["microservicegroup"],
+                link_id=str(item["microservicechainlink"]),
+                status=item["currentstep"],
+            )
+        )
+
+    return package_status
