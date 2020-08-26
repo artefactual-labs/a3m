@@ -13,6 +13,10 @@ as a standalone process or be embedded as part of your application.
 
 For more documentation, please see https://a3m.readthedocs.io.
 
+---
+
+**a3m is a proof of concept. Please send us your feedback!**
+
 .. |pypi| image:: https://img.shields.io/pypi/v/a3m.svg
    :target: https://pypi.python.org/pypi/a3m
 

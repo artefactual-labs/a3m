@@ -32,6 +32,8 @@ Use :class:`a3m.server.rpc.client.Client` to communicate with it.
 :class:`a3m.cli.client.wrapper.ClientWrapper` is a context manager that makes
 easier to access to both an embedded server and its client instance.
 
+For more details, see: https://gist.github.com/sevein/2e5cf115c153df1cfc24f0f9d67f6d2a.
+
 .. warning::
 
    These APIs are still unstable, expect changes!
