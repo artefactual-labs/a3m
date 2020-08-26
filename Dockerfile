@@ -108,4 +108,4 @@ WORKDIR /a3m
 
 USER a3m
 
-ENTRYPOINT ["python", "-m", "a3m"]
+ENTRYPOINT ["python", "-m", "a3m.cli.server"]
