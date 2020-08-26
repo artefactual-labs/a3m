@@ -7,6 +7,7 @@ a3m
 .. toctree::
     :hidden:
 
+    changelog
     installation
     usage
     docker

@@ -11,7 +11,7 @@ init_django()
 
 needs_sphinx = "3.2"
 
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode", "sphinx.ext.napoleon"]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode", "releases"]
 
 autoclass_content = "both"
 autodoc_member_order = "bysource"
@@ -41,3 +41,5 @@ html_static_path = ["_static"]
 htmlhelp_basename = "a3mdoc"
 
 suppress_warnings = ["image.nonlocal_uri"]
+
+releases_github_path = "artefactual-labs/a3m"

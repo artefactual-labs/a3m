@@ -12,8 +12,8 @@ attrs==20.1.0             # via -r requirements.txt, black, jsonschema, pytest
 babel==2.8.0              # via sphinx
 bagit==1.7.0              # via -r requirements.txt
 black==19.10b0            # via -r requirements-dev.in
-boto3==1.14.47            # via -r requirements.txt
-botocore==1.17.47         # via -r requirements.txt, boto3, s3transfer
+boto3==1.14.48            # via -r requirements.txt
+botocore==1.17.48         # via -r requirements.txt, boto3, s3transfer
 certifi==2020.6.20        # via -r requirements.txt, requests
 cfgv==3.2.0               # via pre-commit
 chardet==3.0.4            # via -r requirements.txt, requests
@@ -33,7 +33,7 @@ grpcio-reflection==1.31.0  # via -r requirements.txt
 grpcio-status==1.31.0     # via -r requirements.txt
 grpcio-tools==1.31.0      # via -r requirements-dev.in
 grpcio==1.31.0            # via -r requirements.txt, grpcio-reflection, grpcio-status, grpcio-tools
-identify==1.4.28          # via pre-commit
+identify==1.4.29          # via pre-commit
 idna==2.10                # via -r requirements.txt, requests, yarl
 imagesize==1.2.0          # via sphinx
 iniconfig==1.0.1          # via pytest
@@ -69,18 +69,20 @@ pyparsing==2.4.7          # via packaging
 pyrsistent==0.16.0        # via -r requirements.txt, jsonschema
 pytest-cov==2.10.1        # via -r requirements-dev.in
 pytest-django==3.9.0      # via -r requirements-dev.in
-pytest-mock==3.3.0        # via -r requirements-dev.in
+pytest-mock==3.3.1        # via -r requirements-dev.in
 pytest==6.0.1             # via -r requirements-dev.in, pytest-cov, pytest-django, pytest-mock
 python-dateutil==2.8.1    # via -r requirements.txt, botocore
 pytz==2020.1              # via -r requirements.txt, babel, django
 pyyaml==5.3.1             # via pre-commit, vcrpy
 regex==2020.7.14          # via black
+releases==1.6.3           # via -r requirements-dev.in
 requests==2.24.0          # via -r requirements.txt, sphinx
 rich==5.2.1               # via -r requirements.txt
 s3transfer==0.3.3         # via -r requirements.txt, boto3
+semantic-version==2.6.0   # via releases
 six==1.15.0               # via -r requirements.txt, astroid, grpcio, jsonschema, metsrw, opf-fido, packaging, pip-tools, protobuf, pyrsistent, python-dateutil, tenacity, tox, vcrpy, virtualenv
 snowballstemmer==2.0.0    # via sphinx
-sphinx==3.2.1             # via -r requirements-dev.in
+sphinx==3.2.1             # via -r requirements-dev.in, releases
 sphinxcontrib-applehelp==1.0.2  # via sphinx
 sphinxcontrib-devhelp==1.0.2  # via sphinx
 sphinxcontrib-htmlhelp==1.0.3  # via sphinx
