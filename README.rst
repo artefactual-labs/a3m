@@ -13,7 +13,7 @@ as a standalone process or be embedded as part of your application.
 
 For more documentation, please see https://a3m.readthedocs.io.
 
----
+----------
 
 **a3m is a proof of concept. Please send us your feedback!**
 
