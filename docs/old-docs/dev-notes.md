@@ -48,60 +48,6 @@ a3m needs Python 3.8 or newer. So for an Ubuntu/Debian Linux environment:
 
     sudo apt install -y python3.8 python3.8-venv python3.8-dev
 
-The following external tools are used to process files in a3m and must be installed on your system. For an Ubuntu/Debian Linux environment:
-
-[Siegfried](https://www.itforarchivists.com/siegfried)
-
-    wget -qO - https://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
-
-    echo "deb http://dl.bintray.com/siegfried/debian wheezy main" | sudo tee -a /etc/apt/sources.list
-
-    sudo apt-get update && sudo apt-get install siegfried
-
-[unar](https://software.opensuse.org/package/unar)
-
-    sudo apt-get install unar
-
-[ffmpeg (ffprobe)](https://ffmpeg.org/ffprobe.html)
-
-    sudo apt-get install ffmpeg
-
-[ExifTool](https://exiftool.org/)
-
-    https://packages.archivematica.org/1.11.x/ubuntu-externals/pool/main/libi/libimage-exiftool-perl/libimage-exiftool-perl_10.10-2~14.04_all.deb`
-
-    sudo dkpg -i libimage-exiftool-perl_10.10-2~14.04_all.deb
-
-[MediaInfo](https://mediaarea.net/en/MediaInfo)
-
-    sudo apt-get install mediainfo
-
-[Sleuthkit (fiwalk)](https://sleuthkit.org/)
-
-    sudo apt-get install sleuthkit
-
-[Jhove](https://jhove.openpreservation.org/)
-
-    DEPENDENCIES: sudo apt-get ca-certificates-java java-common openjdk-8-jre-headless
-
-    https://packages.archivematica.org/1.11.x/ubuntu-externals/pool/main/j/jhove/jhove_1.20.1-6~18.04_all.deb
-
-    sudo dpkg -i jhove_1.20.1-6~18.04_all.deb
-
-[7-Zip](https://www.7-zip.org/)
-
-    sudo apt-get install pzip-full
-
-[atool](https://www.nongnu.org/atool/)
-
-    sudo apt-get install atool
-
-[test](https://www.gnu.org/software/coreutils/coreutils.html)
-
-    sudo apt-get install coreutils
-
-Check that `usr/bin` is present in your system path (`echo $PATH`) and that each tool is available from there (`which [toolname]`)
-
 Check out this repository:
 
     git clone --depth 1 https://github.com/artefactual-labs/a3m.git
@@ -119,13 +65,11 @@ Then follow these steps:
     pytest
 
     # Run a3m server
-    python -m a3m
+    python -m a3m.cli.server
 
 Start a new transfer:
 
-    $ python -m a3m.server.rpc.client submit --wait https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
-    Submitting...
-    Transfer created: 0f667867-800a-466f-856f-fea5980f1d97
+    python -m a3m.cli.client --address=127.0.0.1:7000 --name=demo https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
 
 You can find both the database and the shared directory under `~/.local/share/a3m/`.
 
@@ -134,28 +78,6 @@ You can find both the database and the shared directory under `~/.local/share/a3
 Other things you can do:
 
 <details>
-
-<summary>Python debugging with pdb</summary>
-<hr>
-
-Stop a3m if it's already running:
-
-    docker-compose stop a3m
-
-Introduce a [breakpoint](https://docs.python.org/3/library/functions.html#breakpoint)
-in the code. Breakpoints can be used anywhere, including client modules.
-
-    breakpoint()  # Add this!
-    important_code()
-
-Run a3m as follows:
-
-    docker-compose run --rm --publish=52000:7000 a3m
-
-The [debugger](https://docs.python.org/3/library/pdb.html) should activate as
-your breakpoint is reached. Use commands to control the debugger, e.g. `help`.
-
-</details>
 
 <details>
 

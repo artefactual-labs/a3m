@@ -13,3 +13,4 @@ Current release: |version|.
     installation
     usage
     docker
+    dependencies
