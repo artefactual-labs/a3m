@@ -1,12 +1,10 @@
-"""Work in progres!"""
-import sys
+"""Work in progress!"""
 from http.server import BaseHTTPRequestHandler
 from http.server import ThreadingHTTPServer
 from threading import Thread
 
 import grpc
 
-sys.path.append("/home/jesus/Projects/a3m")
 from a3m.cli.common import init_django
 
 init_django()  # This will not be needed in the future.
