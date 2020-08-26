@@ -15,3 +15,4 @@ vulture
 black
 flake8
 pre-commit
+sphinx

@@ -1,4 +1,3 @@
-"""a3m server."""
 import logging
 import os
 import platform

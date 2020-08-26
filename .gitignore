@@ -37,3 +37,6 @@
 
 # a3m data dir for Compose volume
 /hack/compose-volume
+
+# Sphinx
+_build/

@@ -1,8 +1,4 @@
 # pylint: disable=no-value-for-parameter
-"""a3m command-line interface.
-
-It can embed the server or communicate with a remote instance.
-"""
 import datetime
 import logging
 import sys

@@ -1,77 +1,4 @@
-<p align="left">
-  <a href="https://github.com/artefactual-labs/a3m/releases/latest"><img src="https://img.shields.io/pypi/v/a3m.svg"/></a>
-  <a href="https://pepy.tech/project/a3m/"><img src="https://pepy.tech/badge/a3m" alt="Downloads"></a>
-  <a href="https://pypi.org/project/a3m"><img src="https://img.shields.io/pypi/pyversions/a3m.svg" alt="Versions"></a>
-  <a href="https://github.com/artefactual-labs/a3m/actions?query=workflow%3ATests"><img src="https://github.com/artefactual-labs/a3m/workflows/Tests/badge.svg"/></a>
-  <a href="https://codecov.io/gh/artefactual-labs/a3m"><img src="https://img.shields.io/codecov/c/github/artefactual-labs/a3m"/></a>
-  <a href="https://pyup.io/repos/github/artefactual-labs/a3m/"><img src="https://pyup.io/repos/github/artefactual-labs/a3m/shield.svg" alt="Updates" /></a>
-</p>
-
-## a3m
-
-a3m is a lightweight version of Archivematica focused on AIP creation. It has neither external dependencies, integration with access sytems, search capabilities nor a graphical interface. It is ideal for workloads where you would typically use multiple Archivematica pipelines and implement additional workflows elsewhere.
-
-- [Status](#status)
-- [Usage](#usage)
-- [Development](#development)
-
-### Status
-
-Experimental, a3m is still being refined. See [open and closed issues](https://github.com/artefactual-labs/a3m/issues).
-
-### Usage
-
-You can install a3m via PyPI:
-
-    pip install a3m
-
-However, it is preferably to run a3m via our [Docker image](https://github.com/artefactual-labs/a3m/packages/194315) because it includes all the dependencies needed (unar, 7z, ffmpeg, clamav, etc...).
-
-<details>
-
-<summary>gRPC server</summary>
-<hr/>
-
-The following example shows how to set up a gRPC server and a client sharing the same network using Docker. Alternatively, see our [screencast](https://asciinema.org/a/lKWDIxPSwSfDySxTIgPPlYZrU).
-
-Create a virtual network:
-
-    docker network create a3m-network
-
-The following command will run the gRPC server in detached mode listening locally on port 7000:
-
-    docker run --rm --detach --name a3m --network a3m-network -p 7000:7000 docker.pkg.github.com/artefactual-labs/a3m/a3m:main
-
-Submit a transfer with the gRPC client, e.g.:
-
-    docker run --rm --network a3m-network --entrypoint=python docker.pkg.github.com/artefactual-labs/a3m/a3m:main -m a3m.server.rpc.client submit --wait --address=a3m:7000 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
-
-Using our [service definition](https://github.com/artefactual-labs/a3m/blob/main/a3m/server/rpc/a3m.proto), it is possible to generate client-side code in multiple programming languages. See [gRPC concepts](https://grpc.io/docs/guides/concepts/) for more.
-
-Don't forget to clean up before leaving!
-
-    docker stop a3m
-    docker network remove a3m-network
-
-</details>
-
-<details>
-
-<summary>Embedded API</summary>
-<hr />
-
-Python developers should be able to implement new solutions embedding a3m as a library. See [#42](https://github.com/artefactual-labs/a3m/issues/42) for more.
-
-```python
-import a3m
-
-runner = a3m.Runner()
-runner.submit_package("https://...", wait=True)
-```
-
-</details>
-
-### Development
+# Development
 
 It is possible to do local development work in a3m. But we also provide an
 environment based on Docker Compose with all the tools and dependencies
@@ -120,31 +47,31 @@ you will have to ensure they're available manually.
 a3m needs Python 3.8 or newer. So for an Ubuntu/Debian Linux environment:
 
     sudo apt install -y python3.8 python3.8-venv python3.8-dev
-    
-The following external tools are used to process files in a3m and must be installed on your system. For an Ubuntu/Debian Linux environment:
- 
-[Siegfried](https://www.itforarchivists.com/siegfried) 
 
-    wget -qO - https://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add - 
-    
-    echo "deb http://dl.bintray.com/siegfried/debian wheezy main" | sudo tee -a /etc/apt/sources.list 
-    
+The following external tools are used to process files in a3m and must be installed on your system. For an Ubuntu/Debian Linux environment:
+
+[Siegfried](https://www.itforarchivists.com/siegfried)
+
+    wget -qO - https://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
+
+    echo "deb http://dl.bintray.com/siegfried/debian wheezy main" | sudo tee -a /etc/apt/sources.list
+
     sudo apt-get update && sudo apt-get install siegfried
-    
+
 [unar](https://software.opensuse.org/package/unar)
 
     sudo apt-get install unar
-    
+
 [ffmpeg (ffprobe)](https://ffmpeg.org/ffprobe.html)
 
     sudo apt-get install ffmpeg
-    
+
 [ExifTool](https://exiftool.org/)
 
     https://packages.archivematica.org/1.11.x/ubuntu-externals/pool/main/libi/libimage-exiftool-perl/libimage-exiftool-perl_10.10-2~14.04_all.deb`
-    
+
     sudo dkpg -i libimage-exiftool-perl_10.10-2~14.04_all.deb
-    
+
 [MediaInfo](https://mediaarea.net/en/MediaInfo)
 
     sudo apt-get install mediainfo
@@ -152,7 +79,7 @@ The following external tools are used to process files in a3m and must be instal
 [Sleuthkit (fiwalk)](https://sleuthkit.org/)
 
     sudo apt-get install sleuthkit
-    
+
 [Jhove](https://jhove.openpreservation.org/)
 
     DEPENDENCIES: sudo apt-get ca-certificates-java java-common openjdk-8-jre-headless
@@ -164,7 +91,7 @@ The following external tools are used to process files in a3m and must be instal
 [7-Zip](https://www.7-zip.org/)
 
     sudo apt-get install pzip-full
-    
+
 [atool](https://www.nongnu.org/atool/)
 
     sudo apt-get install atool
@@ -172,13 +99,13 @@ The following external tools are used to process files in a3m and must be instal
 [test](https://www.gnu.org/software/coreutils/coreutils.html)
 
     sudo apt-get install coreutils
-    
+
 Check that `usr/bin` is present in your system path (`echo $PATH`) and that each tool is available from there (`which [toolname]`)
 
 Check out this repository:
 
     git clone --depth 1 https://github.com/artefactual-labs/a3m.git
-        
+
 Then follow these steps:
 
     # Create virtual environment and activate it

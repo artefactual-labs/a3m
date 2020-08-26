@@ -3,20 +3,20 @@ Start and run MCPServer.
 
 `main` goes through the following steps:
 1. A `ThreadPoolExecutor` is initialized with a configurable number of threads
-    (default ncpus).
+(default ncpus).
 2. A signal listener is setup to handle shutdown on SIGINT/SIGTERM events.
 3. The default workflow is loaded (from workflow.json).
 4. The configured SHARED_DIRECTORY is populated with the expected directory
-    structure, and default processing configs added.
+structure, and default processing configs added.
 5. Any in progress Job and Task entries in the database are marked as errors,
-    as they are presumed to have been the result of a shutdown while processing.
+as they are presumed to have been the result of a shutdown while processing.
 6. If Prometheus metrics are enabled, an thread is started to serve metrics for
-    scraping.
+scraping.
 7. A `PackageQueue` (see the `queues` module) is initialized.
 8. A configured number (default 4) of RPCServer (see the `rpc_server` module)
-    threads are started to handle gearman "RPC" requests from the dashboard.
+threads are started to handle gearman "RPC" requests from the dashboard.
 9. A watched directory thread is started to observe changes in any of the
-    watched dirs as set in the workflow.
+watched dirs as set in the workflow.
 10. The `PackageQueue.work` processing loop is started on the main thread.
 """
 import concurrent.futures
