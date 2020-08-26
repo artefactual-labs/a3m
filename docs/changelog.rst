@@ -2,7 +2,9 @@
 Changelog
 =========
 
-- :release:`0.3.0 <2020-08-26>`
+- :release:`0.3.1 <2020-08-24>`
+- :bug:`-` Fix ``long_description`` config in ``setup.cfg``.
+- :release:`0.3.0 <2020-08-24>`
 - :feature:`-` Added Sphinx documentation.
 - :release:`0.2.1 <2020-08-24>`
 - :bug:`-` Disabled ``zip_safe``.
