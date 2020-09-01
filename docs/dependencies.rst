@@ -2,7 +2,7 @@ Dependencies
 ============
 
 a3m has many dependencies that need to be available in the system path. Some
-examples are Siegfried, Unar or FFmpeg. Our :ref:`Docker <docker>` image
+examples are Siegfried, Unar or FFmpeg. Our :doc:`Docker <docker>` image
 includes these dependences so you don't have to install them.
 
 In some cases, you may still prefer to install them manually, e.g. during

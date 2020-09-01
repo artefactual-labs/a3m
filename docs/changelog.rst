@@ -9,7 +9,34 @@ Changelog
 - :release:`0.2.1 <2020-08-24>`
 - :bug:`-` Disabled ``zip_safe``.
 - :release:`0.2.0 <2020-08-23>`
-- :bug:`83 major` Enabled SQLite WAL mode for better concurrency.
+- :bug:`53 major` Enabled SQLite WAL mode for better concurrency.
 - :feature:`-` Added development and command-line interfaces.
 - :release:`0.1.0 <2020-06-01>`
-- :feature:`-` First cut!
+- :feature:`6` Consolidated requirements files and virtual environments.
+- :feature:`7` Mainstream development environment.
+- :feature:`9` Publish package on PyPI (https://pypi.org/project/a3m/).
+- :feature:`10` Removed ``osdeps`` files.
+- :feature:`11` Removed dashboard.
+- :feature:`12` Removed FITS and disable ``default_characterization``.
+- :feature:`13` Adopted Python standard project layout.
+- :feature:`14` Squashed migrations.
+- :feature:`15` Consolidated settings modules.
+- :feature:`16` Removed dependency on Archivematica Storage Service.
+- :feature:`17` Removed arrangement models.
+- :feature:`18` Removed users models.
+- :feature:`19` Removed AIC creation capabilities.
+- :feature:`20` Removed access integration capabilities.
+- :feature:`21` Removed backlog workflow.
+- :feature:`22` Moved to SQLite.
+- :feature:`23` Added gRPC API.
+- :feature:`24` Removed integration with Gearman.
+- :feature:`25` Removed concept of transfer types.
+- :feature:`27` Moved to Python 3.
+- :feature:`32` Moved to Django 2.2.
+- :feature:`34` Made share directory location configurable.
+- :feature:`35` Cleaned up logging.
+- :feature:`36` Removed support for workflow interactive decisions.
+- :feature:`37` Removed watched directories.
+- :feature:`38` Added automatic database bootstrapping.
+- :feature:`50` Stopped using pickle in task backend.
+- :feature:`54` Hid transfer entity from users.
