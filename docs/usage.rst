@@ -24,7 +24,7 @@ Client
 ------
 
 **a3m** is the command-line interface that aims to provide a rich text-based
-user experience. It communicates with the server via gRPC.
+user experience. It communicates with the server via gRPC. Use as follows::
 
     a3m --address=127.0.0.1:7000 ~/Documents/pictures
 
@@ -32,6 +32,28 @@ When the ``--address`` option is not included, **a3m** runs its own embedded
 instance of the server::
 
     a3m ~/Documents/pictures
+
+Processing directory
+--------------------
+
+a3m users a processing directory to store its database and all created AIPs.
+If you are using Linux, this directory can be found under `~/.local/share/a3m`
+and these are its contents::
+
+    .
+    ├── db.sqlite
+    └── share
+        ├── completed
+        │   └── Test-fa1d6cb3-c1fd-4618-ba55-32f01fda8198.7z
+        ├── currentlyProcessing
+        │   ├── ingest
+        │   └── transfer
+        ├── failed
+        │   ├── 0d117bed-2124-48a2-b9d7-f32514d39c1e
+        ├── policies
+        ├── processingConfigs
+        │   └── default.xml
+        └── tmp
 
 Development kit
 ---------------
