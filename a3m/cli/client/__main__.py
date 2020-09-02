@@ -11,6 +11,7 @@ from rich.table import Table
 
 from a3m.cli.client.wrapper import ClientWrapper
 from a3m.cli.common import init_django
+from a3m.cli.common import suppress_warnings
 from a3m.server.rpc.client import Client
 from a3m.server.rpc.proto import a3m_pb2
 
@@ -42,6 +43,7 @@ def main(ctx, uri, name, address, wait_for_ready, no_input):
     tool in an automated fashion, use `--no-input` to avoid prompts.
     """
     init_django()
+    suppress_warnings()
 
     # Disable logging.
     if not settings.DEBUG:

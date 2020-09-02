@@ -1,4 +1,19 @@
 import os
+import sys
+import warnings
+
+import django
+from django.conf import settings
+
+
+def suppress_warnings():
+    """Suppress SyntaxWarning.
+
+    Hiding SyntaxWarning from users since it can be misleading.
+    """
+    if settings.DEBUG or sys.warnoptions:
+        return
+    warnings.simplefilter("ignore", SyntaxWarning)
 
 
 def init_django():
@@ -9,6 +24,4 @@ def init_django():
     that approach at the moment.
     """
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "a3m.settings.common")
-    import django
-
     django.setup()

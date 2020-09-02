@@ -8,6 +8,7 @@ from django.conf import settings
 
 from a3m import __version__
 from a3m.cli.common import init_django
+from a3m.cli.common import suppress_warnings
 
 
 logger = logging.getLogger(__name__)
@@ -15,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 def main():
     init_django()
+    suppress_warnings()
 
     from a3m.server.runner import create_server
 
