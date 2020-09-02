@@ -36,7 +36,7 @@ instance of the server::
 Processing directory
 --------------------
 
-a3m users a processing directory to store its database and all created AIPs.
+a3m uses a processing directory to store its database and all created AIPs.
 If you are using Linux, this directory can be found under `~/.local/share/a3m`
 and these are its contents::
 

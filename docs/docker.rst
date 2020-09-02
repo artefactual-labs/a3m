@@ -29,7 +29,7 @@ This is going to use the gRPC client to submit a new tranfser::
 
 Don't forget to clean up before leaving::
 
-    docker stop a3m
+    docker stop a3md
     docker network remove a3m-network
 
 .. note::
