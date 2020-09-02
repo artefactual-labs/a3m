@@ -84,9 +84,7 @@ class Server:
         )
         self.grpc_executor = grpc_executor
         self.grpc_server = grpc.server(grpc_executor)
-        self.grpc_port = self.grpc_server.add_secure_port(
-            bind_address, server_credentials
-        )
+        self.grpc_port = self.grpc_server.add_insecure_port(bind_address)
 
         self._mount_services()
 
