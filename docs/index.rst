@@ -12,5 +12,6 @@ Current release: |version|.
     changelog
     installation
     usage
+    settings
     docker
     dependencies
