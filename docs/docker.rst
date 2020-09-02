@@ -17,14 +17,14 @@ Download the latest a3m Docker image::
 
 The following command will run the gRPC server in detached mode listening locally on port ``7000``::
 
-    docker run --rm --detach --name a3m --network a3m-network -p 7000:7000 \
+    docker run --rm --network a3m-network --name a3md --detach --publish 7000:7000 \
         ghcr.io/artefactual-labs/a3m:main
 
 This is going to use the gRPC client to submit a new tranfser::
 
-    docker run --rm --network a3m-network --entrypoint=python \
+    docker run --rm --network a3m-network --name a3mc --interactive --tty --entrypoint=python \
         ghcr.io/artefactual-labs/a3m:main \
-            -m a3m.cli.client --address=a3m:7000 \
+            -m a3m.cli.client --address=a3md:7000 \
                 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
 
 Don't forget to clean up before leaving::
