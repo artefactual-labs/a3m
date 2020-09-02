@@ -1,19 +1,35 @@
 Usage
 =====
 
-Standalone mode
----------------
+Server
+------
 
-a3m can run in standalone mode with **a3md**. It starts the gRPC server::
+a3m can be executed in server mode via **a3md**::
 
     a3md
 
-**a3m** is the corresponding gRPC client::
+It launches a gRPC server and several subsystems that enable processing. Use a
+service manager such as systemd to configure it as a service.
+
+.. note::
+
+   By default, **a3md** does not log messages with level ``DEBUG`` and
+   generally tries to keep the log stream unobstructed unless human
+   intervention is required.
+
+   For debugging purposes, you can access to all messages by setting the
+   environment string ``A3M_DEBUG==yes``.
+
+Client
+------
+
+**a3m** is the command-line interface that aims to provide a rich text-based
+user experience. It communicates with the server via gRPC.
 
     a3m --address=127.0.0.1:7000 ~/Documents/pictures
 
-When the ``--address`` option is not included, **a3m** runs its own instance of
-the server::
+When the ``--address`` option is not included, **a3m** runs its own embedded
+instance of the server::
 
     a3m ~/Documents/pictures
 
