@@ -2,6 +2,7 @@
 Changelog
 =========
 
+- :support:`-` Moved to GitHub Container Registry. Our Docker image is now found at ``ghcr.io/artefactual-labs/a3m`` and anonymous access is possible.
 - :release:`0.3.1 <2020-08-24>`
 - :bug:`-` Fix ``long_description`` config in ``setup.cfg``.
 - :release:`0.3.0 <2020-08-24>`
