@@ -549,18 +549,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "count_attempts",
-                    models.IntegerField(default=0, verbose_name="count attempts"),
-                ),
-                (
-                    "count_okay",
-                    models.IntegerField(default=0, verbose_name="count okay"),
-                ),
-                (
-                    "count_not_okay",
-                    models.IntegerField(default=0, verbose_name="count not okay"),
-                ),
-                (
                     "command",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,

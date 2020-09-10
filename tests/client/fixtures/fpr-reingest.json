@@ -1,48 +1,39 @@
 [
 {
     "fields": {
-        "count_not_okay": 0,
         "replaces": null,
-        "count_attempts": 0,
         "uuid": "23897fbf-e16d-4b3a-8322-74638e32b8bc",
         "format": "01fac958-274d-41ef-978f-d9cf711b3c4a",
         "lastmodified": "2014-07-11T23:29:17Z",
         "enabled": true,
         "command": "80314f3c-5d48-4ad1-a9f2-2c0f7c7b229d",
-        "purpose": "characterization",
-        "count_okay": 0
+        "purpose": "characterization"
     },
     "model": "fpr.fprule",
     "pk": 325
 },
 {
     "fields": {
-        "count_not_okay": 0,
         "replaces": null,
-        "count_attempts": 0,
         "uuid": "0e2bbe47-89b1-4773-a8f9-79916dddb5c3",
         "format": "01fac958-274d-41ef-978f-d9cf711b3c4a",
         "lastmodified": "2014-07-11T23:29:17Z",
         "enabled": true,
         "command": "99d5f508-7733-4e86-883f-bd6abc3fbac7",
-        "purpose": "characterization",
-        "count_okay": 0
+        "purpose": "characterization"
     },
     "model": "fpr.fprule",
     "pk": 389
 },
 {
     "fields": {
-        "count_not_okay": 0,
         "replaces": null,
-        "count_attempts": 0,
         "uuid": "664b5fb0-f747-4ada-810d-7c9c44aa1d25",
         "format": "01fac958-274d-41ef-978f-d9cf711b3c4a",
         "lastmodified": "2014-07-11T23:29:18Z",
         "enabled": true,
         "command": "114c9525-d676-4fac-9962-4672faa924bb",
-        "purpose": "characterization",
-        "count_okay": 0
+        "purpose": "characterization"
     },
     "model": "fpr.fprule",
     "pk": 469

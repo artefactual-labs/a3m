@@ -4,7 +4,6 @@
 Describes the data model for the FPR
 
 """
-import logging
 import uuid
 
 from django.core.exceptions import NON_FIELD_ERRORS
@@ -13,7 +12,6 @@ from django.db import connection
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-logger = logging.getLogger(__name__)
 
 # ############################## API V2 MODELS ###############################
 
@@ -478,29 +476,8 @@ class FPRule(VersionedModel, models.Model):
         on_delete=models.CASCADE,
     )
 
-    count_attempts = models.IntegerField(_("count attempts"), default=0)
-    count_okay = models.IntegerField(_("count okay"), default=0)
-    count_not_okay = models.IntegerField(_("count not okay"), default=0)
-
     class Meta:
         verbose_name = _("Format policy rule")
-
-    # def validate_unique(self, *args, **kwargs):
-    #     super(FPRule, self).validate_unique(*args, **kwargs)
-
-    #     qs = self.__class__._default_manager.filter(
-    #         purpose=self.purpose,
-    #         command=self.command,
-    #         format=self.format,
-    #         enabled=1
-    #     )
-
-    #     if not self._state.adding and self.pk is not None:
-    #         qs = qs.exclude(pk=self.pk)
-
-    #     if qs.exists():
-    #         raise ValidationError( {
-    #             NON_FIELD_ERRORS:('Unable to save, an active Rule for this purpose and format and command already exists.',)})
 
     def __unicode__(self):
         return _("Format policy rule %(uuid)s") % {"uuid": self.uuid}
