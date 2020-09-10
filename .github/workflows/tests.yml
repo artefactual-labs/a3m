@@ -33,3 +33,24 @@ jobs:
       with:
         file: ./.coverage.xml
       if: ${{ matrix.codecov }}
+  e2e:
+    name: e2e
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out source code
+      uses: actions/checkout@v2
+    - name: Compute image name
+      run: |
+        echo ::set-env name=A3M_IMAGE::artefactual-labs/a3m:sha-${GITHUB_SHA::7}
+    - name: Pull Docker layer cache
+      uses: satackey/action-docker-layer-caching@v0
+      with:
+        key: docker-layer-caching-${{ github.workflow }}-test-{hash}
+        restore-keys: docker-layer-caching-${{ github.workflow }}-test-
+    - name: Build Docker image
+      run: |
+        docker build . --file Dockerfile --tag $A3M_IMAGE
+      shell: bash
+    - name: Run command
+      run: |
+        docker run --rm --entrypoint=python --env=A3M_DEBUG=yes $A3M_IMAGE -m a3m.cli.client --name=MARBLES https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/Images/pictures/MARBLES.TGA

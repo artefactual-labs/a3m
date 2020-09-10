@@ -1,4 +1,4 @@
-name: End-to-end
+name: Build main image
 on:
   push:
     branches:
@@ -17,9 +17,3 @@ jobs:
         image_tag: main
         registry: ghcr.io
         build_extra_args: "--compress=true"
-    - name: Test
-      run: |
-        import sys
-        print(sys.version)
-        print("TODO - run tests here!")
-      shell: python

@@ -1,8 +1,12 @@
-.git
-.env
-*.log
-__pycache__
-*.pyc
-*.pyo
+**
 
-hack
+!/requirements*
+!/a3m/**
+
+**/*~
+**/*.log
+**/.DS_Store
+**/Thumbs.db
+**/__pycache__
+**/*.pyc
+**/*.pyo
