@@ -54,7 +54,7 @@ def main(ctx, uri, name, address, wait_for_ready, no_input):
         if no_input:
             name = f"transfer.{datetime.datetime.now().timestamp()}"
         else:
-            name = click.prompt("Enter tranfer name")
+            name = click.prompt("Enter transfer name")
 
     with ClientWrapper(address, wait_for_ready) as cw:
         resp = cw.client.submit(uri, name)

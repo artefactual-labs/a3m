@@ -331,7 +331,7 @@ class Transfer(models.Model):
 
     @property
     def agents(self):
-        """Returns a queryset of agents related to this tranfer."""
+        """Returns a queryset of agents related to this transfer."""
         agent_lookups = Agent.objects.default_agents_query_keywords()
         return Agent.objects.filter(agent_lookups)
 
