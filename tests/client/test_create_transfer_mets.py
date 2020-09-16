@@ -190,7 +190,7 @@ def copyright_rights(db, basic_rights_statement):
         copyrightnote="Here is another copyright note"
     )
     copyright_info.rightsstatementcopyrightdocumentationidentifier_set.create(
-        copyrightdocumentationidentifiertype="Tranfer form ID",
+        copyrightdocumentationidentifiertype="Transfer form ID",
         copyrightdocumentationidentifiervalue="123-4",
         copyrightdocumentationidentifierrole="Transfer documentation",
     )
@@ -209,7 +209,7 @@ def license_rights(db, basic_rights_statement):
         licenseterms="Here are some license terms",
     )
     license_info.rightsstatementlicensedocumentationidentifier_set.create(
-        licensedocumentationidentifiertype="Tranfer form ID",
+        licensedocumentationidentifiertype="Transfer form ID",
         licensedocumentationidentifiervalue="123-4",
         licensedocumentationidentifierrole="Transfer documentation",
     )
