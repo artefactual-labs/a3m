@@ -55,7 +55,7 @@
     "pk": 5,
     "model": "main.rightsstatement",
     "fields": {
-        "status": "REINGEST",
+        "status": "ORIGINAL",
         "metadataappliestotype": "3e48343d-e2d2-4956-aaa3-b54d26eb9761",
         "metadataappliestoidentifier": "10d57d98-29e5-4b2c-9f9f-d163e632eb31",
         "rightsholder": 0,
@@ -81,7 +81,7 @@
     "pk": 7,
     "model": "main.rightsstatement",
     "fields": {
-        "status": "REINGEST",
+        "status": "ORIGINAL",
         "metadataappliestotype": "3e48343d-e2d2-4956-aaa3-b54d26eb9761",
         "metadataappliestoidentifier": "2941f14c-bd57-4f4a-a514-a3bf6ac5adf0",
         "rightsholder": 0,
@@ -94,7 +94,7 @@
     "pk": 8,
     "model": "main.rightsstatement",
     "fields": {
-        "status": "REINGEST",
+        "status": "ORIGINAL",
         "metadataappliestotype": "3e48343d-e2d2-4956-aaa3-b54d26eb9761",
         "metadataappliestoidentifier": "2941f14c-bd57-4f4a-a514-a3bf6ac5adf0",
         "rightsholder": 0,
@@ -107,7 +107,7 @@
     "pk": 9,
     "model": "main.rightsstatement",
     "fields": {
-        "status": "REINGEST",
+        "status": "ORIGINAL",
         "metadataappliestotype": "3e48343d-e2d2-4956-aaa3-b54d26eb9761",
         "metadataappliestoidentifier": "2941f14c-bd57-4f4a-a514-a3bf6ac5adf0",
         "rightsholder": 0,
@@ -120,7 +120,7 @@
     "pk": 10,
     "model": "main.rightsstatement",
     "fields": {
-        "status": "REINGEST",
+        "status": "ORIGINAL",
         "metadataappliestotype": "3e48343d-e2d2-4956-aaa3-b54d26eb9761",
         "metadataappliestoidentifier": "2941f14c-bd57-4f4a-a514-a3bf6ac5adf0",
         "rightsholder": 0,

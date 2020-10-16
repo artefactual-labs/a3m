@@ -7,7 +7,6 @@ from a3m.main import models
 
 FIELDS = (
     "title",
-    "is_part_of",
     "creator",
     "subject",
     "description",

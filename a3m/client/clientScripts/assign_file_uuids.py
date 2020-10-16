@@ -28,86 +28,15 @@ the path to the file.
 """
 import argparse
 import logging
-import os
-import re
 import uuid
 
-import metsrw
 from django.db import transaction
 
-from a3m import namespaces as ns
 from a3m.fileOperations import addFileToSIP
 from a3m.fileOperations import addFileToTransfer
 from a3m.main.models import File
-from a3m.main.models import Transfer
 
 logger = logging.getLogger(__name__)
-
-
-def find_mets_file(unit_path):
-    """
-    Return the location of the original METS in a Archivematica AIP transfer.
-    """
-    p = re.compile(r"^METS\..*\.xml$", re.IGNORECASE)
-    src = os.path.join(unit_path, "metadata")
-    for item in os.listdir(src):
-        m = p.match(item)
-        if m:
-            return os.path.join(src, m.group())
-
-
-def get_file_info_from_mets(job, sip_directory, file_path_relative_to_sip):
-    """
-    Look up information about the file in the METS document using metsrw.
-
-    :return: Dict with info. Keys: 'uuid', 'filegrpuse'
-    """
-    mets_file = find_mets_file(sip_directory)
-    if not mets_file:
-        logger.debug("Archivematica AIP: METS file not found.")
-        return {}
-    job.print_output("Reading METS file", mets_file, "for reingested file information.")
-    logger.debug("Archivematica AIP: reading METS file %s.", mets_file)
-    mets = metsrw.METSDocument.fromfile(mets_file)
-
-    current_path = file_path_relative_to_sip
-
-    file_path_relative_to_sip = file_path_relative_to_sip.replace(
-        "%transferDirectory%", "", 1
-    ).replace("%SIPDirectory%", "", 1)
-
-    # Warning! This is not the fastest way to achieve this. But we will focus
-    # on optimizations later.
-    # TODO: is it ok to assume that the file structure is flat?
-    # TODO will this work with original vs normalized paths?
-    entry = mets.get_file(path=file_path_relative_to_sip)
-    if not entry:
-        job.print_output("Could not find", file_path_relative_to_sip, "in METS.")
-        logger.debug(
-            "Archivematica AIP: file UUID has not been found in the METS document: %s",
-            file_path_relative_to_sip,
-        )
-        return {}
-    logger.debug(
-        "Archivematica AIP: file UUID of %s has been found in the METS document (%s).",
-        entry.file_uuid,
-        entry.path,
-    )
-
-    # Get original path
-    amdsec = entry.amdsecs[0]
-    for item in amdsec.subsections:
-        if item.subsection == "techMD":
-            techmd = item
-    pobject = techmd.contents.document  # Element
-    original_path = ns.xml_findtext_premis(pobject, "premis:originalName")
-
-    return {
-        "uuid": entry.file_uuid,
-        "filegrpuse": entry.use,
-        "current_path": current_path,
-        "original_path": original_path,
-    }
 
 
 def main(
@@ -140,19 +69,7 @@ def main(
         file_path_relative_to_sip = file_path.replace(
             sip_directory, "%transferDirectory%", 1
         )
-        transfer = Transfer.objects.get(uuid=transfer_uuid)
         event_type = "ingestion"
-        # For reingest, parse information from the METS
-        if transfer.type == "Archivematica AIP":
-            info = get_file_info_from_mets(
-                job, sip_directory, file_path_relative_to_sip
-            )
-            event_type = "reingestion"
-            file_uuid = info.get("uuid", file_uuid)
-            use = info.get("filegrpuse", use)
-            file_path_relative_to_sip = info.get(
-                "original_path", file_path_relative_to_sip
-            )
         if not file_uuid:
             file_uuid = str(uuid.uuid4())
             logger.debug("Generated UUID for this file: %s.", file_uuid)
@@ -165,13 +82,6 @@ def main(
             use=use,
             sourceType=event_type,
         )
-        # For reingest, the original location was parsed from the METS
-        # Update the current location to reflect what's on disk
-        if transfer.type == "Archivematica AIP":
-            job.print_output("updating current location for", file_uuid, "with", info)
-            File.objects.filter(uuid=file_uuid).update(
-                currentlocation=info["current_path"]
-            )
         return 0
 
     # Ingest

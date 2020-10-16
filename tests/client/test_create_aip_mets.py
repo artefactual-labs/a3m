@@ -82,7 +82,7 @@ class TestDublinCore(TestCase):
         # Verify created correctly
         assert dc_elem is not None
         assert dc_elem.tag == "{http://purl.org/dc/terms/}dublincore"
-        assert len(dc_elem) == 15
+        assert len(dc_elem) == 14
         assert dc_elem[0].tag == "{http://purl.org/dc/elements/1.1/}title"
         assert dc_elem[0].text == "Yamani Weapons"
         assert dc_elem[1].tag == "{http://purl.org/dc/elements/1.1/}creator"
@@ -111,8 +111,6 @@ class TestDublinCore(TestCase):
         assert dc_elem[12].text == "en"
         assert dc_elem[13].tag == "{http://purl.org/dc/elements/1.1/}rights"
         assert dc_elem[13].text == "Public Domain"
-        assert dc_elem[14].tag == "{http://purl.org/dc/terms/}isPartOf"
-        assert dc_elem[14].text == "AIC#42"
 
     def test_get_dublincore_none_found(self):
         """It should not create a Dublin Core element if no info found."""
@@ -198,7 +196,6 @@ class TestDublinCore(TestCase):
                 ("dc.relation", ["None"]),
                 ("dc.language", ["en"]),
                 ("dc.rights", ["Public Domain"]),
-                ("dcterms.isPartOf", ["AIC#42"]),
             ]
         )
         # Test
@@ -221,7 +218,7 @@ class TestDublinCore(TestCase):
         # Elements are children of dublincore tag
         dc_elem = xmldata[0]
         assert dc_elem.tag == "{http://purl.org/dc/terms/}dublincore"
-        assert len(dc_elem) == 15
+        assert len(dc_elem) == 14
         assert dc_elem[0].tag == "{http://purl.org/dc/elements/1.1/}title"
         assert dc_elem[0].text == "Yamani Weapons"
         assert dc_elem[1].tag == "{http://purl.org/dc/elements/1.1/}creator"
@@ -250,8 +247,6 @@ class TestDublinCore(TestCase):
         assert dc_elem[12].text == "en"
         assert dc_elem[13].tag == "{http://purl.org/dc/elements/1.1/}rights"
         assert dc_elem[13].text == "Public Domain"
-        assert dc_elem[14].tag == "{http://purl.org/dc/terms/}isPartOf"
-        assert dc_elem[14].text == "AIC#42"
 
     def test_dmdsec_from_csv_parsed_metadata_other_only(self):
         """It should only create an Other dmdSec from parsed metadata."""
@@ -302,7 +297,6 @@ class TestDublinCore(TestCase):
             [
                 ("dc.title", ["Yamani Weapons"]),
                 ("dc.contributor", ["雪 ユキ"]),
-                ("dcterms.isPartOf", ["AIC#42"]),
                 ("Title", ["Yamani Weapons"]),
                 ("Contributor", ["雪 ユキ"]),
                 (
@@ -332,13 +326,11 @@ class TestDublinCore(TestCase):
         dc_elem = xmldata[0]
         # Elements are children of dublincore tag
         assert dc_elem.tag == "{http://purl.org/dc/terms/}dublincore"
-        assert len(dc_elem) == 3
+        assert len(dc_elem) == 2
         assert dc_elem[0].tag == "{http://purl.org/dc/elements/1.1/}title"
         assert dc_elem[0].text == "Yamani Weapons"
         assert dc_elem[1].tag == "{http://purl.org/dc/elements/1.1/}contributor"
         assert dc_elem[1].text == "雪 ユキ"
-        assert dc_elem[2].tag == "{http://purl.org/dc/terms/}isPartOf"
-        assert dc_elem[2].text == "AIC#42"
 
         other_dmdsec = ret[1]
         assert other_dmdsec.tag == "{http://www.loc.gov/METS/}dmdSec"

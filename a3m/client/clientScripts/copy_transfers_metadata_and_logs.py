@@ -22,7 +22,6 @@ from optparse import OptionParser
 from a3m.archivematicaFunctions import find_transfer_path_from_ingest
 from a3m.bag import is_bag
 from a3m.main.models import File
-from a3m.main.models import SIP
 
 
 def main(job, sipUUID, transfersMetadataDirectory, transfersLogsDirectory, sharedPath):
@@ -33,7 +32,6 @@ def main(job, sipUUID, transfersMetadataDirectory, transfersLogsDirectory, share
 
     exitCode = 0
 
-    sip = SIP.objects.get(uuid=sipUUID)
     transfer_paths = (
         File.objects.filter(sip_id=sipUUID, transfer__isnull=False)
         .order_by("transfer__uuid")
@@ -55,20 +53,14 @@ def main(job, sipUUID, transfersMetadataDirectory, transfersLogsDirectory, share
             transferBasename = os.path.basename(os.path.abspath(transferPath))
 
             # Copy transfer metadata
-            if "REIN" in sip.sip_type:
-                # For reingest, ignore this transfer's metadata, only copy metadata from the original Transfer
-                transferMetaDestDir = transfersMetadataDirectory
-                transferMetadataDirectory = os.path.join(
-                    transferPath, "metadata", "transfers"
-                )
-            else:
-                transferMetaDestDir = os.path.join(
-                    transfersMetadataDirectory, transferBasename
-                )
-                os.makedirs(transferMetaDestDir)
-                transferMetadataDirectory = transfer_md_dir
+            transferMetaDestDir = os.path.join(
+                transfersMetadataDirectory, transferBasename
+            )
+            os.makedirs(transferMetaDestDir)
+            transferMetadataDirectory = transfer_md_dir
             if not os.path.exists(transferMetadataDirectory):
                 continue
+
             for met in os.listdir(transferMetadataDirectory):
                 if met == "submissionDocumentation":
                     continue

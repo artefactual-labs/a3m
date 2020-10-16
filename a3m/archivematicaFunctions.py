@@ -20,11 +20,8 @@ different Archivematica modules.
 import collections
 import hashlib
 import os
-import pprint
 import re
 from uuid import uuid4
-
-from lxml import etree
 
 from a3m.namespaces import NSMAP
 
@@ -217,60 +214,6 @@ def div_el_to_dir_paths(div_el, parent="", include=True):
     for sub_div_el in div_el.findall('mets:div[@TYPE="Directory"]', NSMAP):
         paths += div_el_to_dir_paths(sub_div_el, parent=path)
     return paths
-
-
-def reconstruct_empty_directories(mets_file_path, objects_path, logger=None):
-    """Reconstruct in objects/ path ``objects_path`` the empty directories
-    documented in METS file ``mets_file_path``.
-    :param str mets_file_path: absolute path to an AIP/SIP's METS file.
-    :param str objects_path: absolute path to an AIP/SIP's objects/ directory
-        on disk.
-    :returns None:
-    """
-    if not os.path.isfile(mets_file_path) or not os.path.isdir(objects_path):
-        if logger:
-            logger.debug(
-                "Unable to construct empty directories, either because"
-                " there is no METS file at {} or because there is no"
-                " objects/ directory at {}".format(
-                    strToUnicode(mets_file_path), strToUnicode(objects_path)
-                )
-            )
-        return
-    doc = etree.parse(mets_file_path, etree.XMLParser(remove_blank_text=True))
-    logical_struct_map_el = doc.find(
-        'mets:structMap[@TYPE="logical"][@LABEL="{}"]'.format(
-            NORMATIVE_STRUCTMAP_LABEL
-        ),
-        NSMAP,
-    )
-    if logical_struct_map_el is None:
-        if logger:
-            logger.debug(
-                "Unable to locate a logical structMap labelled {}."
-                " Aborting attempt to reconstruct empty"
-                " directories.".format(strToUnicode(NORMATIVE_STRUCTMAP_LABEL))
-            )
-        return
-    root_div_el = logical_struct_map_el.find(
-        'mets:div/mets:div[@LABEL="objects"]', NSMAP
-    )
-    if root_div_el is None:
-        if logger:
-            logger.debug(
-                "Unable to locate a logical structMap labelled {}."
-                " Aborting attempt to reconstruct empty"
-                " directories.".format(strToUnicode(NORMATIVE_STRUCTMAP_LABEL))
-            )
-        return
-    paths = div_el_to_dir_paths(root_div_el, include=False)
-    if logger:
-        logger.debug("paths extracted from METS file:")
-        logger.debug(pprint.pformat(paths))
-    for path in paths:
-        path = os.path.join(objects_path, path)
-        if not os.path.isdir(path):
-            os.makedirs(path)
 
 
 def find_transfer_path_from_ingest(transfer_path, shared_path):

@@ -87,7 +87,6 @@ class Package:
         self.sip = sip
         self.stage = Stage.TRANSFER
         self.aip_filename = None
-        self.sip_type = None
         self._current_path = self.transfer.currentlocation
 
     def __repr__(self):
@@ -254,7 +253,6 @@ class Package:
             sip = models.SIP.objects.get(uuid=self.sip.pk)
             self.current_path = sip.currentpath
             self.aip_filename = sip.aip_filename or ""
-            self.sip_type = sip.sip_type
         else:
             transfer = models.Transfer.objects.get(uuid=self.transfer.pk)
             self.current_path = transfer.currentlocation
@@ -284,7 +282,6 @@ class Package:
                 {
                     r"%unitType%": self.unit_variable_type,
                     r"%AIPFilename%": self.aip_filename,
-                    r"%SIPType%": self.sip_type,
                 }
             )
         else:

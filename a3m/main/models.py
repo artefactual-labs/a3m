@@ -30,12 +30,10 @@ from django.utils.translation import ugettext_lazy as _
 logger = logging.getLogger(__name__)
 
 METADATA_STATUS_ORIGINAL = "ORIGINAL"
-METADATA_STATUS_REINGEST = "REINGEST"
 METADATA_STATUS_UPDATED = "UPDATED"
 METADATA_STATUS = (
     (METADATA_STATUS_ORIGINAL, "original"),
-    (METADATA_STATUS_REINGEST, "parsed from reingest"),
-    (METADATA_STATUS_UPDATED, "updated"),  # Might be updated for both, on rereingest
+    (METADATA_STATUS_UPDATED, "updated"),
 )
 
 # How many objects are created through bulk_create in a single database query
@@ -77,12 +75,6 @@ class DublinCore(models.Model):
         db_column="metadataAppliesToidentifier",
     )  # Foreign key to SIPs or Transfers
     title = models.TextField(db_column="title", blank=True)
-    is_part_of = models.TextField(
-        db_column="isPartOf",
-        verbose_name=_("Part of AIC"),
-        help_text=_("Optional: leave blank if unsure"),
-        blank=True,
-    )
     creator = models.TextField(db_column="creator", blank=True)
     subject = models.TextField(db_column="subject", blank=True)
     description = models.TextField(db_column="description", blank=True)
@@ -244,15 +236,6 @@ class SIP(models.Model):
     currentpath = models.TextField(db_column="currentPath", null=True, blank=True)
     hidden = models.BooleanField(default=False)
     aip_filename = models.TextField(db_column="aipFilename", null=True, blank=True)
-    SIP_TYPE_CHOICES = (
-        ("SIP", _("SIP")),
-        ("AIC", _("AIC")),
-        ("AIP-REIN", _("Reingested AIP")),
-        ("AIC-REIN", _("Reingested AIC")),
-    )
-    sip_type = models.CharField(
-        max_length=8, choices=SIP_TYPE_CHOICES, db_column="sipType", default="SIP"
-    )
     identifiers = models.ManyToManyField("Identifier")
     diruuids = models.BooleanField(db_column="dirUUIDs", default=False)
 
@@ -1291,13 +1274,6 @@ class TransferMetadataField(models.Model):
     fieldlabel = models.CharField(max_length=50, blank=True, db_column="fieldLabel")
     fieldname = models.CharField(max_length=50, db_column="fieldName")
     fieldtype = models.CharField(max_length=50, db_column="fieldType")
-    optiontaxonomy = models.ForeignKey(
-        "Taxonomy",
-        db_column="optionTaxonomyUUID",
-        to_field="id",
-        null=True,
-        on_delete=models.CASCADE,
-    )
     sortorder = models.IntegerField(default=0, db_column="sortOrder")
 
     class Meta:
@@ -1328,46 +1304,6 @@ class TransferMetadataFieldValue(models.Model):
 
     class Meta:
         db_table = "TransferMetadataFieldValues"
-
-
-# Taxonomies and their field definitions are in separate tables
-# to leave room for future expansion. The possible taxonomy terms are
-# designed to be editable, and forms to do so exist. (Forms for editing and
-# defining new fields are present in the code but currently disabled.)
-class Taxonomy(models.Model):
-    id = models.UUIDField(
-        max_length=36, primary_key=True, db_column="pk", default=uuid.uuid4
-    )
-    createdtime = models.DateTimeField(
-        db_column="createdTime", auto_now_add=True, null=True
-    )
-    name = models.CharField(max_length=255, blank=True, db_column="name")
-    type = models.CharField(max_length=50, default="open")
-
-    class Meta:
-        db_table = "Taxonomies"
-
-    def __unicode__(self):
-        return self.name
-
-
-class TaxonomyTerm(models.Model):
-    id = models.UUIDField(
-        max_length=36, primary_key=True, db_column="pk", default=uuid.uuid4
-    )
-    createdtime = models.DateTimeField(
-        db_column="createdTime", auto_now_add=True, null=True
-    )
-    taxonomy = models.ForeignKey(
-        "Taxonomy", db_column="taxonomyUUID", to_field="id", on_delete=models.CASCADE
-    )
-    term = models.CharField(max_length=255, db_column="term")
-
-    class Meta:
-        db_table = "TaxonomyTerms"
-
-    def __unicode__(self):
-        return self.term
 
 
 class FPCommandOutput(models.Model):

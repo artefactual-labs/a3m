@@ -216,7 +216,7 @@
                 "pt_BR": "Ignore o exame dos conteúdos",
                 "sv": "Hoppa över undersök innehåll"
             },
-            "link_id": "675acd22-828d-4949-adc7-1888240f5e3d"
+            "link_id": "db99ab43-04d7-44ab-89ec-e09d7bbdc39d"
         },
         "e600b56d-1a43-4031-9d7c-f64f123e5662": {
             "description": {
@@ -659,7 +659,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -701,7 +701,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -778,7 +778,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -813,7 +813,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -909,11 +909,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "675acd22-828d-4949-adc7-1888240f5e3d"
+                    "link_id": "db99ab43-04d7-44ab-89ec-e09d7bbdc39d"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "675acd22-828d-4949-adc7-1888240f5e3d",
+            "fallback_link_id": "db99ab43-04d7-44ab-89ec-e09d7bbdc39d",
             "group": {
                 "en": "Examine contents",
                 "es": "Examinar contenidos",
@@ -1010,7 +1010,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -1085,7 +1085,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -1094,7 +1094,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "--amdSec --baseDirectoryPath \"%SIPDirectory%\" --baseDirectoryPathString \"SIPDirectory\" --fileGroupIdentifier \"%SIPUUID%\" --fileGroupType \"sip_id\" --xmlFile \"%SIPDirectory%METS.%SIPUUID%.xml\" --sipType \"%SIPType%\" --createNormativeStructmap",
+                "arguments": "--amdSec --baseDirectoryPath \"%SIPDirectory%\" --baseDirectoryPathString \"SIPDirectory\" --fileGroupIdentifier \"%SIPUUID%\" --fileGroupType \"sip_id\" --xmlFile \"%SIPDirectory%METS.%SIPUUID%.xml\" --createNormativeStructmap",
                 "execute": "createMETS_v2.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1329,7 +1329,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -1505,7 +1505,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -1547,7 +1547,7 @@
             "config": {
                 "@manager": "linkTaskManagerFiles",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
+                "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
                 "execute": "updateSizeAndChecksum_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1608,7 +1608,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -1717,7 +1717,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -1780,7 +1780,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -1815,7 +1815,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -1824,7 +1824,7 @@
             "config": {
                 "@manager": "linkTaskManagerFiles",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
+                "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
                 "execute": "updateSizeAndChecksum_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -2097,7 +2097,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2130,7 +2130,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2206,7 +2206,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2242,7 +2242,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2339,7 +2339,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2367,7 +2367,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2536,7 +2536,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2634,7 +2634,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2676,7 +2676,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2769,7 +2769,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2802,7 +2802,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -2910,39 +2910,6 @@
                 "sv": "Karaktärisera och extrahera metadata"
             }
         },
-        "675acd22-828d-4949-adc7-1888240f5e3d": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%TransferUUID%\" \"%SIPDirectory%\"",
-                "execute": "parseExternalMETS",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Parse external METS",
-                "sv": "Tolka extern METS"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "db99ab43-04d7-44ab-89ec-e09d7bbdc39d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "db99ab43-04d7-44ab-89ec-e09d7bbdc39d",
-            "group": {
-                "en": "Complete transfer",
-                "es": "Completar transferencia",
-                "fr": "Transfert complété",
-                "ja": "転送完了",
-                "pt_BR": "Transferência completa",
-                "sv": "Slutför överföring"
-            }
-        },
         "67b44f8f-bc97-4cb3-b6dd-09dba3c99d30": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -2978,7 +2945,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3013,7 +2980,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3073,7 +3040,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3106,7 +3073,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3161,7 +3128,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3210,7 +3177,7 @@
             "description": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             },
@@ -3220,7 +3187,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3373,7 +3340,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3409,7 +3376,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3445,7 +3412,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3559,7 +3526,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3688,7 +3655,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3789,7 +3756,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -3832,7 +3799,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -4107,7 +4074,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -4238,7 +4205,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -4369,7 +4336,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -4378,7 +4345,7 @@
             "config": {
                 "@manager": "linkTaskManagerFiles",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
+                "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
                 "execute": "updateSizeAndChecksum_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -4487,7 +4454,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -4683,7 +4650,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -4704,7 +4671,7 @@
             "description": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             },
@@ -4714,7 +4681,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -4723,7 +4690,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "--amdSec --baseDirectoryPath \"%SIPDirectory%\" --baseDirectoryPathString \"SIPDirectory\" --fileGroupIdentifier \"%SIPUUID%\" --fileGroupType \"sip_id\" --xmlFile \"%SIPDirectory%METS.%SIPUUID%.xml\" --sipType \"%SIPType%\"",
+                "arguments": "--amdSec --baseDirectoryPath \"%SIPDirectory%\" --baseDirectoryPathString \"SIPDirectory\" --fileGroupIdentifier \"%SIPUUID%\" --fileGroupType \"sip_id\" --xmlFile \"%SIPDirectory%METS.%SIPUUID%.xml\"",
                 "execute": "createMETS_v2.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -4783,7 +4750,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -4903,7 +4870,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -4936,7 +4903,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -5005,7 +4972,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -5166,7 +5133,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -5208,7 +5175,7 @@
             "config": {
                 "@manager": "linkTaskManagerFiles",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
+                "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
                 "execute": "updateSizeAndChecksum_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -5313,7 +5280,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -5322,7 +5289,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%TransferUUID%\"",
+                "arguments": "\"%SIPDirectory%\"",
                 "execute": "restructureForCompliance_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -5426,7 +5393,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -5638,7 +5605,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }
@@ -5746,7 +5713,7 @@
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
-                "fr": "Normaliser ",
+                "fr": "Normaliser",
                 "pt_BR": "Normalizar",
                 "sv": "Normalisera"
             }

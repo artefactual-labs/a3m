@@ -49,7 +49,6 @@
     {
         "fields": {
             "fieldlabel": "Image fixity",
-            "optiontaxonomy": null,
             "fieldname": "image_fixity",
             "fieldtype": "textarea",
             "createdtime": "2020-04-12T12:49:40.579Z",
@@ -61,7 +60,6 @@
     {
         "fields": {
             "fieldlabel": "Imaging software",
-            "optiontaxonomy": "cae76c7f-4d8e-48ee-9522-4b3fbf492516",
             "fieldname": "imaging_software",
             "fieldtype": "select",
             "createdtime": "2020-04-12T12:49:40.580Z",
@@ -73,7 +71,6 @@
     {
         "fields": {
             "fieldlabel": "Media format",
-            "optiontaxonomy": "312fc2b3-d786-458d-a762-57add7f96c22",
             "fieldname": "media_format",
             "fieldtype": "select",
             "createdtime": "2020-04-12T12:49:40.581Z",
@@ -85,7 +82,6 @@
     {
         "fields": {
             "fieldlabel": "Serial number",
-            "optiontaxonomy": null,
             "fieldname": "serial_number",
             "fieldtype": "text",
             "createdtime": "2020-04-12T12:49:40.589Z",
@@ -97,7 +93,6 @@
     {
         "fields": {
             "fieldlabel": "Examiner",
-            "optiontaxonomy": null,
             "fieldname": "examiner",
             "fieldtype": "text",
             "createdtime": "2020-04-12T12:49:40.590Z",
@@ -109,7 +104,6 @@
     {
         "fields": {
             "fieldlabel": "Imaging success",
-            "optiontaxonomy": null,
             "fieldname": "imaging_success",
             "fieldtype": "text",
             "createdtime": "2020-04-12T12:49:40.590Z",
@@ -121,7 +115,6 @@
     {
         "fields": {
             "fieldlabel": "Media manufacture",
-            "optiontaxonomy": null,
             "fieldname": "media_manufacture",
             "fieldtype": "text",
             "createdtime": "2020-04-12T12:49:40.591Z",
@@ -133,7 +126,6 @@
     {
         "fields": {
             "fieldlabel": "Imaging date",
-            "optiontaxonomy": null,
             "fieldname": "imaging_date",
             "fieldtype": "text",
             "createdtime": "2020-04-12T12:49:40.592Z",
@@ -145,7 +137,6 @@
     {
         "fields": {
             "fieldlabel": "Imaging process notes",
-            "optiontaxonomy": null,
             "fieldname": "imaging_process_notes",
             "fieldtype": "textarea",
             "createdtime": "2020-04-12T12:49:40.592Z",
@@ -157,7 +148,6 @@
     {
         "fields": {
             "fieldlabel": "Media density",
-            "optiontaxonomy": "f6980e68-bac2-46db-842b-da4eba4ba418",
             "fieldname": "media_density",
             "fieldtype": "select",
             "createdtime": "2020-04-12T12:49:40.593Z",
@@ -169,7 +159,6 @@
     {
         "fields": {
             "fieldlabel": "Label text",
-            "optiontaxonomy": null,
             "fieldname": "label_text",
             "fieldtype": "textarea",
             "createdtime": "2020-04-12T12:49:40.594Z",
@@ -181,7 +170,6 @@
     {
         "fields": {
             "fieldlabel": "Imaging interface",
-            "optiontaxonomy": "fbf318db-4908-4971-8273-1094d2ba29a6",
             "fieldname": "imaging_interface",
             "fieldtype": "select",
             "createdtime": "2020-04-12T12:49:40.595Z",
@@ -193,7 +181,6 @@
     {
         "fields": {
             "fieldlabel": "Source filesystem",
-            "optiontaxonomy": "31e0bdc9-1114-4427-9f37-ca284577dcac",
             "fieldname": "source_filesystem",
             "fieldtype": "select",
             "createdtime": "2020-04-12T12:49:40.595Z",
@@ -205,7 +192,6 @@
     {
         "fields": {
             "fieldlabel": "Image format",
-            "optiontaxonomy": "cc4231ef-9886-4722-82ec-917e60d3b2c7",
             "fieldname": "image_format",
             "fieldtype": "select",
             "createdtime": "2020-04-12T12:49:40.596Z",
@@ -217,7 +203,6 @@
     {
         "fields": {
             "fieldlabel": "Media number",
-            "optiontaxonomy": null,
             "fieldname": "media_number",
             "fieldtype": "text",
             "createdtime": "2020-04-12T12:49:40.597Z",
@@ -225,185 +210,5 @@
         },
         "model": "main.transfermetadatafield",
         "pk": "fc69452c-ca57-448d-a46b-873afdd55e15"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.554Z",
-            "type": "",
-            "name": "Disk media formats"
-        },
-        "model": "main.taxonomy",
-        "pk": "312fc2b3-d786-458d-a762-57add7f96c22"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.555Z",
-            "type": "",
-            "name": "Filesystem types"
-        },
-        "model": "main.taxonomy",
-        "pk": "31e0bdc9-1114-4427-9f37-ca284577dcac"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.556Z",
-            "type": "",
-            "name": "Disk imaging software"
-        },
-        "model": "main.taxonomy",
-        "pk": "cae76c7f-4d8e-48ee-9522-4b3fbf492516"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.556Z",
-            "type": "",
-            "name": "Disk image format"
-        },
-        "model": "main.taxonomy",
-        "pk": "cc4231ef-9886-4722-82ec-917e60d3b2c7"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.557Z",
-            "type": "",
-            "name": "Disk media densities"
-        },
-        "model": "main.taxonomy",
-        "pk": "f6980e68-bac2-46db-842b-da4eba4ba418"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.558Z",
-            "type": "",
-            "name": "Disk imaging interfaces"
-        },
-        "model": "main.taxonomy",
-        "pk": "fbf318db-4908-4971-8273-1094d2ba29a6"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.558Z",
-            "taxonomy": "31e0bdc9-1114-4427-9f37-ca284577dcac",
-            "term": "FAT"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "0d6d40b5-8bf8-431d-8dd2-23d6b0b17ca0"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.563Z",
-            "taxonomy": "fbf318db-4908-4971-8273-1094d2ba29a6",
-            "term": "Catweasel"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "35097f1b-094a-40bc-ba0c-f1260b50042a"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.564Z",
-            "taxonomy": "cae76c7f-4d8e-48ee-9522-4b3fbf492516",
-            "term": "FTK imager 3.1.0.1514"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "38ad5611-f05a-45d4-ac20-541c89bf0167"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.571Z",
-            "taxonomy": "fbf318db-4908-4971-8273-1094d2ba29a6",
-            "term": "Firewire"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "53e7764a-f711-486d-a0aa-8ec10d1d8da5"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.572Z",
-            "taxonomy": "fbf318db-4908-4971-8273-1094d2ba29a6",
-            "term": "USB"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "6774c7ce-a760-4f29-a7a3-b948f3769f71"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.573Z",
-            "taxonomy": "cae76c7f-4d8e-48ee-9522-4b3fbf492516",
-            "term": "Kryoflux"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "6836caa4-8a0f-465e-be1b-4d8c547a7bf4"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.573Z",
-            "taxonomy": "fbf318db-4908-4971-8273-1094d2ba29a6",
-            "term": "IDE"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "6e368167-ea3e-45cd-adf2-60513a7e1802"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.574Z",
-            "taxonomy": "f6980e68-bac2-46db-842b-da4eba4ba418",
-            "term": "Double density"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "82a367f5-8157-4ac4-a5eb-3b59aac78d16"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.575Z",
-            "taxonomy": "312fc2b3-d786-458d-a762-57add7f96c22",
-            "term": "3.5\" floppy"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "867ab18d-e860-445f-a254-8fcdebfe95b6"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.576Z",
-            "taxonomy": "cc4231ef-9886-4722-82ec-917e60d3b2c7",
-            "term": "AD1"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "a3a6e30d-810f-4300-8461-1b41a7b383f1"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.576Z",
-            "taxonomy": "312fc2b3-d786-458d-a762-57add7f96c22",
-            "term": "5.25\" floppy"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "c41922d6-e716-4822-a385-e2fb0009465b"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.577Z",
-            "taxonomy": "31e0bdc9-1114-4427-9f37-ca284577dcac",
-            "term": "HFS"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "db34d5e1-0c93-4faa-bb1c-c5f5ebae6764"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.578Z",
-            "taxonomy": "f6980e68-bac2-46db-842b-da4eba4ba418",
-            "term": "Single density"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "e4edb250-d70a-4f63-8234-948b05b1163e"
-    },
-    {
-        "fields": {
-            "createdtime": "2020-04-12T12:49:40.578Z",
-            "taxonomy": "cc4231ef-9886-4722-82ec-917e60d3b2c7",
-            "term": "AFF3"
-        },
-        "model": "main.taxonomyterm",
-        "pk": "fcefbea2-848c-4685-9032-18a87cbc7a04"
     }
 ]

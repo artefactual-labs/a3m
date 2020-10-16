@@ -15,13 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 import os
-import re
 import shutil
 
 from a3m.archivematicaFunctions import find_transfer_path_from_ingest
 from a3m.bag import is_bag
 from a3m.main.models import File
-from a3m.main.models import SIP
 
 
 def call(jobs):
@@ -41,9 +39,6 @@ def call(jobs):
                 .distinct()
             )
 
-            sip = SIP.objects.get(uuid=sipUUID)
-            aip_mets_name = "METS." + sipUUID + ".xml"
-
             for transferLocation in transfer_locations:
                 transferNameUUID = os.path.basename(os.path.abspath(transferLocation))
                 transferLocation = find_transfer_path_from_ingest(
@@ -58,37 +53,9 @@ def call(jobs):
                     submissionDocumentationDirectory, "transfer-%s" % (transferNameUUID)
                 )
 
-                # For reingest, ignore this transfer's submission docs, only copy submission docs from the original Transfer
-                if "REIN" in sip.sip_type:
-                    # Copy original AIP's METS if it exists. There should only ever be one of these in all source transfers.
-                    aip_src = os.path.join(transferLocation, "metadata", aip_mets_name)
-                    aip_dst = os.path.join(
-                        submissionDocumentationDirectory, aip_mets_name
+                if is_bag(transferLocation):
+                    src = os.path.join(
+                        transferLocation, "data", "metadata", "submissionDocumentation",
                     )
-                    shutil.copy(aip_src, aip_dst)
-                    job.pyprint(
-                        "copied original AIP METS to submissionDocumentation: ",
-                        aip_src,
-                        " -> ",
-                        aip_dst,
-                    )
-
-                    # Only copy previous transfers and old AIP METS
-                    for item in os.listdir(src):
-                        if re.match(
-                            r"^transfer-.+-[\w]{8}(-[\w]{4}){3}-[\w]{12}$", item
-                        ):
-                            item_path = os.path.join(src, item)
-                            dst = os.path.join(submissionDocumentationDirectory, item)
-                            job.pyprint(item_path, " -> ", dst)
-                            shutil.copytree(item_path, dst)
-                else:
-                    if is_bag(transferLocation):
-                        src = os.path.join(
-                            transferLocation,
-                            "data",
-                            "metadata",
-                            "submissionDocumentation",
-                        )
-                    job.pyprint(src, " -> ", dst)
-                    shutil.copytree(src, dst)
+                job.pyprint(src, " -> ", dst)
+                shutil.copytree(src, dst)

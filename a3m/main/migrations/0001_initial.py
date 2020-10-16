@@ -323,11 +323,7 @@ class Migration(migrations.Migration):
                 (
                     "status",
                     models.CharField(
-                        choices=[
-                            ("ORIGINAL", "original"),
-                            ("REINGEST", "parsed from reingest"),
-                            ("UPDATED", "updated"),
-                        ],
+                        choices=[("ORIGINAL", "original"), ("UPDATED", "updated")],
                         db_column="status",
                         default="ORIGINAL",
                         max_length=8,
@@ -681,32 +677,6 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name="Taxonomy",
-            fields=[
-                (
-                    "id",
-                    models.UUIDField(
-                        db_column="pk",
-                        default=uuid.uuid4,
-                        primary_key=True,
-                        serialize=False,
-                    ),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(
-                        auto_now_add=True, db_column="createdTime", null=True
-                    ),
-                ),
-                (
-                    "name",
-                    models.CharField(blank=True, db_column="name", max_length=255),
-                ),
-                ("type", models.CharField(default="open", max_length=50)),
-            ],
-            options={"db_table": "Taxonomies"},
-        ),
-        migrations.CreateModel(
             name="TransferMetadataField",
             fields=[
                 (
@@ -731,15 +701,6 @@ class Migration(migrations.Migration):
                 ("fieldname", models.CharField(db_column="fieldName", max_length=50)),
                 ("fieldtype", models.CharField(db_column="fieldType", max_length=50)),
                 ("sortorder", models.IntegerField(db_column="sortOrder", default=0)),
-                (
-                    "optiontaxonomy",
-                    models.ForeignKey(
-                        db_column="optionTaxonomyUUID",
-                        null=True,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="main.Taxonomy",
-                    ),
-                ),
             ],
             options={"db_table": "TransferMetadataFields"},
         ),
@@ -893,36 +854,6 @@ class Migration(migrations.Migration):
             options={"db_table": "Transfers"},
         ),
         migrations.CreateModel(
-            name="TaxonomyTerm",
-            fields=[
-                (
-                    "id",
-                    models.UUIDField(
-                        db_column="pk",
-                        default=uuid.uuid4,
-                        primary_key=True,
-                        serialize=False,
-                    ),
-                ),
-                (
-                    "createdtime",
-                    models.DateTimeField(
-                        auto_now_add=True, db_column="createdTime", null=True
-                    ),
-                ),
-                ("term", models.CharField(db_column="term", max_length=255)),
-                (
-                    "taxonomy",
-                    models.ForeignKey(
-                        db_column="taxonomyUUID",
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="main.Taxonomy",
-                    ),
-                ),
-            ],
-            options={"db_table": "TaxonomyTerms"},
-        ),
-        migrations.CreateModel(
             name="Task",
             fields=[
                 (
@@ -999,20 +930,6 @@ class Migration(migrations.Migration):
                 (
                     "aip_filename",
                     models.TextField(blank=True, db_column="aipFilename", null=True),
-                ),
-                (
-                    "sip_type",
-                    models.CharField(
-                        choices=[
-                            ("SIP", "SIP"),
-                            ("AIC", "AIC"),
-                            ("AIP-REIN", "Reingested AIP"),
-                            ("AIC-REIN", "Reingested AIC"),
-                        ],
-                        db_column="sipType",
-                        default="SIP",
-                        max_length=8,
-                    ),
                 ),
                 ("diruuids", models.BooleanField(db_column="dirUUIDs", default=False)),
                 ("identifiers", models.ManyToManyField(to="main.Identifier")),
@@ -1617,15 +1534,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("title", models.TextField(blank=True, db_column="title")),
-                (
-                    "is_part_of",
-                    models.TextField(
-                        blank=True,
-                        db_column="isPartOf",
-                        help_text="Optional: leave blank if unsure",
-                        verbose_name="Part of AIC",
-                    ),
-                ),
                 ("creator", models.TextField(blank=True, db_column="creator")),
                 ("subject", models.TextField(blank=True, db_column="subject")),
                 ("description", models.TextField(blank=True, db_column="description")),
@@ -1655,11 +1563,7 @@ class Migration(migrations.Migration):
                 (
                     "status",
                     models.CharField(
-                        choices=[
-                            ("ORIGINAL", "original"),
-                            ("REINGEST", "parsed from reingest"),
-                            ("UPDATED", "updated"),
-                        ],
+                        choices=[("ORIGINAL", "original"), ("UPDATED", "updated")],
                         db_column="status",
                         default="ORIGINAL",
                         max_length=8,

@@ -137,7 +137,6 @@ def getDublinCore(unit, id_):
             ("language", "language"),
             ("coverage", "coverage"),
             ("rights", "rights"),
-            ("is_part_of", "isPartOf"),
         ]
     )
 
@@ -1349,7 +1348,6 @@ def call(jobs):
     from optparse import OptionParser
 
     parser = OptionParser()
-    parser.add_option("--sipType", action="store", dest="sip_type", default="SIP")
     parser.add_option(
         "-s",
         "--baseDirectoryPath",
@@ -1393,7 +1391,6 @@ def call(jobs):
             try:
                 opts, _ = parser.parse_args(job.args[1:])
                 state = MetsState()
-                SIP_TYPE = opts.sip_type
                 baseDirectoryPath = opts.baseDirectoryPath
                 XMLFile = opts.xmlFile
                 baseDirectoryPathString = "%%%s%%" % (opts.baseDirectoryPathString)
@@ -1401,30 +1398,6 @@ def call(jobs):
                 fileGroupType = opts.fileGroupType
                 includeAmdSec = opts.amdSec
                 createNormativeStructmap = opts.createNormativeStructmap
-                keepNormativeStructmap = createNormativeStructmap
-
-                # If reingesting, do not create a new METS, just modify existing one
-                if "REIN" in SIP_TYPE:
-                    # Circular import: archivematicaCreateMETSReingest
-                    # calls functions on this module
-                    from . import archivematicaCreateMETSReingest
-
-                    job.pyprint("Updating METS during reingest")
-                    # fileGroupIdentifier is SIPUUID, baseDirectoryPath is SIP dir,
-                    # don't keep existing normative structmap if creating one
-                    root = archivematicaCreateMETSReingest.update_mets(
-                        job,
-                        baseDirectoryPath,
-                        fileGroupIdentifier,
-                        state,
-                        keep_normative_structmap=keepNormativeStructmap,
-                    )
-                    tree = etree.ElementTree(root)
-                    write_mets(tree, XMLFile)
-
-                    job.set_status(0)
-                    continue
-                # End reingest
 
                 state.CSV_METADATA = parseMetadata(job, baseDirectoryPath, state)
 
@@ -1546,13 +1519,7 @@ def call(jobs):
                 )
                 if dc is not None:
                     (dmdSec, ID) = dc
-                    if structMapDivObjects is not None:
-                        structMapDivObjects.set("DMDID", ID)
-                    else:
-                        # AICs have no objects directory but do have DC metadata
-                        # Attach the DC metadata to the top level SIP div
-                        # See #9822 for details
-                        structMapDiv.set("DMDID", ID)
+                    structMapDivObjects.set("DMDID", ID)
                     root.append(dmdSec)
 
                 for dmdSec in state.dmdSecs:

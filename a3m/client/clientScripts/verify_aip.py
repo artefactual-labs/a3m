@@ -13,7 +13,6 @@ from django.db import transaction
 from a3m import databaseFunctions
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.main.models import File
-from a3m.main.models import SIP
 
 
 logger = logging.getLogger(__name__)
@@ -80,17 +79,13 @@ def assert_checksum_types_match(job, file_, sip_uuid, settings_checksum_type):
         )
 
 
-def get_expected_checksum(
-    job, bag, file_, sip_uuid, checksum_type, file_path, is_reingest
-):
+def get_expected_checksum(job, bag, file_, sip_uuid, checksum_type, file_path):
     """Raise an exception if an expected checksum cannot be found in the
     Bag manifest.
     """
     try:
         return bag.entries[file_path][checksum_type]
     except KeyError:
-        if is_reingest:
-            return None
         event_outcome_detail_note = (
             "Unable to find expected path {expected_path} for file"
             " {file_uuid} in the following mapping from file paths to"
@@ -131,12 +126,10 @@ def verify_checksums(job, bag, sip_uuid):
     those generated near the end of ingest by bag, i.e., "Prepare AIP"
     (bagit_v0.0).
     """
-    is_reingest = "REIN" in SIP.objects.get(uuid=sip_uuid).sip_type
     checksum_type = mcpclient_settings.DEFAULT_CHECKSUM_ALGORITHM
     removableFiles = [e.strip() for e in mcpclient_settings.REMOVABLE_FILES.split(",")]
     try:
         verification_count = 0
-        verification_skipped_because_reingest = 0
         for file_ in File.objects.filter(sip_id=sip_uuid):
             if (
                 os.path.basename(file_.originallocation) in removableFiles
@@ -150,11 +143,8 @@ def verify_checksums(job, bag, sip_uuid):
             )
             assert_checksum_types_match(job, file_, sip_uuid, checksum_type)
             expected_checksum = get_expected_checksum(
-                job, bag, file_, sip_uuid, checksum_type, file_path, is_reingest
+                job, bag, file_, sip_uuid, checksum_type, file_path
             )
-            if expected_checksum is None:
-                verification_skipped_because_reingest += 1
-                continue
             assert_checksums_match(
                 job, file_, sip_uuid, checksum_type, expected_checksum
             )
@@ -168,14 +158,6 @@ def verify_checksums(job, bag, sip_uuid):
             verification_count=verification_count
         )
     )
-    if verification_skipped_because_reingest:
-        event_outcome_detail_note += (
-            " Note that checksum verification was skipped for {skipped_count}"
-            " file(s) because this AIP is being re-ingested and the re-ingest"
-            " payload did not include said file(s).".format(
-                skipped_count=verification_skipped_because_reingest
-            )
-        )
     write_premis_event(job, sip_uuid, checksum_type, "Pass", event_outcome_detail_note)
     job.pyprint(event_outcome_detail_note)
 
