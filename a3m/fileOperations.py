@@ -16,9 +16,7 @@
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 import csv
 import os
-import shutil
 import sys
-import uuid
 
 from django.conf import settings as django_settings
 
@@ -152,110 +150,6 @@ def rename(source, destination, printfn=print, should_exit=False):
             exit(exitCode)
 
     return exitCode
-
-
-class UpdateFileLocationFailed(Exception):
-    def __init__(self, code):
-        self.code = code
-
-
-def updateFileLocation2(
-    src,
-    dst,
-    unitPath,
-    unitIdentifier,
-    unitIdentifierType,
-    unitPathReplaceWith,
-    printfn=print,
-):
-    """Dest needs to be the actual full destination path with filename."""
-    srcDB = src.replace(unitPath, unitPathReplaceWith)
-    dstDB = dst.replace(unitPath, unitPathReplaceWith)
-    # Fetch the file UUID
-    kwargs = {
-        "removedtime__isnull": True,
-        "currentlocation": srcDB,
-        unitIdentifierType: unitIdentifier,
-    }
-
-    try:
-        f = File.objects.get(**kwargs)
-    except (File.DoesNotExist, File.MultipleObjectsReturned) as e:
-        if isinstance(e, File.DoesNotExist):
-            message = "no results found"
-        else:
-            message = "multiple results found"
-        printfn(
-            "ERROR: file information not found:",
-            message,
-            "for arguments:",
-            repr(kwargs),
-            file=sys.stderr,
-        )
-        raise UpdateFileLocationFailed(4)
-
-    # Move the file
-    printfn("Moving", src, "to", dst)
-    shutil.move(src, dst)
-    # Update the DB
-    f.currentlocation = dstDB
-    f.save()
-
-
-def updateFileLocation(
-    src,
-    dst,
-    eventType="",
-    eventDateTime="",
-    eventDetail="",
-    eventIdentifierUUID=uuid.uuid4().__str__(),
-    fileUUID="None",
-    sipUUID=None,
-    transferUUID=None,
-    eventOutcomeDetailNote="",
-    createEvent=True,
-):
-    """
-    Updates file location in the database, and optionally writes an event for the sanitization to the database.
-    Note that this does not actually move a file on disk.
-    If the file uuid is not provided, will use the SIP uuid and the old path to find the file uuid.
-    To suppress creation of an event, pass the createEvent keyword argument (for example, if the file moved due to the renaming of a parent directory and not the file itself).
-    """
-
-    if not fileUUID or fileUUID == "None":
-        kwargs = {"removedtime__isnull": True, "currentlocation": src}
-
-        if sipUUID:
-            kwargs["sip_id"] = sipUUID
-        elif transferUUID:
-            kwargs["transfer_id"] = transferUUID
-        else:
-            raise ValueError(
-                "One of fileUUID, sipUUID, or transferUUID must be provided"
-            )
-
-        f = File.objects.get(**kwargs)
-    else:
-        f = File.objects.get(uuid=fileUUID)
-
-    # UPDATE THE CURRENT FILE PATH
-    f.currentlocation = dst
-    f.save()
-
-    if not createEvent:
-        return
-
-    if eventOutcomeDetailNote == "":
-        eventOutcomeDetailNote = f'Original name="{src}"; cleaned up name="{dst}"'
-    # CREATE THE EVENT
-    insertIntoEvents(
-        fileUUID=f.uuid,
-        eventType=eventType,
-        eventDateTime=eventDateTime,
-        eventDetail=eventDetail,
-        eventOutcome="",
-        eventOutcomeDetailNote=eventOutcomeDetailNote,
-    )
 
 
 def updateFileGrpUse(fileUUID, fileGrpUse):

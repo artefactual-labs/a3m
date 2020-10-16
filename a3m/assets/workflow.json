@@ -1301,11 +1301,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "67b44f8f-bc97-4cb3-b6dd-09dba3c99d30"
+                    "link_id": "7a024896-c4f7-4808-a240-44c87c762bc5"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "67b44f8f-bc97-4cb3-b6dd-09dba3c99d30",
+            "fallback_link_id": "7a024896-c4f7-4808-a240-44c87c762bc5",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -2853,46 +2853,6 @@
                 "sv": "Karaktärisera och extrahera metadata"
             }
         },
-        "67b44f8f-bc97-4cb3-b6dd-09dba3c99d30": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "--SIPDirectory \"%SIPDirectory%\" --accessDirectory \"objects/access/\" --objectsDirectory \"objects/\" --DIPDirectory \"DIP\" --SIPUUID \"%SIPUUID%\" --date \"%date%\"",
-                "execute": "checkForAccessDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Check for Access directory",
-                "es": "Comprobar el directorio de acceso",
-                "fr": "Chercher le répertoire d'accès",
-                "ja": "アクセスディレクトリを確認",
-                "pt_BR": "Verifique o diretório de acesso",
-                "sv": "Sök efter åtkomstkatalog."
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "74665638-5d8f-43f3-b7c9-98c4c8889766"
-                },
-                "179": {
-                    "job_status": "Completed successfully",
-                    "link_id": "e219ed78-2eda-4263-8c0f-0c7f6a86c33e"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "6b931965-d5f6-4611-a536-39d5901f8f70": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -3045,35 +3005,6 @@
                 "ja": "妥当性確認",
                 "pt_BR": "Validação",
                 "sv": "Godkännande"
-            }
-        },
-        "74665638-5d8f-43f3-b7c9-98c4c8889766": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "cb8e5706-e73f-472f-ad9b-d1236af8095f",
-                "variable": "resumeAfterNormalizationFileIdentificationToolSelected",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Grant normalization options for no pre-existing DIP",
-                "pt_BR": "Permitir opções de normalização para nenhum DIP preexistente",
-                "sv": "Bevilja normaliseringalternativ för ingen redan existerande DIP"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "7a024896-c4f7-4808-a240-44c87c762bc5"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "746b1f47-2dad-427b-8915-8b0cb7acccd8": {
@@ -5025,35 +4956,6 @@
                 "en": "Include default SIP processingMCP.xml",
                 "pt_BR": "Incluir padrão SIP processingMCP.xml",
                 "sv": "Inkludera standard SIP processingMCP.xml"
-            }
-        },
-        "e219ed78-2eda-4263-8c0f-0c7f6a86c33e": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "7509e7dc-1e1b-4dce-8d21-e130515fce73",
-                "variable": "resumeAfterNormalizationFileIdentificationToolSelected",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Grant normalization options for pre-existing DIP",
-                "pt_BR": "Conceder opções de normalização para DIP preexistente",
-                "sv": "Bevilja normaliseringsalternativ för redan existerande DIP"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "7a024896-c4f7-4808-a240-44c87c762bc5"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "e4b0c713-988a-4606-82ea-4b565936d9a7": {
