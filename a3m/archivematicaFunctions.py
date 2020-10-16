@@ -196,9 +196,6 @@ def str2bool(val):
     return False
 
 
-NORMATIVE_STRUCTMAP_LABEL = "Normative Directory Structure"
-
-
 def div_el_to_dir_paths(div_el, parent="", include=True):
     """Recursively extract the list of filesystem directory paths encoded in
     <mets:div> element ``div_el``.

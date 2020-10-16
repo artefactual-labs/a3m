@@ -19,7 +19,6 @@ import os
 import shutil
 import sys
 import uuid
-from pathlib import Path
 
 from django.conf import settings as django_settings
 
@@ -344,26 +343,3 @@ def findFileInNormalizationCSV(
                 file=sys.stderr,
             )
             raise FindFileInNormalizatonCSVError(2)
-
-
-def get_extract_dir_name(filename):
-    """
-    Given the name of a compressed file, return the stem directory name into
-    which it should be extracted.
-
-    :param filename: `Path` object or string representation of filename
-
-    e.g. transfer1.zip will be extracted into transfer1
-         transfer2.tar.gz will be extracted into transfer2
-    """
-    filename = Path(filename)
-    if not filename.suffix:
-        raise ValueError("Filename '%s' must have an extension", filename)
-
-    extract_dir = filename.parent / filename.stem
-
-    # trim off '.tar' if present
-    if extract_dir.suffix in (".tar", ".TAR"):
-        extract_dir = extract_dir.parent / extract_dir.stem
-
-    return str(extract_dir)
