@@ -108,15 +108,6 @@
             },
             "link_id": "ccf8ec5c-3a9a-404a-a7e7-8f567d3b36a0"
         },
-        "76befd52-14c3-44f9-838f-15a4e01624b0": {
-            "description": {
-                "en": "No",
-                "fr": "Non",
-                "ja": "いいえ",
-                "sv": "Nej"
-            },
-            "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
-        },
         "79f1f5af-7694-48a4-b645-e42790bbf870": {
             "description": {
                 "en": "No",
@@ -154,7 +145,7 @@
                 "ja": "いいえ",
                 "sv": "Nej"
             },
-            "link_id": "8ce07e94-6130-4987-96f0-2399ad45c5c2"
+            "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
         },
         "b93cecd4-71f2-4e28-bc39-d32fd62c5a94": {
             "description": {
@@ -186,17 +177,6 @@
                 "sv": "Ja"
             },
             "link_id": "6c147aeb-20c5-47ce-9f40-7f22683cea1f"
-        },
-        "d9760427-b488-4381-832a-de10106de6fe": {
-            "description": {
-                "en": "Yes",
-                "es": "Sí",
-                "fr": "Oui",
-                "ja": "はい",
-                "pt_BR": "Sim",
-                "sv": "Ja"
-            },
-            "link_id": "3bbfbd27-ba41-4e36-8b7f-b4f02676bda3"
         },
         "df54fec1-dae1-4ea6-8d17-a839ee7ac4a7": {
             "description": {
@@ -870,15 +850,15 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "8ce07e94-6130-4987-96f0-2399ad45c5c2"
+                    "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
                 },
                 "1": {
                     "job_status": "Failed",
-                    "link_id": "8ce07e94-6130-4987-96f0-2399ad45c5c2"
+                    "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "8ce07e94-6130-4987-96f0-2399ad45c5c2",
+            "fallback_link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6",
             "group": {
                 "en": "Policy checks for derivatives",
                 "fr": "Vérifications de politique sur les copies",
@@ -1927,43 +1907,6 @@
                 "ja": "転送からSIPを作成する",
                 "pt_BR": "Crie SIP a partir da transferência",
                 "sv": "Skapa SIP från överföringspaket"
-            }
-        },
-        "3bbfbd27-ba41-4e36-8b7f-b4f02676bda3": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%SIPUUID%\" \"%sharedPath%\" \"access\"",
-                "execute": "policyCheck_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Policy checks for access derivatives",
-                "fr": "Vérifications de politique sur les copies de consultation",
-                "pt_BR": "Verificações de política para derivadas de acesso",
-                "sv": "Policykontroll på åtkomstbearbetningar"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
-                },
-                "1": {
-                    "job_status": "Failed",
-                    "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "153c5f41-3cfb-47ba-9150-2dd44ebc27df",
-            "group": {
-                "en": "Policy checks for derivatives",
-                "fr": "Vérifications de politique sur les copies",
-                "pt_BR": "Verificações de políticas para derivados",
-                "sv": "Policykontroll för bearbetningar"
             }
         },
         "3e25bda6-5314-4bb4-aa1e-90900dce887d": {
@@ -3692,31 +3635,6 @@
                 "ja": "メタデータファイルの再フォーマット",
                 "pt_BR": "Reformatar arquivos de metadados",
                 "sv": "Formatera om metadata-filer"
-            }
-        },
-        "8ce07e94-6130-4987-96f0-2399ad45c5c2": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "d9760427-b488-4381-832a-de10106de6fe",
-                    "76befd52-14c3-44f9-838f-15a4e01624b0"
-                ]
-            },
-            "description": {
-                "en": "Perform policy checks on access derivatives?",
-                "fr": "Effectuer les vérifications de politique sur les copies de consultation?",
-                "pt_BR": "Executar verificações de política em derivadas de acesso?",
-                "sv": "Utför policykontroller på åtkomstbearbetningar?"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Policy checks for derivatives",
-                "fr": "Vérifications de politique sur les copies",
-                "pt_BR": "Verificações de políticas para derivados",
-                "sv": "Policykontroll för bearbetningar"
             }
         },
         "8ce130d4-3f7e-46ec-868a-505cf9033d96": {
