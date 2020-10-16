@@ -36,11 +36,6 @@ DEFAULT_PROCESSING_CONFIG = """<processingMCP>
       <appliesTo>7509e7dc-1e1b-4dce-8d21-e130515fce73</appliesTo>
       <goToChain>612e3609-ce9a-4df6-a9a3-63d634d2d934</goToChain>
     </preconfiguredChoice>
-    <!-- Bind PIDs -->
-    <preconfiguredChoice>
-      <appliesTo>a2ba5278-459a-4638-92d9-38eb1588717d</appliesTo>
-      <goToChain>44a7c397-8187-4fd2-b8f7-c61737c4df49</goToChain>
-    </preconfiguredChoice>
     <!-- Delete packages after extraction -->
     <preconfiguredChoice>
       <appliesTo>f19926dd-8fb5-4c79-8ade-c83f61f55b40</appliesTo>

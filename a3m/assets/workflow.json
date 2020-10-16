@@ -80,15 +80,6 @@
             },
             "link_id": "accea2bf-ba74-4a3a-bb97-614775c74459"
         },
-        "44a7c397-8187-4fd2-b8f7-c61737c4df49": {
-            "description": {
-                "en": "No",
-                "fr": "Non",
-                "ja": "いいえ",
-                "sv": "Nej"
-            },
-            "link_id": "d0dfa5fc-e3c2-4638-9eda-f96eea1070e0"
-        },
         "612e3609-ce9a-4df6-a9a3-63d634d2d934": {
             "description": {
                 "en": "Normalize for preservation",
@@ -126,17 +117,6 @@
                 "sv": "Normalisera inte"
             },
             "link_id": "0b92a510-a290-44a8-86d8-6b7139be29df"
-        },
-        "8f9dceb5-b978-43e0-a364-8b317a3ac43b": {
-            "description": {
-                "en": "Yes",
-                "es": "Sí",
-                "fr": "Oui",
-                "ja": "はい",
-                "pt_BR": "Sim",
-                "sv": "Ja"
-            },
-            "link_id": "87e93d08-36e4-4c81-99a8-beea00b18400"
         },
         "b7ce05f0-9d94-4b3e-86cc-d4b2c6dba546": {
             "description": {
@@ -539,11 +519,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "873b428f-2c86-42b6-b463-aeda925bf559"
+                    "link_id": "75fb5d67-5efa-4232-b00b-d85236de0d3f"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "873b428f-2c86-42b6-b463-aeda925bf559",
+            "fallback_link_id": "75fb5d67-5efa-4232-b00b-d85236de0d3f",
             "group": {
                 "en": "Process metadata directory",
                 "es": "Procesar directorio de metadatos",
@@ -1580,11 +1560,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "83484326-7be7-4f9f-b252-94553cd42370"
+                    "link_id": "7509e7dc-1e1b-4dce-8d21-e130515fce73"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "83484326-7be7-4f9f-b252-94553cd42370",
+            "fallback_link_id": "7509e7dc-1e1b-4dce-8d21-e130515fce73",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -3086,49 +3066,16 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "a2ba5278-459a-4638-92d9-38eb1588717d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "a2ba5278-459a-4638-92d9-38eb1588717d",
-            "group": {
-                "en": "Process metadata directory",
-                "es": "Procesar directorio de metadatos",
-                "pt_BR": "Processar diretório de metadados",
-                "sv": "Bearbeta metadatamapp"
-            }
-        },
-        "7677d1cd-2211-4969-8c10-5ec2a93d5c2f": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "bindPIDs_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": "%SIPLogsDirectory%handles.log"
-            },
-            "description": {
-                "en": "Bind PIDs",
-                "fr": "Lier les PIDs",
-                "pt_BR": "Vincular PIDs",
-                "sv": "Lås PID:er."
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
                     "link_id": "d0dfa5fc-e3c2-4638-9eda-f96eea1070e0"
                 }
             },
             "fallback_job_status": "Failed",
             "fallback_link_id": "d0dfa5fc-e3c2-4638-9eda-f96eea1070e0",
             "group": {
-                "en": "Bind PIDs",
-                "fr": "Lier les PIDs",
-                "pt_BR": "Vincular PIDs",
-                "sv": "Lås PID:er."
+                "en": "Process metadata directory",
+                "es": "Procesar directorio de metadatos",
+                "pt_BR": "Processar diretório de metadados",
+                "sv": "Bearbeta metadatamapp"
             }
         },
         "78b7adff-861d-4450-b6dd-3fabe96a849e": {
@@ -3380,96 +3327,6 @@
                 "fr": "Transcrire le contenu du SIP",
                 "pt_BR": "Transcreva o conteúdo do SIP",
                 "sv": "Transkribera SIP-innehåll"
-            }
-        },
-        "83484326-7be7-4f9f-b252-94553cd42370": {
-            "config": {
-                "@manager": "linkTaskManagerUnitVariableLinkPull",
-                "@model": "TaskConfigUnitVariableLinkPull",
-                "chain_id": null,
-                "variable": "resumeAfterNormalizationFileIdentificationToolSelected"
-            },
-            "description": {
-                "en": "Resume after normalization file identification tool selected.",
-                "pt_BR": "Retomar após a ferramenta de identificação de arquivo de normalização for selecionada.",
-                "sv": "Återuppta efter normaliseringsfils identifikationsverktyg är valt."
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "873b428f-2c86-42b6-b463-aeda925bf559": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPDirectory%\"",
-                "execute": "declarepids_v0.0",
-                "filter_file_end": "",
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Load persistent identifiers from external file"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "75fb5d67-5efa-4232-b00b-d85236de0d3f"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "75fb5d67-5efa-4232-b00b-d85236de0d3f",
-            "group": {
-                "en": "Process metadata directory",
-                "es": "Procesar directorio de metadatos",
-                "pt_BR": "Processar diretório de metadados",
-                "sv": "Bearbeta metadatamapp"
-            }
-        },
-        "87e93d08-36e4-4c81-99a8-beea00b18400": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%fileUUID%\"",
-                "execute": "bindPID_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": "%SIPLogsDirectory%handles.log"
-            },
-            "description": {
-                "en": "Bind PID",
-                "fr": "Lier le PID",
-                "pt_BR": "Vincular PID",
-                "sv": "Lås PID"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "7677d1cd-2211-4969-8c10-5ec2a93d5c2f"
-                },
-                "1": {
-                    "job_status": "Failed",
-                    "link_id": "7677d1cd-2211-4969-8c10-5ec2a93d5c2f"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "7677d1cd-2211-4969-8c10-5ec2a93d5c2f",
-            "group": {
-                "en": "Bind PIDs",
-                "fr": "Lier les PIDs",
-                "pt_BR": "Vincular PIDs",
-                "sv": "Lås PID:er."
             }
         },
         "8bc92801-4308-4e3b-885b-1a89fdcd3014": {
@@ -3823,31 +3680,6 @@
                 "es": "Procesar manualmente ficheros normalizados",
                 "pt_BR": "Processar arquivos normalizados manualmente",
                 "sv": "Bearbeta manuellt normaliserade filer"
-            }
-        },
-        "a2ba5278-459a-4638-92d9-38eb1588717d": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "8f9dceb5-b978-43e0-a364-8b317a3ac43b",
-                    "44a7c397-8187-4fd2-b8f7-c61737c4df49"
-                ]
-            },
-            "description": {
-                "en": "Bind PIDs?",
-                "fr": "Lier les PIDs?",
-                "pt_BR": "Vincular PIDs?",
-                "sv": "Lås PID:er?"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Bind PIDs",
-                "fr": "Lier les PIDs",
-                "pt_BR": "Vincular PIDs",
-                "sv": "Lås PID:er."
             }
         },
         "a536828c-be65-4088-80bd-eb511a0a063d": {

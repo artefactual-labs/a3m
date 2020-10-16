@@ -343,9 +343,6 @@ else:
     PROMETHEUS_ENABLED = True
 
 
-BIND_PID_HANDLE = {}  # type: ignore
-
-
 # S3
 
 S3_ENABLED = config.get("s3_enabled")
