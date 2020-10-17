@@ -1,12 +1,9 @@
 import argparse
 import csv
-import errno
 import os
-import shutil
 import traceback
 import uuid
 
-from django.conf import settings as mcpclient_settings
 from django.db import transaction
 from django.utils import timezone
 
@@ -16,7 +13,6 @@ from a3m.dicts import ReplacementDict
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.fpr.models import FPRule
-from a3m.main.models import Derivation
 from a3m.main.models import File
 from a3m.main.models import FileFormatVersion
 from a3m.main.models import FileID

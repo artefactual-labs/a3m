@@ -48,7 +48,6 @@ task to run next).
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
-import configparser
 import importlib
 import logging
 import shlex
@@ -58,7 +57,6 @@ from django.db import transaction
 
 from a3m.client import ASSETS_DIR
 from a3m.client import metrics
-from a3m.client import MODULES_FILE
 from a3m.client.job import Job
 from a3m.databaseFunctions import auto_close_db
 from a3m.databaseFunctions import getUTCDate
@@ -74,25 +72,9 @@ replacement_dict = {
 }
 
 
-def get_supported_modules():
-    """Create and return the ``supported_modules`` dict by parsing the MCPClient
-    modules config file (typically MCPClient/lib/archivematicaClientModules).
-    """
-    supported_modules = {}
-    supported_modules_config = configparser.RawConfigParser()
-    supported_modules_config.read(MODULES_FILE)
-    for client_script, module_name in supported_modules_config.items(
-        "supportedBatchCommands"
-    ):
-        supported_modules[client_script] = module_name
-    return supported_modules
-
-
 @auto_close_db
-def handle_batch_task(payload, supported_modules):
-    task_name = payload.task.decode("utf8")
-    module_name = supported_modules.get(task_name)
-    tasks = payload.data["tasks"]
+def handle_batch_task(task_name, batch_payload):
+    tasks = batch_payload["tasks"]
 
     utc_date = getUTCDate()
     jobs = []
@@ -128,7 +110,7 @@ def handle_batch_task(payload, supported_modules):
 
     retryOnFailure("Set task start times", set_start_times)
 
-    module = importlib.import_module("a3m.client.clientScripts." + module_name)
+    module = importlib.import_module("a3m.client.clientScripts." + task_data["execute"])
     module.call(jobs)
 
     return jobs
@@ -168,16 +150,15 @@ def fail_all_tasks(batch_payload, reason):
 
 
 @auto_close_db
-def execute_command(supported_modules, batch_payload):
+def execute_command(task_name: str, batch_payload):
     """Execute the command encoded in ``batch_payload`` and return its exit
     code, standard output and standard error as a dictionary.
     """
-    task_name = batch_payload.task.decode("utf8")
     logger.debug("\n\n*** RUNNING TASK: %s", task_name)
 
     with metrics.task_execution_time_histogram.labels(script_name=task_name).time():
         try:
-            jobs = handle_batch_task(batch_payload, supported_modules)
+            jobs = handle_batch_task(task_name, batch_payload)
             results = {}
 
             def write_task_results_callback():

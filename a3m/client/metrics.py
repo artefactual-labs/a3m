@@ -1,10 +1,11 @@
 """
 Exposes various metrics via Prometheus.
 """
-import configparser
 import datetime
 import functools
+import importlib
 import math
+import pkgutil
 
 from django.conf import settings
 from django.db.models import Sum
@@ -13,7 +14,7 @@ from prometheus_client import Counter
 from prometheus_client import Gauge
 from prometheus_client import Histogram
 
-from a3m.client import MODULES_FILE
+from a3m.client import clientScripts
 from a3m.common_metrics import PACKAGE_FILE_COUNT_BUCKETS
 from a3m.common_metrics import PACKAGE_SIZE_BUCKETS
 from a3m.common_metrics import PROCESSING_TIME_BUCKETS
@@ -156,14 +157,20 @@ def skip_if_prometheus_disabled(func):
 def init_counter_labels():
     # Zero our counters to start, by intializing all labels. Non-zero starting points
     # cause problems when measuring rates.
-    modules_config = configparser.RawConfigParser()
-    modules_config.read(MODULES_FILE)
-    for script_name, _ in modules_config.items("supportedBatchCommands"):
-        job_counter.labels(script_name=script_name)
-        job_processed_timestamp.labels(script_name=script_name)
-        job_error_counter.labels(script_name=script_name)
-        job_error_timestamp.labels(script_name=script_name)
-        task_execution_time_histogram.labels(script_name=script_name)
+
+    for _, modname, is_pkg in pkgutil.iter_modules(clientScripts.__path__):
+        if not is_pkg:
+            continue
+        module = importlib.import_module(modname)
+        if "call" not in module:
+            raise Exception()
+        modname = modname.split(".")[-1]
+        print(modname)
+        job_counter.labels(script_name=modname)
+        job_processed_timestamp.labels(script_name=modname)
+        job_error_counter.labels(script_name=modname)
+        job_error_timestamp.labels(script_name=modname)
+        task_execution_time_histogram.labels(script_name=modname)
 
     for failure_type in PACKAGE_FAILURE_TYPES:
         transfer_error_counter.labels(failure_type=failure_type)

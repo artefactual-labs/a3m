@@ -26,10 +26,17 @@ class Task:
     """
 
     def __init__(
-        self, arguments, stdout_file_path, stderr_file_path, context, wants_output=False
+        self,
+        execute,
+        arguments,
+        stdout_file_path,
+        stderr_file_path,
+        context,
+        wants_output=False,
     ):
         self.uuid = uuid.uuid4()
         self.done = False
+        self.execute = execute
         self.arguments = arguments
         self.stdout_file_path = stdout_file_path
         self.stderr_file_path = stderr_file_path
@@ -45,8 +52,8 @@ class Task:
         self.finished_timestamp = None
 
     def __repr__(self):
-        return "Task(uuid={}, arguments={}, start_timestamp={}, done={})".format(
-            self.uuid, self.arguments, self.start_timestamp, self.done
+        return "Task(uuid={}, execute={}, arguments={}, start_timestamp={}, done={})".format(
+            self.uuid, self.execute, self.arguments, self.start_timestamp, self.done
         )
 
     @classmethod

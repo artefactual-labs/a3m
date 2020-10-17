@@ -50,6 +50,11 @@ class ClientScriptJob(Job, metaclass=abc.ABCMeta):
         return self.link.config.get("execute", "").lower()
 
     @property
+    def execute(self):
+        """Command or module for hte task, as defined in the workflow."""
+        return self.link.config.get("execute")
+
+    @property
     def arguments(self):
         """Raw arguments for the task, as defined by the workflow prior to
         value replacement.
@@ -114,6 +119,7 @@ class ClientScriptJob(Job, metaclass=abc.ABCMeta):
         stderr_file = self.replace_values(self.stderr_file, self.command_replacements)
 
         task = Task(
+            self.execute,
             arguments,
             stdout_file,
             stderr_file,
@@ -193,6 +199,7 @@ class FilesClientScriptJob(ClientScriptJob):
             stderr_file = self.replace_values(self.stderr_file, command_replacements)
 
             task = Task(
+                self.execute,
                 arguments,
                 stdout_file,
                 stderr_file,

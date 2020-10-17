@@ -23,6 +23,7 @@ def simple_job(request, mocker):
 @pytest.fixture
 def simple_task(request):
     return Task(
+        "command",
         "a argument string",
         "/dev/stdoutfile",
         "/tmp/stderrfile",
@@ -52,8 +53,8 @@ def test_multiple_batches(simple_job, simple_task, mocker):
     mocker.patch("a3m.server.tasks.backends.pool_backend.init_counter_labels")
     mocker.patch.object(TaskBackend, "TASK_BATCH_SIZE", 2)
 
-    def execute_command(supported_modules, batch_payload):
-        assert batch_payload.task == b"test_v0.0"
+    def execute_command(task_name: str, batch_payload):
+        assert task_name == "test_v0.0"
         return {
             "task_results": {
                 task_id: {
@@ -61,7 +62,7 @@ def test_multiple_batches(simple_job, simple_task, mocker):
                     "stdout": "stdout example",
                     "stderr": "stderr example",
                 }
-                for task_id, task in batch_payload.data["tasks"].items()
+                for task_id, task in batch_payload["tasks"].items()
             }
         }
 

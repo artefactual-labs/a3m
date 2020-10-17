@@ -227,9 +227,9 @@ def test_workflow_integration(
     assert job.job_chain.current_link.id == "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e"
     assert package_queue.job_queue.qsize() == 1
     job = future.result()
-    
+
     assert isinstance(job, DirectoryClientScriptJob)
-    assert job.exit_code == None
+    assert job.exit_code is None
 
     # Process the last job (DirectoryClientScriptJob)
     future = package_queue.process_one_job(timeout=1.0)
