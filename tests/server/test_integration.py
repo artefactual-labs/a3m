@@ -28,7 +28,7 @@ TEST_PROCESSING_CONFIG = etree.parse(
     StringIO(
         """<processingMCP>
   <preconfiguredChoices>
-    <!-- Store DIP -->
+    <!-- Store AIP -->
     <preconfiguredChoice>
       <appliesTo>de6eb412-0029-4dbd-9bfa-7311697d6012</appliesTo>
       <goToChain>51e395b9-1b74-419c-b013-3283b7fe39ff</goToChain>

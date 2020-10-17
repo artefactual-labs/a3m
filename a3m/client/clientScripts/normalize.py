@@ -134,19 +134,8 @@ def get_replacement_dict(job, opts):
     (directory, basename) = os.path.split(opts.file_path)
     directory += os.path.sep  # All paths should have trailing /
     (filename, extension_dot) = os.path.splitext(basename)
-
-    if "preservation" in opts.purpose:
-        postfix = "-" + opts.task_uuid
-        output_dir = directory
-    elif "access" in opts.purpose:
-        prefix = opts.file_uuid + "-"
-        output_dir = os.path.join(opts.sip_path, "DIP", "objects") + os.path.sep
-    elif "thumbnail" in opts.purpose:
-        output_dir = os.path.join(opts.sip_path, "thumbnails") + os.path.sep
-        postfix = opts.file_uuid
-    else:
-        job.print_error("Unsupported command purpose", opts.purpose)
-        return None
+    postfix = "-" + opts.task_uuid
+    output_dir = directory
 
     # Populates the standard set of unit variables, so,
     # e.g., %fileUUID% is available
@@ -219,19 +208,11 @@ def check_manual_normalization(job, opts):
         # If we didn't find a match, let it fall through to the usual method
         if found:
             # No manually normalized file for command classification
-            if "preservation" in opts.purpose and not preservation_file:
+            if not preservation_file:
                 return None
-            if "access" in opts.purpose and not access_file:
-                return None
-
             # If we found a match, verify access/preservation exists in DB
             # match and pull original location b/c sanitization
-            if "preservation" in opts.purpose:
-                filename = preservation_file
-            elif "access" in opts.purpose:
-                filename = access_file
-            else:
-                return None
+            filename = preservation_file
             job.print_output("Looking for", filename, "in database")
             # FIXME: SQL uses removedtime=0. Convince Django to express this
             return File.objects.get(
@@ -244,18 +225,10 @@ def check_manual_normalization(job, opts):
     path = os.path.splitext(opts.file_path.replace(opts.sip_path, "%SIPDirectory%", 1))[
         0
     ]
-    if "preservation" in opts.purpose:
-        path = path.replace(
-            "%SIPDirectory%objects/",
-            "%SIPDirectory%objects/manualNormalization/preservation/",
-        )
-    elif "access" in opts.purpose:
-        path = path.replace(
-            "%SIPDirectory%objects/",
-            "%SIPDirectory%objects/manualNormalization/access/",
-        )
-    else:
-        return None
+    path = path.replace(
+        "%SIPDirectory%objects/",
+        "%SIPDirectory%objects/manualNormalization/preservation/",
+    )
 
     # FIXME: SQL uses removedtime=0. Cannot get Django to express this
     job.print_output(
@@ -317,9 +290,6 @@ def once_normalized(job, command, opts, replacement_dict):
     if command.event_detail_command is not None:
         event_detail_output += f"; {command.event_detail_command.std_out}"
     for ef in transcoded_files:
-        if "thumbnails" in opts.purpose:
-            continue
-
         today = timezone.now()
         output_file_uuid = opts.task_uuid  # Match the UUID on disk
         # TODO Add manual normalization for files of same name mapping?
@@ -332,7 +302,7 @@ def once_normalized(job, command, opts, replacement_dict):
             opts.task_uuid,  # Task UUID
             today,  # Current date
             sourceType="creation",
-            use=opts.purpose,
+            use="preservation",
         )
 
         # Calculate new file checksum
@@ -347,25 +317,14 @@ def once_normalized(job, command, opts, replacement_dict):
         #
         # Track both events and insert into Derivations table for
         # preservation copies
-        if "preservation" in opts.purpose:
-            insert_derivation_event(
-                original_uuid=opts.file_uuid,
-                output_uuid=output_file_uuid,
-                derivation_uuid=derivation_event_uuid,
-                event_detail_output=event_detail_output,
-                outcome_detail_note=path_relative_to_sip,
-                today=today,
-            )
-        # Other derivatives go into the Derivations table, but
-        # don't get added to the PREMIS Events because they will
-        # not appear in the METS.
-        else:
-            d = Derivation(
-                source_file_id=opts.file_uuid,
-                derived_file_id=output_file_uuid,
-                event=None,
-            )
-            d.save()
+        insert_derivation_event(
+            original_uuid=opts.file_uuid,
+            output_uuid=output_file_uuid,
+            derivation_uuid=derivation_event_uuid,
+            event_detail_output=event_detail_output,
+            outcome_detail_note=path_relative_to_sip,
+            today=today,
+        )
 
         # Use the format info from the normalization command
         # to save identification into the DB
@@ -418,17 +377,15 @@ def insert_derivation_event(
     )
 
 
-def get_default_rule(purpose):
-    return FPRule.active.get(purpose="default_" + purpose)
+def get_default_preservation_rule():
+    return FPRule.active.get(purpose="default_preservation")
 
 
 def main(job, opts):
     """ Find and execute normalization commands on input file. """
-    # TODO fix for maildir working only on attachments
-
     setup_dicts()
 
-    # Find the file and it's FormatVersion (file identification)
+    # Find the file and itss FormatVersion (file identification)
     try:
         file_ = File.objects.get(uuid=opts.file_uuid)
     except File.DoesNotExist:
@@ -463,29 +420,7 @@ def main(job, opts):
         )
         return SUCCESS
 
-    # For re-ingest: clean up old derivations
-    # If the file already has a Derivation with the same purpose, remove it and mark the derived file as deleted
-    derivatives = Derivation.objects.filter(
-        source_file=file_, derived_file__filegrpuse=opts.purpose
-    )
-    for derivative in derivatives:
-        job.print_output(
-            opts.purpose,
-            "derivative",
-            derivative.derived_file_id,
-            "already exists, marking as deleted",
-        )
-        File.objects.filter(uuid=derivative.derived_file_id).update(
-            filegrpuse="deleted"
-        )
-        # Don't create events for thumbnail files
-        if opts.purpose != "thumbnail":
-            databaseFunctions.insertIntoEvents(
-                fileUUID=derivative.derived_file_id, eventType="deletion"
-            )
-    derivatives.delete()
-
-    # If a file has been manually normalized for this purpose, skip it
+    # If a file has been manually normalized, skip it
     manually_normalized_file = check_manual_normalization(job, opts)
     if manually_normalized_file:
         job.print_output(
@@ -493,15 +428,14 @@ def main(job, opts):
             "was already manually normalized into",
             manually_normalized_file.currentlocation,
         )
-        if "preservation" in opts.purpose:
-            # Add derivation link and associated event
-            insert_derivation_event(
-                original_uuid=opts.file_uuid,
-                output_uuid=manually_normalized_file.uuid,
-                derivation_uuid=str(uuid.uuid4()),
-                event_detail_output="manual normalization",
-                outcome_detail_note=None,
-            )
+        # Add derivation link and associated event
+        insert_derivation_event(
+            original_uuid=opts.file_uuid,
+            output_uuid=manually_normalized_file.uuid,
+            derivation_uuid=str(uuid.uuid4()),
+            event_detail_output="manual normalization",
+            outcome_detail_note=None,
+        )
         return SUCCESS
 
     do_fallback = False
@@ -515,136 +449,45 @@ def main(job, opts):
         job.print_output("File format:", format_id.format_version)
         try:
             rule = FPRule.active.get(
-                format=format_id.format_version, purpose=opts.purpose
+                format=format_id.format_version, purpose=FPRule.PRESERVATION
             )
         except FPRule.DoesNotExist:
-            if (
-                opts.purpose == "thumbnail"
-                and opts.thumbnail_mode == "generate_non_default"
-            ):
-                job.pyprint("Thumbnail not generated as no rule found for format")
-                return SUCCESS
-            else:
-                do_fallback = True
+            do_fallback = True
 
     # Try with default rule if no format_id or rule was found
     if format_id is None or do_fallback:
+        path = os.path.basename(file_.currentlocation)
         try:
-            rule = get_default_rule(opts.purpose)
             job.print_output(
-                os.path.basename(file_.currentlocation),
-                "not identified or without rule",
-                "- Falling back to default",
-                opts.purpose,
-                "rule",
+                f"{path} not identified or without rule - falling back to default preservation rule"
             )
+            rule = get_default_preservation_rule()
         except FPRule.DoesNotExist:
             job.print_output(
-                "Not normalizing",
-                os.path.basename(file_.currentlocation),
-                " - No rule or default rule found to normalize for",
-                opts.purpose,
+                f"Not normalizing {path} - no rule or default rule found to normalize for preservation"
             )
             return NO_RULE_FOUND
 
-    job.print_output("Format Policy Rule:", rule)
+    job.print_output(f"Format Policy Rule: {rule}")
     command = rule.command
-    job.print_output("Format Policy Command", command.description)
+    job.print_output(f"Format Policy Command {command.description}")
 
     replacement_dict = get_replacement_dict(job, opts)
 
     cl = Command(rule, command, replacement_dict, once_normalized_callback(job), opts)
     exitstatus = cl.execute()
 
-    # If the access/thumbnail normalization command has errored AND a
-    # derivative was NOT created, then we run the default access/thumbnail
-    # rule. Note that we DO need to check if the derivative file exists. Even
-    # when a verification command exists for the normalization command, the
-    # Command.execute method will only run the verification
-    # command if the normalization command returns a 0 exit code.
-    # Errored thumbnail normalization also needs to result in default thumbnail
-    # normalization; if not, then a transfer with a single file that failed
-    # thumbnail normalization will result in a failed SIP at "Prepare DIP: Copy
-    # thumbnails to DIP directory"
-    if (
-        exitstatus != 0
-        and opts.purpose in ("access", "thumbnail")
-        and cl.commandObject.output_location
-        and (not os.path.isfile(cl.commandObject.output_location))
-    ):
-        # Fall back to default rule
-        try:
-            fallback_rule = get_default_rule(opts.purpose)
-            job.print_output(
-                opts.purpose,
-                "normalization failed, falling back to default",
-                opts.purpose,
-                "rule",
-            )
-        except FPRule.DoesNotExist:
-            job.print_output(
-                "Not retrying normalizing for",
-                os.path.basename(file_.currentlocation),
-                " - No default rule found to normalize for",
-                opts.purpose,
-            )
-            fallback_rule = None
-        # Don't re-run the same command
-        if fallback_rule and fallback_rule.command != command:
-            job.print_output("Fallback Format Policy Rule:", fallback_rule)
-            command = fallback_rule.command
-            job.print_output("Fallback Format Policy Command", command.description)
-
-            # Use existing replacement dict
-            cl = Command(
-                fallback_rule,
-                command,
-                replacement_dict,
-                once_normalized_callback(job),
-                opts,
-            )
-            exitstatus = cl.execute()
-
-    # Store thumbnails locally for use during AIP searches
-    # TODO is this still needed, with the storage service?
-    if "thumbnail" in opts.purpose:
-        thumbnail_filepath = cl.commandObject.output_location
-        thumbnail_storage_dir = os.path.join(
-            mcpclient_settings.SHARED_DIRECTORY, "www", "thumbnails", opts.sip_uuid
-        )
-        try:
-            os.makedirs(thumbnail_storage_dir)
-        except OSError as e:
-            if e.errno == errno.EEXIST and os.path.isdir(thumbnail_storage_dir):
-                pass
-            else:
-                raise
-        thumbnail_basename, thumbnail_extension = os.path.splitext(thumbnail_filepath)
-        thumbnail_storage_file = os.path.join(
-            thumbnail_storage_dir, opts.file_uuid + thumbnail_extension
-        )
-
-        shutil.copyfile(thumbnail_filepath, thumbnail_storage_file)
-
     if not exitstatus == 0:
-        job.print_error("Command", command.description, "failed!")
+        job.print_error(f"Command {command.description} failed!")
         return RULE_FAILED
-    else:
-        job.print_output(
-            "Successfully normalized ",
-            os.path.basename(opts.file_path),
-            "for",
-            opts.purpose,
-        )
-        return SUCCESS
+
+    path = os.path.basename(opts.file_path)
+    job.print_output(f"Successfully normalized {path} for preservation")
+    return SUCCESS
 
 
 def call(jobs):
-    parser = argparse.ArgumentParser(description="Identify file formats.")
-    # sip dir
-    parser.add_argument(
-        "purpose", type=str, help='"preservation", "access", "thumbnail"'
-    )
+    parser = argparse.ArgumentParser()
     parser.add_argument("file_uuid", type=str, help="%fileUUID%")
     parser.add_argument("file_path", type=str, help="%relativeLocation%")
     parser.add_argument("sip_path", type=str, help="%SIPDirectory%")
@@ -655,26 +498,11 @@ def call(jobs):
         type=str,
         help='"service", "original", "submissionDocumentation", etc',
     )
-    parser.add_argument(
-        "--thumbnail_mode",
-        type=str,
-        default="generate",
-        help='"generate", "generate_non_default", "do_not_generate"',
-    )
 
     with transaction.atomic():
         for job in jobs:
             with job.JobContext():
                 opts = parser.parse_args(job.args[1:])
-
-                if (
-                    opts.purpose == "thumbnail"
-                    and opts.thumbnail_mode == "do_not_generate"
-                ):
-                    job.pyprint("Thumbnail generation has been disabled")
-                    job.set_status(SUCCESS)
-                    continue
-
                 try:
                     job.set_status(main(job, opts))
                 except Exception as e:

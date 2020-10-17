@@ -49,7 +49,7 @@ def create_directories(base_dir, dir_list):
             pass
 
 
-_PAYLOAD_ENTRIES = ("logs/", "objects/", "README.html", "thumbnails/", "metadata/")
+_PAYLOAD_ENTRIES = ("logs/", "objects/", "README.html", "metadata/")
 
 
 def bag_with_empty_directories(job, destination, sip_directory, sip_uuid, algorithm):

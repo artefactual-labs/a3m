@@ -156,11 +156,6 @@ def updateFileGrpUse(fileUUID, fileGrpUse):
     File.objects.filter(uuid=fileUUID).update(filegrpuse=fileGrpUse)
 
 
-class FindFileInNormalizatonCSVError(Exception):
-    def __init__(self, code):
-        self.code = code
-
-
 def findFileInNormalizationCSV(
     csv_path, commandClassification, target_file, sip_uuid, printfn=print
 ):
@@ -191,7 +186,7 @@ def findFileInNormalizationCSV(
                 ),
                 file=sys.stderr,
             )
-            raise FindFileInNormalizatonCSVError(2)
+            raise
         except File.DoesNotExist:
             printfn(
                 "{} file ({}) not found in DB.".format(
@@ -199,7 +194,7 @@ def findFileInNormalizationCSV(
                 ),
                 file=sys.stderr,
             )
-            raise FindFileInNormalizatonCSVError(2)
+            raise
         target_file = f.originallocation.replace(
             "%transferDirectory%objects/", "", 1
         ).replace("%SIPDirectory%objects/", "", 1)
@@ -236,4 +231,4 @@ def findFileInNormalizationCSV(
                 ),
                 file=sys.stderr,
             )
-            raise FindFileInNormalizatonCSVError(2)
+            raise

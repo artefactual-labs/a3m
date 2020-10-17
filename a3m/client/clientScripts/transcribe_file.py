@@ -77,10 +77,6 @@ def fetch_rules_for_derivatives(file_):
     derivs = Derivation.objects.filter(source_file=file_)
     for deriv in derivs:
         derived_file = deriv.derived_file
-        # Don't bother OCRing thumbnails
-        if derived_file.filegrpuse == "thumbnail":
-            continue
-
         rules = fetch_rules_for(derived_file)
         if rules:
             return (derived_file, rules)

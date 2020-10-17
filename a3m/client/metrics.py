@@ -200,8 +200,6 @@ def _get_file_group(raw_file_group_use):
     original -> original
     metadata -> metadata
     submissionDocumentation -> metadata
-    access -> derivative
-    thumbnail -> derivative
     preservation -> derivative
     aip -> derivative
     """

@@ -26,12 +26,7 @@ DEFAULT_PROCESSING_CONFIG = """<processingMCP>
       <appliesTo>087d27be-c719-47d8-9bbb-9a7d8b609c44</appliesTo>
       <goToChain>4dec164b-79b0-4459-8505-8095af9655b5</goToChain>
     </preconfiguredChoice>
-    <!-- Normalize (match 1 for "Normalize for preservation") -->
-    <preconfiguredChoice>
-      <appliesTo>cb8e5706-e73f-472f-ad9b-d1236af8095f</appliesTo>
-      <goToChain>612e3609-ce9a-4df6-a9a3-63d634d2d934</goToChain>
-    </preconfiguredChoice>
-    <!-- Normalize (match 2 for "Normalize for preservation") -->
+    <!-- Normalize (Normalize for preservation) -->
     <preconfiguredChoice>
       <appliesTo>7509e7dc-1e1b-4dce-8d21-e130515fce73</appliesTo>
       <goToChain>612e3609-ce9a-4df6-a9a3-63d634d2d934</goToChain>
@@ -61,20 +56,10 @@ DEFAULT_PROCESSING_CONFIG = """<processingMCP>
       <appliesTo>70fc7040-d4fb-4d19-a0e6-792387ca1006</appliesTo>
       <goToChain>3e891cc4-39d2-4989-a001-5107a009a223</goToChain>
     </preconfiguredChoice>
-    <!-- Generate thumbnails -->
-    <preconfiguredChoice>
-      <appliesTo>498f7a6d-1b8c-431a-aa5d-83f14f3c5e65</appliesTo>
-      <goToChain>972fce6c-52c8-4c00-99b9-d6814e377974</goToChain>
-    </preconfiguredChoice>
     <!-- Select compression algorithm -->
     <preconfiguredChoice>
       <appliesTo>01d64f58-8295-4b7b-9cab-8f1b153a504f</appliesTo>
       <goToChain>9475447c-9889-430c-9477-6287a9574c5b</goToChain>
-    </preconfiguredChoice>
-    <!-- Perform policy checks on access derivatives -->
-    <preconfiguredChoice>
-      <appliesTo>8ce07e94-6130-4987-96f0-2399ad45c5c2</appliesTo>
-      <goToChain>76befd52-14c3-44f9-838f-15a4e01624b0</goToChain>
     </preconfiguredChoice>
     <!-- Perform file format identification (Ingest) -->
     <preconfiguredChoice>

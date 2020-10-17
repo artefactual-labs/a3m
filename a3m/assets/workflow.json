@@ -88,7 +88,7 @@
                 "pt_BR": "Normalize para preservação",
                 "sv": "Normalisera för bevarande"
             },
-            "link_id": "35c8763a-0430-46be-8198-9ecb23f895c8"
+            "link_id": "8ce378a5-1418-4184-bf02-328a06e1d3be"
         },
         "65273f18-5b4e-4944-af4f-09be175a88e8": {
             "description": {
@@ -108,16 +108,6 @@
             },
             "link_id": "f8ef02c4-f585-4b0d-9b6f-3cef6fbe527f"
         },
-        "89cb80dd-0636-464f-930d-57b61e3928b2": {
-            "description": {
-                "en": "Do not normalize",
-                "es": "No normalizar",
-                "fr": "Ne pas normaliser ",
-                "pt_BR": "Não normalize",
-                "sv": "Normalisera inte"
-            },
-            "link_id": "0b92a510-a290-44a8-86d8-6b7139be29df"
-        },
         "b7ce05f0-9d94-4b3e-86cc-d4b2c6dba546": {
             "description": {
                 "en": "No",
@@ -126,26 +116,6 @@
                 "sv": "Nej"
             },
             "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
-        },
-        "b93cecd4-71f2-4e28-bc39-d32fd62c5a94": {
-            "description": {
-                "en": "Normalize for preservation and access",
-                "es": "Normalizar para preservación y acceso",
-                "fr": "Normaliser aux fins de préservation et d'accès",
-                "pt_BR": "Normalize para preservação e acesso",
-                "sv": "Normalisera för bevarande och åtkomst"
-            },
-            "link_id": "424ee8f1-6cdd-4960-8641-ed82361d3ad7"
-        },
-        "c34bd22a-d077-4180-bf58-01db35bdb644": {
-            "description": {
-                "en": "Normalize manually",
-                "es": "Normalizar manualmente",
-                "fr": "Normalisation manuelle",
-                "pt_BR": "Normalize manualmente",
-                "sv": "Normalisera manuellt"
-            },
-            "link_id": "31abe664-745e-4fef-a669-ff41514e0083"
         },
         "c611a6ff-dfdb-46d1-b390-f366a6ea6f66": {
             "description": {
@@ -178,15 +148,6 @@
             },
             "link_id": "db99ab43-04d7-44ab-89ec-e09d7bbdc39d"
         },
-        "e600b56d-1a43-4031-9d7c-f64f123e5662": {
-            "description": {
-                "en": "Normalize service files for access",
-                "es": "Normalizar ficheros de servicio para acceso",
-                "pt_BR": "Normalize arquivos de serviço para acesso",
-                "sv": "Normalisera servicefiler för åtkomst"
-            },
-            "link_id": "b20ff203-1472-40db-b879-0e59d17de867"
-        },
         "e8544c5e-9cbb-4b8f-a68b-6d9b4d7f7362": {
             "description": {
                 "en": "Do not normalize",
@@ -205,16 +166,6 @@
                 "sv": "Nej"
             },
             "link_id": "2584b25c-8d98-44b7-beca-2b3ea2ea2505"
-        },
-        "fb7a326e-1e50-4b48-91b9-4917ff8d0ae8": {
-            "description": {
-                "en": "Normalize for access",
-                "es": "Normalizar para acceso",
-                "fr": "Normaliser aux fins d’accès",
-                "pt_BR": "Normalize para acesso",
-                "sv": "Normalisera för åtkomst"
-            },
-            "link_id": "6327fdf9-9673-42a8-ace5-cccad005818b"
         }
     },
     "links": {
@@ -582,90 +533,6 @@
                 "sv": "Bearbeta leveransdokumentation"
             }
         },
-        "092b47db-6f77-4072-aed3-eb248ab69e9c": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "thumbnail \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\" --thumbnail_mode \"%ThumbnailMode%\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize for thumbnails",
-                "es": "Normalizar para miniaturas",
-                "pt_BR": "Normalize para thumbnails",
-                "sv": "Normalisera för förhandsgranskning"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "bcabd5e2-c93e-4aaa-af6a-9a74d54e8bf0"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "bcabd5e2-c93e-4aaa-af6a-9a74d54e8bf0"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "bcabd5e2-c93e-4aaa-af6a-9a74d54e8bf0"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "bcabd5e2-c93e-4aaa-af6a-9a74d54e8bf0",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "09b85517-e5f5-415b-a950-1a60ee285242": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "thumbnail \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\" --thumbnail_mode \"%ThumbnailMode%\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize for thumbnails",
-                "es": "Normalizar para miniaturas",
-                "pt_BR": "Normalize para thumbnails",
-                "sv": "Normalisera för förhandsgranskning"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "dba3028d-2029-4a87-9992-f6335d890528"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "dba3028d-2029-4a87-9992-f6335d890528"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "dba3028d-2029-4a87-9992-f6335d890528"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "0a63befa-327d-4655-a021-341b639ee9ed": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -699,83 +566,6 @@
                 "es": "Preparar AIP",
                 "fr": "Préparer l'AIP",
                 "sv": "Förbered AIP"
-            }
-        },
-        "0a6558cf-cf5f-4646-977e-7d6b4fde47e8": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "thumbnail \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\" --thumbnail_mode \"%ThumbnailMode%\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize for thumbnails",
-                "es": "Normalizar para miniaturas",
-                "pt_BR": "Normalize para thumbnails",
-                "sv": "Normalisera för förhandsgranskning"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "153c5f41-3cfb-47ba-9150-2dd44ebc27df"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "153c5f41-3cfb-47ba-9150-2dd44ebc27df"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "153c5f41-3cfb-47ba-9150-2dd44ebc27df"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "153c5f41-3cfb-47ba-9150-2dd44ebc27df",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "0b92a510-a290-44a8-86d8-6b7139be29df": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%thumbnails/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create thumbnails directory",
-                "es": "Crear directorio de miniaturas",
-                "fr": "Créer un répertoire de vignettes",
-                "pt_BR": "Crie o diretório thumbnails",
-                "sv": "Skapa miniatyrmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "c7122b0b-e036-4551-b7cd-2eca6ebba53f"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "c7122b0b-e036-4551-b7cd-2eca6ebba53f",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "0c96c798-9ace-4c05-b3cf-243cdad796b7": {
@@ -1006,48 +796,6 @@
                 "fr": "Traiter la documentation de soumission",
                 "pt_BR": "Processar documentação de submissão",
                 "sv": "Bearbeta leveransdokumentation"
-            }
-        },
-        "180ae3d0-aa6c-4ed4-ab94-d0a2121e7f21": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "thumbnail \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\" --thumbnail_mode \"%ThumbnailMode%\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize for thumbnails",
-                "es": "Normalizar para miniaturas",
-                "pt_BR": "Normalize para thumbnails",
-                "sv": "Normalisera för förhandsgranskning"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "8ce378a5-1418-4184-bf02-328a06e1d3be"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "8ce378a5-1418-4184-bf02-328a06e1d3be"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "8ce378a5-1418-4184-bf02-328a06e1d3be"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "8ce378a5-1418-4184-bf02-328a06e1d3be",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "18c37bff-fce9-4b40-a50a-022ea0386f1a": {
@@ -1431,45 +1179,6 @@
                 "sv": "Rensa namn"
             }
         },
-        "286bbb36-6a38-41d5-bf7a-a8ba58aa71ce": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%SIPUUID%\" \"%sharedPath%\" \"access\"",
-                "execute": "validateFile_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "DIP/objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Validate access derivatives",
-                "fr": "Valider les copies de consultation",
-                "ja": "アクセス派生物の妥当性確認",
-                "pt_BR": "Validar derivados de acesso",
-                "sv": "Verifiera åtkomstbearbetningar"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "440ef381-8fe8-4b6e-9198-270ee5653454"
-                },
-                "1": {
-                    "job_status": "Failed",
-                    "link_id": "440ef381-8fe8-4b6e-9198-270ee5653454"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "440ef381-8fe8-4b6e-9198-270ee5653454",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "2900f6d8-b64c-4f2a-8f7f-bb60a57394f6": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -1647,41 +1356,6 @@
                 "sv": "Skapa METS.xml dokument"
             }
         },
-        "31abe664-745e-4fef-a669-ff41514e0083": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%thumbnails/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create thumbnails directory",
-                "es": "Crear directorio de miniaturas",
-                "fr": "Créer un répertoire de vignettes",
-                "pt_BR": "Crie o diretório thumbnails",
-                "sv": "Skapa miniatyrmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "3505acc1-2b03-45df-93e2-626e6885e907"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "3505acc1-2b03-45df-93e2-626e6885e907",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "33d7ac55-291c-43ae-bb42-f599ef428325": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -1715,69 +1389,6 @@
                 "fr": "Traiter la documentation de soumission",
                 "pt_BR": "Processar documentação de submissão",
                 "sv": "Bearbeta leveransdokumentation"
-            }
-        },
-        "3505acc1-2b03-45df-93e2-626e6885e907": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "09b85517-e5f5-415b-a950-1a60ee285242",
-                "variable": "normalizationThumbnailProcessing",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Set normalize path",
-                "pt_BR": "Definir caminho da normalização"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "498f7a6d-1b8c-431a-aa5d-83f14f3c5e65"
-                }
-            },
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "35c8763a-0430-46be-8198-9ecb23f895c8": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%thumbnails/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create thumbnails directory",
-                "es": "Crear directorio de miniaturas",
-                "fr": "Créer un répertoire de vignettes",
-                "pt_BR": "Crie o diretório thumbnails",
-                "sv": "Skapa miniatyrmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "b33c9544-145c-4525-8a80-d686b4d1c3fa"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b33c9544-145c-4525-8a80-d686b4d1c3fa",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "370aca94-65ab-4f2a-9d7d-294a62c8b7ba": {
@@ -1990,74 +1601,6 @@
             },
             "end": true
         },
-        "4103a5b0-e473-4198-8ff7-aaa6fec34749": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%thumbnails/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create thumbnails directory",
-                "es": "Crear directorio de miniaturas",
-                "fr": "Créer un répertoire de vignettes",
-                "pt_BR": "Crie o diretório thumbnails",
-                "sv": "Skapa miniatyrmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "d951628f-e2c2-40b2-8bc0-7b9a7d1ef3d3"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "d951628f-e2c2-40b2-8bc0-7b9a7d1ef3d3",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "424ee8f1-6cdd-4960-8641-ed82361d3ad7": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "47c83e01-7556-4c13-881f-282c6d9c7d6a"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "438dc1cf-9813-44b5-a0a3-58e09ae73b8a": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -2089,85 +1632,6 @@
                 "fr": "Vérifier la conformité du transfert",
                 "pt_BR": "Verificar a conformidade da transferência",
                 "sv": "Kontrollera överförings följsamhet"
-            }
-        },
-        "440ef381-8fe8-4b6e-9198-270ee5653454": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "preservation \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize for preservation",
-                "es": "Normalizar para preservación",
-                "fr": "Normaliser aux fins de préservation",
-                "pt_BR": "Normalize para preservação",
-                "sv": "Normalisera för bevarande"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5b0042a2-2244-475c-85d5-41e4b11e65d6"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5b0042a2-2244-475c-85d5-41e4b11e65d6"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5b0042a2-2244-475c-85d5-41e4b11e65d6"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "dba3028d-2029-4a87-9992-f6335d890528",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "47c83e01-7556-4c13-881f-282c6d9c7d6a": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%DIP/\" \"%SIPDirectory%DIP/objects/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create DIP directory",
-                "es": "Crear el directorio DIP",
-                "fr": "Créer un répertoire DIP",
-                "ja": "DIPディレクトリを作成する",
-                "pt_BR": "Criar diretório DIP",
-                "sv": "Skapa DIP-mapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "4103a5b0-e473-4198-8ff7-aaa6fec34749"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "4103a5b0-e473-4198-8ff7-aaa6fec34749",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "47dd6ea6-1ee7-4462-8b84-3fc4c1eeeb7f": {
@@ -2202,97 +1666,6 @@
                 "fr": "Traiter la documentation de soumission",
                 "pt_BR": "Processar documentação de submissão",
                 "sv": "Bearbeta leveransdokumentation"
-            }
-        },
-        "498f7a6d-1b8c-431a-aa5d-83f14f3c5e65": {
-            "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": [
-                    {
-                        "description": {
-                            "en": "Yes",
-                            "es": "Sí",
-                            "fr": "Oui",
-                            "ja": "はい",
-                            "pt_BR": "Sim",
-                            "sv": "Ja"
-                        },
-                        "id": "c318b224-b718-4535-a911-494b1af6ff26",
-                        "items": {
-                            "ThumbnailMode": "generate"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "Yes, without default icons",
-                            "pt_BR": "Sim, sem padrão"
-                        },
-                        "id": "89f098ef-1cb2-4a97-ad67-4c0f14d0546b",
-                        "items": {
-                            "ThumbnailMode": "generate_non_default"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "No",
-                            "fr": "Non",
-                            "ja": "いいえ",
-                            "sv": "Nej"
-                        },
-                        "id": "972fce6c-52c8-4c00-99b9-d6814e377974",
-                        "items": {
-                            "ThumbnailMode": "do_not_generate"
-                        }
-                    }
-                ]
-            },
-            "description": {
-                "en": "Choose thumbnail mode",
-                "pt_BR": "Escolher modo miniatura"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "6e5126be-76ac-4c8f-9754-fc25a234a751"
-                }
-            },
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "4ca2c28a-8962-412b-9ec3-37c105cc47d9": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "8ce130d4-3f7e-46ec-868a-505cf9033d96",
-                "variable": "normalizationThumbnailProcessing",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Set normalize path",
-                "pt_BR": "Definir caminho da normalização"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "498f7a6d-1b8c-431a-aa5d-83f14f3c5e65"
-                }
-            },
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "4edfe7e4-82ff-4c0a-ba5f-29f1ee14e17a": {
@@ -2429,41 +1802,6 @@
                 "sv": "Lägg till README-fil"
             }
         },
-        "56da7758-913a-4cd2-a815-be140ed09357": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%thumbnails/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create thumbnails directory",
-                "es": "Crear directorio de miniaturas",
-                "fr": "Créer un répertoire de vignettes",
-                "pt_BR": "Crie o diretório thumbnails",
-                "sv": "Skapa miniatyrmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "4ca2c28a-8962-412b-9ec3-37c105cc47d9"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "4ca2c28a-8962-412b-9ec3-37c105cc47d9",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "56eebd45-5600-4768-a8c2-ec0114555a3d": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
@@ -2562,48 +1900,6 @@
                 "sv": "Normalisera"
             }
         },
-        "5c0d8661-1c49-4023-8a67-4991365d70fb": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"access\" \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"service\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/service",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize service files for access",
-                "es": "Normalizar ficheros de servicio para acceso",
-                "pt_BR": "Normalize arquivos de serviço para acesso",
-                "sv": "Normalisera servicefiler för åtkomst"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "dba3028d-2029-4a87-9992-f6335d890528"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "dba3028d-2029-4a87-9992-f6335d890528"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "dba3028d-2029-4a87-9992-f6335d890528"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "dba3028d-2029-4a87-9992-f6335d890528",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "5d780c7d-39d0-4f4a-922b-9d1b0d217bca": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -2669,72 +1965,11 @@
                 "sv": "Förbered AIP"
             }
         },
-        "62e0adc0-87f6-4162-acfa-f560c93d181d": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "0a6558cf-cf5f-4646-977e-7d6b4fde47e8",
-                "variable": "normalizationThumbnailProcessing",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Set normalize path",
-                "pt_BR": "Definir caminho da normalização"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "498f7a6d-1b8c-431a-aa5d-83f14f3c5e65"
-                }
-            },
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "6327fdf9-9673-42a8-ace5-cccad005818b": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "7a134af0-b285-4a9f-8acf-f6947b7ed072"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "63f35161-ba76-4a43-8cfa-c38c6a2d5b2f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPLogsDirectory%\" \"%SIPObjectsDirectory%\" \"%SIPDirectory%thumbnails/\"",
+                "arguments": "\"%SIPLogsDirectory%\" \"%SIPObjectsDirectory%\"",
                 "execute": "removeDirectories_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -2833,41 +2068,6 @@
                 "sv": "Karaktärisera och extrahera metadata"
             }
         },
-        "6b931965-d5f6-4611-a536-39d5901f8f70": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%thumbnails/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create thumbnails directory",
-                "es": "Crear directorio de miniaturas",
-                "fr": "Créer un répertoire de vignettes",
-                "pt_BR": "Crie o diretório thumbnails",
-                "sv": "Skapa miniatyrmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "62e0adc0-87f6-4162-acfa-f560c93d181d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "62e0adc0-87f6-4162-acfa-f560c93d181d",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "6c147aeb-20c5-47ce-9f40-7f22683cea1f": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -2906,28 +2106,6 @@
                 "sv": "Godkännande"
             }
         },
-        "6e5126be-76ac-4c8f-9754-fc25a234a751": {
-            "config": {
-                "@manager": "linkTaskManagerUnitVariableLinkPull",
-                "@model": "TaskConfigUnitVariableLinkPull",
-                "chain_id": null,
-                "variable": "normalizationThumbnailProcessing"
-            },
-            "description": {
-                "en": "Return to normalization step",
-                "pt_BR": "Retornar à etapa de normalização"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "70f41678-baa5-46e6-a71c-4b6b4d99f4a6": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -2948,7 +2126,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "6b931965-d5f6-4611-a536-39d5901f8f70"
+                    "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
                 }
             },
             "fallback_job_status": "Failed",
@@ -2991,7 +2169,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%%SIPName%-%SIPUUID%\" \"%SIPLogsDirectory%\" \"%SIPObjectsDirectory%\" \"%SIPDirectory%thumbnails/\"",
+                "arguments": "\"%SIPDirectory%%SIPName%-%SIPUUID%\" \"%SIPLogsDirectory%\" \"%SIPObjectsDirectory%\"",
                 "execute": "removeDirectories_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -3082,7 +2260,7 @@
             "config": {
                 "@manager": "linkTaskManagerDirectories",
                 "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPUUID%\" \"%SIPName%\" \"%SIPDirectory%\"",
+                "arguments": "\"%SIPDirectory%\"",
                 "execute": "manualNormalizationCheckForManualNormalizationDirectory_v0.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -3104,7 +2282,7 @@
                 },
                 "179": {
                     "job_status": "Completed successfully",
-                    "link_id": "a1b65fe3-9358-479b-93b9-68f2b5e71b2b"
+                    "link_id": "9e9b522a-77ab-4c17-ab08-5a4256f49d59"
                 }
             },
             "fallback_job_status": "Failed",
@@ -3158,78 +2336,6 @@
             },
             "fallback_job_status": "Failed",
             "fallback_link_id": "2dd53959-8106-457d-a385-fee57fc93aa9",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "7a134af0-b285-4a9f-8acf-f6947b7ed072": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%DIP/\" \"%SIPDirectory%DIP/objects/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create DIP directory",
-                "es": "Crear el directorio DIP",
-                "fr": "Créer un répertoire DIP",
-                "ja": "DIPディレクトリを作成する",
-                "pt_BR": "Criar diretório DIP",
-                "sv": "Skapa DIP-mapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "56da7758-913a-4cd2-a815-be140ed09357"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "56da7758-913a-4cd2-a815-be140ed09357",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "7b146689-1a04-4f58-ba86-3caf2b76ddbc": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%DIP/\" \"%SIPDirectory%DIP/objects/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create DIP directory",
-                "es": "Crear el directorio DIP",
-                "fr": "Créer un répertoire DIP",
-                "ja": "DIPディレクトリを作成する",
-                "pt_BR": "Criar diretório DIP",
-                "sv": "Skapa DIP-mapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "f3a39155-d655-4336-8227-f8c88e4b7669"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "f3a39155-d655-4336-8227-f8c88e4b7669",
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -3363,34 +2469,6 @@
                 "sv": "Bearbeta metadatamapp"
             }
         },
-        "8bcbca9c-91f6-4377-b064-b41751fb98ba": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "e950cd98-574b-4e57-9ef8-c2231e1ce451",
-                "variable": "normalizationThumbnailProcessing",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Set normalize path",
-                "pt_BR": "Definir caminho da normalização"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "498f7a6d-1b8c-431a-aa5d-83f14f3c5e65"
-                }
-            },
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "8c8bac29-4102-4fd2-9d0a-a3bd2e607566": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -3425,53 +2503,11 @@
                 "sv": "Formatera om metadata-filer"
             }
         },
-        "8ce130d4-3f7e-46ec-868a-505cf9033d96": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "thumbnail \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\" --thumbnail_mode \"%ThumbnailMode%\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize for thumbnails",
-                "es": "Normalizar para miniaturas",
-                "pt_BR": "Normalize para thumbnails",
-                "sv": "Normalisera för förhandsgranskning"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "ef8bd3f3-22f5-4283-bfd6-d458a2d18f22"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "ef8bd3f3-22f5-4283-bfd6-d458a2d18f22"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "ef8bd3f3-22f5-4283-bfd6-d458a2d18f22"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "ef8bd3f3-22f5-4283-bfd6-d458a2d18f22",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "8ce378a5-1418-4184-bf02-328a06e1d3be": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
                 "@model": "StandardTaskConfig",
-                "arguments": "preservation \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\"",
+                "arguments": "\"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\"",
                 "execute": "normalize_v1.0",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -3649,39 +2685,6 @@
                 "sv": "Bearbeta manuellt normaliserade filer"
             }
         },
-        "a1b65fe3-9358-479b-93b9-68f2b5e71b2b": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\"",
-                "execute": "manualNormalizationMoveAccessFilesToDIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/manualNormalization/access",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move access files to DIP",
-                "es": "Mover ficheros de acceso al DIP",
-                "pt_BR": "Mover arquivos de acesso para DIP",
-                "sv": "Flytta tillgänglighetsfiler till DIP"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "9e9b522a-77ab-4c17-ab08-5a4256f49d59"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Process manually normalized files",
-                "es": "Procesar manualmente ficheros normalizados",
-                "pt_BR": "Processar arquivos normalizados manualmente",
-                "sv": "Bearbeta manuellt normaliserade filer"
-            }
-        },
         "a536828c-be65-4088-80bd-eb511a0a063d": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -3715,49 +2718,6 @@
                 "ja": "妥当性確認",
                 "pt_BR": "Validação",
                 "sv": "Godkännande"
-            }
-        },
-        "a7c18fee-c8c1-4713-ba74-9705c45efbce": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%SIPUUID%\" \"%sharedPath%\" \"access\"",
-                "execute": "validateFile_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "DIP/objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Validate access derivatives",
-                "fr": "Valider les copies de consultation",
-                "ja": "アクセス派生物の妥当性確認",
-                "pt_BR": "Validar derivados de acesso",
-                "sv": "Verifiera åtkomstbearbetningar"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "dba3028d-2029-4a87-9992-f6335d890528"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "dba3028d-2029-4a87-9992-f6335d890528"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "dba3028d-2029-4a87-9992-f6335d890528"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "dba3028d-2029-4a87-9992-f6335d890528",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "aaa929e4-5c35-447e-816a-033a66b9b90b": {
@@ -3856,39 +2816,6 @@
                 "es": "Procesar directorio de metadatos",
                 "pt_BR": "Processar diretório de metadados",
                 "sv": "Bearbeta metadatamapp"
-            }
-        },
-        "b20ff203-1472-40db-b879-0e59d17de867": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "7b146689-1a04-4f58-ba86-3caf2b76ddbc"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "b21018df-f67d-469a-9ceb-ac92ac68654e": {
@@ -3994,34 +2921,6 @@
                 "sv": "SIP misslyckades"
             }
         },
-        "b33c9544-145c-4525-8a80-d686b4d1c3fa": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "180ae3d0-aa6c-4ed4-ab94-d0a2121e7f21",
-                "variable": "normalizationThumbnailProcessing",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Set normalize path",
-                "pt_BR": "Definir caminho da normalização"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "498f7a6d-1b8c-431a-aa5d-83f14f3c5e65"
-                }
-            },
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "b6b0fe37-aa26-40bd-8be8-d3acebf3ccf8": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -4095,49 +2994,6 @@
                 "ja": "パッケージの抽出",
                 "pt_BR": "Extrair pacotes",
                 "sv": "Extrahera paket"
-            }
-        },
-        "bcabd5e2-c93e-4aaa-af6a-9a74d54e8bf0": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "access \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize for access",
-                "es": "Normalizar para acceso",
-                "fr": "Normaliser aux fins d’accès",
-                "pt_BR": "Normalize para acesso",
-                "sv": "Normalisera för åtkomst"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "286bbb36-6a38-41d5-bf7a-a8ba58aa71ce"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "286bbb36-6a38-41d5-bf7a-a8ba58aa71ce"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "286bbb36-6a38-41d5-bf7a-a8ba58aa71ce"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "440ef381-8fe8-4b6e-9198-270ee5653454",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "bd792750-a55b-42e9-903a-8c898bb77df1": {
@@ -4308,65 +3164,6 @@
                 "sv": "Extrahera paket"
             }
         },
-        "c7122b0b-e036-4551-b7cd-2eca6ebba53f": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "f6fdd1a7-f0c5-4631-b5d3-19421155bd7a",
-                "variable": "normalizationThumbnailProcessing",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Set normalize path",
-                "pt_BR": "Definir caminho da normalização"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "498f7a6d-1b8c-431a-aa5d-83f14f3c5e65"
-                }
-            },
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "cb8e5706-e73f-472f-ad9b-d1236af8095f": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "b93cecd4-71f2-4e28-bc39-d32fd62c5a94",
-                    "612e3609-ce9a-4df6-a9a3-63d634d2d934",
-                    "fb7a326e-1e50-4b48-91b9-4917ff8d0ae8",
-                    "e600b56d-1a43-4031-9d7c-f64f123e5662",
-                    "c34bd22a-d077-4180-bf58-01db35bdb644",
-                    "89cb80dd-0636-464f-930d-57b61e3928b2"
-                ]
-            },
-            "description": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "ccf8ec5c-3a9a-404a-a7e7-8f567d3b36a0": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -4401,39 +3198,6 @@
                 "ja": "AIP METSを生成",
                 "pt_BR": "Gerar AIP METS",
                 "sv": "Genrerera AIP METS"
-            }
-        },
-        "cddde867-4cf9-4248-ac31-f7052fae053f": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
-                "execute": "moveSIP_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Move to processing directory",
-                "pt_BR": "Mover para o diretório de processamento",
-                "sv": "Flytta till bearbetningsmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "153c5f41-3cfb-47ba-9150-2dd44ebc27df"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "d0c463c2-da4c-4a70-accb-c4ce96ac5194": {
@@ -4526,67 +3290,6 @@
                 "es": "Preparar AIP",
                 "fr": "Préparer l'AIP",
                 "sv": "Förbered AIP"
-            }
-        },
-        "d951628f-e2c2-40b2-8bc0-7b9a7d1ef3d3": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "092b47db-6f77-4072-aed3-eb248ab69e9c",
-                "variable": "normalizationThumbnailProcessing",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Set normalize path",
-                "pt_BR": "Definir caminho da normalização"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "498f7a6d-1b8c-431a-aa5d-83f14f3c5e65"
-                }
-            },
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
-        "db9177f5-41d2-4894-be1a-a7547ed6b63a": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "--fileUUID \"%fileUUID%\" --inputFile \"%relativeLocation%\" --sipDirectory \"%SIPDirectory%\"",
-                "execute": "removeFilesWithoutPresmisMetadata_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/",
-                "stderr_file": "%SIPLogsDirectory%removedFilesWithNoPremisMetadata.log",
-                "stdout_file": "%SIPLogsDirectory%removedFilesWithNoPremisMetadata.log"
-            },
-            "description": {
-                "en": "Remove files without linking information (failed normalization artifacts etc.)",
-                "pt_BR": "Remover arquivos sem vincular informações (itens de normalização falhos, etc.)",
-                "sv": "Ta bort fiier utan att länka information (misslyckade normaliseringsartefakter etc.)"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "cddde867-4cf9-4248-ac31-f7052fae053f"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "db99ab43-04d7-44ab-89ec-e09d7bbdc39d": {
@@ -4895,48 +3598,6 @@
                 "sv": "Överföring misslyckad"
             }
         },
-        "e950cd98-574b-4e57-9ef8-c2231e1ce451": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "thumbnail \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"service\" --thumbnail_mode \"%ThumbnailMode%\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/service",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize service files for thumbnails",
-                "es": "Normalizar ficheros de servicio para miniaturas",
-                "pt_BR": "Normalize arquivos de serviço para thumbnails",
-                "sv": "Normalisera servicefiler för minitayrer"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5c0d8661-1c49-4023-8a67-4991365d70fb"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5c0d8661-1c49-4023-8a67-4991365d70fb"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5c0d8661-1c49-4023-8a67-4991365d70fb"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "5c0d8661-1c49-4023-8a67-4991365d70fb",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "ea0e8838-ad3a-4bdd-be14-e5dba5a4ae0c": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
@@ -5005,49 +3666,6 @@
                 "es": "Procesar directorio de metadatos",
                 "pt_BR": "Processar diretório de metadados",
                 "sv": "Bearbeta metadatamapp"
-            }
-        },
-        "ef8bd3f3-22f5-4283-bfd6-d458a2d18f22": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"access\" \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize for access",
-                "es": "Normalizar para acceso",
-                "fr": "Normaliser aux fins d’accès",
-                "pt_BR": "Normalize para acesso",
-                "sv": "Normalisera för åtkomst"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "a7c18fee-c8c1-4713-ba74-9705c45efbce"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "a7c18fee-c8c1-4713-ba74-9705c45efbce"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "a7c18fee-c8c1-4713-ba74-9705c45efbce"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "dba3028d-2029-4a87-9992-f6335d890528",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "f09847c2-ee51-429a-9478-a860477f6b8d": {
@@ -5227,41 +3845,6 @@
                 "sv": "Skapa SIP från överföringspaket"
             }
         },
-        "f3a39155-d655-4336-8227-f8c88e4b7669": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "-m 770 \"%SIPDirectory%thumbnails/\"",
-                "execute": "createDirectory_v0.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Create thumbnails directory",
-                "es": "Crear directorio de miniaturas",
-                "fr": "Créer un répertoire de vignettes",
-                "pt_BR": "Crie o diretório thumbnails",
-                "sv": "Skapa miniatyrmapp"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "8bcbca9c-91f6-4377-b064-b41751fb98ba"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "8bcbca9c-91f6-4377-b064-b41751fb98ba",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
-            }
-        },
         "f3be1ee1-8881-465d-80a6-a6f093d40ec2": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -5326,48 +3909,6 @@
                 "fr": "Traiter la documentation de soumission",
                 "pt_BR": "Processar documentação de submissão",
                 "sv": "Bearbeta leveransdokumentation"
-            }
-        },
-        "f6fdd1a7-f0c5-4631-b5d3-19421155bd7a": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "thumbnail \"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\" --thumbnail_mode \"%ThumbnailMode%\"",
-                "execute": "normalize_v1.0",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": "objects/",
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Normalize for thumbnails",
-                "es": "Normalizar para miniaturas",
-                "pt_BR": "Normalize para thumbnails",
-                "sv": "Normalisera för förhandsgranskning"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "db9177f5-41d2-4894-be1a-a7547ed6b63a"
-                },
-                "1": {
-                    "job_status": "Completed successfully",
-                    "link_id": "db9177f5-41d2-4894-be1a-a7547ed6b63a"
-                },
-                "2": {
-                    "job_status": "Completed successfully",
-                    "link_id": "db9177f5-41d2-4894-be1a-a7547ed6b63a"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "db9177f5-41d2-4894-be1a-a7547ed6b63a",
-            "group": {
-                "en": "Normalize",
-                "es": "Normalizar",
-                "fr": "Normaliser",
-                "pt_BR": "Normalizar",
-                "sv": "Normalisera"
             }
         },
         "f8ef02c4-f585-4b0d-9b6f-3cef6fbe527f": {
