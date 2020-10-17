@@ -17,8 +17,6 @@ from a3m.server.jobs.client import DirectoryClientScriptJob
 from a3m.server.jobs.client import FilesClientScriptJob
 from a3m.server.jobs.decisions import NextChainDecisionJob
 from a3m.server.jobs.decisions import UpdateContextDecisionJob
-from a3m.server.jobs.local import GetUnitVarLinkJob
-from a3m.server.jobs.local import SetUnitVarLinkJob
 
 
 logger = logging.getLogger(__name__)
@@ -39,10 +37,6 @@ def get_job_class_for_link(link):
         job_class = NextChainDecisionJob
     elif manager_name == "linkTaskManagerReplacementDicFromChoice":
         job_class = UpdateContextDecisionJob
-    elif manager_name == "linkTaskManagerSetUnitVariable":
-        job_class = SetUnitVarLinkJob
-    elif manager_name == "linkTaskManagerUnitVariableLinkPull":
-        job_class = GetUnitVarLinkJob
     else:
         raise ValueError(f"Unknown manager type {manager_name}")
 

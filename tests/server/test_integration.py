@@ -11,10 +11,8 @@ from lxml import etree
 from a3m.main import models
 from a3m.server.jobs import DirectoryClientScriptJob
 from a3m.server.jobs import FilesClientScriptJob
-from a3m.server.jobs import GetUnitVarLinkJob
 from a3m.server.jobs import JobChain
 from a3m.server.jobs import NextChainDecisionJob
-from a3m.server.jobs import SetUnitVarLinkJob
 from a3m.server.jobs import UpdateContextDecisionJob
 from a3m.server.packages import Package
 from a3m.server.queues import PackageQueue
@@ -225,43 +223,13 @@ def test_workflow_integration(
     assert job.exit_code == 0
     assert job.job_chain.context[r"%TestValue%"] == "7"
 
-    # Next job in chain should be queued
-    assert package_queue.job_queue.qsize() == 1
-    job = future.result()
-
-    # Process the seventh job (SetUnitVarLinkJob)
-    future = package_queue.process_one_job(timeout=1.0)
-    concurrent.futures.wait([future], timeout=1.0)
-
-    assert isinstance(job, SetUnitVarLinkJob)
-    assert job.exit_code == 0
-
-    unit_var = models.UnitVariable.objects.get(
-        unittype=package.unit_variable_type,
-        unituuid=package.subid,
-        variable="test_unit_variable",
-        variablevalue="",
-        microservicechainlink="f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e",
-    )
-    assert unit_var is not None
-
-    # Next job in chain should be queued
-    assert package_queue.job_queue.qsize() == 1
-    job = future.result()
-
-    # Process the eighth job (GetUnitVarLinkJob)
-    future = package_queue.process_one_job(timeout=1.0)
-    concurrent.futures.wait([future], timeout=1.0)
-
-    assert isinstance(job, GetUnitVarLinkJob)
-    assert job.exit_code == 0
-
     # Out job chain should have been redirected to the final link
     assert job.job_chain.current_link.id == "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e"
-
-    # Next job in chain should be queued
     assert package_queue.job_queue.qsize() == 1
     job = future.result()
+    
+    assert isinstance(job, DirectoryClientScriptJob)
+    assert job.exit_code == None
 
     # Process the last job (DirectoryClientScriptJob)
     future = package_queue.process_one_job(timeout=1.0)

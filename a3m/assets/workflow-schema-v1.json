@@ -57,9 +57,7 @@
             { "$ref": "#/definitions/link_model_ReplacementDic" },
             { "$ref": "#/definitions/link_model_ChainChoice" },
             { "$ref": "#/definitions/link_model_GetServiceOutput" },
-            { "$ref": "#/definitions/link_model_GetServiceOutputPrompt" },
-            { "$ref": "#/definitions/link_model_GetUnitVar" },
-            { "$ref": "#/definitions/link_model_SetUnitVar" }
+            { "$ref": "#/definitions/link_model_GetServiceOutputPrompt" }
           ]
         },
         "exit_codes": {
@@ -131,7 +129,6 @@
           "type": "string",
           "enum": [
             "Transfer",
-            "DIP",
             "SIP"
           ]
         }
@@ -361,56 +358,6 @@
         "stdout_file",
         "stderr_file"
       ]
-    },
-    "link_model_GetUnitVar": {
-      "type": "object",
-      "properties": {
-        "@manager": {"type": "string", "pattern": "linkTaskManagerUnitVariableLinkPull"},
-        "@model": {"type": "string", "pattern": "TaskConfigUnitVariableLinkPull"},
-        "chain_id": {
-          "oneOf": [
-            { "$ref": "#/definitions/uuid" },
-            { "type": "null" }
-          ]
-        },
-        "variable": {
-         "type": "string"
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "@manager",
-        "@model",
-        "chain_id",
-        "variable"
-      ]
-    },
-    "link_model_SetUnitVar": {
-      "type": "object",
-      "properties": {
-        "@manager": {"type": "string", "pattern": "linkTaskManagerSetUnitVariable"},
-        "@model": {"type": "string", "pattern": "TaskConfigSetUnitVariable"},
-        "chain_id": {
-          "oneOf": [
-            { "$ref": "#/definitions/uuid" },
-            { "type": "null" }
-          ]
-        },
-        "variable": {
-         "type": "string"
-        },
-        "variable_value": {
-          "type": ["string", "null"]
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "@manager",
-        "@model",
-        "chain_id",
-        "variable",
-        "variable_value"
-      ]
     }
   },
   "type": "object",
@@ -426,18 +373,11 @@
       "additionalProperties": {
         "$ref": "#/definitions/link"
       }
-    },
-    "watched_directories": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/watched_dir"
-      }
     }
   },
   "required": [
     "chains",
-    "links",
-    "watched_directories"
+    "links"
   ],
   "additionalProperties": false
 }

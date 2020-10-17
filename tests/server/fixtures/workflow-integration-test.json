@@ -179,52 +179,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "ea5f2361-d210-43f9-955b-2cc3cbeb348d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Group 1"
-            }
-        },
-        "ea5f2361-d210-43f9-955b-2cc3cbeb348d": {
-            "config": {
-                "@manager": "linkTaskManagerSetUnitVariable",
-                "@model": "TaskConfigSetUnitVariable",
-                "chain_id": "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e",
-                "variable": "test_unit_variable",
-                "variable_value": null
-            },
-            "description": {
-                "en": "Chain 2 second link"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "f44a33b2-ba1a-43d9-807f-3b3cdab680e3"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Group 1"
-            }
-        },
-        "f44a33b2-ba1a-43d9-807f-3b3cdab680e3": {
-            "config": {
-                "@manager": "linkTaskManagerUnitVariableLinkPull",
-                "@model": "TaskConfigUnitVariableLinkPull",
-                "chain_id": null,
-                "variable": "test_unit_variable"
-            },
-            "description": {
-                "en": "Chain 2 third link"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
+                    "link_id": "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e"
                 }
             },
             "fallback_job_status": "Failed",
@@ -258,8 +213,8 @@
             "fallback_link_id": null,
             "group": {
                 "en": "Group 1"
-            }
+            },
+            "end": true
         }
-    },
-    "watched_directories": []
+    }
 }

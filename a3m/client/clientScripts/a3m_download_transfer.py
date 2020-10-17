@@ -13,7 +13,6 @@ from django.conf import settings
 from a3m.bag import is_bag
 from a3m.client import metrics
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.main.models import UnitVariable
 
 
 HTTP_SCHEMES = ("http", "https")
@@ -161,12 +160,6 @@ def main(job, transfer_id, transfer_path, url):
     if is_bag(transfer_path):
         job.pyprint("Bags not supported yet!", file=sys.stderr)
         return 1
-
-    # In case we have to fork.
-    next_link_id = "50b67418-cb8d-434d-acc9-4a8324e7fdd2"
-    UnitVariable.objects.update_variable(
-        "Transfer", transfer_id, "startingLinkID", value=None, link_id=next_link_id
-    )
 
 
 def call(jobs):

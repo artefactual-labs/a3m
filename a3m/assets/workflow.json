@@ -187,28 +187,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "aaebd7d4-5dc5-4579-893e-60650506d1cd"
+                    "link_id": "50b67418-cb8d-434d-acc9-4a8324e7fdd2"
                 }
             },
             "fallback_job_status": "Failed",
             "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "a3m"
-            }
-        },
-        "aaebd7d4-5dc5-4579-893e-60650506d1cd": {
-            "config": {
-                "@manager": "linkTaskManagerUnitVariableLinkPull",
-                "@model": "TaskConfigUnitVariableLinkPull",
-                "chain_id": null,
-                "variable": "startingLinkID"
-            },
-            "description": {
-                "en": "a3m - Start processing"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Completed successfully",
-            "fallback_link_id": "50b67418-cb8d-434d-acc9-4a8324e7fdd2",
             "group": {
                 "en": "a3m"
             }
@@ -3946,6 +3929,5 @@
                 "sv": "Karaktärisera och extrahera metadata"
             }
         }
-    },
-    "watched_directories": []
+    }
 }
