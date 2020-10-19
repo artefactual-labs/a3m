@@ -42,7 +42,7 @@ jinja2==2.11.2            # via sphinx
 jmespath==0.10.0          # via -r requirements.txt, boto3, botocore
 jsonschema==3.2.0         # via -r requirements.txt
 lazy-object-proxy==1.4.3  # via astroid
-lxml==4.5.2               # via -r requirements.txt, ammcpc, metsrw
+lxml==4.6.1               # via -r requirements.txt, ammcpc, metsrw
 markupsafe==1.1.1         # via jinja2
 mccabe==0.6.1             # via flake8, pylint
 metsrw==0.3.15            # via -r requirements.txt
