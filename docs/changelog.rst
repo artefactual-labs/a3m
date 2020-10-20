@@ -2,8 +2,15 @@
 Changelog
 =========
 
-- :support:`-` Moved to GitHub Container Registry. Our Docker image is now found at ``ghcr.io/artefactual-labs/a3m`` and anonymous access is possible.
+- :release:`0.4.0 <2020-10-20>`
+- :feature:`-` Removed UnitVariable links.
+- :feature:`-` Removed access normalization paths.
+- :feature:`-` Removed PID binding.
+- :feature:`-` Removed access directory support.
+- :feature:`-` Removed policy check on access derivatives.
+- :feature:`51` Removed reingest capabilities.
 - :release:`0.3.1 <2020-08-24>`
+- :support:`-` Moved to GitHub Container Registry. Our Docker image is now found at ``ghcr.io/artefactual-labs/a3m`` and anonymous access is possible.
 - :bug:`-` Fix ``long_description`` config in ``setup.cfg``.
 - :release:`0.3.0 <2020-08-24>`
 - :feature:`-` Added Sphinx documentation.
