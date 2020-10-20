@@ -2,10 +2,15 @@
 Docker
 ======
 
-Our Docker image  is extremely convenient because it includes many software
-dependencies that you would need to install manually otherwise. This document
-exemplifies how to run a3m in a container environment using the Docker
-command-line interface.
+Our Docker image is extremely convenient because it includes many software
+dependencies that you would need to install manually otherwise.
+
+User our Docker image as it is
+==============================
+
+Off the shelf, the Docker image brings an environment with a3m and its
+dependencies installed and ready to use. Below is an example of using the
+client-server mode provided by a3m using the Docker command-line interface.
 
 Create a virtual network so our communicate can communicate with each other::
 
@@ -34,6 +39,30 @@ Don't forget to clean up before leaving::
 
 .. note::
 
-   Remember that when ``--address`` is not including, ``a3m.cli.client`` embeds
+   Remember that when ``--address`` is not included, ``a3m.cli.client`` embeds
    its own instance of the a3m server, i.e. you do not need to run the server
    separately.
+
+
+Building a custom Docker image
+==============================
+
+Our image ``ghcr.io/artefactual-labs/a3m`` can be used as a parent image. Say
+you're building a new application embedding a3m and you need a few extra
+dependencies installed. Instead of building a new image from scratch, you can
+base your image on ours.
+
+For demonstration purposes, we're going to add a new set of self-signed
+certificates issued by a local CA. This is all managed by a tool called
+``mkcert`` that we're going to install.
+
+.. literalinclude:: ../examples/Dockerfile
+
+Let's build it and run it::
+
+    docker build -f Dockerfile -t a3m-webapp:latest
+    docker run --rm a3m-webapp:latest
+
+That's all. You're now running a new Python application embedding a3m. It was
+just an example, but the possibilities are endless! Refer to Docker's
+documentation to know more about this technique.
