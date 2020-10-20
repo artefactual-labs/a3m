@@ -55,7 +55,10 @@ def call(jobs):
 
                 if is_bag(transferLocation):
                     src = os.path.join(
-                        transferLocation, "data", "metadata", "submissionDocumentation",
+                        transferLocation,
+                        "data",
+                        "metadata",
+                        "submissionDocumentation",
                     )
                 job.pyprint(src, " -> ", dst)
                 shutil.copytree(src, dst)

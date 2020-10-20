@@ -9,8 +9,8 @@ from a3m.client.clientScripts import virus_scan
 
 
 def test_get_scanner(settings):
-    """ Test that get_scanner returns the correct instance of antivirus
-    per the user's configuration. Test return of clamdscanner by default. """
+    """Test that get_scanner returns the correct instance of antivirus
+    per the user's configuration. Test return of clamdscanner by default."""
 
     # Ensure that environment settings are available to the mock classes.
     test_antivirus_clamdscan.setup_clamdscanner(settings)

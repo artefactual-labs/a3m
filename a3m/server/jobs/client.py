@@ -63,14 +63,12 @@ class ClientScriptJob(Job, metaclass=abc.ABCMeta):
 
     @property
     def stdout_file(self):
-        """A file path to capture job stdout, as defined in the workflow.
-        """
+        """A file path to capture job stdout, as defined in the workflow."""
         return self.link.config.get("stdout_file")
 
     @property
     def stderr_file(self):
-        """A file path to capture job stderr, as defined in the workflow.
-        """
+        """A file path to capture job stderr, as defined in the workflow."""
         return self.link.config.get("stderr_file")
 
     @staticmethod
@@ -187,8 +185,7 @@ class FilesClientScriptJob(ClientScriptJob):
         return self.link.config.get("filter_subdir", "")
 
     def submit_tasks(self):
-        """Iterate through all matching files for the package, and submit tasks.
-        """
+        """Iterate through all matching files for the package, and submit tasks."""
         for file_replacements in self.package.files(filter_subdir=self.filter_subdir):
             # File replacement values take priority
             command_replacements = self.command_replacements.copy()

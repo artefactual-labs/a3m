@@ -126,8 +126,7 @@ class TestHashsum:
             pass
 
     def test_compare_hashes_failed(self, mocker):
-        """Ensure we get consistent output when the checksum comparison fails.
-        """
+        """Ensure we get consistent output when the checksum comparison fails."""
         hash_file = "metadata/checksum.sha256"
         job = Job("stub", "stub", ["", ""])
         hashsum = self.setup_hashsum(hash_file, job)

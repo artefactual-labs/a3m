@@ -19,9 +19,9 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Enabled(models.Manager):
-    """ Manager to only return enabled objects.
+    """Manager to only return enabled objects.
 
-    Filters by enabled=True.  """
+    Filters by enabled=True."""
 
     def get_queryset(self):
         return super().get_queryset().filter(enabled=True)
@@ -125,7 +125,7 @@ class FormatManager(models.Manager):
 
 
 class Format(models.Model):
-    """ User-friendly description of format.
+    """User-friendly description of format.
 
     Collects multiple related FormatVersions to one conceptual version.
 
@@ -248,10 +248,10 @@ class FormatVersion(VersionedModel, models.Model):
 
 
 class IDCommand(VersionedModel, models.Model):
-    """ Command to run an IDToolConfig and parse the output.
+    """Command to run an IDToolConfig and parse the output.
 
     IDCommand runs 'script' (which runs an IDTool with a specific IDToolConfig)
-    and parses the output. """
+    and parses the output."""
 
     uuid = models.UUIDField(
         editable=False,

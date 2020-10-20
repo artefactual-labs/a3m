@@ -180,8 +180,7 @@ class PackageQueue:
         return result
 
     def stop(self):
-        """Trigger queue shutdown.
-        """
+        """Trigger queue shutdown."""
         self.shutdown_event.set()
 
     def _package_completed_callback(self, package, link_id, future):
@@ -237,8 +236,7 @@ class PackageQueue:
         return job
 
     def activate_package(self, package):
-        """Mark a package as active, allowing jobs related to it to process.
-        """
+        """Mark a package as active, allowing jobs related to it to process."""
         with self.active_package_lock:
             if package.uuid not in self.active_packages:
                 self.active_packages[package.uuid] = package
@@ -251,8 +249,7 @@ class PackageQueue:
                 )
 
     def deactivate_package(self, package):
-        """Mark a package as inactive.
-        """
+        """Mark a package as inactive."""
         with self.active_package_lock:
             if package.uuid in self.active_packages:
                 del self.active_packages[package.uuid]
@@ -266,8 +263,7 @@ class PackageQueue:
                 )
 
     def is_package_active(self, package_uuid):
-        """Determine whether a package is still active.
-        """
+        """Determine whether a package is still active."""
         if not isinstance(package_uuid, uuid.UUID):
             package_uuid = uuid.UUID(package_uuid)
         # TODO: use timeout or rwlock

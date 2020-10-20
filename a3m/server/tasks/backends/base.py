@@ -4,8 +4,7 @@ from django.conf import settings
 
 
 class TaskBackend(metaclass=abc.ABCMeta):
-    """Handles out of process `Task` execution.
-    """
+    """Handles out of process `Task` execution."""
 
     # The number of files we'll pack into each MCP Client job.  Chosen somewhat
     # arbitrarily, but benchmarking with larger values (like 512) didn't make
@@ -17,8 +16,7 @@ class TaskBackend(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def submit_task(self, job, task):
-        """Submit a task as part of the job given, for offline processing.
-        """
+        """Submit a task as part of the job given, for offline processing."""
 
     @abc.abstractmethod
     def wait_for_results(self, job):

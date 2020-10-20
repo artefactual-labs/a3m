@@ -170,16 +170,14 @@ class Package:
 
     @current_path.setter
     def current_path(self, value):
-        """The real (no shared dir vars) path to the package.
-        """
+        """The real (no shared dir vars) path to the package."""
         self._current_path = value.replace(
             r"%sharedPath%", _get_setting("SHARED_DIRECTORY")
         )
 
     @property
     def current_path_for_db(self):
-        """The path to the package, as stored in the database.
-        """
+        """The path to the package, as stored in the database."""
         return self.current_path.replace(
             _get_setting("SHARED_DIRECTORY"), r"%sharedPath%", 1
         )
@@ -223,8 +221,7 @@ class Package:
 
     @auto_close_old_connections()
     def set_variable(self, key, value, chain_link_id):
-        """Sets a UnitVariable, which tracks choices made by users during processing.
-        """
+        """Sets a UnitVariable, which tracks choices made by users during processing."""
         # TODO: refactor this concept
         if not value:
             value = ""
@@ -334,8 +331,7 @@ class Package:
 
 
 class PackageContext:
-    """Package context tracks choices made previously while processing
-    """
+    """Package context tracks choices made previously while processing"""
 
     def __init__(self, *items):
         self._data = collections.OrderedDict()

@@ -62,7 +62,10 @@ def main(ctx, uri, name, address, wait_for_ready, no_input):
 
         resp = cw.client.wait_until_complete(resp.id)
 
-        if (status := resp.status) in (a3m_pb2.FAILED, a3m_pb2.REJECTED,):
+        if (status := resp.status) in (
+            a3m_pb2.FAILED,
+            a3m_pb2.REJECTED,
+        ):
             click.secho(
                 f"Error processing package ({a3m_pb2.PackageStatus.Name(status)})!",
                 fg="red",

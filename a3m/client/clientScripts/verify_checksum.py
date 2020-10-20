@@ -195,8 +195,7 @@ class Hashsum:
 
     @staticmethod
     def _count_files(path):
-        """Walk the directories on a given path and count the number of files.
-        """
+        """Walk the directories on a given path and count the number of files."""
         return sum([len(files) for _, _, files in os.walk(path)])
 
 

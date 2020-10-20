@@ -37,22 +37,19 @@ class TransferServicer:
     """Missing associated documentation comment in .proto file."""
 
     def Submit(self, request, context):
-        """Submits a new transfer.
-        """
+        """Submits a new transfer."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details("Method not implemented!")
         raise NotImplementedError("Method not implemented!")
 
     def Read(self, request, context):
-        """Reads the status of a given transfer.
-        """
+        """Reads the status of a given transfer."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details("Method not implemented!")
         raise NotImplementedError("Method not implemented!")
 
     def ListTasks(self, request, context):
-        """Lists all tasks in a given transfer.
-        """
+        """Lists all tasks in a given transfer."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details("Method not implemented!")
         raise NotImplementedError("Method not implemented!")
