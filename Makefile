@@ -25,7 +25,7 @@ migrate: bootstrap  ## Same as make bootstrap.
 bootstrap:  ## Bootstrap a3m (new database).
 	docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m migrate --noinput
 
-manage:  ## Run Django /manage.py on a3m, suppling <command> [options] as value to ARG, e.g., `make manage-a3m ARG=shell`
+manage:  ## Run Django /manage.py on a3m, suppling <command> [options] as value to ARG, e.g., `make manage ARG=shell`
 	docker-compose run --rm --no-deps --entrypoint /a3m/manage.py a3m $(ARG)
 
 migrations:  ## Make Django migrations.
