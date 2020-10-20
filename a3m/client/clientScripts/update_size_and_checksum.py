@@ -27,7 +27,7 @@ from a3m.main.models import File
 logger = logging.getLogger(__name__)
 
 
-def main(job, shared_path, file_uuid, file_path, date, event_uuid):
+def main(job, file_uuid, file_path, date, event_uuid):
     try:
         File.objects.get(uuid=file_uuid)
     except File.DoesNotExist:
@@ -41,7 +41,6 @@ def main(job, shared_path, file_uuid, file_path, date, event_uuid):
 
 def call(jobs):
     parser = argparse.ArgumentParser()
-    parser.add_argument("sharedPath")
     parser.add_argument(
         "-i", "--fileUUID", type=lambda x: str(uuid.UUID(x)), dest="file_uuid"
     )
@@ -64,7 +63,6 @@ def call(jobs):
                 job.set_status(
                     main(
                         job,
-                        args.sharedPath,
                         args.file_uuid,
                         args.file_path,
                         args.date,

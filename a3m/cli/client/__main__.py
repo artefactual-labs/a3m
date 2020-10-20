@@ -100,7 +100,7 @@ def _print_failed_jobs(client: Client, jobs):
         for item in resp.tasks:
             content = f"""[bold]Task {item.id}[/]
 
-{item.execution} (with arguments: [dim]{item.arguments}[/])
+Module [bold]{item.execution}[/] (with arguments: [dim]{item.arguments}[/])
 --- stdout
 {item.stdout}
 --- stderr
