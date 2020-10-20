@@ -128,7 +128,7 @@ def _shlex_unescape(s):
 
 
 def fail_all_tasks(batch_payload, reason):
-    tasks = batch_payload.data["tasks"]
+    tasks = batch_payload["tasks"]
 
     # Give it a best effort to write out an error for each task.  Obviously if
     # we got to this point because the DB is unavailable this isn't going to
