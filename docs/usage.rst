@@ -55,6 +55,9 @@ and these are its contents::
         │   └── default.xml
         └── tmp
 
+
+.. _devkit:
+
 Development kit
 ---------------
 

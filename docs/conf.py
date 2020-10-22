@@ -11,7 +11,12 @@ init_django()
 
 needs_sphinx = "3.2"
 
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode", "releases"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+    "sphinxcontrib.mermaid",
+    "releases",
+]
 
 autoclass_content = "both"
 autodoc_member_order = "bysource"
@@ -43,3 +48,5 @@ htmlhelp_basename = "a3mdoc"
 suppress_warnings = ["image.nonlocal_uri"]
 
 releases_github_path = "artefactual-labs/a3m"
+
+mermaid_version = "8.8.2"

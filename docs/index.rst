@@ -9,6 +9,7 @@ Current release: |version|.
 .. toctree::
     :hidden:
 
+    about
     changelog
     installation
     usage

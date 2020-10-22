@@ -16,4 +16,5 @@ black
 flake8
 pre-commit
 sphinx
+sphinxcontrib-mermaid
 releases
