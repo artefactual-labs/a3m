@@ -145,7 +145,7 @@ page<devkit>` to learn how to use our programming interfaces.
 
 There are multiple use cases. For example, you may want to build an application
 that connects to a message broker used to receive preservation requests and
-publish the reuslts. If you were writing this application using Python, our
+publish the results. If you were writing this application using Python, our
 programming interfaces could assit you in embedding a3m easily.
 
 .. mermaid::

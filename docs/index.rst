@@ -15,4 +15,3 @@ Current release: |version|.
     usage
     settings
     docker
-    dependencies
