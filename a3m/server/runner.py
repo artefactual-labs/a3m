@@ -32,7 +32,6 @@ from a3m.server import metrics
 from a3m.server import shared_dirs
 from a3m.server.db import migrate
 from a3m.server.jobs import Job
-from a3m.server.processing_config import validate_processing_configs
 from a3m.server.queues import PackageQueue
 from a3m.server.rpc.proto import a3m_pb2
 from a3m.server.rpc.proto import a3m_pb2_grpc
@@ -55,6 +54,13 @@ class ServerStage(enum.Enum):
 
 
 class Server:
+    """a3m server.
+
+    It runs the gRPC API server and the workflow engine, using independent pools
+    of threads. It accepts a :class:`a3m.server.workflow.Workflow` which can be
+    customized as needed.
+    """
+
     def __init__(
         self,
         bind_address: str,
@@ -158,8 +164,13 @@ def create_server(
     grpc_workers,
     debug=False,
 ):
+    """Create a3m server ready to use.
+
+    It bootstraps some bits locally needed, like the database, the local
+    processing directory or the pool of threads. It wraps
+    :class:`a3m.server.runner.Server`.
+    """
     workflow = load_default_workflow()
-    validate_processing_configs(workflow)
 
     shared_dirs.create()
 

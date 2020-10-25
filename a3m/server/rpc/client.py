@@ -22,6 +22,8 @@ _VERSION_METADATA_KEY = "version"
 
 
 class Client:
+    """a3m gRPC API client."""
+
     def __init__(
         self,
         channel: Channel,
@@ -50,8 +52,8 @@ class Client:
     def version_metadata():
         return ((_VERSION_METADATA_KEY, __version__),)
 
-    def submit(self, url: str, name: str):
-        request = a3m_pb2.SubmitRequest(name=name, url=url)
+    def submit(self, url: str, name: str, config: a3m_pb2.ProcessingConfig = None):
+        request = a3m_pb2.SubmitRequest(name=name, url=url, config=config)
         return self._unary_call(self.transfer_stub.Submit, request)
 
     def read(self, package_id: str):

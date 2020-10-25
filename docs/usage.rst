@@ -51,57 +51,28 @@ and these are its contents::
         ├── failed
         │   ├── 0d117bed-2124-48a2-b9d7-f32514d39c1e
         ├── policies
-        ├── processingConfigs
-        │   └── default.xml
         └── tmp
 
 
-.. _devkit:
+Processing configuration
+------------------------
 
-Development kit
----------------
+a3m abandons the XML-based processing configuration document used by
+Archivematica. Instead, users are asked to submit the configuration as part
+of their transfer requests.
 
-**a3m** and **a3md** are both command-line interfaces wrapping a number of
-abstractions that are also available to Python developers. This is useful if
-you are planning to build an application embedding a3m, e.g. a processing
-worker that receives tasks off a message queue like Redis.
+With our client, ``--processing-config`` can be used multiple times to indicate
+the desired settings::
 
-:func:`a3m.server.runner.create_server` is a function that helps you create your
-own instance of :class:`a3m.server.runner.Server`, the gRPC server.
+    a3m --name="Test" --processing-config="normalize=no" http://...
 
-Use :class:`a3m.server.rpc.client.Client` to communicate with it.
-:class:`a3m.cli.client.wrapper.ClientWrapper` is a context manager that makes
-easier to access to both an embedded server and its client instance.
+The Python client can do similarly::
 
-For more details, see: https://gist.github.com/sevein/2e5cf115c153df1cfc24f0f9d67f6d2a.
+    c = Client(...)
+    c.submit(
+        url="URL...", name="Name...",
+        config=a3m_pb2.ProcessingConfig(normalize=False))
 
-.. warning::
-
-   These APIs are still unstable, expect changes!
-
-The following is an example of a web application that uses the development kit
-to embed a3m and make it available to web clients.
-
-.. literalinclude:: ../examples/webapp.py
-
-Service definition
-------------------
-
-gRPC uses Protocol Buffers as the Interface Definition Language (IDL) for
-describing both the service interface and the structure of the payload messages.
-
-.. literalinclude:: ../a3m/server/rpc/proto/a3m.proto
-   :language: protobuf
-
-Reference
----------
-
-.. autofunction:: a3m.server.runner.create_server
-
-.. autoclass:: a3m.server.runner.Server
-    :undoc-members:
-
-.. autoclass:: a3m.server.rpc.client.Client
-    :undoc-members:
-
-.. autoclass:: a3m.cli.client.wrapper.ClientWrapper
+The full list of settings or their defaults are not described yet but it can be
+found in our :ref:`service definition file <idl>`, under the
+``ProcessingConfiguration`` message type.

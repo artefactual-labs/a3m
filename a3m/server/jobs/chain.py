@@ -9,14 +9,13 @@ This module knows about all `Job` subclasses, and will instantiate the correct
 one by looking at the workflow.
 """
 import logging
+from typing import Iterator
 
-from django.utils import timezone
-
+from a3m.server.jobs.base import Job
 from a3m.server.jobs.client import ClientScriptJob
 from a3m.server.jobs.client import DirectoryClientScriptJob
 from a3m.server.jobs.client import FilesClientScriptJob
-from a3m.server.jobs.decisions import NextChainDecisionJob
-from a3m.server.jobs.decisions import UpdateContextDecisionJob
+from a3m.server.jobs.decisions import NextLinkDecisionJob
 
 
 logger = logging.getLogger(__name__)
@@ -34,9 +33,7 @@ def get_job_class_for_link(link):
     elif manager_name == "linkTaskManagerFiles":
         job_class = FilesClientScriptJob
     elif manager_name == "linkTaskManagerChoice":
-        job_class = NextChainDecisionJob
-    elif manager_name == "linkTaskManagerReplacementDicFromChoice":
-        job_class = UpdateContextDecisionJob
+        job_class = NextLinkDecisionJob
     else:
         raise ValueError(f"Unknown manager type {manager_name}")
 
@@ -55,14 +52,12 @@ class JobChain:
         * next_link, a workflow link that can be set to redirect the job chain
     """
 
-    def __init__(self, package, chain, workflow, starting_link=None):
+    def __init__(self, package, workflow, starting_link):
         """Create an instance of a chain, based on the workflow chain given."""
         self.package = package
-        self.chain = chain
         self.workflow = workflow
-        self.started_on = timezone.now()
 
-        self.initial_link = starting_link or self.chain.link
+        self.initial_link = starting_link
         self.current_link = None
         self.next_link = self.initial_link
 
@@ -71,13 +66,12 @@ class JobChain:
         self.context = self.package.context.copy()
 
         logger.debug(
-            "Creating JobChain %s for package %s (initial link %s)",
-            chain.id,
+            "Creating JobChain for package %s (initial link %s)",
             package.uuid,
             self.initial_link,
         )
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Job]:
         return self
 
     def __next__(self):
@@ -90,20 +84,21 @@ class JobChain:
             except KeyError:
                 next_link = None
 
-        if next_link:
-            self.current_link = next_link
-            job_class = get_job_class_for_link(self.current_link)
-            self.current_job = job_class(self, self.current_link, self.package)
-            return self.current_job
-        else:
+        # End of chain.
+        if not next_link:
             self.current_link = None
             self.current_job = None
             self.chain_completed()
             raise StopIteration
 
-    @property
-    def id(self):
-        return self.chain.id
+        # Ensure we have a Link instance instead of its identifier.
+        if isinstance(next_link, str):
+            next_link = self.workflow.get_link(next_link)
+
+        self.current_link = next_link
+        job_class = get_job_class_for_link(self.current_link)
+        self.current_job = job_class(self, self.current_link, self.package)
+        return self.current_job
 
     def job_completed(self):
         logger.debug(
@@ -119,6 +114,4 @@ class JobChain:
 
     def chain_completed(self):
         """Log chain completion"""
-        logger.debug(
-            "Done with chain %s for package %s", self.chain.id, self.package.uuid
-        )
+        logger.debug("Done with chain for package %s", self.package.uuid)

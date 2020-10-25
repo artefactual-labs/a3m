@@ -9,6 +9,7 @@ import pytest
 from a3m.server.jobs import Job
 from a3m.server.packages import Package
 from a3m.server.queues import PackageQueue
+from a3m.server.rpc.proto.a3m_pb2 import ProcessingConfig
 from a3m.server.workflow import Link
 
 
@@ -70,14 +71,22 @@ class FakeUnit:
 @pytest.fixture
 def package(request):
     return Package(
-        "package-1", "file:///tmp/foobar-1.gz", FakeUnit("abc"), FakeUnit("def")
+        "package-1",
+        "file:///tmp/foobar-1.gz",
+        ProcessingConfig(),
+        FakeUnit("abc"),
+        FakeUnit("def"),
     )
 
 
 @pytest.fixture
 def package_2(request):
     return Package(
-        "package-2", "file:///tmp/foobar-2.gz", FakeUnit("ghi"), FakeUnit("jkl")
+        "package-2",
+        "file:///tmp/foobar-2.gz",
+        ProcessingConfig(),
+        FakeUnit("ghi"),
+        FakeUnit("jkl"),
     )
 
 

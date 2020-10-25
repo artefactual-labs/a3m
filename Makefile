@@ -8,6 +8,7 @@ CURRENT_UID := $(shell id -u)
 shell:  ## Open a shell in a new container.
 	docker-compose run --rm --entrypoint bash a3m
 
+.PHONY: build
 build:  ## Build and recreate containers.
 	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
 	env COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --force-recreate

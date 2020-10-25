@@ -18,6 +18,7 @@ service Transfer {
 message SubmitRequest {
 	string name = 1;
 	string url = 2;
+	ProcessingConfig config = 3;
 }
 
 message SubmitReply {
@@ -74,4 +75,37 @@ message Task {
 	string arguments = 6;
 	string stdout = 7;
 	string stderr = 8;
+}
+
+message ProcessingConfig {
+	bool assign_uuids_to_directories = 1;
+	bool examine_contents = 2;
+	bool generate_transfer_structure_report = 3;
+	bool document_empty_directories = 4;
+	bool extract_packages = 5;
+	bool delete_packages_after_extraction = 6;
+	bool identify_transfer = 7;
+	bool identify_submission_and_metadata = 8;
+	bool identify_before_normalization = 9;
+	bool normalize = 10;
+	bool transcribe_files = 11;
+	bool perform_policy_checks_on_originals = 12;
+	bool perform_policy_checks_on_preservation_derivatives = 13;
+
+	// AIP compression level (1 is the fastest, 9 is the smallest).
+	int32 aip_compression_level = 14;
+
+	// AIP compression algorithm
+	AIPCompressionAlgorithm aip_compression_algorithm = 15;
+
+	enum AIPCompressionAlgorithm {
+		UNSPECIFIED = 0;
+		UNCOMPRESSED = 1; // It breaks in verify_aip.
+		TAR = 2; // Not supported yet!
+		TAR_BZIP2 = 3;
+		TAR_GZIP = 4;
+		S7_COPY = 5;
+		S7_BZIP2 = 6;
+		S7_LZMA = 7;
+	}
 }

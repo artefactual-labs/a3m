@@ -26,6 +26,7 @@ class TransferService(a3m_pb2_grpc.TransferServicer):
                 self.workflow,
                 request.name,
                 request.url,
+                request.config,
             )
         except Exception as err:
             logger.warning("TransferService.Submit handler error: %s", err)

@@ -176,12 +176,7 @@ class FilesClientScriptJob(ClientScriptJob):
 
     @property
     def filter_subdir(self):
-        """Returns directory to filter files on.
-
-        In Archivematica, it was possible to override this per package in a
-        UnitVariable. In practice this was done only twice in the workflow of
-        Maildir transfers which a3m does not handle.
-        """
+        """Returns directory to filter files on."""
         return self.link.config.get("filter_subdir", "")
 
     def submit_tasks(self):

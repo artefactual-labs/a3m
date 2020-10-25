@@ -7,6 +7,7 @@ from django.db import transaction
 from a3m import databaseFunctions
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.main.models import SIP
+from a3m.server.rpc.proto import a3m_pb2
 
 
 def update_unit(sip_uuid, compressed_location):
@@ -34,9 +35,29 @@ def compress_aip(
         ep
         d87d5845-bd07-4200-b1a4-928e0cb6e1e4
     """
+    if compression_level == "0":
+        compression_level = "1"
+
+    # Default is uncompressed.
+    compression = int(compression)
+    a3m_pb2.ProcessingConfig.AIPCompressionAlgorithm.Name(compression)
+    if compression == a3m_pb2.ProcessingConfig.UNSPECIFIED:
+        compression = a3m_pb2.ProcessingConfig.UNCOMPRESSED
+
+    # Translation to make compress_aip happy.
+    mapping = {
+        a3m_pb2.ProcessingConfig.UNCOMPRESSED: ("None", ""),
+        a3m_pb2.ProcessingConfig.TAR: ("gzip", "tar.gzip"),  # A3M-TODO: support
+        a3m_pb2.ProcessingConfig.TAR_BZIP2: ("pbzip2", "pbzip2"),
+        a3m_pb2.ProcessingConfig.TAR_GZIP: ("gzip", "tar.gzip"),
+        a3m_pb2.ProcessingConfig.S7_COPY: ("7z", "copy"),
+        a3m_pb2.ProcessingConfig.S7_BZIP2: ("7z", "bzip2"),
+        a3m_pb2.ProcessingConfig.S7_LZMA: ("7z", "lzma"),
+    }
+
     try:
-        program, compression_algorithm = compression.split("-")
-    except ValueError:
+        program, compression_algorithm = mapping[compression]
+    except KeyError:
         msg = f"Invalid program-compression algorithm: {compression}"
         job.pyprint(msg, file=sys.stderr)
         return 255
@@ -141,8 +162,8 @@ def compress_aip(
 
 def call(jobs):
     parser = argparse.ArgumentParser(description="Compress an AIP.")
-    parser.add_argument("compression", type=str, help="%AIPCompressionAlgorithm%")
-    parser.add_argument("compression_level", type=str, help="%AIPCompressionLevel%")
+    parser.add_argument("compression", type=str)
+    parser.add_argument("compression_level", type=str)
     parser.add_argument("sip_directory", type=str, help="%SIPDirectory%")
     parser.add_argument("sip_name", type=str, help="%SIPName%")
     parser.add_argument("sip_uuid", type=str, help="%SIPUUID%")

@@ -1,376 +1,35 @@
 {
-    "chains": {
-        "01d80b27-4ad1-4bd1-8f8d-f819f18bf685": {
-            "description": {
-                "en": "Yes",
-                "es": "Sí",
-                "fr": "Oui",
-                "ja": "はい",
-                "pt_BR": "Sim",
-                "sv": "Ja"
-            },
-            "link_id": "f19926dd-8fb5-4c79-8ade-c83f61f55b40"
-        },
-        "06f03bb3-121d-4c85-bec7-abbc5320a409": {
-            "description": {
-                "en": "Examine contents",
-                "es": "Examinar contenidos",
-                "fr": "Examiner le contenu",
-                "ja": "内容を検査する",
-                "pt_BR": "Examinar conteúdos",
-                "sv": "Undersök innehåll"
-            },
-            "link_id": "100a75f4-9d2a-41bf-8dd0-aec811ae1077"
-        },
-        "0a24787c-00e3-4710-b324-90e792bfb484": {
-            "description": {
-                "en": "No",
-                "fr": "Non",
-                "ja": "いいえ",
-                "sv": "Nej"
-            },
-            "link_id": "f574b2a0-6e0b-4c74-ac5b-a73ddb9593a0"
-        },
-        "2671aef1-653a-49bf-bc74-82572b64ace9": {
-            "description": {
-                "en": "a3m - Start"
-            },
-            "link_id": "8e3e2bf8-a543-43f9-bb2a-c3df01f112df",
-            "start": true
-        },
-        "29881c21-3548-454a-9637-ebc5fd46aee0": {
-            "description": {
-                "en": "Yes",
-                "es": "Sí",
-                "fr": "Oui",
-                "ja": "はい",
-                "pt_BR": "Sim",
-                "sv": "Ja"
-            },
-            "link_id": "18c37bff-fce9-4b40-a50a-022ea0386f1a"
-        },
-        "35151db8-3a11-4b49-8865-f6697ef0ac75": {
-            "description": {
-                "en": "Yes",
-                "es": "Sí",
-                "fr": "Oui",
-                "ja": "はい",
-                "pt_BR": "Sim",
-                "sv": "Ja"
-            },
-            "link_id": "2900f6d8-b64c-4f2a-8f7f-bb60a57394f6"
-        },
-        "3a55f688-eca3-4ebc-a012-4ce68290e7b0": {
-            "description": {
-                "en": "Yes",
-                "es": "Sí",
-                "fr": "Oui",
-                "ja": "はい",
-                "pt_BR": "Sim",
-                "sv": "Ja"
-            },
-            "link_id": "0fd20984-db3c-492b-a512-eedd74bacc82"
-        },
-        "3e891cc4-39d2-4989-a001-5107a009a223": {
-            "description": {
-                "en": "No",
-                "fr": "Non",
-                "ja": "いいえ",
-                "sv": "Nej"
-            },
-            "link_id": "accea2bf-ba74-4a3a-bb97-614775c74459"
-        },
-        "612e3609-ce9a-4df6-a9a3-63d634d2d934": {
-            "description": {
-                "en": "Normalize for preservation",
-                "es": "Normalizar para preservación",
-                "fr": "Normaliser aux fins de préservation",
-                "pt_BR": "Normalize para preservação",
-                "sv": "Normalisera för bevarande"
-            },
-            "link_id": "8ce378a5-1418-4184-bf02-328a06e1d3be"
-        },
-        "65273f18-5b4e-4944-af4f-09be175a88e8": {
-            "description": {
-                "en": "No",
-                "fr": "Non",
-                "ja": "いいえ",
-                "sv": "Nej"
-            },
-            "link_id": "ccf8ec5c-3a9a-404a-a7e7-8f567d3b36a0"
-        },
-        "79f1f5af-7694-48a4-b645-e42790bbf870": {
-            "description": {
-                "en": "No",
-                "fr": "Non",
-                "ja": "いいえ",
-                "sv": "Nej"
-            },
-            "link_id": "f8ef02c4-f585-4b0d-9b6f-3cef6fbe527f"
-        },
-        "b7ce05f0-9d94-4b3e-86cc-d4b2c6dba546": {
-            "description": {
-                "en": "No",
-                "fr": "Non",
-                "ja": "いいえ",
-                "sv": "Nej"
-            },
-            "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
-        },
-        "c611a6ff-dfdb-46d1-b390-f366a6ea6f66": {
-            "description": {
-                "en": "Yes",
-                "es": "Sí",
-                "fr": "Oui",
-                "ja": "はい",
-                "pt_BR": "Sim",
-                "sv": "Ja"
-            },
-            "link_id": "6c147aeb-20c5-47ce-9f40-7f22683cea1f"
-        },
-        "df54fec1-dae1-4ea6-8d17-a839ee7ac4a7": {
-            "description": {
-                "en": "Yes",
-                "es": "Sí",
-                "fr": "Oui",
-                "ja": "はい",
-                "pt_BR": "Sim",
-                "sv": "Ja"
-            },
-            "link_id": "4efe00da-6ed0-45dd-89ca-421b78c4b6be"
-        },
-        "e0a39199-c62a-4a2f-98de-e9d1116460a8": {
-            "description": {
-                "en": "Skip examine contents",
-                "fr": "Passer l'examen des contenus",
-                "pt_BR": "Ignore o exame dos conteúdos",
-                "sv": "Hoppa över undersök innehåll"
-            },
-            "link_id": "db99ab43-04d7-44ab-89ec-e09d7bbdc39d"
-        },
-        "e8544c5e-9cbb-4b8f-a68b-6d9b4d7f7362": {
-            "description": {
-                "en": "Do not normalize",
-                "es": "No normalizar",
-                "fr": "Ne pas normaliser ",
-                "pt_BR": "Não normalize",
-                "sv": "Normalisera inte"
-            },
-            "link_id": "70f41678-baa5-46e6-a71c-4b6b4d99f4a6"
-        },
-        "e9eaef1e-c2e0-4e3b-b942-bfb537162795": {
-            "description": {
-                "en": "No",
-                "fr": "Non",
-                "ja": "いいえ",
-                "sv": "Nej"
-            },
-            "link_id": "2584b25c-8d98-44b7-beca-2b3ea2ea2505"
-        }
-    },
     "links": {
-        "01c651cb-c174-4ba4-b985-1d87a44d6754": {
+        "00000e0a-2cb2-4292-a412-58ea57aa6f7e": {
             "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": [
-                    {
-                        "description": {
-                            "en": "1 - fastest compression",
-                            "es": "1 - el modo más rápido",
-                            "fr": "1 - mode rapide",
-                            "ja": "1 - 最高速モード",
-                            "pt_BR": "1 - modo mais rápido",
-                            "sv": "1 - snabbaste läget"
-                        },
-                        "id": "ecfad581-b007-4612-a0e0-fcc551f4057f",
-                        "items": {
-                            "AIPCompressionLevel": "1"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "3 - fast compression",
-                            "es": "3 - mode de compresión rápido",
-                            "fr": "3 - mode de compression rapide",
-                            "ja": "3 - 高速圧縮モード",
-                            "pt_BR": "3 - modo de compressão rápida",
-                            "sv": "3 - snabbkomprimeringsläge"
-                        },
-                        "id": "85b2243e-ff97-4ca8-80e8-3c6b0842b360",
-                        "items": {
-                            "AIPCompressionLevel": "3"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "5 - normal compression",
-                            "es": "5 - modo de compresión normal",
-                            "fr": "5 - mode de compression normal",
-                            "ja": "5 - 通常の圧縮モード",
-                            "pt_BR": "5 - modo de compressão normal",
-                            "sv": "5 - normal komprimeringsläge"
-                        },
-                        "id": "414da421-b83f-4648-895f-a34840e3c3f5",
-                        "items": {
-                            "AIPCompressionLevel": "5"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "7 - maximum compression",
-                            "es": "7 - máxima compresión",
-                            "fr": "7 - compression maximum",
-                            "ja": "7 - 最大圧縮",
-                            "pt_BR": "7 - compressão máxima",
-                            "sv": "7 - maximal komprimering"
-                        },
-                        "id": "4e31f579-68bd-4be1-a10e-ec5411897121",
-                        "items": {
-                            "AIPCompressionLevel": "7"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "9 - ultra compression",
-                            "es": "9 - compresión ultra",
-                            "fr": "9 - compression ultra",
-                            "ja": "9 - 超圧縮",
-                            "pt_BR": "9 - compressão ultra",
-                            "sv": "9 - ultrakomprimering"
-                        },
-                        "id": "6d52fd24-8c06-4c8e-997a-e427ba0acc36",
-                        "items": {
-                            "AIPCompressionLevel": "9"
-                        }
-                    }
-                ]
+                "@manager": "linkTaskManagerDirectories",
+                "arguments": "\"%TransferUUID%\" \"%transferDirectory%\" \"%URL%\"",
+                "execute": "a3m_download_transfer",
+                "filter_file_end": null,
+                "filter_file_start": null,
+                "filter_subdir": null,
+                "stderr_file": null,
+                "stdout_file": null
             },
             "description": {
-                "en": "Select compression level",
-                "fr": "Sélectionnez le niveau de compression",
-                "ja": "圧縮レベルの選択",
-                "pt_BR": "Selecione o nível de compressão",
-                "sv": "Välj komprimeringsnivå"
+                "en": "a3m - Download package"
             },
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "d55b42c8-c7c5-4a40-b626-d248d2bd883f"
+                    "link_id": "50b67418-cb8d-434d-acc9-4a8324e7fdd2"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": null,
+            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
             "group": {
-                "en": "Prepare AIP",
-                "es": "Preparar AIP",
-                "fr": "Préparer l'AIP",
-                "sv": "Förbered AIP"
-            }
-        },
-        "01d64f58-8295-4b7b-9cab-8f1b153a504f": {
-            "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": [
-                    {
-                        "description": {
-                            "en": "7z using bzip2",
-                            "es": "7z usando bzip2",
-                            "fr": "7z utilisant bzip2",
-                            "ja": "7z（bzip2を利用）",
-                            "pt_BR": "7z usando bzip2",
-                            "sv": "7z användande bzip2"
-                        },
-                        "id": "9475447c-9889-430c-9477-6287a9574c5b",
-                        "items": {
-                            "AIPCompressionAlgorithm": "7z-bzip2"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "7z using lzma",
-                            "es": "7z usando lzma",
-                            "fr": "7z utilisant lzma",
-                            "ja": "7z（lzmaを利用）",
-                            "pt_BR": "7z usando lzma",
-                            "sv": "7z using Izma"
-                        },
-                        "id": "c96353b9-0d55-46cf-baa0-d7c3e180dd43",
-                        "items": {
-                            "AIPCompressionAlgorithm": "7z-lzma"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "7z without compression",
-                            "pt_BR": "7z sem compressão"
-                        },
-                        "id": "e3906da0-41fb-4cb8-a598-6c73981b63e9",
-                        "items": {
-                            "AIPCompressionAlgorithm": "7z-copy"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "Gzipped tar"
-                        },
-                        "id": "9ce711ab-96d1-45dd-8708-de69698c1424",
-                        "items": {
-                            "AIPCompressionAlgorithm": "gzip-tar.gzip"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "Parallel bzip2",
-                            "es": "bzip2 paralelo",
-                            "pt_BR": "Bzip2 paralelo",
-                            "sv": "Parallell bzip2"
-                        },
-                        "id": "f61b00a1-ef2e-4dc4-9391-111c6f42b9a7",
-                        "items": {
-                            "AIPCompressionAlgorithm": "pbzip2-pbzip2"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "Uncompressed",
-                            "pt_BR": "Sem comprimir",
-                            "sv": "Okomprimerat"
-                        },
-                        "id": "dc04c4c0-07ea-4796-b643-66d967ed33a4",
-                        "items": {
-                            "AIPCompressionAlgorithm": "None-"
-                        }
-                    }
-                ]
+                "en": "a3m"
             },
-            "description": {
-                "en": "Select compression algorithm",
-                "fr": "Sélectionner l'algorithme de compression",
-                "ja": "圧縮アルゴリズムの選択",
-                "pt_BR": "Selecione o algoritmo de compressão",
-                "sv": "Välj komprimeringsalgoritm"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "01c651cb-c174-4ba4-b985-1d87a44d6754"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Prepare AIP",
-                "es": "Preparar AIP",
-                "fr": "Préparer l'AIP",
-                "sv": "Förbered AIP"
-            }
+            "start": true
         },
         "032cdc54-0b9b-4caf-86e8-10d63efbaec0": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPObjectsDirectory%\"",
                 "execute": "check_transfer_directory_for_objects",
                 "filter_file_end": null,
@@ -406,7 +65,6 @@
         "04493ab2-6cad-400d-8832-06941f121a96": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%SIPUUID%\"",
                 "execute": "characterize_file",
                 "filter_file_end": null,
@@ -440,48 +98,20 @@
         },
         "087d27be-c719-47d8-9bbb-9a7d8b609c44": {
             "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": [
-                    {
-                        "description": {
-                            "en": "Yes",
-                            "es": "Sí",
-                            "fr": "Oui",
-                            "ja": "はい",
-                            "pt_BR": "Sim",
-                            "sv": "Ja"
-                        },
-                        "id": "4dec164b-79b0-4459-8505-8095af9655b5",
-                        "items": {
-                            "IDCommand": "True"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "No",
-                            "fr": "Non",
-                            "ja": "いいえ",
-                            "sv": "Nej"
-                        },
-                        "id": "782bbf56-e220-48b5-9eb6-6610583f2072",
-                        "items": {
-                            "IDCommand": "False"
-                        }
-                    }
+                "@manager": "linkTaskManagerChoice",
+                "config_attr": "identify_submission_and_metadata",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "1dce8e21-7263-4cc4-aa59-968d9793b5f2"},
+                    {"value": false, "link_id": "33d7ac55-291c-43ae-bb42-f599ef428325"}
                 ]
             },
             "description": {
                 "en": "Do you want to perform file format identification?"
             },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "1dce8e21-7263-4cc4-aa59-968d9793b5f2"
-                }
-            },
+            "exit_codes": {},
             "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
+            "fallback_link_id": null,
             "group": {
                 "en": "Process submission documentation",
                 "fr": "Traiter la documentation de soumission",
@@ -492,7 +122,6 @@
         "0a63befa-327d-4655-a021-341b639ee9ed": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\" \"%SIPName%-%SIPUUID%\"",
                 "execute": "copy_submission_docs",
                 "filter_file_end": null,
@@ -524,41 +153,9 @@
                 "sv": "Förbered AIP"
             }
         },
-        "0c96c798-9ace-4c05-b3cf-243cdad796b7": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%processingConfigs/%processingConfiguration%.xml\" \"%SIPDirectory%processingMCP.xml\" -n",
-                "execute": "cmd_cp",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Include default Transfer processingMCP.xml",
-                "pt_BR": "Incluir transferência padrão processingMCP.xml",
-                "sv": "Inkludera standadard överförings processing.xml"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "bd899573-694e-4d33-8c9b-df0af802437d"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Include default Transfer processingMCP.xml",
-                "pt_BR": "Incluir transferência padrão processingMCP.xml",
-                "sv": "Inkludera standadard överförings processing.xml"
-            }
-        },
         "0fd20984-db3c-492b-a512-eedd74bacc82": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%SIPUUID%\" \"%sharedPath%\" \"preservation\"",
                 "execute": "policy_check",
                 "filter_file_end": null,
@@ -595,7 +192,6 @@
         "100a75f4-9d2a-41bf-8dd0-aec811ae1077": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%SIPDirectory%\" \"%fileUUID%\"",
                 "execute": "examine_contents",
                 "filter_file_end": null,
@@ -632,7 +228,6 @@
         "11033dbd-e4d4-4dd6-8bcf-48c424e222e3": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%objects/submissionDocumentation/\" \"%SIPUUID%\" \"%date%\" \"%taskUUID%\" \"SIPDirectory\" \"sip_id\" \"%SIPDirectory%\"",
                 "execute": "sanitize_object_names",
                 "filter_file_end": null,
@@ -664,7 +259,6 @@
         "14d86bf1-f7a9-4d3e-9eda-f8b1f5583ea7": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPUUID%\" \"%SIPDirectory%%AIPFilename%\"",
                 "execute": "a3m_store_aip",
                 "filter_file_end": null,
@@ -696,10 +290,11 @@
         "153c5f41-3cfb-47ba-9150-2dd44ebc27df": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "3a55f688-eca3-4ebc-a012-4ce68290e7b0",
-                    "b7ce05f0-9d94-4b3e-86cc-d4b2c6dba546"
+                "config_attr": "perform_policy_checks_on_preservation_derivatives",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "0fd20984-db3c-492b-a512-eedd74bacc82"},
+                    {"value": false, "link_id": "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"}
                 ]
             },
             "description": {
@@ -721,7 +316,6 @@
         "15a2df8a-7b45-4c11-b6fa-884c9b7e5c67": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%fileUUID%\"",
                 "execute": "manual_normalization_identify_files_included",
                 "filter_file_end": null,
@@ -756,7 +350,6 @@
         "173d310c-8e40-4669-9a69-6d4c8ffd0396": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%metadata/submissionDocumentation\" \"%SIPDirectory%objects/submissionDocumentation\"",
                 "execute": "move_or_merge",
                 "filter_file_end": null,
@@ -789,7 +382,6 @@
         "18c37bff-fce9-4b40-a50a-022ea0386f1a": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "--amdSec --baseDirectoryPath \"%SIPDirectory%\" --baseDirectoryPathString \"SIPDirectory\" --fileGroupIdentifier \"%SIPUUID%\" --fileGroupType \"sip_id\" --xmlFile \"%SIPDirectory%METS.%SIPUUID%.xml\" --createNormativeStructmap",
                 "execute": "create_mets_v2",
                 "filter_file_end": null,
@@ -825,7 +417,6 @@
         "1a136608-ae7b-42b4-bf2f-de0e514cfd47": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%TransferUUID%\" \"%SIPDirectory%metadata/rights.csv\"",
                 "execute": "rights_from_csv",
                 "filter_file_end": null,
@@ -859,7 +450,6 @@
         "1b1a4565-b501-407b-b40f-2f20889423f1": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%TransferUUID%\" \"%SIPDirectory%metadata/file_labels.csv\"",
                 "execute": "load_labels_from_csv",
                 "filter_file_end": null,
@@ -893,7 +483,6 @@
         "1ba589db-88d1-48cf-bb1a-a5f9d2b17378": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%fileUUID%\" \"%relativeLocation%\" \"%date%\" \"%taskUUID%\"",
                 "execute": "virus_scan",
                 "filter_file_end": null,
@@ -926,7 +515,6 @@
         "1c2550f1-3fc0-45d8-8bc4-4c06d720283b": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%fileUUID%\" \"%relativeLocation%\" \"%date%\" \"%taskUUID%\"",
                 "execute": "virus_scan",
                 "filter_file_end": null,
@@ -961,8 +549,7 @@
         "1cb7e228-6e94-4c93-bf70-430af99b9264": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%TransferUUID%\" \"%transferDirectory%\" \"%date%\" \"%taskUUID%\" \"%DeletePackage%\"",
+                "arguments": "\"%TransferUUID%\" \"%transferDirectory%\" \"%date%\" \"%taskUUID%\" \"%config:delete_packages_after_extraction%\"",
                 "execute": "extract_contents",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -997,7 +584,6 @@
         "1cd3b36a-5252-4a69-9b1c-3b36829288ab": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "--SIPDirectory \"%SIPDirectory%\" --serviceDirectory \"objects/service/\" --objectsDirectory \"objects/\" --SIPUUID \"%SIPUUID%\" --date \"%date%\"",
                 "execute": "check_for_service_directory",
                 "filter_file_end": null,
@@ -1033,8 +619,7 @@
         "1dce8e21-7263-4cc4-aa59-968d9793b5f2": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%IDCommand%\" \"%relativeLocation%\" \"%fileUUID%\"",
+                "arguments": "\"%relativeLocation%\" \"%fileUUID%\"",
                 "execute": "identify_file_format",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1067,7 +652,6 @@
         "208d441b-6938-44f9-b54a-bd73f05bc764": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\"",
                 "execute": "verify_sip_compliance",
                 "filter_file_end": null,
@@ -1086,7 +670,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "df02cac1-f582-4a86-b7cf-da98a58e279e"
+                    "link_id": "f3be1ee1-8881-465d-80a6-a6f093d40ec2"
                 }
             },
             "fallback_job_status": "Failed",
@@ -1102,8 +686,7 @@
         "2522d680-c7d9-4d06-8b11-a28d8bd8a71f": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%IDCommand%\" \"%relativeLocation%\" \"%fileUUID%\" --disable-reidentify",
+                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" --disable-reidentify",
                 "execute": "identify_file_format",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1137,7 +720,6 @@
         "2584b25c-8d98-44b7-beca-2b3ea2ea2505": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPObjectsDirectory%\" \"%TransferUUID%\" \"%date%\" \"%taskUUID%\" \"transferDirectory\" \"transfer_id\" \"%SIPDirectory%\"",
                 "execute": "sanitize_object_names",
                 "filter_file_end": null,
@@ -1170,7 +752,6 @@
         "2900f6d8-b64c-4f2a-8f7f-bb60a57394f6": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%taskUUID%\" \"%fileUUID%\"",
                 "execute": "transcribe_file",
                 "filter_file_end": null,
@@ -1203,7 +784,6 @@
         "2a62f025-83ec-4f23-adb4-11d5da7ad8c2": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
                 "execute": "update_size_and_checksum",
                 "filter_file_end": null,
@@ -1238,8 +818,7 @@
         "2dd53959-8106-457d-a385-fee57fc93aa9": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%IDCommand%\" \"%relativeLocation%\" \"%fileUUID%\" --disable-reidentify",
+                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" --disable-reidentify",
                 "execute": "identify_file_format",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1273,7 +852,6 @@
         "303a65f6-a16f-4a06-807b-cb3425a30201": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%TransferUUID%\"",
                 "execute": "characterize_file",
                 "filter_file_end": null,
@@ -1310,7 +888,6 @@
         "307edcde-ad10-401c-92c4-652917c993ed": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "--sipUUID \"%TransferUUID%\" --basePath \"%SIPDirectory%\" --xmlFile \"%SIPDirectory%\"metadata/submissionDocumentation/METS.xml --basePathString \"transferDirectory\"",
                 "execute": "create_transfer_mets",
                 "filter_file_end": null,
@@ -1347,7 +924,6 @@
         "33d7ac55-291c-43ae-bb42-f599ef428325": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%SIPUUID%\"",
                 "execute": "characterize_file",
                 "filter_file_end": null,
@@ -1382,7 +958,6 @@
         "370aca94-65ab-4f2a-9d7d-294a62c8b7ba": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
                 "execute": "update_size_and_checksum",
                 "filter_file_end": null,
@@ -1419,7 +994,6 @@
         "377f8ebb-7989-4a68-9361-658079ff8138": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\" \"%sharedPath%failed/.\" \"%TransferUUID%\" \"%sharedPath%\"",
                 "execute": "move_transfer",
                 "filter_file_end": null,
@@ -1454,7 +1028,6 @@
         "39a128e3-c35d-40b7-9363-87f75091e1ff": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%TransferUUID%\" \"%SIPUUID%\"",
                 "execute": "create_sip_from_transfer_objects",
                 "filter_file_end": null,
@@ -1491,7 +1064,6 @@
         "3e25bda6-5314-4bb4-aa1e-90900dce887d": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%%SIPName%-%SIPUUID%\" \"%SIPDirectory%\" \"%SIPUUID%\"",
                 "execute": "bag_with_empty_directories",
                 "filter_file_end": null,
@@ -1509,7 +1081,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "01d64f58-8295-4b7b-9cab-8f1b153a504f"
+                    "link_id": "d55b42c8-c7c5-4a40-b626-d248d2bd883f"
                 }
             },
             "fallback_job_status": "Failed",
@@ -1524,7 +1096,6 @@
         "3f543585-fa4f-4099-9153-dd6d53572f5c": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPUUID%\" \"%SIPDirectory%%AIPFilename%\"",
                 "execute": "verify_aip",
                 "filter_file_end": null,
@@ -1560,7 +1131,6 @@
         "438dc1cf-9813-44b5-a0a3-58e09ae73b8a": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\"",
                 "execute": "verify_transfer_compliance",
                 "filter_file_end": null,
@@ -1593,7 +1163,6 @@
         "47dd6ea6-1ee7-4462-8b84-3fc4c1eeeb7f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%metadata/submissionDocumentation\"",
                 "execute": "check_for_submission_documentation",
                 "filter_file_end": null,
@@ -1627,7 +1196,6 @@
         "4edfe7e4-82ff-4c0a-ba5f-29f1ee14e17a": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --use \"submissionDocumentation\"",
                 "execute": "assign_file_uuids",
                 "filter_file_end": null,
@@ -1662,7 +1230,6 @@
         "4efe00da-6ed0-45dd-89ca-421b78c4b6be": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPObjectsDirectory%\" -o \"%SIPDirectory%metadata/directory_tree.txt\"",
                 "execute": "cmd_tree",
                 "filter_file_end": null,
@@ -1696,7 +1263,6 @@
         "50b67418-cb8d-434d-acc9-4a8324e7fdd2": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\"",
                 "execute": "remove_hidden_files_and_directories",
                 "filter_file_end": null,
@@ -1728,7 +1294,6 @@
         "523c97cc-b267-4cfb-8209-d99e523bf4b3": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%clientAssetsDirectory%README/README.html\" \"%SIPDirectory%README.html\"",
                 "execute": "cmd_cp",
                 "filter_file_end": null,
@@ -1761,10 +1326,11 @@
         "56eebd45-5600-4768-a8c2-ec0114555a3d": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "df54fec1-dae1-4ea6-8d17-a839ee7ac4a7",
-                    "e9eaef1e-c2e0-4e3b-b942-bfb537162795"
+                "config_attr": "generate_transfer_structure_report",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "4efe00da-6ed0-45dd-89ca-421b78c4b6be"},
+                    {"value": false, "link_id": "2584b25c-8d98-44b7-beca-2b3ea2ea2505"}
                 ]
             },
             "description": {
@@ -1788,7 +1354,6 @@
         "576f1f43-a130-4c15-abeb-c272ec458d33": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "--fileUUID \"%fileUUID%\" --inputFile \"%relativeLocation%\" --sipDirectory \"%SIPDirectory%\"",
                 "execute": "remove_files_without_premis_metadata",
                 "filter_file_end": null,
@@ -1820,7 +1385,6 @@
         "5b0042a2-2244-475c-85d5-41e4b11e65d6": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%SIPUUID%\" \"%sharedPath%\" \"preservation\"",
                 "execute": "validate_file",
                 "filter_file_end": null,
@@ -1859,7 +1423,6 @@
         "5d780c7d-39d0-4f4a-922b-9d1b0d217bca": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%fileUUID%\"",
                 "execute": "remove_unneeded_files",
                 "filter_file_end": null,
@@ -1891,7 +1454,6 @@
         "5fbc344c-19c8-48be-a753-02dac987428c": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "775 \"%SIPDirectory%%AIPFilename%\"",
                 "execute": "cmd_chmod",
                 "filter_file_end": null,
@@ -1924,7 +1486,6 @@
         "63f35161-ba76-4a43-8cfa-c38c6a2d5b2f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPLogsDirectory%\" \"%SIPObjectsDirectory%\"",
                 "execute": "remove_directories",
                 "filter_file_end": null,
@@ -1956,8 +1517,7 @@
         "6441980c-b64b-447e-abc7-9351a2547f6a": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%SIPDirectory%\" \"%TransferUUID%\" --include-dirs \"%AssignUUIDsToDirectories%\"",
+                "arguments": "\"%SIPDirectory%\" \"%TransferUUID%\"",
                 "execute": "assign_uuids_to_directories",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -1995,7 +1555,6 @@
         "6c147aeb-20c5-47ce-9f40-7f22683cea1f": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%TransferUUID%\" \"%sharedPath%\" \"original\"",
                 "execute": "policy_check",
                 "filter_file_end": null,
@@ -2033,7 +1592,6 @@
         "70f41678-baa5-46e6-a71c-4b6b4d99f4a6": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\" \"%processingDirectory%.\" \"%SIPUUID%\" \"%sharedPath%\"",
                 "execute": "move_sip",
                 "filter_file_end": null,
@@ -2066,10 +1624,11 @@
         "70fc7040-d4fb-4d19-a0e6-792387ca1006": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "c611a6ff-dfdb-46d1-b390-f366a6ea6f66",
-                    "3e891cc4-39d2-4989-a001-5107a009a223"
+                "config_attr": "perform_policy_checks_on_originals",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "6c147aeb-20c5-47ce-9f40-7f22683cea1f"},
+                    {"value": false, "link_id": "accea2bf-ba74-4a3a-bb97-614775c74459"}
                 ]
             },
             "description": {
@@ -2092,7 +1651,6 @@
         "746b1f47-2dad-427b-8915-8b0cb7acccd8": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%%SIPName%-%SIPUUID%\" \"%SIPLogsDirectory%\" \"%SIPObjectsDirectory%\"",
                 "execute": "remove_directories",
                 "filter_file_end": null,
@@ -2124,10 +1682,11 @@
         "7509e7dc-1e1b-4dce-8d21-e130515fce73": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "612e3609-ce9a-4df6-a9a3-63d634d2d934",
-                    "e8544c5e-9cbb-4b8f-a68b-6d9b4d7f7362"
+                "config_attr": "normalize",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "8ce378a5-1418-4184-bf02-328a06e1d3be"},
+                    {"value": false, "link_id": "70f41678-baa5-46e6-a71c-4b6b4d99f4a6"}
                 ]
             },
             "description": {
@@ -2151,7 +1710,6 @@
         "75fb5d67-5efa-4232-b00b-d85236de0d3f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\"",
                 "execute": "manual_normalization_remove_mn_directories",
                 "filter_file_end": null,
@@ -2183,7 +1741,6 @@
         "78b7adff-861d-4450-b6dd-3fabe96a849e": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\"",
                 "execute": "manual_normalization_check_for_manual_normalization_directory",
                 "filter_file_end": null,
@@ -2220,46 +1777,20 @@
         },
         "7a024896-c4f7-4808-a240-44c87c762bc5": {
             "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": [
-                    {
-                        "description": {
-                            "en": "Yes",
-                            "es": "Sí",
-                            "fr": "Oui",
-                            "ja": "はい",
-                            "pt_BR": "Sim",
-                            "sv": "Ja"
-                        },
-                        "id": "5b3c8268-5b33-4b70-b1aa-0e4540fe03d1",
-                        "items": {
-                            "IDCommand": "True"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "No, use existing data",
-                            "es": "No, usa los datos existentes"
-                        },
-                        "id": "3c1faec7-7e1e-4cdd-b3bd-e2f05f4baa9b",
-                        "items": {
-                            "IDCommand": "False"
-                        }
-                    }
+                "@manager": "linkTaskManagerChoice",
+                "config_attr": "identify_before_normalization",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "2dd53959-8106-457d-a385-fee57fc93aa9"},
+                    {"value": false, "link_id": "7509e7dc-1e1b-4dce-8d21-e130515fce73"}
                 ]
             },
             "description": {
-                "en": "Do you want to perform file format identification?"
+                "en": "Do you want to perform file format identification (normalization)?"
             },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "2dd53959-8106-457d-a385-fee57fc93aa9"
-                }
-            },
+            "exit_codes": {},
             "fallback_job_status": "Failed",
-            "fallback_link_id": "2dd53959-8106-457d-a385-fee57fc93aa9",
+            "fallback_link_id": null,
             "group": {
                 "en": "Normalize",
                 "es": "Normalizar",
@@ -2271,7 +1802,6 @@
         "7d33f228-0fa8-4f4c-a66b-24f8e264c214": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%fileUUID%\" \"%relativeLocation%\" \"%date%\" \"%taskUUID%\"",
                 "execute": "virus_scan",
                 "filter_file_end": null,
@@ -2305,7 +1835,6 @@
         "828528c2-2eb9-4514-b5ca-dfd1f7cb5b8c": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\" \"%sharedPath%failed/.\" \"%SIPUUID%\" \"%sharedPath%\"",
                 "execute": "move_sip",
                 "filter_file_end": null,
@@ -2340,10 +1869,11 @@
         "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "35151db8-3a11-4b49-8865-f6697ef0ac75",
-                    "0a24787c-00e3-4710-b324-90e792bfb484"
+                "config_attr": "transcribe_files",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "2900f6d8-b64c-4f2a-8f7f-bb60a57394f6"},
+                    {"value": false, "link_id": "f574b2a0-6e0b-4c74-ac5b-a73ddb9593a0"}
                 ]
             },
             "description": {
@@ -2362,7 +1892,6 @@
         "8bc92801-4308-4e3b-885b-1a89fdcd3014": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%fileUUID%\" \"%relativeLocation%\" \"%date%\" \"%taskUUID%\"",
                 "execute": "virus_scan",
                 "filter_file_end": null,
@@ -2396,7 +1925,6 @@
         "8c8bac29-4102-4fd2-9d0a-a3bd2e607566": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%TransferUUID%\" \"%SIPDirectory%metadata/metadata.json\"",
                 "execute": "json_metadata_to_csv",
                 "filter_file_end": null,
@@ -2430,7 +1958,6 @@
         "8ce378a5-1418-4184-bf02-328a06e1d3be": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%fileUUID%\" \"%relativeLocation%\" \"%SIPDirectory%\" \"%SIPUUID%\" \"%taskUUID%\" \"original\"",
                 "execute": "normalize",
                 "filter_file_end": null,
@@ -2470,37 +1997,9 @@
                 "sv": "Normalisera"
             }
         },
-        "8e3e2bf8-a543-43f9-bb2a-c3df01f112df": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%TransferUUID%\" \"%transferDirectory%\" \"%URL%\"",
-                "execute": "a3m_download_transfer",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "a3m - Download package"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "50b67418-cb8d-434d-acc9-4a8324e7fdd2"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "a3m"
-            }
-        },
         "91ca6f1f-feb5-485d-99d2-25eed195e330": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPUUID%\" \"%SIPName%\" \"%SIPDirectory%\" \"%fileUUID%\" \"%relativeLocation%\" \"%date%\"",
                 "execute": "manual_normalization_create_metadata_and_restructure",
                 "filter_file_end": null,
@@ -2532,7 +2031,6 @@
         "91dc1ab1-487e-4121-a6c5-d8441da7a422": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "-d \"%SIPDirectory%%AIPFilename%\"",
                 "execute": "cmd_test",
                 "filter_file_end": null,
@@ -2570,7 +2068,6 @@
         "970b7d17-7a6b-4d51-808b-c94b78c0d97f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPUUID%\" \"%relativeLocation%metadata/dc.json\"",
                 "execute": "load_dublin_core",
                 "filter_file_end": null,
@@ -2605,7 +2102,6 @@
         "9e9b522a-77ab-4c17-ab08-5a4256f49d59": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --use \"preservation\"",
                 "execute": "assign_file_uuids",
                 "filter_file_end": null,
@@ -2639,7 +2135,6 @@
         "a536828c-be65-4088-80bd-eb511a0a063d": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%fileUUID%\" \"%TransferUUID%\"",
                 "execute": "validate_file",
                 "filter_file_end": null,
@@ -2674,8 +2169,7 @@
         "aaa929e4-5c35-447e-816a-033a66b9b90b": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%IDCommand%\" \"%relativeLocation%\" \"%fileUUID%\" --disable-reidentify",
+                "arguments": "\"%relativeLocation%\" \"%fileUUID%\" --disable-reidentify",
                 "execute": "identify_file_format",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -2710,10 +2204,11 @@
         "accea2bf-ba74-4a3a-bb97-614775c74459": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "06f03bb3-121d-4c85-bec7-abbc5320a409",
-                    "e0a39199-c62a-4a2f-98de-e9d1116460a8"
+                "config_attr": "examine_contents",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "100a75f4-9d2a-41bf-8dd0-aec811ae1077"},
+                    {"value": false, "link_id": "db99ab43-04d7-44ab-89ec-e09d7bbdc39d"}
                 ]
             },
             "description": {
@@ -2739,7 +2234,6 @@
         "b0ffcd90-eb26-4caf-8fab-58572d205f04": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPUUID%\" \"%SIPDirectory%metadata/metadata.json\"",
                 "execute": "json_metadata_to_csv",
                 "filter_file_end": null,
@@ -2772,7 +2266,6 @@
         "b21018df-f67d-469a-9ceb-ac92ac68654e": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%objects/metadata/\" \"%SIPUUID%\" \"%date%\" \"%taskUUID%\" \"SIPDirectory\" \"sip_id\" \"%SIPDirectory%\"",
                 "execute": "sanitize_object_names",
                 "filter_file_end": null,
@@ -2804,8 +2297,7 @@
         "b2444a6e-c626-4487-9abc-1556dd89a8ae": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%IDCommand%\" \"%relativeLocation%\" \"%fileUUID%\"",
+                "arguments": "\"%relativeLocation%\" \"%fileUUID%\"",
                 "execute": "identify_file_format",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -2838,7 +2330,6 @@
         "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"fail\" \"%SIPUUID%\"",
                 "execute": "failed_sip_cleanup",
                 "filter_file_end": null,
@@ -2875,7 +2366,6 @@
         "b6b0fe37-aa26-40bd-8be8-d3acebf3ccf8": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
                 "execute": "update_size_and_checksum",
                 "filter_file_end": null,
@@ -2910,7 +2400,6 @@
         "b944ec7f-7f99-491f-986d-58914c9bb4fa": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%TransferUUID%\"",
                 "execute": "has_packages",
                 "filter_file_end": null,
@@ -2950,7 +2439,6 @@
         "bd792750-a55b-42e9-903a-8c898bb77df1": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%TransferUUID%\"",
                 "execute": "has_packages",
                 "filter_file_end": null,
@@ -2989,35 +2477,12 @@
         },
         "bd899573-694e-4d33-8c9b-df0af802437d": {
             "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": [
-                    {
-                        "description": {
-                            "en": "Yes",
-                            "es": "Sí",
-                            "fr": "Oui",
-                            "ja": "はい",
-                            "pt_BR": "Sim",
-                            "sv": "Ja"
-                        },
-                        "id": "2dc3f487-e4b0-4e07-a4b3-6216ed24ca14",
-                        "items": {
-                            "AssignUUIDsToDirectories": "True"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "No",
-                            "fr": "Non",
-                            "ja": "いいえ",
-                            "sv": "Nej"
-                        },
-                        "id": "891f60d0-1ba8-48d3-b39e-dd0934635d29",
-                        "items": {
-                            "AssignUUIDsToDirectories": "False"
-                        }
-                    }
+                "@manager": "linkTaskManagerChoice",
+                "config_attr": "assign_uuids_to_directories",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "6441980c-b64b-447e-abc7-9351a2547f6a"},
+                    {"value": false, "link_id": "dc144ff4-ad74-4a6e-ac15-b0beedcaf662"}
                 ]
             },
             "description": {
@@ -3026,18 +2491,9 @@
                 "pt_BR": "Atribuir UUIDs aos diretórios?",
                 "sv": "Tilldela mappar UUID:er?"
             },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "6441980c-b64b-447e-abc7-9351a2547f6a"
-                },
-                "1": {
-                    "job_status": "Failed",
-                    "link_id": "6441980c-b64b-447e-abc7-9351a2547f6a"
-                }
-            },
+            "exit_codes": {},
             "fallback_job_status": "Failed",
-            "fallback_link_id": "6441980c-b64b-447e-abc7-9351a2547f6a",
+            "fallback_link_id": null,
             "group": {
                 "en": "Assign file UUIDs and checksums",
                 "es": "Asignar UUIDs y sumas de verificación a los ficheros",
@@ -3050,7 +2506,6 @@
         "bdce640d-6e94-49fe-9300-3192a7e5edac": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%fileUUID%\"",
                 "execute": "remove_unneeded_files",
                 "filter_file_end": null,
@@ -3084,7 +2539,6 @@
         "c5ecb5a9-d697-4188-844f-9a756d8734fa": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPObjectsDirectory%\" \"%TransferUUID%\" \"%date%\" \"%taskUUID%\" \"transferDirectory\" \"transfer_id\" \"%SIPDirectory%\"",
                 "execute": "sanitize_object_names",
                 "filter_file_end": null,
@@ -3118,7 +2572,6 @@
         "ccf8ec5c-3a9a-404a-a7e7-8f567d3b36a0": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "--amdSec --baseDirectoryPath \"%SIPDirectory%\" --baseDirectoryPathString \"SIPDirectory\" --fileGroupIdentifier \"%SIPUUID%\" --fileGroupType \"sip_id\" --xmlFile \"%SIPDirectory%METS.%SIPUUID%.xml\"",
                 "execute": "create_mets_v2",
                 "filter_file_end": null,
@@ -3154,7 +2607,6 @@
         "d0c463c2-da4c-4a70-accb-c4ce96ac5194": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\" \"%clientAssetsDirectory%mets/mets.xsd\"",
                 "execute": "verify_mets",
                 "filter_file_end": null,
@@ -3172,7 +2624,7 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "0c96c798-9ace-4c05-b3cf-243cdad796b7"
+                    "link_id": "bd899573-694e-4d33-8c9b-df0af802437d"
                 }
             },
             "fallback_job_status": "Failed",
@@ -3187,10 +2639,11 @@
         "d0dfa5fc-e3c2-4638-9eda-f96eea1070e0": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "29881c21-3548-454a-9637-ebc5fd46aee0",
-                    "65273f18-5b4e-4944-af4f-09be175a88e8"
+                "config_attr": "document_empty_directories",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "18c37bff-fce9-4b40-a50a-022ea0386f1a"},
+                    {"value": false, "link_id": "ccf8ec5c-3a9a-404a-a7e7-8f567d3b36a0"}
                 ]
             },
             "description": {
@@ -3211,7 +2664,6 @@
         "d51a7ed8-9cf4-424b-9671-85fd8b5b95aa": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%TransferUUID%\" \"%clientAssetsDirectory%premis/premis.xsd\" \"%SIPDirectory%metadata/premis.xml\"",
                 "execute": "load_premis_events_from_xml",
                 "filter_file_end": null,
@@ -3243,8 +2695,7 @@
         "d55b42c8-c7c5-4a40-b626-d248d2bd883f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%AIPCompressionAlgorithm%\" \"%AIPCompressionLevel%\" \"%SIPDirectory%\" \"%SIPName%\" \"%SIPUUID%\"",
+                "arguments": "\"%config:aip_compression_algorithm%\" \"%config:aip_compression_level%\" \"%SIPDirectory%\" \"%SIPName%\" \"%SIPUUID%\"",
                 "execute": "compress_aip",
                 "filter_file_end": null,
                 "filter_file_start": null,
@@ -3278,7 +2729,6 @@
         "db99ab43-04d7-44ab-89ec-e09d7bbdc39d": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "--sipUUID \"%TransferUUID%\" --xmlFile \"%SIPDirectory%\"metadata/transfer_metadata.xml",
                 "execute": "create_transfer_metadata",
                 "filter_file_end": null,
@@ -3314,7 +2764,6 @@
         "dba3028d-2029-4a87-9992-f6335d890528": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "--fileUUID \"%fileUUID%\" --inputFile \"%relativeLocation%\" --sipDirectory \"%SIPDirectory%\"",
                 "execute": "remove_files_without_premis_metadata",
                 "filter_file_end": null,
@@ -3347,7 +2796,6 @@
         "dc144ff4-ad74-4a6e-ac15-b0beedcaf662": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "--transferUUID \"%TransferUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
                 "execute": "assign_file_uuids",
                 "filter_file_end": null,
@@ -3384,7 +2832,6 @@
         "dc9d4991-aefa-4d7e-b7b5-84e3c4336e74": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --use \"metadata\" --disable-update-filegrpuse",
                 "execute": "assign_file_uuids",
                 "filter_file_end": null,
@@ -3419,10 +2866,11 @@
         "dec97e3c-5598-4b99-b26e-f87a435a6b7f": {
             "config": {
                 "@manager": "linkTaskManagerChoice",
-                "@model": "MicroServiceChainChoice",
-                "chain_choices": [
-                    "01d80b27-4ad1-4bd1-8f8d-f819f18bf685",
-                    "79f1f5af-7694-48a4-b645-e42790bbf870"
+                "config_attr": "extract_packages",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "1cb7e228-6e94-4c93-bf70-430af99b9264"},
+                    {"value": false, "link_id": "f8ef02c4-f585-4b0d-9b6f-3cef6fbe527f"}
                 ]
             },
             "description": {
@@ -3445,41 +2893,9 @@
                 "sv": "Extrahera paket"
             }
         },
-        "df02cac1-f582-4a86-b7cf-da98a58e279e": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
-                "arguments": "\"%sharedPath%processingConfigs/default.xml\" \"%relativeLocation%processingMCP.xml\" -n",
-                "execute": "cmd_cp",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Include default SIP processingMCP.xml",
-                "pt_BR": "Incluir padrão SIP processingMCP.xml",
-                "sv": "Inkludera standard SIP processingMCP.xml"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "f3be1ee1-8881-465d-80a6-a6f093d40ec2"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-            "group": {
-                "en": "Include default SIP processingMCP.xml",
-                "pt_BR": "Incluir padrão SIP processingMCP.xml",
-                "sv": "Inkludera standard SIP processingMCP.xml"
-            }
-        },
         "e4b0c713-988a-4606-82ea-4b565936d9a7": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%metadata\" \"%SIPDirectory%objects/metadata\"",
                 "execute": "move_or_merge",
                 "filter_file_end": null,
@@ -3512,7 +2928,6 @@
         "e76aec15-5dfa-4b14-9405-735863e3a6fa": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
                 "execute": "update_size_and_checksum",
                 "filter_file_end": null,
@@ -3547,7 +2962,6 @@
         "e780473a-0c10-431f-bab6-5d7238b2b70b": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%TransferUUID%\"",
                 "execute": "failed_transfer_cleanup",
                 "filter_file_end": null,
@@ -3584,7 +2998,6 @@
         "ea0e8838-ad3a-4bdd-be14-e5dba5a4ae0c": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPDirectory%\"",
                 "execute": "restructure_for_compliance",
                 "filter_file_end": null,
@@ -3619,7 +3032,6 @@
         "ee438694-815f-4b74-97e1-8e7dde2cc6d5": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "--sipDirectory \"%SIPDirectory%\" --sipUUID \"%SIPUUID%\" --sharedPath \"%sharedPath%\"",
                 "execute": "copy_transfers_metadata_and_logs",
                 "filter_file_end": null,
@@ -3653,48 +3065,20 @@
         },
         "f09847c2-ee51-429a-9478-a860477f6b8d": {
             "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": [
-                    {
-                        "description": {
-                            "en": "Yes",
-                            "es": "Sí",
-                            "fr": "Oui",
-                            "ja": "はい",
-                            "pt_BR": "Sim",
-                            "sv": "Ja"
-                        },
-                        "id": "d97297c7-2b49-4cfe-8c9f-0613d63ed763",
-                        "items": {
-                            "IDCommand": "True"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "No",
-                            "fr": "Non",
-                            "ja": "いいえ",
-                            "sv": "Nej"
-                        },
-                        "id": "1f77af0a-2f7a-468f-af8c-653a9e61ca4f",
-                        "items": {
-                            "IDCommand": "False"
-                        }
-                    }
+                "@manager": "linkTaskManagerChoice",
+                "config_attr": "identify_transfer",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "2522d680-c7d9-4d06-8b11-a28d8bd8a71f"},
+                    {"value": false, "link_id": "b944ec7f-7f99-491f-986d-58914c9bb4fa"}
                 ]
             },
             "description": {
-                "en": "Do you want to perform file format identification?"
+                "en": "Do you want to perform file format identification (Transfer)?"
             },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "2522d680-c7d9-4d06-8b11-a28d8bd8a71f"
-                }
-            },
+            "exit_codes": {},
             "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
+            "fallback_link_id": null,
             "group": {
                 "en": "Identify file format",
                 "es": "Identificar formato de fichero",
@@ -3703,68 +3087,9 @@
                 "sv": "Identifiera filformat"
             }
         },
-        "f19926dd-8fb5-4c79-8ade-c83f61f55b40": {
-            "config": {
-                "@manager": "linkTaskManagerReplacementDicFromChoice",
-                "@model": "MicroServiceChoiceReplacementDic",
-                "replacements": [
-                    {
-                        "description": {
-                            "en": "Yes",
-                            "es": "Sí",
-                            "fr": "Oui",
-                            "ja": "はい",
-                            "pt_BR": "Sim",
-                            "sv": "Ja"
-                        },
-                        "id": "85b1e45d-8f98-4cae-8336-72f40e12cbef",
-                        "items": {
-                            "DeletePackage": "True"
-                        }
-                    },
-                    {
-                        "description": {
-                            "en": "No",
-                            "fr": "Non",
-                            "ja": "いいえ",
-                            "sv": "Nej"
-                        },
-                        "id": "72e8443e-a8eb-49a8-ba5f-76d52f960bde",
-                        "items": {
-                            "DeletePackage": "False"
-                        }
-                    }
-                ]
-            },
-            "description": {
-                "en": "Delete package after extraction?",
-                "es": "¿Eliminar el paquete después de su extracción?",
-                "fr": "Supprimer les paquets après l'extraction?",
-                "ja": "抽出後にパッケージを削除しますか？",
-                "pt_BR": "Apagar o pacote após a extração?",
-                "sv": "Radera paket efter extrahering?"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "1cb7e228-6e94-4c93-bf70-430af99b9264"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Extract packages",
-                "es": "Extraer paquetes",
-                "fr": "Extraire les paquets ",
-                "ja": "パッケージの抽出",
-                "pt_BR": "Extrair pacotes",
-                "sv": "Extrahera paket"
-            }
-        },
         "f1bfce12-b637-443f-85f8-b6450ca01a13": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%TransferUUID%\"",
                 "execute": "verify_checksum",
                 "filter_file_end": null,
@@ -3797,7 +3122,6 @@
         "f378ec85-adcc-4ee6-ada2-bc90cfe20efb": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%TransferUUID%\" \"%relativeLocation%metadata/dc.json\"",
                 "execute": "save_dublin_core",
                 "filter_file_end": null,
@@ -3831,7 +3155,6 @@
         "f3be1ee1-8881-465d-80a6-a6f093d40ec2": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%relativeLocation%\" \"%fileUUID%\"",
                 "execute": "remove_unneeded_files",
                 "filter_file_end": null,
@@ -3862,7 +3185,6 @@
         "f574b2a0-6e0b-4c74-ac5b-a73ddb9593a0": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%SIPUUID%\" \"%SIPDirectory%metadata/submissionDocumentation\" \"%sharedPath%\"",
                 "execute": "copy_transfer_submission_documentation",
                 "filter_file_end": null,
@@ -3897,7 +3219,6 @@
         "f8ef02c4-f585-4b0d-9b6f-3cef6fbe527f": {
             "config": {
                 "@manager": "linkTaskManagerDirectories",
-                "@model": "StandardTaskConfig",
                 "arguments": "\"%TransferUUID%\" \"%sharedPath%\"",
                 "execute": "store_file_modification_dates",
                 "filter_file_end": null,

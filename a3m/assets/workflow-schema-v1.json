@@ -1,7 +1,7 @@
 {
-  "$id": "https://www.archivematica.org/labs/workflow/schema/v1.json",
+  "$id": "https://a3m.readthedocs.io/workflow/schema/v1.json",
   "$schema": "http://json-schema.org/draft-06/schema#",
-  "title": "Archivematica Workflow JSON Schema",
+  "title": "a3m Workflow JSON Schema",
   "description": "In-progress JSON Schema document for Archivematica JSON-encoded workflows.",
   "definitions": {
     "uuid": {
@@ -28,25 +28,6 @@
         "Failed"
       ]
     },
-    "chain": {
-      "type": "object",
-      "properties": {
-        "link_id": {
-          "$ref": "#/definitions/uuid"
-        },
-        "description": {
-          "$ref": "#/definitions/translations"
-        },
-        "start": {
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "link_id",
-        "description"
-      ]
-    },
     "link": {
       "type": "object",
       "properties": {
@@ -54,10 +35,7 @@
           "oneOf": [
             { "$ref": "#/definitions/link_model_StandardTaskFile" },
             { "$ref": "#/definitions/link_model_StandardTaskDir" },
-            { "$ref": "#/definitions/link_model_ReplacementDic" },
-            { "$ref": "#/definitions/link_model_ChainChoice" },
-            { "$ref": "#/definitions/link_model_GetServiceOutput" },
-            { "$ref": "#/definitions/link_model_GetServiceOutputPrompt" }
+            { "$ref": "#/definitions/link_model_LinkChoice" }
           ]
         },
         "exit_codes": {
@@ -99,6 +77,9 @@
         "group": {
           "$ref": "#/definitions/translations"
         },
+        "start": {
+          "type": "boolean"
+        },
         "end": {
           "type": "boolean"
         }
@@ -113,39 +94,10 @@
         "group"
       ]
     },
-    "watched_dir": {
-      "type": "object",
-      "properties": {
-        "chain_id": {
-          "$ref": "#/definitions/uuid"
-        },
-        "only_dirs": {
-          "type": "boolean"
-        },
-        "path": {
-          "type": "string"
-        },
-        "unit_type": {
-          "type": "string",
-          "enum": [
-            "Transfer",
-            "SIP"
-          ]
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "chain_id",
-        "only_dirs",
-        "path",
-        "unit_type"
-      ]
-    },
     "link_model_StandardTaskFile": {
       "type": "object",
       "properties": {
         "@manager": {"type": "string", "pattern": "linkTaskManagerFiles"},
-        "@model": {"type": "string", "pattern": "StandardTaskConfig"},
         "execute": {
           "type": "string"
         },
@@ -171,7 +123,6 @@
       "additionalProperties": false,
       "required": [
         "@manager",
-        "@model",
         "execute",
         "arguments",
         "filter_file_start",
@@ -185,7 +136,6 @@
       "type": "object",
       "properties": {
         "@manager": {"type": "string", "pattern": "linkTaskManagerDirectories"},
-        "@model": {"type": "string", "pattern": "StandardTaskConfig"},
         "execute": {
           "type": "string"
         },
@@ -211,7 +161,6 @@
       "additionalProperties": false,
       "required": [
         "@manager",
-        "@model",
         "execute",
         "arguments",
         "filter_file_start",
@@ -221,153 +170,40 @@
         "stderr_file"
       ]
     },
-    "link_model_ReplacementDic": {
-      "type": "object",
-      "properties": {
-        "@manager": {"type": "string", "pattern": "linkTaskManagerReplacementDicFromChoice"},
-        "@model": {"type": "string", "pattern": "MicroServiceChoiceReplacementDic"},
-        "replacements": {
-          "type": "array",
-          "minItems": 0,
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "id": { "$ref": "#/definitions/uuid" },
-                "description": { "$ref": "#/definitions/translations" },
-                "items": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "description",
-                "items"
-              ]
-            }
-          ]
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "@manager",
-        "@model",
-        "replacements"
-      ]
-    },
-    "link_model_ChainChoice": {
+    "link_model_LinkChoice": {
       "type": "object",
       "properties": {
         "@manager": {"type": "string", "pattern": "linkTaskManagerChoice"},
-        "@model": {"type": "string", "pattern": "MicroServiceChainChoice"},
-        "chain_choices": {
+        "config_attr": {"type": "string"},
+        "default": {"type": "boolean"},
+        "choices": {
           "type": "array",
           "minItems": 1,
-          "items": [
-            {"$ref": "#/definitions/uuid"}
-          ]
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {"type": "boolean"},
+              "link_id": {"$ref": "#/definitions/uuid"}
+            },
+            "additionalProperties": true,
+            "required": [
+              "value",
+              "link_id"
+            ]
+          }
         }
       },
       "additionalProperties": false,
       "required": [
         "@manager",
-        "@model",
-        "chain_choices"
-      ]
-    },
-    "link_model_GetServiceOutput": {
-      "type": "object",
-      "properties": {
-        "@manager": {"type": "string", "pattern": "linkTaskManagerGetMicroserviceGeneratedListInStdOut"},
-        "@model": {"type": "string", "pattern": "StandardTaskConfig"},
-        "execute": {
-          "type": "string"
-        },
-        "arguments": {
-          "type": ["string", "null"]
-        },
-        "filter_file_start": {
-          "type": ["string", "null"]
-        },
-        "filter_file_end": {
-          "type": ["string", "null"]
-        },
-        "filter_subdir": {
-          "type": ["string", "null"]
-        },
-        "stdout_file": {
-          "type": ["string", "null"]
-        },
-        "stderr_file": {
-          "type": ["string", "null"]
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "@manager",
-        "@model",
-        "execute",
-        "arguments",
-        "filter_file_start",
-        "filter_file_end",
-        "filter_subdir",
-        "stdout_file",
-        "stderr_file"
-      ]
-    },
-    "link_model_GetServiceOutputPrompt": {
-      "type": "object",
-      "properties": {
-        "@manager": {"type": "string", "pattern": "linkTaskManagerGetUserChoiceFromMicroserviceGeneratedList"},
-        "@model": {"type": "string", "pattern": "StandardTaskConfig"},
-        "execute": {
-          "type": "string"
-        },
-        "arguments": {
-          "type": ["string", "null"]
-        },
-        "filter_file_start": {
-          "type": ["string", "null"]
-        },
-        "filter_file_end": {
-          "type": ["string", "null"]
-        },
-        "filter_subdir": {
-          "type": ["string", "null"]
-        },
-        "stdout_file": {
-          "type": ["string", "null"]
-        },
-        "stderr_file": {
-          "type": ["string", "null"]
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "@manager",
-        "@model",
-        "execute",
-        "arguments",
-        "filter_file_start",
-        "filter_file_end",
-        "filter_subdir",
-        "stdout_file",
-        "stderr_file"
+        "config_attr",
+        "default",
+        "choices"
       ]
     }
   },
   "type": "object",
   "properties": {
-    "chains": {
-      "type": "object",
-      "additionalProperties": {
-        "$ref": "#/definitions/chain"
-      }
-    },
     "links": {
       "type": "object",
       "additionalProperties": {
@@ -376,7 +212,6 @@
     }
   },
   "required": [
-    "chains",
     "links"
   ],
   "additionalProperties": false
