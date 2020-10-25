@@ -9,27 +9,20 @@ determining the next job to be run, and passing data between jobs.
 The `Job` class is a base class for other job types. There are various
 concrete types of jobs, handled by subclasses:
     * `ClientScriptJob`, handling Jobs to be execute on MCPClient
-    * `DecisionJob`, handling workflow decision points
-    * `LocalJob`, handling work done directly on MCPServer
+    * `NextLinkDecisionJob`, handling workflow decision points
 """
 from a3m.server.jobs.base import Job
 from a3m.server.jobs.chain import JobChain
 from a3m.server.jobs.client import ClientScriptJob
 from a3m.server.jobs.client import DirectoryClientScriptJob
 from a3m.server.jobs.client import FilesClientScriptJob
-from a3m.server.jobs.decisions import DecisionJob
-from a3m.server.jobs.decisions import NextChainDecisionJob
-from a3m.server.jobs.decisions import UpdateContextDecisionJob
-from a3m.server.jobs.local import LocalJob
+from a3m.server.jobs.decisions import NextLinkDecisionJob
 
 __all__ = (
     "ClientScriptJob",
-    "DecisionJob",
     "DirectoryClientScriptJob",
     "FilesClientScriptJob",
     "Job",
     "JobChain",
-    "LocalJob",
-    "NextChainDecisionJob",
-    "UpdateContextDecisionJob",
+    "NextLinkDecisionJob",
 )

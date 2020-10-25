@@ -48,23 +48,12 @@ def test_load_invalid_json():
     "path",
     (
         os.path.join(ASSETS_DIR, "workflow.json"),
-        os.path.join(FIXTURES_DIR, "workflow-sample.json"),
+        os.path.join(FIXTURES_DIR, "workflow-integration-test.json"),
     ),
 )
 def test_load_valid_document(path):
     with open(path) as fp:
         wf = workflow.load(fp)
-
-    chains = wf.get_chains()
-    assert len(chains) > 0
-    first_chain = next(iter(chains.values()))
-    assert isinstance(first_chain, workflow.Chain)
-    assert str(first_chain) == first_chain.id
-    assert repr(first_chain) == f"Chain <{first_chain.id}>"
-    assert isinstance(first_chain.link, workflow.Link)
-    assert isinstance(first_chain.link, workflow.BaseLink)
-    assert isinstance(first_chain["description"], workflow.TranslationLabel)
-    assert first_chain["description"]._src == first_chain._src["description"]._src
 
     links = wf.get_links()
     assert len(links) > 0
@@ -74,7 +63,7 @@ def test_load_valid_document(path):
     assert first_link.config == first_link._src["config"]
 
     # Workflow __str__ method
-    assert str(wf) == "Chains {}, links {}".format(len(chains), len(links))
+    assert str(wf) == "Links {}".format(len(links))
 
     # Test normalization of job statuses.
     link = next(iter(links.values()))
@@ -103,7 +92,7 @@ def test_link_browse_methods(mocker):
 
 def test_get_schema():
     schema = workflow._get_schema()
-    assert schema["$id"] == "https://www.archivematica.org/labs/workflow/schema/v1.json"
+    assert schema["$id"] == "https://a3m.readthedocs.io/workflow/schema/v1.json"
 
 
 def test_get_schema_not_found(mocker):

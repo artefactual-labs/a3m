@@ -12,31 +12,6 @@ from a3m.fpr.models import IDRule
 from a3m.main.models import File
 from a3m.main.models import FileFormatVersion
 from a3m.main.models import FileID
-from a3m.main.models import UnitVariable
-
-
-def _save_id_preference(file_, value):
-    """
-    Saves whether file format identification is being used.
-
-    This is necessary in order to allow post-extraction identification to work.
-    The replacement dict will be saved to the special 'replacementDict' unit
-    variable, which will be transformed back into a passVar when a new chain in
-    the same unit is begun.
-    """
-    value = str(value)
-
-    # The unit_uuid foreign key can point to a transfer or SIP, and this tool
-    # runs in both.
-    # Check the SIP first - if it hasn't been assigned yet, then this is being
-    # run during the transfer.
-    unit = file_.sip or file_.transfer
-
-    rd = {"%IDCommand%": value}
-
-    UnitVariable.objects.create(
-        unituuid=unit.pk, variable="replacementDict", variablevalue=str(rd)
-    )
 
 
 def write_identification_event(file_uuid, command, format=None, success=True):
@@ -99,12 +74,7 @@ def _default_idcommand():
     return IDCommand.active.first()
 
 
-def main(job, enabled, file_path, file_uuid, disable_reidentify):
-    enabled = True if enabled == "True" else False
-    if not enabled:
-        job.print_output("Skipping file format identification")
-        return 0
-
+def main(job, file_path, file_uuid, disable_reidentify):
     command = _default_idcommand()
     if command is None:
         job.write_error("Unable to determine IDCommand.\n")
@@ -128,10 +98,6 @@ def main(job, enabled, file_path, file_uuid, disable_reidentify):
             "This file has already been identified, and re-identification is disabled. Skipping."
         )
         return 0
-
-    # Save whether identification was enabled by the user for use in a later
-    # chain.
-    _save_id_preference(file_, enabled)
 
     exitcode, output, err = executeOrRun(
         command.script_type,
@@ -193,13 +159,6 @@ def main(job, enabled, file_path, file_uuid, disable_reidentify):
 
 def call(jobs):
     parser = argparse.ArgumentParser(description="Identify file formats.")
-
-    # Since AM19 the accepted values are "True" or "False" since the ability to
-    # choose the command from the workflow has been removed. Instead, this
-    # script will look up in FPR what's the preferred command.
-    # This argument may be renamed later.
-    parser.add_argument("idcommand", type=str, help="%IDCommand%")
-
     parser.add_argument("file_path", type=str, help="%relativeLocation%")
     parser.add_argument("file_uuid", type=str, help="%fileUUID%")
     parser.add_argument(
@@ -215,7 +174,6 @@ def call(jobs):
                 job.set_status(
                     main(
                         job,
-                        args.idcommand,
                         args.file_path,
                         args.file_uuid,
                         args.disable_reidentify,

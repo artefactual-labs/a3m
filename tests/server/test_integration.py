@@ -2,40 +2,24 @@ import concurrent.futures
 import os
 import threading
 import uuid
-from io import StringIO
 
 import pytest
 from django.utils import timezone
-from lxml import etree
 
 from a3m.main import models
 from a3m.server.jobs import DirectoryClientScriptJob
 from a3m.server.jobs import FilesClientScriptJob
 from a3m.server.jobs import JobChain
-from a3m.server.jobs import NextChainDecisionJob
-from a3m.server.jobs import UpdateContextDecisionJob
+from a3m.server.jobs import NextLinkDecisionJob
 from a3m.server.packages import Package
 from a3m.server.queues import PackageQueue
+from a3m.server.rpc.proto.a3m_pb2 import ProcessingConfig
 from a3m.server.tasks import TaskBackend
 from a3m.server.workflow import load as load_workflow
 
 
 FIXTURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
 INTEGRATION_TEST_PATH = os.path.join(FIXTURES_DIR, "workflow-integration-test.json")
-TEST_PROCESSING_CONFIG = etree.parse(
-    StringIO(
-        """<processingMCP>
-  <preconfiguredChoices>
-    <!-- Store AIP -->
-    <preconfiguredChoice>
-      <appliesTo>de6eb412-0029-4dbd-9bfa-7311697d6012</appliesTo>
-      <goToChain>51e395b9-1b74-419c-b013-3283b7fe39ff</goToChain>
-    </preconfiguredChoice>
-  </preconfiguredChoices>
-</processingMCP>
-"""
-    )
-)
 
 
 class EchoBackend(TaskBackend):
@@ -80,6 +64,7 @@ def package(request):
     return Package(
         "package-1",
         "file:///tmp/foobar-1.gz",
+        ProcessingConfig(),
         models.Transfer.objects.create(pk=uuid.uuid4()),
         models.SIP.objects.create(pk=uuid.uuid4()),
     )
@@ -121,17 +106,11 @@ def test_workflow_integration(
     mock_get_task_backend = mocker.patch(
         "a3m.server.jobs.client.get_task_backend", return_value=echo_backend
     )
-    mock_load_preconfigured_choice = mocker.patch(
-        "a3m.server.jobs.decisions.load_preconfigured_choice"
-    )
-    mock_load_processing_xml = mocker.patch(
-        "a3m.server.jobs.decisions.load_processing_xml"
-    )
     mocker.patch.object(package, "files", return_value=dummy_file_replacements)
 
     # Schedule the first job
-    first_workflow_chain = workflow.get_chains()["3816f689-65a8-4ad0-ac27-74292a70b093"]
-    first_job_chain = JobChain(package, first_workflow_chain, workflow)
+    initiator_link = workflow.get_initiator()
+    first_job_chain = JobChain(package, workflow, initiator_link)
     job = next(first_job_chain)
     package_queue.schedule_job(job)
 
@@ -183,7 +162,7 @@ def test_workflow_integration(
     assert package_queue.job_queue.qsize() == 1
     job = future.result()
 
-    # Process the fourth job (OutputDecisionJob)
+    # Process the fourth job (DirectoryClientScriptJob)
     future = package_queue.process_one_job(timeout=1.0)
     concurrent.futures.wait([future], timeout=1.0)
 
@@ -194,34 +173,20 @@ def test_workflow_integration(
     assert package_queue.job_queue.qsize() == 1
     job = future.result()
 
-    # Setup preconfigured choice for next job
-    mock_load_preconfigured_choice.return_value = "7b814362-c679-43c4-a2e2-1ba59957cd18"
-
-    # Process the fifth job (NextChainDecisionJob)
+    # Process the fifth job (NextLinkDecisionJob)
     future = package_queue.process_one_job(timeout=1.0)
     concurrent.futures.wait([future], timeout=1.0)
 
-    assert isinstance(job, NextChainDecisionJob)
+    assert isinstance(job, NextLinkDecisionJob)
     assert job.exit_code == 0
 
     # Next job in chain should be queued
     assert package_queue.job_queue.qsize() == 1
     job = future.result()
 
-    # We should be on chain 2 now
-    assert job.job_chain is not first_job_chain
-    assert job.job_chain.chain.id == "7b814362-c679-43c4-a2e2-1ba59957cd18"
-
-    # Setup preconfigured choice for next job
-    mock_load_processing_xml.return_value = TEST_PROCESSING_CONFIG
-
     # Process the sixth job (UpdateContextDecisionJob)
     future = package_queue.process_one_job(timeout=1.0)
     concurrent.futures.wait([future], timeout=1.0)
-
-    assert isinstance(job, UpdateContextDecisionJob)
-    assert job.exit_code == 0
-    assert job.job_chain.context[r"%TestValue%"] == "7"
 
     # Out job chain should have been redirected to the final link
     assert job.job_chain.current_link.id == "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e"

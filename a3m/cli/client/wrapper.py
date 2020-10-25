@@ -7,11 +7,11 @@ from a3m.server.rpc import Client
 
 
 class ClientWrapper(ContextDecorator):
-    """A context manager that provides a a3m client.
+    """A context manager that provides a a3m client or client-server instance.
 
-    When the server address is undefined, it launches an embedded server
-    instance and sets up the client accordingly. Used resources are
-    automatically cleaned up.
+    Use ``address`` to indicate the location of the a3m server. When undefined,
+    this wrapper launches an embedded server and sets up the client accordingly.
+    Used resources are automatically cleaned up.
     """
 
     BIND_LOCAL_ADDRESS = "localhost:0"
@@ -35,7 +35,6 @@ class ClientWrapper(ContextDecorator):
             return False
 
     def _create_server(self):
-        """Create a3m server."""
         self.server = None
 
         if self.address is not None:

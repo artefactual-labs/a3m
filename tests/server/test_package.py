@@ -9,6 +9,7 @@ import pytest
 from a3m.main import models
 from a3m.server.packages import Package
 from a3m.server.queues import PackageQueue
+from a3m.server.rpc.proto.a3m_pb2 import ProcessingConfig
 from a3m.server.workflow import load as load_workflow
 
 FIXTURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
@@ -30,7 +31,12 @@ def package_queue(request):
 @pytest.fixture
 def package(request, db, package_queue, workflow):
     return Package.create_package(
-        package_queue, package_queue.executor, workflow, "name", "file:///tmp/foobar.gz"
+        package_queue,
+        package_queue.executor,
+        workflow,
+        "name",
+        "file:///tmp/foobar.gz",
+        ProcessingConfig(),
     )
 
 

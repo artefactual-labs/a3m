@@ -5,8 +5,8 @@ Docker
 Our Docker image is extremely convenient because it includes many software
 dependencies that you would need to install manually otherwise.
 
-User our Docker image as it is
-==============================
+Using our Docker image
+======================
 
 Off the shelf, the Docker image brings an environment with a3m and its
 dependencies installed and ready to use. Below is an example of using the
@@ -44,8 +44,8 @@ Don't forget to clean up before leaving::
    separately.
 
 
-Building a custom Docker image
-==============================
+Custom images
+=============
 
 Our image ``ghcr.io/artefactual-labs/a3m`` can be used as a parent image. Say
 you're building a new application embedding a3m and you need a few extra

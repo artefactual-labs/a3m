@@ -44,9 +44,9 @@ def _create_tmpdir(suffix, purpose=None):
 def _archived(path):
     command = ["sf", "-json", path]
     exit_code, stdout, stderr = executeOrRun("command", command, capture_output=True)
-    if exit_code > 0:
+    if exit_code != 0:
         raise RetrievalError(
-            "Extraction failed, Siegfried quit with exit code {exit_code}"
+            f"Extraction failed, Siegfried quit with exit code {exit_code}"
         )
     idresults = json.loads(stdout)
     puid = idresults["files"][0]["matches"][0]["id"]
@@ -156,6 +156,7 @@ def main(job, transfer_id, transfer_path, url):
             return 1
     except RetrievalError as err:
         job.pyprint(f"Error retrievent contents: {err}", file=sys.stderr)
+        return 1
 
     if is_bag(transfer_path):
         job.pyprint("Bags not supported yet!", file=sys.stderr)

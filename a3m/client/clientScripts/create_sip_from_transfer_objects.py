@@ -98,11 +98,6 @@ def main(job, transfer_id, sip_id):
         dst = sip_dir / "metadata" / "dc.json"
         shutil.copy(str(src), str(dst))
 
-    # Copy processingMCP.xml file
-    shutil.copy(
-        str(transfer_dir / "processingMCP.xml"), str(sip_dir / "processingMCP.xml")
-    )
-
 
 def call(jobs):
     with transaction.atomic():

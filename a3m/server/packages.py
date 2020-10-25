@@ -80,9 +80,10 @@ class Package:
     package is in.
     """
 
-    def __init__(self, name, url, transfer, sip):
+    def __init__(self, name, url, config, transfer, sip):
         self.name = name
         self.url = url
+        self.config = config
         self.transfer = transfer
         self.sip = sip
         self.stage = Stage.TRANSFER
@@ -96,7 +97,7 @@ class Package:
 
     @classmethod
     @auto_close_old_connections()
-    def create_package(cls, package_queue, executor, workflow, name, url):
+    def create_package(cls, package_queue, executor, workflow, name, url, config):
         """Launch transfer and return its object immediately."""
         if not name:
             raise ValueError("No transfer name provided.")
@@ -110,7 +111,6 @@ class Package:
         transfer = models.Transfer.objects.create(
             uuid=transfer_id, currentlocation=transfer_dir
         )
-        transfer.set_processing_configuration("default")
         logger.debug("Transfer object created: %s", transfer.pk)
 
         sip_id = str(uuid4())
@@ -121,7 +121,7 @@ class Package:
         sip.transfer_id = transfer_id
         logger.debug("SIP object created: %s", sip.pk)
 
-        package = cls(name, url, transfer, sip)
+        package = cls(name, url, config, transfer, sip)
 
         params = (package, package_queue, workflow)
         future = executor.submit(Package.trigger_workflow, *params)
@@ -135,12 +135,11 @@ class Package:
     def trigger_workflow(package, package_queue, workflow):
         logger.debug("Package %s: starting workflow processing", package.uuid)
 
-        # It should be "2671aef1-653a-49bf-bc74-82572b64ace9".
-        chain = workflow.get_initiator_chain()
-        if chain is None:
+        initiator_link = workflow.get_initiator()
+        if initiator_link is None:
             raise ValueError("Workflow initiator not found")
 
-        job_chain = JobChain(package, chain, workflow)
+        job_chain = JobChain(package, workflow, initiator_link)
 
         package_queue.schedule_job(next(job_chain))
 
@@ -219,27 +218,6 @@ class Package:
         else:
             return models.File.objects.filter(transfer_id=self.transfer.pk)
 
-    @auto_close_old_connections()
-    def set_variable(self, key, value, chain_link_id):
-        """Sets a UnitVariable, which tracks choices made by users during processing."""
-        # TODO: refactor this concept
-        if not value:
-            value = ""
-        else:
-            value = str(value)
-
-        unit_var, created = models.UnitVariable.objects.update_or_create(
-            unittype=self.unit_variable_type,
-            unituuid=self.subid,
-            variable=key,
-            defaults=dict(variablevalue=value, microservicechainlink=chain_link_id),
-        )
-        if created:
-            message = "New UnitVariable %s created for %s: %s (MSCL: %s)"
-        else:
-            message = "Existing UnitVariable %s for %s updated to %s (MSCL" " %s)"
-        logger.debug(message, key, self.subid, value, chain_link_id)
-
     def start_ingest(self):
         """Signal this package so it becomes a SIP."""
         self.stage = Stage.INGEST
@@ -253,7 +231,6 @@ class Package:
         else:
             transfer = models.Transfer.objects.get(uuid=self.transfer.pk)
             self.current_path = transfer.currentlocation
-            self.processing_configuration = transfer.processing_configuration
 
     def get_replacement_mapping(self):
         mapping = BASE_REPLACEMENTS.copy()
@@ -274,6 +251,15 @@ class Package:
             }
         )
 
+        mapping.update(
+            {
+                fr"%config:{config_attr.name}%": str(
+                    getattr(self.config, config_attr.name)
+                )
+                for config_attr in a3m_pb2.ProcessingConfig.DESCRIPTOR.fields
+            }
+        )
+
         if self.stage is Stage.INGEST:
             mapping.update(
                 {
@@ -286,7 +272,6 @@ class Package:
                 {
                     self.replacement_path_string: self.current_path,
                     r"%unitType%": self.unit_variable_type,
-                    r"%processingConfiguration%": self.processing_configuration,
                     r"%URL%": self.url,
                 }
             )

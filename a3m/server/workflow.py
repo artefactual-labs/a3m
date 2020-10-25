@@ -52,38 +52,26 @@ _STATUSES = _invert_job_statuses()
 class Workflow:
     def __init__(self, parsed_obj):
         self._src = parsed_obj
-        self._decode_chains()
         self._decode_links()
 
     def __str__(self):
-        return "Chains {}, links {}".format(len(self.chains), len(self.links))
-
-    def _decode_chains(self):
-        self.chains = {}
-        for chain_id, chain_obj in self._src["chains"].items():
-            self.chains[chain_id] = Chain(chain_id, chain_obj, self)
+        return "Links {}".format(len(self.links))
 
     def _decode_links(self):
         self.links = {}
         for link_id, link_obj in self._src["links"].items():
             self.links[link_id] = Link(link_id, link_obj, self)
 
-    def get_chains(self):
-        return self.chains
-
     def get_links(self):
         return self.links
-
-    def get_chain(self, chain_id):
-        return self.chains[chain_id]
 
     def get_link(self, link_id):
         return self.links[link_id]
 
-    def get_initiator_chain(self):
-        for _, chain in self.chains.items():
-            if chain.initiator:
-                return chain
+    def get_initiator(self):
+        for _, link in self.links.items():
+            if link.is_initiator:
+                return link
 
 
 class BaseLink:
@@ -104,31 +92,6 @@ class BaseLink:
     @property
     def workflow(self):
         return self._workflow
-
-
-class Chain(BaseLink):
-    def __init__(self, id_, attrs, workflow):
-        self.id = id_
-        self._src = attrs
-        self._workflow = workflow
-        self._decode_translations()
-
-    def __repr__(self):
-        return f"Chain <{self.id}>"
-
-    def __getitem__(self, key):
-        return self._src[key]
-
-    def _decode_translations(self):
-        self._src["description"] = self._decode_translation(self._src["description"])
-
-    @property
-    def link(self):
-        return self._workflow.get_link(self._src["link_id"])
-
-    @property
-    def initiator(self):
-        return self._src.get("start", False)
 
 
 class Link(BaseLink):
@@ -168,6 +131,11 @@ class Link(BaseLink):
     @property
     def config(self):
         return self._src["config"]
+
+    @property
+    def is_initiator(self):
+        """Check if the link is indicated as an initiator link."""
+        return self._src.get("start", False)
 
     @property
     def is_terminal(self):

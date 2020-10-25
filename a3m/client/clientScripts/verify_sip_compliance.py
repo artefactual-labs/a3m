@@ -27,7 +27,7 @@ REQUIRED_DIRECTORIES = (
     "metadata/submissionDocumentation",
 )
 
-ALLOWABLE_FILES = ("processingMCP.xml",)
+ALLOWABLE_FILES = ()
 
 
 def checkDirectory(job, directory, ret=0):

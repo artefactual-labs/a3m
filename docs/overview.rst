@@ -22,7 +22,7 @@ roadmap has not been set in stone, but the authors have plans.
   A proof of concept was developed to demonstrate some of the design principles
   like integrability or simplicity. However, the arfifacts that a3m produces
   have not been thoughtfully verified yet and there are some known issues.
-  
+
 * **Operability.**
   Producing standalone executables and integrating with cloud-based
   environments. Dependency management.
@@ -125,7 +125,7 @@ configuration steps.
        cli(gRPC<br/>client)
        srv(gRPC<br/>server)
        we(Workflow<br/>engine)
-       
+
        cli-- operates -->srv
        srv-- controls -->we
      end
@@ -140,8 +140,8 @@ Embedded mode
 -------------
 
 A design principle in a3m is *composability*. It wants to become a building
-block for system integrators. Please read the :ref:`development kit usage
-page<devkit>` to learn how to use our programming interfaces.
+block for system integrators. Please read the :doc:`development kit usage
+page<development>` to learn how to use our programming interfaces.
 
 There are multiple use cases. For example, you may want to build an application
 that connects to a message broker used to receive preservation requests and

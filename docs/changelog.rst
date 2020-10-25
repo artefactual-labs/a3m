@@ -2,6 +2,8 @@
 Changelog
 =========
 
+- :release:`0.5.0 <2020-10-27>`
+- :feature:`51` Removed reingest capabilities.
 - :release:`0.4.0 <2020-10-20>`
 - :feature:`-` Removed UnitVariable links.
 - :feature:`-` Removed access normalization paths.

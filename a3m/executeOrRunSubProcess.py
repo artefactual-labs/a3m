@@ -24,7 +24,12 @@ import uuid
 
 
 def launchSubProcess(
-    command, stdIn="", printing=True, arguments=[], env_updates={}, capture_output=False
+    command,
+    stdIn="",
+    printing=False,
+    arguments=[],
+    env_updates={},
+    capture_output=False,
 ):
     """
     Launches a subprocess using ``command``, where ``command`` is either:
@@ -124,7 +129,7 @@ def launchSubProcess(
 
 
 def createAndRunScript(
-    text, stdIn="", printing=True, arguments=[], env_updates={}, capture_output=True
+    text, stdIn="", printing=False, arguments=[], env_updates={}, capture_output=True
 ):
     # Output the text to a /tmp/ file
     scriptPath = "/tmp/" + uuid.uuid4().__str__()

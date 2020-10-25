@@ -34,7 +34,6 @@ from django.db import transaction
 
 from a3m.archivematicaFunctions import format_subdir_path
 from a3m.archivematicaFunctions import get_dir_uuids
-from a3m.archivematicaFunctions import str2bool
 from a3m.main.models import Directory
 from a3m.main.models import Transfer
 
@@ -68,16 +67,6 @@ def exit_on_known_exception(func):
     return wrapped
 
 
-def _exit_if_not_include_dirs(include_dirs):
-    """Quit processing if include_dirs is not truthy."""
-    if not include_dirs:
-        logger.debug(
-            "Configuration indicates that directories in this Transfer"
-            " should not be given UUIDs."
-        )
-        raise DirsUUIDsWarning
-
-
 def _get_transfer_mdl(transfer_uuid):
     """Get the ``Transfer`` model with UUID ``transfer_uuid``. Also update it
     in the db to indicate that this transfer has UUIDs assigned to the
@@ -108,13 +97,11 @@ def _get_subdir_paths(root_path):
 
 
 @exit_on_known_exception
-def main(job, transfer_path, transfer_uuid, include_dirs):
+def main(job, transfer_path, transfer_uuid):
     """Assign UUIDs to all of the directories (and subdirectories, i.e., all
     unique directory paths) in the absolute system path ``transfer_path``, such
-    being the root directory of the transfer with UUID ``transfer_uuid``. Do
-    this only if ``include_dirs`` is ``True``.
+    being the root directory of the transfer with UUID ``transfer_uuid``.
     """
-    _exit_if_not_include_dirs(include_dirs)
     Directory.create_many(
         get_dir_uuids(_get_subdir_paths(transfer_path), logger, printfn=job.pyprint),
         _get_transfer_mdl(transfer_uuid),
@@ -128,14 +115,6 @@ def call(jobs):
         "transfer_path", type=str, help="The path to the Transfer on disk."
     )
     parser.add_argument("transfer_uuid", type=str, help="The UUID of the Transfer.")
-    parser.add_argument(
-        "--include-dirs",
-        action="store",
-        type=str2bool,
-        dest="include_dirs",
-        default="No",
-    )
-
     with transaction.atomic():
         for job in jobs:
             with job.JobContext(logger=logger):

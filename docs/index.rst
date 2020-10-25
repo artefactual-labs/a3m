@@ -14,4 +14,5 @@ Current release: |version|.
     installation
     usage
     settings
+    development
     docker

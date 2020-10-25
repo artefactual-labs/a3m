@@ -16,6 +16,7 @@
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import sys
+from typing import Tuple
 
 from .verify_sip_compliance import checkDirectory
 
@@ -26,7 +27,7 @@ REQUIRED_DIRECTORIES = (
     "metadata/submissionDocumentation",
 )
 
-ALLOWABLE_FILES = ("processingMCP.xml",)
+ALLOWABLE_FILES: Tuple[str, ...] = tuple()
 
 
 def verifyDirectoriesExist(job, SIPDir, ret=0):
