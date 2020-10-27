@@ -3,8 +3,9 @@ Changelog
 =========
 
 - :release:`0.5.0 <2020-10-27>`
-- :feature:`51` Removed reingest capabilities.
+- :feature:`76` Add request-scoped processing configuration.
 - :release:`0.4.0 <2020-10-20>`
+- :feature:`51` Removed reingest capabilities.
 - :feature:`-` Removed UnitVariable links.
 - :feature:`-` Removed access normalization paths.
 - :feature:`-` Removed PID binding.
