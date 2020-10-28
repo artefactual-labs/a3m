@@ -2,9 +2,9 @@
 Changelog
 =========
 
-- :release:`0.5.0 <2020-10-27>`
+- :release:`v0.5.0 <2020-10-27>`
 - :feature:`76` Add request-scoped processing configuration.
-- :release:`0.4.0 <2020-10-20>`
+- :release:`v0.4.0 <2020-10-20>`
 - :feature:`51` Removed reingest capabilities.
 - :feature:`-` Removed UnitVariable links.
 - :feature:`-` Removed access normalization paths.
@@ -12,17 +12,17 @@ Changelog
 - :feature:`-` Removed access directory support.
 - :feature:`-` Removed policy check on access derivatives.
 - :feature:`51` Removed reingest capabilities.
-- :release:`0.3.1 <2020-08-24>`
+- :release:`v0.3.1 <2020-08-24>`
 - :support:`-` Moved to GitHub Container Registry. Our Docker image is now found at ``ghcr.io/artefactual-labs/a3m`` and anonymous access is possible.
 - :bug:`-` Fix ``long_description`` config in ``setup.cfg``.
-- :release:`0.3.0 <2020-08-24>`
+- :release:`v0.3.0 <2020-08-24>`
 - :feature:`-` Added Sphinx documentation.
-- :release:`0.2.1 <2020-08-24>`
+- :release:`v0.2.1 <2020-08-24>`
 - :bug:`-` Disabled ``zip_safe``.
-- :release:`0.2.0 <2020-08-23>`
+- :release:`v0.2.0 <2020-08-23>`
 - :bug:`53 major` Enabled SQLite WAL mode for better concurrency.
 - :feature:`-` Added development and command-line interfaces.
-- :release:`0.1.0 <2020-06-01>`
+- :release:`v0.1.0 <2020-06-01>`
 - :feature:`6` Consolidated requirements files and virtual environments.
 - :feature:`7` Mainstream development environment.
 - :feature:`9` Publish package on PyPI (https://pypi.org/project/a3m/).
