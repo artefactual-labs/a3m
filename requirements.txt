@@ -25,7 +25,7 @@ grpcio==1.33.1            # via -r requirements.in, grpcio-reflection, grpcio-st
 idna==2.10                # via requests
 jmespath==0.10.0          # via boto3, botocore
 jsonschema==3.2.0         # via -r requirements.in
-lxml==4.6.1               # via -r requirements.in, ammcpc, metsrw
+lxml==4.6.2               # via -r requirements.in, ammcpc, metsrw
 metsrw==0.3.15            # via -r requirements.in
 olefile==0.46             # via opf-fido
 opf-fido==1.4.1           # via -r requirements.in
