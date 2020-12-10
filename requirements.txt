@@ -6,44 +6,44 @@
 #
 ammcpc==0.1.3             # via -r requirements.in
 appdirs==1.4.4            # via -r requirements.in
-attrs==20.2.0             # via jsonschema
+attrs==20.3.0             # via jsonschema
 bagit==1.7.0              # via -r requirements.in
-boto3==1.16.4             # via -r requirements.in
-botocore==1.19.4          # via boto3, s3transfer
-certifi==2020.6.20        # via requests
+boto3==1.16.33            # via -r requirements.in
+botocore==1.19.33         # via boto3, s3transfer
+certifi==2020.12.5        # via requests
 chardet==3.0.4            # via requests
 clamd==1.0.2              # via -r requirements.in
 click==7.1.2              # via -r requirements.in
 colorama==0.4.4           # via rich
 commonmark==0.9.1         # via rich
-django==2.2.16            # via -r requirements.in
+django==2.2.17            # via -r requirements.in
 future==0.18.2            # via metsrw
 googleapis-common-protos==1.52.0  # via -r requirements.in, grpcio-status
-grpcio-reflection==1.33.1  # via -r requirements.in
-grpcio-status==1.33.1     # via -r requirements.in
-grpcio==1.33.1            # via -r requirements.in, grpcio-reflection, grpcio-status
+grpcio-reflection==1.34.0  # via -r requirements.in
+grpcio-status==1.34.0     # via -r requirements.in
+grpcio==1.34.0            # via -r requirements.in, grpcio-reflection, grpcio-status
 idna==2.10                # via requests
 jmespath==0.10.0          # via boto3, botocore
 jsonschema==3.2.0         # via -r requirements.in
-lxml==4.6.1               # via -r requirements.in, ammcpc, metsrw
+lxml==4.6.2               # via -r requirements.in, ammcpc, metsrw
 metsrw==0.3.15            # via -r requirements.in
 olefile==0.46             # via opf-fido
 opf-fido==1.4.1           # via -r requirements.in
-prometheus-client==0.8.0  # via -r requirements.in
-protobuf==3.13.0          # via googleapis-common-protos, grpcio-reflection, grpcio-status
-pygments==2.7.2           # via rich
+prometheus-client==0.9.0  # via -r requirements.in
+protobuf==3.14.0          # via googleapis-common-protos, grpcio-reflection, grpcio-status
+pygments==2.7.3           # via rich
 pyrsistent==0.17.3        # via jsonschema
 python-dateutil==2.8.1    # via botocore
-pytz==2020.1              # via django
-requests==2.24.0          # via -r requirements.in
-rich==9.1.0               # via -r requirements.in
+pytz==2020.4              # via django
+requests==2.25.0          # via -r requirements.in
+rich==9.3.0               # via -r requirements.in
 s3transfer==0.3.3         # via boto3
 six==1.15.0               # via grpcio, jsonschema, metsrw, opf-fido, protobuf, python-dateutil, tenacity
 sqlparse==0.4.1           # via django
 tenacity==6.2.0           # via -r requirements.in
 typing-extensions==3.7.4.3  # via rich
 unidecode==1.1.1          # via -r requirements.in
-urllib3==1.25.11          # via botocore, requests
+urllib3==1.26.2           # via botocore, requests
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
