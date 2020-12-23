@@ -5,4 +5,4 @@ schedule: "every day"
 update: "insecure"
 search: yes
 pin: yes
-close_prs: yes
+close_prs: no

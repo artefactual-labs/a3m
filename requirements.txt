@@ -8,10 +8,10 @@ ammcpc==0.1.3             # via -r requirements.in
 appdirs==1.4.4            # via -r requirements.in
 attrs==20.3.0             # via jsonschema
 bagit==1.7.0              # via -r requirements.in
-boto3==1.16.33            # via -r requirements.in
-botocore==1.19.33         # via boto3, s3transfer
+boto3==1.16.42            # via -r requirements.in
+botocore==1.19.42         # via boto3, s3transfer
 certifi==2020.12.5        # via requests
-chardet==3.0.4            # via requests
+chardet==4.0.0            # via requests
 clamd==1.0.2              # via -r requirements.in
 click==7.1.2              # via -r requirements.in
 colorama==0.4.4           # via rich
@@ -35,14 +35,14 @@ pygments==2.7.3           # via rich
 pyrsistent==0.17.3        # via jsonschema
 python-dateutil==2.8.1    # via botocore
 pytz==2020.4              # via django
-requests==2.25.0          # via -r requirements.in
-rich==9.3.0               # via -r requirements.in
+requests==2.25.1          # via -r requirements.in
+rich==9.5.1               # via -r requirements.in
 s3transfer==0.3.3         # via boto3
 six==1.15.0               # via grpcio, jsonschema, metsrw, opf-fido, protobuf, python-dateutil, tenacity
 sqlparse==0.4.1           # via django
-tenacity==6.2.0           # via -r requirements.in
+tenacity==6.3.1           # via -r requirements.in
 typing-extensions==3.7.4.3  # via rich
-unidecode==1.1.1          # via -r requirements.in
+unidecode==1.1.2          # via -r requirements.in
 urllib3==1.26.2           # via botocore, requests
 
 # The following packages are considered to be unsafe in a requirements file:
