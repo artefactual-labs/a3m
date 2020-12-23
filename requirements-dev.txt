@@ -59,7 +59,7 @@ pluggy==0.13.1            # via pytest, tox
 pre-commit==2.9.3         # via -r requirements-dev.in
 prometheus-client==0.9.0  # via -r requirements.txt
 protobuf==3.14.0          # via -r requirements.txt, googleapis-common-protos, grpcio-reflection, grpcio-status, grpcio-tools
-py==1.9.0                 # via pytest, tox
+py==1.10.0                 # via pytest, tox
 pycodestyle==2.6.0        # via flake8
 pyflakes==2.2.0           # via flake8
 pygments==2.7.3           # via -r requirements.txt, rich, sphinx
