@@ -122,7 +122,7 @@ class Command:
 
 
 def get_replacement_dict(job, opts):
-    """ Generates values for all knows %var% replacement variables. """
+    """Generates values for all knows %var% replacement variables."""
     prefix = ""
     postfix = ""
     output_dir = ""
@@ -351,7 +351,7 @@ def insert_derivation_event(
     outcome_detail_note,
     today=None,
 ):
-    """ Add the derivation link for preservation files and the event. """
+    """Add the derivation link for preservation files and the event."""
     if today is None:
         today = timezone.now()
     # Add event information to current file
@@ -378,7 +378,7 @@ def get_default_preservation_rule():
 
 
 def main(job, opts):
-    """ Find and execute normalization commands on input file. """
+    """Find and execute normalization commands on input file."""
     setup_dicts()
 
     # Find the file and itss FormatVersion (file identification)

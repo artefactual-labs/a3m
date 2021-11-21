@@ -24,7 +24,7 @@ from django.conf import settings as mcpclient_settings
 
 
 def get_sip_directories(job, sip_dir):
-    """ Get a list of directories in the SIP, to be created after bagged. """
+    """Get a list of directories in the SIP, to be created after bagged."""
     directory_list = []
     for directory, subdirs, _ in os.walk(sip_dir):
         for subdir in subdirs:

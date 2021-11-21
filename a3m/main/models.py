@@ -59,7 +59,7 @@ class BlobTextField(models.TextField):
 
 
 class DublinCore(models.Model):
-    """ DublinCore metadata associated with a SIP or Transfer. """
+    """DublinCore metadata associated with a SIP or Transfer."""
 
     id = models.AutoField(primary_key=True, db_column="pk")
     metadataappliestotype = models.ForeignKey(
@@ -136,7 +136,7 @@ class MetadataAppliesToType(models.Model):
 
 
 class Event(models.Model):
-    """ PREMIS Events associated with Files. """
+    """PREMIS Events associated with Files."""
 
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
     event_id = models.UUIDField(
@@ -220,7 +220,7 @@ class Derivation(models.Model):
 
 class UnitHiddenManager(models.Manager):
     def is_hidden(self, uuid):
-        """ Return True if the unit (SIP, Transfer) with uuid is hidden. """
+        """Return True if the unit (SIP, Transfer) with uuid is hidden."""
         try:
             return self.get_queryset().get(uuid=uuid).hidden
         except:
@@ -228,7 +228,7 @@ class UnitHiddenManager(models.Manager):
 
 
 class SIP(models.Model):
-    """ Information on SIP units. """
+    """Information on SIP units."""
 
     uuid = models.CharField(max_length=36, primary_key=True, db_column="sipUUID")
     createdtime = models.DateTimeField(db_column="createdTime", auto_now_add=True)
@@ -285,7 +285,7 @@ class TransferManager(models.Manager):
 
 
 class Transfer(models.Model):
-    """ Information on Transfer units. """
+    """Information on Transfer units."""
 
     uuid = models.CharField(max_length=36, primary_key=True, db_column="transferUUID")
     currentlocation = models.TextField(db_column="currentLocation")
@@ -344,7 +344,7 @@ class Identifier(models.Model):
 
 
 class File(models.Model):
-    """ Information about Files in units (Transfers, SIPs). """
+    """Information about Files in units (Transfers, SIPs)."""
 
     uuid = models.CharField(max_length=36, primary_key=True, db_column="fileUUID")
     sip = models.ForeignKey(
@@ -648,7 +648,7 @@ class AgentManager(models.Manager):
 
 
 class Agent(models.Model):
-    """ PREMIS Agents created for the system.  """
+    """PREMIS Agents created for the system."""
 
     id = models.AutoField(primary_key=True, db_column="pk", editable=False)
     identifiertype = models.TextField(
