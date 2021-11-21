@@ -113,7 +113,7 @@ jmespath==0.10.0
     #   -r requirements.txt
     #   boto3
     #   botocore
-jsonschema==3.2.0
+jsonschema==4.2.1
     # via -r requirements.txt
 lazy-object-proxy==1.6.0
     # via astroid
@@ -243,7 +243,6 @@ six==1.16.0
     # via
     #   -r requirements.txt
     #   grpcio
-    #   jsonschema
     #   metsrw
     #   opf-fido
     #   python-dateutil
