@@ -20,7 +20,7 @@ tenacity~=6.2
 boto3~=1.14
 
 # MCPServer
-jsonschema~=3.2
+jsonschema~=4.2
 grpcio~=1.31
 grpcio-reflection~=1.31
 grpcio-status~=1.31
