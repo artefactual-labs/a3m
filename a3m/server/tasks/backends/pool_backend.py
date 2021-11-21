@@ -5,7 +5,6 @@ processing, and returns results.
 import concurrent
 import logging
 import uuid
-from typing import List
 
 from a3m.client.mcp import execute_command
 from a3m.client.metrics import init_counter_labels
@@ -22,7 +21,7 @@ logger = logging.getLogger(__name__)
 class PoolTaskBatch:
     def __init__(self):
         self.uuid: uuid.UUID = uuid.uuid4()
-        self.tasks: List[Task] = []
+        self.tasks: list[Task] = []
         self.future = None
 
     def __len__(self):
