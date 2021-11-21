@@ -55,7 +55,7 @@ class Workflow:
         self._decode_links()
 
     def __str__(self):
-        return "Links {}".format(len(self.links))
+        return f"Links {len(self.links)}"
 
     def _decode_links(self):
         self.links = {}

@@ -63,7 +63,7 @@ def test_load_valid_document(path):
     assert first_link.config == first_link._src["config"]
 
     # Workflow __str__ method
-    assert str(wf) == "Links {}".format(len(links))
+    assert str(wf) == f"Links {len(links)}"
 
     # Test normalization of job statuses.
     link = next(iter(links.values()))

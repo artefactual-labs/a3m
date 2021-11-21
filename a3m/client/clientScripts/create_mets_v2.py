@@ -612,7 +612,7 @@ def createDigiprovMD(fileUUID, state):
 
 
 def createEvent(event_record):
-    """ Returns a PREMIS Event. """
+    """Returns a PREMIS Event."""
     event = etree.Element(ns.premisBNS + "event", nsmap={"premis": ns.premisNS})
     event.set(
         ns.xsiBNS + "schemaLocation",
@@ -668,7 +668,7 @@ def createEvent(event_record):
 
 
 def createAgent(agent_record):
-    """ Creates a PREMIS Agent as a SubElement of digiprovMD. """
+    """Creates a PREMIS Agent as a SubElement of digiprovMD."""
     agent = etree.Element(ns.premisBNS + "agent", nsmap={"premis": ns.premisNS})
     agent.set(
         ns.xsiBNS + "schemaLocation",

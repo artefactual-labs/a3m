@@ -38,9 +38,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                 url="https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip",
             )
         except Exception as err:
-            self.wfile.write(f"Error: {err}".encode("utf-8"))
+            self.wfile.write(f"Error: {err}".encode())
         else:
-            self.wfile.write(f"Transfer submitted! {resp.id}".encode("utf-8"))
+            self.wfile.write(f"Transfer submitted! {resp.id}".encode())
 
 
 a3md = create_server(

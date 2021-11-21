@@ -17,7 +17,7 @@ class TestRightsImportFromCsvBase(TestCase):
     file_2_uuid = "60e5c61b-14ef-4e92-89ec-9b9201e68adb"  # UUID of second file created by files-transfer.json fixture
 
     def get_metadata_applies_to_type_for_file(self):
-        """ Get MetadataAppliesToType instance that allies to files. """
+        """Get MetadataAppliesToType instance that allies to files."""
         return models.MetadataAppliesToType.objects.filter(description="File").first()
 
 

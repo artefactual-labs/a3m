@@ -24,7 +24,7 @@ from a3m.main import models
 
 class RightsRowException(Exception):
     def __init__(self, message, reader):
-        message = "[Row {}] {}".format(reader.rows_processed + 1, message)
+        message = f"[Row {reader.rows_processed + 1}] {message}"
         super().__init__(message)
 
 

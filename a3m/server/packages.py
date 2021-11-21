@@ -324,7 +324,7 @@ class PackageContext:
             self._data[key] = value
 
     def __repr__(self):
-        return "PackageContext({!r})".format(dict(list(self._data.items())))
+        return f"PackageContext({dict(list(self._data.items()))!r})"
 
     def __iter__(self):
         yield from self._data.items()

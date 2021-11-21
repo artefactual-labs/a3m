@@ -160,7 +160,7 @@ class Format(models.Model):
 
 
 class FormatGroup(models.Model):
-    """ Group/classification for formats.  Eg. image, video, audio. """
+    """Group/classification for formats.  Eg. image, video, audio."""
 
     uuid = models.UUIDField(
         editable=False,
@@ -180,7 +180,7 @@ class FormatGroup(models.Model):
 
 
 class FormatVersion(VersionedModel, models.Model):
-    """ Format that a tool identifies. """
+    """Format that a tool identifies."""
 
     uuid = models.UUIDField(
         editable=False,
@@ -313,7 +313,7 @@ class IDCommand(VersionedModel, models.Model):
 
 
 class IDRule(VersionedModel, models.Model):
-    """ Mapping between an IDCommand output and a FormatVersion. """
+    """Mapping between an IDCommand output and a FormatVersion."""
 
     uuid = models.UUIDField(
         editable=False,
@@ -372,7 +372,7 @@ class IDRule(VersionedModel, models.Model):
 
 
 class IDTool(models.Model):
-    """ Tool used to identify formats.  Eg. DROID """
+    """Tool used to identify formats.  Eg. DROID"""
 
     uuid = models.UUIDField(
         editable=False,
@@ -397,7 +397,7 @@ class IDTool(models.Model):
         return _("%(description)s") % {"description": self.description}
 
     def _slug(self):
-        """ Returns string to be slugified. """
+        """Returns string to be slugified."""
         src = f"{self.description} {self.version}"
         encoded = src.encode("utf-8")[: self._meta.get_field("slug").max_length]
         return encoded.decode("utf-8", "ignore")
@@ -566,7 +566,7 @@ class FPCommand(VersionedModel, models.Model):
 
 
 class FPTool(models.Model):
-    """ Tool used to perform normalization.  Eg. convert, ffmpeg, ps2pdf. """
+    """Tool used to perform normalization.  Eg. convert, ffmpeg, ps2pdf."""
 
     uuid = models.UUIDField(
         editable=False,
@@ -589,7 +589,7 @@ class FPTool(models.Model):
         return _("%(description)s") % {"description": self.description}
 
     def _slug(self):
-        """ Returns string to be slugified. """
+        """Returns string to be slugified."""
         src = f"{self.description} {self.version}"
         encoded = src.encode("utf-8")[: self._meta.get_field("slug").max_length]
         return encoded.decode("utf-8", "ignore")

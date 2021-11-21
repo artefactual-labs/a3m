@@ -541,7 +541,7 @@ class TestCSVMetadata(TempDirMixin, TestCase):
 
 
 class TestCreateDigiprovMD(TestCase):
-    """ Test creating PREMIS:EVENTS and PREMIS:AGENTS """
+    """Test creating PREMIS:EVENTS and PREMIS:AGENTS"""
 
     fixture_files = ["agents.json", "sip.json", "files.json", "events-transfer.json"]
     fixtures = [os.path.join(THIS_DIR, "fixtures", p) for p in fixture_files]
@@ -671,7 +671,7 @@ class TestCreateDigiprovMD(TestCase):
 
 
 class TestRights(TestCase):
-    """ Test archivematicaCreateMETSRights creating rightsMD. """
+    """Test archivematicaCreateMETSRights creating rightsMD."""
 
     fixture_files = ["rights.json"]
     fixtures = [os.path.join(THIS_DIR, "fixtures", p) for p in fixture_files]
@@ -730,7 +730,7 @@ class TestCustomStructMap(TempDirMixin, TestCase):
     @staticmethod
     def count_dir_objects(path):
         """Count all objects on a given path tree."""
-        return sum([len(files) for _, dir_, files in os.walk(path)])
+        return sum(len(files) for _, dir_, files in os.walk(path))
 
     @staticmethod
     def validate_mets(mets_xsd, mets_structmap):
