@@ -3,33 +3,33 @@ default_language_version:
   python: python3.9
 repos:
 - repo: https://github.com/ambv/black
-  rev: 20.8b1
+  rev: 21.11b1
   hooks:
   - id: black
     args: [--safe, --quiet]
 - repo: https://gitlab.com/pycqa/flake8
-  rev: 3.8.4
+  rev: 3.9.2
   hooks:
   - id: flake8
 - repo: https://github.com/asottile/reorder_python_imports
-  rev: v2.3.5
+  rev: v2.6.0
   hooks:
   - id: reorder-python-imports
     args: ["--application-directories=.:src"]
 - repo: https://github.com/jazzband/pip-tools
-  rev: 5.3.1
+  rev: 6.4.0
   hooks:
   - id: pip-compile
     files: ^requirements\.(in|txt)$
     args: ["--output-file=requirements.txt", "requirements.in"]
 - repo: https://github.com/jazzband/pip-tools
-  rev: 5.3.1
+  rev: 6.4.0
   hooks:
   - id: pip-compile
     files: ^requirements-dev\.(in|txt)$
     args: ["--output-file=requirements-dev.txt", "requirements-dev.in"]
 - repo: https://github.com/asottile/pyupgrade
-  rev: v2.7.2
+  rev: v2.29.1
   hooks:
   - id: pyupgrade
     args: ["--py38-plus"]
