@@ -20,11 +20,19 @@ import logging
 import threading
 import traceback
 from contextlib import ContextDecorator
+from importlib import import_module
 from typing import Any
 
+from django.apps import apps
 from django.conf import settings
-from django.core import management
+from django.core.management.sql import emit_post_migrate_signal
+from django.core.management.sql import emit_pre_migrate_signal
 from django.db import close_old_connections
+from django.db import connections
+from django.db import DEFAULT_DB_ALIAS
+from django.db.migrations.executor import MigrationExecutor
+from django.db.migrations.state import ModelState
+from django.utils.module_loading import module_has_submodule
 
 
 logger = logging.getLogger(__name__)
@@ -86,8 +94,74 @@ class CheckCloseConnectionsHandler(logging.Handler):
             )
 
 
+def migration_progress_callback(action, migration=None, fake=False):
+    if action == "apply_start":
+        logger.info("Applying migration %s...", migration)
+    elif action == "unapply_start":
+        logger.info("Unapplying %s...", migration)
+    elif action == "render_start":
+        logger.info("Rendering model states...")
+
+
 def migrate():
-    management.call_command("migrate", interactive=False, verbosity=int(settings.DEBUG))
+    """Migrate the database.
+
+    This is a simplified version of Django's ``migrate`` management command
+    that does not require ``management.call_command`` which is not functional
+    in the native binary environment.
+    """
+    # Import the 'management' module within each installed app, to register
+    # dispatcher events.
+    verbosity = int(settings.DEBUG)
+    interactive = False
+    for app_config in apps.get_app_configs():
+        if module_has_submodule(app_config.module, "management"):
+            import_module(".management", app_config.name)
+
+    connection = connections[DEFAULT_DB_ALIAS]
+    connection.prepare_database()
+    executor = MigrationExecutor(connection, migration_progress_callback)
+    executor.loader.check_consistent_history(connection)
+    conflicts = executor.loader.detect_conflicts()
+    if conflicts:
+        raise Exception("Conflicting mgirations detected.")
+    targets = executor.loader.graph.leaf_nodes()
+    plan = executor.migration_plan(targets)
+    pre_migrate_state = executor._create_project_state(with_applied_migrations=True)
+    pre_migrate_apps = pre_migrate_state.apps
+    emit_pre_migrate_signal(
+        verbosity,
+        False,
+        connection.alias,
+        apps=pre_migrate_apps,
+        plan=plan,
+    )
+    post_migrate_state = executor.migrate(
+        targets,
+        plan=plan,
+        state=pre_migrate_state.clone(),
+        fake=False,
+        fake_initial=False,
+    )
+    post_migrate_state.clear_delayed_apps_cache()
+    post_migrate_apps = post_migrate_state.apps
+    with post_migrate_apps.bulk_update():
+        model_keys = []
+        for model_state in post_migrate_apps.real_models:
+            model_key = model_state.app_label, model_state.name_lower
+            model_keys.append(model_key)
+            post_migrate_apps.unregister_model(*model_key)
+    post_migrate_apps.render_multiple(
+        [ModelState.from_model(apps.get_model(*model)) for model in model_keys]
+    )
+    emit_post_migrate_signal(
+        verbosity,
+        interactive,
+        connection.alias,
+        apps=post_migrate_apps,
+        plan=plan,
+    )
+    logger.info("Database configured.")
 
 
 auto_close_old_connections: type[Any]
