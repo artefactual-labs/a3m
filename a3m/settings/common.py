@@ -6,7 +6,6 @@ import os
 from io import StringIO
 from pathlib import Path
 from typing import Any
-from typing import Dict
 
 from appdirs import user_data_dir
 
@@ -254,7 +253,7 @@ LOGGING_CONFIG = None
 # `logging.config.fileConfig` unless it doesn't exist.
 LOGGING_CONFIG_FILE = "/etc/a3m/logging.json"
 
-LOGGING: Dict[str, Any] = {
+LOGGING: dict[str, Any] = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {

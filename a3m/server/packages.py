@@ -8,7 +8,6 @@ from dataclasses import dataclass
 from dataclasses import field
 from enum import auto
 from enum import Enum
-from typing import List
 from typing import Optional
 from uuid import uuid4
 
@@ -390,7 +389,7 @@ class PackageNotFoundError(Exception):
 class PackageStatus:
     status: Optional[int] = None
     job: Optional[str] = None
-    jobs: List = field(default_factory=list)
+    jobs: list = field(default_factory=list)
 
 
 @auto_close_old_connections()
