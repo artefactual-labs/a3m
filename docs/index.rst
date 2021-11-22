@@ -10,7 +10,6 @@ Current release: |version|.
     :hidden:
 
     overview
-    changelog
     installation
     usage
     settings

@@ -15,7 +15,8 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinxcontrib.mermaid",
-    "releases",
+    # Temporarily disabled.
+    # "releases",
 ]
 
 autoclass_content = "both"
