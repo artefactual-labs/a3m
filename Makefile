@@ -42,7 +42,7 @@ reset-migrations:
 	git checkout -- a3m/main/migrations/0002_initial_data.py a3m/fpr/migrations/0002_initial_data.py
 	black a3m/main/migrations a3m/fpr/migrations
 	reorder-python-imports --exit-zero-even-if-changed a3m/main/migrations/0001_initial.py a3m/fpr/migrations/0001_initial.py
-	pyupgrade --py38-plus --exit-zero-even-if-changed a3m/main/migrations/0001_initial.py a3m/fpr/migrations/0001_initial.py
+	pyupgrade --py39-plus --exit-zero-even-if-changed a3m/main/migrations/0001_initial.py a3m/fpr/migrations/0001_initial.py
 
 logs:
 	docker-compose logs -f
