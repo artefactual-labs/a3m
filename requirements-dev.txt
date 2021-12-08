@@ -67,7 +67,7 @@ coverage[toml]==6.1.2
     #   pytest-cov
 distlib==0.3.3
     # via virtualenv
-django==3.2.9
+django==4.0
     # via -r requirements.txt
 docutils==0.17.1
     # via sphinx
