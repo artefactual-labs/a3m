@@ -121,7 +121,7 @@ jsonschema==4.2.1
     # via -r requirements.txt
 lazy-object-proxy==1.6.0
     # via astroid
-lxml==4.6.4
+lxml==4.7.1
     # via
     #   -r requirements.txt
     #   ammcpc
