@@ -117,7 +117,7 @@ jmespath==0.10.0
     #   -r requirements.txt
     #   boto3
     #   botocore
-jsonschema==4.2.1
+jsonschema==4.3.2
     # via -r requirements.txt
 lazy-object-proxy==1.6.0
     # via astroid
