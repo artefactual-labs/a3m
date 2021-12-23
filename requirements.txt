@@ -98,7 +98,7 @@ six==1.16.0
     #   tenacity
 sqlparse==0.4.2
     # via django
-tenacity==6.3.1
+tenacity==8.0.1
     # via -r requirements.in
 typing-extensions==3.10.0.2
     # via rich
