@@ -95,7 +95,7 @@ grpcio-reflection==1.42.0
     # via -r requirements.txt
 grpcio-status==1.42.0
     # via -r requirements.txt
-grpcio-tools==1.42.0
+grpcio-tools==1.43.0
     # via -r requirements-dev.in
 identify==2.4.0
     # via pre-commit
