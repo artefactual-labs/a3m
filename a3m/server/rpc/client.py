@@ -74,7 +74,7 @@ class Client:
 
         @tenacity.retry(
             wait=tenacity.wait_fixed(1),
-            retry=tenacity.retry(tenacity.retry_if_result(_should_continue)),
+            retry=tenacity.retry_if_result(_should_continue),
             after=_callback,
         )
         def _poll():
