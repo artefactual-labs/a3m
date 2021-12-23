@@ -278,7 +278,7 @@ sqlparse==0.4.2
     # via
     #   -r requirements.txt
     #   django
-tenacity==6.3.1
+tenacity==8.0.1
     # via -r requirements.txt
 toml==0.10.2
     # via
