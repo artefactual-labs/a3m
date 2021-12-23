@@ -65,7 +65,7 @@ coverage[toml]==6.1.2
     # via
     #   -r requirements-dev.in
     #   pytest-cov
-distlib==0.3.3
+distlib==0.3.4
     # via virtualenv
 django==3.2.9
     # via -r requirements.txt
