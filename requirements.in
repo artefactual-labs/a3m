@@ -23,5 +23,5 @@ boto3~=1.14
 jsonschema~=4.2
 grpcio~=1.31
 grpcio-reflection~=1.31
-grpcio-status~=1.31
+grpcio-status~=1.43
 googleapis-common-protos~=1.52

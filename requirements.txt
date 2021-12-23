@@ -40,14 +40,14 @@ googleapis-common-protos==1.53.0
     # via
     #   -r requirements.in
     #   grpcio-status
-grpcio==1.42.0
+grpcio==1.43.0
     # via
     #   -r requirements.in
     #   grpcio-reflection
     #   grpcio-status
 grpcio-reflection==1.42.0
     # via -r requirements.in
-grpcio-status==1.42.0
+grpcio-status==1.43.0
     # via -r requirements.in
 idna==3.3
     # via requests
