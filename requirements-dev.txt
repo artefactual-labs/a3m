@@ -48,7 +48,7 @@ charset-normalizer==2.0.7
     #   requests
 clamd==1.0.2
     # via -r requirements.txt
-click==7.1.2
+click==8.0.3
     # via
     #   -r requirements.txt
     #   black
