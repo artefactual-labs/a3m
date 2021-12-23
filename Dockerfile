@@ -61,7 +61,6 @@ RUN set -ex \
 		sleuthkit \
 		tesseract-ocr \
 		tree \
-		ufraw \
 		unar \
 		unrar-free \
 		uuid \
