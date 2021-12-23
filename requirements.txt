@@ -14,19 +14,19 @@ attrs==21.2.0
     # via jsonschema
 bagit==1.8.1
     # via -r requirements.in
-boto3==1.20.10
+boto3==1.20.26
     # via -r requirements.in
-botocore==1.23.10
+botocore==1.23.26
     # via
     #   boto3
     #   s3transfer
 certifi==2021.10.8
     # via requests
-charset-normalizer==2.0.7
+charset-normalizer==2.0.9
     # via requests
 clamd==1.0.2
     # via -r requirements.in
-click==7.1.2
+click==8.0.3
     # via -r requirements.in
 colorama==0.4.4
     # via rich
@@ -36,18 +36,18 @@ django==3.2.10
     # via -r requirements.in
 future==0.18.2
     # via metsrw
-googleapis-common-protos==1.53.0
+googleapis-common-protos==1.54.0
     # via
     #   -r requirements.in
     #   grpcio-status
-grpcio==1.42.0
+grpcio==1.43.0
     # via
     #   -r requirements.in
     #   grpcio-reflection
     #   grpcio-status
-grpcio-reflection==1.42.0
+grpcio-reflection==1.43.0
     # via -r requirements.in
-grpcio-status==1.42.0
+grpcio-status==1.43.0
     # via -r requirements.in
 idna==3.3
     # via requests
@@ -55,7 +55,7 @@ jmespath==0.10.0
     # via
     #   boto3
     #   botocore
-jsonschema==4.2.1
+jsonschema==4.3.2
     # via -r requirements.in
 lxml==4.7.1
     # via
@@ -95,10 +95,9 @@ six==1.16.0
     #   metsrw
     #   opf-fido
     #   python-dateutil
-    #   tenacity
 sqlparse==0.4.2
     # via django
-tenacity==6.3.1
+tenacity==8.0.1
     # via -r requirements.in
 typing-extensions==3.10.0.2
     # via rich
