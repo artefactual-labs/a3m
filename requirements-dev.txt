@@ -136,7 +136,7 @@ metsrw==0.3.20
     # via -r requirements.txt
 multidict==5.2.0
     # via yarl
-mypy==0.910
+mypy==0.930
     # via -r requirements-dev.in
 mypy-extensions==0.4.3
     # via
