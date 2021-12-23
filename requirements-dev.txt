@@ -194,7 +194,7 @@ pygments==2.10.0
     #   -r requirements.txt
     #   rich
     #   sphinx
-pylint==2.11.1
+pylint==2.12.2
     # via -r requirements-dev.in
 pyparsing==3.0.6
     # via packaging
