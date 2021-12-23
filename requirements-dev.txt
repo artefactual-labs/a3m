@@ -235,7 +235,7 @@ requests==2.26.0
     # via
     #   -r requirements.txt
     #   sphinx
-rich==9.13.0
+rich==10.16.1
     # via -r requirements.txt
 s3transfer==0.5.0
     # via
