@@ -295,7 +295,7 @@ tomli==1.2.2
     #   pep517
 tox==3.24.4
     # via -r requirements-dev.in
-typing-extensions==3.10.0.2
+typing-extensions==4.0.1
     # via
     #   -r requirements.txt
     #   astroid
