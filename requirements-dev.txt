@@ -170,7 +170,7 @@ pluggy==1.0.0
     # via
     #   pytest
     #   tox
-pre-commit==2.15.0
+pre-commit==2.16.0
     # via -r requirements-dev.in
 prometheus-client==0.12.0
     # via -r requirements.txt
@@ -298,10 +298,8 @@ tox==3.24.4
 typing-extensions==3.10.0.2
     # via
     #   -r requirements.txt
-    #   astroid
     #   black
     #   mypy
-    #   pylint
     #   rich
 unidecode==1.3.2
     # via -r requirements.txt
