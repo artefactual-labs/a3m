@@ -61,7 +61,7 @@ commonmark==0.9.1
     # via
     #   -r requirements.txt
     #   rich
-coverage[toml]==6.1.2
+coverage[toml]==6.2
     # via
     #   -r requirements-dev.in
     #   pytest-cov
