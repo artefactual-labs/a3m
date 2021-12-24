@@ -229,7 +229,7 @@ requests==2.26.0
     # via
     #   -r requirements.txt
     #   sphinx
-rich==9.13.0
+rich==10.16.1
     # via -r requirements.txt
 s3transfer==0.5.0
     # via
@@ -289,12 +289,10 @@ tox==3.24.4
     # via -r requirements-dev.in
 typing-extensions==3.10.0.2
     # via
-    #   -r requirements.txt
     #   astroid
     #   black
     #   mypy
     #   pylint
-    #   rich
 unidecode==1.3.2
     # via -r requirements.txt
 urllib3==1.26.7
