@@ -1,5 +1,4 @@
 """Download transfer object from storage."""
-import json
 import shutil
 import sys
 from contextlib import contextmanager
@@ -7,6 +6,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from urllib.parse import urlparse
 
+import pygfried
 import requests
 from django.conf import settings
 
@@ -42,14 +42,7 @@ def _create_tmpdir(suffix, purpose=None):
 
 
 def _archived(path):
-    command = ["sf", "-json", path]
-    exit_code, stdout, stderr = executeOrRun("command", command, capture_output=True)
-    if exit_code != 0:
-        raise RetrievalError(
-            f"Extraction failed, Siegfried quit with exit code {exit_code}"
-        )
-    idresults = json.loads(stdout)
-    puid = idresults["files"][0]["matches"][0]["id"]
+    puid = pygfried.identify(str(path))
     return puid in EXTRACTABLE_PUIDS
 
 

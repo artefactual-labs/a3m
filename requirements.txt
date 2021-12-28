@@ -64,10 +64,6 @@ lxml==4.7.1
     #   metsrw
 metsrw==0.3.20
     # via -r requirements.in
-olefile==0.46
-    # via opf-fido
-opf-fido==1.4.1
-    # via -r requirements.in
 prometheus-client==0.12.0
     # via -r requirements.in
 protobuf==3.19.1
@@ -75,6 +71,8 @@ protobuf==3.19.1
     #   googleapis-common-protos
     #   grpcio-reflection
     #   grpcio-status
+pygfried==0.2.0
+    # via -r requirements.in
 pygments==2.10.0
     # via rich
 pyrsistent==0.18.0
@@ -93,7 +91,6 @@ six==1.16.0
     # via
     #   grpcio
     #   metsrw
-    #   opf-fido
     #   python-dateutil
 sqlparse==0.4.2
     # via django
@@ -107,6 +104,3 @@ urllib3==1.26.7
     # via
     #   botocore
     #   requests
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools

@@ -57,7 +57,6 @@ RUN set -ex \
 		pbzip2 \
 		pst-utils \
 		rsync \
-		siegfried \
 		sleuthkit \
 		tesseract-ocr \
 		tree \

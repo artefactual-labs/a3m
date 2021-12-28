@@ -23,12 +23,6 @@ We don't have a comprehensive list of software dependencies yet or mechanisms
 to manage them dynamically. For the time being, here are some examples valid
 for an Ubuntu/Debian Linux environment:
 
-`Siegfried <https://www.itforarchivists.com/siegfried>`_::
-
-    wget -qO - https://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
-    echo "deb http://dl.bintray.com/siegfried/debian wheezy main" | sudo tee -a /etc/apt/sources.list
-    sudo apt-get update && sudo apt-get install siegfried
-
 `Unar <https://software.opensuse.org/package/unar>`_::
 
     sudo apt-get install unar
