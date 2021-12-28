@@ -2,10 +2,10 @@
 ammcpc~=0.1
 metsrw~=0.3
 bagit~=1.7
-opf-fido~=1.4
 clamd~=1.0
 lxml~=4.7
 unidecode~=1.3
+pygfried~=0.2
 
 # Django ORM
 Django~=3.2
