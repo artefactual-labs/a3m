@@ -691,8 +691,8 @@
                 "filter_file_end": null,
                 "filter_file_start": null,
                 "filter_subdir": "objects",
-                "stderr_file": "%SIPLogsDirectory%fileFormatIdentification.log",
-                "stdout_file": "%SIPLogsDirectory%fileFormatIdentification.log"
+                "stderr_file": null,
+                "stdout_file": null
             },
             "description": {
                 "en": "Identify file format",
@@ -823,8 +823,8 @@
                 "filter_file_end": null,
                 "filter_file_start": null,
                 "filter_subdir": "objects",
-                "stderr_file": "%SIPLogsDirectory%fileFormatIdentification.log",
-                "stdout_file": "%SIPLogsDirectory%fileFormatIdentification.log"
+                "stderr_file": null,
+                "stdout_file": null
             },
             "description": {
                 "en": "Identify file format",
@@ -2174,8 +2174,8 @@
                 "filter_file_end": null,
                 "filter_file_start": null,
                 "filter_subdir": "objects",
-                "stderr_file": "%SIPLogsDirectory%fileFormatIdentification.log",
-                "stdout_file": "%SIPLogsDirectory%fileFormatIdentification.log"
+                "stderr_file": null,
+                "stdout_file": null
             },
             "description": {
                 "en": "Identify file format",
