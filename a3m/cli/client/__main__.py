@@ -113,7 +113,7 @@ def _prepare_config(user_pairs):
     """
     config = a3m_pb2.ProcessingConfig(
         assign_uuids_to_directories=True,
-        examine_contents=True,
+        examine_contents=False,
         generate_transfer_structure_report=True,
         document_empty_directories=True,
         extract_packages=True,
