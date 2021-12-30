@@ -51,7 +51,6 @@ RUN set -ex \
 		libjansson4 \
 		mediainfo \
 		mediaconch \
-		nailgun \
 		openjdk-8-jre-headless \
 		p7zip-full \
 		pbzip2 \
