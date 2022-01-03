@@ -83,7 +83,7 @@ pytz==2021.3
     # via django
 requests==2.26.0
     # via -r requirements.in
-rich==10.16.1
+rich==10.16.2
     # via -r requirements.in
 s3transfer==0.5.0
     # via boto3
