@@ -51,12 +51,12 @@ restart:  ## Restart services
 	docker-compose restart a3m
 
 pip-compile:  # Compile pip requirements
-	pip-compile --output-file requirements.txt requirements.in
-	pip-compile --output-file requirements-dev.txt requirements-dev.in
+	pip-compile --output-file requirements.txt
+	pip-compile --output-file requirements-dev.txt --extra dev
 
 pip-upgrade:  # Upgrade pip requirements
-	pip-compile --upgrade --output-file requirements.txt requirements.in
-	pip-compile --upgrade --output-file requirements-dev.txt requirements-dev.in
+	pip-compile --upgrade --output-file requirements.txt
+	pip-compile --upgrade --output-file requirements-dev.txt --extra dev
 
 pip-sync:  # Sync virtualenv
 	pip-sync requirements-dev.txt

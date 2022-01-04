@@ -20,14 +20,22 @@ repos:
   rev: 6.4.0
   hooks:
   - id: pip-compile
-    files: ^requirements\.(in|txt)$
-    args: ["--output-file=requirements.txt", "requirements.in"]
+    files: |
+      (?x)^(
+        setup.cfg|
+        requirements.txt
+      )$
+    args: ["--output-file=requirements.txt"]
 - repo: https://github.com/jazzband/pip-tools
   rev: 6.4.0
   hooks:
   - id: pip-compile
-    files: ^requirements-dev\.(in|txt)$
-    args: ["--output-file=requirements-dev.txt", "requirements-dev.in"]
+    files: |
+      (?x)^(
+        setup.cfg|
+        requirements-dev.txt
+      )$
+    args: ["--output-file=requirements-dev.txt", "--extra=dev"]
 - repo: https://github.com/asottile/pyupgrade
   rev: v2.31.0
   hooks:
