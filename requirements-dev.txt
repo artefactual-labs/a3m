@@ -225,7 +225,7 @@ pyyaml==6.0
     #   vcrpy
 releases==1.6.3
     # via -r requirements-dev.in
-requests==2.26.0
+requests==2.27.0
     # via
     #   -r requirements.txt
     #   sphinx

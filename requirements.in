@@ -12,7 +12,7 @@ Django~=3.2
 
 # Infra
 prometheus_client~=0.12
-requests~=2.26
+requests~=2.27
 appdirs~=1.4
 click~=8.0
 rich~=10.16
