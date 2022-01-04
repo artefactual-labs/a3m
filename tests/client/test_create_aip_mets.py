@@ -19,7 +19,7 @@ from a3m.client.job import Job
 from a3m.main.models import RightsStatement
 
 
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+THIS_DIR = os.path.dirname(__file__)
 
 
 # XXX we can probably replace this given the am common import...

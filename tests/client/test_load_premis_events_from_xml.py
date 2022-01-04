@@ -12,7 +12,7 @@ from a3m.main.models import File
 from a3m.main.models import Transfer
 
 
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+THIS_DIR = os.path.dirname(__file__)
 
 
 @pytest.fixture()

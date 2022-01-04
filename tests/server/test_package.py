@@ -12,7 +12,7 @@ from a3m.server.queues import PackageQueue
 from a3m.server.rpc.proto.a3m_pb2 import ProcessingConfig
 from a3m.server.workflow import load as load_workflow
 
-FIXTURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
+FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
 INTEGRATION_TEST_PATH = os.path.join(FIXTURES_DIR, "workflow-integration-test.json")
 
 

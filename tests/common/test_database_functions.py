@@ -7,7 +7,7 @@ import a3m.databaseFunctions as databaseFunctions
 from a3m.main.models import Event
 from a3m.main.models import File
 
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+THIS_DIR = os.path.dirname(__file__)
 
 
 class TestDatabaseFunctions(TestCase):

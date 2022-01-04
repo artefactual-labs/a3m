@@ -7,7 +7,7 @@ from a3m.client.job import Job
 from a3m.main import models
 
 
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+THIS_DIR = os.path.dirname(__file__)
 
 
 class TestRightsImportFromCsvBase(TestCase):

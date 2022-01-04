@@ -16,7 +16,7 @@ ASSETS_DIR = os.path.join(
     "assets",
 )
 
-FIXTURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
+FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
 
 
 def test_invert_job_statuses(mocker):
