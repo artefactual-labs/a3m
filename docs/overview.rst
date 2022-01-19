@@ -195,9 +195,9 @@ Workflows are best explored using `amflow
 .. note::
 
    If you've used amflow before, you may find a3m's workflow much smaller and
-   simpler. Unlike Archivematica, a3m do not make use of watched directories or
-   chains and the process is very linear. The following image shows an SVG
-   version of the workflow:
+   simpler. Unlike Archivematica, a3m does not make use of watched directories
+   or chains and the process is very linear. The following image shows an SVG
+   version of the workflow.
 
 .. image:: workflow.svg
    :target: _images/workflow.svg
