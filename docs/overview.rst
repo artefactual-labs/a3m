@@ -183,3 +183,21 @@ a3m and control it via its API.
        ele-- gRPC -->a3m
        style a3m fill:#fff
      end
+
+Workflow
+========
+
+In a3m, the processing workflow is encoded using the same JSON-encoded format
+used by Archivematica, defining all processing steps as a sequence of actions.
+Workflows are best explored using `amflow
+<https://github.com/artefactual-labs/amflow/>`_.
+
+.. note::
+
+   If you've used amflow before, you may find a3m's workflow much smaller and
+   simpler. Unlike Archivematica, a3m do not make use of watched directories or
+   chains and the process is very linear. The following image shows an SVG
+   version of the workflow:
+
+.. image:: workflow.svg
+   :target: _images/workflow.svg
