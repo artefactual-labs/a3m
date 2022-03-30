@@ -252,7 +252,7 @@ class Package:
 
         mapping.update(
             {
-                fr"%config:{config_attr.name}%": str(
+                rf"%config:{config_attr.name}%": str(
                     getattr(self.config, config_attr.name)
                 )
                 for config_attr in a3m_pb2.ProcessingConfig.DESCRIPTOR.fields

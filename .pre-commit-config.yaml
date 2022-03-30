@@ -1,23 +1,23 @@
 minimum_pre_commit_version: 2.4.0
 default_language_version:
-  python: python3.8
+  python: python3.9
 repos:
 - repo: https://github.com/ambv/black
-  rev: 21.12b0
+  rev: 22.3.0
   hooks:
   - id: black
     args: [--safe, --quiet]
 - repo: https://gitlab.com/pycqa/flake8
-  rev: 3.9.2
+  rev: 4.0.1
   hooks:
   - id: flake8
 - repo: https://github.com/asottile/reorder_python_imports
-  rev: v2.6.0
+  rev: v3.0.1
   hooks:
   - id: reorder-python-imports
     args: ["--application-directories=.:src", "--py37-plus"]
 - repo: https://github.com/jazzband/pip-tools
-  rev: 6.5.0
+  rev: 6.5.1
   hooks:
   - id: pip-compile
     files: |
@@ -27,7 +27,7 @@ repos:
       )$
     args: ["--output-file=requirements.txt"]
 - repo: https://github.com/jazzband/pip-tools
-  rev: 6.5.0
+  rev: 6.5.1
   hooks:
   - id: pip-compile
     files: |
@@ -37,7 +37,7 @@ repos:
       )$
     args: ["--output-file=requirements-dev.txt", "--extra=dev"]
 - repo: https://github.com/asottile/pyupgrade
-  rev: v2.31.0
+  rev: v2.31.1
   hooks:
   - id: pyupgrade
     args: ["--py39-plus"]

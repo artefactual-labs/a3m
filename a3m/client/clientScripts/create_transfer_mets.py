@@ -59,7 +59,7 @@ def write_mets(mets_path, transfer_dir_path, base_path_placeholder, transfer_uui
     transfer_dir_path = os.path.expanduser(transfer_dir_path)
     transfer_dir_path = os.path.normpath(transfer_dir_path)
 
-    db_base_path = fr"%{base_path_placeholder}%"
+    db_base_path = rf"%{base_path_placeholder}%"
 
     mets = metsrw.METSDocument()
     mets.objid = str(transfer_uuid)
