@@ -14,7 +14,7 @@ attrs==21.4.0
     # via jsonschema
 bagit==1.8.1
     # via a3m (setup.py)
-boto3==1.20.27
+boto3==1.21.37
     # via a3m (setup.py)
 botocore==1.23.27
     # via
