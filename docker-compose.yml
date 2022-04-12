@@ -12,6 +12,12 @@ services:
   a3m:
     build:
       context: "."
+      args:
+        USER_ID: ${USER_ID:-1000}
+        GROUP_ID: ${GROUP_ID:-1000}
+        PYTHON_VERSION: ${PYTHON_VERSION:-3.9}
+        REQUIREMENTS: ${REQUIREMENTS:-/a3m/requirements-dev.txt}
+        DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-a3m.settings.common}
     environment:
       A3M_PROMETHEUS_BIND_PORT: "7999"
       A3M_PROMETHEUS_BIND_ADDRESS: "0.0.0.0"
