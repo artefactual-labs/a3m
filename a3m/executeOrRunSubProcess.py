@@ -18,7 +18,7 @@
 import io
 import os
 import shlex
-import subprocess
+import subprocess  # nosec B404
 import sys
 import tempfile
 
@@ -89,7 +89,7 @@ def launchSubProcess(
             raise Exception("stdIn must be a string or a file object")
         if capture_output:
             # Capture the stdout and stderr of the subprocess
-            p = subprocess.Popen(
+            p = subprocess.Popen(  # nosec B603
                 command,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -100,7 +100,7 @@ def launchSubProcess(
         else:
             # Ignore the stdout of the subprocess, capturing only stderr
             with open(os.devnull, "w") as devnull:
-                p = subprocess.Popen(
+                p = subprocess.Popen(  # nosec B603
                     command,
                     stdin=stdin_pipe,
                     env=my_env,

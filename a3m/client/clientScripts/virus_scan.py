@@ -20,7 +20,8 @@ import errno
 import logging
 import os
 import re
-import subprocess
+import shlex
+import subprocess  # nosec B404
 import uuid
 
 from clamd import BufferTooLongError
@@ -176,7 +177,9 @@ class ClamScanner(ScannerBase):
     COMMAND = "clamscan"
 
     def _call(self, *args):
-        return subprocess.check_output((self.COMMAND,) + args)
+        return subprocess.check_output(  # nosec B603
+            shlex.split((self.COMMAND,) + args)
+        )
 
     def scan(self, path):
         passed, state, details = (False, "ERROR", None)

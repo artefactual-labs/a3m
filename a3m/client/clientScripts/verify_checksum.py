@@ -29,7 +29,8 @@ us to easily call each of the tools packaged against its different algorithms:
 import datetime
 import logging
 import os
-import subprocess
+import shlex
+import subprocess  # nosec B404
 import sys
 import uuid
 
@@ -95,9 +96,11 @@ class Hashsum:
         """Make the call to Python subprocess and record the command being
         called.
         """
-        self.command_called = (self.COMMAND,) + args
+        self.command_called = shlex.split((self.COMMAND,) + args)
         return self._decode(
-            subprocess.check_output(self.command_called, cwd=kwargs.get("transfer_dir"))
+            subprocess.check_output(  # nosec B603
+                self.command_called, cwd=kwargs.get("transfer_dir")
+            )
         )
 
     def count_and_compare_lines(self, objects_dir):
