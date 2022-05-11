@@ -31,4 +31,4 @@ def call(jobs):
                 f = open(fileName, "a")
                 f.write("No submission documentation added")
                 f.close()
-                os.chmod(fileName, 488)
+                os.chmod(fileName, 0o660)

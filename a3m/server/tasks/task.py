@@ -103,7 +103,7 @@ class Task:
         try:
             with open(path, "a") as f:
                 f.write(contents)
-            os.chmod(path, 0o750)
+            os.chmod(path, 0o640)
         except Exception:
             logger.exception("Unable to write to: %s", path)
 
