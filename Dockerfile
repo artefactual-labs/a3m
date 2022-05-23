@@ -75,7 +75,7 @@ RUN freshclam --quiet
 RUN set -ex \
 	&& groupadd --gid ${GROUP_ID} --system a3m \
 	&& useradd --uid ${USER_ID} --gid ${GROUP_ID} --create-home --home-dir /home/a3m --system a3m \
-	&& mkdir -p /home/a3m/.local/share/a3m \
+	&& mkdir -p /home/a3m/.local/share/a3m/share \
 	&& chown -R a3m:a3m /home/a3m/.local
 
 
