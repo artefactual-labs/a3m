@@ -17,6 +17,7 @@ jobs:
         - {name: Type, python: '3.9', os: ubuntu-latest, tox: type, codecov: false}
         - {name: Pylint, python: '3.9', os: ubuntu-latest, tox: pylint, codecov: false}
         - {name: Vulture, python: '3.9', os: ubuntu-latest, tox: vulture, codecov: false}
+        - {name: Bandit, python: '3.9', os: ubuntu-latest, tox: bandit, codecov: false}
     steps:
     - name: Check out source code
       uses: actions/checkout@v2

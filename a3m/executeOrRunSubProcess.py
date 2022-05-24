@@ -18,9 +18,9 @@
 import io
 import os
 import shlex
-import subprocess
+import subprocess  # nosec B404
 import sys
-import uuid
+import tempfile
 
 
 def launchSubProcess(
@@ -89,7 +89,7 @@ def launchSubProcess(
             raise Exception("stdIn must be a string or a file object")
         if capture_output:
             # Capture the stdout and stderr of the subprocess
-            p = subprocess.Popen(
+            p = subprocess.Popen(  # nosec B603
                 command,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -100,7 +100,7 @@ def launchSubProcess(
         else:
             # Ignore the stdout of the subprocess, capturing only stderr
             with open(os.devnull, "w") as devnull:
-                p = subprocess.Popen(
+                p = subprocess.Popen(  # nosec B603
                     command,
                     stdin=stdin_pipe,
                     env=my_env,
@@ -131,25 +131,24 @@ def launchSubProcess(
 def createAndRunScript(
     text, stdIn="", printing=False, arguments=[], env_updates={}, capture_output=True
 ):
-    # Output the text to a /tmp/ file
-    scriptPath = "/tmp/" + uuid.uuid4().__str__()
-    FILE = os.open(scriptPath, os.O_WRONLY | os.O_CREAT, 0o770)
-    os.write(FILE, text.encode("utf8"))
-    os.close(FILE)
-    cmd = [scriptPath]
-    cmd.extend(arguments)
+    with tempfile.NamedTemporaryFile(
+        encoding="utf-8", mode="wt", delete=False
+    ) as tmpfile:
+        os.chmod(tmpfile.name, 0o700)
+        tmpfile.write(text)
+        tmpfile.close()
+        cmd = [tmpfile.name]
+        cmd.extend(arguments)
 
-    # Run it
-    ret = launchSubProcess(
-        cmd,
-        stdIn="",
-        printing=printing,
-        env_updates=env_updates,
-        capture_output=capture_output,
-    )
-
-    # Remove the temp file
-    os.remove(scriptPath)
+        # Run it
+        ret = launchSubProcess(
+            cmd,
+            stdIn="",
+            printing=printing,
+            env_updates=env_updates,
+            capture_output=capture_output,
+        )
+        os.unlink(tmpfile.name)
 
     return ret
 

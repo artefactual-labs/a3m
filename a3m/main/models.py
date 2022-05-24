@@ -588,13 +588,13 @@ class Job(models.Model):
                 r"^.*/(?P<directory>.*)-" r"[\w]{8}(-[\w]{4})" r"{3}-[\w]{12}[/]{0,1}$",
                 self.directory,
             ).group("directory")
-        except Exception:
+        except re.error:
             pass
         try:
             return re.search(r"^.*/(?P<directory>.*)/$", self.directory).group(
                 "directory"
             )
-        except Exception:
+        except re.error:
             pass
 
 
