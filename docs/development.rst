@@ -48,9 +48,7 @@ our service schema.
 
 .. _idl:
 
-.. literalinclude:: ../a3m/server/rpc/proto/a3m.proto
-   :language: protobuf
-
+Find the generated documentation of the a3m API at `buf.build/artefactual/a3m`_.
 
 Reference
 ---------
@@ -64,3 +62,6 @@ Reference
     :undoc-members:
 
 .. autoclass:: a3m.cli.client.wrapper.ClientWrapper
+
+
+.. _`buf.build/artefactual/a3m`: https://buf.build/artefactual/a3m

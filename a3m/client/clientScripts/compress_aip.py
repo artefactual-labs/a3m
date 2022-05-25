@@ -5,9 +5,9 @@ import sys
 from django.db import transaction
 
 from a3m import databaseFunctions
+from a3m.api.transferservice.v1beta1.request_response_pb2 import ProcessingConfig
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.main.models import SIP
-from a3m.server.rpc.proto import a3m_pb2
 
 
 def update_unit(sip_uuid, compressed_location):
@@ -40,19 +40,22 @@ def compress_aip(
 
     # Default is uncompressed.
     compression = int(compression)
-    a3m_pb2.ProcessingConfig.AIPCompressionAlgorithm.Name(compression)
-    if compression == a3m_pb2.ProcessingConfig.UNSPECIFIED:
-        compression = a3m_pb2.ProcessingConfig.UNCOMPRESSED
+    ProcessingConfig.AIPCompressionAlgorithm.Name(compression)
+    if compression == ProcessingConfig.AIP_COMPRESSION_ALGORITHM_UNSPECIFIED:
+        compression = ProcessingConfig.AIP_COMPRESSION_ALGORITHM_UNCOMPRESSED
 
     # Translation to make compress_aip happy.
     mapping = {
-        a3m_pb2.ProcessingConfig.UNCOMPRESSED: ("None", ""),
-        a3m_pb2.ProcessingConfig.TAR: ("gzip", "tar.gzip"),  # A3M-TODO: support
-        a3m_pb2.ProcessingConfig.TAR_BZIP2: ("pbzip2", "pbzip2"),
-        a3m_pb2.ProcessingConfig.TAR_GZIP: ("gzip", "tar.gzip"),
-        a3m_pb2.ProcessingConfig.S7_COPY: ("7z", "copy"),
-        a3m_pb2.ProcessingConfig.S7_BZIP2: ("7z", "bzip2"),
-        a3m_pb2.ProcessingConfig.S7_LZMA: ("7z", "lzma"),
+        ProcessingConfig.AIP_COMPRESSION_ALGORITHM_UNCOMPRESSED: ("None", ""),
+        ProcessingConfig.AIP_COMPRESSION_ALGORITHM_TAR: (
+            "gzip",
+            "tar.gzip",
+        ),  # A3M-TODO: support
+        ProcessingConfig.AIP_COMPRESSION_ALGORITHM_TAR_BZIP2: ("pbzip2", "pbzip2"),
+        ProcessingConfig.AIP_COMPRESSION_ALGORITHM_TAR_GZIP: ("gzip", "tar.gzip"),
+        ProcessingConfig.AIP_COMPRESSION_ALGORITHM_S7_COPY: ("7z", "copy"),
+        ProcessingConfig.AIP_COMPRESSION_ALGORITHM_S7_BZIP2: ("7z", "bzip2"),
+        ProcessingConfig.AIP_COMPRESSION_ALGORITHM_S7_LZMA: ("7z", "lzma"),
     }
 
     try:

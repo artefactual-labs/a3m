@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package a3m.api.transferservice.v1beta1;
+
+option go_package = "github.com/artefactual-labs/a3m/proto/a3m/api/transferservice/v1beta1;transferservice";
+
+import "a3m/api/transferservice/v1beta1/request_response.proto";
+
+service TransferService {
+
+	// Submits a new transfer.
+	rpc Submit (SubmitRequest) returns (SubmitResponse) {}
+
+	// Reads the status of a given transfer.
+	rpc Read (ReadRequest) returns (ReadResponse) {}
+
+	// Lists all tasks in a given transfer.
+	rpc ListTasks (ListTasksRequest) returns (ListTasksResponse) {}
+
+}

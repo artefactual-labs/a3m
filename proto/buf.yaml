@@ -1,0 +1,8 @@
+version: v1
+name: buf.build/artefactual/a3m
+breaking:
+  use:
+    - FILE
+lint:
+  use:
+    - DEFAULT

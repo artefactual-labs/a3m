@@ -2,12 +2,12 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from a3m.server.rpc.proto import (
-    a3m_pb2 as a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2,
+from a3m.api.transferservice.v1beta1 import (
+    request_response_pb2 as a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2,
 )
 
 
-class TransferStub:
+class TransferServiceStub:
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -17,23 +17,23 @@ class TransferStub:
             channel: A grpc.Channel.
         """
         self.Submit = channel.unary_unary(
-            "/a3m.Transfer/Submit",
-            request_serializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.SubmitRequest.SerializeToString,
-            response_deserializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.SubmitReply.FromString,
+            "/a3m.api.transferservice.v1beta1.TransferService/Submit",
+            request_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.SubmitRequest.SerializeToString,
+            response_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.SubmitResponse.FromString,
         )
         self.Read = channel.unary_unary(
-            "/a3m.Transfer/Read",
-            request_serializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ReadRequest.SerializeToString,
-            response_deserializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ReadReply.FromString,
+            "/a3m.api.transferservice.v1beta1.TransferService/Read",
+            request_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ReadRequest.SerializeToString,
+            response_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ReadResponse.FromString,
         )
         self.ListTasks = channel.unary_unary(
-            "/a3m.Transfer/ListTasks",
-            request_serializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ListTasksRequest.SerializeToString,
-            response_deserializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ListTasksReply.FromString,
+            "/a3m.api.transferservice.v1beta1.TransferService/ListTasks",
+            request_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksRequest.SerializeToString,
+            response_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksResponse.FromString,
         )
 
 
-class TransferServicer:
+class TransferServiceServicer:
     """Missing associated documentation comment in .proto file."""
 
     def Submit(self, request, context):
@@ -55,32 +55,32 @@ class TransferServicer:
         raise NotImplementedError("Method not implemented!")
 
 
-def add_TransferServicer_to_server(servicer, server):
+def add_TransferServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
         "Submit": grpc.unary_unary_rpc_method_handler(
             servicer.Submit,
-            request_deserializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.SubmitRequest.FromString,
-            response_serializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.SubmitReply.SerializeToString,
+            request_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.SubmitRequest.FromString,
+            response_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.SubmitResponse.SerializeToString,
         ),
         "Read": grpc.unary_unary_rpc_method_handler(
             servicer.Read,
-            request_deserializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ReadRequest.FromString,
-            response_serializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ReadReply.SerializeToString,
+            request_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ReadRequest.FromString,
+            response_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ReadResponse.SerializeToString,
         ),
         "ListTasks": grpc.unary_unary_rpc_method_handler(
             servicer.ListTasks,
-            request_deserializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ListTasksRequest.FromString,
-            response_serializer=a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ListTasksReply.SerializeToString,
+            request_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksRequest.FromString,
+            response_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksResponse.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        "a3m.Transfer", rpc_method_handlers
+        "a3m.api.transferservice.v1beta1.TransferService", rpc_method_handlers
     )
     server.add_generic_rpc_handlers((generic_handler,))
 
 
 # This class is part of an EXPERIMENTAL API.
-class Transfer:
+class TransferService:
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -99,9 +99,9 @@ class Transfer:
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/a3m.Transfer/Submit",
-            a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.SubmitRequest.SerializeToString,
-            a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.SubmitReply.FromString,
+            "/a3m.api.transferservice.v1beta1.TransferService/Submit",
+            a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.SubmitRequest.SerializeToString,
+            a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.SubmitResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -128,9 +128,9 @@ class Transfer:
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/a3m.Transfer/Read",
-            a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ReadRequest.SerializeToString,
-            a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ReadReply.FromString,
+            "/a3m.api.transferservice.v1beta1.TransferService/Read",
+            a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ReadRequest.SerializeToString,
+            a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ReadResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -157,9 +157,9 @@ class Transfer:
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/a3m.Transfer/ListTasks",
-            a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ListTasksRequest.SerializeToString,
-            a3m_dot_server_dot_rpc_dot_proto_dot_a3m__pb2.ListTasksReply.FromString,
+            "/a3m.api.transferservice.v1beta1.TransferService/ListTasks",
+            a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksRequest.SerializeToString,
+            a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksResponse.FromString,
             options,
             channel_credentials,
             insecure,

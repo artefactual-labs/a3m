@@ -1,19 +1,10 @@
 syntax = "proto3";
 
-package a3m;
+package a3m.api.transferservice.v1beta1;
 
-service Transfer {
+option go_package = "github.com/artefactual-labs/a3m/proto/a3m/api/transferservice/v1beta1;transferservice";
 
-	// Submits a new transfer.
-	rpc Submit (SubmitRequest) returns (SubmitReply) {}
-
-	// Reads the status of a given transfer.
-	rpc Read (ReadRequest) returns (ReadReply) {}
-
-	// Lists all tasks in a given transfer.
-	rpc ListTasks (ListTasksRequest) returns (ListTasksReply) {}
-
-}
+import "google/protobuf/timestamp.proto";
 
 message SubmitRequest {
 	string name = 1;
@@ -21,7 +12,7 @@ message SubmitRequest {
 	ProcessingConfig config = 3;
 }
 
-message SubmitReply {
+message SubmitResponse {
 	string id = 1;
 }
 
@@ -29,7 +20,7 @@ message ReadRequest {
 	string id = 1;
 }
 
-message ReadReply {
+message ReadResponse {
 	PackageStatus status = 1;
 	string job = 2;
 	repeated Job jobs = 3;
@@ -39,15 +30,16 @@ message ListTasksRequest {
 	string job_id = 1;
 }
 
-message ListTasksReply {
+message ListTasksResponse {
 	repeated Task tasks = 1;
 }
 
 enum PackageStatus {
-	FAILED = 0;
-	REJECTED = 1;
-	COMPLETE = 2;
-	PROCESSING = 3;
+	PACKAGE_STATUS_UNSPECIFIED = 0;
+	PACKAGE_STATUS_FAILED = 1;
+	PACKAGE_STATUS_REJECTED = 2;
+	PACKAGE_STATUS_COMPLETE = 3;
+	PACKAGE_STATUS_PROCESSING = 4;
 }
 
 message Job {
@@ -57,13 +49,14 @@ message Job {
 	string link_id = 4;
 
 	enum Status {
-		UNKNOWN = 0;
-		COMPLETE = 1;
-		PROCESSING = 2;
-		FAILED = 3;
+		STATUS_UNSPECIFIED = 0;
+		STATUS_COMPLETE = 1;
+		STATUS_PROCESSING = 2;
+		STATUS_FAILED = 3;
 	}
 
 	Status status = 5;
+	google.protobuf.Timestamp start_time = 6;
 }
 
 message Task {
@@ -75,6 +68,8 @@ message Task {
 	string arguments = 6;
 	string stdout = 7;
 	string stderr = 8;
+	google.protobuf.Timestamp start_time = 9;
+	google.protobuf.Timestamp end_time = 10;
 }
 
 message ProcessingConfig {
@@ -99,13 +94,13 @@ message ProcessingConfig {
 	AIPCompressionAlgorithm aip_compression_algorithm = 15;
 
 	enum AIPCompressionAlgorithm {
-		UNSPECIFIED = 0;
-		UNCOMPRESSED = 1; // It breaks in verify_aip.
-		TAR = 2; // Not supported yet!
-		TAR_BZIP2 = 3;
-		TAR_GZIP = 4;
-		S7_COPY = 5;
-		S7_BZIP2 = 6;
-		S7_LZMA = 7;
+		AIP_COMPRESSION_ALGORITHM_UNSPECIFIED = 0;
+		AIP_COMPRESSION_ALGORITHM_UNCOMPRESSED = 1; // It breaks in verify_aip.
+		AIP_COMPRESSION_ALGORITHM_TAR = 2; // Not supported yet!
+		AIP_COMPRESSION_ALGORITHM_TAR_BZIP2 = 3;
+		AIP_COMPRESSION_ALGORITHM_TAR_GZIP = 4;
+		AIP_COMPRESSION_ALGORITHM_S7_COPY = 5;
+		AIP_COMPRESSION_ALGORITHM_S7_BZIP2 = 6;
+		AIP_COMPRESSION_ALGORITHM_S7_LZMA = 7;
 	}
 }

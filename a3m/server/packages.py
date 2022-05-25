@@ -12,12 +12,13 @@ from typing import Optional
 from uuid import uuid4
 
 from django.conf import settings
+from google.protobuf import timestamp_pb2
 
+from a3m.api.transferservice import v1beta1 as transfer_service_api
 from a3m.archivematicaFunctions import strToUnicode
 from a3m.main import models
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs import JobChain
-from a3m.server.rpc.proto import a3m_pb2
 
 
 logger = logging.getLogger(__name__)
@@ -255,7 +256,7 @@ class Package:
                 rf"%config:{config_attr.name}%": str(
                     getattr(self.config, config_attr.name)
                 )
-                for config_attr in a3m_pb2.ProcessingConfig.DESCRIPTOR.fields
+                for config_attr in transfer_service_api.request_response_pb2.ProcessingConfig.DESCRIPTOR.fields
             }
         )
 
@@ -411,7 +412,8 @@ def get_package_status(package_queue, package_id: str) -> PackageStatus:
         # Reminder: package.subid can be in Transfer or Ingest.
         job = get_latest_job(package.subid)
         return PackageStatus(
-            status=a3m_pb2.PROCESSING, job=job.jobtype if job else None
+            status=transfer_service_api.request_response_pb2.PACKAGE_STATUS_PROCESSING,
+            job=job.jobtype if job else None,
         )
 
     # A3M-TODO: persist package-workflow status!
@@ -430,14 +432,16 @@ def get_package_status(package_queue, package_id: str) -> PackageStatus:
             )
         job = get_latest_job(sip.transfer_id)
         if job is None:
-            return PackageStatus(status=a3m_pb2.PROCESSING)
+            return PackageStatus(
+                status=transfer_service_api.request_response_pb2.PACKAGE_STATUS_PROCESSING
+            )
 
     if "failed" in job.microservicegroup.lower():
-        status = a3m_pb2.FAILED
+        status = transfer_service_api.request_response_pb2.PACKAGE_STATUS_FAILED
     elif "reject" in job.microservicegroup.lower():
-        status = a3m_pb2.REJECTED
+        status = transfer_service_api.request_response_pb2.PACKAGE_STATUS_REJECTED
     elif job.jobtype == "a3m - Store AIP":
-        status = a3m_pb2.COMPLETE
+        status = transfer_service_api.request_response_pb2.PACKAGE_STATUS_COMPLETE
     else:
         raise Exception(
             f"Package status cannot be determined (job.currentstep={job.currentstep}, job.type={job.jobtype}, job.microservicegroup={job.microservicegroup})"
@@ -455,15 +459,20 @@ def get_package_status(package_queue, package_id: str) -> PackageStatus:
             "microservicegroup",
             "microservicechainlink",
             "currentstep",
+            "createdtime",
         )
     ):
+        start_time = timestamp_pb2.Timestamp()
+        start_time.FromDatetime(item["createdtime"])
+
         package_status.jobs.append(
-            a3m_pb2.Job(
+            transfer_service_api.request_response_pb2.Job(
                 id=str(item["jobuuid"]),
                 name=item["jobtype"],
                 group=item["microservicegroup"],
                 link_id=str(item["microservicechainlink"]),
                 status=item["currentstep"],
+                start_time=start_time,
             )
         )
 

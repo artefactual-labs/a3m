@@ -11,11 +11,11 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+from a3m.api.transferservice import v1beta1 as transfer_service_api
 from a3m.cli.client.wrapper import ClientWrapper
 from a3m.cli.common import init_django
 from a3m.cli.common import suppress_warnings
 from a3m.server.rpc.client import Client
-from a3m.server.rpc.proto import a3m_pb2
 
 
 @click.command()
@@ -74,11 +74,11 @@ def main(ctx, uri, name, address, processing_config, wait_for_ready, no_input):
         resp = cw.client.wait_until_complete(resp.id)
 
         if (status := resp.status) in (
-            a3m_pb2.FAILED,
-            a3m_pb2.REJECTED,
+            transfer_service_api.request_response_pb2.PACKAGE_STATUS_FAILED,
+            transfer_service_api.request_response_pb2.PACKAGE_STATUS_REJECTED,
         ):
             click.secho(
-                f"Error processing package ({a3m_pb2.PackageStatus.Name(status)})!",
+                f"Error processing package ({transfer_service_api.request_response_pb2.PackageStatus.Name(status)})!",
                 fg="red",
             )
             _print_failed_jobs(cw.client, resp.jobs)
@@ -95,7 +95,7 @@ def _to_int(value: str) -> Optional[int]:
 
 
 def _prepare_config(user_pairs):
-    """Consolidate ``a3m_pb2.ProcessingConfig`` defaults and user-provided.
+    """Consolidate ``ProcessingConfig`` defaults and user-provided.
 
     A3M-TODO: defaults should be set on the server!
 
@@ -111,7 +111,7 @@ def _prepare_config(user_pairs):
     A comprehensive list can be found in the definition of the
     ``ProcessingConfig`` message in the proto file.
     """
-    config = a3m_pb2.ProcessingConfig(
+    config = transfer_service_api.request_response_pb2.ProcessingConfig(
         assign_uuids_to_directories=True,
         examine_contents=False,
         generate_transfer_structure_report=True,
@@ -126,13 +126,15 @@ def _prepare_config(user_pairs):
         perform_policy_checks_on_originals=True,
         perform_policy_checks_on_preservation_derivatives=True,
         aip_compression_level=1,
-        aip_compression_algorithm=a3m_pb2.ProcessingConfig.S7_COPY,
+        aip_compression_algorithm=transfer_service_api.request_response_pb2.ProcessingConfig.AIP_COMPRESSION_ALGORITHM_S7_COPY,
     )
     for item in user_pairs:
         head, sep, tail = item.partition("=")
         if head and sep:
             try:
-                field = a3m_pb2.ProcessingConfig.DESCRIPTOR.fields_by_name[head]
+                field = transfer_service_api.request_response_pb2.ProcessingConfig.DESCRIPTOR.fields_by_name[
+                    head
+                ]
             except KeyError:
                 continue
             if field.type == FieldDescriptor.TYPE_BOOL:
@@ -157,8 +159,9 @@ def _print_failed_jobs(client: Client, jobs):
         return
     console = Console()
     console.rule("Failed jobs")
+    item: transfer_service_api.request_response_pb2.Job
     for item in jobs:
-        if item.status != item.FAILED:
+        if item.status != item.STATUS_FAILED:
             continue
         table = Table(expand=True, show_header=True, header_style="bold magenta")
         table.add_column("Job")
@@ -175,14 +178,15 @@ def _print_failed_jobs(client: Client, jobs):
         except Exception:
             console.print("Tasks could not be loaded.")
             continue
-        for item in resp.tasks:
-            content = f"""[bold]Task {item.id}[/]
+        task: transfer_service_api.request_response_pb2.Task
+        for task in resp.tasks:
+            content = f"""[bold]Task {task.id}[/]
 
-Module [bold]{item.execution}[/] (with arguments: [dim]{item.arguments}[/])
+Module [bold]{task.execution}[/] (with arguments: [dim]{task.arguments}[/])
 --- stdout
-{item.stdout}
+{task.stdout}
 --- stderr
-[red]{item.stderr}[/]
+[red]{task.stderr}[/]
 """
             console.print(Panel(content))
 
