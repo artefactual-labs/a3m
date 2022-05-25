@@ -17,7 +17,7 @@ repos:
   - id: reorder-python-imports
     args: ["--application-directories=.:src", "--py37-plus"]
 - repo: https://github.com/jazzband/pip-tools
-  rev: 6.5.1
+  rev: 6.6.2
   hooks:
   - id: pip-compile
     files: |
@@ -27,7 +27,7 @@ repos:
       )$
     args: ["--output-file=requirements.txt"]
 - repo: https://github.com/jazzband/pip-tools
-  rev: 6.5.1
+  rev: 6.6.2
   hooks:
   - id: pip-compile
     files: |
