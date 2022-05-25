@@ -68,10 +68,12 @@ the desired settings::
 
 The Python client can do similarly::
 
+    from a3m.api.transferservice.v1beta1.request_response_pb2 import ProcessingConfig
+
     c = Client(...)
     c.submit(
         url="URL...", name="Name...",
-        config=a3m_pb2.ProcessingConfig(normalize=False))
+        config=ProcessingConfig(normalize=False))
 
 The full list of settings or their defaults are not described yet but it can be
 found in our :ref:`service definition file <idl>`, under the

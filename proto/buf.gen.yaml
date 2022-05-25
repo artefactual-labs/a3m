@@ -1,0 +1,10 @@
+version: v1
+managed:
+  enabled: true
+plugins:
+  - remote: buf.build/protocolbuffers/plugins/python:v3.20.1-1
+    out: ../
+  - remote: buf.build/grpc/plugins/python:v1.46.3-1
+    out: ../
+  - remote: buf.build/adriansahlman/plugins/mypy-protobuf:v3.2.0-1
+    out: ../

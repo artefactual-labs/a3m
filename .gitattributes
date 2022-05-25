@@ -1,2 +1,4 @@
 *.py ident
 *.sh ident
+a3m/api/** linguist-generated
+docs/** linguist-documentation

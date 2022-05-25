@@ -7,8 +7,7 @@ from grpc import Channel
 from grpc import RpcError
 
 from a3m import __version__
-from a3m.server.rpc.proto import a3m_pb2
-from a3m.server.rpc.proto import a3m_pb2_grpc
+from a3m.api.transferservice import v1beta1 as transfer_service_api
 
 
 logger = logging.getLogger(__name__)
@@ -30,7 +29,10 @@ class Client:
         rpc_timeout: Optional[int] = _GRPC_DEFAULT_TIMEOUT_SECS,
         wait_for_ready: bool = False,
     ):
-        self.transfer_stub = a3m_pb2_grpc.TransferStub(channel)
+
+        self.transfer_stub = transfer_service_api.service_pb2_grpc.TransferServiceStub(
+            channel
+        )
         self.rpc_timeout = rpc_timeout
         self.wait_for_ready = wait_for_ready
 
@@ -52,21 +54,33 @@ class Client:
     def version_metadata():
         return ((_VERSION_METADATA_KEY, __version__),)
 
-    def submit(self, url: str, name: str, config: a3m_pb2.ProcessingConfig = None):
-        request = a3m_pb2.SubmitRequest(name=name, url=url, config=config)
+    def submit(
+        self,
+        url: str,
+        name: str,
+        config: transfer_service_api.request_response_pb2.ProcessingConfig = None,
+    ):
+        request = transfer_service_api.request_response_pb2.SubmitRequest(
+            name=name, url=url, config=config
+        )
         return self._unary_call(self.transfer_stub.Submit, request)
 
     def read(self, package_id: str):
-        request = a3m_pb2.ReadRequest(id=package_id)
+        request = transfer_service_api.request_response_pb2.ReadRequest(id=package_id)
         return self._unary_call(self.transfer_stub.Read, request)
 
-    def wait_until_complete(self, package_id: str, spin_cb: Callable = None):
+    def wait_until_complete(
+        self, package_id: str, spin_cb: Callable = None
+    ) -> transfer_service_api.request_response_pb2.ReadResponse:
         """Blocks until processing of a package has completed."""
 
-        def _should_continue(resp):
-            if resp.status == a3m_pb2.PROCESSING:
-                return True
-            return False
+        def _should_continue(
+            resp: transfer_service_api.request_response_pb2.ReadResponse,
+        ):
+            return (
+                resp.status
+                == transfer_service_api.request_response_pb2.PACKAGE_STATUS_PROCESSING
+            )
 
         def _callback(retry_state):
             if spin_cb is not None:
@@ -84,5 +98,7 @@ class Client:
         return _poll()
 
     def list_tasks(self, job_id: str):
-        request = a3m_pb2.ListTasksRequest(job_id=job_id)
+        request = transfer_service_api.request_response_pb2.ListTasksRequest(
+            job_id=job_id
+        )
         return self._unary_call(self.transfer_stub.ListTasks, request)

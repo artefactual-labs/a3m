@@ -134,16 +134,13 @@ amflow:  ## Display the workflow in amflow.
 		artefactual/amflow:latest \
 			edit --file=/workflow.json
 
-.PHONY: protoc
-protoc:  ## Generate gRPC code.
-	$(call compose_run, \
-		--entrypoint python \
-		a3m \
-			-m grpc_tools.protoc -I=. --python_out=. --grpc_python_out=. a3m/server/rpc/proto/a3m.proto)
-	$(call compose_run, \
-		--entrypoint black \
-		a3m \
-			a3m/server/rpc/proto)
+.PHONY: buf
+buf:
+	docker run \
+		--volume "$(CURDIR)/proto:/workspace" \
+		--workdir /workspace \
+		bufbuild/buf:1.4.0 \
+			$(ARG)
 
 .PHONY: help
 help:  ## Print this help message.

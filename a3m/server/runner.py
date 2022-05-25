@@ -28,13 +28,12 @@ from typing import Optional
 import grpc
 from grpc_reflection.v1alpha import reflection
 
+from a3m.api.transferservice import v1beta1 as transfer_service_api
 from a3m.server import metrics
 from a3m.server import shared_dirs
 from a3m.server.db import migrate
 from a3m.server.jobs import Job
 from a3m.server.queues import PackageQueue
-from a3m.server.rpc.proto import a3m_pb2
-from a3m.server.rpc.proto import a3m_pb2_grpc
 from a3m.server.tasks import Task
 from a3m.server.tasks.backends import get_task_backend
 from a3m.server.tasks.backends import TaskBackend
@@ -98,11 +97,13 @@ class Server:
         transfer_service = TransferService(
             self.workflow, self.queue, self.queue_executor
         )
-        a3m_pb2_grpc.add_TransferServicer_to_server(transfer_service, self.grpc_server)
+        transfer_service_api.service_pb2_grpc.add_TransferServiceServicer_to_server(
+            transfer_service, self.grpc_server
+        )
 
         services = tuple(
             service.full_name
-            for service in a3m_pb2.DESCRIPTOR.services_by_name.values()
+            for service in transfer_service_api.service_pb2.DESCRIPTOR.services_by_name.values()
         ) + (reflection.SERVICE_NAME,)
         reflection.enable_server_reflection(services, self.grpc_server)
 

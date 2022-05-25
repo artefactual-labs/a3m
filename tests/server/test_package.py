@@ -6,10 +6,10 @@ from pathlib import Path
 
 import pytest
 
+from a3m.api.transferservice.v1beta1.request_response_pb2 import ProcessingConfig
 from a3m.main import models
 from a3m.server.packages import Package
 from a3m.server.queues import PackageQueue
-from a3m.server.rpc.proto.a3m_pb2 import ProcessingConfig
 from a3m.server.workflow import load as load_workflow
 
 FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
