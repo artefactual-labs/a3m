@@ -36,18 +36,18 @@ django==3.2.13
     # via a3m (setup.py)
 future==0.18.2
     # via metsrw
-googleapis-common-protos==1.56.0
+googleapis-common-protos==1.56.1
     # via
     #   a3m (setup.py)
     #   grpcio-status
-grpcio==1.44.0
+grpcio==1.46.3
     # via
     #   a3m (setup.py)
     #   grpcio-reflection
     #   grpcio-status
-grpcio-reflection==1.44.0
+grpcio-reflection==1.46.3
     # via a3m (setup.py)
-grpcio-status==1.44.0
+grpcio-status==1.46.3
     # via a3m (setup.py)
 idna==3.3
     # via requests
