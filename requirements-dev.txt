@@ -221,7 +221,7 @@ rich==10.16.2
     # via a3m (setup.py)
 s3transfer==0.5.2
     # via boto3
-semantic-version==2.6.0
+semantic-version==2.10.0
     # via releases
 six==1.16.0
     # via
