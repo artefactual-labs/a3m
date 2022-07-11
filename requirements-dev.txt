@@ -59,7 +59,7 @@ distlib==0.3.4
     # via virtualenv
 django==3.2.13
     # via a3m (setup.py)
-docutils==0.17.1
+docutils==0.19
     # via sphinx
 filelock==3.6.0
     # via
