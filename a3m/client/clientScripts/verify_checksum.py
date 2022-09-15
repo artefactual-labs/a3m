@@ -96,7 +96,7 @@ class Hashsum:
         """Make the call to Python subprocess and record the command being
         called.
         """
-        self.command_called = shlex.split((self.COMMAND,) + args)
+        self.command_called = shlex.split(" ".join((self.COMMAND,) + args))
         return self._decode(
             subprocess.check_output(  # nosec B603
                 self.command_called, cwd=kwargs.get("transfer_dir")

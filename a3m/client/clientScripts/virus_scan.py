@@ -178,8 +178,8 @@ class ClamScanner(ScannerBase):
 
     def _call(self, *args):
         return subprocess.check_output(  # nosec B603
-            shlex.split((self.COMMAND,) + args)
-        )
+            shlex.split(" ".join((self.COMMAND,) + args))
+        ).decode()
 
     def scan(self, path):
         passed, state, details = (False, "ERROR", None)
