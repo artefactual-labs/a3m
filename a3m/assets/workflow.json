@@ -885,42 +885,6 @@
                 "sv": "Karaktärisera och extrahera metadata"
             }
         },
-        "307edcde-ad10-401c-92c4-652917c993ed": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "arguments": "--sipUUID \"%TransferUUID%\" --basePath \"%SIPDirectory%\" --xmlFile \"%SIPDirectory%\"metadata/submissionDocumentation/METS.xml --basePathString \"transferDirectory\"",
-                "execute": "create_transfer_mets",
-                "filter_file_end": null,
-                "filter_file_start": null,
-                "filter_subdir": null,
-                "stderr_file": null,
-                "stdout_file": null
-            },
-            "description": {
-                "en": "Generate METS.xml document",
-                "es": "Generar METS.xml",
-                "fr": "Générer un document METS.xml",
-                "ja": "METS.xml文書 を生成",
-                "pt_BR": "Gerar documentos METS.xml",
-                "sv": "Skapa METS.xml dokument"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "70fc7040-d4fb-4d19-a0e6-792387ca1006"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-            "group": {
-                "en": "Generate METS.xml document",
-                "es": "Generar METS.xml",
-                "fr": "Générer un document METS.xml",
-                "ja": "METS.xml文書 を生成",
-                "pt_BR": "Gerar documentos METS.xml",
-                "sv": "Skapa METS.xml dokument"
-            }
-        },
         "33d7ac55-291c-43ae-bb42-f599ef428325": {
             "config": {
                 "@manager": "linkTaskManagerFiles",
@@ -2153,11 +2117,11 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "307edcde-ad10-401c-92c4-652917c993ed"
+                    "link_id": "70fc7040-d4fb-4d19-a0e6-792387ca1006"
                 }
             },
             "fallback_job_status": "Failed",
-            "fallback_link_id": "307edcde-ad10-401c-92c4-652917c993ed",
+            "fallback_link_id": "70fc7040-d4fb-4d19-a0e6-792387ca1006",
             "group": {
                 "en": "Validation",
                 "es": "Validación",
