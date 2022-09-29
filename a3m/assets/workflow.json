@@ -107,7 +107,7 @@
                 ]
             },
             "description": {
-                "en": "Do you want to perform file format identification?"
+                "en": "Do you want to perform file format identification (submission documentation)?"
             },
             "exit_codes": {},
             "fallback_job_status": "Failed",
@@ -1874,11 +1874,34 @@
             "exit_codes": {
                 "0": {
                     "job_status": "Completed successfully",
-                    "link_id": "b2444a6e-c626-4487-9abc-1556dd89a8ae"
+                    "link_id": "c8bf3e7e-d8d1-4fc0-a1f1-3ff0be59e950"
                 }
             },
             "fallback_job_status": "Failed",
             "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
+            "group": {
+                "en": "Process metadata directory",
+                "es": "Procesar directorio de metadatos",
+                "pt_BR": "Processar diretório de metadados",
+                "sv": "Bearbeta metadatamapp"
+            }
+        },
+        "c8bf3e7e-d8d1-4fc0-a1f1-3ff0be59e950":{
+            "config": {
+                "@manager": "linkTaskManagerChoice",
+                "config_attr": "identify_submission_and_metadata",
+                "default": true,
+                "choices": [
+                    {"value": true, "link_id": "b2444a6e-c626-4487-9abc-1556dd89a8ae"},
+                    {"value": false, "link_id": "04493ab2-6cad-400d-8832-06941f121a96"}
+                ]
+            },
+            "description": {
+                "en": "Do you want to perform file format identification (metadata)?"
+            },
+            "exit_codes": {},
+            "fallback_job_status": "Failed",
+            "fallback_link_id": null,
             "group": {
                 "en": "Process metadata directory",
                 "es": "Procesar directorio de metadatos",

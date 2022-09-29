@@ -80,6 +80,10 @@ message ProcessingConfig {
 	bool extract_packages = 5;
 	bool delete_packages_after_extraction = 6;
 	bool identify_transfer = 7;
+	// identify_submission_and_metadata represents a single configuration
+	// attribute that controls two separate file format identification jobs
+	// in the workflow: one for objects/submissionDocumentation and one
+	// for objects/metadata
 	bool identify_submission_and_metadata = 8;
 	bool identify_before_normalization = 9;
 	bool normalize = 10;
