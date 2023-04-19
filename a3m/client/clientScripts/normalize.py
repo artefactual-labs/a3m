@@ -470,7 +470,7 @@ def main(job, opts):
 
     replacement_dict = get_replacement_dict(job, opts)
 
-    cl = Command(rule, command, replacement_dict, once_normalized_callback(job), opts)
+    cl = Command(job, command, replacement_dict, once_normalized_callback(job), opts)
     exitstatus = cl.execute()
 
     if not exitstatus == 0:
