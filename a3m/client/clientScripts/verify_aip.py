@@ -226,10 +226,12 @@ def verify_aip(job):
                 file=sys.stderr,
             )
 
-    aip_path = Path(aip_path)
-    completed_dir = Path(mcpclient_settings.SHARED_DIRECTORY, "completed")
-    shutil.move(str(aip_path), str(completed_dir))
-    logger.info("AIP generated: %s", aip_path.name)
+    # Don't move to completed if S3 enabled
+    if not mcpclient_settings.S3_ENABLED:
+        aip_path = Path(aip_path)
+        completed_dir = Path(mcpclient_settings.SHARED_DIRECTORY, "completed")
+        shutil.move(str(aip_path), str(completed_dir))
+        logger.info("AIP generated: %s", aip_path.name)
 
     return return_code
 
