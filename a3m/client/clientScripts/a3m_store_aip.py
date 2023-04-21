@@ -43,8 +43,6 @@ def _upload_file(path, bucket, key):
     # Alternatively, we could use a predefined variable specifically for the AIP location such as predefined/aip/location/
     # In any case, the S3 path must be structured in a way that makes it easy to locate and manage the AIP.
     s3_path = key + path.suffix
-    
-    logger.info(s3_path)
     s3.meta.client.upload_file(str(path), bucket, s3_path)
 
 
