@@ -12,12 +12,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - {name: Python 3.10, python: '3.10', os: ubuntu-latest, tox: py, codecov: true}
-        - {name: Lint, python: '3.10', os: ubuntu-latest, tox: lint, codecov: false}
-        - {name: Type, python: '3.10', os: ubuntu-latest, tox: type, codecov: false}
-        - {name: Pylint, python: '3.10', os: ubuntu-latest, tox: pylint, codecov: false}
-        - {name: Vulture, python: '3.10', os: ubuntu-latest, tox: vulture, codecov: false}
-        - {name: Bandit, python: '3.10', os: ubuntu-latest, tox: bandit, codecov: false}
+        - {name: Python 3.11, python: '3.11', os: ubuntu-latest, tox: py, codecov: true}
+        - {name: Lint, python: '3.11', os: ubuntu-latest, tox: lint, codecov: false}
+        - {name: Type, python: '3.11', os: ubuntu-latest, tox: type, codecov: false}
+        - {name: Pylint, python: '3.11', os: ubuntu-latest, tox: pylint, codecov: false}
+        - {name: Vulture, python: '3.11', os: ubuntu-latest, tox: vulture, codecov: false}
+        - {name: Bandit, python: '3.11', os: ubuntu-latest, tox: bandit, codecov: false}
     steps:
     - name: Check out source code
       uses: actions/checkout@v2
