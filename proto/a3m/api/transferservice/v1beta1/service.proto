@@ -17,4 +17,7 @@ service TransferService {
 	// Lists all tasks in a given transfer.
 	rpc ListTasks (ListTasksRequest) returns (ListTasksResponse) {}
 
+	// Delete all contents from a3m's shared folders. Should only be called once processing is complete.
+	rpc Empty (EmptyRequest) returns (EmptyResponse) {}
+
 }

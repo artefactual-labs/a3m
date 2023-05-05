@@ -162,6 +162,22 @@ class ListTasksResponse(google.protobuf.message.Message):
 
 global___ListTasksResponse = ListTasksResponse
 
+class EmptyRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___EmptyRequest = EmptyRequest
+
+class EmptyResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___EmptyResponse = EmptyResponse
+
 class Job(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -373,6 +389,12 @@ class ProcessingConfig(google.protobuf.message.Message):
     delete_packages_after_extraction: builtins.bool
     identify_transfer: builtins.bool
     identify_submission_and_metadata: builtins.bool
+    """identify_submission_and_metadata represents a single configuration
+    attribute that controls two separate file format identification jobs
+    in the workflow: one for objects/submissionDocumentation and one
+    for objects/metadata
+    """
+
     identify_before_normalization: builtins.bool
     normalize: builtins.bool
     transcribe_files: builtins.bool

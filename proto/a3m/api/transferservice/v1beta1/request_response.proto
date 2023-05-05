@@ -34,6 +34,12 @@ message ListTasksResponse {
 	repeated Task tasks = 1;
 }
 
+message EmptyRequest {
+}
+
+message EmptyResponse {
+}
+
 enum PackageStatus {
 	PACKAGE_STATUS_UNSPECIFIED = 0;
 	PACKAGE_STATUS_FAILED = 1;

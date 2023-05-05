@@ -31,6 +31,11 @@ class TransferServiceStub:
             request_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksRequest.SerializeToString,
             response_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksResponse.FromString,
         )
+        self.Empty = channel.unary_unary(
+            "/a3m.api.transferservice.v1beta1.TransferService/Empty",
+            request_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.EmptyRequest.SerializeToString,
+            response_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.EmptyResponse.FromString,
+        )
 
 
 class TransferServiceServicer:
@@ -54,6 +59,12 @@ class TransferServiceServicer:
         context.set_details("Method not implemented!")
         raise NotImplementedError("Method not implemented!")
 
+    def Empty(self, request, context):
+        """Delete all contents from a3m's shared folders. Should only be called once processing is complete."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
 
 def add_TransferServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -71,6 +82,11 @@ def add_TransferServiceServicer_to_server(servicer, server):
             servicer.ListTasks,
             request_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksRequest.FromString,
             response_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksResponse.SerializeToString,
+        ),
+        "Empty": grpc.unary_unary_rpc_method_handler(
+            servicer.Empty,
+            request_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.EmptyRequest.FromString,
+            response_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.EmptyResponse.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -160,6 +176,35 @@ class TransferService:
             "/a3m.api.transferservice.v1beta1.TransferService/ListTasks",
             a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksRequest.SerializeToString,
             a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Empty(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/a3m.api.transferservice.v1beta1.TransferService/Empty",
+            a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.EmptyRequest.SerializeToString,
+            a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.EmptyResponse.FromString,
             options,
             channel_credentials,
             insecure,
