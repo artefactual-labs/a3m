@@ -1164,10 +1164,10 @@ def create_object_metadata(job, struct_map, baseDirectoryPath, state):
         mdwrap = etree.SubElement(sourcemd, ns.metsBNS + "mdWrap", {"MDTYPE": "OTHER"})
         xmldata = etree.SubElement(mdwrap, ns.metsBNS + "xmlData")
         source_md_counter += 1
-        parser = etree.XMLParser(remove_blank_text=True)
-        md = etree.parse(  # nosec B320
-            filename, parser, etree.XMLParser(resolve_entities=False, no_network=True)
+        parser = etree.XMLParser(
+            remove_blank_text=True, resolve_entities=False, no_network=True
         )
+        md = etree.parse(filename, parser)  # nosec B320
         xmldata.append(md.getroot())
 
     for filename in source:
