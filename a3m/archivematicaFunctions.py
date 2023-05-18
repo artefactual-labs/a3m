@@ -21,6 +21,7 @@ import collections
 import hashlib
 import os
 import re
+from itertools import zip_longest
 from uuid import uuid4
 
 from a3m.namespaces import NSMAP
@@ -227,3 +228,12 @@ def find_transfer_path_from_ingest(transfer_path, shared_path):
         return path
 
     raise Exception("Transfer directory not physically found")
+
+
+def chunk_iterable(iterable, chunk_size=10, fillvalue=None):
+    """Collect data into fixed-length chunks or blocks.
+    >>> list(chunk_iterable('ABCDEFG', 3, 'x'))
+    [('A', 'B', 'C'), ('D', 'E', 'F'), ('G', 'x', 'x')]
+    """
+    args = [iter(iterable)] * chunk_size
+    return zip_longest(fillvalue=fillvalue, *args)  # type: ignore

@@ -783,12 +783,12 @@
         },
         "2a62f025-83ec-4f23-adb4-11d5da7ad8c2": {
             "config": {
-                "@manager": "linkTaskManagerFiles",
-                "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
+                "@manager": "linkTaskManagerDirectories",
+                "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --filterSubdir \"objects/submissionDocumentation\"",
                 "execute": "update_size_and_checksum",
                 "filter_file_end": null,
                 "filter_file_start": null,
-                "filter_subdir": "objects/submissionDocumentation",
+                "filter_subdir": null,
                 "stderr_file": null,
                 "stdout_file": null
             },
@@ -921,12 +921,12 @@
         },
         "370aca94-65ab-4f2a-9d7d-294a62c8b7ba": {
             "config": {
-                "@manager": "linkTaskManagerFiles",
-                "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
+                "@manager": "linkTaskManagerDirectories",
+                "arguments": "--transferUUID \"%TransferUUID%\" --sipDirectory \"%SIPDirectory%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --filterSubdir \"objects\"",
                 "execute": "update_size_and_checksum",
                 "filter_file_end": null,
                 "filter_file_start": null,
-                "filter_subdir": "objects",
+                "filter_subdir": null,
                 "stderr_file": null,
                 "stdout_file": null
             },
@@ -1159,12 +1159,12 @@
         },
         "4edfe7e4-82ff-4c0a-ba5f-29f1ee14e17a": {
             "config": {
-                "@manager": "linkTaskManagerFiles",
-                "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --use \"submissionDocumentation\"",
+                "@manager": "linkTaskManagerDirectories",
+                "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --use \"submissionDocumentation\" --filterSubdir \"objects/submissionDocumentation\"",
                 "execute": "assign_file_uuids",
                 "filter_file_end": null,
                 "filter_file_start": null,
-                "filter_subdir": "objects/submissionDocumentation",
+                "filter_subdir": null,
                 "stderr_file": "%SIPLogsDirectory%FileUUIDsError.log",
                 "stdout_file": "%SIPLogsDirectory%FileUUIDs.log"
             },
@@ -2088,15 +2088,15 @@
         },
         "9e9b522a-77ab-4c17-ab08-5a4256f49d59": {
             "config": {
-                "@manager": "linkTaskManagerFiles",
-                "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --use \"preservation\"",
+                "@manager": "linkTaskManagerDirectories",
+                "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --use \"preservation\" --filterSubdir \"objects/manualNormalization/preservation\"",
                 "execute": "assign_file_uuids",
                 "filter_file_end": null,
                 "filter_file_start": null,
-                "filter_subdir": "objects/manualNormalization/preservation",
+                "filter_subdir": null,
                 "stderr_file": null,
                 "stdout_file": null
-            },
+            },            
             "description": {
                 "en": "Assign UUIDs to manual normalized preservation files",
                 "es": "Asignar UUIDs a los ficheros preservados manualmente",
@@ -2352,12 +2352,12 @@
         },
         "b6b0fe37-aa26-40bd-8be8-d3acebf3ccf8": {
             "config": {
-                "@manager": "linkTaskManagerFiles",
-                "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
+                "@manager": "linkTaskManagerDirectories",
+                "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --filterSubdir \"objects/metadata\"",
                 "execute": "update_size_and_checksum",
                 "filter_file_end": null,
                 "filter_file_start": null,
-                "filter_subdir": "objects/metadata",
+                "filter_subdir": null,
                 "stderr_file": null,
                 "stdout_file": null
             },
@@ -2782,12 +2782,12 @@
         },
         "dc144ff4-ad74-4a6e-ac15-b0beedcaf662": {
             "config": {
-                "@manager": "linkTaskManagerFiles",
-                "arguments": "--transferUUID \"%TransferUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
+                "@manager": "linkTaskManagerDirectories",
+                "arguments": "--transferUUID \"%TransferUUID%\" --sipDirectory \"%SIPDirectory%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --filterSubdir \"objects\"",
                 "execute": "assign_file_uuids",
                 "filter_file_end": null,
                 "filter_file_start": null,
-                "filter_subdir": "objects",
+                "filter_subdir": null,
                 "stderr_file": "%SIPLogsDirectory%FileUUIDsError.log",
                 "stdout_file": "%SIPLogsDirectory%FileUUIDs.log"
             },
@@ -2818,12 +2818,12 @@
         },
         "dc9d4991-aefa-4d7e-b7b5-84e3c4336e74": {
             "config": {
-                "@manager": "linkTaskManagerFiles",
-                "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --use \"metadata\" --disable-update-filegrpuse",
+                "@manager": "linkTaskManagerDirectories",
+                "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --use \"metadata\" --filterSubdir \"objects/metadata\" --disable-update-filegrpuse",
                 "execute": "assign_file_uuids",
                 "filter_file_end": null,
                 "filter_file_start": null,
-                "filter_subdir": "objects/metadata",
+                "filter_subdir": null,
                 "stderr_file": "%SIPLogsDirectory%FileUUIDsError.log",
                 "stdout_file": "%SIPLogsDirectory%FileUUIDs.log"
             },
@@ -2914,12 +2914,12 @@
         },
         "e76aec15-5dfa-4b14-9405-735863e3a6fa": {
             "config": {
-                "@manager": "linkTaskManagerFiles",
-                "arguments": "--filePath \"%relativeLocation%\" --fileUUID \"%fileUUID%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\"",
+                "@manager": "linkTaskManagerDirectories",
+                "arguments": "--sipUUID \"%SIPUUID%\" --sipDirectory \"%SIPDirectory%\" --eventIdentifierUUID \"%taskUUID%\" --date \"%date%\" --filterSubdir \"objects/manualNormalization/preservation\"",
                 "execute": "update_size_and_checksum",
                 "filter_file_end": null,
                 "filter_file_start": null,
-                "filter_subdir": "objects/manualNormalization/preservation",
+                "filter_subdir": null,
                 "stderr_file": null,
                 "stdout_file": null
             },
