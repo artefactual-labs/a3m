@@ -86,10 +86,14 @@ class CheckCloseConnectionsHandler(logging.Handler):
     """
 
     def emit(self, record):
-        if getattr(thread_locals, "auto_close_connections_depth", 0) <= 0:
-            logger.warning(
+        if "Entered auto close connections" not in record.getMessage():
+            return
+        depth = getattr(thread_locals, "auto_close_connections_depth", 0)
+        if depth <= 0:
+            logging.getLogger("a3m.server").warning(
                 "Database access occurred outside of an "
-                "auto_close_old_connections context. Traceback: %s",
+                "auto_close_old_connections context. Depth %d. Traceback %s",
+                depth,
                 "\n".join(traceback.format_stack()),
             )
 
@@ -165,11 +169,11 @@ def migrate():
 
 
 auto_close_old_connections: type[Any]
-if False and settings.DEBUG:
+if settings.DEBUG:
     logger.debug("Using DEBUG auto_close_old_connections")
     auto_close_old_connections = DebugAutoCloseOldConnections
 
-    # Queries are  only logged if DEBUG is on.
+    # Queries are only logged if DEBUG is on.
     db_logger = logging.getLogger(__name__)
     db_logger.setLevel(logging.DEBUG)
     handler = CheckCloseConnectionsHandler(level=logging.DEBUG)
