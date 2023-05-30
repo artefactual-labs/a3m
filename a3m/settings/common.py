@@ -278,11 +278,12 @@ DEBUG = config.get("debug")
 if DEBUG:
     LOGGING["formatters"]["detailed"][
         "format"
-    ] = "%(levelname)-8s %(threadName)s <%(asctime)s> %(module)s:%(funcName)s:%(lineno)d: %(message)s"
+    ] = "%(levelname)-8s <%(process)d:%(threadName)s> <%(asctime)s> %(module)s:%(funcName)s:%(lineno)d: %(message)s"
     LOGGING["handlers"]["console"]["level"] = "DEBUG"
     LOGGING["root"]["level"] = "DEBUG"
     LOGGING["loggers"] = {
         "a3m": {"level": "DEBUG"},
+        # Use "DEBUG" to log database queries.
         "django.db.backends": {"level": "WARNING"},
     }
 
