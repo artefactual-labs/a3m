@@ -23,29 +23,37 @@ def _insert_command_output(file_uuid, rule_uuid, content):
     )
 
 
+def _get_rules(file_uuid):
+    # Check to see whether the file has already been characterized; don't try
+    # to characterize it a second time if so.
+    if FPCommandOutput.objects.filter(file_id=file_uuid).count() > 0:
+        return None
+
+    rules = None
+    try:
+        format = FormatVersion.active.get(fileformatversion__file_uuid=file_uuid)
+        rules = FPRule.active.filter(
+            format=format.uuid, purpose="characterization"
+        ).order_by("uuid")
+    except FormatVersion.DoesNotExist:
+        pass
+
+    # A3M-TODO DEFAULT CHARACTERIZATION DISABLED
+    # Characterization always occurs - if nothing is specified, get one or more
+    # defaults specified in the FPR.
+    # rules = FPRule.active.filter(purpose="default_characterization")
+
+    return rules
+
+
 def main(job, file_path, file_uuid, sip_uuid):
     setup_dicts()
 
     failed = False
+    state = []
 
-    # Check to see whether the file has already been characterized; don't try
-    # to characterize it a second time if so.
-    if FPCommandOutput.objects.filter(file_id=file_uuid).count() > 0:
-        return 0
-
-    try:
-        format = FormatVersion.active.get(fileformatversion__file_uuid=file_uuid)
-    except FormatVersion.DoesNotExist:
-        rules = format = None
-
-    if format:
-        rules = FPRule.active.filter(format=format.uuid, purpose="characterization")
-
-    # Characterization always occurs - if nothing is specified, get one or more
-    # defaults specified in the FPR.
+    rules = _get_rules(file_uuid)
     if not rules:
-        # A3M-TODO DEFAULT CHARACTERIZATION DISABLED
-        # rules = FPRule.active.filter(purpose="default_characterization")
         return 0
 
     for rule in rules:
@@ -94,12 +102,7 @@ def main(job, file_path, file_uuid, sip_uuid):
                     stdout.encode("utf8"),
                     etree.XMLParser(resolve_entities=False, no_network=True),
                 )
-                _insert_command_output(file_uuid, rule.uuid, stdout)
-                job.write_output(
-                    'Saved XML output for command "{}" ({})'.format(
-                        rule.command.description, rule.command.uuid
-                    )
-                )
+                state.append((file_uuid, rule, stdout))
             except etree.XMLSyntaxError:
                 failed = True
                 job.write_error(
@@ -114,6 +117,24 @@ def main(job, file_path, file_uuid, sip_uuid):
                 )
             )
 
+    with transaction.atomic():
+        # Get again and compare rules during transaction
+        tx_rules = _get_rules(file_uuid)
+        if not tx_rules or list(rules) != list(tx_rules):
+            job.write_error(
+                f'Rules for file "{file_path}" changed during characterization'
+            )
+            return 255
+
+        # Save outputs if they are the same
+        for file_uuid, rule, stdout in state:
+            _insert_command_output(file_uuid, rule.uuid, stdout)
+            job.write_output(
+                'Saved XML output for command "{}" ({})'.format(
+                    rule.command.description, rule.command.uuid
+                )
+            )
+
     if failed:
         return 255
     else:
@@ -121,7 +142,6 @@ def main(job, file_path, file_uuid, sip_uuid):
 
 
 def call(jobs):
-    with transaction.atomic():
-        for job in jobs:
-            with job.JobContext():
-                job.set_status(main(job, *job.args[1:]))
+    for job in jobs:
+        with job.JobContext():
+            job.set_status(main(job, *job.args[1:]))
