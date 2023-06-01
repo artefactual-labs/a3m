@@ -45,9 +45,6 @@ class PoolTaskBatch:
         return self, result
 
     def submit(self, executor, job):
-        # Log tasks to DB, before submitting the batch, as mcpclient then updates them
-        Task.bulk_log(self.tasks, job)
-
         data = {
             "tasks": {str(task.uuid): self.serialize_task(task) for task in self.tasks}
         }
@@ -55,6 +52,9 @@ class PoolTaskBatch:
         self.future = executor.submit(self.run, job.name, data)
 
         logger.debug("Submitted pool job %s (%s)", self.uuid, job.name)
+
+    def save(self, job):
+        Task.bulk_log(self.tasks, job)
 
     def update_task_results(self, results):
         result = results["task_results"]
@@ -93,6 +93,7 @@ class PoolTaskBackend(TaskBackend):
 
         self.current_task_batches = {}  # job_uuid: PoolTaskBatch
         self.pending_jobs = {}  # job_uuid: List[PoolTaskBatch]
+        self.batches_to_submit = {}  # job_uuid: List[PoolTaskBatch]
 
     def submit_task(self, job: Job, task: Task):
         current_task_batch = self._get_current_task_batch(job.uuid)
@@ -101,16 +102,12 @@ class PoolTaskBackend(TaskBackend):
 
         current_task_batch.add_task(task)
 
-        # If we've hit TASK_BATCH_SIZE, send the batch to gearman
+        # If we've hit TASK_BATCH_SIZE, save the batch
         if (len(current_task_batch) % self.TASK_BATCH_SIZE) == 0:
-            self._submit_batch(job, current_task_batch)
+            self._save_batch(job, current_task_batch)
 
     def wait_for_results(self, job):
-        # Check if we have anything for this job that hasn't been submitted
-        current_task_batch = self._get_current_task_batch(job.uuid)
-        if len(current_task_batch) > 0:
-            self._submit_batch(job, current_task_batch)
-
+        self._submit_batches(job)
         try:
             pending_batches = self.pending_jobs[job.uuid]
         except KeyError:
@@ -134,6 +131,24 @@ class PoolTaskBackend(TaskBackend):
             self.current_task_batches[job_uuid] = PoolTaskBatch()
             return self.current_task_batches[job_uuid]
 
+    def _save_batch(self, job, task_batch):
+        task_batch.save(job)
+        if job.uuid not in self.batches_to_submit:
+            self.batches_to_submit[job.uuid] = []
+        self.batches_to_submit[job.uuid].append(task_batch)
+        del self.current_task_batches[job.uuid]
+
+    def _submit_batches(self, job: Job):
+        # Check if we have anything for this job that hasn't been saved
+        current_task_batch = self._get_current_task_batch(job.uuid)
+        if len(current_task_batch) > 0:
+            self._save_batch(job, current_task_batch)
+
+        # Submit all saved batches
+        if job.uuid in self.batches_to_submit:
+            for task_batch in self.batches_to_submit[job.uuid]:
+                self._submit_batch(job, task_batch)
+
     def _submit_batch(self, job, task_batch):
         if len(task_batch) == 0:
             return
@@ -146,10 +161,6 @@ class PoolTaskBackend(TaskBackend):
         if job.uuid not in self.pending_jobs:
             self.pending_jobs[job.uuid] = []
         self.pending_jobs[job.uuid].append(task_batch)
-
-        # Clear the current task batch
-        if self.current_task_batches[job.uuid] is task_batch:
-            del self.current_task_batches[job.uuid]
 
     def shutdown(self, wait=True):
         self.executor.shutdown(wait)
