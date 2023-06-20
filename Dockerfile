@@ -33,7 +33,7 @@ ENV LC_ALL en_US.UTF-8
 # OS dependencies
 RUN set -ex \
 	&& curl -s https://packages.archivematica.org/GPG-KEY-archivematica | apt-key add - \
-	&& add-apt-repository --no-update --yes "deb [arch=amd64] http://packages.archivematica.org/1.13.x/ubuntu-externals focal main" \
+	&& add-apt-repository --no-update --yes "deb [arch=amd64] http://packages.archivematica.org/1.14.x/ubuntu-externals focal main" \
 	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ focal multiverse" \
 	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ focal-security universe" \
 	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ focal-updates multiverse" \
