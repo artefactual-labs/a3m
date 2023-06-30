@@ -131,6 +131,8 @@ CONFIG_MAPPING = {
         "type": "string",
     },
     "s3_bucket": {"section": "a3m", "option": "s3_bucket", "type": "string"},
+    "org_id": {"section": "a3m", "option": "org_id", "type": "string"},
+    "org_name": {"section": "a3m", "option": "org_name", "type": "string"},
 }
 
 
@@ -175,6 +177,9 @@ shared_directory =
 temp_dir =
 processing_directory =
 rejected_directory =
+
+org_id =
+org_name =
 """
 
 
@@ -364,3 +369,6 @@ S3_BUCKET = config.get("s3_bucket")
 
 # A3M-TODO: fix this
 INSTANCE_ID = "fec7bcf7-45db-4a22-8ceb-e94377db3476"
+
+ORG_ID = config.get("org_id")
+ORG_NAME = config.get("org_name")

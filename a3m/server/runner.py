@@ -26,9 +26,12 @@ import threading
 from typing import Optional
 
 import grpc
+from django.conf import settings as premis_settings
 from grpc_reflection.v1alpha import reflection
 
+from a3m import __version__
 from a3m.api.transferservice import v1beta1 as transfer_service_api
+from a3m.main import models
 from a3m.server import metrics
 from a3m.server import shared_dirs
 from a3m.server.db import migrate
@@ -40,7 +43,6 @@ from a3m.server.tasks.backends import TaskBackend
 from a3m.server.transfer_service import TransferService
 from a3m.server.workflow import load_default_workflow
 from a3m.server.workflow import Workflow
-
 
 logger = logging.getLogger(__name__)
 
@@ -176,6 +178,8 @@ def create_server(
     shared_dirs.create()
 
     migrate()
+    update_agents()
+
     Job.cleanup_old_db_entries()
     Task.cleanup_old_db_entries()
 
@@ -192,3 +196,26 @@ def create_server(
         concurrent.futures.ThreadPoolExecutor(max_workers=grpc_workers),
         debug,
     )
+
+
+def update_agents():
+    """Create or update software and organization agents."""
+
+    models.Agent.objects.update_or_create(
+        agenttype="software",
+        name="a3m",
+        identifiertype="preservation system",
+        defaults={
+            "identifiervalue": f"a3m version={__version__}",
+        },
+    )
+
+    if premis_settings.ORG_ID and premis_settings.ORG_NAME:
+        models.Agent.objects.update_or_create(
+            agenttype="organization",
+            identifiertype="repository code",
+            defaults={
+                "identifiervalue": premis_settings.ORG_ID,
+                "name": premis_settings.ORG_NAME,
+            },
+        )
