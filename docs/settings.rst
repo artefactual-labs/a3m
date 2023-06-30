@@ -51,6 +51,8 @@ Configuration settings are not properly described yet, but here's the list:
 * ``s3_addressing_style`` (string)
 * ``s3_signature_version`` (string)
 * ``s3_bucket`` (string)
+* ``org_id`` (string)
+* ``org_name`` (string)
 
 For greater flexibility, it is also possible to alter the applicatin settings
 module manually. This is how our :mod:`a3m.settings.common` module looks like:

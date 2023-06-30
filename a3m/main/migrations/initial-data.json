@@ -28,26 +28,6 @@
     },
     {
         "fields": {
-            "agenttype": "software",
-            "identifiervalue": "a3m (unknown version)",
-            "name": "a3m",
-            "identifiertype": "preservation system"
-        },
-        "model": "main.agent",
-        "pk": 1
-    },
-    {
-        "fields": {
-            "agenttype": "organization",
-            "identifiervalue": "test",
-            "name": "test",
-            "identifiertype": "repository code"
-        },
-        "model": "main.agent",
-        "pk": 2
-    },
-    {
-        "fields": {
             "fieldlabel": "Image fixity",
             "fieldname": "image_fixity",
             "fieldtype": "textarea",
