@@ -15,13 +15,13 @@ ENV PYTHONUNBUFFERED 1
 RUN set -ex \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
-		apt-transport-https \
-		curl \
-		git \
-		gpg-agent \
-		locales \
-		locales-all \
-		software-properties-common \
+	apt-transport-https \
+	curl \
+	git \
+	gpg-agent \
+	locales \
+	locales-all \
+	software-properties-common \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Set the locale
@@ -39,34 +39,52 @@ RUN set -ex \
 	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ bionic-updates multiverse" \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
-		atool \
-		bulk-extractor \
-		clamav \
-		ffmpeg \
-		ghostscript \
-		coreutils \
-		libavcodec-extra \
-		imagemagick \
-		inkscape \
-		jhove \
-		libimage-exiftool-perl \
-		libevent-dev \
-		libjansson4 \
-		mediainfo \
-		mediaconch \
-		openjdk-8-jre-headless \
-		p7zip-full \
-		pbzip2 \
-		pst-utils \
-		rsync \
-		sleuthkit \
-		sqlite3 \
-		tesseract-ocr \
-		tree \
-		unar \
-		unrar-free \
-		uuid \
+	atool \
+	bulk-extractor \
+	clamav \
+	ffmpeg \
+	ghostscript \
+	coreutils \
+	libavcodec-extra \
+	imagemagick \
+	inkscape \
+	jhove \
+	libimage-exiftool-perl \
+	libevent-dev \
+	libjansson4 \
+	mediainfo \
+	mediaconch \
+	openjdk-8-jre-headless \
+	p7zip-full \
+	pbzip2 \
+	pst-utils \
+	rsync \
+	sleuthkit \
+	sqlite3 \
+	tesseract-ocr \
+	tree \
+	unar \
+	unrar-free \
+	uuid \
 	&& rm -rf /var/lib/apt/lists/*
+
+# Python build.
+RUN set -ex \
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends \
+	build-essential \
+	libbz2-dev \
+	libffi-dev \
+	liblzma-dev \
+	libncursesw5-dev \
+	libreadline-dev \
+	libsqlite3-dev \
+	libssl-dev \
+	libxml2-dev \
+	libxmlsec1-dev \
+	tk-dev \
+	xz-utils \
+	zlib1g-dev
 
 # Download ClamAV virus signatures
 RUN freshclam --quiet
@@ -85,36 +103,29 @@ RUN set -ex \
 
 FROM base AS a3m
 
-ARG PYTHON_VERSION=3.9
-ARG REQUIREMENTS=/a3m/requirements-dev.txt
-ARG DJANGO_SETTINGS_MODULE=a3m.settings.common
-ENV DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
-ENV PATH=/home/a3m/.local/a3m-venv/bin:$PATH
-
 COPY ./a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
 COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
 
-RUN set -ex \
-	&& add-apt-repository ppa:deadsnakes/ppa \
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends \
-		build-essential \
-		python${PYTHON_VERSION} \
-		python${PYTHON_VERSION}-venv \
-		python${PYTHON_VERSION}-distutils \
-		libpython${PYTHON_VERSION}-dev \
-	&& update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_VERSION} 1 \
-	&& update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1 \
-	&& rm -rf /var/lib/apt/lists/*
-
 USER a3m
+
+ARG DJANGO_SETTINGS_MODULE=a3m.settings.common
+ENV DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+ENV PYENV_ROOT="/home/a3m/.pyenv"
+ENV PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
+ARG PYTHON_VERSION=3.9.17
+ARG REQUIREMENTS=/a3m/requirements-dev.txt
+
+RUN set -ex \
+	&& curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
+	&& pyenv install ${PYTHON_VERSION} \
+	&& pyenv global ${PYTHON_VERSION}
 
 COPY ./requirements.txt /a3m/requirements.txt
 COPY ./requirements-dev.txt /a3m/requirements-dev.txt
 RUN set -ex \
-	&& python -m venv /home/a3m/.local/a3m-venv \
-	&& pip install --upgrade pip \
-	&& pip install --no-cache-dir -r ${REQUIREMENTS}
+	&& pyenv exec python3 -m pip install --upgrade pip setuptools \
+	&& pyenv exec python3 -m pip install --requirement ${REQUIREMENTS} \
+	&& pyenv rehash
 
 COPY . /a3m
 WORKDIR /a3m
