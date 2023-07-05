@@ -1,4 +1,4 @@
-ARG SYSTEM_IMAGE=ubuntu:18.04
+ARG SYSTEM_IMAGE=ubuntu:20.04
 
 #
 # Base
@@ -33,10 +33,10 @@ ENV LC_ALL en_US.UTF-8
 # OS dependencies
 RUN set -ex \
 	&& curl -s https://packages.archivematica.org/GPG-KEY-archivematica | apt-key add - \
-	&& add-apt-repository --no-update --yes "deb [arch=amd64] http://packages.archivematica.org/1.13.x/ubuntu-externals bionic main" \
-	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ bionic multiverse" \
-	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ bionic-security universe" \
-	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ bionic-updates multiverse" \
+	&& add-apt-repository --no-update --yes "deb [arch=amd64] http://packages.archivematica.org/1.14.x/ubuntu-externals focal main" \
+	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ focal multiverse" \
+	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ focal-security universe" \
+	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ focal-updates multiverse" \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
 	atool \
