@@ -112,19 +112,19 @@ def _prepare_config(user_pairs):
     ``ProcessingConfig`` message in the proto file.
     """
     config = transfer_service_api.request_response_pb2.ProcessingConfig(
-        assign_uuids_to_directories=True,
+        assign_uuids_to_directories=False,
         examine_contents=False,
-        generate_transfer_structure_report=True,
+        generate_transfer_structure_report=False,
         document_empty_directories=True,
-        extract_packages=True,
+        extract_packages=False,
         delete_packages_after_extraction=False,
         identify_transfer=True,
-        identify_submission_and_metadata=True,
-        identify_before_normalization=True,
-        normalize=True,
-        transcribe_files=True,
-        perform_policy_checks_on_originals=True,
-        perform_policy_checks_on_preservation_derivatives=True,
+        identify_submission_and_metadata=False,
+        identify_before_normalization=False,
+        normalize=False,
+        transcribe_files=False,
+        perform_policy_checks_on_originals=False,
+        perform_policy_checks_on_preservation_derivatives=False,
         aip_compression_level=1,
         aip_compression_algorithm=transfer_service_api.request_response_pb2.ProcessingConfig.AIP_COMPRESSION_ALGORITHM_S7_COPY,
     )
