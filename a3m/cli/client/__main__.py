@@ -115,7 +115,7 @@ def _prepare_config(user_pairs):
         assign_uuids_to_directories=False,
         examine_contents=False,
         generate_transfer_structure_report=False,
-        document_empty_directories=True,
+        document_empty_directories=False,
         extract_packages=False,
         delete_packages_after_extraction=False,
         identify_transfer=True,
