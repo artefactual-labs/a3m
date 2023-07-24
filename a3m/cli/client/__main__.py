@@ -113,13 +113,13 @@ def _prepare_config(user_pairs):
     """
     config = transfer_service_api.request_response_pb2.ProcessingConfig(
         assign_uuids_to_directories=False,
-        examine_contents=False,
+        examine_contents=True,
         generate_transfer_structure_report=False,
         document_empty_directories=False,
         extract_packages=False,
         delete_packages_after_extraction=False,
         identify_transfer=True,
-        identify_submission_and_metadata=False,
+        identify_submission_and_metadata=True,
         identify_before_normalization=False,
         normalize=False,
         transcribe_files=False,
