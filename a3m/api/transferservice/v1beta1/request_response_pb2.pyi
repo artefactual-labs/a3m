@@ -3,13 +3,19 @@
 isort:skip_file
 """
 import builtins
+import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import sys
 import typing
-import typing_extensions
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -30,8 +36,7 @@ class _PackageStatusEnumTypeWrapper(
     PACKAGE_STATUS_COMPLETE: _PackageStatus.ValueType  # 3
     PACKAGE_STATUS_PROCESSING: _PackageStatus.ValueType  # 4
 
-class PackageStatus(_PackageStatus, metaclass=_PackageStatusEnumTypeWrapper):
-    pass
+class PackageStatus(_PackageStatus, metaclass=_PackageStatusEnumTypeWrapper): ...
 
 PACKAGE_STATUS_UNSPECIFIED: PackageStatus.ValueType  # 0
 PACKAGE_STATUS_FAILED: PackageStatus.ValueType  # 1
@@ -40,21 +45,23 @@ PACKAGE_STATUS_COMPLETE: PackageStatus.ValueType  # 3
 PACKAGE_STATUS_PROCESSING: PackageStatus.ValueType  # 4
 global___PackageStatus = PackageStatus
 
+@typing_extensions.final
 class SubmitRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     NAME_FIELD_NUMBER: builtins.int
     URL_FIELD_NUMBER: builtins.int
     CONFIG_FIELD_NUMBER: builtins.int
-    name: typing.Text
-    url: typing.Text
+    name: builtins.str
+    url: builtins.str
     @property
     def config(self) -> global___ProcessingConfig: ...
     def __init__(
         self,
         *,
-        name: typing.Text = ...,
-        url: typing.Text = ...,
-        config: typing.Optional[global___ProcessingConfig] = ...,
+        name: builtins.str = ...,
+        url: builtins.str = ...,
+        config: global___ProcessingConfig | None = ...,
     ) -> None: ...
     def HasField(
         self, field_name: typing_extensions.Literal["config", b"config"]
@@ -68,14 +75,16 @@ class SubmitRequest(google.protobuf.message.Message):
 
 global___SubmitRequest = SubmitRequest
 
+@typing_extensions.final
 class SubmitResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     ID_FIELD_NUMBER: builtins.int
-    id: typing.Text
+    id: builtins.str
     def __init__(
         self,
         *,
-        id: typing.Text = ...,
+        id: builtins.str = ...,
     ) -> None: ...
     def ClearField(
         self, field_name: typing_extensions.Literal["id", b"id"]
@@ -83,14 +92,16 @@ class SubmitResponse(google.protobuf.message.Message):
 
 global___SubmitResponse = SubmitResponse
 
+@typing_extensions.final
 class ReadRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     ID_FIELD_NUMBER: builtins.int
-    id: typing.Text
+    id: builtins.str
     def __init__(
         self,
         *,
-        id: typing.Text = ...,
+        id: builtins.str = ...,
     ) -> None: ...
     def ClearField(
         self, field_name: typing_extensions.Literal["id", b"id"]
@@ -98,13 +109,15 @@ class ReadRequest(google.protobuf.message.Message):
 
 global___ReadRequest = ReadRequest
 
+@typing_extensions.final
 class ReadResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     STATUS_FIELD_NUMBER: builtins.int
     JOB_FIELD_NUMBER: builtins.int
     JOBS_FIELD_NUMBER: builtins.int
     status: global___PackageStatus.ValueType
-    job: typing.Text
+    job: builtins.str
     @property
     def jobs(
         self,
@@ -115,8 +128,8 @@ class ReadResponse(google.protobuf.message.Message):
         self,
         *,
         status: global___PackageStatus.ValueType = ...,
-        job: typing.Text = ...,
-        jobs: typing.Optional[typing.Iterable[global___Job]] = ...,
+        job: builtins.str = ...,
+        jobs: collections.abc.Iterable[global___Job] | None = ...,
     ) -> None: ...
     def ClearField(
         self,
@@ -127,14 +140,16 @@ class ReadResponse(google.protobuf.message.Message):
 
 global___ReadResponse = ReadResponse
 
+@typing_extensions.final
 class ListTasksRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     JOB_ID_FIELD_NUMBER: builtins.int
-    job_id: typing.Text
+    job_id: builtins.str
     def __init__(
         self,
         *,
-        job_id: typing.Text = ...,
+        job_id: builtins.str = ...,
     ) -> None: ...
     def ClearField(
         self, field_name: typing_extensions.Literal["job_id", b"job_id"]
@@ -142,8 +157,10 @@ class ListTasksRequest(google.protobuf.message.Message):
 
 global___ListTasksRequest = ListTasksRequest
 
+@typing_extensions.final
 class ListTasksResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     TASKS_FIELD_NUMBER: builtins.int
     @property
     def tasks(
@@ -154,7 +171,7 @@ class ListTasksResponse(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        tasks: typing.Optional[typing.Iterable[global___Task]] = ...,
+        tasks: collections.abc.Iterable[global___Task] | None = ...,
     ) -> None: ...
     def ClearField(
         self, field_name: typing_extensions.Literal["tasks", b"tasks"]
@@ -162,22 +179,27 @@ class ListTasksResponse(google.protobuf.message.Message):
 
 global___ListTasksResponse = ListTasksResponse
 
+@typing_extensions.final
 class EmptyRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     def __init__(
         self,
     ) -> None: ...
 
 global___EmptyRequest = EmptyRequest
 
+@typing_extensions.final
 class EmptyResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     def __init__(
         self,
     ) -> None: ...
 
 global___EmptyResponse = EmptyResponse
 
+@typing_extensions.final
 class Job(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -197,8 +219,7 @@ class Job(google.protobuf.message.Message):
         STATUS_PROCESSING: Job._Status.ValueType  # 2
         STATUS_FAILED: Job._Status.ValueType  # 3
 
-    class Status(_Status, metaclass=_StatusEnumTypeWrapper):
-        pass
+    class Status(_Status, metaclass=_StatusEnumTypeWrapper): ...
     STATUS_UNSPECIFIED: Job.Status.ValueType  # 0
     STATUS_COMPLETE: Job.Status.ValueType  # 1
     STATUS_PROCESSING: Job.Status.ValueType  # 2
@@ -210,22 +231,22 @@ class Job(google.protobuf.message.Message):
     LINK_ID_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
     START_TIME_FIELD_NUMBER: builtins.int
-    id: typing.Text
-    name: typing.Text
-    group: typing.Text
-    link_id: typing.Text
+    id: builtins.str
+    name: builtins.str
+    group: builtins.str
+    link_id: builtins.str
     status: global___Job.Status.ValueType
     @property
     def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     def __init__(
         self,
         *,
-        id: typing.Text = ...,
-        name: typing.Text = ...,
-        group: typing.Text = ...,
-        link_id: typing.Text = ...,
+        id: builtins.str = ...,
+        name: builtins.str = ...,
+        group: builtins.str = ...,
+        link_id: builtins.str = ...,
         status: global___Job.Status.ValueType = ...,
-        start_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
     def HasField(
         self, field_name: typing_extensions.Literal["start_time", b"start_time"]
@@ -250,8 +271,10 @@ class Job(google.protobuf.message.Message):
 
 global___Job = Job
 
+@typing_extensions.final
 class Task(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
     ID_FIELD_NUMBER: builtins.int
     FILE_ID_FIELD_NUMBER: builtins.int
     EXIT_CODE_FIELD_NUMBER: builtins.int
@@ -262,14 +285,14 @@ class Task(google.protobuf.message.Message):
     STDERR_FIELD_NUMBER: builtins.int
     START_TIME_FIELD_NUMBER: builtins.int
     END_TIME_FIELD_NUMBER: builtins.int
-    id: typing.Text
-    file_id: typing.Text
+    id: builtins.str
+    file_id: builtins.str
     exit_code: builtins.int
-    filename: typing.Text
-    execution: typing.Text
-    arguments: typing.Text
-    stdout: typing.Text
-    stderr: typing.Text
+    filename: builtins.str
+    execution: builtins.str
+    arguments: builtins.str
+    stdout: builtins.str
+    stderr: builtins.str
     @property
     def start_time(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
@@ -277,16 +300,16 @@ class Task(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        id: typing.Text = ...,
-        file_id: typing.Text = ...,
+        id: builtins.str = ...,
+        file_id: builtins.str = ...,
         exit_code: builtins.int = ...,
-        filename: typing.Text = ...,
-        execution: typing.Text = ...,
-        arguments: typing.Text = ...,
-        stdout: typing.Text = ...,
-        stderr: typing.Text = ...,
-        start_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
-        end_time: typing.Optional[google.protobuf.timestamp_pb2.Timestamp] = ...,
+        filename: builtins.str = ...,
+        execution: builtins.str = ...,
+        arguments: builtins.str = ...,
+        stdout: builtins.str = ...,
+        stderr: builtins.str = ...,
+        start_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        end_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
     def HasField(
         self,
@@ -322,6 +345,7 @@ class Task(google.protobuf.message.Message):
 
 global___Task = Task
 
+@typing_extensions.final
 class ProcessingConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -339,10 +363,8 @@ class ProcessingConfig(google.protobuf.message.Message):
         AIP_COMPRESSION_ALGORITHM_UNSPECIFIED: ProcessingConfig._AIPCompressionAlgorithm.ValueType  # 0
         AIP_COMPRESSION_ALGORITHM_UNCOMPRESSED: ProcessingConfig._AIPCompressionAlgorithm.ValueType  # 1
         """It breaks in verify_aip."""
-
         AIP_COMPRESSION_ALGORITHM_TAR: ProcessingConfig._AIPCompressionAlgorithm.ValueType  # 2
         """Not supported yet!"""
-
         AIP_COMPRESSION_ALGORITHM_TAR_BZIP2: ProcessingConfig._AIPCompressionAlgorithm.ValueType  # 3
         AIP_COMPRESSION_ALGORITHM_TAR_GZIP: ProcessingConfig._AIPCompressionAlgorithm.ValueType  # 4
         AIP_COMPRESSION_ALGORITHM_S7_COPY: ProcessingConfig._AIPCompressionAlgorithm.ValueType  # 5
@@ -351,15 +373,12 @@ class ProcessingConfig(google.protobuf.message.Message):
 
     class AIPCompressionAlgorithm(
         _AIPCompressionAlgorithm, metaclass=_AIPCompressionAlgorithmEnumTypeWrapper
-    ):
-        pass
+    ): ...
     AIP_COMPRESSION_ALGORITHM_UNSPECIFIED: ProcessingConfig.AIPCompressionAlgorithm.ValueType  # 0
     AIP_COMPRESSION_ALGORITHM_UNCOMPRESSED: ProcessingConfig.AIPCompressionAlgorithm.ValueType  # 1
     """It breaks in verify_aip."""
-
     AIP_COMPRESSION_ALGORITHM_TAR: ProcessingConfig.AIPCompressionAlgorithm.ValueType  # 2
     """Not supported yet!"""
-
     AIP_COMPRESSION_ALGORITHM_TAR_BZIP2: ProcessingConfig.AIPCompressionAlgorithm.ValueType  # 3
     AIP_COMPRESSION_ALGORITHM_TAR_GZIP: ProcessingConfig.AIPCompressionAlgorithm.ValueType  # 4
     AIP_COMPRESSION_ALGORITHM_S7_COPY: ProcessingConfig.AIPCompressionAlgorithm.ValueType  # 5
@@ -394,7 +413,6 @@ class ProcessingConfig(google.protobuf.message.Message):
     in the workflow: one for objects/submissionDocumentation and one
     for objects/metadata
     """
-
     identify_before_normalization: builtins.bool
     normalize: builtins.bool
     transcribe_files: builtins.bool
@@ -402,10 +420,8 @@ class ProcessingConfig(google.protobuf.message.Message):
     perform_policy_checks_on_preservation_derivatives: builtins.bool
     aip_compression_level: builtins.int
     """AIP compression level (1 is the fastest, 9 is the smallest)."""
-
     aip_compression_algorithm: global___ProcessingConfig.AIPCompressionAlgorithm.ValueType
     """AIP compression algorithm"""
-
     def __init__(
         self,
         *,
