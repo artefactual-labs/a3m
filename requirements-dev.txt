@@ -115,7 +115,7 @@ jsonschema==4.4.0
     # via a3m (setup.py)
 lazy-object-proxy==1.7.1
     # via astroid
-lxml==4.8.0
+lxml==4.9.3
     # via
     #   a3m (setup.py)
     #   ammcpc
