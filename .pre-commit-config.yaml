@@ -25,7 +25,7 @@ repos:
         setup.cfg|
         requirements.txt
       )$
-    args: ["--output-file=requirements.txt"]
+    args: ["--resolver=backtracking", "--output-file=requirements.txt"]
 - repo: https://github.com/jazzband/pip-tools
   rev: 6.13.0
   hooks:
@@ -35,7 +35,10 @@ repos:
         setup.cfg|
         requirements-dev.txt
       )$
-    args: ["--output-file=requirements-dev.txt", "--extra=dev"]
+    args:
+      - "--resolver=backtracking"
+      - "--output-file=requirements-dev.txt"
+      - "--extra=dev"
 - repo: https://github.com/asottile/pyupgrade
   rev: v2.31.1
   hooks:
