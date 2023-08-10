@@ -216,7 +216,7 @@ pyyaml==6.0
     #   vcrpy
 releases==1.6.3
     # via a3m (setup.py)
-requests==2.27.1
+requests==2.31.0
     # via
     #   a3m (setup.py)
     #   sphinx
