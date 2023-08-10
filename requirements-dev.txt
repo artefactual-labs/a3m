@@ -297,7 +297,7 @@ virtualenv==20.14.1
     #   tox
 vulture==2.3
     # via a3m (setup.py)
-wheel==0.37.1
+wheel==0.41.1
     # via pip-tools
 wrapt==1.14.0
     # via
