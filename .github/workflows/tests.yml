@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - {name: Python 3.9, python: '3.9', os: ubuntu-latest, tox: py, codecov: true}
+        - {name: Python 3.9, python: '3.9', os: ubuntu-latest, tox: pytest, codecov: true}
         - {name: Lint, python: '3.9', os: ubuntu-latest, tox: lint, codecov: false}
         - {name: Type, python: '3.9', os: ubuntu-latest, tox: type, codecov: false}
         - {name: Pylint, python: '3.9', os: ubuntu-latest, tox: pylint, codecov: false}
@@ -46,6 +46,6 @@ jobs:
       shell: bash
     - name: Run command
       run: |
-        docker run --rm --entrypoint=python --env=A3M_DEBUG=yes a3m_a3m -m a3m.cli.client \
+        docker run --rm --entrypoint=python --env=A3M_DEBUG=yes a3m-a3m -m a3m.cli.client \
           --name=MARBLES \
           https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/Images/pictures/MARBLES.TGA

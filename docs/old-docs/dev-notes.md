@@ -9,7 +9,7 @@ installed so you don't have to run them locally.
 <summary>Docker Compose</summary>
 <hr>
 
-Try the following if you feel confortable using our Makefile:
+Try the following if you feel comfortable using our Makefile:
 
     make create-volume build bootstrap restart
 
@@ -55,7 +55,7 @@ Check out this repository:
 Then follow these steps:
 
     # Create virtual environment and activate it
-    virtualenv --python=python3.8 .venv
+    python -m venv .venv
     source .venv/bin/activate
 
     # Install the dependencies

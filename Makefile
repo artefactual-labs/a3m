@@ -13,7 +13,7 @@ NULL :=
 SPACE := $(NULL) $(NULL)
 
 define compose
-	docker-compose -f docker-compose.yml $(1)
+	docker compose -f docker-compose.yml $(1)
 endef
 
 define compose_run
@@ -166,4 +166,4 @@ tox: build  ## Run a toxenv.
 
 .PHONY: test
 test:  ## Run the tests with coverage.
-	$(MAKE) tox ARG="py"
+	$(MAKE) tox ARG="pytest"

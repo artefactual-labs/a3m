@@ -4,8 +4,7 @@ version: "2.4"
 volumes:
 
   a3m-pipeline-data:
-    external:
-      name: "a3m-pipeline-data"
+    name: "a3m-pipeline-data"
 
 services:
 
@@ -15,7 +14,6 @@ services:
       args:
         USER_ID: ${USER_ID:-1000}
         GROUP_ID: ${GROUP_ID:-1000}
-        PYTHON_VERSION: ${PYTHON_VERSION:-3.9}
         REQUIREMENTS: ${REQUIREMENTS:-/a3m/requirements-dev.txt}
         DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-a3m.settings.common}
     environment:
