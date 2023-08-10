@@ -69,7 +69,7 @@ filelock==3.6.0
     #   virtualenv
 flake8==4.0.1
     # via a3m (setup.py)
-future==0.18.2
+future==0.18.3
     # via metsrw
 gitdb==4.0.9
     # via gitpython
