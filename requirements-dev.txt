@@ -59,7 +59,7 @@ dill==0.3.4
     # via pylint
 distlib==0.3.4
     # via virtualenv
-django==3.2.13
+django==3.2.20
     # via a3m (setup.py)
 docutils==0.17.1
     # via sphinx
