@@ -73,7 +73,7 @@ protobuf==4.24.0
     #   grpcio-status
 pygfried==0.5.0
     # via a3m (setup.py)
-pygments==2.11.2
+pygments==2.15.0
     # via rich
 pyrsistent==0.18.1
     # via jsonschema
