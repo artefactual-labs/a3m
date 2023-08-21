@@ -163,7 +163,7 @@ pre-commit==2.18.1
     # via a3m (setup.py)
 prometheus-client==0.14.1
     # via a3m (setup.py)
-protobuf==4.24.0
+protobuf==4.24.1
     # via
     #   googleapis-common-protos
     #   grpcio-reflection
