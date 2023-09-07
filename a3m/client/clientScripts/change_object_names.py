@@ -250,7 +250,7 @@ def call(jobs):
         for job in jobs:
             with job.JobContext(logger=logger):
                 # job.args[4] (taskUUID) is unused.
-                objects_directory = job.args[1]  # directory to run changes on.
+                objects_directory = job.args[1]  # directory to run name changes on.
                 sip_uuid = job.args[2]  # %sip_uuid%
                 date = job.args[3]  # %date%
                 group_type = job.args[5]  # SIPDirectory or transferDirectory
