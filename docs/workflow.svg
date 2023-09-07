@@ -2326,7 +2326,7 @@
 <polygon fill="white" stroke="transparent" points="546,-15483 546,-15651 1046,-15651 1046,-15483 546,-15483"/>
 <polygon fill="aliceblue" stroke="transparent" points="546,-15630 546,-15651 1046,-15651 1046,-15630 546,-15630"/>
 <polygon fill="none" stroke="gray" points="546,-15630 546,-15651 1046,-15651 1046,-15630 546,-15630"/>
-<text text-anchor="start" x="594.5" y="-15637.8" font-family="Times,serif" font-weight="bold" font-size="14.00">change extracted objects' file and directory names</text>
+<text text-anchor="start" x="594.5" y="-15637.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Change extracted objects' file and directory names</text>
 <polygon fill="none" stroke="gray" points="546,-15609 546,-15630 692,-15630 692,-15609 546,-15609"/>
 <text text-anchor="start" x="549" y="-15615.8" font-family="Times,serif" font-size="14.00">Type</text>
 <polygon fill="none" stroke="gray" points="692,-15609 692,-15630 1046,-15630 1046,-15609 692,-15609"/>
@@ -2923,7 +2923,7 @@
 <polygon fill="white" stroke="transparent" points="837,-3285 837,-3453 1337,-3453 1337,-3285 837,-3285"/>
 <polygon fill="aliceblue" stroke="transparent" points="837,-3432 837,-3453 1337,-3453 1337,-3432 837,-3432"/>
 <polygon fill="none" stroke="gray" points="837,-3432 837,-3453 1337,-3453 1337,-3432 837,-3432"/>
-<text text-anchor="start" x="908" y="-3439.8" font-family="Times,serif" font-weight="bold" font-size="14.00">change file and directory names in metadata</text>
+<text text-anchor="start" x="908" y="-3439.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Change file and directory names in metadata</text>
 <polygon fill="none" stroke="gray" points="837,-3411 837,-3432 984,-3432 984,-3411 837,-3411"/>
 <text text-anchor="start" x="840" y="-3417.8" font-family="Times,serif" font-size="14.00">Type</text>
 <polygon fill="none" stroke="gray" points="984,-3411 984,-3432 1337,-3432 1337,-3411 984,-3411"/>
@@ -3440,7 +3440,7 @@
 <polygon fill="white" stroke="transparent" points="835,-5694 835,-5862 1339,-5862 1339,-5694 835,-5694"/>
 <polygon fill="aliceblue" stroke="transparent" points="835,-5841 835,-5862 1339,-5862 1339,-5841 835,-5841"/>
 <polygon fill="none" stroke="gray" points="835,-5841 835,-5862 1339,-5862 1339,-5841 835,-5841"/>
-<text text-anchor="start" x="838" y="-5848.8" font-family="Times,serif" font-weight="bold" font-size="14.00">change file and directory names in submission documentation</text>
+<text text-anchor="start" x="838" y="-5848.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Change file and directory names in submission documentation</text>
 <polygon fill="none" stroke="gray" points="835,-5820 835,-5841 981,-5841 981,-5820 835,-5820"/>
 <text text-anchor="start" x="838" y="-5826.8" font-family="Times,serif" font-size="14.00">Type</text>
 <polygon fill="none" stroke="gray" points="981,-5820 981,-5841 1339,-5841 1339,-5820 981,-5820"/>
