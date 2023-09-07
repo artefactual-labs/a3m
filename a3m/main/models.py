@@ -46,7 +46,7 @@ class BlobTextField(models.TextField):
     """
     Text field backed by `longblob` instead of `longtext`.
 
-    Used for storing strings that need to match unsanitized paths on disk.
+    Used for storing strings that need to match unchanged paths on disk.
 
     BLOBs are byte strings (bynary character set and collation).
     """

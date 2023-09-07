@@ -384,9 +384,9 @@
               <premis:eventIdentifierType>UUID</premis:eventIdentifierType>
               <premis:eventIdentifierValue>3d1145f6-df2a-4c8e-b01c-529fc1f51f73</premis:eventIdentifierValue>
             </premis:eventIdentifier>
-            <premis:eventType>name cleanup</premis:eventType>
+            <premis:eventType>filename change</premis:eventType>
             <premis:eventDateTime>2015-06-24T00:22:37</premis:eventDateTime>
-            <premis:eventDetail>prohibited characters removed:program="sanitizeNames"; version="1.10.9529a554732f6b96a561fd0adcf2711bb233166b"</premis:eventDetail>
+            <premis:eventDetail>prohibited characters removed:program="change_names"; version="1.10.9529a554732f6b96a561fd0adcf2711bb233166b"</premis:eventDetail>
             <premis:eventOutcomeInformation>
               <premis:eventOutcome/>
               <premis:eventOutcomeDetail>

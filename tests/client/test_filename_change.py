@@ -7,8 +7,8 @@ from django.core.management import call_command
 from django.test import TestCase
 
 from . import TempDirMixin
-from a3m.client.clientScripts import sanitize_names
-from a3m.client.clientScripts import sanitize_object_names
+from a3m.client.clientScripts import change_names
+from a3m.client.clientScripts import change_object_names
 from a3m.client.job import Job
 from a3m.main.models import Directory
 from a3m.main.models import Event
@@ -150,7 +150,7 @@ def verify_event_details(event):
     AGENT_TYPES = ["software", "organization", "Archivematica user"]
 
     EVENT_DETAIL = (
-        'prohibited characters removed: program="sanitize_names"; version="1.10.'
+        'prohibited characters removed: program="change_names"; version="1.10.'
     )
     assert event.event_id is not None, "Event ID is None"
     assert is_uuid(str(event.event_id)), "UUID is invalid"
@@ -172,8 +172,8 @@ def verify_event_details(event):
         agents.remove(agent)
 
 
-class TestSanitize(TempDirMixin, TestCase):
-    """Test sanitizeNames, sanitize_object_names & sanitizeSipName."""
+class TestFilenameChange(TempDirMixin, TestCase):
+    """Test change_names, change_object_names & change_sip_name."""
 
     transfer_uuid = "e95ab50f-9c84-45d5-a3ca-1b0b3f58d9b6"
 
@@ -192,13 +192,13 @@ class TestSanitize(TempDirMixin, TestCase):
             for fixture in fixtures:
                 call_command("loaddata", fixture)
 
-    def test_sanitize_object_names(self):
-        """Test sanitize_object_names.
+    def test_change_object_names(self):
+        """Test change_object_names.
 
-        It should sanitize files.
-        It should sanitize a directory & update the files in it.
+        It should change filenames.
+        It should change directory names & update the files in it.
         It should handle unicode unit names.
-        It should not change a name that is already sanitized.
+        It should not change a name that is already changed.
         Event and Event Agent details should be written correctly.
         """
 
@@ -216,8 +216,8 @@ class TestSanitize(TempDirMixin, TestCase):
                 f.write(path)
 
         try:
-            # Sanitize
-            sanitizer = sanitize_object_names.NameSanitizer(
+            # Name change
+            name_changer = change_object_names.NameChanger(
                 Job("stub", "stub", []),
                 os.path.join(transfer_path, "objects", "").encode("utf8"),
                 self.transfer_uuid,
@@ -226,7 +226,7 @@ class TestSanitize(TempDirMixin, TestCase):
                 "transfer_id",
                 os.path.join(transfer_path, "").encode("utf8"),
             )
-            sanitizer.sanitize_objects()
+            name_changer.change_objects()
             # Assert files have expected name
             # Assert DB has been updated
             # Assert events created
@@ -235,32 +235,32 @@ class TestSanitize(TempDirMixin, TestCase):
                     transfer_path,
                     "objects",
                     "takusan_directories",
-                    "need_sanitization",
+                    "need_name_change",
                     "checking_here",
                     "evelyn_s_photo.jpg",
                 )
             )
             assert File.objects.get(
-                currentlocation="%transferDirectory%objects/takusan_directories/need_sanitization/checking_here/evelyn_s_photo.jpg"
+                currentlocation="%transferDirectory%objects/takusan_directories/need_name_change/checking_here/evelyn_s_photo.jpg"
             )
             event = Event.objects.get(
                 file_uuid="47813453-6872-442b-9d65-6515be3c5aa1",
-                event_type="name cleanup",
+                event_type="filename change",
             )
 
             verify_event_details(event)
 
             assert os.path.exists(
                 os.path.join(
-                    transfer_path, "objects", "no_sanitization/needed_here/lion.svg"
+                    transfer_path, "objects", "no_name_change/needed_here/lion.svg"
                 )
             )
             assert File.objects.get(
-                currentlocation="%transferDirectory%objects/no_sanitization/needed_here/lion.svg"
+                currentlocation="%transferDirectory%objects/no_name_change/needed_here/lion.svg"
             )
             assert not Event.objects.filter(
                 file_uuid="60e5c61b-14ef-4e92-89ec-9b9201e68adb",
-                event_type="name cleanup",
+                event_type="filename change",
             ).exists()
 
             assert os.path.exists(
@@ -268,17 +268,17 @@ class TestSanitize(TempDirMixin, TestCase):
                     transfer_path,
                     "objects",
                     "takusan_directories",
-                    "need_sanitization",
+                    "need_name_change",
                     "checking_here",
                     "lionXie_Zhen_.svg",
                 )
             )
             assert File.objects.get(
-                currentlocation="%transferDirectory%objects/takusan_directories/need_sanitization/checking_here/lionXie_Zhen_.svg"
+                currentlocation="%transferDirectory%objects/takusan_directories/need_name_change/checking_here/lionXie_Zhen_.svg"
             )
             assert Event.objects.filter(
                 file_uuid="791e07ea-ad44-4315-b55b-44ec771e95cf",
-                event_type="name cleanup",
+                event_type="filename change",
             ).exists()
 
             assert os.path.exists(
@@ -289,7 +289,7 @@ class TestSanitize(TempDirMixin, TestCase):
             )
             assert Event.objects.filter(
                 file_uuid="8a1f0b59-cf94-47ef-8078-647b77c8a147",
-                event_type="name cleanup",
+                event_type="filename change",
             ).exists()
         finally:
             # Delete files
@@ -308,22 +308,22 @@ class TestSanitize(TempDirMixin, TestCase):
         # ("🚀", "_"),
     ],
 )
-def test_sanitize_name(basename, expected_name):
-    assert sanitize_names.sanitize_name(basename) == expected_name
+def test_change_name(basename, expected_name):
+    assert change_names.change_name(basename) == expected_name
 
 
-def test_sanitize_name_raises_valueerror_on_empty_string():
+def test_change_name_raises_valueerror_on_empty_string():
     with pytest.raises(ValueError):
-        sanitize_names.sanitize_name("")
+        change_names.change_name("")
 
 
 @pytest.mark.django_db
-def test_sanitize_transfer_with_multiple_files(
+def test_change_transfer_with_multiple_files(
     monkeypatch, tmp_path, transfer, subdir_path, multiple_transfer_file_objs
 ):
-    monkeypatch.setattr(sanitize_object_names.NameSanitizer, "BATCH_SIZE", 10)
+    monkeypatch.setattr(change_object_names.NameChanger, "BATCH_SIZE", 10)
 
-    sanitizer = sanitize_object_names.NameSanitizer(
+    name_changer = change_object_names.NameChanger(
         Job("stub", "stub", []),
         subdir_path.as_posix(),
         transfer.uuid,
@@ -332,7 +332,7 @@ def test_sanitize_transfer_with_multiple_files(
         "transfer_id",
         os.path.join(tmp_path.as_posix(), ""),
     )
-    sanitizer.sanitize_objects()
+    name_changer.change_objects()
 
     assert multiple_transfer_file_objs, "File objects structure is empty"
     for file_obj in multiple_transfer_file_objs:
@@ -343,15 +343,15 @@ def test_sanitize_transfer_with_multiple_files(
         assert subdir_path.as_posix() not in file_obj.currentlocation
         assert "bulk-file" in file_obj.currentlocation
         # Test the event details were written correctly for our object.
-        event = Event.objects.get(file_uuid=file_obj.uuid, event_type="name cleanup")
+        event = Event.objects.get(file_uuid=file_obj.uuid, event_type="filename change")
         verify_event_details(event)
 
 
 @pytest.mark.django_db
-def test_sanitize_transfer_with_directory_uuids(
+def test_change_transfer_with_directory_uuids(
     tmp_path, transfer, subdir_path, transfer_dir_obj
 ):
-    sanitizer = sanitize_object_names.NameSanitizer(
+    name_changer = change_object_names.NameChanger(
         Job("stub", "stub", []),
         os.path.join(tmp_path.as_posix(), ""),
         transfer.uuid,
@@ -360,7 +360,7 @@ def test_sanitize_transfer_with_directory_uuids(
         "transfer_id",
         os.path.join(tmp_path.as_posix(), ""),
     )
-    sanitizer.sanitize_objects()
+    name_changer.change_objects()
 
     original_location = transfer_dir_obj.currentlocation
     transfer_dir_obj.refresh_from_db()
@@ -370,8 +370,8 @@ def test_sanitize_transfer_with_directory_uuids(
 
 
 @pytest.mark.django_db
-def test_sanitize_sip(tmp_path, sip, subdir_path, sip_dir_obj, sip_file_obj):
-    sanitizer = sanitize_object_names.NameSanitizer(
+def test_change_sip(tmp_path, sip, subdir_path, sip_dir_obj, sip_file_obj):
+    name_changer = change_object_names.NameChanger(
         Job("stub", "stub", []),
         os.path.join(tmp_path.as_posix(), ""),
         sip.uuid,
@@ -380,7 +380,7 @@ def test_sanitize_sip(tmp_path, sip, subdir_path, sip_dir_obj, sip_file_obj):
         "sip_id",
         os.path.join(tmp_path.as_posix(), ""),
     )
-    sanitizer.sanitize_objects()
+    name_changer.change_objects()
 
     original_dir_location = sip_dir_obj.currentlocation
     sip_dir_obj.refresh_from_db()

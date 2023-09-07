@@ -21,7 +21,7 @@ import uuid
 
 from django.db import transaction
 
-from . import sanitize_names
+from . import change_names
 from a3m.main.models import Directory
 from a3m.main.models import Event
 from a3m.main.models import File
@@ -31,19 +31,19 @@ from a3m.main.models import Transfer
 logger = logging.getLogger(__name__)
 
 
-class NameSanitizer:
+class NameChanger:
     """
-    Class to track batch sanitizations of files and directories, both in the
+    Class to track batch changes of files and directories, both in the
     filesystem and in the database.
     """
 
     BATCH_SIZE = 2000
     EVENT_DETAIL = (
-        'prohibited characters removed: program="sanitize_names"; version="'
-        + sanitize_names.VERSION
+        'prohibited characters removed: program="change_names"; version="'
+        + change_names.VERSION
         + '"'
     )
-    EVENT_OUTCOME_DETAIL = 'Original name="{}"; cleaned up name="{}"'
+    EVENT_OUTCOME_DETAIL = 'Original name="{}"; new name="{}"'
 
     def __init__(
         self, job, objects_directory, sip_uuid, date, group_type, group_sql, sip_path
@@ -123,24 +123,24 @@ class NameSanitizer:
         for file_obj in self.file_queryset.iterator():
             old_location = unicodedata.normalize("NFC", file_obj.currentlocation)
             try:
-                sanitized_location = self.files_index[old_location]
+                changed_location = self.files_index[old_location]
             except KeyError:
                 continue
 
-            file_obj.currentlocation = sanitized_location
+            file_obj.currentlocation = changed_location
             file_obj.save()
 
-            sanitize_event = Event(
+            change_event = Event(
                 event_id=uuid.uuid4(),
                 file_uuid=file_obj,
-                event_type="name cleanup",
+                event_type="filename change",
                 event_datetime=self.date,
                 event_detail=self.EVENT_DETAIL,
                 event_outcome_detail=self.EVENT_OUTCOME_DETAIL.format(
-                    old_location, sanitized_location
+                    old_location, changed_location
                 ),
             )
-            events.append(sanitize_event)
+            events.append(change_event)
 
         Event.objects.bulk_create(events)
 
@@ -151,18 +151,18 @@ class NameSanitizer:
             event.agents.add(*event_agents)
 
         if len(self.files_index) > 0:
-            logger.debug("Sanitized batch of %s files", len(self.files_index))
+            logger.debug("Changed batch of %s files", len(self.files_index))
 
             self.files_index = {}
         else:
-            logger.debug("No file sanitization required.")
+            logger.debug("No filename change required.")
 
     def apply_dir_updates(self):
         """
         Run a single batch of Directory updates.
         """
         if self.directory_queryset is None:
-            logger.debug("No directory sanitization required.")
+            logger.debug("No directory name change required.")
             return
 
         # We pass through _all_ objects here, as they may not be normalized in
@@ -170,21 +170,21 @@ class NameSanitizer:
         for dir_obj in self.directory_queryset.iterator():
             old_location = unicodedata.normalize("NFC", dir_obj.currentlocation)
             try:
-                sanitized_location = self.dirs_index[old_location]
+                changed_location = self.dirs_index[old_location]
             except KeyError:
                 continue
 
-            dir_obj.currentlocation = sanitized_location
+            dir_obj.currentlocation = changed_location
             dir_obj.save()
 
-            # TODO: Dir sanitizations don't generate events?
+            # TODO: Dir name changes don't generate events?
             # Is seems like they should.
 
         if len(self.dirs_index) > 0:
-            logger.debug("Sanitized batch of %s directories", len(self.dirs_index))
+            logger.debug("Changed batch of %s directories", len(self.dirs_index))
             self.dirs_index = {}
         else:
-            logger.debug("No directory sanitization required.")
+            logger.debug("No directory name change required.")
 
     def add_file_to_batch(self, old_path, new_path):
         """
@@ -220,25 +220,25 @@ class NameSanitizer:
         if len(self.dirs_index) >= self.BATCH_SIZE:
             self.apply_dir_updates()
 
-    def sanitize_objects(self):
+    def change_objects(self):
         """
-        Iterate over the filesystem, sanitizing as we go. Updates made on disk
+        Iterate over the filesystem, changing names as we go. Updates made on disk
         are batched and then applied to the database in chunks of BATCH_SIZE.
         """
-        for old_path, new_path, is_dir, was_sanitized in sanitize_names.sanitize_tree(
+        for old_path, new_path, is_dir, was_changed in change_names.change_tree(
             self.objects_directory, self.objects_directory
         ):
             # We need to use job.pyprint here to log to stdout, otherwise the filename
-            # cleanup log file is not generated.
-            if not was_sanitized:
-                self.job.pyprint("No sanitization for", old_path)
+            # change log file is not generated.
+            if not was_changed:
+                self.job.pyprint("No filename changes for", old_path)
                 continue
 
             if is_dir:
                 self.add_dir_to_batch(old_path, new_path)
             else:
                 self.add_file_to_batch(old_path, new_path)
-            self.job.pyprint("Sanitized name:", old_path, " -> ", new_path)
+            self.job.pyprint("Changed name:", old_path, " -> ", new_path)
 
         # Catch the remainder afer all batches
         self.apply_file_updates()
@@ -250,7 +250,7 @@ def call(jobs):
         for job in jobs:
             with job.JobContext(logger=logger):
                 # job.args[4] (taskUUID) is unused.
-                objects_directory = job.args[1]  # directory to run sanitization on.
+                objects_directory = job.args[1]  # directory to run changes on.
                 sip_uuid = job.args[2]  # %sip_uuid%
                 date = job.args[3]  # %date%
                 group_type = job.args[5]  # SIPDirectory or transferDirectory
@@ -260,7 +260,7 @@ def call(jobs):
                 group_sql = job.args[6]  # transfer_id or sip_id
                 sip_path = job.args[7]  # %SIPDirectory%
 
-                sanitizer = NameSanitizer(
+                name_changer = NameChanger(
                     job,
                     objects_directory,
                     sip_uuid,
@@ -269,5 +269,5 @@ def call(jobs):
                     group_sql,
                     sip_path,
                 )
-                sanitizer.sanitize_objects()
+                name_changer.change_objects()
                 job.set_status(0)
