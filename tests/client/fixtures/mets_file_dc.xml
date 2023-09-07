@@ -348,7 +348,7 @@
             <premis:eventOutcomeInformation>
               <premis:eventOutcome/>
               <premis:eventOutcomeDetail>
-                <premis:eventOutcomeDetailNote>Original name="%transferDirectory%objects/evelyn's photo.jpg"; cleaned up name="%transferDirectory%objects/evelyn_s_photo.jpg"</premis:eventOutcomeDetailNote>
+                <premis:eventOutcomeDetailNote>Original name="%transferDirectory%objects/evelyn's photo.jpg"; changed name="%transferDirectory%objects/evelyn_s_photo.jpg"</premis:eventOutcomeDetailNote>
               </premis:eventOutcomeDetail>
             </premis:eventOutcomeInformation>
             <premis:linkingAgentIdentifier>
