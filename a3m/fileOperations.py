@@ -183,7 +183,7 @@ def findFileInNormalizationCSV(
     with open(csv_path, "rb") as csv_file:
         reader = csv.reader(csv_file)
         # Search CSV for an access/preservation filename that matches target_file
-        # Get original name of target file, to handle sanitized names
+        # Get original name of target file, to handle changed names
         try:
             f = File.objects.get(
                 removedtime__isnull=True,

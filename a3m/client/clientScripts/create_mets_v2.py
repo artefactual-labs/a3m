@@ -35,7 +35,7 @@ from django.utils import timezone
 
 from .archivematicaCreateMETSMetadataCSV import parseMetadata
 from .archivematicaCreateMETSRights import archivematicaGetRights
-from .sanitize_names import sanitize_name
+from .change_names import change_name
 from a3m import namespaces as ns
 from a3m.archivematicaFunctions import escape
 from a3m.archivematicaFunctions import normalizeNonDcElementName
@@ -746,7 +746,7 @@ def _fixup_path_input_by_user(job, path):
     """Fix-up paths submitted by a user, e.g. in custom structmap examples so
     that they don't have to anticipate the Archivematica normalization process.
     """
-    return os.path.join("", *[sanitize_name(name) for name in path.split(os.path.sep)])
+    return os.path.join("", *[change_name(name) for name in path.split(os.path.sep)])
 
 
 def include_custom_structmap(

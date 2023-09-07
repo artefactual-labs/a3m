@@ -167,7 +167,7 @@ def check_manual_normalization(job, opts):
     normalization_csv = os.path.join(
         opts.sip_path, "objects", "manualNormalization", "normalization.csv"
     )
-    # Get original name of target file, to handle sanitized names
+    # Get original name of target file, to handle changed names
     file_ = File.objects.get(uuid=opts.file_uuid)
     bname = file_.originallocation.replace(
         "%transferDirectory%objects/", "", 1
@@ -207,7 +207,7 @@ def check_manual_normalization(job, opts):
             if not preservation_file:
                 return None
             # If we found a match, verify access/preservation exists in DB
-            # match and pull original location b/c sanitization
+            # match and pull original location b/c filename change
             filename = preservation_file
             job.print_output("Looking for", filename, "in database")
             # FIXME: SQL uses removedtime=0. Convince Django to express this
