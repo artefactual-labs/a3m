@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 class NameChanger:
     """
-    Class to track batch changes of files and directories, both in the
+    Class to track batch changes of files and directory names, both in the
     filesystem and in the database.
     """
 
@@ -181,7 +181,7 @@ class NameChanger:
             # Is seems like they should.
 
         if len(self.dirs_index) > 0:
-            logger.debug("Changed batch of %s directories", len(self.dirs_index))
+            logger.debug("Changed batch of %s directory names", len(self.dirs_index))
             self.dirs_index = {}
         else:
             logger.debug("No directory name change required.")
