@@ -725,8 +725,8 @@
                 "filter_file_end": null,
                 "filter_file_start": null,
                 "filter_subdir": "objects",
-                "stderr_file": "%SIPLogsDirectory%filenameCleanup.log",
-                "stdout_file": "%SIPLogsDirectory%filenameCleanup.log"
+                "stderr_file": "%SIPLogsDirectory%filenameChange.log",
+                "stdout_file": "%SIPLogsDirectory%filenameChange.log"
             },
             "description": {
                 "en": "Change object and directory filenames",
@@ -2258,8 +2258,8 @@
                 "filter_file_end": null,
                 "filter_file_start": null,
                 "filter_subdir": "objects/metadata",
-                "stderr_file": "%SIPLogsDirectory%filenameCleanup.log",
-                "stdout_file": "%SIPLogsDirectory%filenameCleanup.log"
+                "stderr_file": "%SIPLogsDirectory%filenameChange.log",
+                "stdout_file": "%SIPLogsDirectory%filenameChange.log"
             },
             "description": {
                 "en": "Change file and directory names in metadata",
