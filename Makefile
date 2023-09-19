@@ -152,7 +152,7 @@ publish: publish-clean  ## Publish to PyPI
 	python setup.py sdist
 	python setup.py bdist_wheel --universal
 	twine check dist/*
-	twine upload dist/* --repository-url https://upload.pypi.org/legacy/
+	twine upload dist/* -r pypi
 
 .PHONY: publish-clean
 publish-clean:
