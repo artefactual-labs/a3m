@@ -34,7 +34,7 @@ for an Ubuntu/Debian Linux environment:
 `ExifTool <https://exiftool.org>`_::
 
     wget https://packages.archivematica.org/1.11.x/ubuntu-externals/pool/main/libi/libimage-exiftool-perl/libimage-exiftool-perl_10.10-2~14.04_all.deb`
-    sudo dkpg -i libimage-exiftool-perl_10.10-2~14.04_all.deb
+    sudo dpkg -i libimage-exiftool-perl_10.10-2~14.04_all.deb
 
 `MediaInfo <https://mediaarea.net/en/MediaInfo>`_::
 
