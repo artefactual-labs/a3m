@@ -429,7 +429,7 @@ def create_premis_object(fileUUID):
     creatingApplication = etree.Element(ns.premisBNS + "creatingApplication")
     etree.SubElement(
         creatingApplication, ns.premisBNS + "dateCreatedByApplication"
-    ).text = f.modificationtime.strftime("%Y-%m-%dT%H:%M:%S%z")
+    ).text = f.modificationtime.strftime("%Y-%m-%dT%H:%M:%S%Z")
 
     objectCharacteristics.append(creatingApplication)
 
