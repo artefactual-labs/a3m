@@ -1,4 +1,4 @@
-ARG SYSTEM_IMAGE=ubuntu:20.04
+ARG SYSTEM_IMAGE=ubuntu:22.04
 
 #
 # Base
@@ -33,10 +33,12 @@ ENV LC_ALL en_US.UTF-8
 # OS dependencies
 RUN set -ex \
 	&& curl -s https://packages.archivematica.org/GPG-KEY-archivematica | apt-key add - \
-	&& add-apt-repository --no-update --yes "deb [arch=amd64] http://packages.archivematica.org/1.14.x/ubuntu-externals focal main" \
-	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ focal multiverse" \
-	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ focal-security universe" \
-	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ focal-updates multiverse" \
+	&& add-apt-repository --no-update --yes "deb [arch=amd64] http://packages.archivematica.org/1.15.x/ubuntu-externals jammy main" \
+	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy multiverse" \
+	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy-security universe" \
+	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy-updates multiverse" \
+	&& curl -so /tmp/repo-mediaarea_1.0-21_all.deb -L https://mediaarea.net/repo/deb/repo-mediaarea_1.0-21_all.deb \
+	&& dpkg -i /tmp/repo-mediaarea_1.0-21_all.deb \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
 	atool \
@@ -52,8 +54,6 @@ RUN set -ex \
 	libimage-exiftool-perl \
 	libevent-dev \
 	libjansson4 \
-	mediainfo \
-	mediaconch \
 	openjdk-8-jre-headless \
 	p7zip-full \
 	pbzip2 \

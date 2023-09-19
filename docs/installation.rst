@@ -33,7 +33,7 @@ for an Ubuntu/Debian Linux environment:
 
 `ExifTool <https://exiftool.org>`_::
 
-    wget https://packages.archivematica.org/1.11.x/ubuntu-externals/pool/main/libi/libimage-exiftool-perl/libimage-exiftool-perl_10.10-2~14.04_all.deb`
+    wget https://packages.archivematica.org/1.15.x/ubuntu-externals/pool/main/libi/libimage-exiftool-perl/libimage-exiftool-perl_10.10-2~14.04_all.deb`
     sudo dpkg -i libimage-exiftool-perl_10.10-2~14.04_all.deb
 
 `MediaInfo <https://mediaarea.net/en/MediaInfo>`_::
@@ -47,7 +47,7 @@ for an Ubuntu/Debian Linux environment:
 `JHOVE <https://jhove.openpreservation.org/>`_::
 
     sudo apt-get ca-certificates-java java-common openjdk-8-jre-headless
-    wget https://packages.archivematica.org/1.11.x/ubuntu-externals/pool/main/j/jhove/jhove_1.20.1-6~18.04_all.deb
+    wget https://packages.archivematica.org/1.15.x/ubuntu-externals/pool/main/j/jhove/jhove_1.20.1-6~18.04_all.deb
     sudo dpkg -i jhove_1.20.1-6~18.04_all.deb
 
 `7-Zip <https://www.7-zip.org/>`_::
