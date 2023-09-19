@@ -3,34 +3,74 @@ Docker
 ======
 
 Our Docker image is extremely convenient because it includes many software
-dependencies that you would need to install manually otherwise.
+dependencies that you would need to install manually otherwise. Off the shelf,
+the Docker image brings an environment with a3m and its dependencies installed
+and ready to use.
 
-Using our Docker image
-======================
+We're going to describe a couple of different ways in which you can make use of
+our Docker image.
 
-Off the shelf, the Docker image brings an environment with a3m and its
-dependencies installed and ready to use. Below is an example of using the
-client-server mode provided by a3m using the Docker command-line interface.
+Download the latest version
+===========================
 
-Create a virtual network so our communicate can communicate with each other::
-
-    docker network create a3m-network
-
-Download the latest a3m Docker image::
+Make sure that you have the latest version with::
 
     docker pull ghcr.io/artefactual-labs/a3m:main
 
-The following command will run the gRPC server in detached mode listening locally on port ``7000``::
+CLI with bundled server container
+=================================
+
+This section shows the a3m CLI with the processing engine embedded. Using Docker
+volumes, we're going to inject a transfer source directory and a destination
+for the AIPs that we're creating to ease its extraction.
+
+Prepare the local directories that will host the volumes:
+
+    mkdir -p /tmp/demo/transfers /tmp/demo/completed
+
+Prepare a dummy transfer::
+
+    mkdir -p /tmp/demo/transfers/transfer1 && touch /tmp/demo/transfers/transfer1/hola.txt
+
+Submit ``/tmp/demo/transfers/transfer1`` to an ephemeral a3m container::
+
+    docker run \
+      --interactive --tty --rm \
+      --volume="/tmp/demo/transfers:/tmp/demo/transfers" \
+      --volume="/tmp/demo/completed:/home/a3m/.local/share/a3m/share/completed" \
+      --entrypoint=python \
+      ghcr.io/artefactual-labs/a3m:main \
+      -m a3m.cli.client --name=transfer1 file:///tmp/demo/transfers/transfer1
+    AIP f733d3e8-cede-4e9c-93ee-5728b32f0b7b is being generated...
+
+Success! You can find the AIP under::
+
+    /tmp/demo/completed/transfer1-f733d3e8-cede-4e9c-93ee-5728b32f0b7b.7z
+
+Client and server in separate containers
+========================================
+
+This section shows the client-server mode. We are going to create a Docker
+network so our server and client can talk to each other.
+
+Create the virtual network::
+
+    docker network create a3m-network
+
+Run the gRPC server in detached mode listening locally on port ``7000``::
 
     docker run --rm --network a3m-network --name a3md --detach --publish 7000:7000 \
         ghcr.io/artefactual-labs/a3m:main
 
-This is going to use the gRPC client to submit a new tranfser::
+Submit a new transfer using the gRPC client::
 
     docker run --rm --network a3m-network --name a3mc --interactive --tty --entrypoint=python \
         ghcr.io/artefactual-labs/a3m:main \
             -m a3m.cli.client --address=a3md:7000 \
                 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
+
+We have produced an AIP that is stored inside the `a3md` container. The previous
+demo in this document shows how we can use Docker volumes to retrieve the AIP.
 
 Don't forget to clean up before leaving::
 
