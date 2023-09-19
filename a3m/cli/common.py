@@ -1,4 +1,5 @@
 import os
+import pathlib
 import sys
 import warnings
 
@@ -25,3 +26,10 @@ def init_django():
     """
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "a3m.settings.common")
     django.setup()
+
+
+def configure_xml_catalog_files():
+    """Use local XML schemas for validation."""
+    os.environ["XML_CATALOG_FILES"] = str(
+        pathlib.Path(__file__).parent.parent / "client/assets/catalog/catalog.xml"
+    )

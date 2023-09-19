@@ -13,6 +13,7 @@ from rich.table import Table
 
 from a3m.api.transferservice import v1beta1 as transfer_service_api
 from a3m.cli.client.wrapper import ClientWrapper
+from a3m.cli.common import configure_xml_catalog_files
 from a3m.cli.common import init_django
 from a3m.cli.common import suppress_warnings
 from a3m.server.rpc.client import Client
@@ -53,6 +54,7 @@ def main(ctx, uri, name, address, processing_config, wait_for_ready, no_input):
     """
     init_django()
     suppress_warnings()
+    configure_xml_catalog_files()
 
     # Disable logging.
     if not settings.DEBUG:
