@@ -303,7 +303,7 @@ vulture==2.3
     # via a3m (setup.py)
 wheel==0.41.1
     # via pip-tools
-wrapt==1.14.0
+wrapt==1.15.0
     # via
     #   astroid
     #   vcrpy
