@@ -49,7 +49,7 @@ grpcio-status==1.56.2
     # via a3m (setup.py)
 idna==3.3
     # via requests
-jmespath==1.0.0
+jmespath==1.0.1
     # via
     #   boto3
     #   botocore
