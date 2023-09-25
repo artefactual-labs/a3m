@@ -151,7 +151,7 @@ packaging==23.1
     #   tox
 pathspec==0.9.0
     # via black
-pbr==5.8.1
+pbr==5.11.1
     # via stevedore
 pip-tools==7.3.0
     # via a3m (setup.py)
