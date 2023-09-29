@@ -42,8 +42,6 @@ chardet==5.2.0
     # via tox
 charset-normalizer==2.0.12
     # via requests
-clamd==1.0.2
-    # via a3m (setup.py)
 click==8.1.2
     # via
     #   a3m (setup.py)

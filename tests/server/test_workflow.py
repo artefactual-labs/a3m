@@ -83,10 +83,10 @@ def test_load_valid_document(path):
 def test_link_browse_methods(mocker):
     with open(os.path.join(ASSETS_DIR, "workflow.json")) as fp:
         wf = workflow.load(fp)
-    ln = wf.get_link("1ba589db-88d1-48cf-bb1a-a5f9d2b17378")
-    assert ln.get_next_link(code="0").id == "087d27be-c719-47d8-9bbb-9a7d8b609c44"
+    ln = wf.get_link("0fd20984-db3c-492b-a512-eedd74bacc82")
+    assert ln.get_next_link(code="0").id == "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
     assert ln.get_status_id(code="0") == workflow._STATUSES["Completed successfully"]
-    assert ln.get_next_link(code="1").id == "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1"
+    assert ln.get_next_link(code="1").id == "82ee9ad2-2c74-4c7c-853e-e4eaf68fc8b6"
     assert ln.get_status_id(code="1") == workflow._STATUSES["Failed"]
 
 
