@@ -29,7 +29,6 @@ class Client:
         rpc_timeout: Optional[int] = _GRPC_DEFAULT_TIMEOUT_SECS,
         wait_for_ready: bool = False,
     ):
-
         self.transfer_stub = transfer_service_api.service_pb2_grpc.TransferServiceStub(
             channel
         )

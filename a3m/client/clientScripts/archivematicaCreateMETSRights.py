@@ -154,7 +154,6 @@ def createRightsStatement(job, statement, fileUUID, state):
             for (
                 identifier
             ) in license.rightsstatementlicensedocumentationidentifier_set.all():
-
                 licenseDocumentIdentifier = etree.SubElement(
                     licenseInformation, ns.premisBNS + "licenseDocumentationIdentifier"
                 )

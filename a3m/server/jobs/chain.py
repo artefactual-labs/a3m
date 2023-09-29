@@ -9,7 +9,7 @@ This module knows about all `Job` subclasses, and will instantiate the correct
 one by looking at the workflow.
 """
 import logging
-from typing import Iterator
+from collections.abc import Iterator
 
 from a3m.server.jobs.base import Job
 from a3m.server.jobs.client import ClientScriptJob

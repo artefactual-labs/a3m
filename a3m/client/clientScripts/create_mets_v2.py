@@ -839,7 +839,6 @@ def createFileSec(
     state,
     includeAmdSec=True,
 ):
-
     """Creates fileSec and structMap entries for files on disk recursively.
 
     :param directoryPath: Path to recursively traverse and create METS entries for

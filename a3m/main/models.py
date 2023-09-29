@@ -629,7 +629,6 @@ class Task(models.Model):
 
 
 class AgentManager(models.Manager):
-
     # These are set in the 0002_initial_data.py migration of the dashboard
     DEFAULT_SYSTEM_AGENT_PK = 1
     DEFAULT_ORGANIZATION_AGENT_PK = 2

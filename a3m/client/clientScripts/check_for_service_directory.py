@@ -27,7 +27,7 @@ def something(job, SIPDirectory, serviceDirectory, objectsDirectory, SIPUUID, da
     exitCode = 0
     job.pyprint(SIPDirectory)
     # For every file, & directory Try to find the matching file & directory in the objects directory
-    for (path, dirs, files) in os.walk(serviceDirectory):
+    for path, dirs, files in os.walk(serviceDirectory):
         for file in files:
             servicePreExtension = "_me"
             originalPreExtension = "_m"

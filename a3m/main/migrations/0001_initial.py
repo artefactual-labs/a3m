@@ -9,7 +9,6 @@ import a3m.main.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [("fpr", "0001_initial")]

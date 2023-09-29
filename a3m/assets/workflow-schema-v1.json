@@ -1,90 +1,93 @@
 {
   "$id": "https://a3m.readthedocs.io/workflow/schema/v1.json",
   "$schema": "http://json-schema.org/draft-06/schema#",
-  "title": "a3m Workflow JSON Schema",
-  "description": "In-progress JSON Schema document for Archivematica JSON-encoded workflows.",
+  "additionalProperties": false,
   "definitions": {
-    "uuid": {
-      "type": "string",
-      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
-    },
-    "translations": {
-      "type": "object",
-      "patternProperties": {
-        "^[a-zA-Z]{2,3}([-_\/][a-zA-Z]{2,3})?$": {
-          "type": "string"
-        }
-      },
-      "minProperties": 1,
-      "additionalProperties": false,
-      "required": [
-        "en"
-      ]
-    },
     "job_status": {
-      "type": "string",
       "enum": [
         "Completed successfully",
         "Failed"
-      ]
+      ],
+      "type": "string"
     },
     "link": {
-      "type": "object",
+      "additionalProperties": false,
       "properties": {
         "config": {
           "oneOf": [
-            { "$ref": "#/definitions/link_model_StandardTaskFile" },
-            { "$ref": "#/definitions/link_model_StandardTaskDir" },
-            { "$ref": "#/definitions/link_model_LinkChoice" }
-          ]
-        },
-        "exit_codes": {
-          "type": "object",
-          "minProperties": 0,
-          "additionalProperties": {
-            "type": "object",
-            "properties": {
-              "job_status": {
-                "oneOf": [
-                  { "$ref": "#/definitions/job_status" },
-                  { "type": "null" }
-                ]
-              },
-              "link_id": {
-                "oneOf": [
-                  { "$ref": "#/definitions/uuid" },
-                  { "type": "null" }
-                ]
-              }
+            {
+              "$ref": "#/definitions/link_model_StandardTaskFile"
+            },
+            {
+              "$ref": "#/definitions/link_model_StandardTaskDir"
+            },
+            {
+              "$ref": "#/definitions/link_model_LinkChoice"
             }
-          }
-        },
-        "fallback_job_status": {
-          "oneOf": [
-            { "$ref": "#/definitions/job_status" },
-            { "type": "null" }
-          ]
-        },
-        "fallback_link_id": {
-          "oneOf": [
-            { "$ref": "#/definitions/uuid" },
-            { "type": "null" }
           ]
         },
         "description": {
           "$ref": "#/definitions/translations"
+        },
+        "end": {
+          "type": "boolean"
+        },
+        "exit_codes": {
+          "additionalProperties": {
+            "properties": {
+              "job_status": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/job_status"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "link_id": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/uuid"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "type": "object"
+          },
+          "minProperties": 0,
+          "type": "object"
+        },
+        "fallback_job_status": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/job_status"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fallback_link_id": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "group": {
           "$ref": "#/definitions/translations"
         },
         "start": {
           "type": "boolean"
-        },
-        "end": {
-          "type": "boolean"
         }
       },
-      "additionalProperties": false,
       "required": [
         "config",
         "exit_codes",
@@ -92,127 +95,199 @@
         "fallback_link_id",
         "description",
         "group"
-      ]
-    },
-    "link_model_StandardTaskFile": {
-      "type": "object",
-      "properties": {
-        "@manager": {"type": "string", "pattern": "linkTaskManagerFiles"},
-        "execute": {
-          "type": "string"
-        },
-        "arguments": {
-          "type": ["string", "null"]
-        },
-        "filter_file_start": {
-          "type": ["string", "null"]
-        },
-        "filter_file_end": {
-          "type": ["string", "null"]
-        },
-        "filter_subdir": {
-          "type": ["string", "null"]
-        },
-        "stdout_file": {
-          "type": ["string", "null"]
-        },
-        "stderr_file": {
-          "type": ["string", "null"]
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "@manager",
-        "execute",
-        "arguments",
-        "filter_file_start",
-        "filter_file_end",
-        "filter_subdir",
-        "stdout_file",
-        "stderr_file"
-      ]
-    },
-    "link_model_StandardTaskDir": {
-      "type": "object",
-      "properties": {
-        "@manager": {"type": "string", "pattern": "linkTaskManagerDirectories"},
-        "execute": {
-          "type": "string"
-        },
-        "arguments": {
-          "type": ["string", "null"]
-        },
-        "filter_file_start": {
-          "type": ["string", "null"]
-        },
-        "filter_file_end": {
-          "type": ["string", "null"]
-        },
-        "filter_subdir": {
-          "type": ["string", "null"]
-        },
-        "stdout_file": {
-          "type": ["string", "null"]
-        },
-        "stderr_file": {
-          "type": ["string", "null"]
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "@manager",
-        "execute",
-        "arguments",
-        "filter_file_start",
-        "filter_file_end",
-        "filter_subdir",
-        "stdout_file",
-        "stderr_file"
-      ]
+      ],
+      "type": "object"
     },
     "link_model_LinkChoice": {
-      "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "@manager": {"type": "string", "pattern": "linkTaskManagerChoice"},
-        "config_attr": {"type": "string"},
-        "default": {"type": "boolean"},
+        "@manager": {
+          "pattern": "linkTaskManagerChoice",
+          "type": "string"
+        },
         "choices": {
-          "type": "array",
-          "minItems": 1,
           "items": {
-            "type": "object",
-            "properties": {
-              "value": {"type": "boolean"},
-              "link_id": {"$ref": "#/definitions/uuid"}
-            },
             "additionalProperties": true,
+            "properties": {
+              "link_id": {
+                "$ref": "#/definitions/uuid"
+              },
+              "value": {
+                "type": "boolean"
+              }
+            },
             "required": [
               "value",
               "link_id"
-            ]
-          }
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "config_attr": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
         }
       },
-      "additionalProperties": false,
       "required": [
         "@manager",
         "config_attr",
         "default",
         "choices"
-      ]
+      ],
+      "type": "object"
+    },
+    "link_model_StandardTaskDir": {
+      "additionalProperties": false,
+      "properties": {
+        "@manager": {
+          "pattern": "linkTaskManagerDirectories",
+          "type": "string"
+        },
+        "arguments": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "execute": {
+          "type": "string"
+        },
+        "filter_file_end": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "filter_file_start": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "filter_subdir": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stderr_file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stdout_file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "@manager",
+        "execute",
+        "arguments",
+        "filter_file_start",
+        "filter_file_end",
+        "filter_subdir",
+        "stdout_file",
+        "stderr_file"
+      ],
+      "type": "object"
+    },
+    "link_model_StandardTaskFile": {
+      "additionalProperties": false,
+      "properties": {
+        "@manager": {
+          "pattern": "linkTaskManagerFiles",
+          "type": "string"
+        },
+        "arguments": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "execute": {
+          "type": "string"
+        },
+        "filter_file_end": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "filter_file_start": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "filter_subdir": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stderr_file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stdout_file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "@manager",
+        "execute",
+        "arguments",
+        "filter_file_start",
+        "filter_file_end",
+        "filter_subdir",
+        "stdout_file",
+        "stderr_file"
+      ],
+      "type": "object"
+    },
+    "translations": {
+      "additionalProperties": false,
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-zA-Z]{2,3}([-_/][a-zA-Z]{2,3})?$": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "en"
+      ],
+      "type": "object"
+    },
+    "uuid": {
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "type": "string"
     }
   },
-  "type": "object",
+  "description": "In-progress JSON Schema document for Archivematica JSON-encoded workflows.",
   "properties": {
     "links": {
-      "type": "object",
       "additionalProperties": {
         "$ref": "#/definitions/link"
-      }
+      },
+      "type": "object"
     }
   },
   "required": [
     "links"
   ],
-  "additionalProperties": false
+  "title": "a3m Workflow JSON Schema",
+  "type": "object"
 }

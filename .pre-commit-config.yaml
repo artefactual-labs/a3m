@@ -1,21 +1,40 @@
-minimum_pre_commit_version: 2.4.0
-default_language_version:
-  python: python3.9
 repos:
-- repo: https://github.com/ambv/black
-  rev: 22.3.0
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+  - id: pretty-format-json
+    args: [--no-ensure-ascii, --autofix]
+    files: |
+      (?x)^(
+        a3m/assets/.*\.json|
+        tests/server/fixtures/workflow-integration-test.json
+      )
+- repo: https://github.com/asottile/pyupgrade
+  rev: v3.10.1
+  hooks:
+  - id: pyupgrade
+    args: [--py39-plus]
+- repo: https://github.com/asottile/reorder_python_imports
+  rev: v3.10.0
+  hooks:
+  - id: reorder-python-imports
+    args: ["--application-directories=.:src", "--py39-plus"]
+- repo: https://github.com/adamchainz/django-upgrade
+  rev: "1.14.1"
+  hooks:
+  - id: django-upgrade
+    args: [--target-version, "3.2"]
+- repo: https://github.com/psf/black
+  rev: "23.7.0"
   hooks:
   - id: black
     args: [--safe, --quiet]
-- repo: https://github.com/PyCQA/flake8
-  rev: 4.0.1
+    language_version: python3
+- repo: https://github.com/pycqa/flake8
+  rev: "6.1.0"
   hooks:
   - id: flake8
-- repo: https://github.com/asottile/reorder_python_imports
-  rev: v3.0.1
-  hooks:
-  - id: reorder-python-imports
-    args: ["--application-directories=.:src", "--py37-plus"]
+    language_version: python3
 - repo: https://github.com/jazzband/pip-tools
   rev: 7.3.0
   hooks:
@@ -39,8 +58,3 @@ repos:
       - "--resolver=backtracking"
       - "--output-file=requirements-dev.txt"
       - "--extra=dev"
-- repo: https://github.com/asottile/pyupgrade
-  rev: v2.31.1
-  hooks:
-  - id: pyupgrade
-    args: ["--py39-plus"]

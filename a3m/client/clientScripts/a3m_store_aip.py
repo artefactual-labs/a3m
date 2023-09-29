@@ -40,7 +40,7 @@ def _upload_file(path, bucket, key):
 
 
 def _store_aip(job, sip_id, aip_path):
-    metrics.aip_stored(sip_id, size=0)  #  A3M-TODO: write size
+    metrics.aip_stored(sip_id, size=0)  # A3M-TODO: write size.
 
     if not settings.S3_ENABLED:
         return

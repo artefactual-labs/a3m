@@ -683,15 +683,12 @@ def ensure_event_id_is_uuid(event_id, printfn=print):
 
 
 def save_events(valid_events, file_queryset, printfn=print):
-
     for valid_event in valid_events:
-
         event = valid_event["event"]
 
         db_agents = get_or_create_agents(valid_event["event_agents"])
 
         for file_ in valid_event["event_files"]:
-
             # get database file from originalName
             db_file = file_queryset.get(
                 originallocation="".join(
@@ -785,7 +782,6 @@ def get_valid_events(files, agents, events, file_identifiers_to_ignore, printfn=
 
 
 def main(job):
-
     # extract arguments from job
     transfer_uuid, xsd_path, xml_path = job.args[1:4]
 
