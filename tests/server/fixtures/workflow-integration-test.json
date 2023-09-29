@@ -4,12 +4,7 @@
       "config": {
         "@manager": "linkTaskManagerDirectories",
         "arguments": "\"%processingDirectory%\" \"%TransferUUID%\"",
-        "execute": "link1_command",
-        "filter_file_end": null,
-        "filter_file_start": null,
-        "filter_subdir": null,
-        "stderr_file": null,
-        "stdout_file": null
+        "execute": "link1_command"
       },
       "description": {
         "en": "Starting link"
@@ -21,7 +16,6 @@
         }
       },
       "fallback_job_status": "Failed",
-      "fallback_link_id": null,
       "group": {
         "en": "Group 1"
       },
@@ -31,12 +25,7 @@
       "config": {
         "@manager": "linkTaskManagerFiles",
         "arguments": "\"%fileUUID%\"",
-        "execute": "link2_command",
-        "filter_file_end": null,
-        "filter_file_start": null,
-        "filter_subdir": null,
-        "stderr_file": null,
-        "stdout_file": null
+        "execute": "link2_command"
       },
       "description": {
         "en": "Second link"
@@ -48,7 +37,6 @@
         }
       },
       "fallback_job_status": "Failed",
-      "fallback_link_id": null,
       "group": {
         "en": "Group 1"
       }
@@ -57,12 +45,7 @@
       "config": {
         "@manager": "linkTaskManagerDirectories",
         "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
-        "execute": "link3_command",
-        "filter_file_end": null,
-        "filter_file_start": null,
-        "filter_subdir": null,
-        "stderr_file": null,
-        "stdout_file": null
+        "execute": "link3_command"
       },
       "description": {
         "en": "Third link"
@@ -74,7 +57,6 @@
         }
       },
       "fallback_job_status": "Failed",
-      "fallback_link_id": null,
       "group": {
         "en": "Group 1"
       }
@@ -83,12 +65,7 @@
       "config": {
         "@manager": "linkTaskManagerDirectories",
         "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
-        "execute": "link4_command",
-        "filter_file_end": null,
-        "filter_file_start": null,
-        "filter_subdir": null,
-        "stderr_file": null,
-        "stdout_file": null
+        "execute": "link4_command"
       },
       "description": {
         "en": "Fourth link"
@@ -100,7 +77,6 @@
         }
       },
       "fallback_job_status": "Failed",
-      "fallback_link_id": null,
       "group": {
         "en": "Group 1"
       }
@@ -124,9 +100,7 @@
       "description": {
         "en": "Fifth link"
       },
-      "exit_codes": {},
       "fallback_job_status": "Failed",
-      "fallback_link_id": null,
       "group": {
         "en": "Group 1"
       }
@@ -135,12 +109,7 @@
       "config": {
         "@manager": "linkTaskManagerDirectories",
         "arguments": "\"%SIPName%\"",
-        "execute": "link6_command",
-        "filter_file_end": null,
-        "filter_file_start": null,
-        "filter_subdir": null,
-        "stderr_file": null,
-        "stdout_file": null
+        "execute": "link6_command"
       },
       "description": {
         "en": "Sixth link"
@@ -152,7 +121,6 @@
         }
       },
       "fallback_job_status": "Failed",
-      "fallback_link_id": null,
       "group": {
         "en": "Group 1"
       }
@@ -161,12 +129,7 @@
       "config": {
         "@manager": "linkTaskManagerDirectories",
         "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
-        "execute": "final_command",
-        "filter_file_end": null,
-        "filter_file_start": null,
-        "filter_subdir": null,
-        "stderr_file": null,
-        "stdout_file": null
+        "execute": "final_command"
       },
       "description": {
         "en": "Last link"
@@ -174,12 +137,10 @@
       "end": true,
       "exit_codes": {
         "0": {
-          "job_status": "Completed successfully",
-          "link_id": null
+          "job_status": "Completed successfully"
         }
       },
       "fallback_job_status": "Failed",
-      "fallback_link_id": null,
       "group": {
         "en": "Group 1"
       }
