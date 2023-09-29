@@ -43,7 +43,6 @@ RUN set -ex \
 	&& apt-get install -y --no-install-recommends \
 	atool \
 	bulk-extractor \
-	clamav \
 	ffmpeg \
 	ghostscript \
 	coreutils \
@@ -85,9 +84,6 @@ RUN set -ex \
 	tk-dev \
 	xz-utils \
 	zlib1g-dev
-
-# Download ClamAV virus signatures
-RUN freshclam --quiet
 
 # Create a3m user
 RUN set -ex \

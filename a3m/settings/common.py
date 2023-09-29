@@ -59,38 +59,6 @@ CONFIG_MAPPING = {
         "type": "string",
     },
     "time_zone": {"section": "a3m", "option": "time_zone", "type": "string"},
-    "clamav_server": {"section": "a3m", "option": "clamav_server", "type": "string"},
-    "clamav_pass_by_stream": {
-        "section": "a3m",
-        "option": "clamav_pass_by_stream",
-        "type": "boolean",
-    },
-    "clamav_client_timeout": {
-        "section": "a3m",
-        "option": "clamav_client_timeout",
-        "type": "float",
-    },
-    "clamav_client_backend": {
-        "section": "a3m",
-        "option": "clamav_client_backend",
-        "type": "string",
-    },
-    # float for megabytes to preserve fractions on in-code operations on bytes
-    "clamav_client_max_file_size": {
-        "section": "a3m",
-        "option": "clamav_client_max_file_size",
-        "type": "float",
-    },
-    "clamav_client_max_scan_size": {
-        "section": "a3m",
-        "option": "clamav_client_max_scan_size",
-        "type": "float",
-    },
-    "virus_scanning_enabled": {
-        "section": "a3m",
-        "option": "virus_scanning_enabled",
-        "type": "boolean",
-    },
     "db_engine": {"section": "a3m", "option": "db_engine", "type": "string"},
     "db_name": {"section": "a3m", "option": "db_name", "type": "string"},
     "db_user": {"section": "a3m", "option": "db_user", "type": "string"},
@@ -146,13 +114,6 @@ prometheus_bind_port =
 time_zone = UTC
 capture_client_script_output = True
 removable_files = Thumbs.db, Icon, Icon\r, .DS_Store
-clamav_server = /var/run/clamav/clamd.ctl
-clamav_pass_by_stream = True
-clamav_client_timeout = 86400
-clamav_client_backend = clamscanner     ; Options: clamdscanner or clamscanner
-clamav_client_max_file_size = 42        ; MB
-clamav_client_max_scan_size = 42        ; MB
-virus_scanning_enabled = False
 secret_key = 12345
 rpc_bind_address = 0.0.0.0:7000
 
@@ -317,13 +278,6 @@ CONCURRENT_PACKAGES = config.get(
 RPC_THREADS = config.get("rpc_threads")
 WORKER_THREADS = config.get("worker_threads", default=multiprocessing.cpu_count() + 1)
 REMOVABLE_FILES = config.get("removable_files")
-CLAMAV_SERVER = config.get("clamav_server")
-CLAMAV_PASS_BY_STREAM = config.get("clamav_pass_by_stream")
-CLAMAV_CLIENT_TIMEOUT = config.get("clamav_client_timeout")
-CLAMAV_CLIENT_BACKEND = config.get("clamav_client_backend")
-CLAMAV_CLIENT_MAX_FILE_SIZE = config.get("clamav_client_max_file_size")
-CLAMAV_CLIENT_MAX_SCAN_SIZE = config.get("clamav_client_max_scan_size")
-VIRUS_SCANNING_ENABLED = config.get("virus_scanning_enabled")
 CAPTURE_CLIENT_SCRIPT_OUTPUT = config.get("capture_client_script_output")
 DEFAULT_CHECKSUM_ALGORITHM = "sha256"
 RPC_BIND_ADDRESS = config.get("rpc_bind_address")

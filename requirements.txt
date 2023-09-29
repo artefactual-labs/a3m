@@ -24,8 +24,6 @@ certifi==2023.7.22
     # via requests
 charset-normalizer==2.0.12
     # via requests
-clamd==1.0.2
-    # via a3m (setup.py)
 click==8.1.2
     # via a3m (setup.py)
 colorama==0.4.4

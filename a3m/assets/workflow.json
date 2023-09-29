@@ -218,7 +218,7 @@
       "exit_codes": {
         "0": {
           "job_status": "Completed successfully",
-          "link_id": "1ba589db-88d1-48cf-bb1a-a5f9d2b17378"
+          "link_id": "087d27be-c719-47d8-9bbb-9a7d8b609c44"
         }
       },
       "fallback_job_status": "Failed",
@@ -426,65 +426,6 @@
         "ja": "メタデータの特徴付けと抽出",
         "pt_BR": "Caracterizar e extrair metadados",
         "sv": "Karaktärisera och extrahera metadata"
-      }
-    },
-    "1ba589db-88d1-48cf-bb1a-a5f9d2b17378": {
-      "config": {
-        "@manager": "linkTaskManagerFiles",
-        "arguments": "\"%fileUUID%\" \"%relativeLocation%\" \"%date%\" \"%taskUUID%\"",
-        "execute": "virus_scan",
-        "filter_subdir": "objects/submissionDocumentation",
-        "stderr_file": "%SIPLogsDirectory%clamAVScan.txt"
-      },
-      "description": {
-        "en": "Scan for viruses in submission documentation",
-        "fr": "Lancer l’antivirus dans la documentation de soumission",
-        "pt_BR": "Verificar se há vírus na documentação de submissão",
-        "sv": "Scanna efter virus i leveransdokumentation"
-      },
-      "exit_codes": {
-        "0": {
-          "job_status": "Completed successfully",
-          "link_id": "087d27be-c719-47d8-9bbb-9a7d8b609c44"
-        }
-      },
-      "fallback_job_status": "Failed",
-      "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-      "group": {
-        "en": "Process submission documentation",
-        "fr": "Traiter la documentation de soumission",
-        "pt_BR": "Processar documentação de submissão",
-        "sv": "Bearbeta leveransdokumentation"
-      }
-    },
-    "1c2550f1-3fc0-45d8-8bc4-4c06d720283b": {
-      "config": {
-        "@manager": "linkTaskManagerFiles",
-        "arguments": "\"%fileUUID%\" \"%relativeLocation%\" \"%date%\" \"%taskUUID%\"",
-        "execute": "virus_scan",
-        "stderr_file": "%SIPLogsDirectory%clamAVScan.txt"
-      },
-      "description": {
-        "en": "Scan for viruses",
-        "fr": "Lancer l’antivirus",
-        "ja": "ウイルスをスキャンする",
-        "pt_BR": "Procurar por vírus",
-        "sv": "Sök efter virus"
-      },
-      "exit_codes": {
-        "0": {
-          "job_status": "Completed successfully",
-          "link_id": "56eebd45-5600-4768-a8c2-ec0114555a3d"
-        }
-      },
-      "fallback_job_status": "Failed",
-      "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-      "group": {
-        "en": "Scan for viruses",
-        "fr": "Lancer l’antivirus",
-        "ja": "ウイルスをスキャンする",
-        "pt_BR": "Procurar por vírus",
-        "sv": "Sök efter virus"
       }
     },
     "1cb7e228-6e94-4c93-bf70-430af99b9264": {
@@ -1566,35 +1507,6 @@
         "sv": "Normalisera"
       }
     },
-    "7d33f228-0fa8-4f4c-a66b-24f8e264c214": {
-      "config": {
-        "@manager": "linkTaskManagerFiles",
-        "arguments": "\"%fileUUID%\" \"%relativeLocation%\" \"%date%\" \"%taskUUID%\"",
-        "execute": "virus_scan",
-        "filter_subdir": "objects/"
-      },
-      "description": {
-        "en": "Scan for viruses on extracted files",
-        "pt_BR": "Procurar vírus nos arquivos extraídos",
-        "sv": "Sök efter virus bland extraherade filer"
-      },
-      "exit_codes": {
-        "0": {
-          "job_status": "Completed successfully",
-          "link_id": "aaa929e4-5c35-447e-816a-033a66b9b90b"
-        }
-      },
-      "fallback_job_status": "Failed",
-      "fallback_link_id": "e780473a-0c10-431f-bab6-5d7238b2b70b",
-      "group": {
-        "en": "Extract packages",
-        "es": "Extraer paquetes",
-        "fr": "Extraire les paquets ",
-        "ja": "パッケージの抽出",
-        "pt_BR": "Extrair pacotes",
-        "sv": "Extrahera paket"
-      }
-    },
     "828528c2-2eb9-4514-b5ca-dfd1f7cb5b8c": {
       "config": {
         "@manager": "linkTaskManagerDirectories",
@@ -1647,36 +1559,6 @@
         "fr": "Transcrire le contenu du SIP",
         "pt_BR": "Transcreva o conteúdo do SIP",
         "sv": "Transkribera SIP-innehåll"
-      }
-    },
-    "8bc92801-4308-4e3b-885b-1a89fdcd3014": {
-      "config": {
-        "@manager": "linkTaskManagerFiles",
-        "arguments": "\"%fileUUID%\" \"%relativeLocation%\" \"%date%\" \"%taskUUID%\"",
-        "execute": "virus_scan",
-        "filter_subdir": "objects/metadata",
-        "stderr_file": "%SIPLogsDirectory%clamAVScan.txt"
-      },
-      "description": {
-        "en": "Scan for viruses in metadata",
-        "fr": "Lancer l’antivirus dans les métadonnées",
-        "ja": "メタデータのウイルスをスキャンする",
-        "pt_BR": "Procurar vírus em metadados",
-        "sv": "Sök efter virus bland metadata"
-      },
-      "exit_codes": {
-        "0": {
-          "job_status": "Completed successfully",
-          "link_id": "c8bf3e7e-d8d1-4fc0-a1f1-3ff0be59e950"
-        }
-      },
-      "fallback_job_status": "Failed",
-      "fallback_link_id": "b2ef06b9-bca4-49da-bc5c-866d7b3c4bb1",
-      "group": {
-        "en": "Process metadata directory",
-        "es": "Procesar directorio de metadatos",
-        "pt_BR": "Processar diretório de metadados",
-        "sv": "Bearbeta metadatamapp"
       }
     },
     "8c8bac29-4102-4fd2-9d0a-a3bd2e607566": {
@@ -2000,7 +1882,7 @@
       "exit_codes": {
         "0": {
           "job_status": "Completed successfully",
-          "link_id": "8bc92801-4308-4e3b-885b-1a89fdcd3014"
+          "link_id": "c8bf3e7e-d8d1-4fc0-a1f1-3ff0be59e950"
         }
       },
       "fallback_job_status": "Failed",
@@ -2217,11 +2099,11 @@
       "exit_codes": {
         "0": {
           "job_status": "Completed successfully",
-          "link_id": "7d33f228-0fa8-4f4c-a66b-24f8e264c214"
+          "link_id": "aaa929e4-5c35-447e-816a-033a66b9b90b"
         }
       },
       "fallback_job_status": "Failed",
-      "fallback_link_id": "7d33f228-0fa8-4f4c-a66b-24f8e264c214",
+      "fallback_link_id": "aaa929e4-5c35-447e-816a-033a66b9b90b",
       "group": {
         "en": "Extract packages",
         "es": "Extraer paquetes",
@@ -2768,7 +2650,7 @@
       "exit_codes": {
         "0": {
           "job_status": "Completed successfully",
-          "link_id": "1c2550f1-3fc0-45d8-8bc4-4c06d720283b"
+          "link_id": "56eebd45-5600-4768-a8c2-ec0114555a3d"
         }
       },
       "fallback_job_status": "Failed",
