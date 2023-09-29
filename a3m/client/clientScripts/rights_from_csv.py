@@ -29,7 +29,6 @@ class RightsRowException(Exception):
 
 
 class RightCsvReader:
-
     metadata_applies_to_type = None
     current_row = None
     rows_processed = 0

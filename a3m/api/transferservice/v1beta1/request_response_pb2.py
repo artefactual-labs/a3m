@@ -24,7 +24,6 @@ _builder.BuildTopDescriptorsAndMessages(
     DESCRIPTOR, "a3m.api.transferservice.v1beta1.request_response_pb2", _globals
 )
 if _descriptor._USE_C_DESCRIPTORS == False:
-
     DESCRIPTOR._options = None
     DESCRIPTOR._serialized_options = b'\n#com.a3m.api.transferservice.v1beta1B\024RequestResponseProtoP\001ZUgithub.com/artefactual-labs/a3m/proto/a3m/api/transferservice/v1beta1;transferservice\242\002\003AAT\252\002\037A3m.Api.Transferservice.V1beta1\312\002\037A3m\\Api\\Transferservice\\V1beta1\342\002+A3m\\Api\\Transferservice\\V1beta1\\GPBMetadata\352\002"A3m::Api::Transferservice::V1beta1'
     _globals["_PACKAGESTATUS"]._serialized_start = 2648

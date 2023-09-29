@@ -268,7 +268,6 @@ def get_scanner():
     """
     choice = str(mcpclient_settings.CLAMAV_CLIENT_BACKEND).lower()
     if choice not in SCANNERS_NAMES:
-
         logger.warning(
             "Unexpected antivirus scanner (CLAMAV_CLIENT_BACKEND):" ' "%s"; using %s.',
             choice,

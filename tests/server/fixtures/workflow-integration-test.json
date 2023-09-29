@@ -1,182 +1,188 @@
 {
-    "links": {
-        "3b5dd6a5-b951-4e44-b00d-1180e5557beb": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "execute": "link1_command",
-                "arguments": "\"%processingDirectory%\" \"%TransferUUID%\"",
-                "filter_file_start": null,
-                "filter_file_end": null,
-                "filter_subdir": null,
-                "stdout_file": null,
-                "stderr_file": null
-            },
-            "description": {
-                "en": "Starting link"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "47bf2a2c-8d72-4f36-96d0-53b53a2bbc3f"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Group 1"
-            },
-            "start": true
-        },
-        "47bf2a2c-8d72-4f36-96d0-53b53a2bbc3f": {
-            "config": {
-                "@manager": "linkTaskManagerFiles",
-                "execute": "link2_command",
-                "arguments": "\"%fileUUID%\"",
-                "filter_file_start": null,
-                "filter_file_end": null,
-                "filter_subdir": null,
-                "stdout_file": null,
-                "stderr_file": null
-            },
-            "description": {
-                "en": "Second link"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "5678bbab-c0ea-4b3c-9de9-addc92d0de50"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Group 1"
-            }
-        },
-        "5678bbab-c0ea-4b3c-9de9-addc92d0de50": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "execute": "link3_command",
-                "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
-                "filter_file_start": null,
-                "filter_file_end": null,
-                "filter_subdir": null,
-                "stdout_file": null,
-                "stderr_file": null
-            },
-            "description": {
-                "en": "Third link"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "c38f7b32-6f0c-48a5-a5f6-6dbe97ca75ba"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Group 1"
-            }
-        },
-        "c38f7b32-6f0c-48a5-a5f6-6dbe97ca75ba": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "execute": "link4_command",
-                "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
-                "filter_file_start": null,
-                "filter_file_end": null,
-                "filter_subdir": null,
-                "stdout_file": null,
-                "stderr_file": null
-            },
-            "description": {
-                "en": "Fourth link"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "d875dcf3-5e0e-4546-a66d-b2580c7a1a75"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Group 1"
-            }
-        },
-        "d875dcf3-5e0e-4546-a66d-b2580c7a1a75": {
-            "config": {
-                "@manager": "linkTaskManagerChoice",
-                "config_attr": "run_fifth_link",
-                "default": true,
-                "choices": [
-                    {"value": true, "link_id": "de6eb412-0029-4dbd-9bfa-7311697d6012"},
-                    {"value": false, "link_id": "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e"}
-                ]
-            },
-            "description": {
-                "en": "Fifth link"
-            },
-            "exit_codes": {},
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Group 1"
-            }
-        },
-        "de6eb412-0029-4dbd-9bfa-7311697d6012": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "execute": "link6_command",
-                "arguments": "\"%SIPName%\"",
-                "filter_file_start": null,
-                "filter_file_end": null,
-                "filter_subdir": null,
-                "stdout_file": null,
-                "stderr_file": null
-            },
-            "description": {
-                "en": "Sixth link"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e"
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Group 1"
-            }
-        },
-        "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e": {
-            "config": {
-                "@manager": "linkTaskManagerDirectories",
-                "execute": "final_command",
-                "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
-                "filter_file_start": null,
-                "filter_file_end": null,
-                "filter_subdir": null,
-                "stdout_file": null,
-                "stderr_file": null
-            },
-            "description": {
-                "en": "Last link"
-            },
-            "exit_codes": {
-                "0": {
-                    "job_status": "Completed successfully",
-                    "link_id": null
-                }
-            },
-            "fallback_job_status": "Failed",
-            "fallback_link_id": null,
-            "group": {
-                "en": "Group 1"
-            },
-            "end": true
+  "links": {
+    "3b5dd6a5-b951-4e44-b00d-1180e5557beb": {
+      "config": {
+        "@manager": "linkTaskManagerDirectories",
+        "arguments": "\"%processingDirectory%\" \"%TransferUUID%\"",
+        "execute": "link1_command",
+        "filter_file_end": null,
+        "filter_file_start": null,
+        "filter_subdir": null,
+        "stderr_file": null,
+        "stdout_file": null
+      },
+      "description": {
+        "en": "Starting link"
+      },
+      "exit_codes": {
+        "0": {
+          "job_status": "Completed successfully",
+          "link_id": "47bf2a2c-8d72-4f36-96d0-53b53a2bbc3f"
         }
+      },
+      "fallback_job_status": "Failed",
+      "fallback_link_id": null,
+      "group": {
+        "en": "Group 1"
+      },
+      "start": true
+    },
+    "47bf2a2c-8d72-4f36-96d0-53b53a2bbc3f": {
+      "config": {
+        "@manager": "linkTaskManagerFiles",
+        "arguments": "\"%fileUUID%\"",
+        "execute": "link2_command",
+        "filter_file_end": null,
+        "filter_file_start": null,
+        "filter_subdir": null,
+        "stderr_file": null,
+        "stdout_file": null
+      },
+      "description": {
+        "en": "Second link"
+      },
+      "exit_codes": {
+        "0": {
+          "job_status": "Completed successfully",
+          "link_id": "5678bbab-c0ea-4b3c-9de9-addc92d0de50"
+        }
+      },
+      "fallback_job_status": "Failed",
+      "fallback_link_id": null,
+      "group": {
+        "en": "Group 1"
+      }
+    },
+    "5678bbab-c0ea-4b3c-9de9-addc92d0de50": {
+      "config": {
+        "@manager": "linkTaskManagerDirectories",
+        "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
+        "execute": "link3_command",
+        "filter_file_end": null,
+        "filter_file_start": null,
+        "filter_subdir": null,
+        "stderr_file": null,
+        "stdout_file": null
+      },
+      "description": {
+        "en": "Third link"
+      },
+      "exit_codes": {
+        "0": {
+          "job_status": "Completed successfully",
+          "link_id": "c38f7b32-6f0c-48a5-a5f6-6dbe97ca75ba"
+        }
+      },
+      "fallback_job_status": "Failed",
+      "fallback_link_id": null,
+      "group": {
+        "en": "Group 1"
+      }
+    },
+    "c38f7b32-6f0c-48a5-a5f6-6dbe97ca75ba": {
+      "config": {
+        "@manager": "linkTaskManagerDirectories",
+        "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
+        "execute": "link4_command",
+        "filter_file_end": null,
+        "filter_file_start": null,
+        "filter_subdir": null,
+        "stderr_file": null,
+        "stdout_file": null
+      },
+      "description": {
+        "en": "Fourth link"
+      },
+      "exit_codes": {
+        "0": {
+          "job_status": "Completed successfully",
+          "link_id": "d875dcf3-5e0e-4546-a66d-b2580c7a1a75"
+        }
+      },
+      "fallback_job_status": "Failed",
+      "fallback_link_id": null,
+      "group": {
+        "en": "Group 1"
+      }
+    },
+    "d875dcf3-5e0e-4546-a66d-b2580c7a1a75": {
+      "config": {
+        "@manager": "linkTaskManagerChoice",
+        "choices": [
+          {
+            "link_id": "de6eb412-0029-4dbd-9bfa-7311697d6012",
+            "value": true
+          },
+          {
+            "link_id": "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e",
+            "value": false
+          }
+        ],
+        "config_attr": "run_fifth_link",
+        "default": true
+      },
+      "description": {
+        "en": "Fifth link"
+      },
+      "exit_codes": {},
+      "fallback_job_status": "Failed",
+      "fallback_link_id": null,
+      "group": {
+        "en": "Group 1"
+      }
+    },
+    "de6eb412-0029-4dbd-9bfa-7311697d6012": {
+      "config": {
+        "@manager": "linkTaskManagerDirectories",
+        "arguments": "\"%SIPName%\"",
+        "execute": "link6_command",
+        "filter_file_end": null,
+        "filter_file_start": null,
+        "filter_subdir": null,
+        "stderr_file": null,
+        "stdout_file": null
+      },
+      "description": {
+        "en": "Sixth link"
+      },
+      "exit_codes": {
+        "0": {
+          "job_status": "Completed successfully",
+          "link_id": "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e"
+        }
+      },
+      "fallback_job_status": "Failed",
+      "fallback_link_id": null,
+      "group": {
+        "en": "Group 1"
+      }
+    },
+    "f8e4c1ee-3e43-4caa-a664-f6b6bd8f156e": {
+      "config": {
+        "@manager": "linkTaskManagerDirectories",
+        "arguments": "\"%processingDirectory%\" \"%SIPDirectory%\" \"%SIPName%-%TransferUUID%\"",
+        "execute": "final_command",
+        "filter_file_end": null,
+        "filter_file_start": null,
+        "filter_subdir": null,
+        "stderr_file": null,
+        "stdout_file": null
+      },
+      "description": {
+        "en": "Last link"
+      },
+      "end": true,
+      "exit_codes": {
+        "0": {
+          "job_status": "Completed successfully",
+          "link_id": null
+        }
+      },
+      "fallback_job_status": "Failed",
+      "fallback_link_id": null,
+      "group": {
+        "en": "Group 1"
+      }
     }
+  }
 }

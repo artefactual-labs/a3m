@@ -60,7 +60,6 @@ class FakeUnit:
 
 @pytest.fixture
 def package(request):
-
     return Package(
         "package-1",
         "file:///tmp/foobar-1.gz",

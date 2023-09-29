@@ -11,7 +11,6 @@ THIS_DIR = os.path.dirname(__file__)
 
 
 class TestDatabaseFunctions(TestCase):
-
     fixture_files = ["agents.json", "test_database_functions.json"]
     fixtures = [os.path.join(THIS_DIR, "fixtures", p) for p in fixture_files]
 
