@@ -117,7 +117,7 @@ class Link(BaseLink):
         internally.
         """
         self._src["fallback_job_status"] = _STATUSES[self._src["fallback_job_status"]]
-        for obj in self._src["exit_codes"].values():
+        for obj in self.exit_codes.values():
             obj["job_status"] = _STATUSES[obj["job_status"]]
 
     def _decode_translations(self):
@@ -142,10 +142,14 @@ class Link(BaseLink):
         """Check if the link is indicated as a terminal link."""
         return self._src.get("end", False)
 
+    @property
+    def exit_codes(self):
+        return self._src.get("exit_codes", {})
+
     def get_next_link(self, code):
         code = str(code)
         try:
-            link_id = self._src["exit_codes"][code]["link_id"]
+            link_id = self.exit_codes[code].get("link_id")
         except KeyError:
             link_id = self._src["fallback_link_id"]
         return self._workflow.get_link(link_id)
@@ -154,7 +158,7 @@ class Link(BaseLink):
         """Return the expected Job status ID given an exit code."""
         code = str(code)
         try:
-            status_id = self._src["exit_codes"][code]["job_status"]
+            status_id = self.exit_codes[code]["job_status"]
         except KeyError:
             status_id = self._src["fallback_job_status"]
         return status_id
