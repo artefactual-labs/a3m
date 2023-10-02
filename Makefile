@@ -167,3 +167,16 @@ tox: build  ## Run a toxenv.
 .PHONY: test
 test:  ## Run the tests with coverage.
 	$(MAKE) tox ARG="pytest"
+
+RED := \033[0;31m
+GREEN := \033[0;32m
+YELLOW := \033[0;33m
+RESET := \033[0m
+define print_color
+	@echo "$(1)$(2)$(RESET)"
+endef
+
+.PHONY: workflow
+workflow:  ## Open amflow application web server.
+	$(call print_color,$(YELLOW),Connect to http://127.0.0.1:2323)
+	@docker run --rm --publish=2323:2323 --pull=always --volume=$(CURDIR)/a3m/assets/workflow.json:/tmp/workflow.json artefactual/amflow:latest edit --file=/tmp/workflow.json --verbosity=warn
