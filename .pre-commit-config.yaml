@@ -44,7 +44,9 @@ repos:
         setup.cfg|
         requirements.txt
       )$
-    args: ["--resolver=backtracking", "--output-file=requirements.txt"]
+    args:
+      - "--output-file=requirements.txt"
+      - "setup.py"
 - repo: https://github.com/jazzband/pip-tools
   rev: 7.3.0
   hooks:
@@ -55,6 +57,6 @@ repos:
         requirements-dev.txt
       )$
     args:
-      - "--resolver=backtracking"
       - "--output-file=requirements-dev.txt"
       - "--extra=dev"
+      - "setup.py"

@@ -84,11 +84,11 @@ pip-compile:  ## Compile pip requirements
 	$(call compose_run, \
 		--entrypoint=pip-compile \
 		a3m \
-			--output-file requirements.txt)
+			--output-file=requirements.txt setup.py)
 	$(call compose_run, \
 		--entrypoint=pip-compile \
 		a3m \
-			--extra dev --output-file requirements-dev.txt)
+			--output-file=requirements-dev.txt --extra=dev setup.py)
 
 .PHONY: pip-upgrade
 pip-upgrade:  ## Upgrade pip requirements
