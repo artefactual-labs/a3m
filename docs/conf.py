@@ -15,8 +15,6 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinxcontrib.mermaid",
-    # Temporarily disabled.
-    # "releases",
 ]
 
 autoclass_content = "both"
@@ -47,7 +45,5 @@ html_static_path = ["_static"]
 htmlhelp_basename = "a3mdoc"
 
 suppress_warnings = ["image.nonlocal_uri"]
-
-releases_github_path = "artefactual-labs/a3m"
 
 mermaid_version = "8.8.2"
