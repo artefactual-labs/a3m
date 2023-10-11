@@ -217,8 +217,6 @@ pyyaml==6.0
     #   bandit
     #   pre-commit
     #   vcrpy
-releases==1.6.3
-    # via a3m (setup.py)
 requests==2.31.0
     # via
     #   a3m (setup.py)
@@ -227,8 +225,6 @@ rich==10.16.2
     # via a3m (setup.py)
 s3transfer==0.7.0
     # via boto3
-semantic-version==2.6.0
-    # via releases
 six==1.16.0
     # via
     #   python-dateutil
@@ -238,9 +234,7 @@ smmap==5.0.0
 snowballstemmer==2.2.0
     # via sphinx
 sphinx==4.5.0
-    # via
-    #   a3m (setup.py)
-    #   releases
+    # via a3m (setup.py)
 sphinxcontrib-applehelp==1.0.2
     # via sphinx
 sphinxcontrib-devhelp==1.0.2
