@@ -15,3 +15,4 @@ Current release: |version|.
     settings
     development
     docker
+    contributing
