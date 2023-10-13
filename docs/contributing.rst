@@ -31,6 +31,7 @@ You can find it in the following files:
 * ``/Dockerfile`` (build argument ``PYTHON_VERSION``)
 * ``/.github/workflows/tests.yml``
 * ``/setup.cfg`` (attributes ``classifiers`` and ``python_requires``)
+* ``/.pre-commit-config.yaml`` (attribute ``default_language_version.python``)
 
 We should relax the constraint as much as possible and test in CI because one of
 the aspirations of a3m is to be used as a library.
