@@ -13,6 +13,7 @@ import logging
 import os
 import sys
 from pprint import pformat
+from typing import Final
 
 from django.db import transaction
 
@@ -20,8 +21,10 @@ from a3m import databaseFunctions
 from a3m.dicts import replace_string_values
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.fpr.models import FormatVersion
-from a3m.fpr.models import FPRule
+from a3m.fpr.registry import CommandScriptType
+from a3m.fpr.registry import FPR
+from a3m.fpr.registry import Rule
+from a3m.fpr.registry import RulePurpose
 from a3m.main.models import Derivation
 from a3m.main.models import File
 from a3m.main.models import SIP
@@ -57,6 +60,8 @@ class Validator:
     determine whether a given file conforms to a given specification.
     """
 
+    purpose: Final[RulePurpose] = RulePurpose.VALIDATION
+
     def __init__(self, job, file_path, file_uuid, sip_uuid, shared_path, file_type):
         self.job = job
         self.file_path = file_path
@@ -64,7 +69,6 @@ class Validator:
         self.sip_uuid = sip_uuid
         self.shared_path = shared_path
         self.file_type = file_type
-        self.purpose = "validation"
         self._sip_logs_dir = None
         self._sip_pres_val_dir = None
 
@@ -95,18 +99,9 @@ class Validator:
 
     def _get_rules(self):
         """Return all FPR rules that apply to files of this type."""
-        try:
-            fmt = FormatVersion.active.get(fileformatversion__file_uuid=self.file_uuid)
-        except FormatVersion.DoesNotExist:
-            rules = fmt = None
-        if fmt:
-            rules = FPRule.active.filter(format=fmt.uuid, purpose=self.purpose)
-        # Check default rules.
-        if not rules:
-            rules = FPRule.active.filter(purpose=f"default_{self.purpose}")
-        return rules
+        return FPR.get_file_rules(self.file_uuid, self.purpose, fallback=True)
 
-    def _execute_rule_command(self, rule):
+    def _execute_rule_command(self, rule: Rule):
         """Run the command against the file and return either 'passed' or
         'failed'. If the command errors or determines that the file is invalid,
         return 'failed'. Non-errors will result in the creation of an Event
@@ -114,7 +109,10 @@ class Validator:
         stdout from the command being saved to disk within the unit (i.e., SIP).
         """
         result = "passed"
-        if rule.command.script_type in ("bashScript", "command"):
+        if rule.command.script_type in (
+            CommandScriptType.BASH_SCRIPT,
+            CommandScriptType.COMMAND,
+        ):
             command_to_execute = replace_string_values(
                 rule.command.command,
                 file_=self.file_uuid,
@@ -127,16 +125,18 @@ class Validator:
             args = [self.file_path]
         self.job.print_output("Running", rule.command.description)
         exitstatus, stdout, stderr = executeOrRun(
-            type=rule.command.script_type,
-            text=command_to_execute,
+            type=rule.command.script_type.value,
+            command=command_to_execute,
             printing=False,
             arguments=args,
         )
         if exitstatus != 0:
             self.job.print_error(
                 "Command {description} failed with exit status {status};"
-                " stderr:".format(
-                    description=rule.command.description, status=exitstatus
+                " stderr: {stderr}".format(
+                    description=rule.command.description,
+                    status=exitstatus,
+                    stderr=stderr,
                 )
             )
             return "failed"

@@ -1,15 +1,16 @@
 import argparse
 import logging
 import uuid
+from typing import Optional
 
 import pygfried
 from django.db import transaction
 
 from a3m.databaseFunctions import getUTCDate
 from a3m.databaseFunctions import insertIntoEvents
-from a3m.fpr.models import FormatVersion
+from a3m.fpr.registry import FormatVersion
+from a3m.fpr.registry import FPR
 from a3m.main.models import File
-from a3m.main.models import FileFormatVersion
 from a3m.main.models import FileID
 
 
@@ -19,16 +20,18 @@ TOOL_DESCRIPTION = "pygfried/siegfried"
 TOOL_VERSION = pygfried.version()
 
 
-def write_file_format_version(file_obj, format_version_obj):
-    (ffv, created) = FileFormatVersion.objects.get_or_create(
-        file_uuid=file_obj, defaults={"format_version": format_version_obj}
+def write_file_format_version(file_obj: File, format_version_id: str):
+    (file_format_version, created) = file_obj.fileformatversion_set.get_or_create(
+        defaults={"format_version_id": format_version_id}
     )
     if not created:  # Update the version if it wasn't created new
-        ffv.format_version = format_version_obj
-        ffv.save()
+        file_format_version.format_version_id = format_version_id
+        file_format_version.save()
 
 
-def write_identification_event(file_uuid, puid=None, success=True):
+def write_identification_event(
+    file_id: str, puid: Optional[str] = None, success: bool = True
+):
     event_detail_text = 'program="{}"; version="{}"'.format(
         TOOL_DESCRIPTION, TOOL_VERSION
     )
@@ -43,7 +46,7 @@ def write_identification_event(file_uuid, puid=None, success=True):
     date = getUTCDate()
 
     insertIntoEvents(
-        fileUUID=file_uuid,
+        fileUUID=file_id,
         eventIdentifierUUID=str(uuid.uuid4()),
         eventType="format identification",
         eventDateTime=date,
@@ -53,20 +56,20 @@ def write_identification_event(file_uuid, puid=None, success=True):
     )
 
 
-def write_file_id(file_id, format_version_obj):
+def write_file_id(file_id: str, format_version: FormatVersion):
     """
     Write the identified format to the DB.
     """
     FileID.objects.create(
         file_id=file_id,
-        format_name=format_version_obj.format.description,
-        format_version=format_version_obj.version or "",
+        format_name=format_version.format.description,
+        format_version=format_version.version or "",
         format_registry_name="PRONOM",
-        format_registry_key=format_version_obj.pronom_id,
+        format_registry_key=format_version.pronom_id,
     )
 
 
-def identify_file_format(file_path, file_id, disable_reidentify):
+def main(file_path: str, file_id: str, disable_reidentify: bool) -> int:
     # If reidentification is disabled and a format identification event exists for this file, exit
     file_obj = File.objects.get(uuid=file_id)
     if (
@@ -78,6 +81,7 @@ def identify_file_format(file_path, file_id, disable_reidentify):
         )
         return 0
 
+    puid: Optional[str] = None
     try:
         puid = pygfried.identify(file_path)
     except Exception as err:
@@ -88,15 +92,14 @@ def identify_file_format(file_path, file_id, disable_reidentify):
         write_identification_event(file_id, success=False)
         return 255
 
-    try:
-        format_version_obj = FormatVersion.active.get(pronom_id=puid)
-    except FormatVersion.DoesNotExist:
+    format_version = FPR.get_format_version_by_puid(puid)
+    if not format_version:
         write_identification_event(file_id, success=False)
         return 255
 
-    write_file_format_version(file_obj, format_version_obj)
+    write_file_format_version(file_obj, str(format_version.id))
     write_identification_event(file_id, puid=puid)
-    write_file_id(file_id, format_version_obj)
+    write_file_id(file_id, format_version)
 
     return 0
 
@@ -116,7 +119,7 @@ def call(jobs):
             with job.JobContext():
                 args = parser.parse_args(job.args[1:])
                 job.set_status(
-                    identify_file_format(
+                    main(
                         args.file_path,
                         args.file_uuid,
                         args.disable_reidentify,

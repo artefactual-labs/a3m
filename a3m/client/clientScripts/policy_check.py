@@ -19,8 +19,9 @@ from a3m import databaseFunctions
 from a3m.dicts import replace_string_values
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.fpr.models import FormatVersion
-from a3m.fpr.models import FPRule
+from a3m.fpr.registry import CommandScriptType
+from a3m.fpr.registry import FPR
+from a3m.fpr.registry import Rule
 from a3m.main.models import Derivation
 from a3m.main.models import File
 from a3m.main.models import SIP
@@ -91,7 +92,7 @@ class PolicyChecker:
         if not rules:
             self.job.pyprint(
                 "Not performing a policy check because there are no relevant"
-                " FPR rules"
+                " FPR rules."
             )
             return NOT_APPLICABLE_CODE
         rule_outputs = []
@@ -211,18 +212,9 @@ class PolicyChecker:
         file_uuid = self.file_uuid
         if self.is_manually_normalized_access_derivative:
             file_uuid = self._get_manually_normalized_access_derivative_file_uuid()
-        try:
-            fmt = FormatVersion.active.get(fileformatversion__file_uuid=file_uuid)
-        except FormatVersion.DoesNotExist:
-            rules = fmt = None
-        if fmt:
-            rules = FPRule.active.filter(format=fmt.uuid, purpose=self.purpose)
-        # Check for default rules.
-        if not rules:
-            rules = FPRule.active.filter(purpose=f"default_{self.purpose}")
-        return rules
+        return FPR.get_file_rules(file_uuid, purpose=self.purpose, fallback=True)
 
-    def _execute_rule_command(self, rule):
+    def _execute_rule_command(self, rule: Rule):
         """Execute the FPR command of FPR rule ``rule`` against the file passed
         in to this client script. The output of that command determines what we
         print to stdout and stderr, and the nature of the validation event that
@@ -233,7 +225,7 @@ class PolicyChecker:
         command_to_execute, args = self._get_command_to_execute(rule)
         self.job.pyprint("Running", rule.command.description)
         exitstatus, stdout, stderr = executeOrRun(
-            rule.command.script_type,
+            rule.command.script_type.value,
             command_to_execute,
             arguments=args,
             printing=False,
@@ -261,6 +253,8 @@ class PolicyChecker:
                 ),
                 stderr,
             )
+            return "failed"
+        if rule.command.tool is None:
             return "failed"
         event_detail = (
             'program="{tool.description}";'
@@ -297,11 +291,14 @@ class PolicyChecker:
             )
         return result
 
-    def _get_command_to_execute(self, rule):
+    def _get_command_to_execute(self, rule: Rule):
         """Return a 2-tuple consisting of a) the FPR rule ``rule``'s command
         and b) a list of arguments to pass to it.
         """
-        if rule.command.script_type in ("bashScript", "command"):
+        if rule.command.script_type in (
+            CommandScriptType.BASH_SCRIPT,
+            CommandScriptType.COMMAND,
+        ):
             return (
                 replace_string_values(
                     rule.command.command,

@@ -114,14 +114,3 @@ def task_completed(task, job):
         task_group_name=job.group, task_name=job.description
     ).set_to_current_time()
     task_duration_histogram.labels(script_name=job.name).observe(duration)
-
-
-@skip_if_prometheus_disabled
-def task_failed(task, job):
-    task_error_timestamp.labels(
-        task_group_name=job.group, task_name=job.description
-    ).set_to_current_time()
-    task_error_counter.labels(
-        task_group_name=job.group, task_name=job.description
-    ).inc()
-    task_counter.labels(task_group_name=job.group, task_name=job.description).inc()

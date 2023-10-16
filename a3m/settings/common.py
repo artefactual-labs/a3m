@@ -205,7 +205,7 @@ MIDDLEWARE_CLASSES = ()
 
 TEMPLATES = [{"BACKEND": "django.template.backends.django.DjangoTemplates"}]
 
-INSTALLED_APPS = ("a3m.main", "a3m.fpr")
+INSTALLED_APPS = ("a3m.main",)
 
 SECRET_KEY = config.get("secret_key")
 

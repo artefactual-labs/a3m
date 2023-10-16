@@ -1,10 +1,8 @@
 """
 Exposes various metrics via Prometheus.
 """
-import datetime
 import functools
 import importlib
-import math
 import pkgutil
 
 from django.conf import settings
@@ -19,9 +17,7 @@ from a3m.common_metrics import PACKAGE_FILE_COUNT_BUCKETS
 from a3m.common_metrics import PACKAGE_SIZE_BUCKETS
 from a3m.common_metrics import PROCESSING_TIME_BUCKETS
 from a3m.common_metrics import TASK_DURATION_BUCKETS
-from a3m.fpr.models import FormatVersion
 from a3m.main.models import File
-from a3m.main.models import FileFormatVersion
 from a3m.main.models import Transfer
 
 
@@ -122,25 +118,7 @@ aip_size_histogram = Histogram(
     buckets=PACKAGE_SIZE_BUCKETS,
 )
 
-# As we track over 1000 formats, the cardinality here is around 3000 and
-# well over the recommended number of label values for Prometheus (not over
-# 100). This will break down if we start tracking many nodes.
-aip_files_stored_by_file_group_and_format_counter = Counter(
-    "mcpclient_aip_files_stored_by_file_group_and_format_total",
-    "Number of original files stored in AIPs labeled by file group, format name.",
-    ["file_group", "format_name"],
-)
-aip_original_file_timestamps_histogram = Histogram(
-    "mcpclient_aip_original_file_timestamps",
-    "Histogram of modification times for files stored in AIPs, bucketed by year",
-    buckets=[1970, 1980, 1990, 2005, 2010]
-    + list(range(2015, datetime.date.today().year + 2))
-    + [math.inf],  # type: ignore
-)
-
-
 # There's no central place to pull these constants from currently
-FILE_GROUPS = ("original", "derivative", "metadata")
 PACKAGE_FAILURE_TYPES = ("fail", "reject")
 
 
@@ -180,12 +158,6 @@ def init_counter_labels():
         sip_error_counter.labels(failure_type=failure_type)
         sip_error_timestamp.labels(failure_type=failure_type)
 
-    for format_name in FormatVersion.objects.values_list("description", flat=True):
-        for file_group in FILE_GROUPS:
-            aip_files_stored_by_file_group_and_format_counter.labels(
-                file_group=file_group, format_name=format_name
-            )
-
 
 @skip_if_prometheus_disabled
 def job_completed(script_name):
@@ -198,25 +170,6 @@ def job_failed(script_name):
     job_counter.labels(script_name=script_name).inc()
     job_error_counter.labels(script_name=script_name).inc()
     job_error_timestamp.labels(script_name=script_name).set_to_current_time()
-
-
-def _get_file_group(raw_file_group_use):
-    """Convert one of the file group use values we know about into
-    the smaller subset that we track:
-
-    original -> original
-    metadata -> metadata
-    submissionDocumentation -> metadata
-    preservation -> derivative
-    aip -> derivative
-    """
-    raw_file_group_use = raw_file_group_use.lower()
-    if raw_file_group_use == "original":
-        return "original"
-    elif raw_file_group_use in ("metadata", "submissiondocumentation"):
-        return "metadata"
-    else:
-        return "derivative"
 
 
 @skip_if_prometheus_disabled
@@ -236,37 +189,6 @@ def aip_stored(sip_uuid, size):
     # We do two queries here, as we may not have format information for everything
     total_file_count = File.objects.filter(sip_id=sip_uuid).count()
     aip_files_stored_histogram.observe(total_file_count)
-
-    # TODO: This could probably benefit from batching with prefetches. Using just
-    # prefetches will likely break down with very large numbers of files.
-    for file_obj in (
-        File.objects.filter(sip_id=sip_uuid).exclude(filegrpuse="aip").iterator()
-    ):
-        if file_obj.filegrpuse.lower() == "original" and file_obj.modificationtime:
-            aip_original_file_timestamps_histogram.observe(
-                file_obj.modificationtime.year
-            )
-
-        file_group = _get_file_group(file_obj.filegrpuse)
-        format_name = "Unknown"
-
-        format_version_m2m = (
-            FileFormatVersion.objects.select_related(
-                "format_version", "format_version__format"
-            )
-            .filter(file_uuid=file_obj.uuid)
-            .first()
-        )
-        if (
-            format_version_m2m
-            and format_version_m2m.format_version
-            and format_version_m2m.format_version.format
-        ):
-            format_name = format_version_m2m.format_version.format.description
-
-        aip_files_stored_by_file_group_and_format_counter.labels(
-            file_group=file_group, format_name=format_name
-        ).inc()
 
 
 @skip_if_prometheus_disabled

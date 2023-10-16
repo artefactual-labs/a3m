@@ -47,7 +47,6 @@ from a3m.main.models import DublinCore
 from a3m.main.models import Event
 from a3m.main.models import File
 from a3m.main.models import FileID
-from a3m.main.models import FPCommandOutput
 from a3m.main.models import SIP
 
 
@@ -433,7 +432,7 @@ def create_premis_object(fileUUID):
 
     objectCharacteristics.append(creatingApplication)
 
-    for elem in create_premis_object_characteristics_extensions(fileUUID):
+    for elem in create_premis_object_characteristics_extensions(f):
         objectCharacteristics.append(elem)
 
     etree.SubElement(object_elem, ns.premisBNS + "originalName").text = escape(
@@ -479,17 +478,13 @@ def create_premis_object_formats(fileUUID):
     return elements
 
 
-def create_premis_object_characteristics_extensions(fileUUID):
+def create_premis_object_characteristics_extensions(f):
     elements = []
     objectCharacteristicsExtension = etree.Element(
         ns.premisBNS + "objectCharacteristicsExtension"
     )
     parser = etree.XMLParser(remove_blank_text=True)
-    documents = FPCommandOutput.objects.filter(
-        file_id=fileUUID,
-        rule__purpose__in=["characterization", "default_characterization"],
-    ).values_list("content")
-    for (document,) in documents:
+    for document in f.command_outputs(("characterization", "default_characterization")):
         # This needs to be converted into an str because lxml doesn't accept
         # XML documents in unicode strings if the document contains an
         # encoding declaration.
