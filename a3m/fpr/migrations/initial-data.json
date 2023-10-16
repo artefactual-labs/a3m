@@ -43765,7 +43765,7 @@
             "uuid": "3a19de70-0e42-4145-976b-3a248d43b462",
             "format": "d60e5243-692e-4af7-90cd-40c53cb8dc7d",
             "lastmodified": "2013-11-15T01:18:38Z",
-            "enabled": true,
+            "enabled": false,
             "command": "6537147f-4dd4-4950-8aff-5578db9a485d",
             "purpose": "characterize"
         },
@@ -50577,7 +50577,7 @@
             "uuid": "20cad741-3cf1-4b6a-9e71-d1e8af13ba3f",
             "format": "9f8bda35-f4f0-4dff-a65d-57fd7544d7c4",
             "lastmodified": "2014-07-28T19:14:46Z",
-            "enabled": true,
+            "enabled": false,
             "command": "928ce834-8830-44cc-a282-4ba1271f7842",
             "purpose": "characterization"
         },
@@ -50616,7 +50616,7 @@
             "uuid": "9e502f30-ba01-4981-8377-dd01ecf2dc5c",
             "format": "9f8bda35-f4f0-4dff-a65d-57fd7544d7c4",
             "lastmodified": "2014-07-28T19:21:38Z",
-            "enabled": true,
+            "enabled": false,
             "command": "8f41dc6f-05eb-46d4-9b22-0a0d74673510",
             "purpose": "extract"
         },

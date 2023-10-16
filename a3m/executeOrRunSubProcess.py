@@ -15,22 +15,33 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Archivematica.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
+
 import io
 import os
 import shlex
 import subprocess  # nosec B404
 import sys
 import tempfile
+from typing import Any
+from typing import Union
+
+from a3m.fpr.registry import CommandScriptType
+
+
+ExecutionResult = tuple[int, str, str]
+StandardInputType = Union[str, bytes, io.IOBase]
+SubprocessCommand = Union[str, list[str]]
 
 
 def launchSubProcess(
-    command,
-    stdIn="",
-    printing=False,
-    arguments=[],
-    env_updates={},
-    capture_output=False,
-):
+    command: SubprocessCommand,
+    stdIn: StandardInputType = "",
+    printing: bool = False,
+    arguments: list = [],
+    env_updates: dict = {},
+    capture_output: bool = False,
+) -> ExecutionResult:
     """
     Launches a subprocess using ``command``, where ``command`` is either:
     a) a single string containing a commandline statement, or
@@ -79,14 +90,19 @@ def launchSubProcess(
             my_env["LANGUAGE"] = my_env["LANG"]
         my_env.update(env_updates)
 
+        stdin_pipe: Any
+        communicate_input: bytes | None
         if isinstance(stdIn, str):
             stdin_pipe = subprocess.PIPE
-            stdin_string = stdIn
+            communicate_input = stdIn.encode()
+        elif isinstance(stdIn, bytes):
+            stdin_pipe = subprocess.PIPE
+            communicate_input = stdIn
         elif isinstance(stdIn, io.IOBase):
             stdin_pipe = stdIn
-            stdin_string = ""
+            communicate_input = None
         else:
-            raise Exception("stdIn must be a string or a file object")
+            raise Exception(f"stdIn must be a string or a file object ({type(stdIn)}).")
         if capture_output:
             # Capture the stdout and stderr of the subprocess
             p = subprocess.Popen(  # nosec B603
@@ -96,7 +112,7 @@ def launchSubProcess(
                 stdin=stdin_pipe,
                 env=my_env,
             )
-            stdOut, stdError = p.communicate(input=stdin_string)
+            stdOut, stdError = p.communicate(input=communicate_input)
         else:
             # Ignore the stdout of the subprocess, capturing only stderr
             with open(os.devnull, "w") as devnull:
@@ -107,7 +123,7 @@ def launchSubProcess(
                     stdout=devnull,
                     stderr=subprocess.PIPE,
                 )
-                __, stdError = p.communicate(input=stdin_string)
+                __, stdError = p.communicate(input=communicate_input)
         retcode = p.returncode
         # If we are not capturing output and the subprocess has succeeded, set
         # its stderr to the empty string.
@@ -124,18 +140,25 @@ def launchSubProcess(
         print("Execution failed:", command, file=sys.stderr)
         print(type(inst), file=sys.stderr)  # the exception instance
         print(inst.args, file=sys.stderr)
-        return -1, "Execution failed:", command
+        return -1, "Execution failed:", " ".join(command)
     return retcode, stdOut.decode("utf8"), stdError.decode("utf8")
 
 
 def createAndRunScript(
-    text, stdIn="", printing=False, arguments=[], env_updates={}, capture_output=True
+    command: SubprocessCommand,
+    printing: bool = False,
+    arguments: list = [],
+    env_updates: dict = {},
+    capture_output: bool = True,
 ):
     with tempfile.NamedTemporaryFile(
         encoding="utf-8", mode="wt", delete=False
     ) as tmpfile:
         os.chmod(tmpfile.name, 0o700)
-        tmpfile.write(text)
+        if isinstance(command, str):
+            tmpfile.write(command)
+        else:
+            tmpfile.write("".join(command))
         tmpfile.close()
         cmd = [tmpfile.name]
         cmd.extend(arguments)
@@ -154,14 +177,14 @@ def createAndRunScript(
 
 
 def executeOrRun(
-    type,
-    text,
-    stdIn="",
-    printing=False,
-    arguments=[],
-    env_updates={},
-    capture_output=True,
-):
+    type: CommandScriptType | str,
+    command: SubprocessCommand,
+    stdIn: StandardInputType = "",
+    printing: bool = False,
+    arguments: list = [],
+    env_updates: dict = {},
+    capture_output: bool = True,
+) -> ExecutionResult:
     """
     Attempts to run the provided command on the shell, with the text of
     "stdIn" passed as standard input if provided. The type parameter
@@ -192,41 +215,48 @@ def executeOrRun(
     capture_output: Whether or not to capture output for the executed process.
                 Default is `True`.
     """
-    if type == "command":
+    if isinstance(type, str):
+        try:
+            type = CommandScriptType(type)
+        except ValueError:
+            raise ValueError(f"unknown type {type}")
+    if type == CommandScriptType.COMMAND:
         return launchSubProcess(
-            text,
+            command,
             stdIn=stdIn,
             printing=printing,
             arguments=arguments,
             env_updates=env_updates,
             capture_output=capture_output,
         )
-    if type == "bashScript":
-        text = "#!/bin/bash\n" + text
+    if type == CommandScriptType.BASH_SCRIPT:
+        if not isinstance(command, str):
+            raise ValueError("command must be a str")
+        command = "#!/bin/bash\n" + command
         return createAndRunScript(
-            text,
-            stdIn=stdIn,
+            command,
             printing=printing,
             arguments=arguments,
             env_updates=env_updates,
             capture_output=capture_output,
         )
-    if type == "pythonScript":
-        text = "#!/usr/bin/env python\n" + text
+    if type == CommandScriptType.PYTHON_SCRIPT:
+        if not isinstance(command, str):
+            raise ValueError("command must be a str")
+        command = "#!/usr/bin/env python\n" + command
         return createAndRunScript(
-            text,
-            stdIn=stdIn,
+            command,
             printing=printing,
             arguments=arguments,
             env_updates=env_updates,
             capture_output=capture_output,
         )
-    if type == "as_is":
+    if type == CommandScriptType.AS_IS:
         return createAndRunScript(
-            text,
-            stdIn=stdIn,
+            command,
             printing=printing,
             arguments=arguments,
             env_updates=env_updates,
             capture_output=capture_output,
         )
+    raise ValueError(f"unknown type {type}")

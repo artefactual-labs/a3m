@@ -32,7 +32,7 @@ ALLOWABLE_FILES = ()
 
 def checkDirectory(job, directory, ret=0):
     try:
-        for directory, subDirectories, files in os.walk(directory):
+        for directory, _, files in os.walk(directory):
             for file in files:
                 os.path.join(directory, file)
     except Exception as inst:

@@ -12,8 +12,9 @@ from a3m.dicts import replace_string_values
 from a3m.dicts import ReplacementDict
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.fpr.models import FormatVersion
-from a3m.fpr.models import FPRule
+from a3m.fpr.registry import FPR
+from a3m.fpr.registry import Rule
+from a3m.fpr.registry import RulePurpose
 from a3m.main.models import FPCommandOutput
 
 
@@ -23,27 +24,18 @@ def _insert_command_output(file_uuid, rule_uuid, content):
     )
 
 
-def _get_rules(file_uuid):
+def _get_rules(file_uuid) -> list[Rule]:
     # Check to see whether the file has already been characterized; don't try
     # to characterize it a second time if so.
     if FPCommandOutput.objects.filter(file_id=file_uuid).count() > 0:
-        return None
+        return []
 
-    rules = None
-    try:
-        format = FormatVersion.active.get(fileformatversion__file_uuid=file_uuid)
-        rules = FPRule.active.filter(
-            format=format.uuid, purpose="characterization"
-        ).order_by("uuid")
-    except FormatVersion.DoesNotExist:
-        pass
-
-    # A3M-TODO DEFAULT CHARACTERIZATION DISABLED
-    # Characterization always occurs - if nothing is specified, get one or more
-    # defaults specified in the FPR.
-    # rules = FPRule.active.filter(purpose="default_characterization")
-
-    return rules
+    return FPR.get_file_rules(
+        file_uuid,
+        purpose=RulePurpose.CHARACTERIZATION,
+        # We avoid default_characterization because we don't have FITS in a3m.
+        fallback=False,
+    )
 
 
 def main(job, file_path, file_uuid, sip_uuid):
@@ -71,7 +63,7 @@ def main(job, file_path, file_uuid, sip_uuid):
             command_to_execute = rule.command.command
 
         exitstatus, stdout, stderr = executeOrRun(
-            rule.command.script_type,
+            rule.command.script_type.value,
             command_to_execute,
             arguments=args,
             capture_output=True,

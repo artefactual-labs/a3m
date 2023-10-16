@@ -2,10 +2,9 @@ import uuid
 
 import pytest
 
-from a3m.client.clientScripts.identify_file_format import identify_file_format
+from a3m.client.clientScripts.identify_file_format import main
 from a3m.main.models import Event
 from a3m.main.models import File
-from a3m.main.models import FileFormatVersion
 from a3m.main.models import FileID
 from a3m.main.models import Transfer
 
@@ -53,13 +52,13 @@ def file_obj(db, transfer, tmp_path, file_path):
 
 
 def test_identify_file_format(file_obj, file_path):
-    code = identify_file_format(str(file_path), file_obj.uuid, disable_reidentify=False)
-
+    code = main(str(file_path), file_obj.uuid, disable_reidentify=False)
     assert code == 0
 
-    FileFormatVersion.objects.get(
-        file_uuid=file_obj.uuid, format_version__pronom_id="fmt/938"
-    )
+    format_version = file_obj.get_format_version()
+    assert format_version is not None
+    assert format_version.pronom_id == "fmt/938"
+
     Event.objects.get(
         file_uuid=file_obj,
         event_type="format identification",

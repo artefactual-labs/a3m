@@ -12,10 +12,11 @@ from a3m.databaseFunctions import fileWasRemoved
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.fileOperations import addFileToTransfer
 from a3m.fileOperations import updateSizeAndChecksum
-from a3m.fpr.models import FPCommand
+from a3m.fpr.registry import CommandScriptType
+from a3m.fpr.registry import FPR
+from a3m.fpr.registry import RulePurpose
 from a3m.main.models import Directory
 from a3m.main.models import File
-from a3m.main.models import FileFormatVersion
 from a3m.main.models import Transfer
 
 logger = logging.getLogger(__name__)
@@ -124,62 +125,53 @@ def main(job, transfer_uuid, sip_directory, date, task_uuid, delete=False):
     # kicked off on those files; otherwise, we can go ahead with the transfer.
     extracted = False
 
-    for file_ in files:
-        try:
-            format_id = FileFormatVersion.objects.get(file_uuid=file_.uuid)
-        # Can't do anything if the file wasn't identified in the previous step
-        except:
+    for file_obj in files:
+        if not file_obj.currentlocation:
             job.pyprint(
-                "Not extracting contents from",
-                os.path.basename(file_.currentlocation),
-                " - file format not identified",
+                "Not extracting contents - currentlocation is empty", file=sys.stderr
+            )
+            continue
+        location = os.path.basename(file_obj.currentlocation)
+
+        format_version = file_obj.get_format_version()
+        if format_version is None:
+            job.pyprint(
+                f"Not extracting contents from {location} - file format not identified.",
                 file=sys.stderr,
             )
             continue
-        if format_id.format_version is None:
+
+        rules = FPR.get_file_rules(file_obj, purpose=RulePurpose.EXTRACT)
+        if not rules:
             job.pyprint(
-                "Not extracting contents from",
-                os.path.basename(file_.currentlocation),
-                " - file format not identified",
-                file=sys.stderr,
-            )
-            continue
-        # Extraction commands are defined in the FPR just like normalization
-        # commands
-        try:
-            command = FPCommand.active.get(
-                fprule__format=format_id.format_version,
-                fprule__purpose="extract",
-                fprule__enabled=True,
-            )
-        except FPCommand.DoesNotExist:
-            job.pyprint(
-                "Not extracting contents from",
-                os.path.basename(file_.currentlocation),
-                " - No rule found to extract",
+                f"Not extracting contents from {location} - no rule found to extract.",
                 file=sys.stderr,
             )
             continue
 
         # Check if file has already been extracted
-        if already_extracted(file_):
+        if already_extracted(file_obj):
             job.pyprint(
-                "Not extracting contents from",
-                os.path.basename(file_.currentlocation),
-                " - extraction already happened.",
+                f"Not extracting contents from {location} - extraction already happened.",
                 file=sys.stderr,
             )
             continue
 
-        file_to_be_extracted_path = file_.currentlocation.replace(
+        file_to_be_extracted_path = file_obj.currentlocation.replace(
             TRANSFER_DIRECTORY, sip_directory
         )
         extraction_target, file_path_cache = temporary_directory(
             file_to_be_extracted_path, date, file_path_cache
         )
 
+        rule = rules[0]
+        command = rule.command
+
         # Create the extract packages command.
-        if command.script_type == "command" or command.script_type == "bashScript":
+        if command.script_type in (
+            CommandScriptType.COMMAND,
+            CommandScriptType.BASH_SCRIPT,
+        ):
             args = []
             command_to_execute = command.command.replace(
                 "%inputFile%", file_to_be_extracted_path
@@ -202,50 +194,48 @@ def main(job, transfer_uuid, sip_directory, date, task_uuid, delete=False):
         if not exitstatus == 0:
             # Dang, looks like the extraction failed
             job.pyprint("Command", command.description, "failed!", file=sys.stderr)
-        else:
-            extracted = True
-            job.pyprint(
-                "Extracted contents from", os.path.basename(file_to_be_extracted_path)
+            continue
+
+        extracted = True
+        job.pyprint(
+            "Extracted contents from", os.path.basename(file_to_be_extracted_path)
+        )
+
+        # Assign UUIDs and insert them into the database, so the newly
+        # extracted files are properly tracked by Archivematica
+        for extracted_file in tree(extraction_target):
+            extracted_file_original_location = extracted_file.replace(
+                extraction_target, file_obj.originallocation, 1
+            )
+            assign_uuid(
+                job,
+                extracted_file,
+                extracted_file_original_location,
+                file_obj.uuid,
+                transfer_uuid,
+                date,
+                task_uuid,
+                sip_directory,
+                file_to_be_extracted_path,
             )
 
-            # Assign UUIDs and insert them into the database, so the newly
-            # extracted files are properly tracked by Archivematica
-            for extracted_file in tree(extraction_target):
-                extracted_file_original_location = extracted_file.replace(
-                    extraction_target, file_.originallocation, 1
-                )
-                assign_uuid(
-                    job,
-                    extracted_file,
-                    extracted_file_original_location,
-                    file_.uuid,
-                    transfer_uuid,
-                    date,
-                    task_uuid,
-                    sip_directory,
-                    file_to_be_extracted_path,
-                )
+        if transfer_mdl.diruuids:
+            create_extracted_dir_uuids(
+                job, transfer_mdl, extraction_target, sip_directory, file_obj
+            )
 
-            if transfer_mdl.diruuids:
-                create_extracted_dir_uuids(
-                    job, transfer_mdl, extraction_target, sip_directory, file_
-                )
+        # We may want to remove the original package file after extracting
+        # its contents
+        if delete:
+            delete_and_record_package_file(
+                job, file_to_be_extracted_path, file_obj.uuid, file_obj.currentlocation
+            )
 
-            # We may want to remove the original package file after extracting
-            # its contents
-            if delete:
-                delete_and_record_package_file(
-                    job, file_to_be_extracted_path, file_.uuid, file_.currentlocation
-                )
-
-    if extracted:
-        return 0
-    else:
-        return 255
+    return 0 if extracted else 255
 
 
 def create_extracted_dir_uuids(
-    job, transfer_mdl, extraction_target, sip_directory, file_
+    job, transfer_mdl, extraction_target, sip_directory, file_obj
 ):
     """Assign UUIDs to directories via ``Directory`` objects in the database."""
     Directory.create_many(
@@ -253,7 +243,7 @@ def create_extracted_dir_uuids(
             job=job,
             root_path=extraction_target,
             path_prefix_to_repl=sip_directory,
-            original_location=file_.originallocation,
+            original_location=file_obj.originallocation,
         ),
         unit_mdl=transfer_mdl,
     )

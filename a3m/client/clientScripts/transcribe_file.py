@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from uuid import uuid4
 
 from django.db import transaction
@@ -9,10 +10,11 @@ from a3m import fileOperations
 from a3m.dicts import ReplacementDict
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.fpr.models import FPRule
+from a3m.fpr.registry import FPR
+from a3m.fpr.registry import Rule
+from a3m.fpr.registry import RulePurpose
 from a3m.main.models import Derivation
 from a3m.main.models import File
-from a3m.main.models import FileFormatVersion
 
 
 def insert_transcription_event(status, file_uuid, rule, relative_location):
@@ -63,18 +65,12 @@ def insert_file_into_database(
     )
 
 
-def fetch_rules_for(file_):
-    try:
-        format = FileFormatVersion.objects.get(file_uuid=file_)
-        return FPRule.objects.filter(
-            format=format.format_version, purpose="transcription"
-        )
-    except FileFormatVersion.DoesNotExist:
-        return []
+def fetch_rules_for(file_obj) -> list[Rule]:
+    return FPR.get_file_rules(file_obj, purpose=RulePurpose.TRANSCRIPTION)
 
 
-def fetch_rules_for_derivatives(file_):
-    derivs = Derivation.objects.filter(source_file=file_)
+def fetch_rules_for_derivatives(file_obj) -> tuple[Optional[File], list[Rule]]:
+    derivs = Derivation.objects.filter(source_file=file_obj)
     for deriv in derivs:
         derived_file = deriv.derived_file
         rules = fetch_rules_for(derived_file)
@@ -89,7 +85,7 @@ def main(job, task_uuid, file_uuid):
 
     succeeded = True
 
-    file_ = File.objects.get(uuid=file_uuid)
+    file_obj = File.objects.get(uuid=file_uuid)
 
     # Normally we don't transcribe derivatives (access copies, preservation copies);
     # however, some useful transcription tools can't handle some formats that
@@ -98,13 +94,13 @@ def main(job, task_uuid, file_uuid):
     # derivative until a transcribable derivative is found.
     #
     # Skip derivatives to avoid double-scanning them; only look at them as a fallback.
-    if file_.filegrpuse != "original":
+    if file_obj.filegrpuse != "original":
         job.print_error(f"{file_uuid} is not an original; not transcribing")
         return 0
 
-    rules = fetch_rules_for(file_)
+    rules = fetch_rules_for(file_obj)
     if not rules:
-        file_, rules = fetch_rules_for_derivatives(file_)
+        file_obj, rules = fetch_rules_for_derivatives(file_obj)
 
     if not rules:
         job.print_error(
@@ -114,17 +110,17 @@ def main(job, task_uuid, file_uuid):
         )
         return 0
     else:
-        if file_.filegrpuse == "original":
+        if file_obj.filegrpuse == "original":
             noun = "original"
         else:
-            noun = file_.filegrpuse + " derivative"
-        job.print_error(f"Transcribing {noun} {file_.uuid}")
+            noun = file_obj.filegrpuse + " derivative"
+        job.print_error(f"Transcribing {noun} {file_obj.uuid}")
 
-    rd = ReplacementDict.frommodel(file_=file_, type_="file")
+    rd = ReplacementDict.frommodel(file_=file_obj, type_="file")
 
     for rule in rules:
         script = rule.command.command
-        if rule.command.script_type in ("bashScript", "command"):
+        if rule.command.script_type.value in ("bashScript", "command"):
             (script,) = rd.replace(script)
             args = []
         else:

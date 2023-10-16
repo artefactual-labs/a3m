@@ -20,11 +20,17 @@
 import logging
 import re
 import uuid
+from collections.abc import Iterator
+from collections.abc import Sequence
+from typing import Optional
 
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
+
+from a3m.fpr.registry import FormatVersion
+from a3m.fpr.registry import FPR
 
 
 logger = logging.getLogger(__name__)
@@ -414,6 +420,18 @@ class File(models.Model):
         """Allow callers to add custom identifiers to the model's instance."""
         self.identifiers.create(type=scheme, value=value)
 
+    def command_outputs(self, purposes: Sequence[str] = []) -> Iterator[str]:
+        for command_output in self.fpcommandoutput_set.all():
+            if (rule := FPR.get_rule_by_id(command_output.rule_id)) is not None:
+                if len(purposes) == 0 or rule.purpose.value in purposes:
+                    yield command_output.content
+
+    def get_format_version(self) -> Optional[FormatVersion]:
+        file_format_version = self.fileformatversion_set.first()
+        if file_format_version:
+            return FPR.get_format_version_by_id(file_format_version.format_version_id)
+        return None
+
 
 class Directory(models.Model):
     """Information about Directories in units (Transfers, SIPs).
@@ -500,12 +518,7 @@ class FileFormatVersion(models.Model):
     file_uuid = models.ForeignKey(
         "File", db_column="fileUUID", to_field="uuid", on_delete=models.CASCADE
     )
-    format_version = models.ForeignKey(
-        "fpr.FormatVersion",
-        db_column="fileID",
-        to_field="uuid",
-        on_delete=models.CASCADE,
-    )
+    format_version_id = models.UUIDField(editable=False)
 
     class Meta:
         db_table = "FilesIdentifiedIDs"
@@ -513,7 +526,7 @@ class FileFormatVersion(models.Model):
     def __unicode__(self):
         return str(
             _("%(file)s is %(format)s")
-            % {"file": self.file_uuid, "format": self.format_version}
+            % {"file": self.file_uuid, "format": self.format_version_id}
         )
 
 
@@ -1286,14 +1299,10 @@ class FPCommandOutput(models.Model):
         "File", db_column="fileUUID", to_field="uuid", on_delete=models.CASCADE
     )
     content = models.TextField(null=True)
-    rule = models.ForeignKey(
-        "fpr.FPRule", db_column="ruleUUID", to_field="uuid", on_delete=models.CASCADE
-    )
-
-    # Table name is main_fpcommandoutput
+    rule_id = models.UUIDField(editable=False)
 
     def __unicode__(self):
-        return f"<file: {self.file}; rule: {self.rule};>"
+        return f"<file: {self.file}; rule: {self.rule_id};>"
 
 
 class FileID(models.Model):

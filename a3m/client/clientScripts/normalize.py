@@ -3,6 +3,7 @@ import csv
 import os
 import traceback
 import uuid
+from typing import Optional
 
 from django.db import transaction
 from django.utils import timezone
@@ -12,7 +13,10 @@ from a3m import fileOperations
 from a3m.dicts import ReplacementDict
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.fpr.models import FPRule
+from a3m.fpr.registry import Command
+from a3m.fpr.registry import CommandScriptType
+from a3m.fpr.registry import FPR
+from a3m.fpr.registry import RulePurpose
 from a3m.main.models import File
 from a3m.main.models import FileFormatVersion
 from a3m.main.models import FileID
@@ -24,14 +28,18 @@ RULE_FAILED = 1
 NO_RULE_FOUND = 2
 
 
-class Command:
+class Executor:
     """
     Execute normalization commands.
 
     This class used to be in a module called transcoder, moved here as-is.
     """
 
-    def __init__(self, job, command, replacement_dict, on_success=None, opts=None):
+    exit_code: Optional[int]
+
+    def __init__(
+        self, job, command: Command, replacement_dict, on_success=None, opts=None
+    ):
         self.fpcommand = command
         self.command = command.command
         self.type = command.script_type
@@ -54,13 +62,13 @@ class Command:
         # Add verification and event detail commands, if they exist
         self.verification_command = None
         if self.fpcommand.verification_command:
-            self.verification_command = Command(
+            self.verification_command = Executor(
                 self.job, self.fpcommand.verification_command, self.replacement_dict
             )
 
         self.event_detail_command = None
         if self.fpcommand.event_detail_command:
-            self.event_detail_command = Command(
+            self.event_detail_command = Executor(
                 self.job, self.fpcommand.event_detail_command, self.replacement_dict
             )
 
@@ -77,7 +85,7 @@ class Command:
         # individual commandline statements or bash scripts, we interpolate
         # the necessary values into the script's source
         args = []
-        if self.type in ["command", "bashScript"]:
+        if self.type in [CommandScriptType.COMMAND, CommandScriptType.BASH_SCRIPT]:
             self.command = self.replacement_dict.replace(self.command)[0]
         # For other command types, we translate the entries from
         # replacement_dict into GNU-style long options, e.g.
@@ -129,7 +137,7 @@ def get_replacement_dict(job, opts):
     # get file name and extension
     (directory, basename) = os.path.split(opts.file_path)
     directory += os.path.sep  # All paths should have trailing /
-    (filename, extension_dot) = os.path.splitext(basename)
+    (filename, _) = os.path.splitext(basename)
     postfix = "-" + opts.task_uuid
     output_dir = directory
 
@@ -174,6 +182,7 @@ def check_manual_normalization(job, opts):
     ).replace("%SIPDirectory%objects/", "", 1)
     if os.path.isfile(normalization_csv):
         found = False
+        preservation_file = None
         # use universal newline mode to support unusual newlines, like \r
         with open(normalization_csv) as csv_file:
             reader = csv.reader(csv_file)
@@ -184,7 +193,7 @@ def check_manual_normalization(job, opts):
                         continue
                     if "#" in row[0]:  # ignore comments
                         continue
-                    original, access_file, preservation_file = row
+                    original, _, preservation_file = row
                     if original == bname:
                         job.print_output(
                             "Filename",
@@ -252,39 +261,37 @@ def check_manual_normalization(job, opts):
     return matches[0]
 
 
-def once_normalized(job, command, opts, replacement_dict):
+def once_normalized(job, executor: Executor, opts, replacement_dict):
     """Updates the database if normalization completed successfully.
 
-    Callback from Command
+    Callback from Executor
 
     For preservation files, adds a normalization event, and derivation, as well
     as updating the size and checksum for the new file in the DB.  Adds format
     information for use in the METS file to FilesIDs.
     """
     transcoded_files = []
-    if not command.output_location:
-        command.output_location = ""
-    if os.path.isfile(command.output_location):
-        transcoded_files.append(command.output_location)
-    elif os.path.isdir(command.output_location):
-        for w in os.walk(command.output_location):
+    if not executor.output_location:
+        executor.output_location = ""
+    if os.path.isfile(executor.output_location):
+        transcoded_files.append(executor.output_location)
+    elif os.path.isdir(executor.output_location):
+        for w in os.walk(executor.output_location):
             path, _, files = w
             for p in files:
                 p = os.path.join(path, p)
                 if os.path.isfile(p):
                     transcoded_files.append(p)
-    elif command.output_location:
+    elif executor.output_location:
         job.print_error(
-            "Error - output file does not exist [", command.output_location, "]"
+            "Error - output file does not exist [", executor.output_location, "]"
         )
-        command.exit_code = -2
+        executor.exit_code = -2
 
     derivation_event_uuid = str(uuid.uuid4())
-    event_detail_output = 'ArchivematicaFPRCommandID="{}"'.format(
-        command.fpcommand.uuid
-    )
-    if command.event_detail_command is not None:
-        event_detail_output += f"; {command.event_detail_command.std_out}"
+    event_detail_output = f'ArchivematicaFPRCommandID="{executor.fpcommand.id}"'
+    if executor.event_detail_command is not None:
+        event_detail_output += f"; {executor.event_detail_command.std_out}"
     for ef in transcoded_files:
         today = timezone.now()
         output_file_uuid = opts.task_uuid  # Match the UUID on disk
@@ -322,17 +329,20 @@ def once_normalized(job, command, opts, replacement_dict):
             today=today,
         )
 
+        if executor.fpcommand.output_format is None:
+            job.print_error("Error - command output format is undefined.")
+            executor.exit_code = -2
+            return
+
         # Use the format info from the normalization command
         # to save identification into the DB
-        ffv = FileFormatVersion(
+        FileFormatVersion.objects.create(
             file_uuid_id=output_file_uuid,
-            format_version=command.fpcommand.output_format,
+            format_version_id=executor.fpcommand.output_format.id,
         )
-        ffv.save()
-
         FileID.objects.create(
             file_id=output_file_uuid,
-            format_name=command.fpcommand.output_format.format.description,
+            format_name=executor.fpcommand.output_format.format.description,
         )
 
 
@@ -371,10 +381,6 @@ def insert_derivation_event(
         derivedFileUUID=output_uuid,
         relatedEventUUID=derivation_uuid,
     )
-
-
-def get_default_preservation_rule():
-    return FPRule.active.get(purpose="default_preservation")
 
 
 def main(job, opts):
@@ -434,43 +440,22 @@ def main(job, opts):
         )
         return SUCCESS
 
-    do_fallback = False
-    try:
-        format_id = FileFormatVersion.objects.get(file_uuid=opts.file_uuid)
-    except FileFormatVersion.DoesNotExist:
-        format_id = None
+    if not file_.currentlocation:
+        job.print_output("Not normalizing file because its path can't be found.")
+        return NO_RULE_FOUND
+    path = os.path.basename(file_.currentlocation)
 
-    # Look up the normalization command in the FPR
-    if format_id:
-        job.print_output("File format:", format_id.format_version)
-        try:
-            rule = FPRule.active.get(
-                format=format_id.format_version, purpose=FPRule.PRESERVATION
-            )
-        except FPRule.DoesNotExist:
-            do_fallback = True
+    rules = FPR.get_file_rules(opts.file_uuid, purpose=RulePurpose.PRESERVATION)
+    if not rules:
+        job.print_output(
+            f"Not normalizing {path} - no rule or default rule found to normalize for preservation"
+        )
+        return NO_RULE_FOUND
 
-    # Try with default rule if no format_id or rule was found
-    if format_id is None or do_fallback:
-        path = os.path.basename(file_.currentlocation)
-        try:
-            job.print_output(
-                f"{path} not identified or without rule - falling back to default preservation rule"
-            )
-            rule = get_default_preservation_rule()
-        except FPRule.DoesNotExist:
-            job.print_output(
-                f"Not normalizing {path} - no rule or default rule found to normalize for preservation"
-            )
-            return NO_RULE_FOUND
-
-    job.print_output(f"Format Policy Rule: {rule}")
-    command = rule.command
-    job.print_output(f"Format Policy Command {command.description}")
-
+    command = rules[0].command
     replacement_dict = get_replacement_dict(job, opts)
 
-    cl = Command(job, command, replacement_dict, once_normalized_callback(job), opts)
+    cl = Executor(job, command, replacement_dict, once_normalized_callback(job), opts)
     exitstatus = cl.execute()
 
     if not exitstatus == 0:
