@@ -45,7 +45,7 @@ def create_directories(base_dir, dir_list):
         directory = os.path.join(base_dir, directory)
         try:
             os.makedirs(directory)
-        except os.error:
+        except OSError:
             pass
 
 
