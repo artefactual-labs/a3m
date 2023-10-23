@@ -1,7 +1,6 @@
 import argparse
 import logging
 import uuid
-from typing import Optional
 
 import pygfried
 from django.db import transaction
@@ -30,7 +29,7 @@ def write_file_format_version(file_obj: File, format_version_id: str):
 
 
 def write_identification_event(
-    file_id: str, puid: Optional[str] = None, success: bool = True
+    file_id: str, puid: str | None = None, success: bool = True
 ):
     event_detail_text = 'program="{}"; version="{}"'.format(
         TOOL_DESCRIPTION, TOOL_VERSION
@@ -81,7 +80,7 @@ def main(file_path: str, file_id: str, disable_reidentify: bool) -> int:
         )
         return 0
 
-    puid: Optional[str] = None
+    puid: str | None = None
     try:
         puid = pygfried.identify(file_path)
     except Exception as err:

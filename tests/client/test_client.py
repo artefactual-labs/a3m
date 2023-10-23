@@ -11,13 +11,13 @@ def test_handle_batch_task_replaces_non_ascii_arguments(mocker):
     mocker.patch("a3m.client.mcp.Task")
     mocker.patch("a3m.client.mcp.retryOnFailure")
 
+    # This is the only function that uses the arguments after the replacements
+    _parse_command_line = mocker.patch("a3m.client.mcp._parse_command_line")
+
     # The mocked module will not have a `concurrent_instances` attribute
     mocker.patch(
         "importlib.import_module", return_value=mocker.MagicMock(spec=["call"])
     )
-
-    # This is the only function that uses the arguments after the replacements
-    _parse_command_line = mocker.patch("a3m.client.mcp._parse_command_line")
 
     # Mock the two parameters sent to handle_batch_task
     task_name = "tásk".encode()
