@@ -1,6 +1,5 @@
 import logging
-from typing import Callable
-from typing import Optional
+from collections.abc import Callable
 
 import tenacity
 from grpc import Channel
@@ -26,7 +25,7 @@ class Client:
     def __init__(
         self,
         channel: Channel,
-        rpc_timeout: Optional[int] = _GRPC_DEFAULT_TIMEOUT_SECS,
+        rpc_timeout: int | None = _GRPC_DEFAULT_TIMEOUT_SECS,
         wait_for_ready: bool = False,
     ):
         self.transfer_stub = transfer_service_api.service_pb2_grpc.TransferServiceStub(

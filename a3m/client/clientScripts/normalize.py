@@ -3,7 +3,6 @@ import csv
 import os
 import traceback
 import uuid
-from typing import Optional
 
 from django.db import transaction
 from django.utils import timezone
@@ -35,7 +34,7 @@ class Executor:
     This class used to be in a module called transcoder, moved here as-is.
     """
 
-    exit_code: Optional[int]
+    exit_code: int | None
 
     def __init__(
         self, job, command: Command, replacement_dict, on_success=None, opts=None

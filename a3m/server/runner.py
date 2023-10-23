@@ -23,7 +23,6 @@ import concurrent.futures
 import enum
 import logging
 import threading
-from typing import Optional
 
 import grpc
 from django.conf import settings as premis_settings
@@ -65,7 +64,7 @@ class Server:
     def __init__(
         self,
         bind_address: str,
-        server_credentials: Optional[grpc.ServerCredentials],
+        server_credentials: grpc.ServerCredentials | None,
         workflow: Workflow,
         max_concurrent_packages: int,
         batch_size: int,

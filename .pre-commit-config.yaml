@@ -1,43 +1,60 @@
 ci:
   skip:
   - pip-compile # network access is unavailable in pre-commit.ci runners
+
 default_language_version:
-  python: python3.9
+  python: python3.11
+
 repos:
+
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.5.0
   hooks:
   - id: pretty-format-json
-    args: [--no-ensure-ascii, --autofix]
+    args:
+    - "--no-ensure-ascii"
+    - "--autofix"
     files: |
       (?x)^(
         a3m/assets/.*\.json|
         tests/server/fixtures/workflow-integration-test.json
       )
+
 - repo: https://github.com/asottile/pyupgrade
   rev: v3.15.0
   hooks:
   - id: pyupgrade
-    args: [--py39-plus]
+    args:
+    - "--py311-plus"
+
 - repo: https://github.com/asottile/reorder-python-imports
   rev: v3.12.0
   hooks:
   - id: reorder-python-imports
-    args: ["--application-directories=.:src", "--py39-plus"]
+    args:
+    - "--application-directories=.:src"
+    - "--py311-plus"
+
 - repo: https://github.com/adamchainz/django-upgrade
   rev: "1.15.0"
   hooks:
   - id: django-upgrade
-    args: [--target-version, "3.2"]
+    args:
+    - "--target-version=3.2"
+
 - repo: https://github.com/psf/black
   rev: "23.9.1"
   hooks:
   - id: black
-    args: [--safe, --quiet]
+    args:
+    - "--safe"
+    - "--quiet"
+
 - repo: https://github.com/pycqa/flake8
   rev: "6.1.0"
   hooks:
   - id: flake8
+
 - repo: https://github.com/astral-sh/ruff-pre-commit
   rev: v0.1.1
   hooks:
@@ -45,6 +62,7 @@ repos:
     args:
       - "--fix"
       - "--exit-non-zero-on-fix"
+
 - repo: https://github.com/jazzband/pip-tools
   rev: 7.3.0
   hooks:
@@ -57,6 +75,7 @@ repos:
     args:
       - "--output-file=requirements.txt"
       - "setup.py"
+
 - repo: https://github.com/jazzband/pip-tools
   rev: 7.3.0
   hooks:

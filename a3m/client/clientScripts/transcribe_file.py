@@ -1,5 +1,4 @@
 import os
-from typing import Optional
 from uuid import uuid4
 
 from django.db import transaction
@@ -69,7 +68,7 @@ def fetch_rules_for(file_obj) -> list[Rule]:
     return FPR.get_file_rules(file_obj, purpose=RulePurpose.TRANSCRIPTION)
 
 
-def fetch_rules_for_derivatives(file_obj) -> tuple[Optional[File], list[Rule]]:
+def fetch_rules_for_derivatives(file_obj) -> tuple[File | None, list[Rule]]:
     derivs = Derivation.objects.filter(source_file=file_obj)
     for deriv in derivs:
         derived_file = deriv.derived_file

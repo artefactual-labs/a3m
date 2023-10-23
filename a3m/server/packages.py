@@ -8,7 +8,6 @@ from dataclasses import dataclass
 from dataclasses import field
 from enum import auto
 from enum import Enum
-from typing import Optional
 from uuid import uuid4
 
 from django.conf import settings
@@ -388,8 +387,8 @@ class PackageNotFoundError(Exception):
 
 @dataclass
 class PackageStatus:
-    status: Optional[int] = None
-    job: Optional[str] = None
+    status: int | None = None
+    job: str | None = None
     jobs: list = field(default_factory=list)
 
 

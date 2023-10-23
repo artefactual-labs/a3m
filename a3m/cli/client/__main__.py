@@ -2,7 +2,6 @@
 import datetime
 import logging
 import sys
-from typing import Optional
 
 import click
 from django.conf import settings
@@ -89,7 +88,7 @@ def main(ctx, uri, name, address, processing_config, wait_for_ready, no_input):
         click.secho("Processing completed successfully!", fg="green")
 
 
-def _to_int(value: str) -> Optional[int]:
+def _to_int(value: str) -> int | None:
     try:
         return int(value)
     except ValueError:

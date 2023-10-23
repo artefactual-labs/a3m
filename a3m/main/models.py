@@ -22,7 +22,6 @@ import re
 import uuid
 from collections.abc import Iterator
 from collections.abc import Sequence
-from typing import Optional
 
 from django.db import models
 from django.db.models.signals import post_delete
@@ -404,7 +403,9 @@ class File(models.Model):
         # ("sip", "currentlocation"),
         # ("transfer", "originallocation"),
         # ("sip", "originallocation"),
-        index_together = (("sip", "filegrpuse"),)
+        indexes = [
+            models.Index(fields=["sip", "filegrpuse"]),
+        ]
 
     def __unicode__(self):
         return str(
@@ -426,7 +427,7 @@ class File(models.Model):
                 if len(purposes) == 0 or rule.purpose.value in purposes:
                     yield command_output.content
 
-    def get_format_version(self) -> Optional[FormatVersion]:
+    def get_format_version(self) -> FormatVersion | None:
         file_format_version = self.fileformatversion_set.first()
         if file_format_version:
             return FPR.get_format_version_by_id(file_format_version.format_version_id)
@@ -586,12 +587,21 @@ class Job(models.Model):
 
     class Meta:
         db_table = "Jobs"
-        index_together = (
-            ("sipuuid", "createdtime", "createdtimedec"),
-            ("sipuuid", "jobtype", "createdtime", "createdtimedec"),
-            ("sipuuid", "currentstep", "microservicegroup", "microservicechainlink"),
-            ("jobtype", "currentstep"),
-        )
+        indexes = [
+            models.Index(fields=["sipuuid", "createdtime", "createdtimedec"]),
+            models.Index(
+                fields=["sipuuid", "jobtype", "createdtime", "createdtimedec"]
+            ),
+            models.Index(
+                fields=[
+                    "sipuuid",
+                    "currentstep",
+                    "microservicegroup",
+                    "microservicechainlink",
+                ]
+            ),
+            models.Index(fields=["jobtype", "currentstep"]),
+        ]
 
     def get_directory_name(self, default=None):
         if not self.directory:
