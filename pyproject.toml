@@ -2,6 +2,31 @@
 requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.pytest.ini_options]
+env = [
+  "DJANGO_SETTINGS_MODULE=a3m.settings.test",
+]
+filterwarnings = [
+  "error",
+  "ignore:^Deprecated call to `pkg_resources.declare_namespace:DeprecationWarning",
+  "ignore:^pkg_resources is deprecated:DeprecationWarning",
+]
+norecursedirs = [
+  "_build",
+  "tmp*",
+  ".tox",
+  "hack",
+  ".venv",
+]
+python_files = [
+  "tests.py",
+  "test_*.py",
+  "*_tests.py",
+]
+testpaths = [
+  "tests",
+]
+
 [tool.ruff]
 target-version = "py39"
 select = ["E", "F", "W"]
@@ -24,3 +49,61 @@ exclude = [
   "a3m/main/migrations/*/**",
 ]
 typeCheckingMode = "basic"
+
+[tool.mypy]
+ignore_missing_imports = true
+namespace_packages = true
+files = [
+  "a3m",
+]
+
+[[tool.mypy.overrides]]
+module = "a3m.main.migrations.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "a3m.main.models"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "a3m.server.rpc.*"
+ignore_errors = true
+
+[tool.bandit]
+exclude_dirs = [
+  "tests",
+]
+skips = [
+  "B410", # import_lxml
+]
+
+[tool.vulture]
+paths = [
+  "a3m",
+]
+exclude = [
+  "a3m/settings",
+  "a3m/main/models.py",
+  "a3m/main/migrations",
+  "a3m/server/rpc/proto",
+  "a3m/api",
+]
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    skipsdist = True
+    min_version = 4.0
+    env_list =
+        pytest
+
+    [testenv]
+    deps = -r {toxinidir}/requirements-dev.txt
+
+    [testenv:pytest]
+    skip_install = True
+    commands =
+      coverage run -m pytest {posargs} {toxinidir}/tests/
+      coverage report
+      coverage xml -o {toxinidir}/.coverage.xml
+"""
