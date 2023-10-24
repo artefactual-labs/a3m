@@ -9,9 +9,6 @@ A3M_PIPELINE_DATA ?= $(CURDIR)/hack/compose-volume
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
 
-NULL :=
-SPACE := $(NULL) $(NULL)
-
 define compose
 	docker compose -f docker-compose.yml $(1)
 endef
@@ -24,14 +21,6 @@ define compose_run
 		--workdir /a3m \
 		--no-deps \
 		$(1))
-endef
-
-define toxenvs
-	$(call compose_run, \
-		--entrypoint tox \
-			a3m \
-				$(subst $(SPACE), -e ,$(SPACE)$(1)) \
-				${TOXARGS})
 endef
 
 .PHONY: shell
@@ -160,14 +149,6 @@ publish-clean:
 	rm -rf build/
 	rm -rf dist/
 
-.PHONY: tox
-tox: build  ## Run a toxenv.
-	$(call toxenvs,$(ARG))
-
-.PHONY: test
-test:  ## Run the tests with coverage.
-	$(MAKE) tox ARG="pytest"
-
 RED := \033[0;31m
 GREEN := \033[0;32m
 YELLOW := \033[0;33m
@@ -180,3 +161,9 @@ endef
 workflow:  ## Open amflow application web server.
 	$(call print_color,$(YELLOW),Connect to http://127.0.0.1:2323)
 	@docker run --rm --publish=2323:2323 --pull=always --volume=$(CURDIR)/a3m/assets/workflow.json:/tmp/workflow.json artefactual/amflow:latest edit --file=/tmp/workflow.json --verbosity=warn
+
+.PHONY: test
+test:  ## Test with coverage report.
+	@coverage run -m pytest
+	@coverage report
+	@coverage xml -o $(CURDIR)/.coverage.xml

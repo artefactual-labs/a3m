@@ -14,7 +14,6 @@ filterwarnings = [
 norecursedirs = [
   "_build",
   "tmp*",
-  ".tox",
   "hack",
   ".venv",
 ]
@@ -88,22 +87,3 @@ exclude = [
   "a3m/server/rpc/proto",
   "a3m/api",
 ]
-
-[tool.tox]
-legacy_tox_ini = """
-    [tox]
-    skipsdist = True
-    min_version = 4.0
-    env_list =
-        pytest
-
-    [testenv]
-    deps = -r {toxinidir}/requirements-dev.txt
-
-    [testenv:pytest]
-    skip_install = True
-    commands =
-      coverage run -m pytest {posargs} {toxinidir}/tests/
-      coverage report
-      coverage xml -o {toxinidir}/.coverage.xml
-"""

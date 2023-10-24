@@ -29,9 +29,6 @@
 .cache
 .pytest_cache
 
-# tox working directory
-.tox/
-
 # mypy cache
 .mypy_cache/
 

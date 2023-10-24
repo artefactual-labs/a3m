@@ -8,27 +8,38 @@ jobs:
   tests:
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
         include:
-        - {name: Python 3.11, python: '3.11', os: ubuntu-latest, tox: pytest, codecov: true}
-        - {name: Python 3.12, python: '3.12', os: ubuntu-latest, tox: pytest, codecov: false}
+        - name: "Python 3.11"
+          python: "3.11"
+          os: "ubuntu-latest"
+          codecov: yes
+          experimental: false
+        - name: "Python 3.12"
+          python: "3.12"
+          os: "ubuntu-latest"
+          codecov: no
+          experimental: true
     steps:
-    - name: Check out source code
-      uses: actions/checkout@v2
-    - name: "Create external volume"
-      run: |
-        make create-volume
-    - name: "Run toxenv"
-      run: |
-        make tox ARG=${{ matrix.tox }}
-      env:
-        PYTHON_VERSION: ${{ matrix.python }}
-    - name: Codecov
-      uses: codecov/codecov-action@v1
+    - name: "Check out source code"
+      uses: "actions/checkout@v4"
+    - name: "Install ${{ matrix.name }}"
+      uses: "actions/setup-python@v4"
       with:
-        file: ./.coverage.xml
+        python-version: ${{ matrix.python }}
+        cache: "pip"
+        cache-dependency-path: "requirements-dev.txt"
+    - name: "Install dependencies"
+      run: "pip install -r requirements-dev.txt"
+    - name: "Run tests"
+      run: "make test"
+    - name: "Codecov"
+      uses: "codecov/codecov-action@v3"
+      with:
+        file: "./.coverage.xml"
       if: ${{ matrix.codecov }}
   e2e:
     name: e2e
