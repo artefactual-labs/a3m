@@ -22,6 +22,7 @@ import re
 import uuid
 from collections.abc import Iterator
 from collections.abc import Sequence
+from typing import TYPE_CHECKING
 
 from django.db import models
 from django.db.models.signals import post_delete
@@ -30,6 +31,11 @@ from django.utils.translation import gettext_lazy as _
 
 from a3m.fpr.registry import FormatVersion
 from a3m.fpr.registry import FPR
+
+
+if TYPE_CHECKING:
+    # This doesn't really exists on django so it always need to be imported this way
+    from django.db.models.manager import RelatedManager
 
 
 logger = logging.getLogger(__name__)
@@ -314,6 +320,9 @@ class Transfer(models.Model):
 
     objects = UnitHiddenManager()
 
+    if TYPE_CHECKING:
+        file_set = RelatedManager["File"]()
+
     class Meta:
         db_table = "Transfers"
 
@@ -395,6 +404,11 @@ class File(models.Model):
     # values can be constructed using the DashboardSettings rows with scope
     # 'handle'.
     identifiers = models.ManyToManyField("Identifier")
+
+    if TYPE_CHECKING:
+        fileformatversion_set = RelatedManager["FileFormatVersion"]()
+        event_set = RelatedManager["Event"]()
+        fpcommandoutput_set = RelatedManager["FPCommandOutput"]()
 
     class Meta:
         db_table = "Files"

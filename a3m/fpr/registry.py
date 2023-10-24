@@ -49,6 +49,7 @@ from typing import TypeVar
 from django.apps import apps
 
 
+# Avoid issues with circular imports.
 if TYPE_CHECKING:
     from a3m.main.models import File
 else:
@@ -496,8 +497,8 @@ class Registry:
     def __init__(self, backend: Backend | None = None):
         self.backend = backend or default_backend
 
-    def _file_model(self):
-        return apps.get_model("main.File")
+    def _file_model(self) -> File:
+        return apps.get_model("main.File")  # type: ignore
 
     def get_format_version_by_id(self, id: uuid.UUID) -> FormatVersion | None:
         """Returns a format version given its identifier.
@@ -535,13 +536,14 @@ class Registry:
 
         It omits rules not in service.
 
-        TODO: refactor as method of the File model.
+        TODO: refactor as method of the File mode, should also typing and circular import issues.
         """
         result: list[Rule] = []
         if isinstance(purpose, str):
             purpose = RulePurpose(purpose)
-        if isinstance(file, self._file_model()):
-            file_obj = file
+        file_obj: File
+        if str(type(file).__name__) == File:
+            file_obj = file  # type: ignore
         elif isinstance(file, uuid.UUID):
             file_obj = self._file_model().objects.get(pk=str(file))
         elif isinstance(file, str):

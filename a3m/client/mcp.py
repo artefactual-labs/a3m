@@ -76,11 +76,13 @@ replacement_dict = {
 def handle_batch_task(task_name, batch_payload):
     tasks = batch_payload["tasks"]
 
+    mod = ""
     utc_date = getUTCDate()
     jobs = []
     for task_uuid in tasks:
         task_data = tasks[task_uuid]
         arguments = task_data["arguments"]
+        mod = task_data["execute"]
 
         replacements = list(replacement_dict.items()) + list(
             {
@@ -110,7 +112,7 @@ def handle_batch_task(task_name, batch_payload):
 
     retryOnFailure("Set task start times", set_start_times)
 
-    module = importlib.import_module("a3m.client.clientScripts." + task_data["execute"])
+    module = importlib.import_module(f"a3m.client.clientScripts.{mod}")
     module.call(jobs)
 
     return jobs

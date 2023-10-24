@@ -2,4 +2,4 @@
 extension-pkg-whitelist=lxml
 
 [MESSAGES CONTROL]
-disable=C, F, I, R, W, E1101, E1133, E0611
+disable=C, F, I, R, W, E1101, E1133

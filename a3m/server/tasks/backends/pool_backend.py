@@ -2,9 +2,9 @@
 Built-in task backend. Submits `Task` objects to a local pool of processes for
 processing, and returns results.
 """
-import concurrent
 import logging
 import uuid
+from concurrent import futures
 
 from a3m.client.mcp import execute_command
 from a3m.client.metrics import init_counter_labels
@@ -20,8 +20,8 @@ logger = logging.getLogger(__name__)
 
 class PoolTaskBatch:
     def __init__(self):
-        self.uuid: uuid.UUID = uuid.uuid4()
-        self.tasks: list[Task] = []
+        self.uuid = uuid.uuid4()
+        self.tasks = []
         self.future = None
 
     def __len__(self):
@@ -89,7 +89,7 @@ class PoolTaskBackend(TaskBackend):
         # Having multiple threads would be equivalent to deploying multiple
         # MCPClient instances in Archivematica which is known to be problematic.
         # Let's stick to one for now.
-        self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+        self.executor = futures.ThreadPoolExecutor(max_workers=1)
 
         self.current_task_batches = {}  # job_uuid: PoolTaskBatch
         self.pending_jobs = {}  # job_uuid: List[PoolTaskBatch]
@@ -115,8 +115,8 @@ class PoolTaskBackend(TaskBackend):
             return
 
         # Wait for all batches to complete.
-        futures = [item.future for item in pending_batches]
-        for future in concurrent.futures.as_completed(futures):
+        futs = [item.future for item in pending_batches]
+        for future in futures.as_completed(futs):
             batch, results = future.result()
             yield from batch.update_task_results(results)
             metrics.gearman_active_jobs_gauge.dec()

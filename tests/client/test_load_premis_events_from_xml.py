@@ -176,12 +176,14 @@ def test_parse_datetime_with_invalid_value():
 
 def test_parse_datetime_with_valid_date():
     result = load_premis_events_from_xml.parse_datetime("2019-09-24")
+    assert result is not None
     assert (2019, 9, 24) == (result.year, result.month, result.day)
     assert (0, 0, 0) == (result.hour, result.minute, result.second)
 
 
 def test_parse_datetime_with_valid_datetime_and_no_timezone():
     result = load_premis_events_from_xml.parse_datetime("2019-09-24T16:54:21")
+    assert result is not None
     assert (2019, 9, 24) == (result.year, result.month, result.day)
     assert (16, 54, 21) == (result.hour, result.minute, result.second)
     assert "UTC" == result.tzname()
@@ -189,6 +191,7 @@ def test_parse_datetime_with_valid_datetime_and_no_timezone():
 
 def test_parse_datetime_with_valid_datetime_and_timezone():
     result = load_premis_events_from_xml.parse_datetime("2019-09-24T16:54:21+04:00")
+    assert result is not None
     assert (2019, 9, 24) == (result.year, result.month, result.day)
     assert (16, 54, 21) == (result.hour, result.minute, result.second)
     assert "UTC+04:00" == result.tzname()
@@ -382,8 +385,10 @@ no_event_outcome_detail_xml = """
 
 def test_event_element_factory_with_no_event_outcome_detail():
     premis_element = etree.fromstring(no_event_outcome_detail_xml)
+    assert premis_element is not None
     event_element = premis_element.find("premis:event", premis_element.nsmap)
-    event_element.set("version", premis_element.get("version"))
+    assert event_element is not None
+    event_element.set("version", premis_element.get("version", ""))
     result = load_premis_events_from_xml.event_element_factory(event_element)
     expected_attributes = [
         "agents",
