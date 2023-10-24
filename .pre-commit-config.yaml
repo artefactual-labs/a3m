@@ -1,6 +1,8 @@
 ci:
   skip:
   - pip-compile # network access is unavailable in pre-commit.ci runners
+  - pylint # executable not found?
+  - mypy # executable not found?
 
 default_language_version:
   python: python3.11
@@ -60,8 +62,34 @@ repos:
   hooks:
   - id: ruff
     args:
-      - "--fix"
-      - "--exit-non-zero-on-fix"
+    - "--fix"
+    - "--exit-non-zero-on-fix"
+
+- repo: local
+  hooks:
+  - id: pylint
+    name: pylint
+    entry: pylint
+    language: system
+    types: [python]
+
+- repo: local
+  hooks:
+  - id: mypy
+    name: mypy
+    entry: mypy
+    language: system
+    types: [python]
+    pass_filenames: false
+    args:
+    - "a3m"
+
+- repo: https://github.com/PyCQA/bandit
+  rev: 1.7.5
+  hooks:
+  - id: bandit
+    args:
+    - "--configfile=pyproject.toml"
 
 - repo: https://github.com/jazzband/pip-tools
   rev: 7.3.0
@@ -73,8 +101,8 @@ repos:
         requirements.txt
       )$
     args:
-      - "--output-file=requirements.txt"
-      - "setup.py"
+    - "--output-file=requirements.txt"
+    - "setup.py"
 
 - repo: https://github.com/jazzband/pip-tools
   rev: 7.3.0
@@ -86,6 +114,6 @@ repos:
         requirements-dev.txt
       )$
     args:
-      - "--output-file=requirements-dev.txt"
-      - "--extra=dev"
-      - "setup.py"
+    - "--output-file=requirements-dev.txt"
+    - "--extra=dev"
+    - "setup.py"
