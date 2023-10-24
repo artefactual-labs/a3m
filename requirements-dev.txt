@@ -4,7 +4,7 @@
 #
 #    pip-compile --extra=dev --output-file=requirements-dev.txt setup.py
 #
-alabaster==0.7.12
+alabaster==0.7.13
     # via sphinx
 ammcpc==0.1.3
     # via a3m (setup.py)
@@ -12,66 +12,72 @@ appdirs==1.4.4
     # via a3m (setup.py)
 asgiref==3.7.2
     # via django
-astroid==2.11.2
+astroid==3.0.1
     # via pylint
 attrs==23.1.0
     # via
     #   jsonschema
     #   referencing
-babel==2.9.1
+babel==2.13.0
     # via sphinx
 bagit==1.8.1
     # via a3m (setup.py)
-bandit==1.7.4
+bandit==1.7.5
     # via a3m (setup.py)
-black==22.3.0
+black==23.10.1
     # via a3m (setup.py)
-boto3==1.28.62
+boto3==1.28.69
     # via a3m (setup.py)
-botocore==1.31.62
+botocore==1.31.69
     # via
     #   boto3
     #   s3transfer
-build==0.10.0
+build==1.0.3
     # via pip-tools
 cachetools==5.3.1
     # via tox
 certifi==2023.7.22
     # via requests
-cfgv==3.3.1
+cfgv==3.4.0
     # via pre-commit
 chardet==5.2.0
     # via tox
-charset-normalizer==2.0.12
+charset-normalizer==3.3.1
     # via requests
-click==8.1.2
+click==8.1.7
     # via
     #   a3m (setup.py)
     #   black
     #   pip-tools
 colorama==0.4.6
     # via tox
-coverage[toml]==7.2.7
+coverage[toml]==7.3.2
     # via
     #   a3m (setup.py)
     #   pytest-cov
-dill==0.3.4
+dill==0.3.7
     # via pylint
 distlib==0.3.7
     # via virtualenv
 django==4.2.6
+    # via
+    #   a3m (setup.py)
+    #   django-stubs-ext
+django-stubs-ext==4.2.5
     # via a3m (setup.py)
-docutils==0.17.1
+django-types==0.19.1
+    # via a3m (setup.py)
+docutils==0.20.1
     # via sphinx
-filelock==3.12.2
+filelock==3.12.4
     # via
     #   tox
     #   virtualenv
-flake8==4.0.1
+flake8==6.1.0
     # via a3m (setup.py)
-gitdb==4.0.9
+gitdb==4.0.11
     # via gitpython
-gitpython==3.1.37
+gitpython==3.1.40
     # via bandit
 googleapis-common-protos==1.61.0
     # via
@@ -87,21 +93,21 @@ grpcio-reflection==1.59.0
     # via a3m (setup.py)
 grpcio-status==1.59.0
     # via a3m (setup.py)
-grpcio-tools==1.56.2
+grpcio-tools==1.59.0
     # via a3m (setup.py)
-identify==2.4.12
+identify==2.5.30
     # via pre-commit
-idna==3.3
+idna==3.4
     # via requests
-imagesize==1.3.0
+imagesize==1.4.1
     # via sphinx
-iniconfig==1.1.1
+iniconfig==2.0.0
     # via pytest
-isort==5.10.1
+isort==5.12.0
     # via pylint
-jinja2==3.1.1
+jinja2==3.1.2
     # via sphinx
-jmespath==1.0.0
+jmespath==1.0.1
     # via
     #   boto3
     #   botocore
@@ -109,8 +115,6 @@ jsonschema==4.19.1
     # via a3m (setup.py)
 jsonschema-specifications==2023.7.1
     # via jsonschema
-lazy-object-proxy==1.7.1
-    # via astroid
 lxml==4.9.3
     # via
     #   a3m (setup.py)
@@ -118,9 +122,9 @@ lxml==4.9.3
     #   metsrw
 markdown-it-py==3.0.0
     # via rich
-markupsafe==2.1.1
+markupsafe==2.1.3
     # via jinja2
-mccabe==0.6.1
+mccabe==0.7.0
     # via
     #   flake8
     #   pylint
@@ -128,64 +132,65 @@ mdurl==0.1.2
     # via markdown-it-py
 metsrw==0.4.0
     # via a3m (setup.py)
-mypy==0.942
+mypy==1.6.1
     # via a3m (setup.py)
-mypy-extensions==0.4.3
+mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
-nodeenv==1.6.0
+nodeenv==1.8.0
     # via pre-commit
-packaging==23.1
+packaging==23.2
     # via
+    #   black
     #   build
     #   pyproject-api
     #   pytest
     #   sphinx
     #   tox
-pathspec==0.9.0
+pathspec==0.11.2
     # via black
-pbr==5.8.1
+pbr==5.11.1
     # via stevedore
 pip-tools==7.3.0
     # via a3m (setup.py)
-platformdirs==3.10.0
+platformdirs==3.11.0
     # via
     #   black
     #   pylint
     #   tox
     #   virtualenv
-pluggy==1.2.0
+pluggy==1.3.0
     # via
     #   pytest
     #   tox
-pre-commit==2.18.1
+pre-commit==3.5.0
     # via a3m (setup.py)
 prometheus-client==0.17.1
     # via a3m (setup.py)
-protobuf==4.24.0
+protobuf==4.24.4
     # via
     #   googleapis-common-protos
     #   grpcio-reflection
     #   grpcio-status
     #   grpcio-tools
-pycodestyle==2.8.0
+pycodestyle==2.11.1
     # via flake8
-pyflakes==2.4.0
+pyflakes==3.1.0
     # via flake8
 pygfried==0.6.0
     # via a3m (setup.py)
-pygments==2.15.0
+pygments==2.16.1
     # via
     #   rich
     #   sphinx
-pylint==2.13.5
+pylint==3.0.2
     # via a3m (setup.py)
-pyproject-api==1.5.3
+pyproject-api==1.6.1
     # via tox
 pyproject-hooks==1.0.0
     # via build
-pytest==7.4.0
+pytest==7.4.2
     # via
     #   a3m (setup.py)
     #   pytest-cov
@@ -196,15 +201,13 @@ pytest-cov==4.1.0
     # via a3m (setup.py)
 pytest-django==4.5.2
     # via a3m (setup.py)
-pytest-env==0.8.2
+pytest-env==1.1.0
     # via a3m (setup.py)
-pytest-mock==3.7.0
+pytest-mock==3.12.0
     # via a3m (setup.py)
 python-dateutil==2.8.2
     # via botocore
-pytz==2022.1
-    # via babel
-pyyaml==6.0
+pyyaml==6.0.1
     # via
     #   bandit
     #   pre-commit
@@ -217,7 +220,9 @@ requests==2.31.0
     #   a3m (setup.py)
     #   sphinx
 rich==13.6.0
-    # via a3m (setup.py)
+    # via
+    #   a3m (setup.py)
+    #   bandit
 rpds-py==0.10.6
     # via
     #   jsonschema
@@ -226,58 +231,71 @@ s3transfer==0.7.0
     # via boto3
 six==1.16.0
     # via python-dateutil
-smmap==5.0.0
+smmap==5.0.1
     # via gitdb
 snowballstemmer==2.2.0
     # via sphinx
-sphinx==4.5.0
-    # via a3m (setup.py)
-sphinxcontrib-applehelp==1.0.2
+sphinx==7.2.6
+    # via
+    #   a3m (setup.py)
+    #   sphinxcontrib-applehelp
+    #   sphinxcontrib-devhelp
+    #   sphinxcontrib-htmlhelp
+    #   sphinxcontrib-qthelp
+    #   sphinxcontrib-serializinghtml
+sphinxcontrib-applehelp==1.0.7
     # via sphinx
-sphinxcontrib-devhelp==1.0.2
+sphinxcontrib-devhelp==1.0.5
     # via sphinx
-sphinxcontrib-htmlhelp==2.0.0
+sphinxcontrib-htmlhelp==2.0.4
     # via sphinx
 sphinxcontrib-jsmath==1.0.1
     # via sphinx
-sphinxcontrib-mermaid==0.7.1
+sphinxcontrib-mermaid==0.9.2
     # via a3m (setup.py)
-sphinxcontrib-qthelp==1.0.3
+sphinxcontrib-qthelp==1.0.6
     # via sphinx
-sphinxcontrib-serializinghtml==1.1.5
+sphinxcontrib-serializinghtml==1.1.9
     # via sphinx
 sqlparse==0.4.4
     # via django
-stevedore==3.5.0
+stevedore==5.1.0
     # via bandit
 tenacity==8.2.3
     # via a3m (setup.py)
 toml==0.10.2
+    # via vulture
+tomlkit==0.12.1
+    # via pylint
+tox==4.11.3
+    # via a3m (setup.py)
+types-beautifulsoup4==4.12.0.6
+    # via types-lxml
+types-html5lib==1.1.11.15
+    # via types-beautifulsoup4
+types-lxml==2023.10.21
+    # via a3m (setup.py)
+types-psycopg2==2.9.21.14
+    # via django-types
+typing-extensions==4.8.0
     # via
-    #   pre-commit
-    #   vulture
-tomli==2.0.1
-    # via mypy
-tox==4.6.4
+    #   django-stubs-ext
+    #   mypy
+    #   types-lxml
+unidecode==1.3.7
     # via a3m (setup.py)
-typing-extensions==4.1.1
-    # via mypy
-unidecode==1.3.4
-    # via a3m (setup.py)
-urllib3==1.26.18
+urllib3==2.0.7
     # via
     #   botocore
     #   requests
-virtualenv==20.24.2
+virtualenv==20.24.6
     # via
     #   pre-commit
     #   tox
-vulture==2.3
+vulture==2.10
     # via a3m (setup.py)
-wheel==0.41.1
+wheel==0.41.2
     # via pip-tools
-wrapt==1.14.0
-    # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

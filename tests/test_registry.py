@@ -25,10 +25,13 @@ def registry():
 
 
 def test_registry_get_file_rules(db, registry):
+    """Confirm that it accepts uuid.UUID, str and File."""
     file_obj = create_file_with_version_id(
         "082f3282-8331-4da4-b452-632b17e90d66"
     )  # fmt/3
-    assert len(registry.get_file_rules(file_obj.pk, RulePurpose.THUMBNAIL)) == 1
+    assert len(registry.get_file_rules(file_obj.uuid, RulePurpose.THUMBNAIL)) == 1
+    assert len(registry.get_file_rules(str(file_obj.uuid), RulePurpose.THUMBNAIL)) == 1
+    assert len(registry.get_file_rules(file_obj, RulePurpose.THUMBNAIL)) == 1
 
 
 def test_registry_integrity(registry):

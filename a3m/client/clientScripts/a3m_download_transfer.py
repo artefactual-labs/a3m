@@ -97,7 +97,9 @@ def _process_http_url(job, url, transfer_path, transfer_id):
     with _create_tmpdir(transfer_id, purpose="download") as tmp_dir:
         download = tmp_dir / Path(url.path).name
         try:
-            with requests.get(url.geturl(), allow_redirects=True, stream=True) as resp:
+            with requests.get(
+                url.geturl(), allow_redirects=True, stream=True, timeout=100
+            ) as resp:
                 resp.raise_for_status()
                 with download.open("wb") as f:
                     for chunk in resp.iter_content(chunk_size=8192):

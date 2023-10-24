@@ -12,8 +12,20 @@ The requirements are listed in ``/setup.cfg`` under (``install_requires``). The
 constraints are relaxed with the purpose of allowing a3m to be used as a
 library.
 
-We use `pip-tools` which reflects the requirements in ``requirements.txt`` and
-``requirements-dev.txt`` for our Docker image.
+We use `pip-tools` which pins the requirements in ``requirements.txt`` and
+``requirements-dev.txt`` for our Docker image and tox. Some examples:
+
+* Update dependencies with::
+ 
+   pip-compile --output-file=requirements.txt setup.py
+
+* Update all dependencies with::
+
+   pip-compile --upgrade --output-file=requirements.txt setup.py
+
+* Update all development dependencies with::
+
+   pip-compile --extra=dev --upgrade --output-file=requirements-dev.txt setup.py
 
 Python version
 ^^^^^^^^^^^^^^

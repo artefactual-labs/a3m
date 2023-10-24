@@ -13,3 +13,14 @@ ignore = [
 exclude = [
   "a3m/api/**/*",
 ]
+
+[tool.pyright]
+include = [
+  "a3m",
+  "tests",
+]
+exclude = [
+  "a3m/api/*/**",
+  "a3m/main/migrations/*/**",
+]
+typeCheckingMode = "basic"

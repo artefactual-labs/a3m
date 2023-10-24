@@ -7,9 +7,14 @@ from io import StringIO
 from pathlib import Path
 from typing import Any
 
+import django_stubs_ext
 from appdirs import user_data_dir
 
 from a3m.appconfig import Config
+
+
+django_stubs_ext.monkeypatch()
+
 
 CONFIG_MAPPING = {
     "debug": {"section": "a3m", "option": "debug", "type": "boolean"},

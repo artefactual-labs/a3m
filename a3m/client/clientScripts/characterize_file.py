@@ -99,13 +99,13 @@ def main(job, file_path, file_uuid, sip_uuid):
                 failed = True
                 job.write_error(
                     'XML output for command "{}" ({}) was not valid XML; not saving to database'.format(
-                        rule.command.description, rule.command.uuid
+                        rule.command.description, rule.command.id
                     )
                 )
         else:
             job.write_error(
                 'Tool output for command "{}" ({}) is not XML; not saving to database'.format(
-                    rule.command.description, rule.command.uuid
+                    rule.command.description, rule.command.id
                 )
             )
 
