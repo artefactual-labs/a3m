@@ -27,7 +27,7 @@ author = "%d Artefactual Systems Inc." % datetime.now().year
 version = f"v{__version__}"
 release = f"v{__version__}"
 
-language = None
+language = "en"
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 pygments_style = "sphinx"
 todo_include_todos = True
@@ -38,7 +38,7 @@ html_theme_options = {
     "fixed_sidebar": True,
     "github_user": "artefactual-labs",
     "github_repo": "a3m",
-    "github_banner": True,
+    "github_banner": False,
     "github_button": False,
 }
 html_static_path = ["_static"]
