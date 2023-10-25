@@ -9,9 +9,6 @@ A3M_PIPELINE_DATA ?= $(CURDIR)/hack/compose-volume
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
 
-NULL :=
-SPACE := $(NULL) $(NULL)
-
 define compose
 	docker compose -f docker-compose.yml $(1)
 endef
@@ -24,14 +21,6 @@ define compose_run
 		--workdir /a3m \
 		--no-deps \
 		$(1))
-endef
-
-define toxenvs
-	$(call compose_run, \
-		--entrypoint tox \
-			a3m \
-				$(subst $(SPACE), -e ,$(SPACE)$(1)) \
-				${TOXARGS})
 endef
 
 .PHONY: shell
@@ -159,14 +148,6 @@ publish-clean:
 	rm -rf a3m.egg-info/
 	rm -rf build/
 	rm -rf dist/
-
-.PHONY: tox
-tox: build  ## Run a toxenv.
-	$(call toxenvs,$(ARG))
-
-.PHONY: test
-test:  ## Run the tests with coverage.
-	$(MAKE) tox ARG="pytest"
 
 RED := \033[0;31m
 GREEN := \033[0;32m
