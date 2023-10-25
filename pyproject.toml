@@ -95,15 +95,34 @@ legacy_tox_ini = """
     skipsdist = True
     min_version = 4.0
     env_list =
-        pytest
+        py3{11,12},
+        coverage,
+        tox
+    labels=
+        py = py3{11,12}
 
     [testenv]
-    deps = -r {toxinidir}/requirements-dev.txt
-
-    [testenv:pytest]
-    skip_install = True
+    deps =
+        -r {toxinidir}/requirements-dev.txt
+    passenv =
+        COVERAGE_*
     commands =
-      coverage run -m pytest {posargs} {toxinidir}/tests/
-      coverage report
-      coverage xml -o {toxinidir}/.coverage.xml
+        python -V
+        coverage run -p -m pytest -Wd {posargs}
+
+    [testenv:coverage]
+    depends = pypy311,py312
+    basepython = python3.12
+    commands =
+        coverage combine
+        coverage report -m --skip-covered
+        coverage html
+        coverage json
+        coverage xml
+    parallel_show_output = true
+
+    [testenv:pre-commit]
+    skip_install = true
+    deps = pre-commit
+    commands = pre-commit run --all-files --show-diff-on-failure
 """
