@@ -1,7 +1,6 @@
 ci:
   skip:
   - pip-compile # network access is unavailable in pre-commit.ci runners
-  - pylint # executable not found?
   - mypy # executable not found?
 
 default_language_version:
@@ -22,12 +21,14 @@ repos:
         tests/server/fixtures/workflow-integration-test.json
       )
 
-- repo: https://github.com/asottile/pyupgrade
-  rev: v3.15.0
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.1.2
   hooks:
-  - id: pyupgrade
+  - id: ruff
     args:
-    - "--py311-plus"
+    - "--fix"
+    - "--exit-non-zero-on-fix"
+  - id: ruff-format
 
 - repo: https://github.com/asottile/reorder-python-imports
   rev: v3.12.0
@@ -43,35 +44,6 @@ repos:
   - id: django-upgrade
     args:
     - "--target-version=4.2"
-
-- repo: https://github.com/psf/black
-  rev: "23.10.0"
-  hooks:
-  - id: black
-    args:
-    - "--safe"
-    - "--quiet"
-
-- repo: https://github.com/pycqa/flake8
-  rev: "6.1.0"
-  hooks:
-  - id: flake8
-
-- repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.1.1
-  hooks:
-  - id: ruff
-    args:
-    - "--fix"
-    - "--exit-non-zero-on-fix"
-
-- repo: local
-  hooks:
-  - id: pylint
-    name: pylint
-    entry: pylint
-    language: system
-    types: [python]
 
 - repo: local
   hooks:
@@ -102,7 +74,7 @@ repos:
       )$
     args:
     - "--output-file=requirements.txt"
-    - "setup.py"
+    - "setup.cfg"
 
 - repo: https://github.com/jazzband/pip-tools
   rev: 7.3.0
@@ -116,4 +88,4 @@ repos:
     args:
     - "--output-file=requirements-dev.txt"
     - "--extra=dev"
-    - "setup.py"
+    - "setup.cfg"

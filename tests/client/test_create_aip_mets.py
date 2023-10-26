@@ -369,7 +369,10 @@ class TestDublinCore(TestCase):
     def test_dmdsec_from_csv_parsed_metadata_repeats(self):
         """It should create multiple elements for repeated input."""
         data = collections.OrderedDict(
-            [("dc.contributor", ["Yuki", "雪 ユキ"]), ("Contributor", ["Yuki", "雪 ユキ"])]
+            [
+                ("dc.contributor", ["Yuki", "雪 ユキ"]),
+                ("Contributor", ["Yuki", "雪 ユキ"]),
+            ]
         )
         # Test
         state = create_mets_v2.MetsState()
@@ -839,8 +842,8 @@ class TestCustomStructMap(TempDirMixin, TestCase):
         assert (
             self.state.fileNameToFileID is not None
         ), "fileNameToFileID mapping hasn't been generated"
-        assert self.count_dir_objects(self.objects_dir) == len(
-            self.state.fileNameToFileID
+        assert (
+            self.count_dir_objects(self.objects_dir) == len(self.state.fileNameToFileID)
         ), "State hasn't been generated for all objects on disk, duplicate names may not be counted for"
 
     def test_get_included_structmap_invalid_mets(self):
@@ -860,9 +863,7 @@ class TestCustomStructMap(TempDirMixin, TestCase):
         try:
             self.validate_mets(self.mets_xsd_path, broken_structmap_path)
         except etree.DocumentInvalid:
-            assert (
-                True
-            ), "Expecting a validation error so that we know validation is working correctly"
+            assert True, "Expecting a validation error so that we know validation is working correctly"
 
     def test_get_included_structmap_valid_mets(self):
         """Test the valid output of custom structmaps in create_mets_v2."""
