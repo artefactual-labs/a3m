@@ -1,7 +1,0 @@
-[MASTER]
-extension-pkg-whitelist=lxml
-ignore-paths=
-  a3m/externals
-
-[MESSAGES CONTROL]
-disable=C, F, I, R, W, E1101, E1133

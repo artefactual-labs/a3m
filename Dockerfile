@@ -99,9 +99,6 @@ RUN set -ex \
 
 FROM base AS a3m
 
-COPY ./a3m/externals/fido/ /usr/lib/archivematica/archivematicaCommon/externals/fido/
-COPY ./a3m/externals/fiwalk_plugins/ /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/
-
 USER a3m
 
 ARG DJANGO_SETTINGS_MODULE=a3m.settings.common

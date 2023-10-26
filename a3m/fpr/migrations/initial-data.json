@@ -68845,7 +68845,7 @@
     },
     {
         "fields": {
-            "command": "fiwalk -x %relativeLocation% -c /usr/lib/archivematica/archivematicaCommon/externals/fiwalk_plugins/ficonfig.txt",
+            "command": "fiwalk -x %relativeLocation%",
             "command_usage": "Characterization",
             "description": "fiwalk",
             "enabled": true,

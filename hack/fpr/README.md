@@ -22,3 +22,5 @@ the following issues were repoted and the corresponding rules were disabled:
     Rule in service 3a19de70-0e42-4145-976b-3a248d43b462 is using a Command not in service: <a3m.fpr.registry.Command object at 0x7f4d55684250> (FITS).
     Rule in service 20cad741-3cf1-4b6a-9e71-d1e8af13ba3f is using a FormatVersion not in service: <a3m.fpr.registry.FormatVersion object at 0x7f3761395150> (Advanced Forensic Format).
     Rule in service 9e502f30-ba01-4981-8377-dd01ecf2dc5c is using a FormatVersion not in service: <a3m.fpr.registry.FormatVersion object at 0x7fbe6e2b9c10> (Advanced Forensic Format).
+
+Also, make sure that the fiwalk command is not using a ficonfig file.
