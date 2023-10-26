@@ -91,6 +91,18 @@ exclude = [
   "a3m/api",
 ]
 
+[tool.coverage.run]
+source = [
+  "a3m",
+]
+branch = true
+omit = [
+  "a3m/api/*",
+  "a3m/server/rpc/*",
+  "a3m/settings/*",
+  "tests/*",
+]
+
 [tool.tox]
 legacy_tox_ini = """
     [tox]
@@ -119,7 +131,6 @@ legacy_tox_ini = """
         coverage combine
         coverage report -m --skip-covered
         coverage html
-        coverage json
         coverage xml
     parallel_show_output = true
 
