@@ -8,24 +8,19 @@ Dependency management
 Python dependencies
 ^^^^^^^^^^^^^^^^^^^
 
-The requirements are listed in ``/setup.cfg`` under (``install_requires``). The
-constraints are relaxed with the purpose of allowing a3m to be used as a
-library.
+The requirements are listed in ``/pyproject.toml``. The constraints are relaxed
+with the purpose of allowing a3m to be used as a library.
 
 We use `pip-tools` which pins the requirements in ``requirements.txt`` and
 ``requirements-dev.txt`` for our Docker image and tox. Some examples:
 
 * Update dependencies with::
- 
-   pip-compile --output-file=requirements.txt setup.py
+
+   make pip-compile
 
 * Update all dependencies with::
 
-   pip-compile --upgrade --output-file=requirements.txt setup.py
-
-* Update all development dependencies with::
-
-   pip-compile --extra=dev --upgrade --output-file=requirements-dev.txt setup.py
+   make pip-upgrade
 
 Python version
 ^^^^^^^^^^^^^^

@@ -70,25 +70,13 @@ restart:  ## Restart services
 
 .PHONY: pip-compile
 pip-compile:  ## Compile pip requirements
-	$(call compose_run, \
-		--entrypoint=pip-compile \
-		a3m \
-			--output-file=requirements.txt setup.py)
-	$(call compose_run, \
-		--entrypoint=pip-compile \
-		a3m \
-			--output-file=requirements-dev.txt --extra=dev setup.py)
+	pip-compile --output-file=requirements.txt pyproject.toml
+	pip-compile --extra=dev --output-file=requirements-dev.txt pyproject.toml
 
 .PHONY: pip-upgrade
 pip-upgrade:  ## Upgrade pip requirements
-	$(call compose_run, \
-		--entrypoint=pip-compile \
-		a3m \
-			--upgrade --output-file requirements.txt)
-	$(call compose_run, \
-		--entrypoint=pip-compile \
-		a3m \
-			--extra dev --upgrade --output-file requirements-dev.txt)
+	pip-compile --upgrade --output-file=requirements.txt pyproject.toml
+	pip-compile --upgrade --extra=dev --output-file=requirements-dev.txt pyproject.toml
 
 .PHONY: db
 db:
@@ -137,15 +125,13 @@ help:  ## Print this help message.
 
 .PHONY: publish
 publish: publish-clean  ## Publish to PyPI
-	pip install --upgrade twine wheel
-	python setup.py sdist
-	python setup.py bdist_wheel --universal
+	pip install --upgrade twine wheel build
+	python -m build
 	twine check dist/*
 	twine upload dist/* -r pypi
 
 .PHONY: publish-clean
 publish-clean:
-	rm -rf a3m.egg-info/
 	rm -rf build/
 	rm -rf dist/
 

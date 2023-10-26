@@ -74,7 +74,7 @@ repos:
       )$
     args:
     - "--output-file=requirements.txt"
-    - "setup.cfg"
+    - "pyproject.toml"
 
 - repo: https://github.com/jazzband/pip-tools
   rev: 7.3.0
@@ -88,4 +88,4 @@ repos:
     args:
     - "--output-file=requirements-dev.txt"
     - "--extra=dev"
-    - "setup.cfg"
+    - "pyproject.toml"
