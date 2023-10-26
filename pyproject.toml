@@ -34,8 +34,10 @@ ignore = [
   "E402",
   "E501",
   "E722",
+  "W191",
 ]
 exclude = [
+  "a3m/settings/**/*",
   "a3m/api/**/*",
 ]
 

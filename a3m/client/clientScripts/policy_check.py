@@ -256,9 +256,8 @@ class PolicyChecker:
             return "failed"
         if rule.command.tool is None:
             return "failed"
-        event_detail = (
-            'program="{tool.description}";'
-            ' version="{tool.version}"'.format(tool=rule.command.tool)
+        event_detail = 'program="{tool.description}"; version="{tool.version}"'.format(
+            tool=rule.command.tool
         )
         if output.get("eventOutcomeInformation") != "pass":
             self.job.print_error(
