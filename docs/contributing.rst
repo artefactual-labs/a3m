@@ -12,7 +12,7 @@ The requirements are listed in ``/pyproject.toml``. The constraints are relaxed
 with the purpose of allowing a3m to be used as a library.
 
 We use `pip-tools` which pins the requirements in ``requirements.txt`` and
-``requirements-dev.txt`` for our Docker image and tox. Some examples:
+``requirements-dev.txt`` for our Docker image. Some examples:
 
 * Update dependencies with::
 
@@ -25,23 +25,23 @@ We use `pip-tools` which pins the requirements in ``requirements.txt`` and
 Python version
 ^^^^^^^^^^^^^^
 
-We're currently testing only against one version of Python.
-
-The current version is:
+There is a pinned version of Python in ``/.python-version`` that we use when
+packaging our Docker image and other development-oriented tools. The preference
+is to use the latest version available. Currently:
 
 .. include:: ../.python-version
    :code:
 
-You can find it in the following files:
+But we aim to support at least a couple of versions, e.g. 3.11 and 3.12 to
+provide greater flexibility since a3m is also distributed as a Python package
+serving both as an application and a library. We're using tox to test against
+multiple versions of Python. If you want to alter the list of versions we're
+testing and supporting, the following files must be considered:
 
-* ``/.python-version``
-* ``/Dockerfile`` (build argument ``PYTHON_VERSION``)
-* ``/.github/workflows/tests.yml``
-* ``/setup.cfg`` (attributes ``classifiers`` and ``python_requires``)
-* ``/.pre-commit-config.yaml`` (attribute ``default_language_version.python``)
-
-We should relax the constraint as much as possible and test in CI because one of
-the aspirations of a3m is to be used as a library.
+* ``pyproject.toml`` describes the minimum version supported
+  (``requires-python``), a list of all versions supported (``classifiers``) and
+  test environments (under ``[tool.tox]``)
+* ``.github/workflows/test.yml`` lists the testing matrix in CI.
 
 Releases
 --------
