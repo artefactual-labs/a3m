@@ -2,6 +2,7 @@
 
 !/requirements*
 !/a3m/**
+!/.python-version
 
 **/*~
 **/*.log

@@ -105,11 +105,13 @@ ARG DJANGO_SETTINGS_MODULE=a3m.settings.common
 ENV DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
 ENV PYENV_ROOT="/home/a3m/.pyenv"
 ENV PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
-ARG PYTHON_VERSION=3.11.6
+ARG PYTHON_VERSION=""
 ARG REQUIREMENTS=/a3m/requirements-dev.txt
 
+COPY ./.python-version /a3m/.python-version
 RUN set -ex \
 	&& curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
+	&& if [ -z "${PYTHON_VERSION}" ]; then PYTHON_VERSION=$(cat /a3m/.python-version); fi \
 	&& pyenv install ${PYTHON_VERSION} \
 	&& pyenv global ${PYTHON_VERSION}
 

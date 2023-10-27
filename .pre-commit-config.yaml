@@ -3,9 +3,6 @@ ci:
   - pip-compile # network access is unavailable in pre-commit.ci runners
   - mypy # executable not found?
 
-default_language_version:
-  python: python3.12
-
 repos:
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
