@@ -24,7 +24,8 @@ master_doc = "index"
 project = "a3m"
 author = "%d Artefactual Systems Inc." % datetime.now().year
 
-release = re.sub('^v', '', os.popen('git describe --tags --abbrev=0').read().strip())
+output = os.popen("git describe --tags --abbrev=0").read().strip()  # nosec
+release = re.sub("^v", "", output)
 version = release
 
 language = "en"
