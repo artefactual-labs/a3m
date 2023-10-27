@@ -106,7 +106,7 @@ ENV DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
 ENV PYENV_ROOT="/home/a3m/.pyenv"
 ENV PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 ARG PYTHON_VERSION=""
-ARG REQUIREMENTS=/a3m/requirements-dev.txt
+ARG REQUIREMENTS=/a3m/requirements.txt
 
 COPY ./.python-version /a3m/.python-version
 RUN set -ex \
