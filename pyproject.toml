@@ -90,6 +90,7 @@ dev = [
   "sphinxcontrib-mermaid",
   "doc8",
   "ruff",
+  "scriv",
   "django-types",
   "types-lxml",
   "types-requests",
@@ -246,3 +247,6 @@ ignore-path = [
   "docs/_build",
 ]
 max-line-length = 80
+
+[tool.scriv]
+version = "literal: a3m/__init__.py: __version__"
