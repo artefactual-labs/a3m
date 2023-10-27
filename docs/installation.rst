@@ -10,7 +10,7 @@ We also publish a Docker image that bundles all software dependencies that a3m
 needs for a good out-of-box experience. This image is public and can be pulled
 from the command line with::
 
-	docker pull ghcr.io/artefactual-labs/a3m:main
+    docker pull ghcr.io/artefactual-labs/a3m:main
 
 If you don't want to use Docker, it is still possible to run a3m successfully
 as long as the software dependencies are provided in some other way. Please

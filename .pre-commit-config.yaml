@@ -18,6 +18,11 @@ repos:
         tests/server/fixtures/workflow-integration-test.json
       )
 
+- repo: https://github.com/PyCQA/doc8
+  rev: v1.1.1
+  hooks:
+  - id: doc8
+
 - repo: https://github.com/astral-sh/ruff-pre-commit
   rev: v0.1.3
   hooks:
