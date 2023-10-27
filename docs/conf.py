@@ -1,10 +1,10 @@
 import os
+import re
 import sys
 from datetime import datetime
 
 sys.path.append(os.path.abspath("../"))
 
-from a3m import __version__
 from a3m.cli.common import init_django
 
 init_django()
@@ -24,8 +24,8 @@ master_doc = "index"
 project = "a3m"
 author = "%d Artefactual Systems Inc." % datetime.now().year
 
-version = f"v{__version__}"
-release = f"v{__version__}"
+release = re.sub('^v', '', os.popen('git describe --tags --abbrev=0').read().strip())
+version = release
 
 language = "en"
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
