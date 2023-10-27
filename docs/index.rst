@@ -16,3 +16,4 @@ Current release: |version|.
     development
     docker
     contributing
+    changelog

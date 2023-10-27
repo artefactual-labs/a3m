@@ -23,6 +23,7 @@ repos:
   rev: v1.1.1
   hooks:
   - id: doc8
+    files: ^docs/.*\.rst$
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
   rev: v0.1.3

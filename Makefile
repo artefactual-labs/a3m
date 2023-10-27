@@ -78,6 +78,10 @@ pip-upgrade:  ## Upgrade pip requirements
 	pip-compile --upgrade --output-file=requirements.txt pyproject.toml
 	pip-compile --upgrade --extra=dev --output-file=requirements-dev.txt pyproject.toml
 
+.PHONY: pip-sync
+pip-sync:  ## Ensures that the local venv mirrors requirements-dev.txt.
+	pip-sync requirements-dev.txt
+
 .PHONY: db
 db:
 	$(call compose_run, \
