@@ -10,8 +10,8 @@ You may have already learned that a3m comes with two executables: **a3m** and
 abstractions that we are also making available to software developers planning
 to build new applications embedding or communicating with a3m.
 
-:func:`a3m.server.runner.create_server` is a function that helps you create your
-own instance of :class:`a3m.server.runner.Server`, the gRPC server.
+:func:`a3m.server.runner.create_server` is a function that helps you create
+your own instance of :class:`a3m.server.runner.Server`, the gRPC server.
 
 Use :class:`a3m.server.rpc.client.Client` to communicate with it.
 :class:`a3m.cli.client.wrapper.ClientWrapper` is a context manager that makes

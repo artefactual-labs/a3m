@@ -68,7 +68,9 @@ the desired settings::
 
 The Python client can do similarly::
 
-    from a3m.api.transferservice.v1beta1.request_response_pb2 import ProcessingConfig
+    from a3m.api.transferservice.v1beta1.request_response_pb2 import (
+        ProcessingConfig
+    )
 
     c = Client(...)
     c.submit(
