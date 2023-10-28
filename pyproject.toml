@@ -211,17 +211,17 @@ omit = [
 [tool.tox]
 legacy_tox_ini = """
     [tox]
-    skipsdist = True
     min_version = 4.0
     env_list =
         py3{11,12},
         coverage,
         tox,
         pre-commit
-    labels=
+    labels =
         py = py3{11,12}
 
     [testenv]
+    skipsdist = true
     deps =
         -r {toxinidir}/requirements-dev.txt
     passenv =
@@ -231,6 +231,7 @@ legacy_tox_ini = """
         coverage run -p -m pytest {posargs:-qq}
 
     [testenv:coverage]
+    skip_install = true
     depends = pypy311,py312
     basepython = python3.12
     commands =
