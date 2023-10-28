@@ -111,7 +111,10 @@ env = [
 filterwarnings = [
   "error",
   "ignore:^Deprecated call to `pkg_resources.declare_namespace:DeprecationWarning",
-  "ignore:^pkg_resources is deprecated:DeprecationWarning",
+  "ignore:^pkg_resources is deprecated:DeprecationWarning:bagit.*",
+  "ignore:.*uses PyType_Spec with a metaclass:DeprecationWarning",
+  "ignore:.*datetime.datetime.utcfromtimestamp:DeprecationWarning:google.*",
+  "ignore:.*datetime.datetime.utcnow:DeprecationWarning:metsrw.*",
 ]
 norecursedirs = [
   "_build",
