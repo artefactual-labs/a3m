@@ -224,7 +224,7 @@ legacy_tox_ini = """
         COVERAGE_*
     commands =
         python -V
-        coverage run -p -m pytest -Wd {posargs}
+        coverage run -p -m pytest {posargs}
 
     [testenv:coverage]
     depends = pypy311,py312
