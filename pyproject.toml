@@ -2,6 +2,11 @@
 requires = ["setuptools>=68", "wheel>=0.41"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["a3m*"]
+namespaces = false
+
 [project]
 name = "a3m"
 dynamic = ["version"]
@@ -104,9 +109,6 @@ dev = [
 [tool.setuptools.dynamic]
 version = {attr = "a3m.__version__"}
 readme = {file = ["README.rst"]}
-
-[tool.setuptools.packages.find]
-include = ["a3m.*"]
 
 [tool.pytest.ini_options]
 env = [
