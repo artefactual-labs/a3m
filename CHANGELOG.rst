@@ -54,6 +54,7 @@ Added
 - Add django-types, type stubs for Django compatible with pyright.
 - Add ``make workflow`` to render the current workflow in the browser using
   the latest version of amflow available.
+- Add ``tox -e publish`` to build and publish the packages to PyPI.
 
 Changed
 -------
@@ -81,7 +82,7 @@ Fixed
 - The Docker image is now built using ``requirements.txt`` instead of
   ``requirements-dev.txt`` and uses ``.python-version`` to find the default
   Python version preferred by the project.
-- Release via ``make release`` now uses ``.pypirc`` for credentials.
+- Twine now uses ``.pypirc`` for credentials.
 - The docs site now shows the last known release version using
   ``git describe --tags --abbrev=0`` as opposed to relying on
   ``a3m.__version__``. This ensures that the docs site shows the latest

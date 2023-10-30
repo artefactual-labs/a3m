@@ -10,10 +10,18 @@ and ready to use.
 We're going to describe a couple of different ways in which you can make use of
 our Docker image.
 
-Download the latest version
-===========================
+Download the image
+==================
 
-Make sure that you have the latest version with::
+Download the latest version with::
+
+    docker pull ghcr.io/artefactual-labs/a3m:latest
+
+Or download a specific version of your choice with::
+
+    docker pull ghcr.io/artefactual-labs/a3m:v0.7.1
+
+Or use the latest code in ``main`` (unstable) with::
 
     docker pull ghcr.io/artefactual-labs/a3m:main
 
@@ -24,7 +32,7 @@ This section shows the a3m CLI with the processing engine embedded. Using Docker
 volumes, we're going to inject a transfer source directory and a destination
 for the AIPs that we're creating to ease its extraction.
 
-Prepare the local directories that will host the volumes:
+Prepare the local directories that will host the volumes::
 
     mkdir -p /tmp/demo/transfers /tmp/demo/completed
 
@@ -39,7 +47,7 @@ Submit ``/tmp/demo/transfers/transfer1`` to an ephemeral a3m container::
       --volume="/tmp/demo/transfers:/tmp/demo/transfers" \
       --volume="/tmp/demo/completed:/home/a3m/.local/share/a3m/share/completed" \
       --entrypoint=python \
-      ghcr.io/artefactual-labs/a3m:main \
+      ghcr.io/artefactual-labs/a3m:latest \
       -m a3m.cli.client --name=transfer1 file:///tmp/demo/transfers/transfer1
     AIP f733d3e8-cede-4e9c-93ee-5728b32f0b7b is being generated...
 
@@ -60,12 +68,12 @@ Create the virtual network::
 Run the gRPC server in detached mode listening locally on port ``7000``::
 
     docker run --rm --network a3m-network --name a3md --detach --publish 7000:7000 \
-        ghcr.io/artefactual-labs/a3m:main
+        ghcr.io/artefactual-labs/a3m:latest
 
 Submit a new transfer using the gRPC client::
 
     docker run --rm --network a3m-network --name a3mc --interactive --tty --entrypoint=python \
-        ghcr.io/artefactual-labs/a3m:main \
+        ghcr.io/artefactual-labs/a3m:latest \
             -m a3m.cli.client --address=a3md:7000 \
                 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/ZippedDirectoryTransfers/DemoTransferCSV.zip
 
