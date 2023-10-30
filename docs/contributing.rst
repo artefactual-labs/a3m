@@ -48,4 +48,4 @@ Releases
 
 1. Update ``a3m.__version__``, commit and push (see `example <https://github.com/artefactual-labs/a3m/commit/2cbeb6c6fa7e6378ae98fc65a14c97c7f968f7d7>`_).
 2. Create git tag, e.g. ``v0.6.0``.
-3. Run ``make publish`` to publish the package to PyPI.
+3. Run ``tox -e publish`` to publish the package to PyPI.

@@ -7,6 +7,7 @@ name = "a3m"
 dynamic = ["version"]
 description = "Lightweight Archivematica"
 requires-python = ">=3.11"
+readme = "README.rst"
 license = {file = "LICENSE"}
 dependencies = [
   # Used by client modules
@@ -91,6 +92,9 @@ dev = [
   "doc8",
   "ruff",
   "scriv",
+  "twine",
+  "build",
+  "wheel",
   "django-types",
   "types-lxml",
   "types-requests",
@@ -101,8 +105,8 @@ dev = [
 version = {attr = "a3m.__version__"}
 readme = {file = ["README.rst"]}
 
-[tool.setuptools]
-packages = ["a3m"]
+[tool.setuptools.packages.find]
+include = ["a3m.*"]
 
 [tool.pytest.ini_options]
 env = [
@@ -243,8 +247,18 @@ legacy_tox_ini = """
 
     [testenv:pre-commit]
     skip_install = true
-    deps = pre-commit
     commands = pre-commit run --all-files --show-diff-on-failure
+
+    [testenv:publish]
+    skip_install = true
+    allowlist_externals =
+      twine
+      rm
+    commands =
+      rm -rf {toxinidir}/build {toxinidir}/dist
+      python -m build
+      twine check --strict {toxinidir}/dist/*
+      twine upload dist/* -r pypi
 """
 
 [tool.doc8]

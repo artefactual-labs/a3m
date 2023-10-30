@@ -127,17 +127,6 @@ buf:
 help:  ## Print this help message.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: publish
-publish: publish-clean  ## Publish to PyPI
-	pip install --upgrade twine wheel build
-	python -m build
-	twine check dist/*
-	twine upload dist/* -r pypi
-
-.PHONY: publish-clean
-publish-clean:
-	rm -rf build/
-	rm -rf dist/
 
 RED := \033[0;31m
 GREEN := \033[0;32m

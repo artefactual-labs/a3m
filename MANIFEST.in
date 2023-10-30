@@ -1,6 +1,6 @@
 include COPYRIGHT
 include LICENSE
-include README.md
+include README.rst
 include TRADEMARK
 graft a3m
 global-exclude *.pyc
