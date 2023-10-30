@@ -46,6 +46,8 @@ testing and supporting, the following files must be considered:
 Releases
 --------
 
-1. Update ``a3m.__version__``, commit and push (see `example <https://github.com/artefactual-labs/a3m/commit/2cbeb6c6fa7e6378ae98fc65a14c97c7f968f7d7>`_).
-2. Create git tag, e.g. ``v0.6.0``.
+1. Make sure that ``a3m.__version__`` reflects the new version.
+2. Make sure that the changelog has been updated.
+   Use ``scriv collect`` to populate ``CHANGELOG.rst``, submit the changes.
 3. Run ``tox -e publish`` to publish the package to PyPI.
+4. Create and push git tag, e.g. ``v0.7.1``.

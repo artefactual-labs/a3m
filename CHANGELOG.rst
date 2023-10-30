@@ -19,6 +19,17 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.7.1:
+
+0.7.1 — 2023-10-30
+==================
+
+Fixed
+-----
+
+- Fix issue in the setuptools package discovery configuration introduced in the
+  migration to ``pyproject.toml``.
+
 .. _changelog-0.7.0:
 
 0.7.0 — 2023-10-28
