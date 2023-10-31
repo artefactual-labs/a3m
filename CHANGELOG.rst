@@ -93,37 +93,150 @@ Fixed
 0.6.0 — 2023-09-19
 ==================
 
+Removed
+-------
+
+- Remove ``fileFormatIdentification`` logfile.
+- Remove unused dependency ``ufraw``.
+- Remove transfer METS file (client script ``create_transfer_mets``).
+
+Added
+-----
+
+- Add ```.python-version``, a file indicating the default version of Python to
+  be used in this project in various contexts, e.g. Docker image, tooling,
+  etc...
+- Add processing configuration choice for file format identification of metadata
+  files.
+- Add ``Empty`` method to the gRPC API (``TransferService``) to manually clean
+  up local shared folders. This is a temporary solution until a3m learns to do
+  it automatically.
+- Add GitHub issue templates.
+- Add settings ``org_id`` and ``org_name`` enabling the customization of the
+  organization agent.
+
+Changed
+-------
+
+- Bump supported versions of Python to 3.11 and 3.12.
+- Update other dependencies, including Django 3.2.
+- Don't use ``examine_contents`` in the default processing configuration.
+- Change the workflow to execute file format identification of metadata files
+  if ``identify_submission_and_metadata`` is enabled.
+- Refactor multiple client scripts with the goal of improved performance and use
+  of short-lived database transactions.
+- In the Docker image: use pyenv to manage the installation of Python, use
+  Ubuntu 22.04 as the base distribution and the Archivematica 1.15 PPAs for the
+  installation of dependencies.
+- Use local XML schemas for XML validation, enabling the use of a3m without
+  Internet access.
+- Change filename cleanup job to filename change.
+
+Fixed
+-----
+
+- Fix a bug in ``normalize.py`` breaking normalization.
+- Fix ``CheckCloseConnectionsHandler``, a thin wrapper used for database usage
+  debugging purposes.
+- Fix a bug in ``PoolTaskBackend`` attempting to write to the database after the
+  batched jobs had already been delivered to the thread pool, causing sporadic
+  errors in the presence of multiple database writers. The task backend now
+  writes the tasks before the jobs are delivered to the pool.
+- Migrate from Buf remote generation alpha to v1.
+
 .. _changelog-0.5.0:
 
 0.5.0 — 2020-10-27
 ==================
+
+Added
+-----
+
+- Add request-scoped processing configuration.
 
 .. _changelog-0.4.0:
 
 0.4.0 — 2020-10-20
 ==================
 
+Removed
+-------
+
+- Remove reingest capabilities.
+- Remove UnitVariable links.
+- Remove access normalization paths.
+- Remove PID binding.
+- Remove access directory support.
+- Remove policy check on access derivatives.
+- Remove reingest capabilities.
+
 .. _changelog-0.3.1:
 
 0.3.1 — 2020-08-26
 ==================
+
+Changed
+-------
+
+- Change Docker image registry: ``ghcr.io/artefactual-labs/a3m``.
+
+Fixed
+-----
+
+- Fix ``long_description`` config in ``setup.cfg``.
 
 .. _changelog-0.3.0:
 
 0.3.0 — 2020-08-26
 ==================
 
+Added
+-----
+
+- Add Sphinx documentation project.
+
 .. _changelog-0.2.1:
 
 0.2.1 — 2020-08-24
 ==================
+
+Changed
+-------
+
+- Disable ``zip_safe`` flag in ``setuptools`` to work around a release problem.
 
 .. _changelog-0.2.0:
 
 0.2.0 — 2020-08-24
 ==================
 
+Added
+-----
+
+- Add a3m (``a3m.cli.client.__main__``) entry point: the a3m client with the
+  ability to connect to a remote sever or standalone (embedded engine).
+- Add a3md (``a3m.cli.server.__main__``) entry point: the a3m standalone server.
+
+Changed
+-------
+
+- Enable WAL mode in SQLite providing more concurrency as readers don't block
+  writers and writers don't block readers.
+- Remove Gearman-related capabilities in favor of a new threaded pool task
+  backend to execute jobs.
+
 .. _changelog-0.1.0:
 
 0.1.0 — 2020-05-31
 ==================
+
+Amidst the global pandemic, our team found purpose in creating a3m, an internal
+project that kept us connected and productive during a time of isolation. This
+initiative, an offshoot from Archivematica, focuses on Automated Information
+Processing (AIP) creation. a3m removes complexities like the dashboard and the
+storage service, pivoting towards a tool that's simpler and more integrative.
+
+See the `full list of commits`_ for more details.
+
+
+.. _full list of commits: https://github.com/artefactual-labs/a3m/compare/3e524947...v0.1.0
