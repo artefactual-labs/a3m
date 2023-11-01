@@ -260,7 +260,7 @@ legacy_tox_ini = """
       rm -rf {toxinidir}/build {toxinidir}/dist
       python -m build
       twine check --strict {toxinidir}/dist/*
-      twine upload dist/* -r pypi
+      twine upload dist/* -r a3m
 """
 
 [tool.doc8]
