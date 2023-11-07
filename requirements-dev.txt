@@ -63,7 +63,7 @@ cryptography==41.0.5
     # via secretstorage
 distlib==0.3.7
     # via virtualenv
-django==4.2.6
+django==4.2.7
     # via
     #   a3m (pyproject.toml)
     #   django-stubs-ext
