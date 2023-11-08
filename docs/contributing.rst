@@ -12,15 +12,13 @@ The requirements are listed in ``/pyproject.toml``. The constraints are relaxed
 with the purpose of allowing a3m to be used as a library.
 
 We use `pip-tools` which pins the requirements in ``requirements.txt`` and
-``requirements-dev.txt`` for our Docker image. Some examples:
+``requirements-dev.txt`` for our Docker image. We provide a couple of helpers:
 
-* Update dependencies with::
-
-   make pip-compile
-
-* Update all dependencies with::
-
-   make pip-upgrade
+* ``make pip-compile`` generates the requirements with the latest versions of
+  dependencies that satisfy the constraints in ``pyproject.toml``, but does not
+  update versions if they are already satisfied.
+* ``make pip-upgrade`` regenerates the requirements, forcibly upgrading all
+  listed packages to their latest available versions within the constraints.
 
 Python version
 ^^^^^^^^^^^^^^
