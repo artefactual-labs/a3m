@@ -106,15 +106,6 @@ flush-shared-dir:  ## Flush shared directory including the database.
 		a3m \
 			-c "rm -rf /home/a3m/.local/share/a3m/share/")
 
-.PHONY: amflow
-amflow:  ## Display the workflow in amflow.
-	docker run \
-		--rm \
-		-p 2323:2323 \
-		-v $(PWD)/a3m/assets/workflow.json:/workflow.json \
-		artefactual/amflow:latest \
-			edit --file=/workflow.json
-
 .PHONY: buf
 buf:
 	docker run \
@@ -138,5 +129,8 @@ endef
 
 .PHONY: workflow
 workflow:  ## Open amflow application web server.
-	$(call print_color,$(YELLOW),Connect to http://127.0.0.1:2323)
-	@docker run --rm --publish=2323:2323 --pull=always --volume=$(CURDIR)/a3m/assets/workflow.json:/tmp/workflow.json artefactual/amflow:latest edit --file=/tmp/workflow.json --verbosity=warn
+	$(call print_color,$(YELLOW),Access the amflow server at http://127.0.0.1:2323 once it's fully started.)
+	@docker run --rm --publish=2323:2323 --pull=always \
+		--volume=$(CURDIR)/a3m/assets/workflow.json:/tmp/workflow.json \
+		artefactual/amflow:latest \
+			edit --file=/tmp/workflow.json --verbosity=warn

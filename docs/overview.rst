@@ -199,5 +199,7 @@ Workflows are best explored using `amflow
    or chains and the process is very linear. The following image shows an SVG
    version of the workflow.
 
+   The workflow graph below was built using `make workflow`.
+
 .. image:: workflow.svg
    :target: _images/workflow.svg
