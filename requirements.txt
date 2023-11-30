@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements.txt pyproject.toml
 #
-ammcpc==0.1.3
+ammcpc==0.2.0
     # via a3m (pyproject.toml)
 appdirs==1.4.4
     # via a3m (pyproject.toml)
@@ -16,13 +16,13 @@ attrs==23.1.0
     #   referencing
 bagit==1.8.1
     # via a3m (pyproject.toml)
-boto3==1.28.80
+boto3==1.33.4
     # via a3m (pyproject.toml)
-botocore==1.31.80
+botocore==1.33.4
     # via
     #   boto3
     #   s3transfer
-certifi==2023.7.22
+certifi==2023.11.17
     # via requests
 charset-normalizer==3.3.2
     # via requests
@@ -38,24 +38,24 @@ googleapis-common-protos==1.61.0
     # via
     #   a3m (pyproject.toml)
     #   grpcio-status
-grpcio==1.59.2
+grpcio==1.59.3
     # via
     #   a3m (pyproject.toml)
     #   grpcio-reflection
     #   grpcio-status
-grpcio-reflection==1.59.2
+grpcio-reflection==1.59.3
     # via a3m (pyproject.toml)
-grpcio-status==1.59.2
+grpcio-status==1.59.3
     # via a3m (pyproject.toml)
-idna==3.4
+idna==3.6
     # via requests
 jmespath==1.0.1
     # via
     #   boto3
     #   botocore
-jsonschema==4.19.2
+jsonschema==4.20.0
     # via a3m (pyproject.toml)
-jsonschema-specifications==2023.7.1
+jsonschema-specifications==2023.11.2
     # via jsonschema
 lxml==4.9.3
     # via
@@ -66,34 +66,34 @@ markdown-it-py==3.0.0
     # via rich
 mdurl==0.1.2
     # via markdown-it-py
-metsrw==0.4.0
+metsrw==0.5.0
     # via a3m (pyproject.toml)
-prometheus-client==0.18.0
+prometheus-client==0.19.0
     # via a3m (pyproject.toml)
-protobuf==4.25.0
+protobuf==4.25.1
     # via
     #   googleapis-common-protos
     #   grpcio-reflection
     #   grpcio-status
 pygfried==0.6.0
     # via a3m (pyproject.toml)
-pygments==2.16.1
+pygments==2.17.2
     # via rich
 python-dateutil==2.8.2
     # via botocore
-referencing==0.30.2
+referencing==0.31.1
     # via
     #   jsonschema
     #   jsonschema-specifications
 requests==2.31.0
     # via a3m (pyproject.toml)
-rich==13.6.0
+rich==13.7.0
     # via a3m (pyproject.toml)
-rpds-py==0.12.0
+rpds-py==0.13.2
     # via
     #   jsonschema
     #   referencing
-s3transfer==0.7.0
+s3transfer==0.8.2
     # via boto3
 six==1.16.0
     # via python-dateutil
