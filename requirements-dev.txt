@@ -6,7 +6,7 @@
 #
 alabaster==0.7.13
     # via sphinx
-ammcpc==0.1.3
+ammcpc==0.2.0
     # via a3m (pyproject.toml)
 appdirs==1.4.4
     # via a3m (pyproject.toml)
@@ -23,9 +23,9 @@ bagit==1.8.1
     # via a3m (pyproject.toml)
 bandit==1.7.5
     # via a3m (pyproject.toml)
-boto3==1.28.80
+boto3==1.33.4
     # via a3m (pyproject.toml)
-botocore==1.31.80
+botocore==1.33.4
     # via
     #   boto3
     #   s3transfer
@@ -35,7 +35,7 @@ build==1.0.3
     #   pip-tools
 cachetools==5.3.2
     # via tox
-certifi==2023.7.22
+certifi==2023.11.17
     # via requests
 cffi==1.16.0
     # via cryptography
@@ -59,7 +59,7 @@ coverage[toml]==7.3.2
     # via
     #   a3m (pyproject.toml)
     #   pytest-cov
-cryptography==41.0.5
+cryptography==41.0.7
     # via secretstorage
 distlib==0.3.7
     # via virtualenv
@@ -91,21 +91,21 @@ googleapis-common-protos==1.61.0
     # via
     #   a3m (pyproject.toml)
     #   grpcio-status
-grpcio==1.59.2
+grpcio==1.59.3
     # via
     #   a3m (pyproject.toml)
     #   grpcio-reflection
     #   grpcio-status
     #   grpcio-tools
-grpcio-reflection==1.59.2
+grpcio-reflection==1.59.3
     # via a3m (pyproject.toml)
-grpcio-status==1.59.2
+grpcio-status==1.59.3
     # via a3m (pyproject.toml)
-grpcio-tools==1.59.2
+grpcio-tools==1.59.3
     # via a3m (pyproject.toml)
-identify==2.5.31
+identify==2.5.32
     # via pre-commit
-idna==3.4
+idna==3.6
     # via requests
 imagesize==1.4.1
     # via sphinx
@@ -127,11 +127,11 @@ jmespath==1.0.1
     # via
     #   boto3
     #   botocore
-jsonschema==4.19.2
+jsonschema==4.20.0
     # via a3m (pyproject.toml)
-jsonschema-specifications==2023.7.1
+jsonschema-specifications==2023.11.2
     # via jsonschema
-keyring==24.2.0
+keyring==24.3.0
     # via twine
 lxml==4.9.3
     # via
@@ -146,11 +146,11 @@ markupsafe==2.1.3
     # via jinja2
 mdurl==0.1.2
     # via markdown-it-py
-metsrw==0.4.0
+metsrw==0.5.0
     # via a3m (pyproject.toml)
 more-itertools==10.1.0
     # via jaraco-classes
-mypy==1.6.1
+mypy==1.7.1
     # via a3m (pyproject.toml)
 mypy-extensions==1.0.0
     # via mypy
@@ -171,7 +171,7 @@ pip-tools==7.3.0
     # via a3m (pyproject.toml)
 pkginfo==1.9.6
     # via twine
-platformdirs==3.11.0
+platformdirs==4.0.0
     # via
     #   tox
     #   virtualenv
@@ -181,9 +181,9 @@ pluggy==1.3.0
     #   tox
 pre-commit==3.5.0
     # via a3m (pyproject.toml)
-prometheus-client==0.18.0
+prometheus-client==0.19.0
     # via a3m (pyproject.toml)
-protobuf==4.25.0
+protobuf==4.25.1
     # via
     #   googleapis-common-protos
     #   grpcio-reflection
@@ -193,7 +193,7 @@ pycparser==2.21
     # via cffi
 pygfried==0.6.0
     # via a3m (pyproject.toml)
-pygments==2.16.1
+pygments==2.17.2
     # via
     #   doc8
     #   readme-renderer
@@ -214,7 +214,7 @@ pytest-cov==4.1.0
     # via a3m (pyproject.toml)
 pytest-django==4.7.0
     # via a3m (pyproject.toml)
-pytest-env==1.1.1
+pytest-env==1.1.3
     # via a3m (pyproject.toml)
 pytest-mock==3.12.0
     # via a3m (pyproject.toml)
@@ -226,7 +226,7 @@ pyyaml==6.0.1
     #   pre-commit
 readme-renderer==42.0
     # via twine
-referencing==0.30.2
+referencing==0.31.1
     # via
     #   jsonschema
     #   jsonschema-specifications
@@ -243,18 +243,18 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.6.0
+rich==13.7.0
     # via
     #   a3m (pyproject.toml)
     #   bandit
     #   twine
-rpds-py==0.12.0
+rpds-py==0.13.2
     # via
     #   jsonschema
     #   referencing
-ruff==0.1.4
+ruff==0.1.6
     # via a3m (pyproject.toml)
-s3transfer==0.7.0
+s3transfer==0.8.2
     # via boto3
 scriv==1.5.0
     # via a3m (pyproject.toml)
@@ -298,7 +298,7 @@ tenacity==8.2.3
     # via a3m (pyproject.toml)
 toml==0.10.2
     # via vulture
-tox==4.11.3
+tox==4.11.4
     # via a3m (pyproject.toml)
 twine==4.0.2
     # via a3m (pyproject.toml)
@@ -310,7 +310,7 @@ types-lxml==2023.10.21
     # via a3m (pyproject.toml)
 types-protobuf==4.24.0.4
     # via a3m (pyproject.toml)
-types-psycopg2==2.9.21.15
+types-psycopg2==2.9.21.19
     # via django-types
 types-requests==2.31.0.10
     # via a3m (pyproject.toml)
@@ -327,13 +327,13 @@ urllib3==2.0.7
     #   requests
     #   twine
     #   types-requests
-virtualenv==20.24.6
+virtualenv==20.24.7
     # via
     #   pre-commit
     #   tox
 vulture==2.10
     # via a3m (pyproject.toml)
-wheel==0.41.3
+wheel==0.42.0
     # via
     #   a3m (pyproject.toml)
     #   pip-tools
