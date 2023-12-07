@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import django_stubs_ext
-from appdirs import user_data_dir
+from platformdirs import user_data_dir
 
 from a3m.appconfig import Config
 
