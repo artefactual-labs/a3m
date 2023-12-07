@@ -28,7 +28,7 @@ dependencies = [
   # Infra
   "prometheus_client~=0.17",
   "requests~=2.31",
-  "appdirs~=1.4",
+  "platformdirs~=4.1",
   "click~=8.1",
   "rich~=13.6",
   "tenacity~=8.2",
