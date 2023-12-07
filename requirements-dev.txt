@@ -21,9 +21,9 @@ bagit==1.8.1
     # via a3m (pyproject.toml)
 bandit==1.7.5
     # via a3m (pyproject.toml)
-boto3==1.33.4
+boto3==1.33.9
     # via a3m (pyproject.toml)
-botocore==1.33.4
+botocore==1.33.9
     # via
     #   boto3
     #   s3transfer
@@ -61,11 +61,11 @@ cryptography==41.0.7
     # via secretstorage
 distlib==0.3.7
     # via virtualenv
-django==4.2.7
+django==4.2.8
     # via
     #   a3m (pyproject.toml)
     #   django-stubs-ext
-django-stubs-ext==4.2.5
+django-stubs-ext==4.2.7
     # via a3m (pyproject.toml)
 django-types==0.19.1
     # via a3m (pyproject.toml)
@@ -101,13 +101,13 @@ grpcio-status==1.59.3
     # via a3m (pyproject.toml)
 grpcio-tools==1.59.3
     # via a3m (pyproject.toml)
-identify==2.5.32
+identify==2.5.33
     # via pre-commit
 idna==3.6
     # via requests
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==6.8.0
+importlib-metadata==7.0.0
     # via twine
 iniconfig==2.0.0
     # via pytest
@@ -152,7 +152,7 @@ mypy==1.7.1
     # via a3m (pyproject.toml)
 mypy-extensions==1.0.0
     # via mypy
-nh3==0.2.14
+nh3==0.2.15
     # via readme-renderer
 nodeenv==1.8.0
     # via pre-commit
@@ -225,7 +225,7 @@ pyyaml==6.0.1
     #   pre-commit
 readme-renderer==42.0
     # via twine
-referencing==0.31.1
+referencing==0.32.0
     # via
     #   jsonschema
     #   jsonschema-specifications
@@ -251,7 +251,7 @@ rpds-py==0.13.2
     # via
     #   jsonschema
     #   referencing
-ruff==0.1.6
+ruff==0.1.7
     # via a3m (pyproject.toml)
 s3transfer==0.8.2
     # via boto3
@@ -309,7 +309,7 @@ types-lxml==2023.10.21
     # via a3m (pyproject.toml)
 types-protobuf==4.24.0.4
     # via a3m (pyproject.toml)
-types-psycopg2==2.9.21.19
+types-psycopg2==2.9.21.20
     # via django-types
 types-requests==2.31.0.10
     # via a3m (pyproject.toml)
@@ -326,7 +326,7 @@ urllib3==2.0.7
     #   requests
     #   twine
     #   types-requests
-virtualenv==20.24.7
+virtualenv==20.25.0
     # via
     #   pre-commit
     #   tox
