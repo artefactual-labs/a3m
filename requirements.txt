@@ -14,9 +14,9 @@ attrs==23.1.0
     #   referencing
 bagit==1.8.1
     # via a3m (pyproject.toml)
-boto3==1.33.4
+boto3==1.33.9
     # via a3m (pyproject.toml)
-botocore==1.33.4
+botocore==1.33.9
     # via
     #   boto3
     #   s3transfer
@@ -26,11 +26,11 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via a3m (pyproject.toml)
-django==4.2.7
+django==4.2.8
     # via
     #   a3m (pyproject.toml)
     #   django-stubs-ext
-django-stubs-ext==4.2.5
+django-stubs-ext==4.2.7
     # via a3m (pyproject.toml)
 googleapis-common-protos==1.61.0
     # via
@@ -81,7 +81,7 @@ pygments==2.17.2
     # via rich
 python-dateutil==2.8.2
     # via botocore
-referencing==0.31.1
+referencing==0.32.0
     # via
     #   jsonschema
     #   jsonschema-specifications
