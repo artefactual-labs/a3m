@@ -20,6 +20,7 @@ class TransferService(transfer_service_api.service_pb2_grpc.TransferServiceServi
         self.executor = executor
 
     def Submit(self, request, context):
+        config = request.config if request.HasField("config") else None
         try:
             package = Package.create_package(
                 self.package_queue,
@@ -27,7 +28,7 @@ class TransferService(transfer_service_api.service_pb2_grpc.TransferServiceServi
                 self.workflow,
                 request.name,
                 request.url,
-                request.config,
+                config,
             )
         except Exception as err:
             logger.warning("TransferService.Submit handler error: %s", err)

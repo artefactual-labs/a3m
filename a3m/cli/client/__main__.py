@@ -14,6 +14,7 @@ from a3m.cli.client.wrapper import ClientWrapper
 from a3m.cli.common import configure_xml_catalog_files
 from a3m.cli.common import init_django
 from a3m.cli.common import suppress_warnings
+from a3m.server.processing import DEFAULT_PROCESSING_CONFIG
 from a3m.server.rpc.client import Client
 
 
@@ -97,8 +98,6 @@ def _to_int(value: str) -> int | None:
 def _prepare_config(user_pairs):
     """Consolidate ``ProcessingConfig`` defaults and user-provided.
 
-    A3M-TODO: defaults should be set on the server!
-
     ``user_pairs`` is a list of strings following the format ``key=value``.
     Those matching processing configuration attributes will be evaluated as
     indicated by the field type, e.g.:
@@ -111,23 +110,8 @@ def _prepare_config(user_pairs):
     A comprehensive list can be found in the definition of the
     ``ProcessingConfig`` message in the proto file.
     """
-    config = transfer_service_api.request_response_pb2.ProcessingConfig(
-        assign_uuids_to_directories=True,
-        examine_contents=False,
-        generate_transfer_structure_report=True,
-        document_empty_directories=True,
-        extract_packages=True,
-        delete_packages_after_extraction=False,
-        identify_transfer=True,
-        identify_submission_and_metadata=True,
-        identify_before_normalization=True,
-        normalize=True,
-        transcribe_files=True,
-        perform_policy_checks_on_originals=True,
-        perform_policy_checks_on_preservation_derivatives=True,
-        aip_compression_level=1,
-        aip_compression_algorithm=transfer_service_api.request_response_pb2.ProcessingConfig.AIP_COMPRESSION_ALGORITHM_S7_COPY,
-    )
+    config = transfer_service_api.request_response_pb2.ProcessingConfig()
+    config.CopyFrom(DEFAULT_PROCESSING_CONFIG)
     for item in user_pairs:
         head, sep, tail = item.partition("=")
         if head and sep:

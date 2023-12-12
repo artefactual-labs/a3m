@@ -18,7 +18,7 @@ from a3m.archivematicaFunctions import strToUnicode
 from a3m.main import models
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs import JobChain
-
+from a3m.server.processing import DEFAULT_PROCESSING_CONFIG
 
 logger = logging.getLogger(__name__)
 
@@ -82,7 +82,7 @@ class Package:
     def __init__(self, name, url, config, transfer, sip):
         self.name = name
         self.url = url
-        self.config = config
+        self.config = self._prepare_config(config)
         self.transfer = transfer
         self.sip = sip
         self.stage = Stage.TRANSFER
@@ -93,6 +93,18 @@ class Package:
         return "{class_name}({uuid})".format(
             class_name=self.__class__.__name__, uuid=self.uuid
         )
+
+    def _prepare_config(self, provided=None):
+        """Combine user-provided processing config with the defaults."""
+        config = transfer_service_api.request_response_pb2.ProcessingConfig()
+        config.CopyFrom(DEFAULT_PROCESSING_CONFIG)
+        if provided is not None:
+            for config_field in config.DESCRIPTOR.fields:
+                field_name = config_field.name
+                print("setattr", field_name, getattr(provided, field_name))
+                setattr(config, field_name, getattr(provided, field_name))
+
+        return config
 
     @classmethod
     @auto_close_old_connections()
