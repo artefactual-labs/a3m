@@ -19,6 +19,20 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.7.4:
+
+0.7.4 — 2023-12-12
+==================
+
+Changed
+-------
+
+- Use ``platformdirs`` instead of ``appdirs`` to determine the user data
+  directory.
+- Update dependencies.
+- Update the Submit RPC handler to use the default processing configuration when
+  the user-provided ``config`` field is unset.
+
 .. _changelog-0.7.3:
 
 0.7.3 — 2023-11-30
