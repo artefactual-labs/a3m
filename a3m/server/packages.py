@@ -101,7 +101,6 @@ class Package:
         if provided is not None:
             for config_field in config.DESCRIPTOR.fields:
                 field_name = config_field.name
-                print("setattr", field_name, getattr(provided, field_name))
                 setattr(config, field_name, getattr(provided, field_name))
 
         return config
