@@ -19,7 +19,21 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
-.. _changelog-0.7.4:
+.. _changelog-0.7.5:
+
+0.7.5 — 2023-12-13
+==================
+
+Changed
+-------
+
+- Use Python 3.12.1.
+- Update dependencies.
+
+Fixed
+-----
+
+- Fake ``pkg_resources`` to enable the use of bagit-python in Python 3.12.
 
 0.7.4 — 2023-12-12
 ==================
@@ -30,6 +44,10 @@ Changed
 - Use ``platformdirs`` instead of ``appdirs`` to determine the user data
   directory.
 - Update dependencies.
+
+Fixed
+-----
+
 - Update the Submit RPC handler to use the default processing configuration when
   the user-provided ``config`` field is unset.
 
