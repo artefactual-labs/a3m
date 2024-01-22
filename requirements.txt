@@ -8,15 +8,15 @@ ammcpc==0.2.0
     # via a3m (pyproject.toml)
 asgiref==3.7.2
     # via django
-attrs==23.1.0
+attrs==23.2.0
     # via
     #   jsonschema
     #   referencing
 bagit==1.8.1
     # via a3m (pyproject.toml)
-boto3==1.33.13
+boto3==1.34.23
     # via a3m (pyproject.toml)
-botocore==1.33.13
+botocore==1.34.23
     # via
     #   boto3
     #   s3transfer
@@ -26,7 +26,7 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via a3m (pyproject.toml)
-django==4.2.8
+django==4.2.9
     # via
     #   a3m (pyproject.toml)
     #   django-stubs-ext
@@ -51,11 +51,11 @@ jmespath==1.0.1
     # via
     #   boto3
     #   botocore
-jsonschema==4.20.0
+jsonschema==4.21.1
     # via a3m (pyproject.toml)
-jsonschema-specifications==2023.11.2
+jsonschema-specifications==2023.12.1
     # via jsonschema
-lxml==4.9.3
+lxml==4.9.4
     # via
     #   a3m (pyproject.toml)
     #   ammcpc
@@ -70,18 +70,18 @@ platformdirs==4.1.0
     # via a3m (pyproject.toml)
 prometheus-client==0.19.0
     # via a3m (pyproject.toml)
-protobuf==4.25.1
+protobuf==4.25.2
     # via
     #   googleapis-common-protos
     #   grpcio-reflection
     #   grpcio-status
-pygfried==0.6.0
+pygfried==0.7.0
     # via a3m (pyproject.toml)
 pygments==2.17.2
     # via rich
 python-dateutil==2.8.2
     # via botocore
-referencing==0.32.0
+referencing==0.32.1
     # via
     #   jsonschema
     #   jsonschema-specifications
@@ -89,11 +89,11 @@ requests==2.31.0
     # via a3m (pyproject.toml)
 rich==13.7.0
     # via a3m (pyproject.toml)
-rpds-py==0.13.2
+rpds-py==0.17.1
     # via
     #   jsonschema
     #   referencing
-s3transfer==0.8.2
+s3transfer==0.10.0
     # via boto3
 six==1.16.0
     # via python-dateutil
@@ -103,7 +103,7 @@ tenacity==8.2.3
     # via a3m (pyproject.toml)
 typing-extensions==4.9.0
     # via django-stubs-ext
-unidecode==1.3.7
+unidecode==1.3.8
     # via a3m (pyproject.toml)
 urllib3==2.0.7
     # via
