@@ -78,13 +78,19 @@ testing and supporting, the following files must be considered:
 Releases
 --------
 
-1. Make sure that ``a3m.__version__`` reflects the new version.
-2. Make sure that the changelog has been updated.
-   Use ``scriv collect`` to populate ``CHANGELOG.rst``, submit the changes.
-3. Create and push git tag, e.g.::
+We aim to further enhance and automate our release process.
 
-    $ git tag v0.7.1
-    $ git push origin refs/tags/v0.7.1
+Please adhere to the following instructions:
+
+1. Update the ``main`` branch with the latest version (``a3m.__version__``) and
+   the changelog (use ``scriv collect`` to populate ``CHANGELOG.rst``). Submit
+   these changes through a pull request and merge it once all checks have
+   passed.
+2. Confirm that the checks are also passing in ``main``.
+3. Create and push the git tag, e.g.::
+
+    $ git tag v0.7.7
+    $ git push origin refs/tags/v0.7.7
 
    This should have triggered the publishing workflow. Confirm that the new
    version of the package is in `PyPI <https://pypi.org/project/a3m/>`_.
@@ -93,9 +99,9 @@ Releases
 
     $ docker build \
       -t ghcr.io/artefactual-labs/a3m:latest \
-      -t ghcr.io/artefactual-labs/a3m:v0.7.1 \
+      -t ghcr.io/artefactual-labs/a3m:v0.7.7 \
         .
 5. Push Docker image to the registry::
 
     $ docker push ghcr.io/artefactual-labs/a3m:latest
-    $ docker push ghcr.io/artefactual-labs/a3m:v0.7.2
+    $ docker push ghcr.io/artefactual-labs/a3m:v0.7.7
