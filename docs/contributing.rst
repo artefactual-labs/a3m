@@ -47,19 +47,21 @@ Releases
 1. Make sure that ``a3m.__version__`` reflects the new version.
 2. Make sure that the changelog has been updated.
    Use ``scriv collect`` to populate ``CHANGELOG.rst``, submit the changes.
-3. Run ``tox -e publish`` to publish the package to PyPI.
-4. Create and push git tag, e.g.::
+3. Create and push git tag, e.g.::
 
     $ git tag v0.7.1
     $ git push origin refs/tags/v0.7.1
 
-5. Build Docker image::
+   This should have triggered the publishing workflow. Confirm that the new
+   version of the package is in `PyPI <https://pypi.org/project/a3m/>`_.
+
+4. Build Docker image::
 
     $ docker build \
       -t ghcr.io/artefactual-labs/a3m:latest \
       -t ghcr.io/artefactual-labs/a3m:v0.7.1 \
         .
-6. Push Docker image to the registry::
+5. Push Docker image to the registry::
 
     $ docker push ghcr.io/artefactual-labs/a3m:latest
     $ docker push ghcr.io/artefactual-labs/a3m:v0.7.2

@@ -19,6 +19,21 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.7.6:
+
+0.7.6 — 2024-01-22
+==================
+
+Added
+-----
+
+- Publish to PyPI with Trusted Publishing.
+
+Changed
+-------
+
+- Update dependencies.
+
 .. _changelog-0.7.5:
 
 0.7.5 — 2023-12-13

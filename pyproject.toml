@@ -250,17 +250,6 @@ legacy_tox_ini = """
     [testenv:pre-commit]
     skip_install = true
     commands = pre-commit run --all-files --show-diff-on-failure
-
-    [testenv:publish]
-    skip_install = true
-    allowlist_externals =
-      twine
-      rm
-    commands =
-      rm -rf {toxinidir}/build {toxinidir}/dist
-      python -m build
-      twine check --strict {toxinidir}/dist/*
-      twine upload dist/* -r a3m
 """
 
 [tool.doc8]
