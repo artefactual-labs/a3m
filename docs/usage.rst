@@ -78,5 +78,6 @@ The Python client can do similarly::
         config=ProcessingConfig(normalize=False))
 
 The full list of settings or their defaults are not described yet but it can be
-found in our :ref:`service definition file <idl>`, under the
-``ProcessingConfiguration`` message type.
+found in the `ProcessingConfig`_ message type of the API.
+
+.. _`ProcessingConfig`: https://buf.build/artefactual/a3m/docs/main:a3m.api.transferservice.v1beta1#a3m.api.transferservice.v1beta1.ProcessingConfig
