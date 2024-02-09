@@ -21,8 +21,14 @@ See the fragment files in the `changelog.d directory`_.
 
 .. _changelog-0.7.7:
 
-0.7.7 — 2024-02-08
+0.7.7 — 2024-02-09
 ==================
+
+Fixed
+-----
+
+- Pass arguments to atool using a list, allowing transfer names to contain
+  spaces. See issue #449 for more details.
 
 Changed
 -------
