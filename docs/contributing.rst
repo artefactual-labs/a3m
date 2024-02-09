@@ -92,16 +92,10 @@ Please adhere to the following instructions:
     $ git tag v0.7.7
     $ git push origin refs/tags/v0.7.7
 
-   This should have triggered the publishing workflow. Confirm that the new
-   version of the package is in `PyPI <https://pypi.org/project/a3m/>`_.
+   This should have triggered the publishing workflow. Please confirm that the
+   new version of the package is available on `PyPI`_ and that the container
+   image has been published to the `GitHub Container Registry`_.
 
-4. Build Docker image::
 
-    $ docker build \
-      -t ghcr.io/artefactual-labs/a3m:latest \
-      -t ghcr.io/artefactual-labs/a3m:v0.7.7 \
-        .
-5. Push Docker image to the registry::
-
-    $ docker push ghcr.io/artefactual-labs/a3m:latest
-    $ docker push ghcr.io/artefactual-labs/a3m:v0.7.7
+.. _PyPI: https://pypi.org/project/a3m/
+.. _GitHub Container Registry: https://ghcr.io/artefactual-labs/a3m

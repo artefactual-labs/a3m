@@ -24,6 +24,12 @@ See the fragment files in the `changelog.d directory`_.
 0.7.7 — 2024-02-09
 ==================
 
+Added
+-----
+
+- Automate the build and plublishing of the container image to GitHub Container
+  Registry.
+
 Fixed
 -----
 
