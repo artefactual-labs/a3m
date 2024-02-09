@@ -27,6 +27,7 @@ See the fragment files in the `changelog.d directory`_.
 Changed
 -------
 
+- Use Python 3.12.2.
 - Update dependencies.
 
 .. _changelog-0.7.6:
