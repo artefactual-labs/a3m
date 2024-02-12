@@ -258,7 +258,7 @@ def get_premis_schema(premis_xsd_path, printfn=print):
         return
     try:
         return etree.XMLSchema(
-            etree.parse(  # nosec B320
+            etree.parse(  # noqa S320
                 premis_xsd_path,
                 etree.XMLParser(resolve_entities=False, no_network=True),
             )
@@ -274,7 +274,7 @@ def get_validated_etree(premis_events_xml_path, premis_schema, printfn=print):
         log_missing_events_xml(premis_events_xml_path, printfn)
         return
     try:
-        result = etree.parse(  # nosec B320
+        result = etree.parse(  # noqa S320
             premis_events_xml_path,
             etree.XMLParser(resolve_entities=False, no_network=True),
         )

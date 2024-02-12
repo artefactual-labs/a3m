@@ -90,7 +90,6 @@ dev = [
   "mypy",
   "tox",
   "vulture",
-  "bandit",
   "pre-commit",
   "sphinx",
   "sphinxcontrib-mermaid",
@@ -140,7 +139,9 @@ testpaths = [
 
 [tool.ruff]
 target-version = "py39"
-select = ["E", "F", "W"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "S"]
 ignore = [
   "E402",
   "E501",
@@ -151,6 +152,9 @@ exclude = [
   "a3m/settings/**/*",
   "a3m/api/**/*",
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"{docs,tests}/**/*" = ["S"]
 
 [tool.pyright]
 include = [
@@ -181,14 +185,6 @@ ignore_errors = true
 [[tool.mypy.overrides]]
 module = "a3m.server.rpc.*"
 ignore_errors = true
-
-[tool.bandit]
-exclude_dirs = [
-  "tests",
-]
-skips = [
-  "B410", # import_lxml
-]
 
 [tool.vulture]
 paths = [

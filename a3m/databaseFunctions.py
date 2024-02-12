@@ -263,4 +263,4 @@ def retryOnFailure(description, callback, retries=10):
                         retry + 1,
                         e,
                     )
-                    time.sleep(random.uniform(0, 2))  # nosec B311
+                    time.sleep(random.uniform(0, 2))  # noqa S311

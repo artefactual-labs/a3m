@@ -105,8 +105,8 @@ def launchSubProcess(
             raise Exception(f"stdIn must be a string or a file object ({type(stdIn)}).")
         if capture_output:
             # Capture the stdout and stderr of the subprocess
-            p = subprocess.Popen(  # nosec B603
-                command,
+            p = subprocess.Popen(
+                command,  # noqa S603
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 stdin=stdin_pipe,
@@ -116,8 +116,8 @@ def launchSubProcess(
         else:
             # Ignore the stdout of the subprocess, capturing only stderr
             with open(os.devnull, "w") as devnull:
-                p = subprocess.Popen(  # nosec B603
-                    command,
+                p = subprocess.Popen(
+                    command,  # noqa S603
                     stdin=stdin_pipe,
                     env=my_env,
                     stdout=devnull,

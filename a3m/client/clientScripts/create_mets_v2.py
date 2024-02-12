@@ -339,7 +339,7 @@ def createDublincoreDMDSecFromDBData(
                     parser = etree.XMLParser(
                         remove_blank_text=True, resolve_entities=False, no_network=True
                     )
-                    dtree = etree.parse(dcXMLFile, parser)  # nosec B320
+                    dtree = etree.parse(dcXMLFile, parser)  # noqa S320
                     dc = dtree.getroot()
                     break
                 except Exception as inst:
@@ -765,7 +765,7 @@ def include_custom_structmap(
         if not os.path.isdir(dirPath):
             continue
         if os.path.isfile(structMapXmlPath):
-            tree = etree.parse(  # nosec B320
+            tree = etree.parse(  # noqa S320
                 structMapXmlPath,
                 etree.XMLParser(resolve_entities=False, no_network=True),
             )
@@ -1162,7 +1162,7 @@ def create_object_metadata(job, struct_map, baseDirectoryPath, state):
         parser = etree.XMLParser(
             remove_blank_text=True, resolve_entities=False, no_network=True
         )
-        md = etree.parse(filename, parser)  # nosec B320
+        md = etree.parse(filename, parser)  # noqa S320
         xmldata.append(md.getroot())
 
     for filename in source:
