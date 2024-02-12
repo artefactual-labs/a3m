@@ -19,6 +19,17 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.7.9:
+
+0.7.9 — 2024-02-12
+==================
+
+Fixed
+-----
+
+- Adjusted server tolenace to more frequent keepalive pings, mitigating
+  ``ENHANCE_YOUR_CALM`` errors by allowing shorter intervals between pings.
+
 .. _changelog-0.7.8:
 
 0.7.8 - 2024-02-12
