@@ -98,8 +98,9 @@ class Hashsum:
         """
         self.command_called = shlex.split(" ".join((self.COMMAND,) + args))
         return self._decode(
-            subprocess.check_output(  # nosec B603
-                self.command_called, cwd=kwargs.get("transfer_dir")
+            subprocess.check_output(
+                self.command_called,  # noqa S603
+                cwd=kwargs.get("transfer_dir"),
             )
         )
 

@@ -54,13 +54,6 @@ repos:
     args:
     - "a3m"
 
-- repo: https://github.com/PyCQA/bandit
-  rev: 1.7.7
-  hooks:
-  - id: bandit
-    args:
-    - "--configfile=pyproject.toml"
-
 - repo: https://github.com/jazzband/pip-tools
   rev: 7.3.0
   hooks:

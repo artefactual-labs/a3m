@@ -19,8 +19,6 @@ babel==2.14.0
     # via sphinx
 bagit==1.8.1
     # via a3m (pyproject.toml)
-bandit==1.7.7
-    # via a3m (pyproject.toml)
 boto3==1.34.37
     # via a3m (pyproject.toml)
 botocore==1.34.37
@@ -216,9 +214,7 @@ pytest-mock==3.12.0
 python-dateutil==2.8.2
     # via botocore
 pyyaml==6.0.1
-    # via
-    #   bandit
-    #   pre-commit
+    # via pre-commit
 readme-renderer==42.0
     # via twine
 referencing==0.33.0
@@ -241,7 +237,6 @@ rfc3986==2.0.0
 rich==13.7.0
     # via
     #   a3m (pyproject.toml)
-    #   bandit
     #   twine
 rpds-py==0.17.1
     # via
@@ -278,9 +273,7 @@ sphinxcontrib-serializinghtml==1.1.10
 sqlparse==0.4.4
     # via django
 stevedore==5.1.0
-    # via
-    #   bandit
-    #   doc8
+    # via doc8
 tenacity==8.2.3
     # via a3m (pyproject.toml)
 tox==4.12.1
