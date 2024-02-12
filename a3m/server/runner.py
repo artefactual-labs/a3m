@@ -89,7 +89,15 @@ class Server:
             debug=debug,
         )
         self.grpc_executor = grpc_executor
-        self.grpc_server = grpc.server(grpc_executor)
+        self.grpc_server = grpc.server(
+            grpc_executor,
+            options=[
+                # Adjusted server tolerance to more frequent keepalive pings,
+                # mitigating ENHANCE_YOUR_CALM errors by allowing shorter
+                # intervals between pings.
+                ("grpc.http2.min_ping_interval_without_data_ms", 100),
+            ],
+        )
         self.grpc_port = self.grpc_server.add_insecure_port(bind_address)
 
         self._mount_services()
