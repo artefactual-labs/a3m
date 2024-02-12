@@ -19,6 +19,16 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.7.8:
+
+0.7.8 - 2024-02-12
+==================
+
+Changed
+-------
+
+- Replace bandit with Ruff's flake8-bandit rules.
+
 .. _changelog-0.7.7:
 
 0.7.7 — 2024-02-09
