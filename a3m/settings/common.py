@@ -247,9 +247,9 @@ LOGGING: dict[str, Any] = {
 DEBUG = config.get("debug")
 
 if DEBUG:
-    LOGGING["formatters"]["detailed"][
-        "format"
-    ] = "%(levelname)-8s <%(process)d:%(threadName)s> <%(asctime)s> %(module)s:%(funcName)s:%(lineno)d: %(message)s"
+    LOGGING["formatters"]["detailed"]["format"] = (
+        "%(levelname)-8s <%(process)d:%(threadName)s> <%(asctime)s> %(module)s:%(funcName)s:%(lineno)d: %(message)s"
+    )
     LOGGING["handlers"]["console"]["level"] = "DEBUG"
     LOGGING["root"]["level"] = "DEBUG"
     LOGGING["loggers"] = {

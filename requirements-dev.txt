@@ -8,7 +8,7 @@ alabaster==0.7.16
     # via sphinx
 ammcpc==0.2.0
     # via a3m (pyproject.toml)
-asgiref==3.7.2
+asgiref==3.8.0
     # via django
 attrs==23.2.0
     # via
@@ -19,17 +19,17 @@ babel==2.14.0
     # via sphinx
 bagit==1.8.1
     # via a3m (pyproject.toml)
-boto3==1.34.37
+boto3==1.34.67
     # via a3m (pyproject.toml)
-botocore==1.34.37
+botocore==1.34.67
     # via
     #   boto3
     #   s3transfer
-build==1.0.3
+build==1.1.1
     # via
     #   a3m (pyproject.toml)
     #   pip-tools
-cachetools==5.3.2
+cachetools==5.3.3
     # via tox
 certifi==2024.2.2
     # via requests
@@ -51,15 +51,15 @@ click-log==0.4.0
     # via scriv
 colorama==0.4.6
     # via tox
-coverage[toml]==7.4.1
+coverage[toml]==7.4.4
     # via
     #   a3m (pyproject.toml)
     #   pytest-cov
-cryptography==42.0.4
+cryptography==42.0.5
     # via secretstorage
 distlib==0.3.8
     # via virtualenv
-django==4.2.10
+django==4.2.11
     # via
     #   a3m (pyproject.toml)
     #   django-stubs-ext
@@ -79,29 +79,29 @@ filelock==3.13.1
     # via
     #   tox
     #   virtualenv
-googleapis-common-protos==1.62.0
+googleapis-common-protos==1.63.0
     # via
     #   a3m (pyproject.toml)
     #   grpcio-status
-grpcio==1.60.1
+grpcio==1.62.1
     # via
     #   a3m (pyproject.toml)
     #   grpcio-reflection
     #   grpcio-status
     #   grpcio-tools
-grpcio-reflection==1.60.1
+grpcio-reflection==1.62.1
     # via a3m (pyproject.toml)
-grpcio-status==1.60.1
+grpcio-status==1.62.1
     # via a3m (pyproject.toml)
-grpcio-tools==1.60.1
+grpcio-tools==1.62.1
     # via a3m (pyproject.toml)
-identify==2.5.33
+identify==2.5.35
     # via pre-commit
 idna==3.6
     # via requests
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==7.0.1
+importlib-metadata==7.1.0
     # via twine
 iniconfig==2.0.0
     # via pytest
@@ -123,7 +123,7 @@ jsonschema==4.21.1
     # via a3m (pyproject.toml)
 jsonschema-specifications==2023.12.1
     # via jsonschema
-keyring==24.3.0
+keyring==24.3.1
     # via twine
 lxml==4.9.4
     # via
@@ -142,7 +142,7 @@ metsrw==0.5.1
     # via a3m (pyproject.toml)
 more-itertools==10.2.0
     # via jaraco-classes
-mypy==1.8.0
+mypy==1.9.0
     # via a3m (pyproject.toml)
 mypy-extensions==1.0.0
     # via mypy
@@ -150,7 +150,7 @@ nh3==0.2.15
     # via readme-renderer
 nodeenv==1.8.0
     # via pre-commit
-packaging==23.2
+packaging==24.0
     # via
     #   build
     #   pyproject-api
@@ -159,9 +159,9 @@ packaging==23.2
     #   tox
 pbr==6.0.0
     # via stevedore
-pip-tools==7.3.0
+pip-tools==7.4.1
     # via a3m (pyproject.toml)
-pkginfo==1.9.6
+pkginfo==1.10.0
     # via twine
 platformdirs==4.2.0
     # via
@@ -172,11 +172,11 @@ pluggy==1.4.0
     # via
     #   pytest
     #   tox
-pre-commit==3.6.0
+pre-commit==3.6.2
     # via a3m (pyproject.toml)
-prometheus-client==0.19.0
+prometheus-client==0.20.0
     # via a3m (pyproject.toml)
-protobuf==4.25.2
+protobuf==4.25.3
     # via
     #   googleapis-common-protos
     #   grpcio-reflection
@@ -195,8 +195,10 @@ pygments==2.17.2
 pyproject-api==1.6.1
     # via tox
 pyproject-hooks==1.0.0
-    # via build
-pytest==8.0.0
+    # via
+    #   build
+    #   pip-tools
+pytest==8.1.1
     # via
     #   a3m (pyproject.toml)
     #   pytest-cov
@@ -211,13 +213,13 @@ pytest-env==1.1.3
     # via a3m (pyproject.toml)
 pytest-mock==3.12.0
     # via a3m (pyproject.toml)
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
     # via botocore
 pyyaml==6.0.1
     # via pre-commit
-readme-renderer==42.0
+readme-renderer==43.0
     # via twine
-referencing==0.33.0
+referencing==0.34.0
     # via
     #   jsonschema
     #   jsonschema-specifications
@@ -234,17 +236,17 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.7.0
+rich==13.7.1
     # via
     #   a3m (pyproject.toml)
     #   twine
-rpds-py==0.17.1
+rpds-py==0.18.0
     # via
     #   jsonschema
     #   referencing
-ruff==0.2.1
+ruff==0.3.3
     # via a3m (pyproject.toml)
-s3transfer==0.10.0
+s3transfer==0.10.1
     # via boto3
 scriv==1.5.1
     # via a3m (pyproject.toml)
@@ -272,50 +274,50 @@ sphinxcontrib-serializinghtml==1.1.10
     # via sphinx
 sqlparse==0.4.4
     # via django
-stevedore==5.1.0
+stevedore==5.2.0
     # via doc8
 tenacity==8.2.3
     # via a3m (pyproject.toml)
-tox==4.12.1
+tox==4.14.1
     # via a3m (pyproject.toml)
-twine==4.0.2
+twine==5.0.0
     # via a3m (pyproject.toml)
-types-beautifulsoup4==4.12.0.20240106
+types-beautifulsoup4==4.12.0.20240229
     # via types-lxml
-types-html5lib==1.1.11.20240106
+types-html5lib==1.1.11.20240228
     # via types-beautifulsoup4
-types-lxml==2023.10.21
+types-lxml==2024.2.9
     # via a3m (pyproject.toml)
-types-protobuf==4.24.0.20240129
+types-protobuf==4.24.0.20240311
     # via a3m (pyproject.toml)
-types-psycopg2==2.9.21.20240201
+types-psycopg2==2.9.21.20240311
     # via django-types
-types-requests==2.31.0.20240125
+types-requests==2.31.0.20240311
     # via a3m (pyproject.toml)
-typing-extensions==4.9.0
+typing-extensions==4.10.0
     # via
     #   django-stubs-ext
     #   mypy
     #   types-lxml
 unidecode==1.3.8
     # via a3m (pyproject.toml)
-urllib3==2.0.7
+urllib3==2.2.1
     # via
     #   botocore
     #   requests
     #   twine
     #   types-requests
-virtualenv==20.25.0
+virtualenv==20.25.1
     # via
     #   pre-commit
     #   tox
 vulture==2.11
     # via a3m (pyproject.toml)
-wheel==0.42.0
+wheel==0.43.0
     # via
     #   a3m (pyproject.toml)
     #   pip-tools
-zipp==3.17.0
+zipp==3.18.1
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:

@@ -1,5 +1,4 @@
-"""Shared directory setup.
-"""
+"""Shared directory setup."""
 import logging
 import os
 import shutil

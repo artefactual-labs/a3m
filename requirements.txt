@@ -6,7 +6,7 @@
 #
 ammcpc==0.2.0
     # via a3m (pyproject.toml)
-asgiref==3.7.2
+asgiref==3.8.0
     # via django
 attrs==23.2.0
     # via
@@ -14,9 +14,9 @@ attrs==23.2.0
     #   referencing
 bagit==1.8.1
     # via a3m (pyproject.toml)
-boto3==1.34.37
+boto3==1.34.67
     # via a3m (pyproject.toml)
-botocore==1.34.37
+botocore==1.34.67
     # via
     #   boto3
     #   s3transfer
@@ -26,24 +26,24 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via a3m (pyproject.toml)
-django==4.2.10
+django==4.2.11
     # via
     #   a3m (pyproject.toml)
     #   django-stubs-ext
 django-stubs-ext==4.2.7
     # via a3m (pyproject.toml)
-googleapis-common-protos==1.62.0
+googleapis-common-protos==1.63.0
     # via
     #   a3m (pyproject.toml)
     #   grpcio-status
-grpcio==1.60.1
+grpcio==1.62.1
     # via
     #   a3m (pyproject.toml)
     #   grpcio-reflection
     #   grpcio-status
-grpcio-reflection==1.60.1
+grpcio-reflection==1.62.1
     # via a3m (pyproject.toml)
-grpcio-status==1.60.1
+grpcio-status==1.62.1
     # via a3m (pyproject.toml)
 idna==3.6
     # via requests
@@ -68,9 +68,9 @@ metsrw==0.5.1
     # via a3m (pyproject.toml)
 platformdirs==4.2.0
     # via a3m (pyproject.toml)
-prometheus-client==0.19.0
+prometheus-client==0.20.0
     # via a3m (pyproject.toml)
-protobuf==4.25.2
+protobuf==4.25.3
     # via
     #   googleapis-common-protos
     #   grpcio-reflection
@@ -79,21 +79,21 @@ pygfried==0.7.0
     # via a3m (pyproject.toml)
 pygments==2.17.2
     # via rich
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
     # via botocore
-referencing==0.33.0
+referencing==0.34.0
     # via
     #   jsonschema
     #   jsonschema-specifications
 requests==2.31.0
     # via a3m (pyproject.toml)
-rich==13.7.0
+rich==13.7.1
     # via a3m (pyproject.toml)
-rpds-py==0.17.1
+rpds-py==0.18.0
     # via
     #   jsonschema
     #   referencing
-s3transfer==0.10.0
+s3transfer==0.10.1
     # via boto3
 six==1.16.0
     # via python-dateutil
@@ -101,11 +101,11 @@ sqlparse==0.4.4
     # via django
 tenacity==8.2.3
     # via a3m (pyproject.toml)
-typing-extensions==4.9.0
+typing-extensions==4.10.0
     # via django-stubs-ext
 unidecode==1.3.8
     # via a3m (pyproject.toml)
-urllib3==2.0.7
+urllib3==2.2.1
     # via
     #   botocore
     #   requests
