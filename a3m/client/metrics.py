@@ -1,6 +1,7 @@
 """
 Exposes various metrics via Prometheus.
 """
+
 import functools
 import importlib
 import pkgutil
@@ -19,7 +20,6 @@ from a3m.common_metrics import PROCESSING_TIME_BUCKETS
 from a3m.common_metrics import TASK_DURATION_BUCKETS
 from a3m.main.models import File
 from a3m.main.models import Transfer
-
 
 job_counter = Counter(
     "mcpclient_job_total",

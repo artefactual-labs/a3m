@@ -17,6 +17,7 @@
 """archivematicaFunctions provides various helper functions across the
 different Archivematica modules.
 """
+
 import collections
 import hashlib
 import os
@@ -25,7 +26,6 @@ from itertools import zip_longest
 from uuid import uuid4
 
 from a3m.namespaces import NSMAP
-
 
 REQUIRED_DIRECTORIES = (
     "logs",

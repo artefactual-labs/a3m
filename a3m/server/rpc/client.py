@@ -8,7 +8,6 @@ from grpc import RpcError
 from a3m import __version__
 from a3m.api.transferservice import v1beta1 as transfer_service_api
 
-
 logger = logging.getLogger(__name__)
 
 

@@ -16,6 +16,7 @@ To debug connection timeouts, turn DEBUG on in Django settings, which will log
 all SQL queries and allow us to check that all logged queries occur within the
 wrapper. Note though, this will result in _very_ verbose logs.
 """
+
 import logging
 import threading
 import traceback
@@ -27,13 +28,12 @@ from django.apps import apps
 from django.conf import settings
 from django.core.management.sql import emit_post_migrate_signal
 from django.core.management.sql import emit_pre_migrate_signal
+from django.db import DEFAULT_DB_ALIAS
 from django.db import close_old_connections
 from django.db import connections
-from django.db import DEFAULT_DB_ALIAS
 from django.db.migrations.executor import MigrationExecutor
 from django.db.migrations.state import ModelState
 from django.utils.module_loading import module_has_submodule
-
 
 logger = logging.getLogger(__name__)
 thread_locals = threading.local()

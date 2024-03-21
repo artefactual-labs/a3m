@@ -1,5 +1,5 @@
-from a3m.server.translation import TranslationLabel
 from a3m.server.translation import UNKNOWN_TRANSLATION_LABEL
+from a3m.server.translation import TranslationLabel
 
 
 def test_translation_label(mocker):

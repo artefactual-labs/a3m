@@ -11,6 +11,7 @@ concrete types of jobs, handled by subclasses:
     * `ClientScriptJob`, handling Jobs to be execute on MCPClient
     * `NextLinkDecisionJob`, handling workflow decision points
 """
+
 from a3m.server.jobs.base import Job
 from a3m.server.jobs.chain import JobChain
 from a3m.server.jobs.client import ClientScriptJob

@@ -13,6 +13,7 @@ MCPServer to read workflow links that can be instances of three different
 classes ``Chain``, ``Link`` and ``WatchedDir``. They have different method
 sets.
 """
+
 import json
 import os
 
@@ -23,7 +24,6 @@ from jsonschema.exceptions import ValidationError
 from a3m.server.jobs import Job
 from a3m.server.translation import FALLBACK_LANG
 from a3m.server.translation import TranslationLabel
-
 
 _LATEST_SCHEMA = "workflow-schema-v1.json"
 ASSETS_DIR = os.path.join(

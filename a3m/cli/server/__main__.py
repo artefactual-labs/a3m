@@ -11,7 +11,6 @@ from a3m.cli.common import configure_xml_catalog_files
 from a3m.cli.common import init_django
 from a3m.cli.common import suppress_warnings
 
-
 logger = logging.getLogger(__name__)
 
 

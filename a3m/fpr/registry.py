@@ -30,6 +30,7 @@ Aspirationally, we would like to introduce the concept of a profile, i.e. a set
 of rules and related objects offering a customzied approach to the processing of
 digital files.
 """
+
 from __future__ import annotations
 
 import json
@@ -39,15 +40,14 @@ from abc import abstractmethod
 from datetime import datetime
 from enum import Enum
 from importlib.resources import files
+from typing import TYPE_CHECKING
 from typing import Any
 from typing import Literal
 from typing import Protocol
-from typing import TYPE_CHECKING
 from typing import TypedDict
 from typing import TypeVar
 
 from django.apps import apps
-
 
 # Avoid issues with circular imports.
 if TYPE_CHECKING:

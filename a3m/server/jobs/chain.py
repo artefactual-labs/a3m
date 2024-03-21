@@ -8,6 +8,7 @@ provided by previous jobs in the same chain (e.g. choices for a decision).
 This module knows about all `Job` subclasses, and will instantiate the correct
 one by looking at the workflow.
 """
+
 import logging
 from collections.abc import Iterator
 
@@ -16,7 +17,6 @@ from a3m.server.jobs.client import ClientScriptJob
 from a3m.server.jobs.client import DirectoryClientScriptJob
 from a3m.server.jobs.client import FilesClientScriptJob
 from a3m.server.jobs.decisions import NextLinkDecisionJob
-
 
 logger = logging.getLogger(__name__)
 

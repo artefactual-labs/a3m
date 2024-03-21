@@ -1,6 +1,7 @@
 """
 A base class for other Job types to inherit from.
 """
+
 import abc
 import logging
 import uuid
@@ -9,7 +10,6 @@ from django.utils import timezone
 
 from a3m.main import models
 from a3m.server.db import auto_close_old_connections
-
 
 logger = logging.getLogger(__name__)
 

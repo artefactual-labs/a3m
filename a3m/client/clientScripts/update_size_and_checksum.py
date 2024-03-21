@@ -25,7 +25,6 @@ from a3m.fileOperations import get_size_and_checksum
 from a3m.fileOperations import updateSizeAndChecksum
 from a3m.main.models import File
 
-
 logger = logging.getLogger(__name__)
 
 SIP_REPLACEMENT_PATH_STRING = r"%SIPDirectory%"

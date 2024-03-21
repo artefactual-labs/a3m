@@ -11,7 +11,6 @@ from a3m.main.models import Event
 from a3m.main.models import File
 from a3m.main.models import Transfer
 
-
 THIS_DIR = os.path.dirname(__file__)
 
 

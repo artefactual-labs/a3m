@@ -1,6 +1,7 @@
 """
 i18n handling.
 """
+
 import pprint
 
 FALLBACK_LANG = "en"

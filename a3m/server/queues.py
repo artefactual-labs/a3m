@@ -1,6 +1,7 @@
 """
 The PackageQueue class handles job queueing, as it relates to packages.
 """
+
 import functools
 import logging
 import queue
@@ -10,7 +11,6 @@ import uuid
 from django.conf import settings
 
 from a3m.server import metrics
-
 
 logger = logging.getLogger(__name__)
 

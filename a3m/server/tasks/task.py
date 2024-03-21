@@ -4,6 +4,7 @@ Stored in the `Task` model.
 
 Tasks are passed to MCPClient for processing.
 """
+
 import logging
 import os
 import uuid
@@ -12,7 +13,6 @@ from django.utils import timezone
 
 from a3m.main import models
 from a3m.server.db import auto_close_old_connections
-
 
 logger = logging.getLogger(__name__)
 

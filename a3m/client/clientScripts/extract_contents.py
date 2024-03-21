@@ -5,19 +5,20 @@ import uuid
 
 from django.db import transaction
 
-from .has_packages import already_extracted
 from a3m.archivematicaFunctions import format_subdir_path
 from a3m.archivematicaFunctions import get_dir_uuids
 from a3m.databaseFunctions import fileWasRemoved
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.fileOperations import addFileToTransfer
 from a3m.fileOperations import updateSizeAndChecksum
-from a3m.fpr.registry import CommandScriptType
 from a3m.fpr.registry import FPR
+from a3m.fpr.registry import CommandScriptType
 from a3m.fpr.registry import RulePurpose
 from a3m.main.models import Directory
 from a3m.main.models import File
 from a3m.main.models import Transfer
+
+from .has_packages import already_extracted
 
 logger = logging.getLogger(__name__)
 

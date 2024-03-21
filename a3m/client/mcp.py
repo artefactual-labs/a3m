@@ -32,6 +32,7 @@ back to the database.  The exit code of each job is returned to Gearman and
 communicated back to the MCP Server (where it is ultimately used to decide which
 task to run next).
 """
+
 # This file is part of Archivematica.
 #
 # Copyright 2010-2017 Artefactual Systems Inc. <http://artefactual.com>
@@ -62,7 +63,6 @@ from a3m.databaseFunctions import auto_close_db
 from a3m.databaseFunctions import getUTCDate
 from a3m.databaseFunctions import retryOnFailure
 from a3m.main.models import Task
-
 
 logger = logging.getLogger(__name__)
 

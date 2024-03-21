@@ -12,14 +12,13 @@ from a3m import fileOperations
 from a3m.dicts import ReplacementDict
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
+from a3m.fpr.registry import FPR
 from a3m.fpr.registry import Command
 from a3m.fpr.registry import CommandScriptType
-from a3m.fpr.registry import FPR
 from a3m.fpr.registry import RulePurpose
 from a3m.main.models import File
 from a3m.main.models import FileFormatVersion
 from a3m.main.models import FileID
-
 
 # Return codes
 SUCCESS = 0

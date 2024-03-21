@@ -1,4 +1,5 @@
 """Package management."""
+
 import ast
 import collections
 import functools
@@ -6,8 +7,8 @@ import logging
 import os
 from dataclasses import dataclass
 from dataclasses import field
-from enum import auto
 from enum import Enum
+from enum import auto
 from uuid import uuid4
 
 from django.conf import settings

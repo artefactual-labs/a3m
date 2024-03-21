@@ -5,6 +5,7 @@ removed" event in the database. Command line required arguments are the path to
 the file and its UUID. There is a default list of file names that are deleted;
 however, this can be overridden in MCPClient/clientConfig.conf s
 """
+
 import os
 import shutil
 

@@ -6,9 +6,9 @@ from google.rpc import code_pb2
 from a3m.api.transferservice import v1beta1 as transfer_service_api
 from a3m.main.models import Task
 from a3m.server import shared_dirs
-from a3m.server.packages import get_package_status
 from a3m.server.packages import Package
 from a3m.server.packages import PackageNotFoundError
+from a3m.server.packages import get_package_status
 
 logger = logging.getLogger(__name__)
 

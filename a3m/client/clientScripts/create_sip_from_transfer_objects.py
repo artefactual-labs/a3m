@@ -7,9 +7,9 @@ from django.conf import settings
 from django.db import transaction
 
 from a3m import archivematicaFunctions
+from a3m.main.models import SIP
 from a3m.main.models import Directory
 from a3m.main.models import File
-from a3m.main.models import SIP
 
 
 def main(job, transfer_id, sip_id):

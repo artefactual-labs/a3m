@@ -20,10 +20,9 @@ import shutil
 
 from django.db import transaction
 
-from a3m.archivematicaFunctions import create_structured_directory
 from a3m.archivematicaFunctions import OPTIONAL_FILES
 from a3m.archivematicaFunctions import REQUIRED_DIRECTORIES
-
+from a3m.archivematicaFunctions import create_structured_directory
 
 logger = logging.getLogger(__name__)
 

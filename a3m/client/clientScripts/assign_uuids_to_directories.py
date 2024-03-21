@@ -25,6 +25,7 @@ the --include-dirs option is something other than 'Yes', the script will exit
 without doing anything.
 
 """
+
 import argparse
 import logging
 import os

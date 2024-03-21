@@ -29,9 +29,8 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
-from a3m.fpr.registry import FormatVersion
 from a3m.fpr.registry import FPR
-
+from a3m.fpr.registry import FormatVersion
 
 if TYPE_CHECKING:
     # This doesn't really exists on django so it always need to be imported this way

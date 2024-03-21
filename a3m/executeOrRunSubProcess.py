@@ -28,7 +28,6 @@ from typing import Union
 
 from a3m.fpr.registry import CommandScriptType
 
-
 ExecutionResult = tuple[int, str, str]
 StandardInputType = Union[str, bytes, io.IOBase]
 SubprocessCommand = Union[str, list[str]]

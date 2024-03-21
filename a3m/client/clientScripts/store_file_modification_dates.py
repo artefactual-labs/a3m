@@ -23,7 +23,6 @@ from django.db import transaction
 
 from a3m.main import models
 
-
 logger = logging.getLogger(__name__)
 
 

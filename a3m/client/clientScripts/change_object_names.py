@@ -21,12 +21,13 @@ import uuid
 
 from django.db import transaction
 
-from . import change_names
+from a3m.main.models import SIP
 from a3m.main.models import Directory
 from a3m.main.models import Event
 from a3m.main.models import File
-from a3m.main.models import SIP
 from a3m.main.models import Transfer
+
+from . import change_names
 
 logger = logging.getLogger(__name__)
 

@@ -33,13 +33,11 @@ from bagit import Bag
 from bagit import BagError
 from django.utils import timezone
 
-from .archivematicaCreateMETSMetadataCSV import parseMetadata
-from .archivematicaCreateMETSRights import archivematicaGetRights
-from .change_names import change_name
 from a3m import namespaces as ns
 from a3m.archivematicaFunctions import escape
 from a3m.archivematicaFunctions import normalizeNonDcElementName
 from a3m.archivematicaFunctions import strToUnicode
+from a3m.main.models import SIP
 from a3m.main.models import Agent
 from a3m.main.models import Derivation
 from a3m.main.models import Directory
@@ -47,7 +45,10 @@ from a3m.main.models import DublinCore
 from a3m.main.models import Event
 from a3m.main.models import File
 from a3m.main.models import FileID
-from a3m.main.models import SIP
+
+from .archivematicaCreateMETSMetadataCSV import parseMetadata
+from .archivematicaCreateMETSRights import archivematicaGetRights
+from .change_names import change_name
 
 
 class ErrorAccumulator:

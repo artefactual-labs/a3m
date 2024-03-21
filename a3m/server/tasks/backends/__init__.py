@@ -1,9 +1,9 @@
 """
 Handle offloading of Task objects to MCP Client for processing.
 """
+
 from a3m.server.tasks.backends.base import TaskBackend
 from a3m.server.tasks.backends.pool_backend import PoolTaskBackend
-
 
 # This could be a configuration setting.
 DEFAULT_BACKEND = PoolTaskBackend

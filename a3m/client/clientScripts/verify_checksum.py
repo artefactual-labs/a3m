@@ -26,6 +26,7 @@ us to easily call each of the tools packaged against its different algorithms:
     * SHA256
     * SHA512
 """
+
 import datetime
 import logging
 import os
@@ -40,7 +41,6 @@ from a3m.archivematicaFunctions import strToUnicode
 from a3m.main.models import Event
 from a3m.main.models import File
 from a3m.main.models import Transfer
-
 
 logger = logging.getLogger(__name__)
 

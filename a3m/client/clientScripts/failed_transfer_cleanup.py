@@ -1,6 +1,5 @@
 from a3m.client import metrics
 
-
 FAILED = "fail"
 
 

@@ -2,6 +2,7 @@
 Built-in task backend. Submits `Task` objects to a local pool of processes for
 processing, and returns results.
 """
+
 import logging
 import uuid
 from concurrent import futures
@@ -13,7 +14,6 @@ from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs import Job
 from a3m.server.tasks.backends.base import TaskBackend
 from a3m.server.tasks.task import Task
-
 
 logger = logging.getLogger(__name__)
 

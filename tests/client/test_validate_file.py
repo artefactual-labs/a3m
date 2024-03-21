@@ -2,10 +2,10 @@ import pytest
 
 from a3m.client.clientScripts.validate_file import main
 from a3m.client.job import Job
+from a3m.main.models import SIP
 from a3m.main.models import Event
 from a3m.main.models import File
 from a3m.main.models import FileFormatVersion
-from a3m.main.models import SIP
 
 
 @pytest.fixture

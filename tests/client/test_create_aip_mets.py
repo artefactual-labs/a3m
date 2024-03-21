@@ -10,7 +10,6 @@ from pathlib import Path
 from django.test import TestCase
 from lxml import etree
 
-from . import TempDirMixin
 from a3m import namespaces as ns
 from a3m.client.clientScripts import archivematicaCreateMETSMetadataCSV
 from a3m.client.clientScripts import archivematicaCreateMETSRights
@@ -18,6 +17,7 @@ from a3m.client.clientScripts import create_mets_v2
 from a3m.client.job import Job
 from a3m.main.models import RightsStatement
 
+from . import TempDirMixin
 
 THIS_DIR = os.path.dirname(__file__)
 

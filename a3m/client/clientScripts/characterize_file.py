@@ -8,8 +8,8 @@
 from django.db import transaction
 from lxml import etree
 
-from a3m.dicts import replace_string_values
 from a3m.dicts import ReplacementDict
+from a3m.dicts import replace_string_values
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.fpr.registry import FPR

@@ -1,4 +1,5 @@
 """Download transfer object from storage."""
+
 import shutil
 import sys
 from contextlib import contextmanager
@@ -13,7 +14,6 @@ from django.conf import settings
 from a3m.bag import is_bag
 from a3m.client import metrics
 from a3m.executeOrRunSubProcess import executeOrRun
-
 
 HTTP_SCHEMES = ("http", "https")
 FILE_SCHEMES = "file"

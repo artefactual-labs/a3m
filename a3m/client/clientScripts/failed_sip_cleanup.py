@@ -4,7 +4,6 @@ from django.db import transaction
 
 from a3m.client import metrics
 
-
 REJECTED = "reject"
 FAILED = "fail"
 

@@ -7,11 +7,10 @@ from django.db import transaction
 
 from a3m.databaseFunctions import getUTCDate
 from a3m.databaseFunctions import insertIntoEvents
-from a3m.fpr.registry import FormatVersion
 from a3m.fpr.registry import FPR
+from a3m.fpr.registry import FormatVersion
 from a3m.main.models import File
 from a3m.main.models import FileID
-
 
 logger = logging.getLogger(__name__)
 

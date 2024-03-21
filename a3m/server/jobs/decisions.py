@@ -1,10 +1,10 @@
 """
 Jobs relating to configurable decisions.
 """
+
 import logging
 
 from a3m.server.jobs.base import Job
-
 
 logger = logging.getLogger(__name__)
 

@@ -11,6 +11,7 @@ Usage::
     $ curl 127.0.0.1:33892
 
 """
+
 from http.server import BaseHTTPRequestHandler
 from http.server import ThreadingHTTPServer
 from threading import Thread
@@ -20,8 +21,8 @@ import grpc
 from a3m.cli.common import init_django
 
 init_django()  # This will not be needed in the future.
-from a3m.server.runner import create_server
 from a3m.server.rpc.client import Client
+from a3m.server.runner import create_server
 
 
 class RequestHandler(BaseHTTPRequestHandler):

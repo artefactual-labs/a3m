@@ -8,7 +8,6 @@ from django.db import transaction
 
 from a3m.client import metrics
 
-
 logger = logging.getLogger(__name__)
 
 

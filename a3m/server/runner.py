@@ -19,6 +19,7 @@ threads are started to handle gearman "RPC" requests from the dashboard.
 watched dirs as set in the workflow.
 10. The `PackageQueue.work` processing loop is started on the main thread.
 """
+
 import concurrent.futures
 import enum
 import logging
@@ -37,11 +38,11 @@ from a3m.server.db import migrate
 from a3m.server.jobs import Job
 from a3m.server.queues import PackageQueue
 from a3m.server.tasks import Task
-from a3m.server.tasks.backends import get_task_backend
 from a3m.server.tasks.backends import TaskBackend
+from a3m.server.tasks.backends import get_task_backend
 from a3m.server.transfer_service import TransferService
-from a3m.server.workflow import load_default_workflow
 from a3m.server.workflow import Workflow
+from a3m.server.workflow import load_default_workflow
 
 logger = logging.getLogger(__name__)
 

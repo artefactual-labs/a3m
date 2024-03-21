@@ -1,10 +1,10 @@
 """Shared directory setup."""
+
 import logging
 import os
 import shutil
 
 from django.conf import settings
-
 
 logger = logging.getLogger(__name__)
 

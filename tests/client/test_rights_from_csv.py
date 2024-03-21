@@ -6,7 +6,6 @@ from a3m.client.clientScripts import rights_from_csv
 from a3m.client.job import Job
 from a3m.main import models
 
-
 THIS_DIR = os.path.dirname(__file__)
 
 

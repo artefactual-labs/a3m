@@ -1,6 +1,7 @@
 """
 Jobs remotely executed by on MCP client.
 """
+
 import abc
 import logging
 
@@ -8,9 +9,8 @@ from a3m.main import models
 from a3m.server import metrics
 from a3m.server.db import auto_close_old_connections
 from a3m.server.jobs.base import Job
-from a3m.server.tasks import get_task_backend
 from a3m.server.tasks import Task
-
+from a3m.server.tasks import get_task_backend
 
 logger = logging.getLogger(__name__)
 

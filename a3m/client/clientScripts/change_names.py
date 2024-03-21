@@ -22,7 +22,6 @@ from unidecode import unidecode
 
 from a3m.archivematicaFunctions import strToUnicode
 
-
 VERSION = "1.10." + "$Id$".split(" ")[1]
 
 # Letters, digits and a few punctuation characters

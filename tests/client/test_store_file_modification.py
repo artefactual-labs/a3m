@@ -7,7 +7,6 @@ from django.test import TestCase
 from a3m.client.clientScripts import store_file_modification_dates
 from a3m.main import models
 
-
 THIS_DIR = os.path.dirname(__file__)
 
 

@@ -12,7 +12,6 @@ from a3m.server.packages import Package
 from a3m.server.queues import PackageQueue
 from a3m.server.workflow import Link
 
-
 FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
 INTEGRATION_TEST_PATH = os.path.join(FIXTURES_DIR, "workflow-integration-test.json")
 

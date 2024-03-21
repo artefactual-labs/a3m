@@ -19,7 +19,6 @@ import sys
 
 from a3m.client import metrics
 
-
 REQUIRED_DIRECTORIES = (
     "objects",
     "logs",

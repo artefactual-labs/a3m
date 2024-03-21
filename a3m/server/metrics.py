@@ -1,6 +1,7 @@
 """
 Exposes various metrics via Prometheus.
 """
+
 import functools
 import os
 
@@ -13,7 +14,6 @@ from prometheus_client import start_http_server
 
 from a3m import __version__
 from a3m.common_metrics import TASK_DURATION_BUCKETS
-
 
 gearman_active_jobs_gauge = Gauge(
     "mcpserver_gearman_active_jobs", "Number of gearman jobs currently being processed"

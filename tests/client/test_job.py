@@ -2,7 +2,6 @@ from uuid import uuid4
 
 from a3m.client.job import Job
 
-
 UNICODE = "‘你好‘"
 NON_ASCII = "‘你好‘"
 

@@ -4,12 +4,12 @@ performed--corresponding to a Task on the MCP Server side.  Jobs are run in
 batches by clientScript modules and populated with an exit code, standard out
 and standard error information.
 """
+
 import logging
 import os
 import sys
 import traceback
 from contextlib import contextmanager
-
 
 STANDARD_FORMAT = (
     "%(levelname)-8s  %(asctime)s  %(name)s.%(funcName)s:%(lineno)d  %(message)s"

@@ -1,9 +1,9 @@
 import pytest
 
 from a3m.server.jobs import Job
-from a3m.server.tasks import get_task_backend
 from a3m.server.tasks import Task
 from a3m.server.tasks import TaskBackend
+from a3m.server.tasks import get_task_backend
 
 
 class MockJob(Job):

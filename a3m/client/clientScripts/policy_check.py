@@ -9,6 +9,7 @@ Arguments::
     [FILE_PATH] [FILE_UUID] [SIP_UUID] [SHARED_PATH] [FILE_TYPE]
 
 """
+
 import json
 import logging
 import os
@@ -19,12 +20,12 @@ from a3m import databaseFunctions
 from a3m.dicts import replace_string_values
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
-from a3m.fpr.registry import CommandScriptType
 from a3m.fpr.registry import FPR
+from a3m.fpr.registry import CommandScriptType
 from a3m.fpr.registry import Rule
+from a3m.main.models import SIP
 from a3m.main.models import Derivation
 from a3m.main.models import File
-from a3m.main.models import SIP
 from a3m.main.models import Transfer
 
 # Note that linkTaskManagerFiles.py will take the highest exit code it has seen

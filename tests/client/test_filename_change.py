@@ -6,16 +6,16 @@ import pytest
 from django.core.management import call_command
 from django.test import TestCase
 
-from . import TempDirMixin
 from a3m.client.clientScripts import change_names
 from a3m.client.clientScripts import change_object_names
 from a3m.client.job import Job
+from a3m.main.models import SIP
 from a3m.main.models import Directory
 from a3m.main.models import Event
 from a3m.main.models import File
-from a3m.main.models import SIP
 from a3m.main.models import Transfer
 
+from . import TempDirMixin
 
 THIS_DIR = os.path.dirname(__file__)
 

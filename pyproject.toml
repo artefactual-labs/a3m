@@ -141,7 +141,7 @@ testpaths = [
 target-version = "py39"
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "S"]
+select = ["E", "F", "I", "S", "W"]
 ignore = [
   "E402",
   "E501",
@@ -155,6 +155,9 @@ exclude = [
 
 [tool.ruff.lint.per-file-ignores]
 "{docs,tests}/**/*" = ["S"]
+
+[tool.ruff.lint.isort]
+force-single-line = true
 
 [tool.pyright]
 include = [
