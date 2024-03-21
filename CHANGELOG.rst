@@ -19,6 +19,16 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.7.10:
+
+0.7.10 — 2024-03-21
+===================
+
+Changed
+-------
+
+- Update dependencies.
+
 .. _changelog-0.7.9:
 
 0.7.9 — 2024-02-12
