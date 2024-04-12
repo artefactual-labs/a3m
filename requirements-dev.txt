@@ -97,7 +97,7 @@ grpcio-tools==1.62.1
     # via a3m (pyproject.toml)
 identify==2.5.35
     # via pre-commit
-idna==3.6
+idna==3.7
     # via requests
 imagesize==1.4.1
     # via sphinx
