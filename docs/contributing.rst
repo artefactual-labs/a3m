@@ -11,7 +11,7 @@ Python dependencies
 The requirements are listed in ``/pyproject.toml``. The constraints are relaxed
 with the purpose of allowing a3m to be used as a library.
 
-We use `pip-tools` which pins the requirements in ``requirements.txt`` and
+We use `uv` which pins the requirements in ``requirements.txt`` and
 ``requirements-dev.txt`` for our Docker image. We provide a few helpers:
 
 * ``make pip-compile`` generates the requirements with the latest versions of
