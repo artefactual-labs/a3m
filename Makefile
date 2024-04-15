@@ -9,6 +9,8 @@ A3M_PIPELINE_DATA ?= $(CURDIR)/hack/compose-volume
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
 
+PYTHON_VERSION = $(shell cat .python-version | awk -F '.' '{print $$1 "." $$2}')
+
 define compose
 	docker compose -f docker-compose.yml $(1)
 endef
@@ -70,17 +72,17 @@ restart:  ## Restart services
 
 .PHONY: pip-compile
 pip-compile:  ## Compile pip requirements
-	pip-compile --output-file=requirements.txt pyproject.toml
-	pip-compile --extra=dev --output-file=requirements-dev.txt pyproject.toml
+	uv pip compile --python-version=$(PYTHON_VERSION) --output-file=requirements.txt pyproject.toml
+	uv pip compile --python-version=$(PYTHON_VERSION) --output-file=requirements-dev.txt pyproject.toml --extra=dev
 
 .PHONY: pip-upgrade
 pip-upgrade:  ## Upgrade pip requirements
-	pip-compile --upgrade --output-file=requirements.txt pyproject.toml
-	pip-compile --upgrade --extra=dev --output-file=requirements-dev.txt pyproject.toml
+	uv pip compile --upgrade --python-version=$(PYTHON_VERSION) --output-file=requirements.txt pyproject.toml
+	uv pip compile --upgrade --python-version=$(PYTHON_VERSION) --output-file=requirements-dev.txt pyproject.toml --extra=dev
 
 .PHONY: pip-sync
 pip-sync:  ## Ensures that the local venv mirrors requirements-dev.txt.
-	pip-sync requirements-dev.txt
+	uv pip sync requirements-dev.txt
 
 .PHONY: db
 db:

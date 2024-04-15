@@ -85,7 +85,6 @@ dev = [
   "pytest-env",
   "pytest-mock",
   "coverage",
-  "pip-tools",
   "grpcio-tools",
   "mypy",
   "tox",

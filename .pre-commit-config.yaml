@@ -1,7 +1,7 @@
 repos:
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.5.0
+  rev: v4.6.0
   hooks:
   - id: pretty-format-json
     args:
@@ -20,7 +20,7 @@ repos:
     files: ^docs/.*\.rst$
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.3.3
+  rev: v0.3.7
   hooks:
   - id: ruff
     args:
@@ -46,29 +46,27 @@ repos:
     args:
     - "a3m"
 
-- repo: https://github.com/jazzband/pip-tools
-  rev: 7.4.1
+- repo: https://github.com/astral-sh/uv-pre-commit
+  rev: 0.1.31
   hooks:
   - id: pip-compile
-    files: |
-      (?x)^(
-        setup.cfg|
-        requirements.txt
-      )$
     args:
+    - "--python-version=3.12"
     - "--output-file=requirements.txt"
     - "pyproject.toml"
-
-- repo: https://github.com/jazzband/pip-tools
-  rev: 7.4.1
-  hooks:
-  - id: pip-compile
     files: |
       (?x)^(
-        setup.cfg|
+        pyproject.toml|
+        requirements.txt
+      )$
+  - id: pip-compile
+    args:
+    - "--python-version=3.12"
+    - "--output-file=requirements-dev.txt"
+    - "pyproject.toml"
+    - "--extra=dev"
+    files: |
+      (?x)^(
+        pyproject.toml|
         requirements-dev.txt
       )$
-    args:
-    - "--output-file=requirements-dev.txt"
-    - "--extra=dev"
-    - "pyproject.toml"
