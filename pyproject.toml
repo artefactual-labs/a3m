@@ -18,7 +18,7 @@ dependencies = [
   # Used by client modules
   "ammcpc~=0.1",
   "metsrw~=0.4",
-  "bagit~=1.8",
+  "bagit @ git+https://github.com/LibraryOfCongress/bagit-python",
   "lxml~=4.9",
   "unidecode~=1.3",
   "pygfried~=0.6",
