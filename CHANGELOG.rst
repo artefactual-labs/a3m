@@ -19,6 +19,22 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.7.11:
+
+0.7.11 — 2024-04-19
+===================
+
+Changed
+-------
+
+- Replace ``pip``, ``pip-tools`` and ``virtualenv`` with ``uv``.
+- Update dependencies.
+
+Removed
+-------
+
+- Remove ``shim_pkg_resources`` (bagit-python now uses ``importlib.metadata``).
+
 .. _changelog-0.7.10:
 
 0.7.10 — 2024-03-21
