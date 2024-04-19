@@ -27,6 +27,7 @@ See the fragment files in the `changelog.d directory`_.
 Changed
 -------
 
+- Use Python 3.12.3.
 - Replace ``pip``, ``pip-tools`` and ``virtualenv`` with ``uv``.
 - Update dependencies.
 
