@@ -31,11 +31,6 @@ Changed
 - Replace ``pip``, ``pip-tools`` and ``virtualenv`` with ``uv``.
 - Update dependencies.
 
-Removed
--------
-
-- Remove ``shim_pkg_resources`` (bagit-python now uses ``importlib.metadata``).
-
 .. _changelog-0.7.10:
 
 0.7.10 — 2024-03-21
