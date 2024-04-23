@@ -61,7 +61,7 @@ job_queue_length_gauge = Gauge(
     "Number of queued jobs related to currently active packages",
 )
 package_queue_length_gauge = Gauge(
-    "mcpserver_package_queue_length", "Number of queued packages"
+    "mcpserver_package_queue_length", "Number of queued packages", ["package_type"]
 )
 
 PACKAGE_TYPES = ("Transfer", "SIP", "DIP")

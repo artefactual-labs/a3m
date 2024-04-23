@@ -11,7 +11,7 @@ import uuid
 from django.conf import settings
 
 from a3m.server import metrics
-from a3m.server.jobs import DecisionJob
+from a3m.server.jobs import decisions
 from a3m.server.packages import DIP
 from a3m.server.packages import SIP
 
@@ -135,7 +135,7 @@ class PackageQueue:
                 job.uuid,
                 package.__class__.__name__,
                 package.uuid,
-                self.queue.qsize(),
+                queue_size,
             )
 
         # Don't start processing unless we have capacity
@@ -261,9 +261,11 @@ class PackageQueue:
                 job = self.transfer_queue.get_nowait()
             except queue.Empty:
                 pass
-
+            
         if job is not None:
-            metrics.package_queue_length_gauge.dec()
+            metrics.package_queue_length_gauge.labels(
+                package_type=job.package.__class__.__name__
+            ).dec()
 
         return job
 
@@ -330,5 +332,5 @@ class PackageQueue:
                 job.uuid,
                 package.__class__.__name__,
                 package.uuid,
-                self.queue.qsize(),
+                queue_size,
             )
