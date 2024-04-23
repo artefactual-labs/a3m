@@ -11,6 +11,10 @@ import uuid
 from django.conf import settings
 
 from a3m.server import metrics
+from a3m.server.jobs import DecisionJob
+from a3m.server.packages import DIP
+from a3m.server.packages import SIP
+
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +78,11 @@ class PackageQueue:
         self.active_packages = {}  # package uuid: Package
 
         self.job_queue = queue.Queue(maxsize=max_concurrent_packages)
-        self.queue = queue.Queue(maxsize=max_queued_packages)
+
+        # Split queues by package type
+        self.transfer_queue = queue.Queue(maxsize=max_queued_packages)
+        self.sip_queue = queue.Queue(maxsize=max_queued_packages)
+        self.dip_queue = queue.Queue(maxsize=max_queued_packages)
 
         if self.debug:
             logger.debug(
@@ -117,6 +125,11 @@ class PackageQueue:
                         ]
                     ),
                 )
+            queue_size = (
+                self.sip_queue.qsize()
+                + self.dip_queue.qsize()
+                + self.transfer_queue.qsize()
+            )
             logger.debug(
                 "Scheduled job %s (%s %s). Current queue size: %s",
                 job.uuid,
@@ -218,17 +231,36 @@ class PackageQueue:
 
     def _put_package_nowait(self, package, job):
         """Queue a package and job for later processing."""
-        self.queue.put_nowait(job)
-        metrics.package_queue_length_gauge.inc()
+        if isinstance(package, DIP):
+            self.dip_queue.put_nowait(job)
+        elif isinstance(package, SIP):
+            self.sip_queue.put_nowait(job)
+        else:
+            self.transfer_queue.put_nowait(job)
+        metrics.package_queue_length_gauge.labels(
+            package_type=package.__class__.__name__
+        ).inc()
 
     def _get_package_job_nowait(self):
         """Return a waiting job for an inactive package.
         Prioritized by package type.
         """
         try:
-            job = self.queue.get_nowait()
+            job = self.dip_queue.get_nowait()
         except queue.Empty:
             job = None
+
+        if job is None:
+            try:
+                job = self.sip_queue.get_nowait()
+            except queue.Empty:
+                pass
+
+        if job is None:
+            try:
+                job = self.transfer_queue.get_nowait()
+            except queue.Empty:
+                pass
 
         if job is not None:
             metrics.package_queue_length_gauge.dec()
@@ -288,6 +320,11 @@ class PackageQueue:
         metrics.job_queue_length_gauge.inc()
 
         if self.debug:
+            queue_size = (
+                self.sip_queue.qsize()
+                + self.dip_queue.qsize()
+                + self.transfer_queue.qsize()
+            )
             logger.debug(
                 "Released job %s (%s %s). Current queue size: %s",
                 job.uuid,

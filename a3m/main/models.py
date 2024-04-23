@@ -124,7 +124,7 @@ class DublinCore(models.Model):
 
 class MetadataAppliesToType(models.Model):
     """
-    What type of unit (SIP, Transfer etc) the metadata link is.
+    What type of unit (SIP, DIP, Transfer etc) the metadata link is.
 
     TODO replace this with choices fields.
     """

@@ -13,7 +13,7 @@ It makes use of the following major abstractions:
     * `tasks.Task` corresponds to a single command to be executed by MCPClient
     * `tasks.backends.PoolTaskBackend` handles passing tasks to the executor
       (in batches)
-    * `packages.Package` subclasses `SIP` and `Transfer` handle package
+    * `packages.Package` subclasses `SIP`, `DIP`, and `Transfer` handle package
        related logic
     * a `concurrent.futures.ThreadPoolExecutor` handles out of process execution
     * `queues.PackageQueue` handles scheduling of `Job` objects for execution

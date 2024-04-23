@@ -99,12 +99,21 @@ sip_error_timestamp = Gauge(
 )
 
 aips_stored_counter = Counter("mcpclient_aips_stored_total", "Number of AIPs stored")
+dips_stored_counter = Counter("mcpclient_dips_stored_total", "Number of DIPs stored")
 aips_stored_timestamp = Gauge(
     "mcpclient_aips_stored_timestamp", "Timestamp of most recent AIP stored"
+)
+dips_stored_timestamp = Gauge(
+    "mcpclient_dips_stored_timestamp", "Timestamp of most recent DIP stored"
 )
 aip_processing_time_histogram = Histogram(
     "mcpclient_aip_processing_seconds",
     "Histogram of AIP processing time, from first file recorded in DB to storage in SS",
+    buckets=PROCESSING_TIME_BUCKETS,
+)
+dip_processing_time_histogram = Histogram(
+    "mcpclient_dip_processing_seconds",
+    "Histogram of DIP processing time, from first file recorded in DB to storage in SS",
     buckets=PROCESSING_TIME_BUCKETS,
 )
 aip_files_stored_histogram = Histogram(
@@ -112,9 +121,19 @@ aip_files_stored_histogram = Histogram(
     "Histogram of number of files stored in AIPs. Note, this includes metadata, derivatives, etc.",
     buckets=PACKAGE_FILE_COUNT_BUCKETS,
 )
+dip_files_stored_histogram = Histogram(
+    "mcpclient_dip_files_stored",
+    "Histogram of number of files stored in DIPs.",
+    buckets=PACKAGE_FILE_COUNT_BUCKETS,
+)
 aip_size_histogram = Histogram(
     "mcpclient_aip_size_bytes",
     "Histogram of number of bytes stored in AIPs. Note, this includes metadata, derivatives, etc.",
+    buckets=PACKAGE_SIZE_BUCKETS,
+)
+dip_size_histogram = Histogram(
+    "mcpclient_dip_size_bytes",
+    "Histogram of number of bytes stored in DIPs. Note, this includes metadata, derivatives, etc.",
     buckets=PACKAGE_SIZE_BUCKETS,
 )
 
@@ -189,6 +208,24 @@ def aip_stored(sip_uuid, size):
     # We do two queries here, as we may not have format information for everything
     total_file_count = File.objects.filter(sip_id=sip_uuid).count()
     aip_files_stored_histogram.observe(total_file_count)
+
+
+@skip_if_prometheus_disabled
+def dip_stored(sip_uuid, size):
+    dips_stored_counter.inc()
+    dips_stored_timestamp.set_to_current_time()
+    dip_size_histogram.observe(size)
+
+    try:
+        earliest_file = File.objects.filter(sip_id=sip_uuid).earliest("enteredsystem")
+    except File.DoesNotExist:
+        pass
+    else:
+        duration = (timezone.now() - earliest_file.enteredsystem).total_seconds()
+        dip_processing_time_histogram.observe(duration)
+
+    file_count = File.objects.filter(sip_id=sip_uuid).count()
+    dip_files_stored_histogram.observe(file_count)
 
 
 @skip_if_prometheus_disabled

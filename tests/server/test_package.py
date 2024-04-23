@@ -14,6 +14,56 @@ from a3m.server.workflow import load as load_workflow
 
 FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
 INTEGRATION_TEST_PATH = os.path.join(FIXTURES_DIR, "workflow-integration-test.json")
+from a3m.server.packages import DIP
+from a3m.server.packages import SIP
+from a3m.server.packages import Transfer
+
+
+@pytest.mark.django_db(transaction=True)
+def test_dip_get_or_create_from_db_path_without_uuid(tmp_path):
+    dip_path = tmp_path / "test-dip"
+
+    dip = DIP.get_or_create_from_db_by_path(str(dip_path))
+
+    assert dip.current_path == str(dip_path)
+    try:
+        models.SIP.objects.get(uuid=dip.uuid)
+    except models.SIP.DoesNotExist:
+        pytest.fail("DIP.get_or_create_from_db_by_path didn't create a SIP model")
+
+
+@pytest.mark.django_db(transaction=True)
+def test_dip_get_or_create_from_db_path_with_uuid(tmp_path):
+    dip_uuid = uuid.uuid4()
+    dip_path = tmp_path / f"test-dip-{dip_uuid}"
+
+    dip = DIP.get_or_create_from_db_by_path(str(dip_path))
+
+    assert dip.uuid == dip_uuid
+    assert dip.current_path == str(dip_path)
+    try:
+        models.SIP.objects.get(uuid=dip_uuid)
+    except models.SIP.DoesNotExist:
+        pytest.fail("DIP.get_or_create_from_db_by_path didn't create a SIP model")
+
+
+@pytest.mark.django_db(transaction=True)
+def test_transfer_get_or_create_from_db_path_without_uuid(tmp_path):
+    transfer_path = tmp_path / "test-transfer"
+
+    assert not models.Transfer.objects.filter(
+        currentlocation=str(transfer_path)
+    ).count()
+
+    transfer = Transfer.get_or_create_from_db_by_path(str(transfer_path))
+
+    assert transfer.current_path == str(transfer_path)
+    try:
+        models.Transfer.objects.get(currentlocation=str(transfer_path))
+    except models.Transfer.DoesNotExist:
+        pytest.fail(
+            "Transfer.get_or_create_from_db_by_path didn't create a Transfer model"
+        )
 
 
 @pytest.fixture

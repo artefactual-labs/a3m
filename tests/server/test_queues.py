@@ -102,8 +102,11 @@ def test_schedule_job(package_queue, package, workflow_link, mocker):
     test_job.job_ran.wait(1.0)
 
     assert test_job.job_ran.is_set()
-    assert package.uuid in package_queue.active_packages
-    assert package_queue.queue.qsize() == 0
+    assert transfer.uuid in package_queue.active_packages
+    assert package_queue.job_queue.qsize() == 0
+    assert package_queue.sip_queue.qsize() == 0
+    assert package_queue.transfer_queue.qsize() == 0
+    assert package_queue.dip_queue.qsize() == 0
 
 
 def test_active_transfer_limit(
@@ -126,9 +129,15 @@ def test_active_transfer_limit(
     # give ourselves up to 1 sec for other threads to spin up
     test_job1.job_ran.wait(1.0)
 
-    assert package.uuid in package_queue.active_packages
-    assert package_2.uuid not in package_queue.active_packages
-    assert package_queue.queue.qsize() == 1
+    assert transfer.uuid in package_queue.active_packages
+    assert sip.uuid not in package_queue.active_packages
+    assert package_queue.job_queue.qsize() == 0
+    assert package_queue.sip_queue.qsize() == 1
+    assert package_queue.transfer_queue.qsize() == 0
+    assert package_queue.dip_queue.qsize() == 0
+    # assert package.uuid in package_queue.active_packages
+    # assert package_2.uuid not in package_queue.active_packages
+    # assert package_queue.queue.qsize() == 1
 
 
 def test_activate_and_deactivate_package(package_queue, package):

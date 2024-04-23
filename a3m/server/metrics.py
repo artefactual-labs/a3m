@@ -64,6 +64,8 @@ package_queue_length_gauge = Gauge(
     "mcpserver_package_queue_length", "Number of queued packages"
 )
 
+PACKAGE_TYPES = ("Transfer", "SIP", "DIP")
+
 
 def skip_if_prometheus_disabled(func):
     @functools.wraps(func)

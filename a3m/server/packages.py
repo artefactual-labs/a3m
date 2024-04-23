@@ -325,6 +325,200 @@ class Package:
                             r"%fileGrpUse%": "",
                         }
 
+    @auto_close_old_connections()
+    def set_variable(self, key, value, chain_link_id):
+        """Sets a UnitVariable, which tracks choices made by users during processing.
+        """
+        # TODO: refactor this concept
+        if not value:
+            value = ""
+        else:
+            value = str(value)
+
+        unit_var, created = models.UnitVariable.objects.update_or_create(
+            unittype=self.UNIT_VARIABLE_TYPE,
+            unituuid=self.uuid,
+            variable=key,
+            defaults=dict(variablevalue=value, microservicechainlink=chain_link_id),
+        )
+        if created:
+            message = "New UnitVariable %s created for %s: %s (MSCL: %s)"
+        else:
+            message = "Existing UnitVariable %s for %s updated to %s (MSCL" " %s)"
+
+        logger.info(message, key, self.uuid, value, chain_link_id)
+
+
+class SIPDIP(Package):
+    """SIPDIP captures behavior shared between SIP- and DIP-type packages that
+    share the same model in Archivematica.
+    """
+
+    @classmethod
+    @auto_close_old_connections()
+    def get_or_create_from_db_by_path(cls, path):
+        """Matches a directory to a database SIP by its appended UUID, or path."""
+        path = path.replace(_get_setting("SHARED_DIRECTORY"), r"%sharedPath%", 1)
+        package_type = cls.UNIT_VARIABLE_TYPE
+        sip_uuid = uuid_from_path(path)
+        created = True
+        if sip_uuid:
+            sip_obj, created = models.SIP.objects.get_or_create(
+                uuid=sip_uuid,
+                defaults={
+                    "sip_type": package_type,
+                    "currentpath": path,
+                    "diruuids": False,
+                },
+            )
+            # TODO: we thought this path was unused but some tests have proved
+            # us wrong (see issue #1141) - needs to be investigated.
+            if package_type == "SIP" and (not created and sip_obj.currentpath != path):
+                sip_obj.currentpath = path
+                sip_obj.save()
+        else:
+            try:
+                sip_obj = models.SIP.objects.get(currentpath=path)
+                created = False
+            except models.SIP.DoesNotExist:
+                sip_obj = models.SIP.objects.create(
+                    uuid=uuid4(),
+                    currentpath=path,
+                    sip_type=package_type,
+                    diruuids=False,
+                )
+        logger.info(
+            "%s %s %s (%s)",
+            package_type,
+            sip_obj.uuid,
+            "created" if created else "updated",
+            path,
+        )
+        return cls(path, sip_obj.uuid)
+
+
+class DIP(SIPDIP):
+    REPLACEMENT_PATH_STRING = r"%SIPDirectory%"
+    UNIT_VARIABLE_TYPE = "DIP"
+    JOB_UNIT_TYPE = "unitDIP"
+
+    def reload(self):
+        # reload is a no-op for DIPs
+        pass
+
+    def get_replacement_mapping(self, filter_subdir_path=None):
+        mapping = super().get_replacement_mapping(filter_subdir_path=filter_subdir_path)
+        mapping[r"%unitType%"] = "DIP"
+
+        if filter_subdir_path:
+            relative_location = filter_subdir_path.replace(
+                _get_setting("SHARED_DIRECTORY"), r"%sharedPath%", 1
+            )
+            mapping[r"%relativeLocation%"] = relative_location
+
+        return mapping
+
+
+class Transfer(Package):
+    REPLACEMENT_PATH_STRING = r"%transferDirectory%"
+    UNIT_VARIABLE_TYPE = "Transfer"
+    JOB_UNIT_TYPE = "unitTransfer"
+
+    def __init__(self, current_path, uuid, url):
+        super().__init__(current_path, uuid)
+        self.url = url or ""
+
+    @classmethod
+    @auto_close_old_connections()
+    def get_or_create_from_db_by_path(cls, path):
+        """Matches a directory to a database Transfer by its appended UUID, or path."""
+        path = path.replace(_get_setting("SHARED_DIRECTORY"), r"%sharedPath%", 1)
+
+        transfer_uuid = uuid_from_path(path)
+        created = True
+        if transfer_uuid:
+            transfer_obj, created = models.Transfer.objects.get_or_create(
+                uuid=transfer_uuid, defaults={"currentlocation": path}
+            )
+            # TODO: we thought this path was unused but some tests have proved
+            # us wrong (see issue #1141) - needs to be investigated.
+            if not created and transfer_obj.currentlocation != path:
+                transfer_obj.currentlocation = path
+                transfer_obj.save()
+        else:
+            try:
+                transfer_obj = models.Transfer.objects.get(currentlocation=path)
+                created = False
+            except models.Transfer.DoesNotExist:
+                transfer_obj = models.Transfer.objects.create(
+                    uuid=uuid4(), currentlocation=path
+                )
+        logger.info(
+            "Transfer %s %s (%s)",
+            transfer_obj.uuid,
+            "created" if created else "updated",
+            path,
+        )
+
+        return cls(path, transfer_obj.uuid, None)
+
+    @property
+    @auto_close_old_connections()
+    def base_queryset(self):
+        return models.File.objects.filter(transfer_id=self.uuid)
+
+    @auto_close_old_connections()
+    def reload(self):
+        transfer = models.Transfer.objects.get(uuid=self.uuid)
+        self.current_path = transfer.currentlocation
+        self.processing_configuration = transfer.processing_configuration
+
+    def get_replacement_mapping(self, filter_subdir_path=None):
+        mapping = super().get_replacement_mapping(filter_subdir_path=filter_subdir_path)
+
+        mapping.update(
+            {
+                self.REPLACEMENT_PATH_STRING: self.current_path,
+                r"%unitType%": "Transfer",
+                r"%processingConfiguration%": self.processing_configuration,
+                r"%URL%": self.url,
+            }
+        )
+
+        return mapping
+
+
+class SIP(SIPDIP):
+    REPLACEMENT_PATH_STRING = r"%SIPDirectory%"
+    UNIT_VARIABLE_TYPE = "SIP"
+    JOB_UNIT_TYPE = "unitSIP"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.aip_filename = None
+        self.sip_type = None
+
+    @auto_close_old_connections()
+    def reload(self):
+        sip = models.SIP.objects.get(uuid=self.uuid)
+        self.current_path = sip.currentpath
+        self.aip_filename = sip.aip_filename or ""
+        self.sip_type = sip.sip_type
+
+    def get_replacement_mapping(self, filter_subdir_path=None):
+        mapping = super().get_replacement_mapping(filter_subdir_path=filter_subdir_path)
+
+        mapping.update(
+            {
+                r"%unitType%": "SIP",
+                r"%AIPFilename%": self.aip_filename,
+                r"%SIPType%": self.sip_type,
+            }
+        )
+
+        return mapping
+
 
 class PackageContext:
     """Package context tracks choices made previously while processing"""
