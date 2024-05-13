@@ -182,7 +182,7 @@ class TestFilenameChange(TempDirMixin, TestCase):
 
     @staticmethod
     @pytest.fixture(scope="class")
-    def django_db_setup(self, django_db_setup, django_db_blocker):
+    def django_db_setup(django_db_setup, django_db_blocker):
         """Load the various database fixtures required for our tests."""
         agents_fixtures_dir = "microservice_agents"
         agents = os.path.join(agents_fixtures_dir, "microservice_agents.json")
