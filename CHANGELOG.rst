@@ -19,6 +19,17 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.7.12:
+
+0.7.12 — 2024-07-16
+===================
+
+Changed
+-------
+
+- Use Python 3.12.4.
+- Update dependencies.
+
 .. _changelog-0.7.11:
 
 0.7.11 — 2024-04-19

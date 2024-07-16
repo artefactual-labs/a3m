@@ -20,7 +20,7 @@ repos:
     files: ^docs/.*\.rst$
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.4.4
+  rev: v0.5.2
   hooks:
   - id: ruff
     args:
@@ -29,7 +29,7 @@ repos:
   - id: ruff-format
 
 - repo: https://github.com/adamchainz/django-upgrade
-  rev: "1.17.0"
+  rev: "1.19.0"
   hooks:
   - id: django-upgrade
     args:
@@ -47,7 +47,7 @@ repos:
     - "a3m"
 
 - repo: https://github.com/astral-sh/uv-pre-commit
-  rev: 0.1.42
+  rev: 0.2.25
   hooks:
   - id: pip-compile
     args:
