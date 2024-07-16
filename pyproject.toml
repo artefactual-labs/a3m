@@ -146,6 +146,7 @@ ignore = [
   "E501",
   "E722",
   "W191",
+  "S603",
 ]
 exclude = [
   "a3m/settings/**/*",
