@@ -22,7 +22,7 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via a3m (pyproject.toml)
-django==4.2.14
+django==4.2.15
     # via
     #   a3m (pyproject.toml)
     #   django-stubs-ext

@@ -54,7 +54,7 @@ cssselect==1.2.0
     # via types-lxml
 distlib==0.3.8
     # via virtualenv
-django==4.2.14
+django==4.2.15
     # via
     #   a3m (pyproject.toml)
     #   django-stubs-ext
