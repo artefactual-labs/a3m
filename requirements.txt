@@ -10,38 +10,38 @@ attrs==24.2.0
     #   referencing
 bagit==1.8.1
     # via a3m (pyproject.toml)
-boto3==1.34.161
+boto3==1.35.12
     # via a3m (pyproject.toml)
-botocore==1.34.161
+botocore==1.35.12
     # via
     #   boto3
     #   s3transfer
-certifi==2024.7.4
+certifi==2024.8.30
     # via requests
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via a3m (pyproject.toml)
-django==4.2.15
+django==4.2.16
     # via
     #   a3m (pyproject.toml)
     #   django-stubs-ext
 django-stubs-ext==4.2.7
     # via a3m (pyproject.toml)
-googleapis-common-protos==1.63.2
+googleapis-common-protos==1.65.0
     # via
     #   a3m (pyproject.toml)
     #   grpcio-status
-grpcio==1.65.4
+grpcio==1.66.1
     # via
     #   a3m (pyproject.toml)
     #   grpcio-reflection
     #   grpcio-status
-grpcio-reflection==1.65.4
+grpcio-reflection==1.66.1
     # via a3m (pyproject.toml)
-grpcio-status==1.65.4
+grpcio-status==1.66.1
     # via a3m (pyproject.toml)
-idna==3.7
+idna==3.8
     # via requests
 jmespath==1.0.1
     # via
@@ -66,7 +66,7 @@ platformdirs==4.2.2
     # via a3m (pyproject.toml)
 prometheus-client==0.20.0
     # via a3m (pyproject.toml)
-protobuf==5.27.3
+protobuf==5.28.0
     # via
     #   googleapis-common-protos
     #   grpcio-reflection
@@ -83,7 +83,7 @@ referencing==0.35.1
     #   jsonschema-specifications
 requests==2.32.3
     # via a3m (pyproject.toml)
-rich==13.7.1
+rich==13.8.0
     # via a3m (pyproject.toml)
 rpds-py==0.20.0
     # via
