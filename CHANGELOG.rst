@@ -28,6 +28,7 @@ Changed
 -------
 
 - Update dependencies.
+- Describe application version in ``pyproject.toml``.
 
 .. _changelog-0.7.13:
 

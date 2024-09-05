@@ -1,3 +1,5 @@
-__version__ = "0.7.14"
+from importlib.metadata import version
+
+__version__ = version("a3m")
 
 __all__ = ["__version__"]
