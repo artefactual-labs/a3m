@@ -9,8 +9,8 @@ FROM ${SYSTEM_IMAGE} AS base
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV PYTHONUNBUFFERED 1
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
 
 RUN set -ex \
 	&& apt-get update \
@@ -26,9 +26,9 @@ RUN set -ex \
 
 # Set the locale
 RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
 # OS dependencies
 RUN set -ex \
