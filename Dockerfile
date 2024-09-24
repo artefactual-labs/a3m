@@ -99,8 +99,6 @@ RUN set -ex \
 
 FROM base AS a3m
 
-USER a3m
-
 ARG DJANGO_SETTINGS_MODULE=a3m.settings.common
 ENV DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
 ENV PYENV_ROOT="/home/a3m/.pyenv"
@@ -117,6 +115,7 @@ RUN set -ex \
 
 COPY ./requirements.txt /a3m/requirements.txt
 COPY ./requirements-dev.txt /a3m/requirements-dev.txt
+COPY ./pyproject.toml /a3m/pyproject.toml
 RUN set -ex \
 	&& pyenv exec python3 -m pip install --upgrade pip setuptools \
 	&& pyenv exec python3 -m pip install --requirement ${REQUIREMENTS} \
@@ -124,5 +123,8 @@ RUN set -ex \
 
 COPY . /a3m
 WORKDIR /a3m
+RUN pip install . --no-deps
+
+USER a3m
 
 ENTRYPOINT ["python", "-m", "a3m.cli.server"]

@@ -9,7 +9,7 @@ namespaces = false
 
 [project]
 name = "a3m"
-version = "0.7.14"
+version = "0.7.15"
 description = "Lightweight Archivematica"
 requires-python = ">=3.11"
 readme = "README.rst"

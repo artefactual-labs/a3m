@@ -19,6 +19,16 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.7.15:
+
+0.7.15 - 2024-09-24
+===================
+
+Fixed
+-----
+
+- Install a3m in Docker environment.
+
 .. _changelog-0.7.14:
 
 0.7.14 - 2024-09-05

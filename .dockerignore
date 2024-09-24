@@ -3,6 +3,9 @@
 !/requirements*
 !/a3m/**
 !/.python-version
+!/pyproject.toml
+!/README.rst
+!/LICENSE
 
 **/*~
 **/*.log
