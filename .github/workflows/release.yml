@@ -1,4 +1,4 @@
-name: Publish
+name: Release
 
 on:
   push:
@@ -6,25 +6,33 @@ on:
       - "v*"
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+  packages: write
+
 jobs:
-  publish:
+  pypi:
     runs-on: ubuntu-latest
     environment: release
-    permissions:
-      contents: read
-      id-token: write
-      packages: write
     steps:
     - name: "Check out source code"
       uses: "actions/checkout@v4"
-    - name: "Install Python"
-      uses: "actions/setup-python@v5"
-    - name: "Install dependencies"
-      run: pip install setuptools wheel build
-    - name: "Build"
-      run: python -m build
-    - name: "Publish"
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v2
+      with:
+        enable-cache: true
+        version: latest
+    - name: Build package
+      run: uv build
+    - name: "Upload distribution packages to PyPI"
       uses: pypa/gh-action-pypi-publish@release/v1
+  docker:
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+    - name: "Check out source code"
+      uses: "actions/checkout@v4"
     - name: Capture Docker metadata
       id: meta
       uses: docker/metadata-action@v5
