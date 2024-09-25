@@ -19,6 +19,16 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.8.1:
+
+0.8.1 - 2024-09-25
+==================
+
+Changed
+-------
+
+- Fix docker build.
+
 .. _changelog-0.8.0:
 
 0.8.0 - 2024-09-25
