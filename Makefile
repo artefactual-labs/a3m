@@ -12,7 +12,7 @@ CURRENT_GID := $(shell id -g)
 PYTHON_VERSION = $(shell cat .python-version | awk -F '.' '{print $$1 "." $$2}')
 
 define compose
-	docker compose -f docker-compose.yml $(1)
+	docker compose -f compose.yml $(1)
 endef
 
 define compose_run
@@ -69,20 +69,6 @@ stop:  ## Stop services
 .PHONY: restart
 restart:  ## Restart services
 	docker-compose restart a3m
-
-.PHONY: pip-compile
-pip-compile:  ## Compile pip requirements
-	uv pip compile --python-version=$(PYTHON_VERSION) --output-file=requirements.txt pyproject.toml
-	uv pip compile --python-version=$(PYTHON_VERSION) --output-file=requirements-dev.txt pyproject.toml --extra=dev
-
-.PHONY: pip-upgrade
-pip-upgrade:  ## Upgrade pip requirements
-	uv pip compile --upgrade --python-version=$(PYTHON_VERSION) --output-file=requirements.txt pyproject.toml
-	uv pip compile --upgrade --python-version=$(PYTHON_VERSION) --output-file=requirements-dev.txt pyproject.toml --extra=dev
-
-.PHONY: pip-sync
-pip-sync:  ## Ensures that the local venv mirrors requirements-dev.txt.
-	uv pip sync requirements-dev.txt
 
 .PHONY: db
 db:

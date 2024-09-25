@@ -29,9 +29,7 @@ coverage.*
 # pytest's working directory
 .cache
 .pytest_cache
-
-# tox working directory
-.tox/
+junit.xml
 
 # mypy cache
 .mypy_cache/

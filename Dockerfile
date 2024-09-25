@@ -1,13 +1,15 @@
+# syntax=docker/dockerfile:1.10.0-labs
+
 ARG SYSTEM_IMAGE=ubuntu:22.04
+ARG UV_VERSION=0.4.16
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 #
 # Base
 #
 
 FROM ${SYSTEM_IMAGE} AS base
-
-ARG USER_ID=1000
-ARG GROUP_ID=1000
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
@@ -67,64 +69,53 @@ RUN set -ex \
 	uuid \
 	&& rm -rf /var/lib/apt/lists/*
 
-# Python build.
-RUN set -ex \
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends \
-	build-essential \
-	libbz2-dev \
-	libffi-dev \
-	liblzma-dev \
-	libncursesw5-dev \
-	libreadline-dev \
-	libsqlite3-dev \
-	libssl-dev \
-	libxml2-dev \
-	libxmlsec1-dev \
-	tk-dev \
-	xz-utils \
-	zlib1g-dev
+# -----------------------------------------------------------------------------
 
-# Create a3m user
-RUN set -ex \
-	&& groupadd --gid ${GROUP_ID} --system a3m \
-	&& useradd --uid ${USER_ID} --gid ${GROUP_ID} --create-home --home-dir /home/a3m --system a3m \
-	&& mkdir -p /home/a3m/.local/share/a3m/share \
-	&& chown -R a3m:a3m /home/a3m/.local
+FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
 
-
-#
-# a3m
-#
+# -----------------------------------------------------------------------------
 
 FROM base AS a3m
 
-ARG DJANGO_SETTINGS_MODULE=a3m.settings.common
-ENV DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
-ENV PYENV_ROOT="/home/a3m/.pyenv"
-ENV PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
-ARG PYTHON_VERSION=""
-ARG REQUIREMENTS=/a3m/requirements.txt
+ARG USER_ID
+ARG GROUP_ID
 
-COPY ./.python-version /a3m/.python-version
+# Create a3m user.
 RUN set -ex \
-	&& curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
-	&& if [ -z "${PYTHON_VERSION}" ]; then PYTHON_VERSION=$(cat /a3m/.python-version); fi \
-	&& pyenv install ${PYTHON_VERSION} \
-	&& pyenv global ${PYTHON_VERSION}
+	&& groupadd --gid ${GROUP_ID} --system a3m \
+	&& useradd --uid ${USER_ID} --gid ${GROUP_ID} --home-dir /home/a3m --system a3m \
+	&& mkdir -p /home/a3m/.local/share/a3m/share \
+	&& chown -R a3m:a3m /home/a3m
 
-COPY ./requirements.txt /a3m/requirements.txt
-COPY ./requirements-dev.txt /a3m/requirements-dev.txt
-COPY ./pyproject.toml /a3m/pyproject.toml
-RUN set -ex \
-	&& pyenv exec python3 -m pip install --upgrade pip setuptools \
-	&& pyenv exec python3 -m pip install --requirement ${REQUIREMENTS} \
-	&& pyenv rehash
+# Install uv.
+COPY --from=uv /uv /bin/uv
 
-COPY . /a3m
-WORKDIR /a3m
-RUN pip install . --no-deps
+# Enable bytecode compilation.
+ENV UV_COMPILE_BYTECODE=1
 
+# Copy from the cache instead of linking since it's a mounted volume.
+ENV UV_LINK_MODE=copy
+
+# Change the current user.
 USER a3m
 
-ENTRYPOINT ["python", "-m", "a3m.cli.server"]
+# Install the project into `/app`.
+WORKDIR /app
+
+# Install the project's dependencies using the lockfile and settings.
+RUN --mount=type=cache,target=/home/a3m/.cache/uv,uid=${USER_ID},gid=${GROUP_ID} \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --frozen --no-install-project --no-dev
+
+# Add the rest of the project source code and install it.
+# Installing separately from its dependencies allows optimal layer caching.
+COPY --exclude=.git . /app
+RUN --mount=type=cache,target=/home/a3m/.cache/uv,uid=${USER_ID},gid=${GROUP_ID} \
+	--mount=type=bind,source=.git,target=.git \
+    uv sync --frozen --no-dev
+
+# Place executables in the environment at the front of the path.
+ENV PATH="/app/.venv/bin:$PATH"
+
+CMD ["a3md"]

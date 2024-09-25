@@ -8,39 +8,24 @@ Dependency management
 Python dependencies
 ^^^^^^^^^^^^^^^^^^^
 
-The requirements are listed in ``/pyproject.toml``. The constraints are relaxed
-with the purpose of allowing a3m to be used as a library.
+The requirements are listed in ``/pyproject.toml``. We use ``uv`` to manage the
+project environment, including the ``uv.lock`` lockfile.
 
-We use `uv` which pins the requirements in ``requirements.txt`` and
-``requirements-dev.txt`` for our Docker image. We provide a few helpers:
+Create and activate the virtual environment with::
 
-* ``make pip-compile`` generates the requirements with the latest versions of
-  dependencies that satisfy the constraints in ``pyproject.toml``, but does not
-  update versions if they are already satisfied.
-* ``make pip-upgrade`` regenerates the requirements, forcibly upgrading all
-  listed packages to their latest available versions within the constraints.
-* ``make pip-sync`` installs the requirements in your current environment.
+    $ uv sync --dev
+    $ source .venb/bin/activate
 
-Our routine to keep up with the dependencies::
+Update the lockfile allowing package upgrades::
 
-    make pip-upgrade
-    make pip-sync
-    git add requirements.txt requirements-dev.txt
-    git commit -m "Update dependencies"
+    $ uv lock --upgrade
 
 At this point you can also look up new versions beyond our constraints, e.g.::
 
-    $ pip list --outdated
-    Package Version Latest Type
-    ------- ------- ------ -----
-    Django  4.2.9   5.0.1  wheel
-    lxml    4.9.4   5.1.0  wheel
-    urllib3 2.0.7   2.1.0  wheel
+    $ uv run --with=pip pip list --outdated
 
-Update the constraints in ``pyproject.toml`` as needed, use ``pip-compile`` to
-generate the requirements and ``pip-sync`` to update your environment. As you're
-adopting new major versions of the dependencies, please make sure that you
-understand how that impacts our project.
+The `project lockfile`_ documentation page describes other operations such as
+upgrading locked package versions individually.
 
 pre-commit
 ^^^^^^^^^^
@@ -48,11 +33,11 @@ pre-commit
 pre-commit is a framework we use for managing and maintaining pre-commit hooks.
 The easiest way to discover and apply new updates is to run::
 
-    pre-commit autoupdate
+    $ pre-commit autoupdate
 
 Commit the changes and run pre-commit again with::
 
-    tox -e pre-commit
+    $ pre-commit run --all-files
 
 Python version
 ^^^^^^^^^^^^^^
@@ -64,17 +49,6 @@ is to use the latest version available. Currently:
 .. include:: ../.python-version
    :code:
 
-But we aim to support at least a couple of versions, e.g. 3.11 and 3.12 to
-provide greater flexibility since a3m is also distributed as a Python package
-serving both as an application and a library. We're using tox to test against
-multiple versions of Python. If you want to alter the list of versions we're
-testing and supporting, the following files must be considered:
-
-* ``pyproject.toml`` describes the minimum version supported
-  (``requires-python``), a list of all versions supported (``classifiers``) and
-  test environments (under ``[tool.tox]``)
-* ``.github/workflows/test.yml`` lists the testing matrix in CI.
-
 Releases
 --------
 
@@ -82,9 +56,8 @@ We aim to further enhance and automate our release process.
 
 Please adhere to the following instructions:
 
-1. Update the ``main`` branch with the latest version (``a3m.__version__``) and
-   the changelog (use ``scriv collect`` to populate ``CHANGELOG.rst``). Submit
-   these changes through a pull request and merge it once all checks have
+1. Update the changelog (use ``scriv collect`` to populate ``CHANGELOG.rst``).
+   Submit these changes through a pull request and merge it once all checks have
    passed.
 2. Confirm that the checks are also passing in ``main``.
 3. Create and push the git tag, e.g.::
@@ -96,6 +69,33 @@ Please adhere to the following instructions:
    new version of the package is available on `PyPI`_ and that the container
    image has been published to the `GitHub Container Registry`_.
 
+Import FPR dataset from Archivematica
+-------------------------------------
+
+a3m loads the FPR dataset from a JSON document
+(``a3m/fpr/migrations/initial-data.json``) generated from the upstream
+Archivematica project. This section describes how to generate it:
+
+In Archivematica, generate a dump with::
+
+    manage.py dumpdata --format=json fpr
+
+Remove unused models from the document::
+
+    jq --sort-keys --indent 4 '[.[] | select(.model == "fpr.format" or .model == "fpr.formatgroup" or .model == "fpr.formatversion" or .model == "fpr.fpcommand" or .model == "fpr.fprule" or .model == "fpr.fptool")]' fpr-dumpdata.json > output.json
+
+Replace the dataset::
+
+    mv output.json ../../a3m/fpr/migrations/initial-data.json
+
+From the root directory, run the registry sanity checks::
+
+    pytest tests/test_registry.py
+
+Based on the validation issues reported, fix as needed. Make sure that the
+``fiwalk`` command is not using a ficonfig file.
+
 
 .. _PyPI: https://pypi.org/project/a3m/
 .. _GitHub Container Registry: https://ghcr.io/artefactual-labs/a3m
+.. _project lockfile: https://docs.astral.sh/uv/concepts/projects/#project-lockfile

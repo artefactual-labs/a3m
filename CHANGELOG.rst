@@ -19,6 +19,17 @@ See the fragment files in the `changelog.d directory`_.
 
 .. scriv-insert-here
 
+.. _changelog-0.8.0:
+
+0.8.0 - 2024-09-25
+==================
+
+Changed
+-------
+
+- Use Python 3.12.6.
+- Use ``uv`` to manage the project environment.
+
 .. _changelog-0.7.14:
 
 0.7.14 - 2024-09-24

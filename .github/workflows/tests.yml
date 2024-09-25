@@ -6,93 +6,30 @@ on:
     - main
 jobs:
   tests:
-    name: "Test on ${{ matrix.os }}"
-    runs-on: "${{ matrix.os }}-latest"
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-        - ubuntu
+    name: "Test"
+    runs-on: "ubuntu-22.04"
     steps:
     - name: "Check out source code"
       uses: "actions/checkout@v4"
-    - name: "Install Python"
-      uses: "actions/setup-python@v4"
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v2
       with:
-        python-version: |
-          3.11
-          3.12
-    - name: "Restore cache"
-      id: "restore-cache"
-      uses: "actions/cache@v3"
+        enable-cache: true
+        version: latest
+    - name: Run tests
+      run: ./test.sh
+    - name: "Upload coverage report"
+      if: github.repository == 'artefactual-labs/a3m'
+      uses: "codecov/codecov-action@v4"
       with:
-        path: |
-          .tox/
-          .venv/
-        key: "cache-python-${{ steps.setup-python.outputs.python-version }}-os-${{ runner.os }}-hash-${{ hashFiles('pyproject.toml', 'requirements.txt', 'requirements-dev.txt') }}"
-    - name: "Install tox"
-      if: "steps.restore-cache.outputs.cache-hit == false"
-      run: |
-        python -m venv .venv
-        .venv/bin/python -m pip install -U setuptools
-        .venv/bin/python -m pip install tox
-    - name: "Run tox"
-      run: |
-        .venv/bin/python -m tox -e py
-    - name: "Upload coverage data"
-      uses: actions/upload-artifact@v3
+        files: ./coverage.xml
+        token: ${{ secrets.CODECOV_TOKEN }}
+    - name: Upload test results to Codecov
+      if: ${{ !cancelled() }}
+      uses: codecov/test-results-action@v1
       with:
-        name: covdata
-        path: .coverage.*
-  coverage:
-    name: Coverage
-    needs: tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Check out the repo"
-        uses: "actions/checkout@v4"
-      - name: "Set up Python"
-        uses: "actions/setup-python@v4"
-        with:
-          python-version-file: ".python-version"
-          cache: pip
-          cache-dependency-path: "requirements-dev.txt"
-      - name: "Install tox"
-        run: |
-          python -m pip install -U setuptools
-          python -m pip install tox
-      - name: "Download coverage data"
-        uses: actions/download-artifact@v3
-        with:
-          name: covdata
-      - name: "Combine and report"
-        run: |
-          python -m tox -e coverage
-          export TOTAL=$(python -c "import json;print(json.load(open('coverage.json'))['totals']['percent_covered_display'])")
-          echo "total=$TOTAL" >> $GITHUB_ENV
-          echo "### Total coverage: ${TOTAL}%" >> $GITHUB_STEP_SUMMARY
-      - name: "Codecov"
-        uses: codecov/codecov-action@v3
-        with:
-          files: coverage.xml
-  pre-commit:
-    name: "Run pre-commit"
-    runs-on: "ubuntu-latest"
-    steps:
-      - name: "Check out the repo"
-        uses: "actions/checkout@v4"
-      - name: "Set up Python"
-        uses: "actions/setup-python@v4"
-        with:
-          python-version-file: ".python-version"
-          cache: pip
-          cache-dependency-path: "requirements-dev.txt"
-      - name: "Install requirements"
-        run: |
-          python -m pip install -U setuptools
-          python -m pip install -r requirements-dev.txt
-      - name: "Run pre-commit"
-        run: tox -e pre-commit
+        files: ./junit.xml
+        token: ${{ secrets.CODECOV_TOKEN }}
   e2e:
     name: "Run E2E tests"
     runs-on: ubuntu-latest
@@ -121,5 +58,3 @@ jobs:
               -m a3m.cli.client \
                 --name=MARBLES \
                 https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/Images/pictures/MARBLES.TGA
-    # TODO: main branch? push image to a3m:main
-    # TODO: and tagged? push image to a3m:${tag} and a3m:latest
