@@ -99,7 +99,7 @@ buf:
 	docker run \
 		--volume "$(CURDIR)/proto:/workspace" \
 		--workdir /workspace \
-		bufbuild/buf:1.4.0 \
+		bufbuild/buf:1.42.0 \
 			$(ARG)
 
 .PHONY: help

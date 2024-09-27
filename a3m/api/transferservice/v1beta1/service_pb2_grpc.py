@@ -8,7 +8,7 @@ from a3m.api.transferservice.v1beta1 import (
 )
 
 
-class TransferServiceStub:
+class TransferServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -21,25 +21,29 @@ class TransferServiceStub:
             "/a3m.api.transferservice.v1beta1.TransferService/Submit",
             request_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.SubmitRequest.SerializeToString,
             response_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.SubmitResponse.FromString,
+            _registered_method=True,
         )
         self.Read = channel.unary_unary(
             "/a3m.api.transferservice.v1beta1.TransferService/Read",
             request_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ReadRequest.SerializeToString,
             response_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ReadResponse.FromString,
+            _registered_method=True,
         )
         self.ListTasks = channel.unary_unary(
             "/a3m.api.transferservice.v1beta1.TransferService/ListTasks",
             request_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksRequest.SerializeToString,
             response_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.ListTasksResponse.FromString,
+            _registered_method=True,
         )
         self.Empty = channel.unary_unary(
             "/a3m.api.transferservice.v1beta1.TransferService/Empty",
             request_serializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.EmptyRequest.SerializeToString,
             response_deserializer=a3m_dot_api_dot_transferservice_dot_v1beta1_dot_request__response__pb2.EmptyResponse.FromString,
+            _registered_method=True,
         )
 
 
-class TransferServiceServicer:
+class TransferServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Submit(self, request, context):
@@ -94,10 +98,13 @@ def add_TransferServiceServicer_to_server(servicer, server):
         "a3m.api.transferservice.v1beta1.TransferService", rpc_method_handlers
     )
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers(
+        "a3m.api.transferservice.v1beta1.TransferService", rpc_method_handlers
+    )
 
 
 # This class is part of an EXPERIMENTAL API.
-class TransferService:
+class TransferService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -127,6 +134,7 @@ class TransferService:
             wait_for_ready,
             timeout,
             metadata,
+            _registered_method=True,
         )
 
     @staticmethod
@@ -156,6 +164,7 @@ class TransferService:
             wait_for_ready,
             timeout,
             metadata,
+            _registered_method=True,
         )
 
     @staticmethod
@@ -185,6 +194,7 @@ class TransferService:
             wait_for_ready,
             timeout,
             metadata,
+            _registered_method=True,
         )
 
     @staticmethod
@@ -214,4 +224,5 @@ class TransferService:
             wait_for_ready,
             timeout,
             metadata,
+            _registered_method=True,
         )
