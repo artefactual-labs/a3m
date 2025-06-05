@@ -120,10 +120,10 @@ def main(job, file_path, file_uuid, sip_uuid):
 
         # Save outputs if they are the same
         for file_uuid, rule, stdout in state:
-            _insert_command_output(file_uuid, rule.uuid, stdout)
+            _insert_command_output(file_uuid, rule.id, stdout)
             job.write_output(
                 'Saved XML output for command "{}" ({})'.format(
-                    rule.command.description, rule.command.uuid
+                    rule.command.description, rule.command.id
                 )
             )
 
