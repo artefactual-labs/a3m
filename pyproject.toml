@@ -76,7 +76,7 @@ source = "vcs"
 
 [tool.uv]
 dev-dependencies = [
-  "pytest~=8.3.3",
+  "pytest~=9.0.3",
   "pytest-cov~=5.0.0",
   "pytest-django~=4.9.0",
   "pytest-env~=1.1.5",
