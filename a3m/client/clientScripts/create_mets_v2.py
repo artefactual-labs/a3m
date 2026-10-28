@@ -484,7 +484,9 @@ def create_premis_object_characteristics_extensions(f):
     objectCharacteristicsExtension = etree.Element(
         ns.premisBNS + "objectCharacteristicsExtension"
     )
-    parser = etree.XMLParser(remove_blank_text=True)
+    parser = etree.XMLParser(
+        remove_blank_text=True, resolve_entities="internal", no_network=True
+    )
     for document in f.command_outputs(("characterization", "default_characterization")):
         # This needs to be converted into an str because lxml doesn't accept
         # XML documents in unicode strings if the document contains an
