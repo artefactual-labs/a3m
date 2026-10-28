@@ -109,14 +109,14 @@ RUN --mount=type=cache,target=/home/a3m/.cache/uv,uid=${USER_ID},gid=${GROUP_ID}
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     --mount=type=bind,source=.python-version,target=.python-version \
-    uv sync --frozen --no-install-project --no-dev
+    uv sync --locked --no-install-project --no-dev
 
 # Add the rest of the project source code and install it.
 # Installing separately from its dependencies allows optimal layer caching.
 COPY --exclude=.git . /app
 RUN --mount=type=cache,target=/home/a3m/.cache/uv,uid=${USER_ID},gid=${GROUP_ID} \
 	--mount=type=bind,source=.git,target=.git \
-    uv sync --frozen --no-dev
+    uv sync --locked --no-dev
 
 # Place executables in the environment at the front of the path.
 ENV PATH="/app/.venv/bin:$PATH"

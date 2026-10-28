@@ -16,16 +16,16 @@ fi
 curdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 print_status "Running \`ruff check\`..."
-uv run --frozen -- ruff check
+uv run --locked -- ruff check
 
 print_status "Running \`ruff format --check\`..."
-uv run --frozen -- ruff format --check
+uv run --locked -- ruff format --check
 
 print_status "Running \`mypy\`..."
-uv run --frozen -- mypy
+uv run --locked -- mypy
 
 print_status "Running \`pytest\`..."
-uv run --frozen -- pytest  \
+uv run --locked -- pytest  \
     --junitxml=junit.xml \
     --override-ini=junit_family=legacy \
     --cov \
@@ -34,4 +34,4 @@ uv run --frozen -- pytest  \
     --cov-report html
 
 print_status "Running \`pre-commit\`..."
-uv run --frozen -- pre-commit run --all-files
+uv run --locked -- pre-commit run --all-files
