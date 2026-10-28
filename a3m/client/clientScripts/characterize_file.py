@@ -13,6 +13,7 @@ from a3m.dicts import replace_string_values
 from a3m.dicts import setup_dicts
 from a3m.executeOrRunSubProcess import executeOrRun
 from a3m.fpr.registry import FPR
+from a3m.fpr.registry import CommandScriptType
 from a3m.fpr.registry import Rule
 from a3m.fpr.registry import RulePurpose
 from a3m.main.models import FPCommandOutput
@@ -49,9 +50,9 @@ def main(job, file_path, file_uuid, sip_uuid):
         return 0
 
     for rule in rules:
-        if (
-            rule.command.script_type == "bashScript"
-            or rule.command.script_type == "command"
+        if rule.command.script_type in (
+            CommandScriptType.BASH_SCRIPT,
+            CommandScriptType.COMMAND,
         ):
             args = []
             command_to_execute = replace_string_values(
