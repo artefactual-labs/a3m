@@ -19,9 +19,10 @@ RUN set -ex \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
 	apt-transport-https \
+	ca-certificates \
 	curl \
 	git \
-	gpg-agent \
+	gnupg \
 	locales \
 	locales-all \
 	software-properties-common \
@@ -35,12 +36,13 @@ ENV LC_ALL=en_US.UTF-8
 
 # OS dependencies
 RUN set -ex \
-	&& curl -s https://packages.archivematica.org/GPG-KEY-archivematica | apt-key add - \
-	&& add-apt-repository --no-update --yes "deb [arch=amd64] http://packages.archivematica.org/1.15.x/ubuntu-externals jammy main" \
+	&& mkdir -p /etc/apt/keyrings \
+	&& curl --retry 3 -fsSL https://packages.archivematica.org/GPG-KEY-archivematica | gpg --dearmor -o /etc/apt/keyrings/archivematica.gpg \
+	&& echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/archivematica.gpg] https://packages.archivematica.org/1.15.x/ubuntu-externals jammy main" > /etc/apt/sources.list.d/archivematica.list \
 	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy multiverse" \
 	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy-security universe" \
 	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy-updates multiverse" \
-	&& curl -so /tmp/repo-mediaarea_1.0-25_all.deb -L https://mediaarea.net/repo/deb/repo-mediaarea_1.0-25_all.deb \
+	&& curl --retry 3 -fsSL -o /tmp/repo-mediaarea_1.0-25_all.deb https://mediaarea.net/repo/deb/repo-mediaarea_1.0-25_all.deb \
 	&& dpkg -i /tmp/repo-mediaarea_1.0-25_all.deb \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
