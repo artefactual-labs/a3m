@@ -1,15 +1,18 @@
 # syntax=docker/dockerfile:1.10.0-labs
 
-ARG SYSTEM_IMAGE=ubuntu:22.04
-ARG UV_VERSION=0.13.6
-ARG UV_DIGEST=sha256:af22a52f5eafef3d78e551599d405c02df61919d18028f0cea8eda93bc9986d0
+ARG SYSTEM_IMAGE=default-system
+ARG UV_IMAGE=default-uv
 ARG USER_ID=1000
 ARG GROUP_ID=1000
+
+# Keep the default image references literal for Dependabot. The image
+# arguments can still override the corresponding stages.
 
 #
 # Base
 #
 
+FROM ubuntu:22.04 AS default-system
 FROM ${SYSTEM_IMAGE} AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -75,7 +78,8 @@ RUN set -ex \
 
 # -----------------------------------------------------------------------------
 
-FROM ghcr.io/astral-sh/uv:${UV_VERSION}@${UV_DIGEST} AS uv
+FROM ghcr.io/astral-sh/uv:0.13.6@sha256:af22a52f5eafef3d78e551599d405c02df61919d18028f0cea8eda93bc9986d0 AS default-uv
+FROM ${UV_IMAGE} AS uv
 
 # -----------------------------------------------------------------------------
 
