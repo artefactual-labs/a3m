@@ -74,8 +74,8 @@ build-backend = "hatchling.build"
 [tool.hatch.version]
 source = "vcs"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
   "pytest~=9.0.3",
   "pytest-cov~=5.0.0",
   "pytest-django~=4.9.0",
