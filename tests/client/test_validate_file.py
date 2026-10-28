@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+
 import pytest
 
 from a3m.client.clientScripts.validate_file import main
@@ -79,3 +82,42 @@ def test_main(mocker, sip, file_obj):
         ).count()
         == 1
     )
+
+
+@pytest.mark.django_db
+def test_jhove_validation_records_tool_version(
+    monkeypatch, mocker, tmp_path, sip, file_obj
+):
+    file_obj.fileformatversion_set.all().delete()
+    file_obj.fileformatversion_set.create(
+        format_version_id="ffb55e9a-29f1-4276-a9a5-5ef813229b79",
+    )  # Generic JPEG
+
+    jhove = tmp_path / "jhove"
+    jhove.write_text(
+        "#!/bin/sh\n"
+        '[ "$1 $2 $3 $4" = "-h xml -m JPEG-hul" ] || exit 1\n'
+        "printf '%s\\n' "
+        '\'<jhove xmlns="http://schema.openpreservation.org/ois/xml/ns/jhove">'
+        "<repInfo><format>JPEG</format><status>Well-Formed and valid</status>"
+        "</repInfo></jhove>'\n"
+    )
+    jhove.chmod(0o755)
+    monkeypatch.setenv(
+        "PATH", f"{tmp_path}:{Path(sys.executable).parent}", prepend=None
+    )
+
+    result = main(
+        job=mocker.Mock(spec=Job),
+        file_path=file_obj.currentlocation,
+        file_uuid=file_obj.uuid,
+        sip_uuid=sip.uuid,
+        shared_path=sip.currentpath,
+        file_type="original",
+    )
+
+    assert result == 0
+    event = Event.objects.get(file_uuid=file_obj.uuid, event_type="validation")
+    assert event.event_detail == 'program="JHOVE"; version="1.34"'
+    assert event.event_outcome == "pass"
+    assert 'format="JPEG"' in event.event_outcome_detail

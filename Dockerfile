@@ -38,7 +38,7 @@ ENV LC_ALL=en_US.UTF-8
 RUN set -ex \
 	&& mkdir -p /etc/apt/keyrings \
 	&& curl --retry 3 -fsSL https://packages.archivematica.org/GPG-KEY-archivematica | gpg --dearmor -o /etc/apt/keyrings/archivematica.gpg \
-	&& echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/archivematica.gpg] https://packages.archivematica.org/1.15.x/ubuntu-externals jammy main" > /etc/apt/sources.list.d/archivematica.list \
+	&& echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/archivematica.gpg] https://packages.archivematica.org/1.19.x/ubuntu-externals jammy main" > /etc/apt/sources.list.d/archivematica.list \
 	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy multiverse" \
 	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy-security universe" \
 	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy-updates multiverse" \
@@ -54,7 +54,7 @@ RUN set -ex \
 	libavcodec-extra \
 	imagemagick \
 	inkscape \
-	jhove \
+	jhove=1.34.0-1~22.04 \
 	libimage-exiftool-perl \
 	libevent-dev \
 	libjansson4 \

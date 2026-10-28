@@ -76,9 +76,34 @@ a3m loads the FPR dataset from a JSON document
 (``a3m/fpr/migrations/initial-data.json``) generated from the upstream
 Archivematica project. This section describes how to generate it:
 
+Use a disposable Archivematica database with the latest FPR migrations applied.
+Adapt its registry for a3m before exporting it. The JHOVE commands need the
+namespace value directly because a3m does not include Archivematica's Python
+package. Two rules refer to a disabled format, and the old fiwalk command has
+been replaced::
+
+    manage.py shell
+
+    from django.db.models import F, Value
+    from django.db.models.functions import Replace
+    from archivematica.dashboard.fpr.models import FPCommand, FPRule
+
+    FPRule.objects.filter(uuid__in=[
+        "20cad741-3cf1-4b6a-9e71-d1e8af13ba3f",
+        "9e502f30-ba01-4981-8377-dd01ecf2dc5c",
+    ]).update(enabled=False)
+    FPCommand.objects.filter(
+        uuid="928ce834-8830-44cc-a282-4ba1271f7842"
+    ).update(enabled=False)
+    old = "from archivematica.archivematicaCommon.namespaces import jhoveBNS"
+    new = 'jhoveBNS = "{http://schema.openpreservation.org/ois/xml/ns/jhove}"'
+    FPCommand.objects.filter(command__contains=old).update(
+        command=Replace(F("command"), Value(old), Value(new))
+    )
+
 In Archivematica, generate a dump with::
 
-    manage.py dumpdata --format=json fpr
+    manage.py dumpdata --format=json fpr > fpr-dumpdata.json
 
 Remove unused models from the document::
 
