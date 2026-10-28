@@ -7,7 +7,7 @@ on:
 jobs:
   tests:
     name: "Test"
-    runs-on: "ubuntu-22.04"
+    runs-on: "ubuntu-26.04"
     steps:
     - name: "Check out source code"
       uses: "actions/checkout@v4"
