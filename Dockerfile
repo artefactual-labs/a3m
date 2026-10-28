@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1.10.0-labs
 
 ARG SYSTEM_IMAGE=ubuntu:22.04
-ARG UV_VERSION=0.4.16
+ARG UV_VERSION=0.13.6
+ARG UV_DIGEST=sha256:af22a52f5eafef3d78e551599d405c02df61919d18028f0cea8eda93bc9986d0
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 
@@ -72,7 +73,7 @@ RUN set -ex \
 
 # -----------------------------------------------------------------------------
 
-FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
+FROM ghcr.io/astral-sh/uv:${UV_VERSION}@${UV_DIGEST} AS uv
 
 # -----------------------------------------------------------------------------
 
@@ -107,6 +108,7 @@ WORKDIR /app
 RUN --mount=type=cache,target=/home/a3m/.cache/uv,uid=${USER_ID},gid=${GROUP_ID} \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    --mount=type=bind,source=.python-version,target=.python-version \
     uv sync --frozen --no-install-project --no-dev
 
 # Add the rest of the project source code and install it.
