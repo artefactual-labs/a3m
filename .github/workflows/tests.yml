@@ -16,6 +16,8 @@ jobs:
       with:
         enable-cache: true
         version: latest
+    - name: Install normalization test tools
+      run: sudo apt-get update && sudo apt-get install -y ffmpeg
     - name: Run tests
       run: ./test.sh
     - name: "Upload coverage report"

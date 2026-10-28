@@ -76388,7 +76388,7 @@
     },
     {
         "fields": {
-            "command": "ffmpeg -vcodec libopenjpeg -i \"%fileFullName%\" -compression_algo raw -pix_fmt rgb24 \"%outputDirectory%%prefix%%fileName%%postfix%.tif\"",
+            "command": "ffmpeg -i \"%fileFullName%\" -compression_algo raw -pix_fmt rgb24 \"%outputDirectory%%prefix%%fileName%%postfix%.tif\"",
             "command_usage": "normalization",
             "description": "Transcoding to tif with ffmpeg",
             "enabled": true,

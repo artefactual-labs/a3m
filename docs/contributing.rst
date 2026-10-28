@@ -80,7 +80,8 @@ Use a disposable Archivematica database with the latest FPR migrations applied.
 Adapt its registry for a3m before exporting it. The JHOVE commands need the
 namespace value directly because a3m does not include Archivematica's Python
 package. Two rules refer to a disabled format, and the old fiwalk command has
-been replaced::
+been replaced. JPEG 2000 normalization must let FFmpeg select its decoder.
+Recent FFmpeg releases no longer provide the ``libopenjpeg`` decoder::
 
     manage.py shell
 
@@ -99,6 +100,11 @@ been replaced::
     new = 'jhoveBNS = "{http://schema.openpreservation.org/ois/xml/ns/jhove}"'
     FPCommand.objects.filter(command__contains=old).update(
         command=Replace(F("command"), Value(old), Value(new))
+    )
+    FPCommand.objects.filter(
+        uuid="66ba8388-2cd2-44a7-9d30-5d194d47c75b"
+    ).update(
+        command=Replace(F("command"), Value(" -vcodec libopenjpeg"), Value(""))
     )
 
 In Archivematica, generate a dump with::
