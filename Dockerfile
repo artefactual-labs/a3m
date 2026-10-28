@@ -12,7 +12,7 @@ ARG GROUP_ID=1000
 # Base
 #
 
-FROM ubuntu:22.04 AS default-system
+FROM ubuntu:26.04 AS default-system
 FROM ${SYSTEM_IMAGE} AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -21,14 +21,12 @@ ENV PYTHONUNBUFFERED=1
 RUN set -ex \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
-	apt-transport-https \
 	ca-certificates \
 	curl \
 	git \
 	gnupg \
 	locales \
 	locales-all \
-	software-properties-common \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Set the locale
@@ -40,13 +38,12 @@ ENV LC_ALL=en_US.UTF-8
 # OS dependencies
 RUN set -ex \
 	&& mkdir -p /etc/apt/keyrings \
+	&& UBUNTU_CODENAME=$(. /etc/os-release && printf '%s' "$VERSION_CODENAME") \
 	&& curl --retry 3 -fsSL https://packages.archivematica.org/GPG-KEY-archivematica | gpg --dearmor -o /etc/apt/keyrings/archivematica.gpg \
-	&& echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/archivematica.gpg] https://packages.archivematica.org/1.19.x/ubuntu-externals jammy main" > /etc/apt/sources.list.d/archivematica.list \
-	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy multiverse" \
-	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy-security universe" \
-	&& add-apt-repository --no-update --yes "deb http://archive.ubuntu.com/ubuntu/ jammy-updates multiverse" \
-	&& curl --retry 3 -fsSL -o /tmp/repo-mediaarea_1.0-25_all.deb https://mediaarea.net/repo/deb/repo-mediaarea_1.0-25_all.deb \
-	&& dpkg -i /tmp/repo-mediaarea_1.0-25_all.deb \
+	&& echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/archivematica.gpg] https://packages.archivematica.org/1.19.x/ubuntu-externals ${UBUNTU_CODENAME} main" > /etc/apt/sources.list.d/archivematica.list \
+	&& curl --retry 3 -fsSL -o /tmp/repo-mediaarea.deb https://mediaarea.net/repo/deb/repo-mediaarea_1.0-27_all.deb \
+	&& dpkg -i /tmp/repo-mediaarea.deb \
+	&& rm /tmp/repo-mediaarea.deb \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
 	atool \
@@ -90,6 +87,10 @@ ARG GROUP_ID
 
 # Create a3m user.
 RUN set -ex \
+	&& existing_group=$(getent group "${GROUP_ID}" | cut -d: -f1 || true) \
+	&& if [ -n "${existing_group}" ]; then groupdel --force "${existing_group}"; fi \
+	&& existing_user=$(getent passwd "${USER_ID}" | cut -d: -f1 || true) \
+	&& if [ -n "${existing_user}" ]; then userdel --remove "${existing_user}"; fi \
 	&& groupadd --gid ${GROUP_ID} --system a3m \
 	&& useradd --uid ${USER_ID} --gid ${GROUP_ID} --home-dir /home/a3m --system a3m \
 	&& mkdir -p /home/a3m/.local/share/a3m/share \
