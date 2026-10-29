@@ -12,6 +12,10 @@ def call(jobs):
             source_dir = os.path.join(
                 sip_dir, sip_name, "data", "objects", "submissionDocumentation"
             )
+            if not os.path.lexists(source_dir):
+                job.print_output("No submission documentation to copy.")
+                job.set_status(0)
+                continue
             submission_docs_dir = os.path.join(sip_dir, "submissionDocumentation")
 
             os.makedirs(submission_docs_dir, mode=0o770, exist_ok=True)
