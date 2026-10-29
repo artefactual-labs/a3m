@@ -69,6 +69,41 @@ Please adhere to the following instructions:
    new version of the package is available on `PyPI`_ and that the container
    image has been published to the `GitHub Container Registry`_.
 
+GitHub Actions dependencies
+---------------------------
+
+Workflow dependencies use version tags in YAML and verified commit
+pins in ``.github/workflows/actions.lock``, including transitive actions.
+CI checks the lockfile with ``gh-actions-lock`` and lints workflows and
+Dependabot configuration with ``jactionlint``. These tools do not require bine.
+
+Install the pinned GitHub CLI extension and authenticate with GitHub::
+
+    gh auth login
+    gh extension install github/gh-actions-lock --pin v0.2.0
+
+After changing an action version, regenerate the lockfile and verify it::
+
+    make lock-actions
+    make check-actions
+    make lint-actions
+
+The lint target runs pinned ``jactionlint`` through ``uvx``. The verification
+target checks dependencies against GitHub without changing files. For an offline
+coverage-only check, use ``gh actions-lock --verify-local``; it does not verify
+upstream provenance. Commit the generated lockfile with workflow changes,
+including dependency updates proposed by Dependabot. Review lockfile changes
+instead of accepting moved upstream references automatically.
+
+The pedantic lint profile delegates action pinning to the lockfile verifier.
+Exceptions for existing repository secrets are documented at their use sites.
+PyPI builds run without publishing credentials; a separate job downloads the
+distribution artifacts and publishes them through the existing release
+environment. It generates PyPI attestations with ``pypi-attestations`` and
+uploads through ``uv publish --trusted-publishing always``. The PyPA action
+generates a nested action at runtime, which the lockfile tool cannot resolve.
+
+
 Import FPR dataset from Archivematica
 -------------------------------------
 

@@ -3,15 +3,33 @@ on:
   push:
     branches:
     - main
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build main image
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    runs-on: ubuntu-26.04
     steps:
     - name: Check out source code
-      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-    - uses: whoan/docker-build-with-cache-action@v8
+      uses: actions/checkout@v7.0.1
+      with:
+        persist-credentials: false
+    - uses: whoan/docker-build-with-cache-action@v8.1.1
       with:
         username: sevein
+        # The main image uses the existing registry token, outside release deployments.
+        # jactionlint ignore=secrets-outside-env
         password: "${{ secrets.CR_PAT }}"
         image_name: artefactual-labs/a3m
         image_tag: main
