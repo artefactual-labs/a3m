@@ -145,7 +145,7 @@ exclude = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"{docs,tests}/**/*" = ["S"]
+"{acceptance,docs,tests}/**/*" = ["S"]
 
 [tool.ruff.lint.isort]
 force-single-line = true

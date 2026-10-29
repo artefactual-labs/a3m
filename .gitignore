@@ -30,6 +30,7 @@ coverage.*
 .cache
 .pytest_cache
 junit.xml
+/acceptance/reports/
 
 # mypy cache
 .mypy_cache/
