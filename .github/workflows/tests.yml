@@ -26,15 +26,20 @@ jobs:
       run: ./test.sh
     - name: "Upload coverage report"
       if: github.repository == 'artefactual-labs/a3m'
-      uses: "codecov/codecov-action@v4"
+      uses: "codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5" # v7.1.1
       with:
         files: ./coverage.xml
+        disable_search: true
+        plugins: noop
         token: ${{ secrets.CODECOV_TOKEN }}
     - name: Upload test results to Codecov
-      if: ${{ !cancelled() }}
-      uses: codecov/test-results-action@v1
+      if: ${{ !cancelled() && github.repository == 'artefactual-labs/a3m' }}
+      uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
       with:
         files: ./junit.xml
+        report_type: test_results
+        disable_search: true
+        plugins: noop
         token: ${{ secrets.CODECOV_TOKEN }}
   e2e:
     name: "Run E2E tests"
