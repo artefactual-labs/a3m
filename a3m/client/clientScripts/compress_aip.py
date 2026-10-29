@@ -94,7 +94,9 @@ def compress_aip(
         tool_info_command = (
             r'echo program="7z"\; '
             r'algorithm="{}"\; '
-            'version="`7z | grep Version`"'.format(compression_algorithm)
+            "version=\"`7z | awk 'NR==3 && /^p7zip Version/ {{print; exit}} NR==2 {{line2=$0}} NR==3 {{print line2 $0}}'`\"".format(
+                compression_algorithm
+            )
         )
     elif program == "pbzip2":
         compressed_location = uncompressed_location + ".tar.bz2"
