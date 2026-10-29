@@ -71,6 +71,8 @@ jobs:
       run: uv publish --trusted-publishing always
   docker:
     name: Publish container image
+    outputs:
+      digest: ${{ steps.image.outputs.digest }}
     timeout-minutes: 30
     permissions:
       contents: read
@@ -103,9 +105,27 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build and push Docker image
+      id: image
       uses: docker/build-push-action@v7.4.0
       with:
+        context: .
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: BUILDKIT_CONTEXT_KEEP_GIT_DIR=true
+  sbom:
+    name: Inventory release dependencies
+    needs: docker
+    permissions:
+      contents: read
+    uses: $/.github/workflows/sbom.yml
+    with:
+      source-ref: ${{ github.sha }}
+      project-version: ${{ github.ref_name }}
+      image: ghcr.io/artefactual-labs/a3m@${{ needs.docker.outputs.digest }}
+    secrets:
+      # Shared organization/repository credentials, as in the other projects.
+      # jactionlint ignore=secrets-outside-env
+      DEPENDENCY_TRACK_URL: ${{ secrets.DEPENDENCY_TRACK_URL }}
+      # jactionlint ignore=secrets-outside-env
+      DEPENDENCY_TRACK_API_KEY: ${{ secrets.DEPENDENCY_TRACK_API_KEY }}

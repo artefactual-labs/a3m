@@ -1,0 +1,165 @@
+name: SBOM (Dependency-Track)
+
+on:
+  workflow_call:
+    inputs:
+      source-ref:
+        type: string
+        required: true
+      project-version:
+        type: string
+        required: true
+      image:
+        type: string
+        required: true
+    secrets:
+      DEPENDENCY_TRACK_URL:
+        required: true
+      DEPENDENCY_TRACK_API_KEY:
+        required: true
+  workflow_dispatch:
+    inputs:
+      source-ref:
+        description: Source commit or tag corresponding to the image
+        type: string
+        required: true
+      project-version:
+        description: Dependency-Track version (main or a release tag)
+        type: string
+        required: true
+      image:
+        description: Published ghcr.io/artefactual-labs/a3m@sha256 digest
+        type: string
+        required: true
+
+permissions: {}
+
+concurrency:
+  group: sbom-${{ inputs.project-version }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  TRIVY_IMAGE: aquasec/trivy:0.76.1@sha256:790fd66d1697395d8693d1acaa1ea702406a20f109b6fc7bac8db623eca6c06c
+
+jobs:
+  generate:
+    name: Generate ${{ matrix.inventory }} SBOM
+    runs-on: ubuntu-26.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        inventory: [source, container]
+    steps:
+      - name: Check out inventoried source
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.source-ref }}
+          persist-credentials: false
+      - name: Generate CycloneDX inventory
+        env:
+          INVENTORY: ${{ matrix.inventory }}
+          IMAGE: ${{ inputs.image }}
+          PROJECT_VERSION: ${{ inputs.project-version }}
+        run: |
+          if [[ ! "$IMAGE" =~ ^ghcr\.io/artefactual-labs/a3m@sha256:[a-f0-9]{64}$ ]]; then
+            echo "An immutable a3m image digest is required."
+            exit 1
+          fi
+          if [ "$INVENTORY" = source ]; then
+            docker run --rm --volume "$PWD:/src:ro" "$TRIVY_IMAGE" fs \
+              --format cyclonedx --include-dev-deps --no-progress \
+              --skip-dirs .git,.venv,.dagger/sdk,tmp.ignored,acceptance/.venv,acceptance/reports \
+              /src > sbom.cdx.json
+          else
+            docker run --rm "$TRIVY_IMAGE" image \
+              --image-src remote --platform linux/amd64 \
+              --detection-priority comprehensive \
+              --format cyclonedx --no-progress "$IMAGE" > sbom.cdx.json
+          fi
+          jq -e '.bomFormat == "CycloneDX" and (.components | length > 0)' sbom.cdx.json
+          if [ "$INVENTORY" = source ]; then
+            for lockfile in uv.lock acceptance/uv.lock .dagger/uv.lock; do
+              jq -e --arg name "$lockfile" \
+                'any(.components[]; .name == $name)' sbom.cdx.json
+            done
+          else
+            # JHOVE JARs must be inventoried, not just their Debian package.
+            for ecosystem in deb pypi maven; do
+              jq -e --arg prefix "pkg:${ecosystem}/" \
+                'any(.components[]; (.purl // "") | startswith($prefix))' sbom.cdx.json
+            done
+          fi
+          jq --arg commit "$(git rev-parse HEAD)" --arg image "$IMAGE" \
+            --arg version "$PROJECT_VERSION" --arg inventory "$INVENTORY" \
+            '.metadata.properties += [
+              {name: "a3m:source:commit", value: $commit},
+              {name: "a3m:image:reference", value: $image},
+              {name: "a3m:project:version", value: $version},
+              {name: "a3m:inventory", value: $inventory}
+            ]' sbom.cdx.json > enriched.cdx.json
+          mv enriched.cdx.json sbom.cdx.json
+      - name: Store SBOM artifact
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: sbom-${{ matrix.inventory }}
+          path: sbom.cdx.json
+          if-no-files-found: error
+          retention-days: 90
+  upload:
+    name: Upload ${{ matrix.inventory }} SBOM
+    needs: generate
+    runs-on: ubuntu-26.04
+    timeout-minutes: 10
+    permissions: {}
+    strategy:
+      fail-fast: false
+      matrix:
+        inventory: [source, container]
+    steps:
+      - name: Download SBOM artifact
+        uses: actions/download-artifact@v8.0.2
+        with:
+          name: sbom-${{ matrix.inventory }}
+      - name: Upload and wait for ingestion
+        env:
+          # Only trusted main/release workflows call this job; no PR uploads.
+          # jactionlint ignore=secrets-outside-env
+          DEPENDENCY_TRACK_URL: ${{ secrets.DEPENDENCY_TRACK_URL }}
+          # jactionlint ignore=secrets-outside-env
+          DEPENDENCY_TRACK_API_KEY: ${{ secrets.DEPENDENCY_TRACK_API_KEY }}
+          PROJECT_NAME: ${{ github.repository }}-${{ matrix.inventory }}
+          PROJECT_VERSION: ${{ inputs.project-version }}
+        run: |
+          : "${DEPENDENCY_TRACK_URL:?Configure the Dependency-Track URL secret}"
+          : "${DEPENDENCY_TRACK_API_KEY:?Configure the Dependency-Track API key secret}"
+          response=$(curl --fail-with-body --silent --show-error \
+            --connect-timeout 10 --max-time 120 \
+            -H "X-Api-Key: ${DEPENDENCY_TRACK_API_KEY}" \
+            -F autoCreate=true \
+            --form-string "projectName=${PROJECT_NAME}" \
+            --form-string "projectVersion=${PROJECT_VERSION}" \
+            -F bom=@sbom.cdx.json \
+            "${DEPENDENCY_TRACK_URL%/}/api/v1/bom")
+          token=$(jq -er '.token | select(type == "string" and length > 0)' <<< "$response")
+          for attempt in {1..30}; do
+            echo "Waiting for BOM ingestion (${attempt}/30)."
+            status=$(curl --fail-with-body --silent --show-error \
+              --connect-timeout 10 --max-time 15 \
+              -H "X-Api-Key: ${DEPENDENCY_TRACK_API_KEY}" \
+              "${DEPENDENCY_TRACK_URL%/}/api/v1/bom/token/${token}")
+            if jq -e '.processing == false' <<< "$status" >/dev/null; then
+              echo "Dependency-Track processed ${PROJECT_NAME} ${PROJECT_VERSION}."
+              exit 0
+            fi
+            jq -e '.processing == true' <<< "$status" >/dev/null
+            sleep 5
+          done
+          echo "Timed out waiting for Dependency-Track BOM ingestion."
+          exit 1
