@@ -1,5 +1,15 @@
 .DEFAULT_GOAL := help
 
+.PHONY: lint-actions check-actions lock-actions
+lint-actions:  ## Lint workflows, Dependabot configuration, and the action lockfile.
+	uvx jactionlint==2.2.0 --strict-exit
+
+check-actions:  ## Verify locked actions against GitHub without changing files.
+	gh actions-lock --verify
+
+lock-actions:  ## Regenerate the lockfile after changing workflow dependencies.
+	gh actions-lock
+
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 export BUILDKIT_PROGRESS=plain
