@@ -77,19 +77,27 @@ jobs:
       uses: docker/build-push-action@v7.4.0
       with:
         context: .
-        tags: a3m:latest
+        tags: a3m:acceptance
         push: false
         load: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-    - name: Run test
-      run: |
-        docker image ls
-        docker run \
-          --rm \
-          --entrypoint=python \
-          --env=A3M_DEBUG=yes \
-            a3m:latest \
-              -m a3m.cli.client \
-                --name=MARBLES \
-                https://github.com/artefactual/archivematica-sampledata/raw/master/SampleTransfers/Images/pictures/MARBLES.TGA
+    - name: Export image for Dagger
+      run: docker save --output /tmp/a3m-acceptance.tar a3m:acceptance
+    - name: Run acceptance scenarios
+      uses: dagger/dagger-for-github@v8.4.1
+      with:
+        version: v0.21.11
+        call: >-
+          acceptance --image=/tmp/a3m-acceptance.tar
+          export --path=acceptance/reports
+    - name: Check acceptance result
+      run: test "$(cat acceptance/reports/exit-code.txt)" = "0"
+    - name: Upload acceptance reports
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@v7.0.2
+      with:
+        name: acceptance-reports
+        path: acceptance/reports
+        if-no-files-found: warn
+        retention-days: 7

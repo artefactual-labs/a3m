@@ -2,6 +2,65 @@
 Development
 ===========
 
+Acceptance tests
+----------------
+
+The ``Run E2E tests`` CI job builds the production Dockerfile with Docker
+Buildx, then imports the image into a Python `Dagger`_ module. Three
+``pytest-bdd`` scenarios exercise the installed ``a3m`` command: a directory
+containing a JPEG 2000 image with spaces in its filename, a missing source,
+and an ingest with S3 storage enabled. Successful ingest must produce a
+valid BagIt AIP with the unchanged original, a TIFF preservation copy, and
+PREMIS fixity and normalization relationships in METS.
+
+The S3 scenario uses an ephemeral `Argmin`_ service with test credentials and
+a fresh bucket. It checks that the uploaded object is keyed by the package
+UUID, downloads it, compares its bytes with the local AIP, and repeats the
+preservation checks on the downloaded archive. Dagger builds Argmin from the
+pinned revision in ``.dagger/src/ci/main.py`` using its Cargo lockfile and
+cache mounts. Service data is discarded after the run. No cloud account is
+required.
+
+Install Dagger **0.21.11** and start a Docker-compatible container engine, then
+run from the repository root::
+
+    make acceptance
+
+This builds the image, runs the scenarios, and exports JUnit results and CLI
+logs to ``acceptance/reports/``, including after test failures. CI uploads
+the same files as the ``acceptance-reports`` artifact.
+
+The test tools have their own locked environment in ``acceptance/``. Dagger
+installs it inside the application container without changing the application's
+Python environment. No host Python environment or running a3m service is needed.
+The first build needs network access to fetch images and dependencies; the test
+input itself is generated locally with FFmpeg.
+
+To run against an existing image and export reports separately::
+
+    docker save --output /tmp/a3m-acceptance.tar a3m:acceptance
+    dagger call acceptance --image=/tmp/a3m-acceptance.tar \
+        export --path=acceptance/reports
+    test "$(cat acceptance/reports/exit-code.txt)" = "0"
+
+The Dagger function exports reports even when pytest fails. The saved exit code
+must be checked to determine success; ``make acceptance`` and CI do this
+automatically. Status, JUnit results, and logs always come from the same run.
+Reports and local virtual environments are excluded from the test inputs.
+Docker handles the build because Dagger 0.21.11's Dockerfile converter does not
+support all instructions in the production Dockerfile. CI retains its Buildx
+layer cache and does not require Dagger Cloud credentials.
+
+The production Dockerfile targets AMD64 package repositories. An ARM development
+environment needs an equivalent local Dockerfile supplied explicitly::
+
+    make acceptance ACCEPTANCE_DOCKERFILE=/path/to/Dockerfile.arm64
+
+CI always builds the repository's production Dockerfile on AMD64.
+
+.. _Dagger: https://docs.dagger.io/
+.. _Argmin: https://github.com/justincormack/argmin
+
 Python SDK
 ----------
 
