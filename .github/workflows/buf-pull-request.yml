@@ -4,11 +4,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: bufbuild/buf-setup-action@v1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-    - uses: bufbuild/buf-lint-action@v1
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - uses: bufbuild/buf-action@85aebf73123b5c15fd5528aaecbf9129cddf7fa7 # v1.6.0
       with:
         input: proto
-    # TODO: use buf-breaking-action when ready
+        lint: true
+        format: false
+        breaking: false
+        pr_comment: false
+        push: false
