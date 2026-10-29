@@ -12,7 +12,7 @@ repos:
         tests/server/fixtures/workflow-integration-test.json
       )
 - repo: https://github.com/PyCQA/doc8
-  rev: v1.1.2
+  rev: v2.0.0
   hooks:
   - id: doc8
     files: ^docs/.*\.rst$
