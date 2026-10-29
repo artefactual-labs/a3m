@@ -1,5 +1,6 @@
 import logging
 import sys
+from pathlib import Path
 
 import boto3
 from botocore.client import Config
@@ -58,5 +59,5 @@ def call(jobs):
     with transaction.atomic():
         with job.JobContext():
             sip_id = job.args[1]
-            aip_path = job.args[2]
+            aip_path = Path(job.args[2])
             job.set_status(_store_aip(job, sip_id, aip_path))

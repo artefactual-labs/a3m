@@ -233,7 +233,7 @@
     "14d86bf1-f7a9-4d3e-9eda-f8b1f5583ea7": {
       "config": {
         "@manager": "linkTaskManagerDirectories",
-        "arguments": "\"%SIPUUID%\" \"%SIPDirectory%%AIPFilename%\"",
+        "arguments": "\"%SIPUUID%\" \"%sharedPath%completed/%AIPFilename%\"",
         "execute": "a3m_store_aip"
       },
       "description": {
