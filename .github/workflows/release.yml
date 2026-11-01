@@ -100,12 +100,12 @@ jobs:
       uses: docker/login-action@v4.7.0
       with:
         registry: ghcr.io
-        username: ${{ github.repository_owner }}
+        username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build and push Docker image
       uses: docker/build-push-action@v7.4.0
       with:
+        context: .
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        build-args: BUILDKIT_CONTEXT_KEEP_GIT_DIR=true
