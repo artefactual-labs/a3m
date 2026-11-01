@@ -22,7 +22,7 @@ from django.conf import settings as django_settings
 
 from a3m.main import models
 
-config = {}
+config: dict[str, str] = {}
 
 
 def setup_dicts():
