@@ -47,4 +47,4 @@ htmlhelp_basename = "a3mdoc"
 
 suppress_warnings = ["image.nonlocal_uri"]
 
-mermaid_version = "8.8.2"
+mermaid_version = "11.12.0"

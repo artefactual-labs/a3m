@@ -161,12 +161,12 @@ def verify_event_details(event):
     for agent in agents:
         # Assert True, then remove from the list to simulate set-like
         # functionality.
-        assert (
-            agent.identifiervalue in AGENT_IDENTIFIER_VALUES
-        ), "Agent identifier value not written"
-        assert (
-            agent.identifiertype in AGENT_IDENTIFIER_TYPES
-        ), "Agent identifier type not written"
+        assert agent.identifiervalue in AGENT_IDENTIFIER_VALUES, (
+            "Agent identifier value not written"
+        )
+        assert agent.identifiertype in AGENT_IDENTIFIER_TYPES, (
+            "Agent identifier type not written"
+        )
         assert agent.name in AGENT_NAMES, "Agent name not written"
         assert agent.agenttype in AGENT_TYPES, "Agent type not written"
         agents.remove(agent)
@@ -315,6 +315,66 @@ def test_change_name(basename, expected_name):
 def test_change_name_raises_valueerror_on_empty_string():
     with pytest.raises(ValueError):
         change_names.change_name("")
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "original_name, normalized_name",
+    [("℃.txt", "degC.txt"), ("♔.txt", "white_king.txt"), ("Ŋ.txt", "NG.txt")],
+)
+@pytest.mark.parametrize("collision", [False, True])
+def test_changed_transliterations_preserve_files_and_rename_history(
+    tmp_path, transfer, original_name, normalized_name, collision
+):
+    objects = tmp_path / "objects"
+    objects.mkdir()
+    original = objects / original_name
+    content = b"The original preservation object"
+    original.write_bytes(content)
+    original_location = f"%transferDirectory%objects/{original_name}"
+    file_obj = File.objects.create(
+        uuid=uuid.uuid4(),
+        transfer=transfer,
+        originallocation=original_location,
+        currentlocation=original_location,
+    )
+    existing = objects / normalized_name
+    if collision:
+        existing.write_bytes(b"An existing object")
+        stem, extension = os.path.splitext(normalized_name)
+        normalized_name = f"{stem}_1{extension}"
+    job = Job("change_object_names", str(uuid.uuid4()), [])
+    changer = change_object_names.NameChanger(
+        job,
+        str(objects),
+        transfer.uuid,
+        "2017-01-04 19:35:22",
+        "%transferDirectory%",
+        "transfer_id",
+        os.path.join(str(tmp_path), ""),
+    )
+
+    changer.change_objects()
+
+    assert not original.exists()
+    assert (objects / normalized_name).read_bytes() == content
+    if collision:
+        assert existing.read_bytes() == b"An existing object"
+    file_obj.refresh_from_db()
+    assert file_obj.originallocation == original_location
+    assert file_obj.currentlocation == f"%transferDirectory%objects/{normalized_name}"
+    event = Event.objects.get(file_uuid=file_obj, event_type="filename change")
+    assert event.event_outcome_detail == (
+        f'Original name="{original_location}"; new name="{file_obj.currentlocation}"'
+    )
+
+    changer.change_objects()
+
+    assert (
+        Event.objects.filter(file_uuid=file_obj, event_type="filename change").count()
+        == 1
+    )
+    assert (objects / normalized_name).read_bytes() == content
 
 
 @pytest.mark.django_db
