@@ -45,25 +45,25 @@ def test_registry_integrity(registry):
     for rule in backend.rules.values():
         is_replaced = rule.id in backend.replaced_rules
         is_enabled = rule.enabled
-        assert not (
-            is_enabled and is_replaced
-        ), f"Rule {rule.id} is enabled but has been replaced by Rule {backend.replaced_rules[rule.id]}."
+        assert not (is_enabled and is_replaced), (
+            f"Rule {rule.id} is enabled but has been replaced by Rule {backend.replaced_rules[rule.id]}."
+        )
 
     # Verify that all replaced versions are marked as disabled.
     for version in backend.versions.values():
         is_replaced = version.id in backend.replaced_versions
         is_enabled = version.enabled
-        assert not (
-            is_enabled and is_replaced
-        ), f"FormatVersion {version.id} is enabled but has been replaced by FormatVersion {backend.replaced_versions[version.id]}."
+        assert not (is_enabled and is_replaced), (
+            f"FormatVersion {version.id} is enabled but has been replaced by FormatVersion {backend.replaced_versions[version.id]}."
+        )
 
     # Verify that all replaced commands are marked as disabled.
     for command in backend.commands.values():
         is_replaced = command.id in backend.replaced_versions
         is_enabled = command.enabled
-        assert not (
-            is_enabled and is_replaced
-        ), f"Command {command.id} is enabled but has been replaced by Command {backend.replaced_versions[command.id]}."
+        assert not (is_enabled and is_replaced), (
+            f"Command {command.id} is enabled but has been replaced by Command {backend.replaced_versions[command.id]}."
+        )
 
     # Verify that rules in service depend on commands and versions in service.
     for rule in backend.rules.values():
@@ -73,7 +73,11 @@ def test_registry_integrity(registry):
             assert (
                 rule.command.enabled
                 and rule.command.id not in backend.replaced_commands
-            ), f"Rule in service {rule.id} is using a Command not in service: {rule.command} ({rule.command.tool.description})."
+            ), (
+                f"Rule in service {rule.id} is using a Command not in service: {rule.command} ({rule.command.tool.description})."
+            )
             assert (
                 rule.format.enabled and rule.format.id not in backend.replaced_versions
-            ), f"Rule in service {rule.id} is using a FormatVersion not in service: {rule.format} ({rule.format.description})."
+            ), (
+                f"Rule in service {rule.id} is using a FormatVersion not in service: {rule.format} ({rule.format.description})."
+            )

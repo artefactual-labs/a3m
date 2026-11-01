@@ -115,8 +115,9 @@ class Hashsum:
         if lines == objects:
             return True
         self.job.pyprint(
-            "{}: Comparison failed with {} checksum lines and {} "
-            "transfer files".format(self.get_ext(self.hashfile), lines, objects),
+            "{}: Comparison failed with {} checksum lines and {} transfer files".format(
+                self.get_ext(self.hashfile), lines, objects
+            ),
             file=sys.stderr,
         )
         return False

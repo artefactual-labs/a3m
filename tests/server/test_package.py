@@ -91,9 +91,9 @@ def test_reload_file_list(tmp_path, package):
             "transfer_id": package.subid,
         }
         models.File.objects.create(**kwargs)
-    assert (
-        file_count == 2
-    ), "Database and file objects were not returned by the generator"
+    assert file_count == 2, (
+        "Database and file objects were not returned by the generator"
+    )
     assert models.File.objects.filter(transfer_id=str(package.subid)).count() == 2
 
     # Simulate an additional file object being added later on in the transfer
@@ -119,19 +119,19 @@ def test_reload_file_list(tmp_path, package):
             "transfer_id": package.subid,
         }
         models.File.objects.create(**kwargs)
-    assert (
-        file_count == 3
-    ), "Database and file objects were not returned by the generator"
+    assert file_count == 3, (
+        "Database and file objects were not returned by the generator"
+    )
     assert models.File.objects.filter(transfer_id=str(package.subid)).count() == 3
 
     # Now the database is updated, we will still have the same file count, but
     # all objects will be returned from the database and we will have uuids.
     for file_count, file_info in enumerate(package.files("/objects"), 1):
         if file_info.get("%fileUUID%") == "None":
-            assert (
-                False
-            ), "Non-database entries returned from package.files(): {}".format(
-                file_info
+            assert False, (
+                "Non-database entries returned from package.files(): {}".format(
+                    file_info
+                )
             )
     assert file_count == 3
 
