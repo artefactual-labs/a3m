@@ -14,7 +14,7 @@ acceptance:  ## Build the image and run CLI acceptance scenarios with Dagger.
 
 .PHONY: lint-actions check-actions lock-actions
 lint-actions:  ## Lint workflows, Dependabot configuration, and the action lockfile.
-	uvx jactionlint==2.2.0 --strict-exit
+	uvx jactionlint==2.3.0 --strict-exit
 
 check-actions:  ## Verify locked actions against GitHub without changing files.
 	gh actions-lock --verify
