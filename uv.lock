@@ -92,7 +92,7 @@ dev = [
     { name = "pytest-django", specifier = ">=4.9,<4.15" },
     { name = "pytest-env", specifier = ">=1.1.5,<1.9.0" },
     { name = "pytest-mock", specifier = ">=3.14,<3.18" },
-    { name = "ruff", specifier = ">=0.6.7,<0.18.0" },
+    { name = "ruff", specifier = ">=0.17.2,<0.18.0" },
     { name = "scriv", specifier = ">=1.5.1,<1.9.0" },
     { name = "sphinx", specifier = ">=8.0.2,<9.2.0" },
     { name = "sphinxcontrib-mermaid", specifier = ">=0.9.2,<2.2.0" },
