@@ -79,9 +79,9 @@ class TestHashsum:
         configured to work with the file path provided.
         """
         if fixture[1]:
-            assert isinstance(
-                Hashsum(fixture[0]), Hashsum
-            ), "Hashsum object not instantiated correctly"
+            assert isinstance(Hashsum(fixture[0]), Hashsum), (
+                "Hashsum object not instantiated correctly"
+            )
         else:
             with pytest.raises(NoHashCommandAvailable):
                 Hashsum(fixture[0])
@@ -98,9 +98,9 @@ class TestHashsum:
             "Copyright (C) 2017 Free Software Foundation, Inc.",
         ]
         mock = mocker.patch.object(hashsum, "_call", return_value=version_string)
-        assert (
-            hashsum.version() == "md5sum (GNU coreutils) 8.28"
-        ), "Hashsum version retrieved is incorrect"
+        assert hashsum.version() == "md5sum (GNU coreutils) 8.28", (
+            "Hashsum version retrieved is incorrect"
+        )
         mock.assert_called_once_with("--version")
         mocker.patch.object(
             hashsum,
@@ -109,9 +109,9 @@ class TestHashsum:
         )
         expected_provenance = 'program="md5sum -c --strict metadata/checksum.md5"; version="md5sum (GNU coreutils) 8.28"'
         provenance_output = hashsum.get_command_detail()
-        assert (
-            provenance_output == expected_provenance
-        ), f"Provenance output is incorrect: {provenance_output}"
+        assert provenance_output == expected_provenance, (
+            f"Provenance output is incorrect: {provenance_output}"
+        )
 
     def test_provenance_string_no_command(self):
         """When nothing has happened, e.g. the checksums haven't been validated
@@ -155,9 +155,9 @@ class TestHashsum:
             "-c", "--strict", hash_file, transfer_dir=objects_dir
         )
         assert ret == 1, self.assert_return_value.format(ret)
-        assert (
-            job.get_stderr().strip() == exception_string
-        ), self.assert_exception_string
+        assert job.get_stderr().strip() == exception_string, (
+            self.assert_exception_string
+        )
 
     def test_compare_hashes_with_bad_files(self, mocker):
         """Ensure that the formatting of errors is consistent if improperly
@@ -191,9 +191,9 @@ class TestHashsum:
         mock.assert_called_once_with(
             "-c", "--strict", hash_file, transfer_dir=objects_dir
         )
-        assert (
-            job.get_stderr().strip() == except_string_no_proper_out
-        ), self.assert_exception_string
+        assert job.get_stderr().strip() == except_string_no_proper_out, (
+            self.assert_exception_string
+        )
         assert ret == 1, self.assert_return_value.format(ret)
         # Flush job.error as it isn't flushed automatically.
         job.error = ""
@@ -202,9 +202,9 @@ class TestHashsum:
             returncode=1, cmd="sha1sum", output=improper_formatting
         )
         ret = hashsum.compare_hashes("")
-        assert (
-            job.get_stderr().strip() == except_string_improper_format
-        ), self.assert_exception_string
+        assert job.get_stderr().strip() == except_string_improper_format, (
+            self.assert_exception_string
+        )
         mock.assert_called_once_with(
             "-c", "--strict", hash_file, transfer_dir=objects_dir
         )
@@ -239,9 +239,9 @@ class TestHashsum:
     )
     def test_get_ext(self, fixture):
         """get_ext helps to format usefully."""
-        assert (
-            Hashsum.get_ext(fixture[0]) == fixture[1]
-        ), "Incorrect extension returned from Hashsum"
+        assert Hashsum.get_ext(fixture[0]) == fixture[1], (
+            "Incorrect extension returned from Hashsum"
+        )
 
     @staticmethod
     def test_decode_and_version_string():
@@ -252,12 +252,12 @@ class TestHashsum:
             b"sha256sum (GNU coreutils) 8.28\n"
             b"Copyright (C) 2017 Free Software Foundation, Inc."
         )
-        assert Hashsum._decode(version_string)[
-            0
-        ], "Version string incorrectly decoded by Hashsum"
-        assert (
-            Hashsum._decode(version_string)[0] == "sha256sum (GNU coreutils) 8.28"
-        ), "Invalid version string decoded by Hashsum"
+        assert Hashsum._decode(version_string)[0], (
+            "Version string incorrectly decoded by Hashsum"
+        )
+        assert Hashsum._decode(version_string)[0] == "sha256sum (GNU coreutils) 8.28", (
+            "Invalid version string decoded by Hashsum"
+        )
 
     @staticmethod
     @pytest.fixture(scope="class")

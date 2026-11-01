@@ -161,12 +161,12 @@ def verify_event_details(event):
     for agent in agents:
         # Assert True, then remove from the list to simulate set-like
         # functionality.
-        assert (
-            agent.identifiervalue in AGENT_IDENTIFIER_VALUES
-        ), "Agent identifier value not written"
-        assert (
-            agent.identifiertype in AGENT_IDENTIFIER_TYPES
-        ), "Agent identifier type not written"
+        assert agent.identifiervalue in AGENT_IDENTIFIER_VALUES, (
+            "Agent identifier value not written"
+        )
+        assert agent.identifiertype in AGENT_IDENTIFIER_TYPES, (
+            "Agent identifier type not written"
+        )
         assert agent.name in AGENT_NAMES, "Agent name not written"
         assert agent.agenttype in AGENT_TYPES, "Agent type not written"
         agents.remove(agent)
