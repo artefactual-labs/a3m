@@ -12,7 +12,7 @@ dependencies = [
   "bagit",
   "lxml>=6.1,<7",
   "unidecode~=1.3",
-  "pygfried~=0.6",
+  "pygfried~=2.2.0",
   # Django ORM
   "Django~=5.2",
   "django-stubs-ext~=5.2",
@@ -26,7 +26,7 @@ dependencies = [
   "boto3~=1.28",
   # MCPServer"
   "jsonschema~=4.19",
-  "grpcio~=1.59",
+  "grpcio>=1.84.2,<2",
   "grpcio-reflection~=1.59",
   "grpcio-status~=1.59",
   "googleapis-common-protos~=1.61",
