@@ -6,60 +6,52 @@ updates:
       default-days: 7
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
     groups:
       python:
         patterns:
           - "*"
-        update-types:
-          - "minor"
-          - "patch"
   - package-ecosystem: "uv"
     directory: "/acceptance"
     cooldown:
       default-days: 7
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
     groups:
       acceptance:
         patterns:
           - "*"
-        update-types:
-          - "minor"
-          - "patch"
   - package-ecosystem: "docker"
     directory: "/"
     cooldown:
       default-days: 7
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
+    groups:
+      docker:
+        patterns:
+          - "*"
   - package-ecosystem: "github-actions"
     directory: "/"
     cooldown:
       default-days: 7
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
     groups:
       github-actions:
         patterns:
           - "*"
-        update-types:
-          - "minor"
-          - "patch"
   - package-ecosystem: "pre-commit"
     directory: "/"
     cooldown:
       default-days: 7
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
     groups:
       pre-commit:
         patterns:
           - "*"
-        update-types:
-          - "minor"
-          - "patch"
