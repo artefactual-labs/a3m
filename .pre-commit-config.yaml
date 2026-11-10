@@ -17,7 +17,7 @@ repos:
   - id: doc8
     files: ^docs/.*\.rst$
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.17.2
+  rev: v0.17.3
   hooks:
   - id: ruff-check
     args:
@@ -31,6 +31,6 @@ repos:
     args:
     - "--target-version=5.2"
 - repo: https://github.com/astral-sh/uv-pre-commit
-  rev: 0.13.6
+  rev: 0.13.7
   hooks:
   - id: uv-lock
