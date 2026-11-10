@@ -76,13 +76,13 @@ source = "vcs"
 
 [dependency-groups]
 dev = [
-  "pytest>=9.0.3,<9.2.0",
-  "pytest-cov~=5.0.0",
+  "pytest>=9.0.3,<9.3.0",
+  "pytest-cov>=5.0,<7.2",
   "pytest-django>=4.9,<4.15",
   "pytest-env>=1.1.5,<1.9.0",
   "pytest-mock>=3.14,<3.18",
   "coverage>=7.6.1,<7.18.0",
-  "grpcio-tools>=1.66.1,<1.85.0",
+  "grpcio-tools>=1.66.1,<1.86.0",
   "mypy>=1.11.2,<2.5.0",
   "vulture~=2.12",
   "pre-commit>=3.8,<4.8",
