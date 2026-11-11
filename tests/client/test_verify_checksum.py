@@ -259,8 +259,8 @@ class TestHashsum:
             "Invalid version string decoded by Hashsum"
         )
 
-    @staticmethod
     @pytest.fixture(scope="class")
+    @staticmethod
     def django_db_setup(django_db_blocker):
         """Load the various database fixtures required for our tests."""
         fixtures_dir = "microservice_agents"

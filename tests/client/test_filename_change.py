@@ -180,8 +180,8 @@ class TestFilenameChange(TempDirMixin, TestCase):
     def setUp(self):
         super().setUp()
 
-    @staticmethod
     @pytest.fixture(scope="class")
+    @staticmethod
     def django_db_setup(django_db_setup, django_db_blocker):
         """Load the various database fixtures required for our tests."""
         agents_fixtures_dir = "microservice_agents"
